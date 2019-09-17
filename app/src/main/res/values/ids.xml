@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="separator_row1_1" type="id" />
+    <item name="separator_row1_2" type="id" />
+    <item name="separator_row1_3" type="id" />
+    <item name="separator_row1_4" type="id" />
+    <item name="separator_row1_5" type="id" />
+    <item name="separator_row1_6" type="id" />
+    <item name="separator_row1_7" type="id" />
+
+    <item name="separator_row2_1" type="id" />
+    <item name="separator_row2_2" type="id" />
+    <item name="separator_row2_3" type="id" />
+    <item name="separator_row2_4" type="id" />
+    <item name="separator_row2_5" type="id" />
+    <item name="separator_row2_6" type="id" />
+    <item name="separator_row2_7" type="id" />
+
+    <item name="separator_row3_1" type="id" />
+    <item name="separator_row3_2" type="id" />
+    <item name="separator_row3_3" type="id" />
+    <item name="separator_row3_4" type="id" />
+    <item name="separator_row3_5" type="id" />
+    <item name="separator_row3_6" type="id" />
+    <item name="separator_row3_7" type="id" />
+
+    <item name="empty_space_row1" type="id" />
+    <item name="empty_space_row2" type="id" />
+    <item name="empty_space_row3" type="id" />
+
+    <item name="full" type="id" />
+    <item name="original" type="id" />
+    <item name="overlapping" type="id" />
+    <item name="across" type="id" />
+    <item name="down" type="id" />
+    <item name="enclosure" type="id" />
+    <item name="multiple" type="id" />
+
+    <item name="enclose_top_left" type="id" />
+    <item name="enclose_top" type="id" />
+    <item name="enclose_top_right" type="id" />
+    <item name="enclose_left" type="id" />
+    <item name="enclose_full" type="id" />
+    <item name="enclose_right" type="id" />
+    <item name="enclose_bottom_left" type="id" />
+    <item name="enclose_bottom" type="id" />
+    <item name="enclose_bottom_right" type="id" />
+
+    <item name="decomposition_structure" type="id" />
+    <item name="decomposition_structure_text" type="id" />
+    <item name="decomposition_on_meaning" type="id" />
+    <item name="decomposition_kun_meaning" type="id" />
+    <item name="decomposition_on_reading" type="id" />
+    <item name="decomposition_kun_reading" type="id" />
+    <item name="decomposition_radical" type="id" />
+    <item name="decomposition_on_meaning_text" type="id" />
+    <item name="decomposition_kun_meaning_text" type="id" />
+    <item name="decomposition_on_reading_text" type="id" />
+    <item name="decomposition_kun_reading_text" type="id" />
+    <item name="decomposition_radical_text" type="id" />
+
+    <item name="zero" type="id" />
+    <item name="one" type="id" />
+    <item name="two" type="id" />
+    <item name="three" type="id" />
+    <item name="four" type="id" />
+    <item name="five" type="id" />
+    <item name="six" type="id" />
+    <item name="seven" type="id" />
+    <item name="eight" type="id" />
+    <item name="nine" type="id" />
+    <item name="ten" type="id" />
+
+    <item name="radical1_1" type="id" />
+    <item name="radical1_2" type="id" />
+    <item name="radical1_3" type="id" />
+    <item name="radical1_4" type="id" />
+    <item name="radical1_5" type="id" />
+    <item name="radical1_6" type="id" />
+    <item name="radical1_7" type="id" />
+
+    <item name="radical2_1" type="id" />
+    <item name="radical2_2" type="id" />
+    <item name="radical2_3" type="id" />
+    <item name="radical2_4" type="id" />
+    <item name="radical2_5" type="id" />
+    <item name="radical2_6" type="id" />
+    <item name="radical2_7" type="id" />
+
+    <item name="radical3_1" type="id" />
+    <item name="radical3_2" type="id" />
+    <item name="radical3_3" type="id" />
+    <item name="radical3_4" type="id" />
+    <item name="radical3_5" type="id" />
+    <item name="radical3_6" type="id" />
+    <item name="radical3_7" type="id" />
+</resources>

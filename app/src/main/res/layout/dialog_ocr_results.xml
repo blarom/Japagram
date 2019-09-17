@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    android:id="@+id/custom_ocr_dialog"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="?dialogPreferredPadding"
+    >
+
+    <!--<com.theartofdev.edmodo.cropper.CropImageView-->
+    <!--xmlns:custom="http://schemas.android.com/apk/res-auto"-->
+    <!--android:id="@+id/cropImageView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0dp"-->
+    <!--android:layout_weight="1"/>-->
+
+    <ImageView
+        android:id="@+id/ocrPicture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/OCR_image"
+        android:scaleType="centerInside"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/test_image"/>
+
+    <TextView
+        android:id="@+id/ocrResultsTextViewDialogInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ocr_results_dialog_instructions"
+        android:textColor="@color/colorAccentDark"
+        android:textSize="14sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:textAlignment="center"/>
+
+    <ScrollView
+        android:id="@+id/ocrResultsTextViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <TextView
+            android:gravity="center"
+            android:id="@+id/ocrResultsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:background="@drawable/background_decompose_fill_white_edge_secondary"
+            android:lineSpacingMultiplier="1.5"
+            android:focusable="true"
+            android:textSize="22sp"
+            android:padding="16dp"
+            android:textColor="@color/colorAccent"
+            />
+    </ScrollView>
+
+</LinearLayout>

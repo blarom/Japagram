@@ -1,0 +1,37 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="maximum_layout_width">600dp</dimen>
+
+    <dimen name="queryTextMarginStart">2dp</dimen>
+    <dimen name="queryTextMarginEnd">2dp</dimen>
+
+    <dimen name="searchMeTextViewEndPadding">65dp</dimen>
+    <dimen name="clearButtonLeftRightMargin">35dp</dimen>
+    <dimen name="clearButtonWidth">30dp</dimen>
+    <dimen name="histButtonLeftRightMargin">5dp</dimen>
+    <dimen name="histButtonWidth">30dp</dimen>
+
+    <dimen name="functionIconsLeftRightMargin">15dp</dimen>
+    <dimen name="speechButtonSize">25dp</dimen>
+    <dimen name="cameraButtonSize">25dp</dimen>
+
+    <dimen name="inputQueryButtonTextSize">16sp</dimen>
+    <dimen name="inputQueryButtonHeight">40dp</dimen>
+    <dimen name="inputQueryButtonWidthAtTopRow">70dp</dimen>
+    <dimen name="inputQueryButtonWidthAtBottomRow">120dp</dimen>
+
+    <dimen name="DictionaryGroupItemRomajiKanji">18sp</dimen>
+    <dimen name="DictionarySubtextSize">16sp</dimen>
+
+    <dimen name="AboutTextViewSize">18sp</dimen>
+    <dimen name="AboutTextViewSubtextSize">16sp</dimen>
+
+    <dimen name="DecompKanjiSize">30sp</dimen>
+a
+    <dimen name="list_item_image_double_margin">16dp</dimen>
+
+
+</resources>

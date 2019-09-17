@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <attr name="colorPrimary" format="reference"/>-->
+<!--    <attr name="colorPrimaryDark" format="reference"/>-->
+    <!--    <attr name="colorAccent" format="reference"/>-->
+    <attr name="colorPrimaryLight" format="reference"/>
+    <attr name="colorAccentDark" format="reference"/>
+    <attr name="colorAccentLight" format="reference"/>
+
+
+    <!--General colors-->
+    <attr name="appTextPrimaryColor" format="reference"/>
+    <attr name="appTextSecondaryColor" format="reference"/>
+
+    <!--InputQueryFragment colors-->
+    <attr name="textSearchColor" format="reference"/>
+    <attr name="buttonBackgroundColor" format="reference"/>
+
+    <!--Dictionary colors-->
+    <attr name="textDictionaryGroupItemRomajiAndKanjiColor" format="reference"/>
+    <attr name="textDictionaryGroupItemMeaningsColor" format="reference"/>
+    <attr name="textDictionaryChildItemRomajiColor" format="reference"/>
+    <attr name="textDictionaryChildItemKanjiColor" format="reference"/>
+    <attr name="textDictionarySpanClickedColor" format="reference"/>
+    <attr name="textDictionaryPOSColor" format="reference"/>
+    <attr name="textDictionaryRuleWhereClauseColor" format="reference"/>
+
+    <!--Conjugation colors-->
+    <attr name="textConjugatorVerbChooserPrepositionColor" format="reference"/>
+    <attr name="textConjugatorVerbChooserKanjiRomajiColor" format="reference"/>
+    <attr name="textConjugatorVerbChooserCharacteristicsColor" format="reference"/>
+    <attr name="textConjugatorVerbChooserMeaningColor" format="reference"/>
+    <attr name="textConjugatorConjugationChooserUpperColor" format="reference"/>
+    <attr name="textConjugatorConjugationChooserLowerColor" format="reference"/>
+    <attr name="textConjugatorLabelColor" format="reference"/>
+    <attr name="textConjugatorResultsColor" format="reference"/>
+
+    <!--Search By Radical colors-->
+    <!--    <attr name="textCompositionGridElementDefault">@color/Purple</color>-->
+    <attr name="textCompositionGridElementDefaultColor" format="reference"/>
+    <attr name="textCompositionGridElementSelectedColor" format="reference"/>
+    <attr name="colorSelectedDictResultBackgroundColor" format="reference"/>
+    <attr name="elementsBoxBorderColor" format="reference"/>
+    <attr name="kanjiSelectionBoxBorderColor" format="reference"/>
+    <attr name="resultsTitleUnderlineColor" format="reference"/>
+
+    <!--Decomposition colors-->
+    <attr name="decomposition_FillWhiteEdgePrimaryColor" format="reference"/>
+    <attr name="decomposition_FillWhiteEdgeSecondaryColor" format="reference"/>
+
+    <!--Kanji Grid colors-->
+    <attr name="kanjiGridItemBorderColor" format="reference"/>
+</resources>

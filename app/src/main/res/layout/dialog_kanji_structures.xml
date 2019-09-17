@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="?dialogPreferredPadding">
+
+    <GridView
+        android:id="@+id/dialog_kanji_structures_gridview"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="5">
+
+    </GridView>
+
+    <TextView
+        android:id="@+id/dialog_kanji_structures_requested_structure"
+        style="@style/SearchByRadicalDialogTextStyle"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/requested_structure"
+        android:drawableEnd="@drawable/colored_structure_2_overlapping"
+        android:drawablePadding="8dp"/>
+
+
+</LinearLayout>

@@ -1,0 +1,238 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
+        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
+
+        <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
+        <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
+        <item name="textSearchColor">@color/appThemeRedBlack_textSearch</item>
+        <item name="buttonBackgroundColor">@color/appThemeRedBlack_buttonBackground</item>
+        <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
+        <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeRedBlack_textDictionaryGroupItemMeanings</item>
+        <item name="textDictionaryChildItemRomajiColor">@color/appThemeRedBlack_textDictionaryChildItemRomaji</item>
+        <item name="textDictionaryChildItemKanjiColor">@color/appThemeRedBlack_textDictionaryChildItemKanji</item>
+        <item name="textDictionarySpanClickedColor">@color/appThemeRedBlack_textDictionarySpanClicked</item>
+        <item name="textDictionaryPOSColor">@color/appThemeRedBlack_textDictionaryTypeMeaning</item>
+        <item name="textDictionaryRuleWhereClauseColor">@color/appThemeRedBlack_textDictionaryRuleWhereClause</item>
+        <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeRedBlack_textConjugatorVerbChooserPreposition</item>
+        <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
+        <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
+        <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeRedBlack_textConjugatorVerbChooserMeaning</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_textConjugatorConjugationChooserUpper</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorLabelColor">@color/appThemeRedBlack_textConjugatorLabel</item>
+        <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
+        <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
+        <item name="textCompositionGridElementSelectedColor">@color/appThemeRedBlack_textCompositionGridElementSelected</item>
+        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeRedBlack_colorSelectedDictResultBackground</item>
+        <item name="elementsBoxBorderColor">@color/appThemeRedBlack_elementsBoxBorder</item>
+        <item name="kanjiSelectionBoxBorderColor">@color/appThemeRedBlack_kanjiSelectionBoxBorder</item>
+        <item name="resultsTitleUnderlineColor">@color/appThemeRedBlack_resultsTitleUnderline</item>
+        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
+    </style>
+    <style name="AppTheme.LightBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/appThemeBlueGreen_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/appThemeBlueGreen_colorPrimaryDark</item>
+        <item name="colorAccent">@color/appThemeBlueGreen_colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
+        <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
+        <item name="colorAccentLight">@color/appThemeBlueGreen_colorAccentLight</item>
+
+        <item name="appTextPrimaryColor">@color/appThemeBlueGreen_appTextPrimary</item>
+        <item name="appTextSecondaryColor">@color/appThemeBlueGreen_appTextSecondary</item>
+        <item name="textSearchColor">@color/appThemeBlueGreen_textSearch</item>
+        <item name="buttonBackgroundColor">@color/appThemeBlueGreen_buttonBackground</item>
+        <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji</item>
+        <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeBlueGreen_textDictionaryGroupItemMeanings</item>
+        <item name="textDictionaryChildItemRomajiColor">@color/appThemeBlueGreen_textDictionaryChildItemRomaji</item>
+        <item name="textDictionaryChildItemKanjiColor">@color/appThemeBlueGreen_textDictionaryChildItemKanji</item>
+        <item name="textDictionarySpanClickedColor">@color/appThemeBlueGreen_textDictionarySpanClicked</item>
+        <item name="textDictionaryPOSColor">@color/appThemeBlueGreen_textDictionaryTypeMeaning</item>
+        <item name="textDictionaryRuleWhereClauseColor">@color/appThemeBlueGreen_textDictionaryRuleWhereClause</item>
+        <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeBlueGreen_textConjugatorVerbChooserPreposition</item>
+        <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeBlueGreen_textConjugatorVerbChooserKanjiRomaji</item>
+        <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeBlueGreen_textConjugatorVerbChooserCharacteristics</item>
+        <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeBlueGreen_textConjugatorVerbChooserMeaning</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeBlueGreen_textConjugatorConjugationChooserUpper</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeBlueGreen_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorLabelColor">@color/appThemeBlueGreen_textConjugatorLabel</item>
+        <item name="textConjugatorResultsColor">@color/appThemeBlueGreen_textConjugatorResults</item>
+        <item name="textCompositionGridElementDefaultColor">@color/appThemeBlueGreen_textCompositionGridElementDefault</item>
+        <item name="textCompositionGridElementSelectedColor">@color/appThemeBlueGreen_textCompositionGridElementSelected</item>
+        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeBlueGreen_colorSelectedDictResultBackground</item>
+        <item name="elementsBoxBorderColor">@color/appThemeBlueGreen_elementsBoxBorder</item>
+        <item name="kanjiSelectionBoxBorderColor">@color/appThemeBlueGreen_kanjiSelectionBoxBorder</item>
+        <item name="resultsTitleUnderlineColor">@color/appThemeBlueGreen_resultsTitleUnderline</item>
+        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="kanjiGridItemBorderColor">@color/appThemeBlueGreen_kanjiGridItemBorder</item>
+    </style>
+    <style name="AppTheme.LightRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</item>
+        <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
+        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
+
+        <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
+        <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
+        <item name="textSearchColor">@color/appThemeRedBlack_textSearch</item>
+        <item name="buttonBackgroundColor">@color/appThemeRedBlack_buttonBackground</item>
+        <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
+        <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeRedBlack_textDictionaryGroupItemMeanings</item>
+        <item name="textDictionaryChildItemRomajiColor">@color/appThemeRedBlack_textDictionaryChildItemRomaji</item>
+        <item name="textDictionaryChildItemKanjiColor">@color/appThemeRedBlack_textDictionaryChildItemKanji</item>
+        <item name="textDictionarySpanClickedColor">@color/appThemeRedBlack_textDictionarySpanClicked</item>
+        <item name="textDictionaryPOSColor">@color/appThemeRedBlack_textDictionaryTypeMeaning</item>
+        <item name="textDictionaryRuleWhereClauseColor">@color/appThemeRedBlack_textDictionaryRuleWhereClause</item>
+        <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeRedBlack_textConjugatorVerbChooserPreposition</item>
+        <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
+        <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
+        <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeRedBlack_textConjugatorVerbChooserMeaning</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_textConjugatorConjugationChooserUpper</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorLabelColor">@color/appThemeRedBlack_textConjugatorLabel</item>
+        <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
+        <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
+        <item name="textCompositionGridElementSelectedColor">@color/appThemeRedBlack_textCompositionGridElementSelected</item>
+        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeRedBlack_colorSelectedDictResultBackground</item>
+        <item name="elementsBoxBorderColor">@color/appThemeRedBlack_elementsBoxBorder</item>
+        <item name="kanjiSelectionBoxBorderColor">@color/appThemeRedBlack_kanjiSelectionBoxBorder</item>
+        <item name="resultsTitleUnderlineColor">@color/appThemeRedBlack_resultsTitleUnderline</item>
+        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
+    </style>
+    <style name="VerbCharacteristicsDisplayLinearLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="VerbCharacteristicsDisplayLabel">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.8</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/Black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:text">@string/NoText</item>
+    </style>
+    <style name="VerbCharacteristicsDisplayResult">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:text">@string/NoText</item>
+    </style>
+
+    <style name="AboutTextViewItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:text">?attr/colorAccentDark</item>
+        <item name="android:textSize">@dimen/AboutTextViewSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="AboutTextViewItemTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:text">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/AboutTextViewSubtextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="AboutTextViewItemParagraph">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:text">@color/colorAccentLight</item>
+        <item name="android:textSize">@dimen/AboutTextViewSubtextSize</item>
+        <item name="android:textIsSelectable">true</item>
+    </style>
+
+    <style name="SearchByRadicalTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">@color/colorPrimaryLight</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textIsSelectable">false</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:scrollHorizontally">false</item>
+    </style>
+
+    <style name="SearchByRadicalDialogTextStyle" parent="SearchByRadicalTextStyle" >
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="SearchByRadicalElementStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="DecomposeValueStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center_horizontal|start</item>
+        <item name="android:text">@color/Purple</item>
+    </style>
+
+    <style name="DecomposeTitleStyle" parent="DecomposeValueStyle">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DecomposeTopRowTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:text">@color/Blue</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

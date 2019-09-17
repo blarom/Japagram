@@ -1,0 +1,550 @@
+一|1.E4B880|1|1|one|un|uno|
+丨|1.E4B8A8|2|1|line|ligne|línea|
+丶|1.E4B8B6|3|1|dot|point|punto|
+丿|1.E4B8BF|4|1|slash|barre oblique|barra oblicua|
+乀|1.E4B980|4;variant|1||||
+乁|1.E4B981|4;variant|1||||
+乙|1.E4B999|5|1|second|seconde|segundo|
+乚|1.E4B99A|5;variant|1||||
+乛|1.E4B99B|5;variant|1||||
+⺄|1.E2BA84|5;variant|1||||
+⼅|1.E2BC85|6|1|hook|crochet|gancho|
+二|1.E4BA8C|7|2|two|deux|dos|
+亠|1.E4BAA0|8|2|lid|couvercle|tapa|
+人|1.E4BABA|9|2|man|homme|hombre|
+亻|1.E4BABB|9;variant|2||||
+𠆢|1.F0A086A2|9;variant|2||||
+儿|1.E584BF|10|2|son/legs|fils/jambes|hijo/piernas|
+入|1.E585A5|11|2|enter|entrer|entrar|
+八|1.E585AB|12|2|eight|huit|ocho|
+冂|1.E58682|13|2|down box|boîte à l'envers|cuadro de abajo|
+冖|1.E58696|14|2|cover|couverture|cubrir|
+冫|1.E586AB|15|2|ice|glace|hielo|
+几|1.E587A0|16|2|table|table|mesa|
+凵|1.E587B5|17|2|open box|boîte ouverte|abrir caja|
+刀|1.E58880|18|2|knife|couteau|cuchillo|
+刂|1.E58882|18;variant|2||||
+⺈|1.E2BA88|18;variant|2||||
+刁|1.E58881|18;variant|2||||
+力|1.E58A9B|19|2|power|puissance|poder|
+勹|1.E58BB9|20|2|wrap|emballage|envolver|
+匕|1.E58C95|21|2|spoon|cuillère|cuchara|
+匚|1.E58C9A|22|2|right open box|boîte ouverte à droite|caja abierta derecha|
+匸|1.E58CB8|23|2|hiding enclosure|se cacher|escondite|
+⼗|1.E2BC97|24|2|ten|dix|diez|
+卜 |1.E58D9C|25|2|divination|divination|divinidad|
+⺊|1.E2BA8A|25;variant|2||||
+卩|1.E58DA9|26|2|seal device|dispositif d'étanchéité|dispositivo de sellado|
+㔾|1.E394BE|26;variant|2||||
+厂|1.E58E82|27|2|cliff|falaise|acantilado|
+⺁|1.E2BA81|27;variant|2||||
+厶|1.E58EB6|28|2|private|privé|privado|
+又|1.E58F88|29|2|again|encore|otra vez|
+口|1.E58FA3|30|3|mouth|bouche|boca|
+囗|1.E59B97|31|3|enclosure/box|boîtier/boîte|caja|
+土|1.E59C9F|32|3|earth|terre|tierra|
+士|1.E5A3AB|33|3|scholar|savant|erudito|
+夂|1.E5A482|34|3|go|aller|ir|
+夊|1.E5A48A|35|3|go slowly|va lentement|ir lentamente|
+夕|1.E5A495|36|3|evening|soir|noche|
+大|1.E5A4A7|37|3|big|grand|grande|
+夨|1.E5A4A8|37;|3||||
+女|1.E5A5B3|38|3|woman|femme|mujer|
+子|1.E5AD90|39|3|child|enfant|niño|
+孑|1.E5AD91|39;variant|3||||
+孒|1.E5AD92|39;variant|3||||
+孓|1.E5AD93|39;variant|3||||
+宀|1.E5AE80|40|3|roof|toit|techo|
+寸|1.E5AFB8|41|3|inch|pouce|pulgada|
+小|1.E5B08F|42|3|small|petit|pequeño|
+⺌|1.E2BA8C|42;variant|3||||
+⺍|1.E2BA8D|42;variant|3||||
+尢|1.E5B0A2|43|3|lame|boiteux|cojo|
+尣|1.E5B0A3|43;variant|3||||
+⺑|1.E2BA91|43;variant;not found in decompositions|3||||
+⺎|1.E2BA8E|43;variant;not found in decompositions|3||||
+尸|1.E5B0B8|44|3|corpse|corps|cadáver|
+屮|1.E5B1AE|45|3|sprout|germer|brote|
+山|1.E5B1B1|46|3|mountain|montagne|montaña|
+巛|1.E5B79B|47|3|river|rivière|río|
+巜|1.E5B79C|47;variant|3||||
+川|1.E5B79D|47;variant|3||||
+工|1.E5B7A5|48|3|work|travail|trabajo|
+己|1.E5B7B1|49|3|oneself|soi-même|su mismo|
+已 |1.E5B7B220|49;variant;not found in decompositions|3||||
+巳|1.E5B7B3|49;variant|3||||
+巾|1.E5B7BE|50|3|turban|turban|turbante|
+干|1.E5B9B2|51|3|dry|sec|seco|
+幺|1.E5B9BA|52|3|short thread|fil court|hilo corto|
+乡|1.E4B9A1|52;variant|3||||
+广|1.E5B9BF|53|3|dotted cliff|falaise avec point|acantilado con punto|
+廴|1.E5BBB4|54|3|long stride|longue foulée|paso largo|
+廾|1.E5BBBE|55|3|two hands|deux mains|dos manos|
+弋|1.E5BC8B|56|3|shoot|tirer|disparar|
+弓|1.E5BC93|57|3|bow|arc|arco|
+彐|1.E5BD90|58|3|snout|museau|hocico|
+⺕|1.E2BA95|58;variant|3||||
+彑|1.E5BD91|58;variant|3||||
+彡|1.E5BDA1|59|3|bristle|poil|cerda|
+彳|1.E5BDB3|60|3|step|étape|paso|
+心|1.E5BF83|61|4|heart|cœur|corazón|
+忄|1.E5BF84|61;variant|4||||
+⺗|1.E2BA97|61;variant|4||||
+戈|1.E68888|62|4|halberd|hallebarde|alabarda|
+戶|1.E688B6|63|4|door|porte|puerta|
+戸|1.E688B8|63;variant|4||||
+户|1.E688B7|63;variant|4||||
+手|1.E6898B|64|4|hand|main|mano|
+扌|1.E6898C|64;variant|4||||
+龵|1.E9BEB5|64;variant|4||||
+才|1.E6898D|64;variant|4||||
+支|1.E694AF|65|4|branch|branche|rama|
+攴|1.E694B4|66|4|rap/tap|robinet|grifo|
+攵|1.E694B5|66;variant;not found in decompositions|4||||
+⺙|1.E2BA99|66;variant|4||||
+文|1.E69687|67|4|script|scripte|guión|
+斗|1.E69697|68|4|dipper|louche|cazo|
+斤|1.E696A4|69|4|axe|hache|hacha|
+⽅|1.E2BD85|70|4|square|carré|cuadrado|
+⽆|1.E2BD86|71|4|not|non|no|
+旡|1.E697A1|71;variant|4||||
+⺛|1.E2BA9B|71;variant;not found in decompositions|4||||
+日|1.E697A5|72|4|sun|soleil|sol|
+⺜|1.E2BA9C|72;variant;not found in decompositions|4||||
+曰|1.E69BB0|73|4|say|dire|decir|
+月|1.E69C88|74|4|moon|lune|luna|
+木|1.E69CA8|75|4|tree|arbre|árbol|
+⺦|1.E2BAA6|75;variant;not found in decompositions|4||||
+朩|1.E69CA9|75;variant|4||||
+欠|1.E6ACA0|76|4|lack|manque|ausencia|
+止|1.E6ADA2|77|4|stop|arrêt|detenido|
+歹|1.E6ADB9|78|4|death|mort|muerte|
+歺|1.E6ADBA|78;variant|4||||
+殳|1.E6AEB3|79|4|weapon|arme|arma|
+毋|1.E6AF8B|80|4|mother/cause|mère/cause|madre/causa|
+毌|1.E6AF8C|80;variant|4||||
+母|1.E6AF8D|80;variant|4||||
+比|1.E6AF94|81|4|compare|comparer|comparar|
+毛|1.E6AF9B|82|4|fur|fourrure|piel|
+氏|1.E6B08F|83|4|clan|clan|clan|
+气|1.E6B094|84|4|steam|vapeur|vapor|
+水|1.E6B0B4|85|4|water|eau|agua|
+氵|1.E6B0B5|85;variant|4||||
+氺|1.E6B0BA|85;variant|4||||
+⺢|1.E2BAA2|85;variant;not found in decompositions|4||||
+火|1.E781AB|86|4|fire|feu|fuego|
+灬|1.E781AC|86;variant|4||||
+爪|1.E788AA|87|4|claw|griffe|garra|
+爫|1.E788AB|87;variant|4||||
+父|1.E788B6|88|4|father|père|padre|
+爻|1.E788BB|89|4|double x|double X|doble X|
+爿|1.E788BF|90|4|half tree trunk|demi-tronc d'arbre|medio tronco de arbol|
+丬|1.E4B8AC|90;variant|4||||
+片|1.E78987|91|4|slice|tranche|rebanada|
+牙|1.E78999|92|4|fang|croc|colmillo|
+牛|1.E7899B|93|4|cow|vache|vaca|
+牜|1.E7899C|93;variant|4||||
+⺧|1.E2BAA7|93;variant|4||||
+犬|1.E78AAC|94|4|dog|chien|perro|
+犭|1.E78AAD|94;variant|4||||
+玄|1.E78E84|95|5|profound|profond|profundo|
+玉|1.E78E89|96|5|jade|jade|jade|
+王|1.E78E8B|96;variant|5||||
+玊|1.E78E8A|96;variant;not found in decompositions|5||||
+瓜|1.E7939C|97|5|melon|melon|melón|
+瓦|1.E793A6|98|5|tile|tuile|azulejo|
+甘|1.E79498|99|5|sweet|sucré|dulce|
+生|1.E7949F|100|5|life|vie|vida|
+用|1.E794A8|101|5|use|utilisation|utilizo|
+甩|1.E794A9|101;variant|5||||
+田|1.E794B0|102|5|field|champ|campo|
+由|1.E794B1|102;variant|5||||
+甲|1.E794B2|102;variant|5||||
+申|1.E794B3|102;variant|5||||
+甴|1.E794B4|102;variant|5||||
+电|1.E794B5|102;variant|5||||
+疋|1.E7968B|103|5|bolt of cloth|chiffon|perno de tela|
+⺪|1.E2BAAA|103;variant|5||||
+疒|1.E79692|104|5|sickness|maladie|enfermedad|
+癶|1.E799B6|105|5|dotted tent/legs/footsteps|tente/jambes/pas pointillés|tienda/patas/pasos punteados|
+白|1.E799BD|106|5|white|blanc|blanco|
+皮|1.E79AAE|107|5|skin|peau|piel|
+皿|1.E79ABF|108|5|dish|plat|plato|
+目|1.E79BAE|109|5|eye|oeil|ojo|
+矛|1.E79F9B|110|5|spear|lance|lanza|
+矢|1.E79FA2|111|5|arrow|flèche|flecha|
+石|1.E79FB3|112|5|stone|pierre|piedra|
+示|1.E7A4BA|113|5|spirit|esprit|espíritu|
+礻|1.E7A4BB|113;variant|5||||
+禸|1.E7A6B8|114|5|track|piste|pista|
+禾|1.E7A6BE|115|5|grain|grain|grano|
+穴|1.E7A9B4|116|5|cave|grotte|cueva|
+立|1.E7AB8B|117|5|stand|supporter|estar|
+竹|1.E7ABB9|118|6|bamboo|bambou|bambú|
+⺮|1.E2BAAE|118;variant|6||||
+米|1.E7B1B3|119|6|rice|riz|arroz|
+糸|1.E7B3B8|120|6|silk|soie|seda|
+糹|1.E7B3B9|120;variant|6||||
+纟|1.E7BA9F|120;variant|6||||
+缶|1.E7BCB6|121|6|jar|pot|tarro|
+网|1.E7BD91|122|6|net|net|red|
+罒|1.E7BD92|122;variant|6||||
+罓|1.E7BD93|122;variant;not found in decompositions|6||||
+⺳|1.E2BAB3|122;variant|6||||
+⺴|1.E2BAB4|122;variant;not found in decompositions|6||||
+⺲|1.E2BAB2|122;variant;not found in decompositions|6||||
+𦉰|1.F0A689B0|122;variant;not found in decompositions|6||||
+⺵|1.E2BAB5|122;variant;not found in decompositions|6||||
+羊|1.E7BE8A|123|6|sheep|mouton|oveja|
+⺶|1.E2BAB6|123;variant|6||||
+⺷|1.E2BAB7|123;variant;not found in decompositions|6||||
+⺸|1.E2BAB8|123;variant;not found in decompositions|6||||
+羽|1.E7BEBD|124|6|feather|plume|pluma|
+羽|1.EFA89E|124;variant|6||||
+老|1.E88081|125|6|old|vieux|antiguo|
+耂|1.E88082|125;variant|6||||
+考|1.E88083|125;variant|6||||
+而|1.E8808C|126|6|and|et|y|
+耒|1.E88092|127|6|plow|charrue|arado|
+耳|1.E880B3|128|6|ear|oreille|oreja|
+聿|1.E881BF|129|6|brush|brosse|cepillo|
+⺻|1.E2BABB|129;variant|6||||
+⺺|1.E2BABA|129;variant|6||||
+肉|1.E88289|130|6|meat|viande|carne|
+⺼|1.E2BABC|130;variant|6||||
+月|1.E69C88|130;variant|6||||
+臣|1.E887A3|131|6|minister|ministre|ministro|
+自|1.E887AA|132|6|self|soi|yo|
+至|1.E887B3|133|6|arrive|arrivée|llegada|
+臼|1.E887BC|134|6|mortar|mortier|mortero|
+⺽|1.E2BABD|134;variant;not found in decompositions|6||||
+舌|1.E8888C|135|6|tongue|langue|lengua|
+舛|1.E8889B|136|6|oppose|opposer|oponer|
+舟|1.E8889F|137|6|boat|bateau|bote|
+艮|1.E889AE|138|6|stopping|arrêt|parada|
+色|1.E889B2|139|6|color|couleur|color|
+艸|1.E889B8|140|6|grass|herbe|hierba|
+艹|1.E889B9|140;variant|6||||
+⺿|1.E2BABF|140;variant|6||||
+⻀|1.E2BB80|140;variant|6||||
+䒑|1.E49291|140;variant|6||||
+丷|1.E4B8B7|140;variant|6||||
+虍|1.E8998D|141|6|tiger|tigre|tigre|
+虫|1.E899AB|142|6|insect|insecte|insecto|
+血|1.E8A180|143|6|blood|sang|sangre|
+行|1.E8A18C|144|6|walk enclosure|enclos de marche|recinto de camina|
+衣|1.E8A1A3|145|6|clothes|vêtements|ropa|
+衤|1.E8A1A4|145;variant|6||||
+⾑|1.E2BE91|146|6|west|ouest|oeste|
+西|1.E8A5BF|146;variant|6||||
+覀|1.E8A680|146;variant|6||||
+見|1.E8A68B|147|7|see|voir|ver|
+⻅|1.E2BB85|147;variant;not found in decompositions|7||||
+角|1.E8A792|148|7|horn|klaxon|cuerno|
+⻆|1.E2BB86|148;variant;not found in decompositions|7||||
+⻇|1.E2BB87|148;variant;not found in decompositions|7||||
+言|1.E8A880|149|7|speech|discours|habla|
+訁|1.E8A881|149;variant;not found in decompositions|7||||
+讠|1.E8AEA0|149;variant|7||||
+谷|1.E8B0B7|150|7|valley|vallée|Valle|
+豆|1.E8B186|151|7|bean|haricot|frijol|
+豕|1.E8B195|152|7|pig|porc|cerdo|
+豸|1.E8B1B8|153|7|badger|blaireau|tejón|
+貝|1.E8B29D|154|7|shell|coquille|cáscara|
+贝|1.E8B49D|154;variant|7||||
+赤|1.E8B5A4|155|7|red|rouge|rojo|
+走|1.E8B5B0|156|7|run|courir|correr|
+赱|1.E8B5B1|156;variant;not found in decompositions|7||||
+足|1.E8B6B3|157|7|foot|pied|pie|
+⻊|1.E2BB8A|157;variant|7||||
+身|1.E8BAAB|158|7|body|corps|cuerpo|
+車|1.E8BB8A|159|7|cart|chariot|carro|
+车|1.E8BDA6|159;variant|7||||
+辛|1.E8BE9B|160|7|bitter|amer|amargo|
+辰|1.E8BEB0|161|7|morning|matin|mañana|
+辵|1.E8BEB5|162|7|walk|marche|camina|
+⻌|1.E2BB8C|162;variant|7||||
+⻍|1.E2BB8D|162;variant|7||||
+⻎|1.E2BB8E|162;variant|7||||
+邑|1.E98291|163|7|city|ville|ciudad|
+阝|1.E9989D|163;variant|7||||
+酉|1.E98589|164|7|wine|vin|vino|
+釆|1.E98786|165|7|distinguish|distinguer|distinguir|
+里|1.E9878C|166|7|village|village|pueblo|
+金|1.E98791|167|8|gold|or|oro|
+钅|1.E99285|167;variant|8||||
+長|1.E995B7|168|8|long|long|largo|
+镸|1.E995B8|168;variant|8||||
+长|1.E995BF|168;variant|8||||
+門|1.E99680|169|8|gate|porte|portón|
+门|1.E997A8|169;simplification|8||||
+阜|1.E9989C|170|8|mound|monticule|montículo|
+⻕|1.E2BB95|170;variant;not found in decompositions|8||||
+阝|1.E9989D|170;variant|8||||
+隶|1.E99AB6|171|8|slave|esclave|esclavo|
+隹|1.E99AB9|172|8|short-tailed bird|oiseau à queue courte|pájaro de cola corta|
+雨|1.E99BA8|173|8|rain|pluie|lluvia|
+⻗|1.E2BB97|173;variant;not found in decompositions|8||||
+青|1.E99D92|174|8|blue|bleu|azul|
+靑|1.E99D91|174;variant|8||||
+非|1.E99D9E|175|8|wrong|faux|incorrecto|
+面|1.E99DA2|176|9|face|visage|cara|
+靣|1.E99DA3|176;variant;not found in decompositions|9||||
+革|1.E99DA9|177|9|leather|cuir|cuero|
+韋|1.E99F8B|178|9|tanned leather|cuir tanné|piel curtida|
+韦|1.E99FA6|178;variant|9||||
+韭|1.E99FAD|179|9|leek|poireau|Puerro|
+音|1.E99FB3|180|9|sound|son|sonar|
+頁|1.E9A081|181|9|leaf|feuille|hoja|
+页|1.E9A1B5|181;variant|9||||
+風|1.E9A2A8|182|9|wind|vent|viento|
+𠘨|1.F0A098A8|182;variant|9||||
+风|1.E9A38E|182;variant|9||||
+飛|1.E9A39B|183|9|fly|voler|volar|
+飞|1.E9A39E|183;variant|9||||
+食|1.E9A39F|184|9|eat|manger|comer|
+𩙿|1.F0A999BF|184;variant|9||||
+飠|1.E9A3A0|184;variant|9||||
+饣|1.E9A5A3|184;variant|9||||
+首|1.E9A696|185|9|head|tête|cabeza|
+⻡|1.E2BBA1|185;variant;not found in decompositions|9||||
+香|1.E9A699|186|9|fragrant|parfumé|fragante|
+馬|1.E9A6AC|187|10|horse|cheval|caballo|
+马|1.E9A9AC|187;variant|10||||
+骨|1.E9AAA8|188|10|bone|os|hueso|
+高|1.E9AB98|189|10|tall|grand|alto|
+髙|1.E9AB99|189;variant|10||||
+髟|1.E9AB9F|190|10|long hair|cheveux longs|pelo largo|
+鬥|1.E9ACA5|191|10|fight|bataille|lucha|
+鬯|1.E9ACAF|192|10|sacrificial wine|vin sacrificiel|vino de sacrificio|
+鬲|1.E9ACB2|193|10|cauldron|chaudron|caldera|
+鬼|1.E9ACBC|194|10|ghost|fantôme|fantasma|
+魚|1.E9AD9A|195|11|fish|poisson|pez|
+鱼|1.E9B1BC|195;variant|11||||
+鳥|1.E9B3A5|196|11|bird|oiseau|pájaro|
+鸟|1.E9B89F|196;variant|11||||
+鹵|1.E9B9B5|197|11|salt|sel|sal|
+卤|1.E58DA4|197;variant|11||||
+鹿|1.E9B9BF|198|11|deer|cerf|ciervo|
+麥|1.E9BAA5|199|11|wheat|blé|trigo|
+麦|1.E9BAA6|199;variant|11||||
+麻|1.E9BABB|200|11|hemp|chanvre|cáñamo|
+黃|1.E9BB83|201|11|yellow|jaune|amarillo|
+黄|1.E9BB84|201;variant|11||||
+黍|1.E9BB8D|202|12|millet|millet|mijo|
+黑|1.E9BB91|203|12|black|noir|negro|
+黒|1.E9BB92|203;variant|12||||
+黹|1.E9BBB9|204|12|embroidery|broderie|bordado|
+黽|1.E9BBBD|205|13|frog|la grenouille|rana|
+黾|1.E9BBBE|205;variant|13||||
+鼎|1.E9BC8E|206|13|tripod|trépied|trípode|
+鼓|1.E9BC93|207|13|drum|tambour|tambor|
+鼔|1.E9BC94|207;variant;not found in decompositions|13||||
+鼠|1.E9BCA0|208|13|rat|rat|rata|
+鼻|1.E9BCBB|209|14|nose|nez|nariz|
+齊|1.E9BD8A|210|14|even|même|incluso|
+斉|1.E69689|210;variant|14||||
+齐|1.E9BD90|210;variant|14||||
+歯|1.E6ADAF|211|15|tooth|dent|diente|
+齒|1.E9BD92|211;variant|15||||
+齿|1.E9BDBF|211;variant|15||||
+龍|1.E9BE8D|212|16|dragon|dragon|continuar|
+竜|1.E7AB9C|212;variant|16||||
+龙|1.E9BE99|212;variant|16||||
+龜|1.E9BE9C|213|16|turtle|tortue|Tortuga|
+亀|1.E4BA80|213;variant|16||||
+龟|1.E9BE9F|213;variant|16||||
+龠|1.E9BEA0|214|17|flute|flûte|flauta|
+⺀|1.E2BA80|Special||repeat|répéter|repetir|
+マ|1.E3839E|Katakana||ma|ma|ma|
+ム|1.E383A0|Katakana||mu|mu|mu|
+ァ|1.E382A1|Katakana||small a|petit a|a pequeño|
+ア|1.E382A2|Katakana||a|a|a|
+ィ|1.E382A3|Katakana||small i|petit i|i pequeño|
+イ|1.E382A4|Katakana||i|i|i|
+ゥ|1.E382A5|Katakana||small u|petit u|u pequeño|
+ウ|1.E382A6|Katakana||u|u|u|
+ェ|1.E382A7|Katakana||small e|petit e|e pequeño|
+エ|1.E382A8|Katakana||e|e|e|
+ォ|1.E382A9|Katakana||small o|petit o|o pequeño|
+オ|1.E382AA|Katakana||o|o|o|
+カ|1.E382AB|Katakana||ka|ka|ka|
+ガ|1.E382AC|Katakana||ga|ga|ga|
+キ|1.E382AD|Katakana||ki|ki|ki|
+ギ|1.E382AE|Katakana||gi|gi|gi|
+ク|1.E382AF|Katakana||ku|ku|ku|
+グ|1.E382B0|Katakana||gu|gu|gu|
+ケ|1.E382B1|Katakana||ke|ke|ke|
+ゲ|1.E382B2|Katakana||ge|ge|ge|
+コ|1.E382B3|Katakana||ko|ko|ko|
+ゴ|1.E382B4|Katakana||go|go|go|
+サ|1.E382B5|Katakana||sa|sa|sa|
+ザ|1.E382B6|Katakana||za|za|za|
+シ|1.E382B7|Katakana||si|si|si|
+ジ|1.E382B8|Katakana||zi|zi|zi|
+ス|1.E382B9|Katakana||su|su|su|
+ズ|1.E382BA|Katakana||zu|zu|zu|
+セ|1.E382BB|Katakana||se|se|se|
+ゼ|1.E382BC|Katakana||ze|ze|ze|
+ソ|1.E382BD|Katakana||so|so|so|
+ゾ|1.E382BE|Katakana||zo|zo|zo|
+タ|1.E382BF|Katakana||ta|ta|ta|
+ダ|1.E38380|Katakana||da|da|da|
+チ|1.E38381|Katakana||ti|ti|ti|
+ヂ|1.E38382|Katakana||di|di|di|
+ッ|1.E38383|Katakana||small tsu|petit tsu|tsu pequeño|
+ツ|1.E38384|Katakana||tsu|tsu|tsu|
+ヅ|1.E38385|Katakana||du|du|du|
+テ|1.E38386|Katakana||te|te|te|
+デ|1.E38387|Katakana||de|de|de|
+ト|1.E38388|Katakana||to|to|to|
+ド|1.E38389|Katakana||do|do|do|
+ナ|1.E3838A|Katakana||na|na|na|
+ニ|1.E3838B|Katakana||ni|ni|ni|
+ヌ|1.E3838C|Katakana||nu|nu|nu|
+ネ|1.E3838D|Katakana||ne|ne|ne|
+ノ|1.E3838E|Katakana||no|no|no|
+ハ|1.E3838F|Katakana||ha|ha|ha|
+バ|1.E38390|Katakana||ba|ba|ba|
+パ|1.E38391|Katakana||pa|pa|pa|
+ヒ|1.E38392|Katakana||hi|hi|hi|
+ビ|1.E38393|Katakana||bi|bi|bi|
+ピ|1.E38394|Katakana||pi|pi|pi|
+フ|1.E38395|Katakana||hu|hu|hu|
+ブ|1.E38396|Katakana||bu|bu|bu|
+プ|1.E38397|Katakana||pu|pu|pu|
+ヘ|1.E38398|Katakana||he|he|he|
+ベ|1.E38399|Katakana||be|be|be|
+ペ|1.E3839A|Katakana||pe|pe|pe|
+ホ|1.E3839B|Katakana||ho|ho|ho|
+ボ|1.E3839C|Katakana||bo|bo|bo|
+ポ|1.E3839D|Katakana||po|po|po|
+ミ|1.E3839F|Katakana||mi|mi|mi|
+メ|1.E383A1|Katakana||me|me|me|
+モ|1.E383A2|Katakana||mo|mo|mo|
+ャ|1.E383A3|Katakana||small ya|petit ya|ya pequeño|
+ヤ|1.E383A4|Katakana||ya|ya|ya|
+ュ|1.E383A5|Katakana||small yu|petit yu|yu pequeño|
+ユ|1.E383A6|Katakana||yu|yu|yu|
+ョ|1.E383A7|Katakana||small yo|petit yo|yo pequeño|
+ヨ|1.E383A8|Katakana||yo|yo|yo|
+ラ|1.E383A9|Katakana||ra|ra|ra|
+リ|1.E383AA|Katakana||ri|ri|ri|
+ル|1.E383AB|Katakana||ru|ru|ru|
+レ|1.E383AC|Katakana||re|re|re|
+ロ|1.E383AD|Katakana||ro|ro|ro|
+ヮ|1.E383AE|Katakana||small wa|petit wa|wa pequeño|
+ワ|1.E383AF|Katakana||wa|wa|wa|
+ヰ|1.E383B0|Katakana||wi|wi|wi|
+ヱ|1.E383B1|Katakana||we|we|we|
+ヲ|1.E383B2|Katakana||wo|wo|wo|
+ン|1.E383B3|Katakana||n|n|n|
+ヴ|1.E383B4|Katakana||vu|vu|vu|
+ヵ|1.E383B5|Katakana||small ka|petit ka|ka pequeño|
+ヶ|1.E383B6|Katakana||small ke|petit ke|ke pequeño|
+ヷ|1.E383B7|Katakana||va|va|va|
+ヸ|1.E383B8|Katakana||vi|vi|vi|
+ヹ|1.E383B9|Katakana||ve|ve|ve|
+ヺ|1.E383BA|Katakana||vo|vo|vo|
+ㇰ|1.E387B0|Katakana||small ku|petit ku|ku pequeño|
+ㇱ|1.E387B1|Katakana||small si|petit si|si pequeño|
+ㇲ|1.E387B2|Katakana||small su|petit su|su pequeño|
+ㇳ|1.E387B3|Katakana||small to|petit to|to pequeño|
+ㇴ|1.E387B4|Katakana||small nu|petit nu|nu pequeño|
+ㇵ|1.E387B5|Katakana||small ha|petit ha|ha pequeño|
+ㇶ|1.E387B6|Katakana||small hi|petit hi|hi pequeño|
+ㇷ|1.E387B7|Katakana||small hu|petit hu|hu pequeño|
+ㇸ|1.E387B8|Katakana||small he|petit he|he pequeño|
+ㇹ|1.E387B9|Katakana||small ho|petit ho|ho pequeño|
+ㇺ|1.E387BA|Katakana||small mu|petit mu|mu pequeño|
+ㇻ|1.E387BB|Katakana||small ra|petit ra|ra pequeño|
+ㇼ|1.E387BC|Katakana||small ri|petit ri|ri pequeño|
+ㇽ|1.E387BD|Katakana||small ru|petit ru|ru pequeño|
+ㇾ|1.E387BE|Katakana||small re|petit re|re pequeño|
+ㇿ|1.E387BF|Katakana||small ro|petit ro|ro pequeño|
+ぁ|1.E38181|Hiragana||small a|petit a|a pequeño|
+あ|1.E38182|Hiragana||a|a|a|
+ぃ|1.E38183|Hiragana||small i|petit i|i pequeño|
+い|1.E38184|Hiragana||i|i|i|
+ぅ|1.E38185|Hiragana||small u|petit u|u pequeño|
+う|1.E38186|Hiragana||u|u|u|
+ぇ|1.E38187|Hiragana||small e|petit e|e pequeño|
+え|1.E38188|Hiragana||e|e|e|
+ぉ|1.E38189|Hiragana||small o|petit o|o pequeño|
+お|1.E3818A|Hiragana||o|o|o|
+か|1.E3818B|Hiragana||ka|ka|ka|
+が|1.E3818C|Hiragana||ga|ga|ga|
+き|1.E3818D|Hiragana||ki|ki|ki|
+ぎ|1.E3818E|Hiragana||gi|gi|gi|
+く|1.E3818F|Hiragana||ku|ku|ku|
+ぐ|1.E38190|Hiragana||gu|gu|gu|
+け|1.E38191|Hiragana||ke|ke|ke|
+げ|1.E38192|Hiragana||ge|ge|ge|
+こ|1.E38193|Hiragana||ko|ko|ko|
+ご|1.E38194|Hiragana||go|go|go|
+さ|1.E38195|Hiragana||sa|sa|sa|
+ざ|1.E38196|Hiragana||za|za|za|
+し|1.E38197|Hiragana||si|si|si|
+じ|1.E38198|Hiragana||zi|zi|zi|
+す|1.E38199|Hiragana||su|su|su|
+ず|1.E3819A|Hiragana||zu|zu|zu|
+せ|1.E3819B|Hiragana||se|se|se|
+ぜ|1.E3819C|Hiragana||ze|ze|ze|
+そ|1.E3819D|Hiragana||so|so|so|
+ぞ|1.E3819E|Hiragana||zo|zo|zo|
+た|1.E3819F|Hiragana||ta|ta|ta|
+だ|1.E381A0|Hiragana||da|da|da|
+ち|1.E381A1|Hiragana||ti|ti|ti|
+ぢ|1.E381A2|Hiragana||di|di|di|
+っ|1.E381A3|Hiragana||small tsu|petit tsu|tsu pequeño|
+つ|1.E381A4|Hiragana||tsu|tsu|tsu|
+づ|1.E381A5|Hiragana||du|du|du|
+て|1.E381A6|Hiragana||te|te|te|
+で|1.E381A7|Hiragana||de|de|de|
+と|1.E381A8|Hiragana||to|to|to|
+ど|1.E381A9|Hiragana||do|do|do|
+な|1.E381AA|Hiragana||na|na|na|
+に|1.E381AB|Hiragana||ni|ni|ni|
+ぬ|1.E381AC|Hiragana||nu|nu|nu|
+ね|1.E381AD|Hiragana||ne|ne|ne|
+の|1.E381AE|Hiragana||no|no|no|
+は|1.E381AF|Hiragana||ha|ha|ha|
+ば|1.E381B0|Hiragana||ba|ba|ba|
+ぱ|1.E381B1|Hiragana||pa|pa|pa|
+ひ|1.E381B2|Hiragana||hi|hi|hi|
+び|1.E381B3|Hiragana||bi|bi|bi|
+ぴ|1.E381B4|Hiragana||pi|pi|pi|
+ふ|1.E381B5|Hiragana||hu|hu|hu|
+ぶ|1.E381B6|Hiragana||bu|bu|bu|
+ぷ|1.E381B7|Hiragana||pu|pu|pu|
+へ|1.E381B8|Hiragana||he|he|he|
+べ|1.E381B9|Hiragana||be|be|be|
+ぺ|1.E381BA|Hiragana||pe|pe|pe|
+ほ|1.E381BB|Hiragana||ho|ho|ho|
+ぼ|1.E381BC|Hiragana||bo|bo|bo|
+ぽ|1.E381BD|Hiragana||po|po|po|
+ま|1.E381BE|Hiragana||ma|ma|ma|
+み|1.E381BF|Hiragana||mi|mi|mi|
+む|1.E38280|Hiragana||mu|mu|mu|
+め|1.E38281|Hiragana||me|me|me|
+も|1.E38282|Hiragana||mo|mo|mo|
+ゃ|1.E38283|Hiragana||small ya|petit ya|ya pequeño|
+や|1.E38284|Hiragana||ya|ya|ya|
+ゅ|1.E38285|Hiragana||small yu|petit yu|yu pequeño|
+ゆ|1.E38286|Hiragana||yu|yu|yu|
+ょ|1.E38287|Hiragana||small yo|petit yo|yo pequeño|
+よ|1.E38288|Hiragana||yo|yo|yo|
+ら|1.E38289|Hiragana||ra|ra|ra|
+り|1.E3828A|Hiragana||ri|ri|ri|
+る|1.E3828B|Hiragana||ru|ru|ru|
+れ|1.E3828C|Hiragana||re|re|re|
+ろ|1.E3828D|Hiragana||ro|ro|ro|
+ゎ|1.E3828E|Hiragana||small wa|petit wa|wa pequeño|
+わ|1.E3828F|Hiragana||wa|wa|wa|
+ゐ|1.E38290|Hiragana||wi|wi|wi|
+ゑ|1.E38291|Hiragana||we|we|we|
+を|1.E38292|Hiragana||wo|wo|wo|
+ん|1.E38293|Hiragana||n|n|n|
+ゔ|1.E38294|Hiragana||vu|vu|vu|
+ゕ|1.E38295|Hiragana||small ka|petit ka|ka pequeño|
+ゖ|1.E38296|Hiragana||small ke|petit ke|ke pequeño|

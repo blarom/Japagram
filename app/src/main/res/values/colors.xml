@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="Black">#FF000000</color>
+    <color name="White">#FFffffff</color>
+    <color name="Blue">#FF0000ff</color>
+    <color name="Purple">#FF800080</color>
+    <color name="Transparent">#80FFFFFF</color>
+    <color name="semiWhite">#edf8ff</color>
+    
+    <color name="colorPrimary">@color/appThemeRedBlack_colorPrimary</color>
+    <color name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</color>
+    <color name="colorAccent">@color/appThemeRedBlack_colorAccent</color>
+    <color name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</color>
+    <color name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</color>
+
+<!--    Opacity guide:
+    100% — FF
+    95% — F2
+    90% — E6
+    85% — D9
+    80% — CC
+    75% — BF
+    70% — B3
+    65% — A6
+    60% — 99
+    55% — 8C
+    50% — 80
+    45% — 73
+    40% — 66
+    35% — 59
+    30% — 4D
+    25% — 40
+    20% — 33
+    15% — 26
+    10% — 1A
+    05% — 0D
+    00% — 00
+-->
+    <color name="appThemeBlueGreen_colorPrimary">#2e7d32</color>
+    <color name="appThemeBlueGreen_colorPrimaryDark">#005005</color>
+    <color name="appThemeBlueGreen_colorPrimaryLight">#60ad5e</color>
+    <color name="appThemeBlueGreen_colorPrimaryTransparent">#1a2e7d32</color>
+    <color name="appThemeBlueGreen_colorAccent">#303f9f</color>
+    <color name="appThemeBlueGreen_colorAccentDark">#001970</color>
+    <color name="appThemeBlueGreen_colorAccentLight">#666ad1</color>
+
+    <color name="appThemeRedBlack_colorPrimary">#cf2e2e</color>
+    <color name="appThemeRedBlack_colorPrimaryDark">#960006</color>
+    <color name="appThemeRedBlack_colorPrimaryLight">#ff6458</color>
+    <color name="appThemeRedBlack_colorPrimaryTransparent">#1acf2e2e</color>
+    <!--    <color name="appThemeRedBlack_colorPrimary">#960006</color>-->
+    <!--    <color name="appThemeRedBlack_colorPrimaryDark">#620000</color>-->
+    <!--    <color name="appThemeRedBlack_colorPrimaryLight">#ce422f</color>-->
+    <color name="appThemeRedBlack_colorAccent">#424242</color>
+    <color name="appThemeRedBlack_colorAccentDark">#1b1b1b</color>
+    <color name="appThemeRedBlack_colorAccentLight">#6d6d6d</color>
+
+    <!--General colors-->
+    <color name="appThemeBlueGreen_appTextPrimary">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_appTextSecondary">@color/appThemeBlueGreen_colorAccent</color>
+    <color name="appThemeRedBlack_appTextPrimary">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="appThemeRedBlack_appTextSecondary">@color/appThemeRedBlack_colorAccent</color>
+
+    <!--InputQueryFragment colors-->
+    <color name="appThemeBlueGreen_textSearch">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeRedBlack_textSearch">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_buttonBackground">@color/appThemeBlueGreen_colorPrimaryTransparent</color>
+    <color name="appThemeRedBlack_buttonBackground">@color/appThemeRedBlack_colorPrimaryTransparent</color>
+
+    <!--Dictionary colors-->
+    <color name="appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_textDictionaryGroupItemMeanings">@color/appThemeBlueGreen_colorPrimary</color>
+    <color name="appThemeBlueGreen_textDictionaryChildItemRomaji">@color/appThemeBlueGreen_colorAccentLight</color>
+    <color name="appThemeBlueGreen_textDictionaryChildItemKanji">@color/appThemeBlueGreen_colorAccent</color>
+    <color name="appThemeBlueGreen_textDictionarySpanClicked">@color/appThemeBlueGreen_colorPrimary</color>
+    <color name="appThemeBlueGreen_textDictionaryTypeMeaning">@color/Black</color>
+    <color name="appThemeBlueGreen_textDictionaryRuleWhereClause">@color/appThemeBlueGreen_appTextSecondary</color>
+    <color name="appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="appThemeRedBlack_textDictionaryGroupItemMeanings">@color/appThemeRedBlack_colorPrimary</color>
+    <color name="appThemeRedBlack_textDictionaryChildItemRomaji">@color/appThemeRedBlack_colorAccentLight</color>
+    <color name="appThemeRedBlack_textDictionaryChildItemKanji">@color/appThemeRedBlack_colorAccent</color>
+    <color name="appThemeRedBlack_textDictionarySpanClicked">@color/appThemeRedBlack_colorPrimary</color>
+    <color name="appThemeRedBlack_textDictionaryTypeMeaning">@color/Black</color>
+    <color name="appThemeRedBlack_textDictionaryRuleWhereClause">@color/appThemeRedBlack_appTextSecondary</color>
+
+    <!--Conjugation colors-->
+    <color name="appThemeBlueGreen_textConjugatorVerbChooserPreposition">@color/appThemeBlueGreen_colorPrimaryLight</color>
+    <color name="appThemeBlueGreen_textConjugatorVerbChooserKanjiRomaji">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_textConjugatorVerbChooserCharacteristics">@color/appThemeBlueGreen_colorPrimary</color>
+    <color name="appThemeBlueGreen_textConjugatorVerbChooserMeaning">@color/Black</color>
+    <color name="appThemeBlueGreen_textConjugatorConjugationChooserUpper">@color/appThemeBlueGreen_appTextSecondary</color>
+    <color name="appThemeBlueGreen_textConjugatorConjugationChooserLower">@color/Black</color>
+    <color name="appThemeBlueGreen_textConjugatorLabel">@color/Black</color>
+    <color name="appThemeBlueGreen_textConjugatorResults">@color/appThemeBlueGreen_appTextSecondary</color>
+    <color name="appThemeRedBlack_textConjugatorVerbChooserPreposition">@color/appThemeRedBlack_colorPrimaryLight</color>
+    <color name="appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="appThemeRedBlack_textConjugatorVerbChooserCharacteristics">@color/appThemeRedBlack_colorPrimary</color>
+    <color name="appThemeRedBlack_textConjugatorVerbChooserMeaning">@color/Black</color>
+    <color name="appThemeRedBlack_textConjugatorConjugationChooserUpper">@color/appThemeRedBlack_appTextSecondary</color>
+    <color name="appThemeRedBlack_textConjugatorConjugationChooserLower">@color/Black</color>
+    <color name="appThemeRedBlack_textConjugatorLabel">@color/Black</color>
+    <color name="appThemeRedBlack_textConjugatorResults">@color/appThemeRedBlack_appTextSecondary</color>
+
+    <!--Search By Radical colors-->
+<!--    <color name="appThemeBlueGreen_textCompositionGridElementDefault">@color/Purple</color>-->
+    <color name="appThemeBlueGreen_textCompositionGridElementDefault">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_textCompositionGridElementSelected">@color/appThemeBlueGreen_colorAccent</color>
+    <color name="appThemeBlueGreen_colorSelectedDictResultBackground">@color/semiWhite</color>
+    <color name="appThemeBlueGreen_elementsBoxBorder">@color/appThemeBlueGreen_colorAccentLight</color>
+    <color name="appThemeBlueGreen_kanjiSelectionBoxBorder">@color/appThemeBlueGreen_colorPrimaryDark</color>
+    <color name="appThemeBlueGreen_resultsTitleUnderline">@color/appThemeBlueGreen_colorPrimary</color>
+    <!--    <color name="appThemeRedBlack_textCompositionGridElementDefault">@color/Purple</color>-->
+    <color name="appThemeRedBlack_textCompositionGridElementDefault">@color/appThemeRedBlack_colorPrimary</color>
+    <color name="appThemeRedBlack_textCompositionGridElementSelected">@color/appThemeRedBlack_colorAccent</color>
+    <color name="appThemeRedBlack_colorSelectedDictResultBackground">@color/semiWhite</color>
+    <color name="appThemeRedBlack_elementsBoxBorder">@color/appThemeRedBlack_colorAccentLight</color>
+    <color name="appThemeRedBlack_kanjiSelectionBoxBorder">@color/appThemeRedBlack_colorPrimaryDark</color>
+    <color name="appThemeRedBlack_resultsTitleUnderline">@color/appThemeRedBlack_colorPrimary</color>
+
+    <!--Decomposition colors-->
+    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgePrimary">@color/appThemeBlueGreen_colorPrimaryLight</color>
+    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary">@color/appThemeBlueGreen_colorAccentLight</color>
+    <color name="appThemeRedBlack_decomposition_FillWhiteEdgePrimary">@color/appThemeRedBlack_colorPrimaryLight</color>
+    <color name="appThemeRedBlack_decomposition_FillWhiteEdgeSecondary">@color/appThemeRedBlack_colorAccentLight</color>
+
+    <!--Kanji Grid colors-->
+    <color name="appThemeBlueGreen_kanjiGridItemBorder">@color/appThemeBlueGreen_colorAccentLight</color>
+    <color name="appThemeRedBlack_kanjiGridItemBorder">@color/appThemeRedBlack_colorAccentLight</color>
+
+    
+</resources>

@@ -1,0 +1,258 @@
+Index|Explanation|Rules|Example|
+2||X no atari no|443|
+3|Y en la proximidad de X|Y no atari de X @ X = action, Y = sustantivo|444|
+4|X además de Y.|hoka ni X Y @ X = característica, Y = place|659;660|
+5|aparte de X, Y es ...|X no hoka ni Y|661|
+6|Utilice "kore" para la forma normal.||213|
+7|Utilice "kochira" para la forma educada.||708|
+8|Utilice "dolor" para la forma normal.|||
+9|Utilice "sochira" para la forma educada.|||
+10|Utilice "son" para la forma normal.|||
+11|Utilice "achira" para la forma educada.|||
+12|Uso básico.||717|
+13||nan + (contador) + ka.|273|
+14|Oraciones donde se usa nanika en lugar de nanidemo.||718|
+15|Utilice "kore" para la forma normal.||316|
+16|Use "kochira/kocchi" para la forma educada.|||
+17|Use "dolor" para la forma normal.|||
+18|Utilice "sochira" para la forma educada.|||
+19|Utilice "son" para la forma normal.|||
+20|Utilice "achira" para la forma educada.|||
+21|Uso básico.||719|
+22||dono + (sustantivo) + demo.|720|
+23|Uso básico.||732|
+24||donna + (sustantivo) + demo.|733|
+25|Utilice "koko" para la forma normal.||734|
+26|Use "kochira/kocchi" para la forma educada.|||
+27|Utilice "soko" para la forma normal.||735|
+28|Utilice "sochira/socchi" para la forma educada.|||
+29|Utilice "asoko" para la forma normal.||736|
+30|Utilice "achira/acchi" para la forma educada.||737|
+31|||674|
+32|mada + verbo: usar tiempo negativo.||675|
+33|Use "Dare" para la forma normal.|||
+34|Utilice "donata" para la forma educada.||688|
+35|Use "dono" para la forma normal.||691|
+36|Utilice "dochira" para la forma educada.|||
+37|Utilice "Dore" para la forma normal.||692|
+38|Utilice "doko" para la forma normal.||694|
+39|Utilice "dochira" para la forma educada.|||
+40|Utilice "dou" en forma normal, "kou" en respuesta a "dou".||695;696|
+41|Utilice "ikaga" para la forma educada.||697|
+42|Usa "to" en respuesta a "nanto".||698|
+43|Uso "itsu".||699|
+44|"nan" + uso del contador.||700|
+45|¿Cómo se llama eso?||705|
+46|¿Cuál es el sustantivo de X?||706;698|
+47|Literalmente significa "no puede ser conocido".|X kamo shirenai @ X = verbo forma simple (incl. plain neg. o past)|1215;751;1216|
+48||X kamo shirenai da @ X = adj. "i"|842|
+49||X kamo shirenai da @ X = adj. "na"||
+50||X kamo shirenai da @ X = sustantivo|316;507|
+51|Se usa al final de una frase para dar énfasis al dar información. Use "yo" para el habla coloquial masculino y "da yo"/"wa yo" para el habla coloquial femenina.|X yo / X n da yo / X wa yo @ X = verbo|805|
+52||X yo / X da yo / X wa yo @ X = sustantivo/adj. "na"/adj. "i"||
+53||X ka @ X = verbo|808;1266|
+54||Aumente el tono y omita "ka" cuando la pregunta esté en forma simple.|809|
+55||"kai" o "kae" también usado en lenguaje familiar||
+56|Utilizado de manera similar al "ka" interrogativo después de un verbo, "ka naa" es usado por los hombres y "ka shira" por las mujeres.|X ka naa/ka shira|1348|
+57|"no" se usa a veces para enfatizar la incertidumbre/duda.|X no ka naa/ka shira @ X = verbo, adj. "i"||
+58||X na no ka naa/ka shira @ X = sustantivo, adj. "na"||
+59||X ga Y @ X = object, Y = verbo normal en forma "tai"|813|
+60||X ga Y @ X = object, Y = verbo normal en forma "eru" (todos los tiempos)|335|
+61||X ga Y @ X = object, Y = verbo normal en forma pasiva||
+62||X ga Y @ X = object, Y = verbo normal en otros tiempos especiales||
+63||X ga Y @ X = object, Y = ii, warui, suki, kirai||
+64||X ga @ X = sujeto desconocido|814|
+65||X ga @ X = respuesta a una pregunta sobre el sujeto|815|
+66||X ga @ X = nueva información|816|
+67||X ga @ X = sujeto enfantizado|817|
+68||X ga Y @ X = sujeto, Y = verbo especial en forma afirmativa (p.ej. aru, furu)|818|
+69||Use la construcción "X ni ... wo ..." cuando el verbo usa originalmente el marcador "wo", p.ej. "wo taberu".|1339;1340|
+70||Use la construcción "X wo ... ni ..." cuando el verbo requiera el uso del marcador "ni", p.ej. "ni iku".|1343|
+71|X tal como es. Se utiliza para enfatizar un hecho o acción.|X mama @ X = verbo en forma ta/nai/pasiva|854;855;856;1425;1426|
+72||X no mama @ X = sustantivo|857;858|
+73||X mama @ X = adj. "i", adj. "na", adj. demonstrativo (kono, sono, ano)|859;860;861|
+74|X como debe ser, X según lo planeado, al igual que X. Se usa para enfatizar un hecho o acción. Utilice "doori" cuando yuxtaponga "toori" a un sustantivo para crear un sustantivo compuesto.|X toori (ni) @ X = verbo forma simple|862;863;1500|
+75||X (no) toori/doori (ni) @ X = sustantivo|864;1501|
+76|Sería mejor si X. Se utiliza para enfatizar una acción o estado de ser.|X hou ga ii da @ X = verbo en forma "ta" para frases afirmativas|865;423|
+77||X hou ga ii da @ X = verbo en forma "nai" para frases negativas|866;1395|
+78|Parece que [yo/tu/él/ella] [hago/haces/hace/soy/eres/es] X.|X mitai da @ X = verbo forma simple|868|
+79||X mitai da @ X = sustantivo|869|
+80|(Él) parece [hacer/ser] X/(He) escuchado que X (por lo que puedo ver). Tenga en cuenta que hay dos construcciones verbales que implican "sou", con diferentes significados.|X sou @ X = raíz de verbo (para presente simple), verbo forma simple (para otros tiempos)|871;1082;1327;1328|
+81||X sou ni / sou mo nai @ X = verbo en forma "masu"|877;878|
+82||X sou @ X = raíz de adj. "i" (excepción: ii >> yosasou)|872;873;874;879|
+83||X da sou @ X = adj. "na"|875;876|
+84||X da sou @ X = sustantivo: esa forma no se usa, use X mitai en su lugar||
+85|Uso similar a "a" como partícula de cotización casual. Usando "n" suaviza la frase.|X tte @ X = verbo forma simple, adj. "i"|1404;1405|
+86||X n datte @ X = verbo forma simple, adj. "i"|1407|
+87||X datte @ X = sustantivo, adj. "na"|1406|
+88||X na n datte @ X = sustantivo, adj. "na"||
+89|(Él) parece [hacer/ser] X (de lo que puedo deducir).|X you da @ X = verbo forma simple, adj. "i"|881;1337;1338;882|
+90||X na you da @ X = adj. "na"|883|
+91||X no you da @ X = sustantivo|884;1335;1336|
+92|Incluso si [yo/tu/él/ella] [hago/haces/hace/soy/eres/es] X.|X mo @ X = verbo en forma "te"||
+93||X kutemo @ X = adj. "i" root||
+94||X de mo @ X = adj. "na", sustantivo||
+95|Demasiado X.|X sugiru @ X = verbo en forma "i"||
+96||X sugiru @ X = adj. "i" root|1090;1257|
+97||X sugiru @ X = adj. "na"||
+98|En el caso que (usted) hace/es X.|X baai wa @ X = verbo forma simple, adj. "i"|899;1281;1282;1283;1284;1285;1286|
+99||X na baai wa @ X = adj. "na"||
+100||X no baai @ X = sustantivo|1288;1289;1290;1291|
+101|Si X entonces Y. Referencia al hecho que existe, no necesariamente uno obvio.|X da to Y @ X = sustantivo/adj. "na", Y = frase||
+102||X to Y @ X = verbo/adj. "i", Y = frase|900;901;902|
+103|Si X entonces Y.|X nara/naraba Y @ X = sustantivo (use "naraba" en frases formales)|904|
+104||X nara/naraba Y @ X = adj. "na" (use "naraba" en frases formales)|905|
+105||X ba Y @ X ba = verbo en forma "ba". Si X es un verbo de acción, no puede describir la voluntad, esperanza, orden, juicio, solicitud, invitación, permiso, prohibición de un orador, etc.|906;907|
+106||X kereba Y @ X = adj. "i" afirmatívo o raíz de verbo con fin "eiru" o "tai"|908;909|
+107|Si no es X entonces Y.|X de nakereba Y @ X = sustantivo|910|
+108||X de nakereba Y @ X = adj. "na"|911|
+109||X Y @ X = verbo en forma nakereba. Si X es un verbo de acción, no puede describir la voluntad, esperanza, orden, juicio, solicitud, invitación, permiso, prohibición de un orador, etc.|912;913|
+110||X kunakereba Y @ X = adj. "i" o verbo en forma "tai"|914|
+111|Si no es X entonces Y. Forma coloquial de "nakereba".|X de nakya Y @ X = sustantivo|1400|
+112||X de nakya Y @ X = adj. "na"|1398;1399|
+113||X Y @ X = verbo en forma nakya. Si X es un verbo de acción, no puede describir la voluntad, esperanza, orden, juicio, solicitud, invitación, permiso, prohibición de un orador, etc.|1396|
+114||X kunakya Y @ X = adj. "i" o verbo en forma "tai"|1397|
+115|Debido a X. "shi" se usa generalmente para dar una lista de razones, y se repite según sea necesario.|X shi Y @ X = adj. "i" afirmatívo o raíz de verbo con fin "eiru" o "tai"||
+116||X da shi Y @ X = sustantivo||
+117||X da shi Y @ X = adj. "na"||
+118||X shi @ X = verbo||
+119|Si X entonces Y.|X dattara Y @ X = sustantivo, Y = frase en presento|916|
+120||X dattara Y @ X = adj. "na", Y = frase en presento|917|
+121||X tara/dara Y @ X tara/dara = verbo en forma "tara", Y = frase en presento|918|
+122||X kattara Y @ X = adj. "i" o verbo en forma "ta", Y = frase en presento|919|
+123|Cuando X entonces Y.|X dattara Y @ X = sustantivo/adj. "na", Y = frase en pasado||
+124||X tara/dara Y @ X tara/dara = verbo en forma "tara", Y = frase en pasado|919|
+125||X kattara Y @ X = adj. "i" o verbo en forma "ta", Y = frase en pasado||
+126|Si no es X entonces Y.|X de nakattara Y @ X = sustantivo/adj. "na", Y = frase en presento||
+127||X nakattara Y @ X nakattara = verbo en forma "nakattara", Y = frase en presento||
+128||X ku nakattara Y @ X = adj. "i" o verbo en forma "ta", Y = frase en presento|920|
+129|Cuando no es X entonces Y.|X de nakattara Y @ X = sustantivo/adj. "na", Y = frase en pasado||
+130||X nakattara Y @ X nakattara = verbo en forma "nakattara", Y = frase en pasado||
+131||X ku nakattara Y @ X = adj. "i" o verbo en forma "ta", Y = frase en pasado||
+132|X por lo tanto Y.|X dakara Y @ X = sustantivo, adj. "na", adj. "i" conjugado, hecho implícito|921;922;923|
+133||X kara Y @ X = verbo forma simple, adj. "i" forma simple|924;925|
+134|X por lo tanto Y. Más suave y más educado que "kara", usado para distanciar causa a consecuencia.|X nanode Y @ X = sustantivo, adj. "na", hecho implicido|77;926;927|
+135||X node Y @ X = verbo en forma "masu"/simple, adj. "i"|92;928|
+136|X por lo tanto Y. Forma coloquial de "node", utilizada para distanciar causa a consecuencia.|X nande Y @ X = sustantivo, adj. "na", hecho implicido|929;930;931|
+137||X nde Y @ X = verbo forma simple, adj. "i"|932;933|
+138|X por lo tanto Y. Por lo general, con la connotación "es tan X que Y". La terminación "te/de" también se usa cuando la frase X sucede en el pasado.|X Y @ X = verbo en forma "te"|1319;1320;1321;1322|
+139||X Y @ X = adj. "i" en forma "te"|1323;1324|
+140||X Y @ X = adj. "na"|1325|
+141||X Y @ X = sustantivo|1326|
+142||X. demo Y @ X/Y = frase|934|
+143||X temo/demo Y @ X/Y = frase|935;1402;1424;1489;1491|
+144|A menudo se utiliza después de una frase más limpia o después de un verbo en forma "masu".|X desu/deshita ga Y @ X = sustantivo, adj. "na"|1261;1259|
+145||X ga Y @ X = verbo en forma "masu" (presento o pasado), adj. "i"|936;937;1260|
+146|Uso menos común de "ga".|X desu/deshita ga Y @ X = sustantivo, adj. "na"||
+147||X ga Y @ X = verbo en forma "masu" (presento o pasado)|938;939|
+148||X i/katta ga Y @ X = adj. "i"||
+149|X pero Y.|X da kedo Y @ X = sustantivo, adj. "na", hecho implícito|940;941|
+150||X kedo Y @ X = verbo forma simple, adj. "i"|942;1503|
+151|X e Y. Uso menos común.|X da kedo Y @ X = sustantivo, adj. "na"||
+152||X kedo Y @ X = verbo, adj. "i"|943|
+153|X pero Y. Forma más limpia de "kedo".|X da keredomo Y @ X = sustantivo, adj. "na"|944;945|
+154||X keredomo Y @ X = verbo, adj. "i"|946;947;1414;1415;1416|
+155|Y a pesar de X. Y aunque X. La frase a veces termina en "noni" para atribuir decepción o sorpresa sobre un evento determinado.|X nanoni Y @ X = sustantivo, adj. "na" (present)|951;952|
+156||X datta noni Y @ X = adj. "na" (past)|953|
+157||X noni Y @ X = verbo forma simple, adj. "i"|954;1384;955;956|
+158|X y Y (entre otras cosas). Se usa cuando se describen estados del ser.|X da shi Y shi/da shi @ X = sustantivo, adj. "na"|961|
+159||X shi Y shi/da shi @ X = verbo,  adj. "i"|962|
+160|X y/o Y. "tari" se usa generalmente para dar una lista de posibilidades alternativas, y se repite según sea necesario. El uso es [X tari] ... [Y tari] suru, donde "suru" se conjuga y controla el tiempo total.|X/Y suru @ X/Y = verbo en forma "tari"|963;964;1316;1317;1318|
+161||X/Y dattari suru @ X/Y = adj. "na"/sustantivo|965;1318|
+162||X/Y suru @ X/Y = i-adj en forma "kattari"|965;1314;1315|
+163|Y sucediendo al mismo tiempo que X.|X no toki Y @ X = sustantivo, Y en el presento|966;1298|
+164||X na toki Y @ X = adj. "na", Y en el presento|967;968|
+165||X toki Y @ X = verbo en forma dicc./adj. "i", Y en el presento|969;970|
+166|Y sucedió/habrá ocurrido/se acordó que suceda al mismo tiempo que X.|X datta toki Y @ X = sustantivo/adj. "na", Y en el pasado|971;972|
+167||X toki Y @ X = verbo en forma "ta", Y en el pasado|973;1412;1418|
+168||X katta toki Y @ X = adj. "i", Y en el pasado|974|
+169|Y sucede mientras X sigue sucediendo.|X no uchi ni Y @ X = sustantivo|975|
+170||X na uchi ni Y @ X = adj. "na"||
+171||X uchi ni Y @ X = verbo, adj. "i"|976|
+172|Y para el beneficio de X, por el bien de algo seguro.|X no tame no Y @ X = sustantivo, Y = sustantivo|992|
+173||X no tame ni Y @ X = sustantivo, Y = verbo|993|
+174|Decir que X.|X da to iu @ X = sustantivo, adj. "na"|1004;100|
+175||X to iu @ X = verbo forma simple, adj. "i"|1005;1006|
+176|Piensa que X.|X da to omou @ X = sustantivo, adj. "na"|1007;1380|
+177||X to omou @ X = verbo forma simple, adj. "i"|1381;1379|
+178|Es/no es siempre X.|X da to wa kagiranai @ X = sustantivo, adj. "na"||
+179||X to wa kagiranai @ X = verbo forma simple, adj. "i"|1008|
+180|Yo no Y si X es ... o no|X ka dou ka Y @ X = verbo en forma simple, Y = saber/pensar/creer/etc..|1018;1019|
+181||X ka dou ka Y @ X = i-adj, Y = saber/pensar/creer/etc..|1020;1021|
+182||X ka dou ka Y @ X = adj. "na"/sustantivo, Y = saber/pensar/creer/etc..|1022;1023|
+183|Se supone que debe [hacer/ser] X.|X hazu da @ X = verbo en forma dicc., adj. "i"|1024;1025;1026|
+184||X na hazu da @ X = adj. "na"|1027|
+185||X no hazu da @ X = sustantivo|1028|
+186||X hazu ga/wa nai @ X = verbo en forma "nai" (frase doble negativa)|1029|
+187||X hazu da @ X = adj. "i" negativo (frase doble negativa)|1030|
+188||X na hazu da @ X = adj. "na" negativo (frase doble negativa)||
+189||X hazu da @ X = adj. adnominal (p.ej. konna)||
+190|No se supone que [haga/sea] X.|X hazu da @ X = verbo en forma "nai" (expresa certeza)|1031|
+191||X kunai hazu da @ X kunai = adj. "i" negativo (expresa certeza)|1032|
+192||X ja/dewa nai hazu da @ X = adj. "na" negativo (expresa certeza)||
+193||X hazu ga/wa nai @ X = verbo en forma dicc. (expresa negación)|1033|
+194||X hazu ga/wa nai @ X = adj. "i" affirmative (expresa negación)|1034|
+195||X na hazu ga/wa nai @ X = adj. "na" affirmative (expresa negación)||
+196||X hazu ga/wa nai @ X = adj, adnominal (p.ej. konna)||
+197|Ciertamente se suponía que debe [hacer/ser] X.|X hazu da @ X = verbo en forma "ta"/adj. "i" afirmativo pasado|1035;1036|
+198||X datta hazu da @ X = sustantivo/adj. "na"|1037;1038|
+199||X hazu datta @ X = adj, adnominal (p.ej. konna)||
+200|Lamentablemente se suponía que debe [hacer/ser] X.|X hazu datta @ X = verbo en forma dicc./adj. "i" afirmativo presento|1039|
+201||X na hazu datta @ X = adj. "na" afirmativo presento|1040|
+202||X no hazu datta @ X = sustantivo|1041|
+203|Ciertamente no se suponía que debe [hacer/ser] X.|X hazu ja/dewa nakatta @ X = verbo en forma "ta"/adj. "i" afirmativo presento/adj. adnominal (p.ej. konna)|1042;1043|
+204||X na hazu ja/dewa nakatta @ X = adj. "na" afirmativo presento||
+205||X no hazu ja/dewa nakatta @ X = sustantivo||
+206|En cuanto a X, sobre X, en relación con X, con respecto a X.|X ni tsuite no Y @ Y = sustantivo|1373;1374;1375;1485|
+207||X ni tsuite Y @ Y = verbo|1376;1377;1378;1486|
+208|Convirtiéndose en X. Utilizado como una declaración general. Para una declaración desde un punto de vista personal, se usa el tiempo pasado (natta/narimashita).|X ni naru @ X = adj. "na"|1045|
+209||X ni naru @ X = sustantivo|1046|
+210||X ku naru @ X = adj. "i"|1047;1048|
+211||X you ni naru @ X = verbo forma simple|1364|
+212|Se convirtió en X. Utilizado como una declaración desde un punto de vista personal. Para una referencia general, se usa el tiempo presente (naru/narimasu).|X ni natta @ X = sustantivo, adj. "na"||
+213||X ku natta @ X = adj. "i"||
+214||X you ni natta @ X = verbo|985;986;987|
+215|Y más ... que X.|X yori Y hou ga @ X = verbo en forma dicc./adj. "i" presento, Y = verbo en forma "ta"/adj. "i" present|1051|
+216||X yori Y no hou ga @ X/Y = sustantivo|1052;1053|
+217||X na yori Y na hou ga @ X/Y = adj. "na" presento||
+218|X menos ... que Y.|Y X yori @ X = verbo forma dicc./sustantivo/adj. "i" presento, Y = verbo en forma "ta"/sustantivo/adj. "i" present|1263;1264|
+219||Y X na yori @ X/Y = adj. "na" presento||
+220|Entre X y Y.|X noto Y noto/nanoto @ X = sustantivo, verbo, adj. "i"|1055;1056|
+221||X nanoto Y noto/nanoto @ X = adj. "na"|1054|
+222|X parece ser Y, X se parece a Y.|X you na Y @ X = action, Y = sustantivo|996;997;1423|
+223||X you ni Y @ X = action, Y = verbo|998;999|
+224||X no you ni Y @ X = sustantivo, Y = sustantivo|1002;1003|
+225||X no you na Y @ X = sustantivo, Y = verbo|1000;1001|
+226||X sou na Y @ X = adj. "i", Y = sustantivo|1422|
+227||X sou na Y @ X = adj. "na", Y = sustantivo||
+228|Despues de X.|X no ato (de) @ X = sustantivo|1057;1058;464|
+229||X ato @ X = sustantivo (forma más limpia)|1059|
+230||X ato de @ X = verbo de acción en pasado simple|1060;1456|
+231|Antes de X.|X no mae ni @ X = sustantivo|1061;1062|
+232||X mae ni @ X = verbo de acción en presente simple|1063|
+233|X y luego Y.|X te Y @ X/Y = verbo de acción|1066;1067|
+234||X Y (sin "te") @ X/Y = verbo de acción, se uso solamente en forma literaria||
+235||||
+236||||
+237|Encantada de conocerte.|Utilice "kochira koso" en la respuesta.|1224|
+238|Saludos.||1225|
+239|Gracias de antemano/Cuento contigo/Estoy en deuda contigo. (utilizado con respecto a los compañeros de trabajo)|||
+240|Por favor sea amable conmigo/tráteme bien.||1226|
+241||Cuando se disculpa.|1227|
+242|Dijo al entrar a la casa de alguien.||1228|
+243||Expresión más formal.|1247|
+244||Expresión menos formal.|1248;1298|
+245|Se refiere a algo que afecta al hablante. La "n" actúa como un suavizante para la humildad, ya que el hablante se está refiriendo a sí mismo.|X da to ii n desu ga @ X = sustantivo/adj. "na"|1433;1434|
+246||X to ii n desu ga @ X = verbo/adj. "i"||
+247|Se refiere a algo que afecta a alguien que no es el hablante.|X da to ii desu ne @ X = sustantivo/adj. "na"||
+248||X to ii desu ne @ X = verbo/adj. "i"|1445;1446|
+249|Utilizado especialmente en artículos de noticias.|X tame @ X = verbo pasado simple|1494|
+250||X no tame @ X = frase presento simple|1495|
+251|X e Y y así sucesivamente. Se usa para enumerar múltiples ejemplos, generalmente para expresar insatisfacción o una acción negativa/un hecho negativo.|X dano Y (datta) dano @ X = adj. "i", verbo||
+252||X dano Y (datta) dano @ X = sustantivo/adj. "na" en el presento||
+253||X datta dano Y (datta) dano @ X = sustantivo/adj. "na" en el pasado||
+254|Se usa cuando se contemplan dos o más opciones opuestas (es decir, las opciones tienen significados opuestos). Se agrega "no" para expresar incertidumbre. A menudo se utiliza en las conversaciones.|X yara Y yara @ X = sustantivo/adj. "i"||
+255||X no yara Y (na) no yara @ X = verbo/adj. "i"||
+256||X na no yara Y (na) no yara @ X = adj. "na"||
+257|Decir que X.|X da to tsutaeru @ X = sustantivo/adj. "na"||
+258||X to tsutaeru @ X = verbo forma simple/adj. "i"||

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/list_item_dictionary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="2dp"
+    android:paddingEnd="2dp"
+    android:paddingTop="2dp"
+    android:paddingBottom="8dp"
+    android:layout_marginBottom="2dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="start">
+
+    <TextView
+        android:id="@+id/list_item_romaji_and_kanji"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:gravity="start|center_vertical"
+        android:textIsSelectable="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/Kanji"
+        android:textColor="@color/appThemeBlueGreen_colorAccentDark"
+        android:textSize="@dimen/DictionaryGroupItemRomajiKanji"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/list_item_source_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/NoText"
+        android:layout_gravity="start"
+        android:layout_marginStart="2dp"
+        android:textColor="@color/appThemeBlueGreen_textDictionaryChildItemKanji"
+        android:textSize="@dimen/DictionarySubtextSize"
+        app:layout_constraintTop_toBottomOf="@id/list_item_romaji_and_kanji"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="4dp"
+        android:textIsSelectable="true" />
+
+    <TextView
+        android:id="@+id/list_item_meanings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="2dp"
+        android:paddingBottom="4dp"
+        android:gravity="start|center_vertical"
+        android:textColor="@color/appThemeBlueGreen_colorPrimary"
+        android:textSize="@dimen/DictionarySubtextSize"
+        android:text="@string/English"
+        app:layout_constraintTop_toBottomOf="@id/list_item_source_info"
+        app:layout_constraintStart_toStartOf="parent"
+        android:ellipsize="end"
+        android:maxLines="4" />
+
+
+    <LinearLayout
+        android:id="@+id/list_item_child_linearlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:background="@color/appThemeBlueGreen_colorSelectedDictResultBackground"
+        app:layout_constraintTop_toBottomOf="@id/list_item_meanings"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="6dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/list_item_child_romaji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@string/NoText"
+                android:layout_gravity="start"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/appThemeBlueGreen_textDictionaryChildItemRomaji"
+                android:textSize="@dimen/DictionarySubtextSize"
+                android:layout_marginBottom="4dp"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/list_item_child_kanji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@string/NoText"
+                android:layout_gravity="start"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/appThemeBlueGreen_textDictionaryChildItemKanji"
+                android:textSize="@dimen/DictionarySubtextSize"
+                android:layout_marginBottom="4dp"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_item_child_elements_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dropdown_arrow"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/list_item_meanings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/list_item_romaji_and_kanji"
+        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp"
+        android:contentDescription="@string/dropdown_arrow"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

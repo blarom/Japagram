@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name" translatable="false">Japagram</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="EmptyResult" translatable="false"> </string>
+    <string name="NoText" translatable="false"></string>
+    <string name="splashscreen_intro_sentence">Your personal aid for deciphering\nthe Japanese language.</string>
+    <string name="splashscreen_loading_database">Loading Local Database…</string>
+    <string name="splashscreen_should_take_only_a_few_seconds">This should only take a few seconds.</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="hidden_online_search">Don\'t get words and meaningsEN online</string>
+    <string name="shown_online_search">Merge online search results with local results</string>
+    <string name="use_japanese_font_for_asian_characters">Use Japanese font for Asian characters (Chinese characters used in Japanese will be displayed in Japanese font)</string>
+    <string name="wait_for_online_results_off">Display the list immediately when finding results, and refresh it when getting online results.</string>
+    <string name="wait_for_online_results_on">Wait for online results before showing the list</string>
+    <string name="complete_with_conj_search_off">Don\'t check verb conjugations</string>
+    <string name="complete_with_conj_search_on">Add matching verbs after checking conjugations</string>
+    <string name="wait_for_conj_results_off">Display the list immediately when finding results, and refresh it when finding matching verbs through the conjugation search</string>
+    <string name="wait_for_conj_results_on">Wait for matching verbs results before showing the list</string>
+    <string name="show_sources_off">Don\'t show extra information on each word</string>
+    <string name="show_sources_on">Show extra information (source, common status)</string>
+    <string name="show_meanings_EN_off">Don\'t show English meaningsEN in search results</string>
+    <string name="show_meanings_EN_on">Show English meaningsEN in search results</string>
+    <string name="show_meanings_FR_off">Don\'t show French meaningsEN in search results</string>
+    <string name="show_meanings_FR_on">Show French meaningsEN in search results</string>
+    <string name="show_meanings_ES_off">Don\'t show Spanish meaningsEN in search results</string>
+    <string name="show_meanings_ES_on">Show Spanish meaningsEN in search results</string>
+    <string name="hidden_info_boxes">Don\'t show informative popup texts on search</string>
+    <string name="shown_info_boxes">Show informative popup texts on search</string>
+    <string name="hidden_decomp_structure_info">Don\'t show Kanji structure explanation</string>
+    <string name="shown_decomp_structure_info">Show decomposed Kanji structure explanation</string>
+    <string name="pref_complete_local_with_online_search_key" translatable="false">complete_local_with_online_search</string>
+    <string name="pref_use_japanese_font_key" translatable="false">use_japanese_font</string>
+    <string name="pref_wait_for_online_results_key" translatable="false">wait_for_online_results</string>
+    <string name="pref_complete_with_conj_search_key" translatable="false">complete_with_search</string>
+    <string name="pref_wait_for_conj_results_key" translatable="false">wait_for_results</string>
+    <string name="pref_show_sources_key" translatable="false">show_sources</string>
+    <string name="pref_show_meanings_EN_key" translatable="false">show_meanings_EN</string>
+    <string name="pref_show_meanings_FR_key" translatable="false">show_meanings_FR</string>
+    <string name="pref_show_meanings_ES_key" translatable="false">show_meanings_ES</string>
+    <string name="pref_show_info_boxes_on_search_key" translatable="false">show_info_boxes_on_search</string>
+    <string name="pref_show_decomp_structure_info_key" translatable="false">show_decomp_structure_info</string>
+    <string name="pref_show" translatable="false">complete_local_with_online_search</string>
+    <string name="complete_local_with_online_search">Search for words online</string>
+    <string name="use_japanese_font_in_texts">Use Japanese Font in Texts</string>
+    <string name="wait_for_online_results">Wait for online results</string>
+    <string name="complete_with_conj_search">Search verb conjugations</string>
+    <string name="pref_wait_for_conj_results">Wait for matching verbs</string>
+    <string name="pref_show_sources">Show Word Info</string>
+    <string name="pref_show_meanings_EN">Show English Meanings</string>
+    <string name="pref_show_meanings_FR">Show French Meanings</string>
+    <string name="pref_show_meanings_ES">Show Spanish Meanings</string>
+    <string name="show_info_boxes_when_searching">Show Info Boxes On Search</string>
+    <string name="show_decomp_structure_info_text">Show Decomp. Structure Text</string>
+    <string name="language_label_japanese">Japanese</string>
+    <string name="theme_color_label_lightbluegreen">Blue-Green, Light Background</string>
+    <string name="theme_color_label_lightredblack">Red-Black, Light Background</string>
+    <string name="language_label_english">English</string>
+    <string name="language_label_french">French</string>
+    <string name="language_label_spanish">Spanish</string>
+    <string name="pref_app_theme_color_key" translatable="false">app_theme_color</string>
+    <string name="pref_app_language_key" translatable="false">app_language</string>
+    <string name="pref_app_theme_color">Color Theme</string>
+    <string name="pref_app_language">App Language</string>
+    <string name="pref_theme_colors_value_lightbluegreen" translatable="false">lightbluegreen</string>
+    <string name="pref_theme_colors_value_lightredblack" translatable="false">lightredblack</string>
+    <string name="pref_language_value_japanese" translatable="false">japanese</string>
+    <string name="pref_theme_color_value_lightbluegreen" translatable="false">lightbluegreen</string>
+    <string name="pref_theme_color_value_lightredblack" translatable="false">lightredblack</string>
+    <string name="pref_language_value_english" translatable="false">english</string>
+    <string name="pref_language_value_french" translatable="false">french</string>
+    <string name="pref_language_value_spanish" translatable="false">spanish</string>
+    <string name="pref_preferred_STT_language">Speech-To-Text Language</string>
+    <string name="pref_preferred_STT_language_key" translatable="false">preferred_STT_result</string>
+    <string name="pref_preferred_STT_language_japanese" translatable="false">preferred_STT_language_japanese</string>
+    <string name="pref_preferred_TTS_language">Text-To-Speech Language</string>
+    <string name="pref_preferred_TTS_language_key" translatable="false">preferred_TTS_result</string>
+    <string name="pref_preferred_TTS_language_japanese" translatable="false">preferred_TTS_language_japanese</string>
+    <string name="pref_preferred_OCR_language">Recognition Engine Language</string>
+    <string name="pref_preferred_OCR_language_key" translatable="false">preferred_OCR_result</string>
+    <string name="pref_preferred_OCR_language_japanese" translatable="false">preferred_OCR_language_japanese</string>
+    <string name="pref_OCR_image_contrast_key" translatable="false">pref_OCR_image_contrast_key</string>
+    <string name="pref_OCR_image_contrast_title">Initial Contrast</string>
+    <string name="pref_OCR_image_contrast_min_display_value" translatable="false">0</string>
+    <string name="pref_OCR_image_contrast_max_display_value" translatable="false">10</string>
+    <string name="pref_OCR_image_contrast_summary" translatable="false">Value: 3</string>
+    <string name="pref_OCR_image_contrast_default_value" translatable="false">3</string>
+    <string name="pref_OCR_image_contrast_min_value" translatable="false">0</string>
+    <string name="pref_OCR_image_contrast_max_value" translatable="false">10</string>
+    <string name="pref_OCR_image_contrast_range" translatable="false">100</string>
+    <string name="pref_OCR_image_contrast_interval" translatable="false">0.1</string>
+    <string name="pref_OCR_image_saturation_key" translatable="false">pref_OCR_image_saturation_key</string>
+    <string name="pref_OCR_image_saturation_title">Initial Saturation</string>
+    <string name="pref_OCR_image_saturation_min_display_value" translatable="false">0</string>
+    <string name="pref_OCR_image_saturation_max_display_value" translatable="false">3</string>
+    <string name="pref_OCR_image_saturation_summary">Value: 0</string>
+    <string name="pref_OCR_image_saturation_default_value" translatable="false">0</string>
+    <string name="pref_OCR_image_saturation_min_value" translatable="false">0</string>
+    <string name="pref_OCR_image_saturation_max_value" translatable="false">512</string>
+    <string name="pref_OCR_image_saturation_range" translatable="false">512</string>
+    <string name="pref_OCR_image_saturation_interval" translatable="false">1</string>
+    <string name="pref_OCR_image_saturation_multipliers" translatable="false">3</string>
+    <string name="pref_OCR_image_brightness_key" translatable="false">pref_OCR_image_brightness_key</string>
+    <string name="pref_OCR_image_brightness_title">Initial Brightness</string>
+    <string name="pref_OCR_image_brightness_min_display_value" translatable="false">-1</string>
+    <string name="pref_OCR_image_brightness_max_display_value" translatable="false">1</string>
+    <string name="pref_OCR_image_brightness_summary">Value: 0</string>
+    <string name="pref_OCR_image_brightness_default_value" translatable="false">0</string>
+    <string name="pref_OCR_image_brightness_min_value" translatable="false">-256</string>
+    <string name="pref_OCR_image_brightness_max_value" translatable="false">256</string>
+    <string name="pref_OCR_image_brightness_range" translatable="false">512</string>
+    <string name="pref_OCR_image_brightness_interval" translatable="false">1</string>
+    <string name="pref_query_history_size_key" translatable="false">pref_query_history_size_key</string>
+    <string name="pref_query_history_size_title">Search History Size</string>
+    <string name="pref_query_history_size_min_display_value" translatable="false">0</string>
+    <string name="pref_query_history_size_max_display_value" translatable="false">200</string>
+    <string name="pref_query_history_size_summary">Number of words in history: 20</string>
+    <string name="pref_query_history_size_default_value" translatable="false">70</string>
+    <string name="pref_query_history_size_min_value" translatable="false">0</string>
+    <string name="pref_query_history_size_max_value" translatable="false">200</string>
+    <string name="input_query">Search Me!</string>
+    <string name="DICT">DICT</string>
+    <string name="CONJ">CONJ</string>
+    <string name="Convert">あ⇔A</string>
+    <string name="button_SearchByRadical">女+子 ⇒ 好</string>
+    <string name="button_Decompose">好 ⇒ 女+子</string>
+    <string name="SpeechToTextUserPromptEnglish">Please state your query in English.</string>
+    <string name="SpeechToTextUserPromptFrench">Please state your query in French.</string>
+    <string name="SpeechToTextUserPromptSpanish">Please state your query in Spanish.</string>
+    <string name="SpeechToTextUserPromptJapanese">Please state your query in Japanese.</string>
+    <string name="languageLocaleJapanese" translatable="false">ja_JP</string>
+    <string name="languageLocaleEnglishUS" translatable="false">en-US</string>
+    <string name="languageLocaleFrench" translatable="false">fr_FR</string>
+    <string name="languageLocaleSpanish" translatable="false">es_ES</string>
+    <string name="TextToSpeechLanguageJapanese" translatable="false">jpn</string>
+    <string name="TextToSpeechLanguageEnglish" translatable="false">eng</string>
+    <string name="OCRDialogTitle">Select text to copy to input</string>
+    <string name="LowVersionDialogMessage">Your Android version is too low</string>
+    <string name="cancel">Cancel</string>
+    <string name="readjust">Retouch</string>
+    <string name="OCR_image" translatable="false">OCR_image</string>
+    <string name="OCR_failed">OCR engine initialization failed.</string>
+    <string name="OCR_reinitializing">OCR engine was not initialized. Trying again </string>
+    <string name="OCR_waitWhileProcessing">Wait while processing </string>
+    <string name="OCR_waitWhileProcessingExplanation">A long processing time may mean the OCR engine is having trouble deciphering the
+        image and will result in random OCR text. In such case you should try using a better picture.</string>
+    <string name="OCR_downloading">Please wait until the OCR data finishes downloading.</string>
+    <string name="OCR_copy_data">Successfully installed data from Downloads Folder.</string>
+    <string name="processing">Please wait, performing OCR </string>
+    <string name="OCRinstructions">Please select and crop your text.
+        For best results, select a FEW symbols/words occupying a large area in a clear picture. Otherwise the OCR engine may not work properly.</string>
+    <string name="getTextThroughSpeech">Speak words</string>
+    <string name="getTextThroughCamera">Optical character recognition</string>
+    <string name="speakQuery">Hear user query</string>
+    <string name="requestingDictSearch" translatable="false">requestingDictSearch</string>
+    <string name="preferences_query_history_list" translatable="false">query_history_key</string>
+    <string name="copiedTextToClipboard">Copied text to clipboard</string>
+    <string name="STTACtivityNotFound">Sorry, it appears your phone does not have Speech-To-Text functionality. Redirecting to relevant resources </string>
+    <string name="DownloadDialogTitle">Download OCR data files.</string>
+    <string name="DownloadDialogMessageJPN">Please select how you want to download the required Japanese Optical Character Recognition data (approx. 40MB).</string>
+    <string name="DownloadDialogMessageENG">Please select how you want to download the required English Optical Character Recognition data (approx. 20MB).</string>
+    <string name="DownloadDialogMessageFRA">Please select how you want to download the required French Optical Character Recognition data (approx. 20MB).</string>
+    <string name="DownloadDialogMessageSPA">Please select how you want to download the required Spanish Optical Character Recognition data (approx. 20MB).</string>
+    <string name="DownloadDialogWifiOnly">WiFi only</string>
+    <string name="DownloadDialogWifiAndMobile">Anytime</string>
+    <string name="no_match_found">Not found in local dictionary. Searching in other sources </string>
+    <string name="please_enter_word">
+        <![CDATA[
+        <b>Please enter a valid word.</b>
+        \n\n<br/><br/>Complete words will yield the best results, but word fragments will also do.
+        \n\n<br/><br/>You can enter words in English, Romaji, Hiragana, Katakana or Kanji.
+        \n\n<br/><br/>Also note that this app uses a variation of Kunrei-Shiki romanization where all kana homophones are transliterated to unique Romaji forms, thereby allowing for unambiguous transliterations.
+        ]]>
+    </string>
+    <string name="show_examples">Examples: (&gt;show)</string>
+    <string name="HideExamples">Examples: (&gt;hide)</string>
+    <string name="how_it_s_used_">Grammar rule:\u0020</string>
+    <string name="English">English</string>
+    <string name="Romaji">Romaji</string>
+    <string name="Kanji">Kanji</string>
+    <string name="verbHint"><b>Please enter a valid verb conjugation.</b>
+        \n\n<b>In order to keep the search time reasonable, not all verb tenses are included. As such, please observe the following rules:</b>
+        \n\nWhen looking up less common conjugations (e.g. tabesaseta), you may have to convert the verb to present tense (tabesaseru).
+        \n\nIf you\'re searching for a compound verb (e.g. tabete ikimasu), you must first convert the second verb to its dictionary form (tabete iku).
+        \n\nIf you\'re searching for a verb addition (e.g. taberu bakari), use the &lt;DICT&gt; search on \"bakari\" to look up the corresponding grammar rule.
+        \n\nThe &lt;DICT&gt; search also covers alternate Romaji or Kanji spellings for a variety of verbs (in dictionary form).
+        The &lt;CONJ&gt; search looks up conjugations for the most common Romaji spelling and Kanji interpretation of each verb.
+    </string>
+    <string name="_where_">\u0020where:\u0020</string>
+    <string name="PleaseEnterJapVerb">Please enter a Japanese verb.</string>
+    <string name="CanEnterEngVerb">You can also enter an English/French/Spanish verb in infinitive form.</string>
+    <string name="SeeHints">Check the rules below for hints.</string>
+    <string name="Conversion">Transliteration: </string>
+    <string name="ConversionLatin">Romaji:</string>
+    <string name="ConversionHiragana">Hiragana: </string>
+    <string name="ConversionKatakana">Katakana: </string>
+    <string name="EnterWord">Please enter a word.</string>
+    <string name="TransliteratorHint">
+        \n<b>Hint</b>
+        \nUse an apostrophe (\') after \"n\" to ensure its transliteration to \"ん\".
+        \n\nAlso note that this app uses a variation of Kunrei-Shiki romanization where all kana homophones are transliterated to unique Romaji forms, thereby allowing for unambiguous transliterations.</string>
+    <string name="DecompositionsHint">
+        \n<b>Hint</b>
+        \nEnter a Kanji into the Search bar and click on the decomposition (好 ⇒ 女+子) button in order to get its decompositions.
+        \n\nThe decompositions are evaluated using a heavily modified and corrected version of Gavin Grover\'s decomposition database (see cjkdecomp.codeplex.com). </string>
+    <string name="DONE">DONE</string>
+    <string name="AboutTextIntro1">
+        Japanese Toolbox is an app created by a Japanese learner for Japanese learners.
+    </string>
+    <string name="AboutTextIntro2">
+        The app is designed to help you manually decipher texts in intermediate to advanced Japanese,
+        allowing you to understand the meaningsEN and components of every word or phrase you read at a faster pace than what other translation tools can offer.
+    </string>
+    <string name="AboutTextIntro3">
+        The app does not depend on an Internet connection, so you can use it whenever and wherever you want.
+    </string>
+    <string name="AboutTextButtonsTitle">
+        Explanations on the tools:
+    </string>
+    <string name="AboutTextButtonsDictTitle">DICT</string>
+    <string name="AboutTextButtonsDictParagraph1">
+        A local dictionary of Japanese words, expressions and grammar rules.
+    </string>
+    <string name="AboutTextButtonsDictParagraph2">
+        Better than most online reference tools, you can find explanations on any grammar rule just by entering a relevant keyword, even partially.
+    </string>
+    <string name="AboutTextButtonsDictParagraph3">
+        I manually expanded the dictionary over the years with extra meaningsEN and alternate word forms, so you will find words that many online dictionaries fail to find.
+    </string>
+    <string name="AboutTextButtonsDictParagraph4">
+        If there is Internet access then online results are added (you can change this in the Settings menu).
+    </string>
+    <string name="AboutTextButtonsConjTitle">CONJ</string>
+    <string name="AboutTextButtonsConjParagraph1">
+        A verb conjugator with more than 140 conjugations for more than 2000 regular verbs and more than 3400 suru verbs.
+    </string>
+    <string name="AboutTextButtonsConjParagraph2">
+        If you search for a conjugated verb (in Romaji, Kana or Kanji form) with this function, a unique reverse-search engine
+        will find all possible matching verbs and give the relevant conjugation\'s meaning.
+    </string>
+    <string name="AboutTextButtonsConvertTitle">あ⇔A</string>
+    <string name="AboutTextButtonsConvertParagraph1">
+        A Romaji-Hiragana-Katakana text converter.
+    </string>
+    <string name="AboutTextButtonsConvertParagraph2">
+        Though there are various ways of transliterating Kana syllables to Romaji and back,
+        I chose the way that will feel most intuitive to Western learners and is compatible with most modern conventions.
+    </string>
+    <string name="AboutTextButtonsSearchByRadicalTitle">女+子 ⇒ 好</string>
+    <string name="AboutTextButtonsSearchByRadicalParagraph1">
+        Find any Kanji based on up to 4 radicals/components or by identifying its general structure. You can find components by selecting one of the 214 radicals
+        or their common variants, or by searching a list of common Kanji components (ordered by popularity). You can also filter the results by entering the wanted
+        reading, meaning or radical number.
+    </string>
+    <string name="AboutTextButtonsSearchByRadicalParagraph2">
+        The search engine is way better than what you\'ll find online, since I manually inspected and corrected the original components database that online sites rely on.
+    </string>
+    <string name="AboutTextButtonsSearchByRadicalParagraph3">
+        Note that users of older Android versions may experience extra \"blank symbols\" instead of Japanese characters, that can\'t be filtered out.
+    </string>
+    <string name="AboutTextButtonsDecomposeTitle">好 ⇒ 女+子</string>
+    <string name="AboutTextButtonsDecomposeParagraph1">
+        Get the meaningsEN and readings of all of the components in a given Kanji, recursively.
+    </string>
+    <string name="AboutTextButtonsDecomposeParagraph2">
+        Very useful if you want ot understand Kanjis through their radicals.
+    </string>
+    <string name="AboutTextButtonsSpeakerTitle">Speaker</string>
+    <string name="AboutTextButtonsSpeakerParagraph1">
+        A Text-To-Speech function so that you may listen to your query in English or in Japanese.
+    </string>
+    <string name="AboutTextButtonsSpeakerParagraph2">
+        You can choose the speech language in the Settings menu.
+    </string>
+    <string name="AboutTextButtonsCameraTitle">Camera</string>
+    <string name="AboutTextButtonsCameraParagraph1">
+        Convert Japanese or English words to searchable text by taking a picture or using an image in your device. This function works offline.
+    </string>
+    <string name="AboutTextButtonsCameraParagraph2">
+        You can choose the text recognition language and initial image saturation/contrast/brightness in the Settings menu.
+    </string>
+    <string name="AboutTextButtonsMicrophoneTitle">Microphone</string>
+    <string name="AboutTextButtonsMicrophoneParagraph1">
+        A Speech-To-Text function for Japanese or English speech.
+    </string>
+    <string name="AboutTextButtonsMicrophoneParagraph2">
+        You can choose the speech recognition language in the Settings menu.
+    </string>
+    <string name="AboutTextPersonalTitle">Personal Note</string>
+    <string name="AboutTextPersonalParagraph1">
+        If you have any comments or encountered a bug, you\'re welcome to post them at japagram@gmail.com.
+    </string>
+    <string name="AboutTextPersonalParagraph2">
+        I built JapaneseToolbox on my spare time out of love for the Japanese language and to help people learn Japanese faster. The app will always remain
+        FREE and ad-less, and no information you entered in the app is in any way used for purposes other than the services provided in the app.
+    </string>
+    <string name="AboutTextPersonalParagraph3">
+        The source code for the project is freely available at https://github.com/blarom/JapaneseToolbox. You
+        can copy the code to your heart\'s content! I encourage the free sharing of knowledge, and if you want to build an app with similar functions,
+        you\'re more than welcome to do so. Just don\'t forget to credit me, I spent a lot of time developing these tools :)
+    </string>
+    <string name="AboutTextCreditsTitle">
+        Credits - Part of the app\'s tools are based on following:
+    </string>
+    <string name="AboutTextCreditsCodeTitle">Code Sources</string>
+    <string name="AboutTextCreditsCodeParagraph1">
+        The OCR engine is provided by the Tesseract open-source project (supported by Google).
+    </string>
+    <string name="AboutTextCreditsCodeParagraph2">
+        The Text-To-Speech and Speech-To-Text functions are based on Google APIs.
+    </string>
+    <string name="AboutTextCreditsCodeParagraph3">
+        Picture manipulation is provided by the ArthurHub library (https://github.com/ArthurHub/Android-Image-Cropper).
+    </string>
+    <string name="AboutTextCreditsCodeParagraph4">
+        Image sharpening is provided by Pete Houston\'s algorithm (https://xjaphx.wordpress.com/2011/06/22/image-processing-sharpening-image/).
+    </string>
+    <string name="AboutTextCreditsDatabasesTitle">Database Sources</string>
+    <string name="AboutTextCreditsDatabasesParagraph1">
+        The CJK character decompositions database is originally based on the cjkdecomp database by Gavin Grover (https://github.com/amake/cjk-decomp - see disclaimer*),
+        which I heavily modified and corrected.
+    </string>
+    <string name="AboutTextCreditsDatabasesParagraph2">
+        The local dictionary is a reduced form of the open-source EDICT dictionary, which I modified and manually upgraded to suit the app\'s needs.
+        Some other sources were used, including wiktionary.org for updating the suru verb meaningsEN.
+    </string>
+    <string name="AboutTextDisclaimer1">
+        *disclaimer for cjkdecomp:\nCopyright 2017 Gavin Grover\nLicensed under the Apache License,
+        Version 2.0 (the \"License\"); you may not use this database except in compliance with the License.\nYou may
+        obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0\nUnless required by applicable
+        law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and limitations under the License.
+    </string>
+    <string name="AboutTextDisclaimer2">
+        *disclaimer for EDICT Japanese dictionary:\nThis package uses a modified subset of the EDICT, JMDICT and KANJIDIC dictionary files. These files are the property of
+        the Electronic Dictionary Research and Development Group, and are used in conformance with the Group\'s licence;
+        See http://www.csse.monash.edu.au/~jwb/edict.html and http://www.edrdg.org/.
+    </string>
+    <string name="ok">OK</string>
+    <string name="ocr_header">Click \"Detect Text\" to detect text</string>
+    <string name="read_text">Detect Text</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+    <string name="ocr_success">Text read successfully</string>
+    <string name="ocr_failure">No text captured</string>
+    <string name="ocr_error">Error reading text: %1$s</string>
+    <string name="ocrOutputSharedPrefs" translatable="false">ocrOutputSharedPrefs</string>
+    <string name="ocrOutputSharedPrefsString" translatable="false">ocrOutputSharedPrefsString</string>
+    <string name="jisho_website_url" translatable="false">https://jisho.org/search/</string>
+    <string name="requested_second_fragment" translatable="false">requested_second_fragment</string>
+    <string name="user_query_word" translatable="false">user_query_word</string>
+    <string name="sorry_only_have_first_part">Sorry, you only have\u0020</string>
+    <string name="sorry_only_have_second_part">MB left in internal memory and can\'t install the OCR data. Please clear some app data and try again.</string>
+    <string name="downloading_ocr_data_first_part">Downloading the\u0020</string>
+    <string name="downloading_ocr_data_second_part">OCR data on Wifi only.</string>
+    <string name="attempting_download_first_part">Attempting to download the\u0020</string>
+    <string name="attempting_download_second_part">OCR data. Please wait.</string>
+    <string name="failed_to_connect_to_internet">Failed to connect to the Internet.</string>
+    <string name="saved_local_results" translatable="false">saved_local_results</string>
+    <string name="saved_merged_results" translatable="false">saved_merged_results</string>
+    <string name="saved_input_query" translatable="false">saved_input_query</string>
+    <string name="search_by_radical_fragment_instance" translatable="false">search_by_radical_fragment_instance</string>
+    <string name="saved_ocr_result_state" translatable="false">saved_ocr_result_state</string>
+    <string name="saved_romaji_from_kanji_state" translatable="false">saved_romaji_from_kanji_state</string>
+    <string name="dict_fragment" translatable="false">saved_dict_fragment</string>
+    <string name="conj_fragment" translatable="false">saved_fragment</string>
+    <string name="conv_fragment" translatable="false">saved_conv_fragment</string>
+    <string name="srad_fragment" translatable="false">saved_srad_fragment</string>
+    <string name="dcmp_fragment" translatable="false">saved_dcmp_fragment</string>
+    <string name="displayed_second_fragment" translatable="false">displayed_second_fragment</string>
+    <string name="legend_database" translatable="false">legend_database</string>
+    <string name="latin_conj_database" translatable="false">latin_database</string>
+    <string name="kanji_conj_database" translatable="false">kanji_database</string>
+    <string name="rad_only_database" translatable="false">rad_only_database</string>
+    <string name="words_list" translatable="false">words_list</string>
+    <string name="search_by_radical_elements_list" translatable="false">search_by_radical_elements_list</string>
+    <string name="decomposition_query" translatable="false">decomposition_query</string>
+    <string name="decomposition_radical_iteration" translatable="false">decomposition_radical_iteration</string>
+    <string name="database_finished_loading_flag" translatable="false">database_finished_loading_flag</string>
+    <string name="app_preferences" translatable="false">app_preferences</string>
+    <string name="loading_central_database">Installing the central words database.\n~ May take up to one minute ~</string>
+    <string name="loading_extended_database">Finished installing the central database.\nCurrently installing the Extended database.\n~ May take up to 3-5 minutes ~</string>
+    <string name="loading_kanji_database">Finished installing the central database.\nCurrently installing the Kanji database.\n~ May take up to 3-5 minutes ~</string>
+    <string name="finished_loading_databases">Finished loading the databases.</string>
+    <string name="word_and_verb_database_finished_loading_flag" translatable="false">word_and_verb_database_finished_loading_flag</string>
+    <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>
+    <string name="database_being_installed">The database is currently being installed.\nThis may take a few minutes.\nThis delay only occurs when installing or upgrading the app.</string>
+    <string name="sure_you_want_to_exit">Are you sure you want to exit the app?</string>
+    <string name="yes">Yes</string>
+    <string name="no_matching_words_online">No matching words found online.</string>
+    <string name="no_new_words_or_meanings_found_online">No new words or meaningsEN found online.</string>
+    <string name="structure_">Structure:\u0020</string>
+    <string name="properties_">Properties:\u0020</string>
+    <string name="this_component_is_a_CJK_character">This component is a CJK Character.</string>
+    <string name="search_for_radical_search_too_broad">Your search is too broad. Please select another structure or select Kanji elements to narrow the search.</string>
+    <string name="search_by_radical_no_results_found">No results found for your selections.</string>
+    <string name="similars_database" translatable="false">similars_database</string>
+    <string name="copy_to_input">Copy to input</string>
+    <string name="clear_search_history">Clear Search History</string>
+    <string name="image_adjustment_hint">The original image has saturation 1.0 (normal colors), contrast 1.0 and brightness 0.
+        \nOptimal values for character recognition are around saturation 0 (grayscale), contrast 3.0 and brightness -0.5.
+        These are the default settings, but feel free to change them to make the image as clear as possible.
+        You can adjust these defaults in the Settings menu.</string>
+    <string name="pref_invalid_input_default_set">Invalid input, default value set instead.</string>
+    <string name="pref_cannot_set_value_outside_range">You cannot set a value outside of the range</string>
+    <string name="search_any_property_">property/name/etc..</string>
+    <string name="component_is_used_to_create_this_substructure">Component is used to create this substructure:</string>
+    <string name="filter_list">Filter List</string>
+    <string name="send_to_input">Send to input</string>
+    <string name="send_to_element">Send to element</string>
+    <string name="dropdown_arrow">dropdown arrow</string>
+    <string name="decomposition_kanji_list_index" translatable="false">decomposition_kanji_list_index</string>
+    <string name="done">Done</string>
+    <string name="ocr_results_dialog_instructions">Manually select the text you want to copy then press \"Copy To Input\". If no text is selected, the first line of text is copied.</string>
+    <string name="common_word">Common word.</string>
+    <string name="less_common_word">Non-common word.</string>
+    <string name="source_local_offline">Source: local.</string>
+    <string name="source_edict_online">Source: EDICT (online).</string>
+    <string name="ocr">OCR</string>
+    <string name="saturation">Saturation</string>
+    <string name="contrast">Contrast</string>
+    <string name="brightness">Brightness</string>
+    <string name="requested_structure">Requested structure:</string>
+    <string name="down_arrow">down arrow</string>
+    <string name="elements_">Elements:</string>
+    <string name="select_radical">Select Radical</string>
+    <string name="select_component">Select Component</string>
+    <string name="select_overall_kanji_structure">Select Overall Kanji structure:</string>
+    <string name="find_the_kanji">Find the Kanji!</string>
+    <string name="select_the_component">Select the Component</string>
+    <string name="results">Results</string>
+    <string name="structure">Structure:</string>
+    <string name="radical_">Radical:</string>
+    <string name="on_reading">On reading: </string>
+    <string name="name_reading">Name reading:</string>
+    <string name="kun_reading">Kun reading: </string>
+    <string name="meaning">Meaning:</string>
+    <string name="remove_decomposition">remove decomposition</string>
+    <string name="image">image</string>
+    <string name="contrast_">Contrast:\u0020</string>
+    <string name="saturation_">Saturation:\u0020</string>
+    <string name="brightness_">Brightness:\u0020</string>
+    <string name="select_the_radical">Select the Radical</string>
+    <string name="hyphen" translatable="false">-</string>
+    <string name="vertical_separator" translatable="false">|</string>
+    <string name="kanji_structure">kanji structure</string>
+    <string name="no_elements_found">No Elements Found.</string>
+    <string name="general">General</string>
+    <string name="search">Search</string>
+    <string name="languages">Languages</string>
+    <string name="speech">Speech</string>
+    <string name="optical_character_recognition">Optical Character Recognition</string>
+    <string name="decomposition">Decomposition</string>
+    <string name="verb">verb</string>
+    <string name="from_alt_form">From alt. form</string>
+    <string name="from_alt_form_containing">From alt. form containing</string>
+    <string name="from_conjugated_form">From conjugated form</string>
+    <string name="from_associated_word">From associated word</string>
+    <string name="derived_from">Derived from</string>
+    <string name="unavailable_select_word_to_see_meanings">unavailable, select word to see english meaningsEN</string>
+    <string name="unavailable">unavailable</string>
+    <string name="meanings_in">Meanings in</string>
+    <string name="value_">Value:\u0020</string>
+
+    <string name="verb_TitleBasics">Basics</string>
+    <string name="verb_Basics1">Family</string>
+    <string name="verb_Basics2">English</string>
+    <string name="verb_Basics3">T/I</string>
+    <string name="verb_Basics4">Prep</string>
+    <string name="verb_Basics5">Kana</string>
+    <string name="verb_Basics6">Kanji</string>
+    <string name="verb_Basics7">u-stem</string>
+    <string name="verb_Basics8">Kanji Root</string>
+    <string name="verb_Basics9">Romaji Root</string>
+    <string name="verb_Basics10">i-stem</string>
+    <string name="verb_Basics11">a-stem</string>
+    <string name="verb_Basics12">o-stem</string>
+    <string name="verb_Basics13">e-stem</string>
+    <string name="verb_Basics14">te-stem</string>
+    <string name="verb_Basics15">ta-stem</string>
+    <string name="verb_Basics16">masu-stem</string>
+
+    <string name="verb_TitleSimpleForm">Simple Form (He does/is X)</string>
+    <string name="verb_TitleProgressive">Progressive (He is doing X) or state of being (it is X, e.g. it is open)</string>
+    <string name="verb_TitlePoliteness">Other Politeness Levels</string>
+    <string name="verb_TitleRequest">Request (He is asked to do/be X)</string>
+    <string name="verb_TitleImperative">Imperative (You are ordered to do/be X)</string>
+    <string name="verb_TitleDesire">Desire (He wants to do/be X)</string>
+    <string name="verb_TitleProvisional">Provisional / Conditional (If he does/is X)</string>
+    <string name="verb_TitleVolitional">Volitional (He should/intends to do/be X)</string>
+    <string name="verb_TitleObligation">Obligation (He must/is obliged to do/be X)</string>
+    <string name="verb_TitlePresumptive">Presumptive (He probably does/is X)</string>
+    <string name="verb_TitleAlternative">Alternative (He does/is X, amongst other things)</string>
+    <string name="verb_TitleCausativeA">Causative Active (He makes him do/be X)</string>
+    <string name="verb_TitleCausativePv">Causative Passive (He is made to do/be X)</string>
+    <string name="verb_TitlePassive">Passive (X is done to him), also Humble Form</string>
+    <string name="verb_TitlePotential">Potential (He can do/be X)</string>
+    <string name="verb_TitleContinuative">Continuative (He does/is X and …)</string>
+    <string name="verb_TitleCompulsion">Compulsion (He needs to do/be X)</string>
+    <string name="verb_TitleGerund">Gerund (A/an X-ing)</string>
+
+    <string name="verb_PPr">Plain Pres.</string>
+    <string name="verb_PPs">Plain Past</string>
+    <string name="verb_PPrN">Plain Pres. Neg.</string>
+    <string name="verb_PPsN">Plain Past Neg.</string>
+    <string name="verb_PlPr">Polite Pres.</string>
+    <string name="verb_PlPs">Polite Past</string>
+    <string name="verb_PlPrN">Polite Pres. Neg.</string>
+    <string name="verb_PlPsN">Polite Past Neg.</string>
+    <string name="verb_PPrA">Plain Pres. (adjunct)</string>
+    <string name="verb_ClPr">Colloquial Pres.</string>
+    <string name="verb_ClPrA">Colloquial Pres. (adjunct)</string>
+    <string name="verb_ClPrN">Colloquial Pres. Neg.</string>
+    <string name="verb_LPl">Less Polite</string>
+    <string name="verb_Hn1">Honorific 1</string>
+    <string name="verb_Hn2">Honorific 2</string>
+    <string name="verb_Hm1">Humble 2</string>
+    <string name="verb_Hm2">Humble 2</string>
+    <string name="verb_Pl1">Polite 1</string>
+    <string name="verb_Pl2">Polite 2</string>
+    <string name="verb_PlN">Polite Neg.</string>
+    <string name="verb_Hn">Honorific</string>
+    <string name="verb_HnN">Honorific Neg.</string>
+    <string name="verb_PPrV">Plain Pres. Verbal</string>
+    <string name="verb_PPrL">Plain Pres. Literary</string>
+    <string name="verb_Pr3rdPO">Pres. 3rd person only</string>
+    <string name="verb_Pba">Plain (ba)</string>
+    <string name="verb_ClN">Colloquial Neg.</string>
+    <string name="verb_PNba">Plain Neg. (ba)</string>
+    <string name="verb_Plba">Polite (ba)</string>
+    <string name="verb_PlNba">Polite Neg. (ba)</string>
+    <string name="verb_Ptara">Plain (tara)</string>
+    <string name="verb_PNtara">Plain Neg. (tara)</string>
+    <string name="verb_Pltara">Polite (tara)</string>
+    <string name="verb_PlNtara">Polite Neg. (tara)</string>
+    <string name="verb_IIWTS">If I want to say</string>
+    <string name="verb_P">Plain</string>
+    <string name="verb_Ps">Past</string>
+    <string name="verb_PN">Plain Neg.</string>
+    <string name="verb_PPg">Plain Progressive</string>
+    <string name="verb_Pl">Polite</string>
+    <string name="verb_PPr1">Plain Pres. 1</string>
+    <string name="verb_PPr2">Plain Pres. 2</string>
+    <string name="verb_PPrN1">Plain Pres. Neg. 1</string>
+    <string name="verb_PPrN2">Plain Pres. Neg. 2</string>
+    <string name="verb_PPrN3">Plain Pres. Neg. 3</string>
+    <string name="verb_PlPr1">Polite Pres. 1</string>
+    <string name="verb_PlPr2">Polite Pres. 2</string>
+    <string name="verb_PlPrN1">Polite Pres. Neg. 1</string>
+    <string name="verb_PlPrN2">Polite Pres. Neg. 2</string>
+    <string name="verb_PlPrN3">Polite Pres. Neg. 3</string>
+    <string name="verb_A">Affirmative</string>
+    <string name="verb_N">Negative</string>
+    <string name="verb_APg">Aff. Progressive</string>
+    <string name="verb_NPg">Neg. Progressive</string>
+    <string name="verb_PvPg">Passive Progressive</string>
+    <string name="verb_PsPg">Past Progressive</string>
+    <string name="verb_teform">te-form</string>
+
+    <string name="verb_TitleteformCmp">te-form Compound Verbs</string>
+    <string name="verb_teformCmp1">He does/is X while giving (1)</string>
+    <string name="verb_teformCmp2">He does/is X while giving (2)</string>
+    <string name="verb_teformCmp3">He does/is X while receiving (as a favor)</string>
+    <string name="verb_teformCmp4">He does/is X in passing</string>
+    <string name="verb_teformCmp5">He\'s doing/being X in advance</string>
+    <string name="verb_teformCmp6">He\'s prepared to do/be X (Colloquial)</string>
+    <string name="verb_teformCmp7">He\'s done doing/being X</string>
+    <string name="verb_teformCmp8">He\'s done doing/being X (Colloquial)</string>
+    <string name="verb_teformCmp9">He does/is X and regrets it</string>
+    <string name="verb_teformCmp10">He does/is X and regrets it (Colloquial)</string>
+    <string name="verb_teformCmp11">Try to do/be X and you’ll see</string>
+    <string name="verb_teformCmp12">He makes an X-ing</string>
+    <string name="verb_teformCmp13">It has (already) been X-ed (e.g. open)</string>
+    <string name="verb_teformCmp14">It has come to be that he does/is X</string>
+
+    <string name="verb_TitleteformConj">te + Misc. Conjunctives</string>
+    <string name="verb_teformConj1">Do me a favor and do/be X</string>
+    <string name="verb_teformConj2">It’s alright that he does/is X</string>
+    <string name="verb_teformConj3">I don’t care that he does/is X</string>
+    <string name="verb_teformConj4">It’s alright that he doesn\'t do/is not X</string>
+
+    <string name="verb_TitleSFConj">Simple Form Plain + Misc. Conjunctives</string>
+    <string name="verb_SFConj1">He does/is X (emphasis)</string>
+    <string name="verb_SFConj2">He does/is X (emphasis, formal)</string>
+    <string name="verb_SFConj3">He does/is X (emphasis, polite)</string>
+    <string name="verb_SFConj4">He does/is X (emphasis, formal polite)</string>
+
+    <string name="verb_TitlemasuCmp">masu stem + Compound Verbs</string>
+    <string name="verb_masuCmp1">He does/is X too much</string>
+    <string name="verb_masuCmp2">He does/is X too much (noun phrase)</string>
+    <string name="verb_masuCmp3">We do X to each other</string>
+    <string name="verb_masuCmp4">He starts doing/being X</string>
+    <string name="verb_masuCmp5">He starts doing/being X</string>
+    <string name="verb_masuCmp6">He does/is X again</string>
+    <string name="verb_masuCmp7">He\'s late in doing/being X</string>
+    <string name="verb_masuCmp8">He finishes doing/being X</string>
+    <string name="verb_masuCmp9">He forgets to do/be X</string>
+    <string name="verb_masuCmp10">He does/is X (vulgar - denotes hatred/contempt)</string>
+    <string name="verb_masuCmp11">He is unable/finds it difficult to do/be X</string>
+    <string name="verb_masuCmp12">He completes doing/being X</string>
+    <string name="verb_masuCmp13">Do/be X (imperative)</string>
+
+    <string name="verb_TitleStemMisc">Stem + Misc. Attributes</string>
+    <string name="verb_StemMisc1">He does [action] in order to do/be X</string>
+    <string name="verb_StemMisc2">While doing/being X</string>
+    <string name="verb_StemMisc3">It seems that he doesn\'t do/is not X</string>
+    <string name="verb_StemMisc4">He continues doing/being X</string>
+    <string name="verb_StemMisc5">The way he does/is X</string>
+    <string name="verb_StemMisc6">It is hard to do/be X</string>
+    <string name="verb_StemMisc7">It is easy to do/be X</string>
+    <string name="verb_StemMisc8">He stops in the midst of doing/being X</string>
+    <string name="verb_StemMisc9">He does/is X (very vulgar - denotes hatred/contempt)</string>
+
+    <string name="verb_TitleArch">Archaic</string>
+    <string name="verb_Arch1">Plain Pres. Neg. (equiv. to \"nai\")</string>
+    <string name="verb_Arch2">To [verb] without doing/being X</string>
+    <string name="verb_Arch3">Plain Pres. Neg. (equiv. to \"nai\")</string>
+    <string name="verb_Arch4">Compelled to do/be X</string>
+
+
+    <string name="trans_">trans.</string>
+    <string name="intrans_">intrans.</string>
+    <string name="trans_intrans_">trans./intrans.</string>
+    <string name="antonyms_">Antonyms:</string>
+    <string name="synonyms_">Synonyms:</string>
+    <string name="explanation_">Explanation:</string>
+    <string name="alternate_forms_">Alternate forms:</string>
+    <string name="conjugate">Conjugate</string>
+    <string name="copy">Copy</string>
+    <string name="to_search_field">to search field</string>
+    <string name="i_adj">i-adj.</string>
+    <string name="na_adj">na-adj.</string>
+
+    <string name="legend_A">adverb</string>
+    <string name="legend_Abr">abbrev.</string>
+    <string name="legend_Abs">abstract term</string>
+    <string name="legend_Ac">activity</string>
+    <string name="legend_Af">noun/verb acting prenominally</string>
+    <string name="legend_Ai">i-adj.</string>
+    <string name="legend_Aj">adj.</string>
+    <string name="legend_An">anatomy term</string>
+    <string name="legend_Ana">na-adj.</string>
+    <string name="legend_Ano">no-adj.</string>
+    <string name="legend_Apn">pre-noun adj.</string>
+    <string name="legend_Ati">clothing term</string>
+    <string name="legend_Ato">adverb taking \"to\" particle</string>
+    <string name="legend_Atr">taru-adj.</string>
+    <string name="legend_ar">archaism</string>
+    <string name="legend_Ax">aux. adj.</string>
+    <string name="legend_B">religious term</string>
+    <string name="legend_C">counter</string>
+    <string name="legend_CE">expression</string>
+    <string name="legend_CO">conjunction</string>
+    <string name="legend_Col">color</string>
+    <string name="legend_coq">colloquial</string>
+    <string name="legend_Cu">culinary term</string>
+    <string name="legend_Dg">degree of doing/being</string>
+    <string name="legend_DM">day of the month</string>
+    <string name="legend_Dr">derogatory</string>
+    <string name="legend_DW">day of the week</string>
+    <string name="legend_Fa">fauna</string>
+    <string name="legend_Fl">flora</string>
+    <string name="legend_Fy">family</string>
+    <string name="legend_GO">object</string>
+    <string name="legend_iAC">i-adj. conj.</string>
+    <string name="legend_idp">idiom/prov.</string>
+    <string name="legend_IES">rude/X-rated term</string>
+    <string name="legend_JEP">Japanese era</string>
+    <string name="legend_LF">familiar lang.</string>
+    <string name="legend_LFt">female lang.</string>
+    <string name="legend_LHm">humble</string>
+    <string name="legend_LHn">honorific/polite</string>
+    <string name="legend_LMt">male lang.</string>
+    <string name="legend_loc">location term</string>
+    <string name="legend_M">manner of doing/being</string>
+    <string name="legend_MAC">music/art/culture term</string>
+    <string name="legend_Md">medical term</string>
+    <string name="legend_Mo">month</string>
+    <string name="legend_MSE">math/sci./eng. term</string>
+    <string name="legend_N">noun</string>
+    <string name="legend_naAC">na-adj. conj.</string>
+    <string name="legend_NAdv">adverbial noun</string>
+    <string name="legend_Ne">proper name</string>
+    <string name="legend_NE">natural element</string>
+    <string name="legend_Nn">nation</string>
+    <string name="legend_num">numeric term</string>
+    <string name="legend_Obs">obsolete term</string>
+    <string name="legend_OI">onom./interj.</string>
+    <string name="legend_org">org./institution</string>
+    <string name="legend_P">pronoun</string>
+    <string name="legend_PC">phrase constr.</string>
+    <string name="legend_Pe">person</string>
+    <string name="legend_Pl">place</string>
+    <string name="legend_PP">particle/prep.</string>
+    <string name="legend_Px">prefix</string>
+    <string name="legend_SI">interrogative</string>
+    <string name="legend_Sl">slang</string>
+    <string name="legend_Sp">space term</string>
+    <string name="legend_Sx">suffix</string>
+    <string name="legend_T">temporal term</string>
+    <string name="legend_UNC">unclassified</string>
+    <string name="legend_V">vehicle</string>
+    <string name="legend_VaruI">verb aru special class, intrans.</string>
+    <string name="legend_VaruT">verb aru special class, trans.</string>
+    <string name="legend_VbuI">verb bu godan, intrans.</string>
+    <string name="legend_VbuT">verb bu godan, trans.</string>
+    <string name="legend_VC">verb conj.</string>
+    <string name="legend_VdaI">verb desu copula, intrans.</string>
+    <string name="legend_VdaT">verb desu copula, trans.</string>
+    <string name="legend_VguI">verb gu godan, intrans.</string>
+    <string name="legend_VguT">verb gu godan, trans.</string>
+    <string name="legend_VikuI">verb iku special class, intrans.</string>
+    <string name="legend_VikuT">verb iku special class, trans.</string>
+    <string name="legend_VyukuI">verb yuku special class, intrans.</string>
+    <string name="legend_VyukuT">verb yuku special class, trans.</string>
+    <string name="legend_VkuI">verb ku godan, intrans.</string>
+    <string name="legend_VkuruI">kuru verb, intrans.</string>
+    <string name="legend_VkuruT">kuru verb, trans.</string>
+    <string name="legend_VkuT">verb ku godan, trans.</string>
+    <string name="legend_VmuI">verb mu godan, intrans.</string>
+    <string name="legend_VmuT">verb mu godan, trans.</string>
+    <string name="legend_VnuI">verb nu godan, intrans.</string>
+    <string name="legend_VnuT">verb nu godan, trans.</string>
+    <string name="legend_VrugI">verb ru godan, intrans.</string>
+    <string name="legend_VrugT">verb ru godan, trans.</string>
+    <string name="legend_VruiI">verb ru ichidan, intrans.</string>
+    <string name="legend_VruiT">verb ru ichidan, trans.</string>
+    <string name="legend_VsuI">verb su godan, intrans.</string>
+    <string name="legend_VsuruI">suru verb, intrans.</string>
+    <string name="legend_VsuruT">suru verb, trans.</string>
+    <string name="legend_VsuT">verb su godan, trans.</string>
+    <string name="legend_VtsuI">verb tsu godan, intrans.</string>
+    <string name="legend_VtsuT">verb tsu godan, trans.</string>
+    <string name="legend_VuI">verb u godan, intrans.</string>
+    <string name="legend_vul">vulgar expr./word</string>
+    <string name="legend_VusI">verb u special class, intrans.</string>
+    <string name="legend_VusT">verb u special class, trans.</string>
+    <string name="legend_VuT">verb u godan, trans.</string>
+    <string name="legend_Vx">aux. verb</string>
+    <string name="legend_ZAc">architecture term</string>
+    <string name="legend_ZAn">anatomical term</string>
+    <string name="legend_ZAs">astronomy term</string>
+    <string name="legend_ZB">Buddhist term</string>
+    <string name="legend_ZBb">baseball term</string>
+    <string name="legend_ZBi">biology term</string>
+    <string name="legend_ZBs">business term</string>
+    <string name="legend_ZBt">botany term</string>
+    <string name="legend_ZC">chemistry term</string>
+    <string name="legend_ZCL">children\'s lang.</string>
+    <string name="legend_ZEc">economics term</string>
+    <string name="legend_ZEg">engineering term</string>
+    <string name="legend_ZF">food term</string>
+    <string name="legend_ZFn">finance term</string>
+    <string name="legend_ZG">geometry term</string>
+    <string name="legend_ZGg">geology term</string>
+    <string name="legend_ZH">humorous term</string>
+    <string name="legend_ZI">computer term</string>
+    <string name="legend_ZL">linguistics term</string>
+    <string name="legend_ZLw">law term</string>
+    <string name="legend_ZM">martial arts term</string>
+    <string name="legend_ZMc">music term</string>
+    <string name="legend_ZMg">manga slang</string>
+    <string name="legend_ZMj">mahjong term</string>
+    <string name="legend_ZMl">military term</string>
+    <string name="legend_ZMt">maths term</string>
+    <string name="legend_ZP">poetical term</string>
+    <string name="legend_ZPh">physics term</string>
+    <string name="legend_ZSg">shogi term</string>
+    <string name="legend_ZSm">sumo term</string>
+    <string name="legend_ZSp">sports term</string>
+    <string name="legend_ZSt">Shinto term</string>
+    <string name="legend_ZZ">zoology term</string>
+    <string name="legend_Akari">kari-adj.</string>
+    <string name="legend_Aku">ku-adj.</string>
+    <string name="legend_Ashiku">shiku-adj.</string>
+
+    <string name="legend_NmSu">family or surname</string>
+    <string name="legend_NmPl">place name</string>
+    <string name="legend_NmU">unclassified name</string>
+    <string name="legend_NmC">company name</string>
+    <string name="legend_NmPr">product name</string>
+    <string name="legend_NmW">work of art, literature, music, etc. name</string>
+    <string name="legend_NmM">male given name or forename</string>
+    <string name="legend_NmF">female given name or forename</string>
+    <string name="legend_NmPe">full name of a particular person</string>
+    <string name="legend_NmG">given name or forename, gender not specified</string>
+    <string name="legend_NmSt">railway station</string>
+    <string name="legend_NmO">organization name</string>
+    <string name="legend_NmI">old or irregular kana form</string>
+
+    <string name="verb_family_su">su godan</string>
+    <string name="verb_family_ku">ku godan</string>
+    <string name="verb_family_iku">iku special class</string>
+    <string name="verb_family_yuku">yuku special class</string>
+    <string name="verb_family_gu">gu godan</string>
+    <string name="verb_family_bu">bu godan</string>
+    <string name="verb_family_mu">mu godan</string>
+    <string name="verb_family_nu">nu godan</string>
+    <string name="verb_family_rug">ru godan</string>
+    <string name="verb_family_aru">aru special class</string>
+    <string name="verb_family_tsu">tsu godan</string>
+    <string name="verb_family_u">u godan</string>
+    <string name="verb_family_us">u special class</string>
+    <string name="verb_family_rui">ru ichidan</string>
+    <string name="verb_family_da">desu copula</string>
+    <string name="verb_family_kuru">kuru verb</string>
+    <string name="verb_family_suru">suru verb</string>
+
+    <string name="found">Found</string>
+    <string name="local_result">local result</string>
+    <string name="local_results">local results</string>
+    <string name="and">and</string>
+    <string name="no_new_online_results">no new online results</string>
+    <string name="one_new_or_fuller_online_result">one new or fuller online result</string>
+    <string name="new_or_fuller_online_results">new or fuller online results</string>
+    <string name="no_verb">no verb</string>
+    <string name="one_verb">one verb</string>
+    <string name="verbs">verbs</string>
+    <string name="with_conjugations_matching_the_search_word">with conjugations matching the search word</string>
+    <string name="including">including</string>
+    <string name="please_wait_for_db_to_finish_loading">Please wait for the database to finish loading.</string>
+    <string name="close">Close</string>
+    <string name="alt_form">alt. form</string>
+    <string name="use_default_font_for_asian_characters">Use default font for Asian characters (Chinese characters will be displayed in the default Mandarin font)</string>
+    <string name="characters_main_radical_is">Character\'s main radical is</string>
+    <string name="aditional_strokes">additional strokes</string>
+    <string name="additional_stroke">additional stroke</string>
+    <string name="number_abbrev_">No.</string>
+    <string name="with">with</string>
+    <string name="special_symbol_with_meaning">Special symbol with meaning</string>
+    <string name="strokes">strokes</string>
+    <string name="stroke">stroke.</string>
+    <string name="radical">Radical</string>
+    <string name="radical_variant">radical variant</string>
+    <string name="simplification">simplification</string>
+    <string name="english_meanings_available_only">(English meanings available only)</string>
+
+</resources>
