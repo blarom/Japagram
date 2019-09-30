@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.japagram.data.JapaneseToolboxKanjiRoomDatabase;
+import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
@@ -22,7 +22,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
     private final List<String[]> mRadicalsOnlyDatabase;
     private final int chosen_components_list;
     private List<String[]> sortedList;
-    private JapaneseToolboxKanjiRoomDatabase mJapaneseToolboxKanjiRoomDatabase;
+    private RoomKanjiDatabase mRoomKanjiDatabase;
     //endregion
     private WeakReference<Context> contextRef;
     public ComponentGridCreationAsyncResponseHandler listener;
@@ -44,7 +44,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
     @Override
     protected List<String> doInBackground(Void... voids) {
 
-        mJapaneseToolboxKanjiRoomDatabase = JapaneseToolboxKanjiRoomDatabase.getInstance(contextRef.get());
+        mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
         List<String> displayableComponentSelections = getSelectionGridElements();
 
         return displayableComponentSelections;
@@ -118,7 +118,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
             String componentStructure = GlobalConstants.COMPONENT_STRUCTURES_MAP.get(chosen_components_list);
             if (!TextUtils.isEmpty(componentStructure)) {
 
-                List<KanjiComponent> kanjiComponents = mJapaneseToolboxKanjiRoomDatabase.getKanjiComponentsByStructureName(componentStructure);
+                List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
                 if (kanjiComponents != null && kanjiComponents.size()>0) {
                     KanjiComponent kanjiComponent = kanjiComponents.get(0);
                     List<KanjiComponent.AssociatedComponent> associatedComponents = kanjiComponent.getAssociatedComponents();

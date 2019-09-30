@@ -60,8 +60,7 @@ public class SearchByRadicalFragment extends Fragment implements
     //region Parameters
     @BindView(R.id.search_by_radical_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
     @BindView(R.id.search_by_radical_overall_structure_button) Button mOverallStructureButton;
-    @BindView(R.id.search_by_radical_container_scrollview)
-    NestedScrollView mOverallContainerScrollView;
+    @BindView(R.id.search_by_radical_container_scrollview) NestedScrollView mOverallContainerScrollView;
     @BindView(R.id.search_by_radicals_overall_block_container) LinearLayout mOverallBlockContainerLinearLayout;
     @BindView(R.id.search_by_radical_elementA) EditText mElementAEditText;
     @BindView(R.id.search_by_radical_elementB) EditText mElementBEditText;
@@ -171,100 +170,68 @@ public class SearchByRadicalFragment extends Fragment implements
         mBinding = ButterKnife.bind(this, rootView);
 
         //region Setting the Element listeners
-        mElementAEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        mElementAEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+            if (hasFocus) mSelectedEditTextId = mElementAEditText.getId();
+            drawBorderAroundThisEditText(mElementAEditText);
+        });
+        mElementAEditText.setOnClickListener(view -> {
+            mSelectedEditTextId = mElementAEditText.getId();
+            drawBorderAroundThisEditText(mElementAEditText);
+        });
+        mElementAEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                if (hasFocus) mSelectedEditTextId = mElementAEditText.getId();
-                drawBorderAroundThisEditText(mElementAEditText);
             }
-        });
-        mElementAEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSelectedEditTextId = mElementAEditText.getId();
-                drawBorderAroundThisEditText(mElementAEditText);
-            }
-        });
-        mElementAEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                }
-                return false;
-            }
+            return false;
         });
 
-        mElementBEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        mElementBEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+            if (hasFocus) mSelectedEditTextId = mElementBEditText.getId();
+            drawBorderAroundThisEditText(mElementBEditText);
+        });
+        mElementBEditText.setOnClickListener(view -> {
+            mSelectedEditTextId = mElementBEditText.getId();
+            drawBorderAroundThisEditText(mElementBEditText);
+        });
+        mElementBEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                if (hasFocus) mSelectedEditTextId = mElementBEditText.getId();
-                drawBorderAroundThisEditText(mElementBEditText);
             }
-        });
-        mElementBEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSelectedEditTextId = mElementBEditText.getId();
-                drawBorderAroundThisEditText(mElementBEditText);
-            }
-        });
-        mElementBEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                }
-                return false;
-            }
+            return false;
         });
 
-        mElementCEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        mElementCEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+            if (hasFocus) mSelectedEditTextId = mElementCEditText.getId();
+            drawBorderAroundThisEditText(mElementCEditText);
+        });
+        mElementCEditText.setOnClickListener(view -> {
+            mSelectedEditTextId = mElementCEditText.getId();
+            drawBorderAroundThisEditText(mElementCEditText);
+        });
+        mElementCEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                if (hasFocus) mSelectedEditTextId = mElementCEditText.getId();
-                drawBorderAroundThisEditText(mElementCEditText);
             }
-        });
-        mElementCEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSelectedEditTextId = mElementCEditText.getId();
-                drawBorderAroundThisEditText(mElementCEditText);
-            }
-        });
-        mElementCEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                }
-                return false;
-            }
+            return false;
         });
 
-        mElementDEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        mElementDEditText.setOnFocusChangeListener((v, hasFocus) -> {
+            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+            if (hasFocus) mSelectedEditTextId = mElementDEditText.getId();
+            drawBorderAroundThisEditText(mElementDEditText);
+        });
+        mElementDEditText.setOnClickListener(view -> {
+            mSelectedEditTextId = mElementDEditText.getId();
+            drawBorderAroundThisEditText(mElementDEditText);
+        });
+        mElementDEditText.setOnEditorActionListener((v, actionId, event) -> {
+            if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                if (hasFocus) mSelectedEditTextId = mElementDEditText.getId();
-                drawBorderAroundThisEditText(mElementDEditText);
             }
-        });
-        mElementDEditText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSelectedEditTextId = mElementDEditText.getId();
-                drawBorderAroundThisEditText(mElementDEditText);
-            }
-        });
-        mElementDEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                    if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-                }
-                return false;
-            }
+            return false;
         });
 
         mSelectedEditTextId = mElementAEditText.getId();
@@ -296,15 +263,12 @@ public class SearchByRadicalFragment extends Fragment implements
         mSelectedComponentStructure = setCategoryBasedOnSelectedStructureId(R.drawable.colored_structure_2_left_right);
         //endregion
 
-        //region Setting the filter listener
-        mCharacterDescriptorEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    filterComponentKanjiGridElements();
-                }
-                return false;
+        //region Setting the filter roomInstancesAsyncResponseHandler
+        mCharacterDescriptorEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                filterComponentKanjiGridElements();
             }
+            return false;
         });
         //endregion
 
@@ -590,10 +554,10 @@ public class SearchByRadicalFragment extends Fragment implements
     }
 
 
-    @OnClick (R.id.search_by_radical_overall_structure_button) public void onRequestedStructureButtonClick() {
+    @OnClick (R.id.search_by_radical_overall_structure_button) void onRequestedStructureButtonClick() {
         showStructuresDialog("overall");
     }
-    @OnClick (R.id.search_by_radical_button_radical) public void onRadicalButtonClick() {
+    @OnClick (R.id.search_by_radical_button_radical) void onRadicalButtonClick() {
         if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
@@ -603,7 +567,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
         startCreatingComponentKanjiGridElementsAsynchronously();
     }
-    @OnClick (R.id.search_by_radical_button_component) public void onComponentButtonClick() {
+    @OnClick (R.id.search_by_radical_button_component) void onComponentButtonClick() {
         if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
@@ -613,7 +577,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
         startCreatingComponentKanjiGridElementsAsynchronously();
     }
-    @OnClick (R.id.search_by_radical_button_search) public void onSearchButtonClick() {
+    @OnClick (R.id.search_by_radical_button_search) void onSearchButtonClick() {
 
         if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
 
@@ -627,28 +591,28 @@ public class SearchByRadicalFragment extends Fragment implements
 
         startSearchingForKanjisAsynchronously(elements_strings);
     }
-    @OnClick (R.id.search_by_radical_requested_component_structure) public void oRequestedComponentStructureButtonClick() {
+    @OnClick (R.id.search_by_radical_requested_component_structure) void oRequestedComponentStructureButtonClick() {
         showStructuresDialog("component");
     }
-    @OnClick (R.id.search_by_radical_button_filter) public void onFilterButtonClick() {
+    @OnClick (R.id.search_by_radical_button_filter) void onFilterButtonClick() {
         filterComponentKanjiGridElements();
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_top) public void onCancelTopButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_top) void onCancelTopButtonClick() {
         handleComponentSelection(false);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_top) public void onSendToElementTopButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_top) void onSendToElementTopButtonClick() {
         handleComponentSelection(true);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_top) public void onSendToInputTopButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_top) void onSendToInputTopButtonClick() {
         searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mSelectedComponent);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_bottom) public void onCancelBottomButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_bottom) void onCancelBottomButtonClick() {
         handleComponentSelection(false);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_bottom) public void onSendToElementBottomButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_bottom) void onSendToElementBottomButtonClick() {
         handleComponentSelection(true);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_bottom) public void onSendToInputBottomButtonClick() {
+    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_bottom) void onSendToInputBottomButtonClick() {
         searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mSelectedComponent);
     }
 

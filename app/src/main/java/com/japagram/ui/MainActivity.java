@@ -11,9 +11,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -74,6 +72,7 @@ public class MainActivity extends BaseActivity implements
     private List<String[]> RadicalsOnlyDatabase;
     private Typeface CJK_typeface;
 
+    private boolean mShowNames;
     private boolean mShowOnlineResults;
     private boolean mWaitForOnlineResults;
     private boolean mShowConjResults;
@@ -213,7 +212,10 @@ public class MainActivity extends BaseActivity implements
 
     //Preference methods
     @Override public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if (key.equals(getString(R.string.pref_complete_local_with_online_search_key))) {
+        if (key.equals(getString(R.string.pref_complete_local_with_names_search_key))) {
+            setShowNames(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_complete_local_with_names_search_default)));
+        }
+        else if (key.equals(getString(R.string.pref_complete_local_with_online_search_key))) {
             setShowOnlineResults(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_complete_local_with_online_search_default)));
         }
         else if (key.equals(getString(R.string.pref_wait_for_online_results_key))) {
@@ -277,6 +279,10 @@ public class MainActivity extends BaseActivity implements
         mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getApplicationContext());
         mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getApplicationContext());
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+    private void setShowNames(boolean state) {
+        mShowNames = state;
+        if (mDictionaryFragment != null) mDictionaryFragment.setShowNames(mShowNames);
     }
     private void setShowOnlineResults(boolean state) {
         mShowOnlineResults = state;
@@ -350,13 +356,10 @@ public class MainActivity extends BaseActivity implements
         //StrictMode.setThreadPolicy(policy);
 
         // Remove the software keyboard if the EditText is not in focus
-        findViewById(android.R.id.content).setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Utilities.hideSoftKeyboard(MainActivity.this);
-                v.performClick();
-                return false;
-            }
+        findViewById(android.R.id.content).setOnTouchListener((v, event) -> {
+            Utilities.hideSoftKeyboard(MainActivity.this);
+            v.performClick();
+            return false;
         });
 
         //Set the typeface for Chinese/Japanese fonts
@@ -414,12 +417,14 @@ public class MainActivity extends BaseActivity implements
         }
     }
     private void startLoadingDatabasesInBackground() {
+
         if (!mAlreadyLoadedSmallDatabases) {
             LoaderManager loaderManager = getSupportLoaderManager();
             Loader<String> roomDbSearchLoader = loaderManager.getLoader(SMALL_DATABASE_LOADER);
             if (roomDbSearchLoader == null) loaderManager.initLoader(SMALL_DATABASE_LOADER, null, this);
             else loaderManager.restartLoader(SMALL_DATABASE_LOADER, null, this);
         }
+
     }
     private void cleanSavedData() {
         mLocalMatchingWords = null;
@@ -613,10 +618,12 @@ public class MainActivity extends BaseActivity implements
         mSecondFragmentPlaceholder.bringToFront();
 
         query = Utilities.replaceInvalidKanjisWithValidOnes(query, SimilarsDatabase);
+        mShowNames = Utilities.getPreferenceShowNames(this);
 
         mDictionaryFragment = new DictionaryFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
+        bundle.putBoolean(getString(R.string.show_names), mShowNames);
         bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(VerbLatinConjDatabase));
         bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(VerbKanjiConjDatabase));
         mDictionaryFragment.setArguments(bundle);

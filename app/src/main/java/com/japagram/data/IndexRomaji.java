@@ -17,7 +17,7 @@ public class IndexRomaji {
     IndexRomaji() { }
 
     @Ignore
-    IndexRomaji(@NonNull String english, String wordIds) {
+    public IndexRomaji(@NonNull String english, String wordIds) {
         this.value = english;
         this.wordIds = wordIds;
     }

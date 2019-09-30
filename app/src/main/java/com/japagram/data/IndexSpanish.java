@@ -17,7 +17,7 @@ public class IndexSpanish {
     IndexSpanish() { }
 
     @Ignore
-    IndexSpanish(@NonNull String value, String wordIds) {
+    public IndexSpanish(@NonNull String value, String wordIds) {
         this.value = value;
         this.wordIds = wordIds;
     }

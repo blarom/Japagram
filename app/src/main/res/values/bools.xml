@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <bool name="pref_complete_local_with_names_search_default">false</bool>
     <bool name="pref_complete_local_with_online_search_default">false</bool>
     <bool name="pref_use_japanese_font_default">true</bool>
     <bool name="pref_wait_for_online_results_default">false</bool>
@@ -9,6 +10,6 @@
     <bool name="pref_show_meanings_EN_default">true</bool>
     <bool name="pref_show_meanings_FR_default">true</bool>
     <bool name="pref_show_meanings_ES_default">true</bool>
-    <bool name="pref_show_info_boxes_on_search_default">true</bool>
+    <bool name="pref_show_info_boxes_on_search_default">false</bool>
     <bool name="pref_show_decomp_structure_info_default">false</bool>
 </resources>

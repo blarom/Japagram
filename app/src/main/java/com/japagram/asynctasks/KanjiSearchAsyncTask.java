@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-import com.japagram.data.JapaneseToolboxKanjiRoomDatabase;
+import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
@@ -20,7 +20,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     private final String[] elements_list;
     private final int mSelectedStructure;
     private final List<String[]> mSimilarsDatabase;
-    private JapaneseToolboxKanjiRoomDatabase mJapaneseToolboxKanjiRoomDatabase;
+    private RoomKanjiDatabase mRoomKanjiDatabase;
     private boolean mSearchTooBroad;
     private WeakReference<Context> contextRef;
     //endregion
@@ -40,7 +40,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     @Override
     protected Object[] doInBackground(Void... voids) {
 
-        mJapaneseToolboxKanjiRoomDatabase = JapaneseToolboxKanjiRoomDatabase.getInstance(contextRef.get());
+        mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
         List<String> result = findSearchResults();
 
         return new Object[] {result, mSearchTooBroad};
@@ -88,8 +88,8 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         //region Finding the list of matches in the Full components list, that correspond to the user's input
         List<KanjiComponent.AssociatedComponent> associatedComponents = null;
-        List<KanjiComponent> kanjiComponentsFull1 = mJapaneseToolboxKanjiRoomDatabase.getKanjiComponentsByStructureName("full1");
-        List<KanjiComponent> kanjiComponentsFull2 = mJapaneseToolboxKanjiRoomDatabase.getKanjiComponentsByStructureName("full2");
+        List<KanjiComponent> kanjiComponentsFull1 = mRoomKanjiDatabase.getKanjiComponentsByStructureName("full1");
+        List<KanjiComponent> kanjiComponentsFull2 = mRoomKanjiDatabase.getKanjiComponentsByStructureName("full2");
         if (kanjiComponentsFull1 != null && kanjiComponentsFull1.size() > 0) {
             associatedComponents = kanjiComponentsFull1.get(0).getAssociatedComponents();
         }
@@ -111,7 +111,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<String> listOfMatchingResultsElementD = new ArrayList<>();
 
         if (!checkForExactMatchesOfElementA || !checkForExactMatchesOfElementB || !checkForExactMatchesOfElementC || !checkForExactMatchesOfElementD) {
-            List<String> listOfAllKanjis = mJapaneseToolboxKanjiRoomDatabase.getAllKanjis();
+            List<String> listOfAllKanjis = mRoomKanjiDatabase.getAllKanjis();
             if (!checkForExactMatchesOfElementA) listOfMatchingResultsElementA = listOfAllKanjis;
             if (!checkForExactMatchesOfElementB) listOfMatchingResultsElementB = listOfAllKanjis;
             if (!checkForExactMatchesOfElementC) listOfMatchingResultsElementC = listOfAllKanjis;
@@ -205,7 +205,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             KanjiComponent kanjiComponentForRequestedStructure = null;
             String componentStructure = GlobalConstants.COMPONENT_STRUCTURES_MAP.get(mSelectedStructure);
             if (!TextUtils.isEmpty(componentStructure)) {
-                List<KanjiComponent> kanjiComponents = mJapaneseToolboxKanjiRoomDatabase.getKanjiComponentsByStructureName(componentStructure);
+                List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
                 if (kanjiComponents != null && kanjiComponents.size() > 0) {
                     kanjiComponentForRequestedStructure = kanjiComponents.get(0);
                     associatedComponents = kanjiComponentForRequestedStructure.getAssociatedComponents();

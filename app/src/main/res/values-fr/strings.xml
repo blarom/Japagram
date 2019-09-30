@@ -6,6 +6,8 @@
     <string name="splashscreen_should_take_only_a_few_seconds">Ceci ne devrait prendre que quelques secondes.</string>
     <string name="settings">Paramètres</string>
     <string name="about">À propos</string>
+    <string name="hidden_names_search">Ne pas chercher les noms</string>
+    <string name="shown_names_search">Chercher les noms (peut causer un ralentissement des recherches et nécessite l\'installation de la base de données de noms)</string>
     <string name="hidden_online_search">Ne pas chercher les mots et sens en ligne</string>
     <string name="shown_online_search">Fusionner les résultats de la recherche en ligne avec les résultats locaux</string>
     <string name="wait_for_online_results_off">Afficher la liste de résultats immédiatement et l\'actualiser après avoir obtenu des résultats en ligne</string>
@@ -26,6 +28,7 @@
     <string name="shown_info_boxes">Afficher des textes contextuels informatifs lors de la recherche</string>
     <string name="hidden_decomp_structure_info">Ne pas afficher d\'explication sur la structure du Kanji</string>
     <string name="shown_decomp_structure_info">Afficher l\'explication sur la structure du Kanji décomposé</string>
+    <string name="complete_local_with_names_search">Rechercher les noms</string>
     <string name="complete_local_with_online_search">Rechercher des mots en ligne</string>
     <string name="wait_for_online_results">Attendre les résultats en ligne</string>
     <string name="complete_with_conj_search">Rechercher les conjugaisons de verbe</string>
@@ -259,8 +262,10 @@
     <string name="attempting_download_second_part">. S\'il vous plaît, attendez.</string>
     <string name="failed_to_connect_to_internet">Échec de la connexion à Internet.</string>
     <string name="loading_central_database">Installation de la base de données centrale.\n ~ Peut prendre environ une minute ~</string>
-    <string name="loading_extended_database">Terminé l\'installation de la base de données centrale.\nInstallation de la base de données étendue.\n ~ Peut prendre jusqu\'à 3-5 minutes ~</string>
-    <string name="loading_kanji_database">Terminé l\'installation de la base de données centrale.\nInstallation de la base de données de kanji.\n ~ Peut prendre jusqu\'à 3-5 minutes ~</string>
+    <string name="loading_extended_database">Terminé l\'installation de la base de données centrale.\nInstallation de la base de données étendue.\n ~ Peut prendre jusqu\'à 5 minutes ~</string>
+    <string name="loading_names_database">Terminé l\'installation de la base de données centrale.\nInstallation de la base de données de noms.\n ~ Peut prendre jusqu\'à 20 minutes ~</string>
+    <string name="loading_kanji_database">Terminé l\'installation de la base de données centrale.\nInstallation de la base de données de kanji.\n ~ Peut prendre jusqu\'à une minute ~</string>
+    <string name="first_time_installing">NOTEZ: Puisqu\'il s\'agit de la première installation de l\'application, l\'installation de toutes les bases de données peut prendre jusqu\'à 30 minutes. Allez vous faire un café en attendant.</string>
     <string name="finished_loading_databases">Chargement des bases de données accompli.</string>
     <string name="database_being_installed">La base de données est en cours d\'installation.\nCeci pourrait prendre quelques minutes.\nCe délai ne se produit que lors de l\'installation ou de la mise à niveau de l\'application.</string>
     <string name="sure_you_want_to_exit">Êtes-vous sûr de vouloir quitter l\'application?</string>

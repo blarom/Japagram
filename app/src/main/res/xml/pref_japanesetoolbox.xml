@@ -36,6 +36,13 @@
         android:title="@string/search" />
 
     <CheckBoxPreference
+        android:defaultValue="@bool/pref_complete_local_with_names_search_default"
+        android:key="@string/pref_complete_local_with_names_search_key"
+        android:summaryOff="@string/hidden_names_search"
+        android:summaryOn="@string/shown_names_search"
+        android:title="@string/complete_local_with_names_search" />
+
+    <CheckBoxPreference
         android:defaultValue="@bool/pref_complete_local_with_online_search_default"
         android:key="@string/pref_complete_local_with_online_search_key"
         android:summaryOff="@string/hidden_online_search"

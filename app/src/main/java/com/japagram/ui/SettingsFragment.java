@@ -38,7 +38,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         PreferenceScreen prefScreen = getPreferenceScreen();
         SharedPreferences sharedPreferences = prefScreen.getSharedPreferences();
 
-        // Setting the listener on the Langage Preference
+        // Setting the roomInstancesAsyncResponseHandler on the Langage Preference
         for (int i = 0; i < prefScreen.getPreferenceCount(); i++) {
             Preference currentPreference = prefScreen.getPreference(i);
             if (currentPreference instanceof ListPreference) {

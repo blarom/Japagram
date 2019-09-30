@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-import com.japagram.data.JapaneseToolboxKanjiRoomDatabase;
+import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.LocaleHelper;
@@ -22,7 +22,7 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
     private final List<String[]> mRadicalsOnlyDatabase;
     private final String mKanjiCharacterNameForFilter;
     private List<String> mDisplayableComponentSelections;
-    private JapaneseToolboxKanjiRoomDatabase mJapaneseToolboxKanjiRoomDatabase;
+    private RoomKanjiDatabase mRoomKanjiDatabase;
     //endregion
     private WeakReference<Context> contextRef;
     public ComponentsGridFilterAsyncResponseHandler listener;
@@ -46,7 +46,7 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
     @Override
     protected List<String> doInBackground(Void... voids) {
 
-        mJapaneseToolboxKanjiRoomDatabase = JapaneseToolboxKanjiRoomDatabase.getInstance(contextRef.get());
+        mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
         mDisplayableComponentSelections = filterGridElementsAccordingToDescriptor(mDisplayableComponentSelections);
 
         return mDisplayableComponentSelections;
@@ -106,27 +106,27 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
             intersectionWithMatchingDescriptors = Utilities.getIntersectionOfLists(displayableComponentSelections, matchingRadicals);
         }
         else {
-            List<KanjiCharacter> matchingKanjiCharactersByDescriptor = mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByDescriptor(mKanjiCharacterNameForFilter);
+            List<KanjiCharacter> matchingKanjiCharactersByDescriptor = mRoomKanjiDatabase.getKanjiCharactersByDescriptor(mKanjiCharacterNameForFilter);
 
             List<KanjiCharacter> matchingKanjiCharactersByMeaning = new ArrayList<>();
             switch (LocaleHelper.getLanguage(contextRef.get())) {
                 case "en":
-                    matchingKanjiCharactersByMeaning = mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByMeaningEN(mKanjiCharacterNameForFilter);
+                    matchingKanjiCharactersByMeaning = mRoomKanjiDatabase.getKanjiCharactersByMeaningEN(mKanjiCharacterNameForFilter);
                     break;
                 case "fr":
-                    matchingKanjiCharactersByMeaning = mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByMeaningFR(mKanjiCharacterNameForFilter);
+                    matchingKanjiCharactersByMeaning = mRoomKanjiDatabase.getKanjiCharactersByMeaningFR(mKanjiCharacterNameForFilter);
                     break;
                 case "es":
-                    matchingKanjiCharactersByMeaning = mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByMeaningES(mKanjiCharacterNameForFilter);
+                    matchingKanjiCharactersByMeaning = mRoomKanjiDatabase.getKanjiCharactersByMeaningES(mKanjiCharacterNameForFilter);
                     break;
             }
             matchingKanjiCharactersByDescriptor.addAll(matchingKanjiCharactersByMeaning);
 
             String hiraganaDescriptor = ConvertFragment.getLatinHiraganaKatakana(mKanjiCharacterNameForFilter).get(GlobalConstants.TYPE_HIRAGANA);
-            matchingKanjiCharactersByDescriptor.addAll(mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByKanaDescriptor(hiraganaDescriptor));
+            matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(hiraganaDescriptor));
 
             String katakanaDescriptor = ConvertFragment.getLatinHiraganaKatakana(mKanjiCharacterNameForFilter).get(GlobalConstants.TYPE_KATAKANA);
-            matchingKanjiCharactersByDescriptor.addAll(mJapaneseToolboxKanjiRoomDatabase.getKanjiCharactersByKanaDescriptor(katakanaDescriptor));
+            matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(katakanaDescriptor));
 
             List<String> matchingCharacters = new ArrayList<>();
             for (KanjiCharacter kanjiCharacter : matchingKanjiCharactersByDescriptor) {

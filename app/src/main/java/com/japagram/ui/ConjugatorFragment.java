@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -188,9 +187,9 @@ public class ConjugatorFragment extends Fragment implements
         //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
         mInputQuery = mInputQuery.toLowerCase(Locale.ENGLISH);
 
-        List<String> mInputQueryTransliterations = ConvertFragment.getLatinHiraganaKatakana(mInputQuery);
+        //List<String> mInputQueryTransliterations = ConvertFragment.getLatinHiraganaKatakana(mInputQuery);
 
-        int mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
+        //int mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
     }
     private void displayVerbsInVerbChooserSpinner() {
 
@@ -252,29 +251,27 @@ public class ConjugatorFragment extends Fragment implements
 
         // Getting the user choice for displaying the conjugations in Romaji or Kanji
 
-        mRomajiOrKanjiRadioButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (getActivity()==null) return;
+        mRomajiOrKanjiRadioButton.setOnCheckedChangeListener((group, checkedId) -> {
+            if (getActivity()==null) return;
 
-                RadioButton checkedRadioButton = getActivity().findViewById(checkedId);
+            RadioButton checkedRadioButton = getActivity().findViewById(checkedId);
 
-                // Define an action depending on the given boolean, ie. depending on the checked RadioButton ID
-                mChosenRomajiOrKanji = "";
-                switch (checkedRadioButton.getId()) {
-                    case R.id.radio_Romaji:
-                        if (checkedRadioButton.isChecked()) {
-                            mChosenRomajiOrKanji = "Romaji";
-                        }
-                        break;
-                    case R.id.radio_Kanji:
-                        if (checkedRadioButton.isChecked()) {
-                            mChosenRomajiOrKanji = "Kanji";
-                        }
-                        break;
-                }
-
-                displayConjugationsOfSelectedCategory(verbIndex, conjugationIndex);
+            // Define an action depending on the given boolean, ie. depending on the checked RadioButton ID
+            mChosenRomajiOrKanji = "";
+            switch (checkedRadioButton.getId()) {
+                case R.id.radio_Romaji:
+                    if (checkedRadioButton.isChecked()) {
+                        mChosenRomajiOrKanji = "Romaji";
+                    }
+                    break;
+                case R.id.radio_Kanji:
+                    if (checkedRadioButton.isChecked()) {
+                        mChosenRomajiOrKanji = "Kanji";
+                    }
+                    break;
             }
+
+            displayConjugationsOfSelectedCategory(verbIndex, conjugationIndex);
         });
 
         mChosenRomajiOrKanji = "Romaji";

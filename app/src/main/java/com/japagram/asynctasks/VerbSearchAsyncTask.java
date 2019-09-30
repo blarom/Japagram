@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.japagram.R;
 import com.japagram.data.ConjugationTitle;
-import com.japagram.data.JapaneseToolboxCentralRoomDatabase;
+import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.resources.GlobalConstants;
@@ -53,7 +53,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     private int mInputQueryLength;
     private String mInputQueryContatenated;
     private int mInputQueryContatenatedLength;
-    private JapaneseToolboxCentralRoomDatabase mJapaneseToolboxCentralRoomDatabase;
+    private RoomCentralDatabase mRoomCentralDatabase;
     private final HashMap<String, Integer> mFamilyConjugationIndexes = new HashMap<>();
     private final List<String[]> mVerbLatinConjDatabase;
     private final List<String[]> mVerbKanjiConjDatabase;
@@ -86,9 +86,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     @Override
     protected Object[] doInBackground(Void... voids) {
 
-        mJapaneseToolboxCentralRoomDatabase = JapaneseToolboxCentralRoomDatabase.getInstance(contextRef.get());
+        mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
         if (mCompleteVerbsList == null || mCompleteVerbsList.size()==0) {
-            mCompleteVerbsList = mJapaneseToolboxCentralRoomDatabase.getAllVerbs();
+            mCompleteVerbsList = mRoomCentralDatabase.getAllVerbs();
         }
 
         List<Verb> matchingVerbs = new ArrayList<>();
@@ -107,10 +107,10 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         for (long[] idsAndCols : mMatchingVerbIdsAndCols) {
             ids.add(idsAndCols[0]);
         }
-        List<Word> matchingWords = updateWordsWithConjMatchStatus(mJapaneseToolboxCentralRoomDatabase.getWordListByWordIds(ids), matchingVerbs);
+        List<Word> matchingWords = updateWordsWithConjMatchStatus(mRoomCentralDatabase.getWordListByWordIds(ids), matchingVerbs);
         List<Object[]> matchingConjugationParameters = new ArrayList<>();
         for (Verb verb : matchingVerbs) {
-            //List<Word> words = mJapaneseToolboxCentralRoomDatabase.getWordsByExactRomajiAndKanjiMatch(verb.getRomaji(), verb.getKanji());
+            //List<Word> words = mRoomCentralDatabase.getWordsByExactRomajiAndKanjiMatch(verb.getRomaji(), verb.getKanji());
             //if (words.size()>0) matchingWords.add(words.get(0));
 
             Object[] parameters = getConjugationParameters(verb, mInputQuery, mInputQueryTransliterations.get(GlobalConstants.TYPE_LATIN));
@@ -504,8 +504,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
             List<Long> mMatchingWordIds = ((List<Long>) Utilities.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
-                    mJapaneseToolboxCentralRoomDatabase, null, language)[0]);
-            mMatchingWords = mJapaneseToolboxCentralRoomDatabase.getWordListByWordIds(mMatchingWordIds);
+                    mRoomCentralDatabase, null, null, language)[0]);
+            mMatchingWords = mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
         }
         else {
             mMatchingWords = mWordsFromDictFragment;
@@ -531,7 +531,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         //region Adding the suru verb if the query is contained in the suru conjugations, and limiting total results
         if (queryIsContainedInASuruConjugation) {
-            Word suruVerb = mJapaneseToolboxCentralRoomDatabase.getWordsByExactRomajiAndKanjiMatch("suru", "為る").get(0);
+            Word suruVerb = mRoomCentralDatabase.getWordsByExactRomajiAndKanjiMatch("suru", "為る").get(0);
             boolean alreadyInList = false;
             for (long[] idAndCol : matchingVerbIdsAndColsFromBasicCharacteristics) {
                 if (idAndCol[0] == suruVerb.getWordId()) alreadyInList = true;
@@ -572,7 +572,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                         verb.setActiveKanjiRoot(verb.getKanjiRoot());
                         verb.setActiveAltSpelling(verb.getRomaji());
                     }
-                    mJapaneseToolboxCentralRoomDatabase.updateVerb(verb);
+                    mRoomCentralDatabase.updateVerb(verb);
 
                     //Remove the verb from the candidates list since it is already in the final list
                     copyOfMatchingVerbIdsAndColsFromBasicCharacteristics.remove(idAndCol);
@@ -774,7 +774,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                     verb.setActiveLatinRoot(latinRoot);
                     verb.setActiveKanjiRoot(kanjiRoot);
                     verb.setActiveAltSpelling(verbSearchCandidate[INDEX_ACTIVE_ALTSPELLING]);
-                    mJapaneseToolboxCentralRoomDatabase.updateVerb(verb);
+                    mRoomCentralDatabase.updateVerb(verb);
 
                     //Update the list of match ids
                     matchingVerbIdsAndColsFromExpandedConjugations.add(new long[]{verb.getVerbId(), matchColumn});
@@ -816,7 +816,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         for (int i = 0; i < ConjugationSearchMatchingVerbRowColIndexList.size(); i++) {
 
-            Word currentWord = mJapaneseToolboxCentralRoomDatabase.getWordByWordId(ConjugationSearchMatchingVerbRowColIndexList.get(i)[0]);
+            Word currentWord = mRoomCentralDatabase.getWordByWordId(ConjugationSearchMatchingVerbRowColIndexList.get(i)[0]);
             if (currentWord==null) continue;
 
             String language = LocaleHelper.getLanguage(contextRef.get());
@@ -873,8 +873,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         //region Updating the verbs with their conjugations
         for (int p = 0; p < mMatchingVerbIdsAndCols.size(); p++) {
             matchingVerbId = mMatchingVerbIdsAndCols.get(p)[0];
-            currentVerb = mJapaneseToolboxCentralRoomDatabase.getVerbByVerbId(matchingVerbId);
-            currentWord = mJapaneseToolboxCentralRoomDatabase.getWordByWordId(matchingVerbId);
+            currentVerb = mRoomCentralDatabase.getVerbByVerbId(matchingVerbId);
+            currentWord = mRoomCentralDatabase.getWordByWordId(matchingVerbId);
             if (currentWord == null || currentVerb == null
                     || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) continue;
             currentFamilyConjugationsIndex = mFamilyConjugationIndexes.get(currentVerb.getFamily());
@@ -1018,7 +1018,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             verbs.add(currentVerb);
 
             //Clearing the active fields since they're not needed anymore
-            mJapaneseToolboxCentralRoomDatabase.updateVerbByVerbIdWithParams(
+            mRoomCentralDatabase.updateVerbByVerbIdWithParams(
                     matchingVerbId,
                     "",
                     "",

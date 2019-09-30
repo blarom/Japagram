@@ -11,7 +11,9 @@
     <string name="splashscreen_should_take_only_a_few_seconds">This should only take a few seconds.</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
-    <string name="hidden_online_search">Don\'t get words and meaningsEN online</string>
+    <string name="hidden_names_search">Don\'t search names</string>
+    <string name="shown_names_search">Search names (may cause search delays and requires names database installation)</string>
+    <string name="hidden_online_search">Don\'t get words and meanings online</string>
     <string name="shown_online_search">Merge online search results with local results</string>
     <string name="use_japanese_font_for_asian_characters">Use Japanese font for Asian characters (Chinese characters used in Japanese will be displayed in Japanese font)</string>
     <string name="wait_for_online_results_off">Display the list immediately when finding results, and refresh it when getting online results.</string>
@@ -32,6 +34,7 @@
     <string name="shown_info_boxes">Show informative popup texts on search</string>
     <string name="hidden_decomp_structure_info">Don\'t show Kanji structure explanation</string>
     <string name="shown_decomp_structure_info">Show decomposed Kanji structure explanation</string>
+    <string name="pref_complete_local_with_names_search_key" translatable="false">complete_local_with_names_search</string>
     <string name="pref_complete_local_with_online_search_key" translatable="false">complete_local_with_online_search</string>
     <string name="pref_use_japanese_font_key" translatable="false">use_japanese_font</string>
     <string name="pref_wait_for_online_results_key" translatable="false">wait_for_online_results</string>
@@ -44,6 +47,7 @@
     <string name="pref_show_info_boxes_on_search_key" translatable="false">show_info_boxes_on_search</string>
     <string name="pref_show_decomp_structure_info_key" translatable="false">show_decomp_structure_info</string>
     <string name="pref_show" translatable="false">complete_local_with_online_search</string>
+    <string name="complete_local_with_names_search">Search for names</string>
     <string name="complete_local_with_online_search">Search for words online</string>
     <string name="use_japanese_font_in_texts">Use Japanese Font in Texts</string>
     <string name="wait_for_online_results">Wait for online results</string>
@@ -352,6 +356,7 @@
     <string name="jisho_website_url" translatable="false">https://jisho.org/search/</string>
     <string name="requested_second_fragment" translatable="false">requested_second_fragment</string>
     <string name="user_query_word" translatable="false">user_query_word</string>
+    <string name="show_names" translatable="false">show_names</string>
     <string name="sorry_only_have_first_part">Sorry, you only have\u0020</string>
     <string name="sorry_only_have_second_part">MB left in internal memory and can\'t install the OCR data. Please clear some app data and try again.</string>
     <string name="downloading_ocr_data_first_part">Downloading the\u0020</string>
@@ -381,12 +386,16 @@
     <string name="decomposition_radical_iteration" translatable="false">decomposition_radical_iteration</string>
     <string name="database_finished_loading_flag" translatable="false">database_finished_loading_flag</string>
     <string name="app_preferences" translatable="false">app_preferences</string>
-    <string name="loading_central_database">Installing the central words database.\n~ May take up to one minute ~</string>
-    <string name="loading_extended_database">Finished installing the central database.\nCurrently installing the Extended database.\n~ May take up to 3-5 minutes ~</string>
-    <string name="loading_kanji_database">Finished installing the central database.\nCurrently installing the Kanji database.\n~ May take up to 3-5 minutes ~</string>
+    <string name="loading_central_database">Installing the Central words database.\n~ May take up to one minute ~</string>
+    <string name="loading_extended_database">Finished installing the Central database.\nCurrently installing the Extended database.\n~ May take up to 5 minutes ~</string>
+    <string name="loading_names_database">Finished installing the Central database.\nCurrently installing the Names database.\n~ May take up to 20 minutes ~</string>
+    <string name="loading_kanji_database">Finished installing the Central database.\nCurrently installing the Kanji database.\n~ May take up to one minute ~</string>
+    <string name="first_time_installing">NOTE: Since this is you first time installing the app, installing all the databases may take up to 30min. Go make yourself some coffee in the meanwhile.</string>
     <string name="finished_loading_databases">Finished loading the databases.</string>
     <string name="word_and_verb_database_finished_loading_flag" translatable="false">word_and_verb_database_finished_loading_flag</string>
     <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>
+    <string name="first_time_installing_flag" translatable="false">first_time_installing_flag</string>
+    <string name="names_database_finished_loading_flag" translatable="false">names_database_finished_loading_flag</string>
     <string name="database_being_installed">The database is currently being installed.\nThis may take a few minutes.\nThis delay only occurs when installing or upgrading the app.</string>
     <string name="sure_you_want_to_exit">Are you sure you want to exit the app?</string>
     <string name="yes">Yes</string>

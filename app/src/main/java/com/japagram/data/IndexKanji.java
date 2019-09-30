@@ -18,7 +18,7 @@ public class IndexKanji {
     IndexKanji() { }
 
     @Ignore
-    IndexKanji(@NonNull String kana, String wordIds, @NonNull String kanaIds) {
+    public IndexKanji(@NonNull String kana, String wordIds, @NonNull String kanaIds) {
         this.kana = kana;
         this.wordIds = wordIds;
         this.kanaIds = kanaIds;

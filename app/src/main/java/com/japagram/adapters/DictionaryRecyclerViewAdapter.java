@@ -264,6 +264,16 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         + " "
                         + mContext.getString(R.string.unavailable_select_word_to_see_meanings);
             }
+            else if (meanings.get(0).getMeaning().equals("*")) {
+                type = meanings.get(0).getType();
+                if (GlobalConstants.TYPES.containsKey(type)) {
+                    //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
+                    extract = mContext.getString(GlobalConstants.TYPES.get(type));
+                }
+                else {
+                    extract = "*";
+                }
+            }
             else {
                 extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, GlobalConstants.BALANCE_POINT_REGULAR_DISPLAY));
             }
@@ -725,7 +735,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         tv.setTypeface(mDroidSansJapaneseTypeface);
         tv.setTextIsSelectable(true);
         tv.setClickable(true);
-        tv.setPadding(DETAILS_LEFT_PADDING, 0, 0, 16);
+        tv.setPadding(DETAILS_LEFT_PADDING, 16, 0, 16);
         linearLayout.addView(tv);
         return tv;
     }

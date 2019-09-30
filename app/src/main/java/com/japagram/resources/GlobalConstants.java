@@ -3,7 +3,9 @@ package com.japagram.resources;
 
 import com.japagram.R;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public final class GlobalConstants {
 
@@ -151,6 +153,12 @@ public final class GlobalConstants {
     public final static int XDB_COL_MEANINGS_EN                = 5;
     public final static int XDB_COL_MEANINGS_FR                = 6;
     public final static int XDB_COL_MEANINGS_ES                = 7;
+
+    public final static int NDB_COL_INDEX                      = 0;
+    public final static int NDB_COL_ROMAJI                     = 1;
+    public final static int NDB_COL_KANJI                      = 2;
+    public final static int NDB_COL_POS                        = 3;
+    public final static int NDB_COL_MEANINGS_EN                = 4;
 
     public final static int Index_full = 0;
     public final static int Index_across2 = 1;
@@ -531,6 +539,8 @@ public final class GlobalConstants {
         return map;
     }
 
+    public final static List<String> NAMES_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Ne");
+
     public final static HashMap<String, Integer> TYPES = createTypesMap();
     private static HashMap<String, Integer> createTypesMap() {
         HashMap<String, Integer> map = new HashMap<>();
@@ -675,19 +685,19 @@ public final class GlobalConstants {
         map.put("ZSt", R.string.legend_ZSt);
         map.put("ZZ", R.string.legend_ZZ);
         
-        map.put("NmSu", R.string.legend_NmSu);
-        map.put("NmPl", R.string.legend_NmPl);
-        map.put("NmU", R.string.legend_NmU);
-        map.put("NmC", R.string.legend_NmC);
-        map.put("NmPr", R.string.legend_NmPr);
-        map.put("NmW", R.string.legend_NmW);
-        map.put("NmM", R.string.legend_NmM);
-        map.put("NmF", R.string.legend_NmF);
-        map.put("NmPe", R.string.legend_NmPe);
-        map.put("NmG", R.string.legend_NmG);
-        map.put("NmSt", R.string.legend_NmSt);
-        map.put("NmO", R.string.legend_NmO);
-        map.put("NmI", R.string.legend_NmI);
+        map.put("0", R.string.legend_NmSu);
+        map.put("1", R.string.legend_NmPl);
+        map.put("2", R.string.legend_NmU);
+        map.put("3", R.string.legend_NmC);
+        map.put("4", R.string.legend_NmPr);
+        map.put("5", R.string.legend_NmW);
+        map.put("6", R.string.legend_NmM);
+        map.put("7", R.string.legend_NmF);
+        map.put("8", R.string.legend_NmPe);
+        map.put("9", R.string.legend_NmG);
+        map.put("10", R.string.legend_NmSt);
+        map.put("11", R.string.legend_NmO);
+        map.put("12", R.string.legend_NmI);
         return map;
     }
 }

@@ -2,7 +2,6 @@ package com.japagram.data;
 
 import android.content.Context;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.japagram.resources.Utilities;
@@ -10,6 +9,7 @@ import com.japagram.resources.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -24,9 +24,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexFrench.class,
                         IndexSpanish.class,
                         IndexKanji.class},
-                    version = 93,
+                    version = 94,
                     exportSchema = false)
-public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
+public abstract class RoomCentralDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
 
     //return The DAO for the tables
@@ -41,14 +41,22 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
 
 
     //Gets the singleton instance of SampleDatabase
-    private static JapaneseToolboxCentralRoomDatabase sInstance;
-    public static synchronized JapaneseToolboxCentralRoomDatabase getInstance(Context context) {
+    private static RoomCentralDatabase sInstance;
+    public static synchronized RoomCentralDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
-                        .databaseBuilder(context.getApplicationContext(), JapaneseToolboxCentralRoomDatabase.class, "japanese_toolbox_central_room_database")
+                        .databaseBuilder(context.getApplicationContext(), RoomCentralDatabase.class, "japagram_central_room_database")
                         .addMigrations(FROM_1_TO_2)
+                        .addCallback(new Callback() {
+                            @Override
+                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                super.onCreate(db);
+                                //getInstance(context).populateDatabases(context);
+                            }
+                        })
+                        .enableMultiInstanceInvalidation()
                         .build();
 
                 sInstance.populateDatabases(context);
@@ -56,8 +64,9 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
                 //If migrations weren't set up from version X to verion X+1, do a destructive migration (rebuilds the db from sratch using the assets)
                 e.printStackTrace();
                 sInstance = Room
-                        .databaseBuilder(context.getApplicationContext(), JapaneseToolboxCentralRoomDatabase.class, "japanese_toolbox_central_room_database")
+                        .databaseBuilder(context.getApplicationContext(), RoomCentralDatabase.class, "japagram_central_room_database")
                         .fallbackToDestructiveMigration()
+                        .enableMultiInstanceInvalidation()
                         .build();
 
                 sInstance.populateDatabases(context);
@@ -74,7 +83,7 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadCentralDatabaseIntoRoomDb(context);
-                Log.i("Diagnosis Time", "Loaded Room Central Database.");
+                Log.i("Diagnosis Time", "Loaded Central Words & Verbs Database.");
                 setTransactionSuccessful();
             } finally {
                 endTransaction();
@@ -84,8 +93,12 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
-                loadCentralDatabaseIndexesIntoRoomDb(context);
-                Log.i("Diagnosis Time", "Loaded Room Central Indexes Database.");
+                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
+                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
+                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
+                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
+                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
+                Log.i("Diagnosis Time", "Loaded Central Indexes Database.");
                 setTransactionSuccessful();
             } finally {
                 endTransaction();
@@ -104,9 +117,9 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
         List<String[]> meaningsENDatabase       = Utilities.readCSVFile("LineMeanings - 3000 kanji.csv", context);
         List<String[]> meaningsFRDatabase       = Utilities.readCSVFile("LineMeaningsFR - 3000 kanji.csv", context);
         List<String[]> meaningsESDatabase       = Utilities.readCSVFile("LineMeaningsES - 3000 kanji.csv", context);
-        List<String[]> multExplENDatabase = Utilities.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
-        List<String[]> multExplFRDatabase = Utilities.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
-        List<String[]> multExplESDatabase = Utilities.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
+        List<String[]> multExplENDatabase       = Utilities.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
+        List<String[]> multExplFRDatabase       = Utilities.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
+        List<String[]> multExplESDatabase       = Utilities.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
         List<String[]> examplesDatabase         = Utilities.readCSVFile("LineExamples - 3000 kanji.csv", context);
 
         //Removing the titles row in each sheet
@@ -151,62 +164,12 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
         verb().insertAll(verbList);
         Log.i("Diagnosis Time","Loaded Verbs Database.");
     }
-    private void loadCentralDatabaseIndexesIntoRoomDb(Context context) {
-
-        List<String[]> grammarDatabaseIndexRomaji = Utilities.readCSVFile("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context);
-        List<String[]> grammarDatabaseIndexEN = Utilities.readCSVFile("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context);
-        List<String[]> grammarDatabaseIndexFR = Utilities.readCSVFile("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context);
-        List<String[]> grammarDatabaseIndexES = Utilities.readCSVFile("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context);
-        List<String[]> grammarDatabaseIndexKanji = Utilities.readCSVFile("LineGrammarSortedIndexKanji - 3000 kanji.csv", context);
-
-        List<IndexRomaji> indexRomajiList = new ArrayList<>();
-        for (int i=0; i<grammarDatabaseIndexRomaji.size(); i++) {
-            if (TextUtils.isEmpty(grammarDatabaseIndexRomaji.get(i)[0])) break;
-            IndexRomaji index = new IndexRomaji(grammarDatabaseIndexRomaji.get(i)[0], grammarDatabaseIndexRomaji.get(i)[1]);
-            indexRomajiList.add(index);
-        }
-        this.indexRomaji().insertAll(indexRomajiList);
-
-        List<IndexEnglish> indexEnglishList = new ArrayList<>();
-        for (int i=0; i<grammarDatabaseIndexEN.size(); i++) {
-            if (TextUtils.isEmpty(grammarDatabaseIndexEN.get(i)[0])) break;
-            IndexEnglish index = new IndexEnglish(grammarDatabaseIndexEN.get(i)[0], grammarDatabaseIndexEN.get(i)[1]);
-            indexEnglishList.add(index);
-        }
-        this.indexEnglish().insertAll(indexEnglishList);
-
-        List<IndexFrench> indexFrenchList = new ArrayList<>();
-        for (int i=0; i<grammarDatabaseIndexFR.size(); i++) {
-            if (TextUtils.isEmpty(grammarDatabaseIndexFR.get(i)[0])) break;
-            IndexFrench index = new IndexFrench(grammarDatabaseIndexFR.get(i)[0], grammarDatabaseIndexFR.get(i)[1]);
-            indexFrenchList.add(index);
-        }
-        this.indexFrench().insertAll(indexFrenchList);
-
-        List<IndexSpanish> indexSpanishList = new ArrayList<>();
-        for (int i=0; i<grammarDatabaseIndexES.size(); i++) {
-            if (TextUtils.isEmpty(grammarDatabaseIndexES.get(i)[0])) break;
-            IndexSpanish index = new IndexSpanish(grammarDatabaseIndexES.get(i)[0], grammarDatabaseIndexES.get(i)[1]);
-            indexSpanishList.add(index);
-        }
-        this.indexSpanish().insertAll(indexSpanishList);
-
-        List<IndexKanji> indexKanjiList = new ArrayList<>();
-        for (int i=0; i<grammarDatabaseIndexKanji.size(); i++) {
-            if (TextUtils.isEmpty(grammarDatabaseIndexKanji.get(i)[0])) break;
-            IndexKanji indexKanji = new IndexKanji(grammarDatabaseIndexKanji.get(i)[0], grammarDatabaseIndexKanji.get(i)[1], grammarDatabaseIndexKanji.get(i)[2]);
-            indexKanjiList.add(indexKanji);
-        }
-        indexKanji().insertAll(indexKanjiList);
-
-        Log.i("Diagnosis Time","Loaded Indexes.");
-    }
 
     //Switches the internal implementation with an empty in-memory database
     @VisibleForTesting
     public static void switchToInMemory(Context context) {
         sInstance = Room
-                .inMemoryDatabaseBuilder(context.getApplicationContext(),JapaneseToolboxCentralRoomDatabase.class)
+                .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomCentralDatabase.class)
                 .build();
     }
 
@@ -273,7 +236,8 @@ public abstract class JapaneseToolboxCentralRoomDatabase extends RoomDatabase {
         return indexKanji().getKanjiIndexByExactUTF8Query(query);
     }
     public List<IndexKanji> getKanjiIndexesListForStartingWord(String query) {
-        return indexKanji().getKanjiIndexByStartingUTF8Query(query);
+        //return indexKanji().getKanjiIndexByStartingUTF8Query(query);
+        return indexKanji().getKanjiIndexByStartingQuery(query);
     }
 
     public List<Verb> getVerbListByVerbIds(List<Long> verbIds) {

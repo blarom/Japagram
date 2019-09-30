@@ -74,6 +74,7 @@ public class DictionaryFragment extends Fragment implements
     private JishoSearchAsyncTask mJishoSearchAsyncTask;
     private LocalSearchAsyncTask mLocalDictSearchAsyncTask;
     private VerbSearchAsyncTask mVerbSearchAsyncTask;
+    private boolean mShowNames;
     //endregion
 
 
@@ -132,6 +133,7 @@ public class DictionaryFragment extends Fragment implements
             mInputQuery = getArguments().getString(getString(R.string.user_query_word));
             mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));
             mVerbKanjiConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.kanji_conj_database));
+            mShowNames = getArguments().getBoolean(getString(R.string.show_names));
         }
     }
     private void initializeParameters() {
@@ -197,7 +199,7 @@ public class DictionaryFragment extends Fragment implements
     }
     private void startSearchingForWordsInRoomDb() {
         if (getActivity()!=null) {
-            mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this);
+            mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
             mLocalDictSearchAsyncTask.execute();
         }
     }
@@ -288,7 +290,7 @@ public class DictionaryFragment extends Fragment implements
                         text += getString(R.string.one_verb);
                         break;
                     default:
-                        text += Integer.toString(mMatchingWordsFromVerbs.size()) + " " + getString(R.string.verbs);
+                        text += mMatchingWordsFromVerbs.size() + " " + getString(R.string.verbs);
                         break;
                 }
                 text += " " + getString(R.string.with_conjugations_matching_the_search_word);
@@ -435,6 +437,9 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedJishoResults = false;
         mAlreadyLoadedVerbs = false;
         getQuerySearchResults();
+    }
+    void setShowNames(boolean status) {
+        mShowNames = status;
     }
 
     //Communication with Firebase DAO

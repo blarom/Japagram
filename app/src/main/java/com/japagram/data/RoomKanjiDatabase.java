@@ -10,6 +10,7 @@ import com.japagram.resources.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -20,7 +21,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {KanjiCharacter.class, KanjiComponent.class},
         version = 18,
         exportSchema = false)
-public abstract class JapaneseToolboxKanjiRoomDatabase extends RoomDatabase {
+public abstract class RoomKanjiDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
 
     //return The DAO for the tables
@@ -30,14 +31,15 @@ public abstract class JapaneseToolboxKanjiRoomDatabase extends RoomDatabase {
 
 
     //Gets the singleton instance of SampleDatabase
-    private static JapaneseToolboxKanjiRoomDatabase sInstance;
-    public static synchronized JapaneseToolboxKanjiRoomDatabase getInstance(Context context) {
+    private static RoomKanjiDatabase sInstance;
+    public static synchronized RoomKanjiDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
-                        .databaseBuilder(context.getApplicationContext(), JapaneseToolboxKanjiRoomDatabase.class, "japanese_toolbox_kanji_room_database")
+                        .databaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class, "japanese_toolbox_kanji_room_database")
                         .addMigrations(FROM_1_TO_2)
+                        .enableMultiInstanceInvalidation()
                         .build();
 
                 sInstance.populateDatabases(context);
@@ -45,8 +47,16 @@ public abstract class JapaneseToolboxKanjiRoomDatabase extends RoomDatabase {
                 //If migrations weren't set up from version X to verion X+1, do a destructive migration (rebuilds the db from sratch using the assets)
                 e.printStackTrace();
                 sInstance = Room
-                        .databaseBuilder(context.getApplicationContext(), JapaneseToolboxKanjiRoomDatabase.class, "japanese_toolbox_kanji_room_database")
+                        .databaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class, "japagram_kanji_room_database")
                         .fallbackToDestructiveMigration()
+                        .addCallback(new Callback() {
+                            @Override
+                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                super.onCreate(db);
+                                getInstance(context).populateDatabases(context);
+                            }
+                        })
+                        .enableMultiInstanceInvalidation()
                         .build();
 
                 sInstance.populateDatabases(context);
@@ -168,7 +178,7 @@ public abstract class JapaneseToolboxKanjiRoomDatabase extends RoomDatabase {
     @VisibleForTesting
     public static void switchToInMemory(Context context) {
         sInstance = Room
-                .inMemoryDatabaseBuilder(context.getApplicationContext(),JapaneseToolboxKanjiRoomDatabase.class)
+                .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class)
                 .build();
     }
 
