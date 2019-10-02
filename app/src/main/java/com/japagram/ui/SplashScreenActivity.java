@@ -10,11 +10,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.R;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.RoomNamesDatabase;
+import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import butterknife.BindView;
@@ -63,21 +65,23 @@ public class SplashScreenActivity extends BaseActivity {
         mNamesDbBeingLoaded = true;
         mKanjiDbBeingLoaded = true;
 
+        startDbInstallationForegroundService();
+
         //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
         dbLoadRunnableCentral = () -> {
             mCentralDbBeingLoaded = true;
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             mCentralDbBeingLoaded = false;
         };
-        dbLoadRunnableExtended = () -> {
-            mExtendedDbBeingLoaded = true;
-            RoomExtendedDatabase.getInstance(SplashScreenActivity.this); //Required for Room
-            mExtendedDbBeingLoaded = false;
-        };
         dbLoadRunnableKanji = () -> {
             mKanjiDbBeingLoaded = true;
             RoomKanjiDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             mKanjiDbBeingLoaded = false;
+        };
+        dbLoadRunnableExtended = () -> {
+            mExtendedDbBeingLoaded = true;
+            RoomExtendedDatabase.getInstance(SplashScreenActivity.this); //Required for Room
+            mExtendedDbBeingLoaded = false;
         };
         dbLoadRunnableNames = () -> {
             mNamesDbBeingLoaded = true;
@@ -86,76 +90,48 @@ public class SplashScreenActivity extends BaseActivity {
         };
         dbLoadThread = new Thread(dbLoadRunnableCentral);
         dbLoadThread.start();
-        dbLoadThread = new Thread(dbLoadRunnableExtended);
-        dbLoadThread.start();
         dbLoadThread = new Thread(dbLoadRunnableKanji);
         dbLoadThread.start();
-        boolean showNames = Utilities.getPreferenceShowNames(SplashScreenActivity.this);
-        if (showNames) {
-            dbLoadThread = new Thread(dbLoadRunnableNames);
-            dbLoadThread.start();
-        }
 
-        showLoadingIndicator();
+        //showLoadingIndicator();
         if (Utilities.getAppPreferenceFirstTimeInstalling(SplashScreenActivity.this)) {
-            Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
         }
 
         mTicks = 0;
         countDownTimer = new CountDownTimer(3600000, 500) {
-
-            boolean showNames = Utilities.getPreferenceShowNames(SplashScreenActivity.this);
 
             @Override
             public void onTick(long l) {
 
                 //Delaying the start of db loading if the app uses too much memory
                 boolean finishedLoadingCentralDatabase = Utilities.getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
-                boolean finishedLoadingExtendedDatabase = Utilities.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
                 boolean finishedLoadingKanjiDatabase = Utilities.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
-                boolean finishedLoadingNamesDatabase = !showNames || Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
 
-                if (mCentralDbBeingLoaded) {
-                    if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
-                        mLastUIUpdateWasCentral = true;
-                        mLastUIUpdateWasExtended = false;
-                        mLastUIUpdateWasNames = true;
-                        mLastUIUpdateWasKanji = true;
+                if (mTicks >= 2) {
+                    if (mCentralDbBeingLoaded) {
+                        if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
+                            if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
+                            mLastUIUpdateWasCentral = true;
+                            mLastUIUpdateWasKanji = false;
+                        }
                     }
-                }
-                else if (mExtendedDbBeingLoaded) {
-                    if (!mLastUIUpdateWasExtended && !finishedLoadingExtendedDatabase) {
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_extended_database));
-                        mLastUIUpdateWasCentral = false;
-                        mLastUIUpdateWasExtended = true;
-                        mLastUIUpdateWasNames = false;
-                        mLastUIUpdateWasKanji = false;
+                    else if (mKanjiDbBeingLoaded) {
+                        if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
+                            if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
+                            mLastUIUpdateWasCentral = false;
+                            mLastUIUpdateWasKanji = true;
+                        }
                     }
-                }
-                else if (mKanjiDbBeingLoaded) {
-                    if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
-                        mLastUIUpdateWasCentral = false;
-                        mLastUIUpdateWasExtended = false;
-                        mLastUIUpdateWasNames = false;
-                        mLastUIUpdateWasKanji = true;
-                    }
-                }
-                else if (mNamesDbBeingLoaded) {
-                    if (!mLastUIUpdateWasNames && !finishedLoadingNamesDatabase) {
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_names_database));
-                        mLastUIUpdateWasCentral = false;
-                        mLastUIUpdateWasExtended = false;
-                        mLastUIUpdateWasNames = true;
-                        mLastUIUpdateWasKanji = false;
+                    if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
+                        hideLoadingIndicator();
+                        countDownTimer.onFinish();
+                        countDownTimer.cancel();
                     }
                 }
 
-                if (mTicks >= 2 && finishedLoadingCentralDatabase && finishedLoadingExtendedDatabase && finishedLoadingKanjiDatabase && (!showNames || finishedLoadingNamesDatabase)){
-                    hideLoadingIndicator();
-                    countDownTimer.onFinish();
-                    countDownTimer.cancel();
+                if (mTicks == 3) {
+                    showLoadingIndicator();
                 }
 
                 mTicks++;
@@ -173,6 +149,8 @@ public class SplashScreenActivity extends BaseActivity {
         countDownTimer.start();
 
     }
+
+
     @Override protected void onDestroy() {
         super.onDestroy();
         mBinding.unbind();
@@ -194,5 +172,20 @@ public class SplashScreenActivity extends BaseActivity {
         if (mTimeToLoadTextView!=null) mTimeToLoadTextView.setText(R.string.splashscreen_should_take_only_a_few_seconds);
         if (mLoadingDatabaseTextView!=null) mLoadingDatabaseTextView.setVisibility(View.GONE);
         if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+    }
+    private void startDbInstallationForegroundService() {
+        Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
+        boolean showNames = Utilities.getPreferenceShowNames(this) && !Utilities.getAppPreferenceFirstTimeInstalling(this);
+        boolean delayExtendedDbInstallation = Utilities.getAppPreferenceDbVersionExtended(this) != GlobalConstants.EXTENDED_DB_VERSION;
+        boolean delayNamesDbInstallation = Utilities.getAppPreferenceDbVersionNames(this) != GlobalConstants.NAMES_DB_VERSION;
+        serviceIntent.putExtra(getString(R.string.show_names), showNames);
+        serviceIntent.putExtra(getString(R.string.delay_extended_db_installation), delayExtendedDbInstallation);
+        serviceIntent.putExtra(getString(R.string.delay_names_db_installation), delayNamesDbInstallation);
+        startService(serviceIntent);
+
+    }
+    private void stopDbInstallationForegroundService() {
+        Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
+        stopService(serviceIntent);
     }
 }

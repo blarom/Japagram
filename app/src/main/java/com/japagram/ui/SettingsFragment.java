@@ -1,14 +1,17 @@
 package com.japagram.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.japagram.R;
+import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -65,11 +68,13 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (getActivity() == null) return;
         Preference currentPreference = findPreference(key);
         if (currentPreference != null) {
             if (currentPreference instanceof EditTextPreference) {
                 checkIfValueIsInRangeOrWarnUser(currentPreference, sharedPreferences);
                 setSummaryForPreference(currentPreference, sharedPreferences);
+
             }
             else if (currentPreference instanceof ListPreference) {
                 setSummaryForPreference(currentPreference, sharedPreferences);
@@ -81,6 +86,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                     setThemeColor(currentPreference);
                     if (getActivity() != null) Utilities.restartApplication(getActivity());
                 }
+            }
+            else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {
+                boolean finishedLoadingNamesDatabase = Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
+                boolean showNames = sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_names_search_key), false);
+                if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog();
             }
         }
     }
@@ -219,5 +229,25 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         }
     }
 
+    private void startDbInstallationForegroundService() {
+        if (getActivity() == null) return;
+        Intent serviceIntent = new Intent(getActivity(), RoomDatabasesInstallationForegroundService.class);
+        serviceIntent.putExtra(getString(R.string.show_names), true);
+        getActivity().startService(serviceIntent);
+
+    }
+    private void showNamesDbDownloadDialog() {
+        if (getActivity() == null) return;
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setMessage(getString(R.string.confirm_download_names_db));
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
+                (dialog, which) -> {
+                    startDbInstallationForegroundService();
+                    dialog.dismiss();
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
+                (dialog, which) -> dialog.dismiss());
+        alertDialog.show();
+    }
 
 }

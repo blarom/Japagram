@@ -4,11 +4,11 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
+import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -22,7 +22,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexFrench.class,
                         IndexSpanish.class,
                         IndexKanji.class},
-                    version = 5,
+                    version = GlobalConstants.EXTENDED_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomExtendedDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -68,7 +68,8 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
-            Utilities.setAppPreferenceExtendedDatabasesFinishedLoadingFlag(context, false);
+            Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
+            Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
@@ -94,7 +95,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
                 endTransaction();
             }
         }
-        Utilities.setAppPreferenceExtendedDatabasesFinishedLoadingFlag(context, true);
+        Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
 
     }
 

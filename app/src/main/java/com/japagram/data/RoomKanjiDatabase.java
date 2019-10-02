@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {KanjiCharacter.class, KanjiComponent.class},
-        version = 18,
+        version = GlobalConstants.KANJI_DB_VERSION,
         exportSchema = false)
 public abstract class RoomKanjiDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -67,9 +68,10 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
 
         if (kanjiCharacter().count() == 0) {
+            Utilities.setAppPreferenceDbVersionKanji(context, GlobalConstants.KANJI_DB_VERSION);
+            Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();

@@ -1421,9 +1421,11 @@ public class InputQueryFragment extends Fragment implements
         mQueryHistory = new ArrayList<>();
         saveQueryHistoryToPreferences();
     }
-    public void updateQueryHistoryList(List<String> queryHistory, int queryHistoryMaxSize) {
-        mQueryHistory = queryHistory;
+    public void updateQueryHistorySize(int queryHistoryMaxSize) {
         mQueryHistoryMaxSize = queryHistoryMaxSize;
+    }
+    public void updateQueryHistoryList(List<String> queryHistory) {
+        mQueryHistory = queryHistory;
         updateQueryHistoryWordsOnly();
         mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(
                 getContext(),

@@ -9,6 +9,11 @@ import java.util.List;
 
 public final class GlobalConstants {
 
+    public static final int CENTRAL_DB_VERSION = 94;
+    public static final int KANJI_DB_VERSION = 18;
+    public static final int EXTENDED_DB_VERSION = 5;
+    public static final int NAMES_DB_VERSION = 2;
+
     public static final String DB_ELEMENTS_DELIMITER = ";";
     public static final String KANJI_ASSOCIATED_COMPONENTS_DELIMITER = "";
     public static final String[][] EDICT_EXCEPTIONS = new String[][]{

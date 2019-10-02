@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
+import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexFrench.class,
                         IndexSpanish.class,
                         IndexKanji.class},
-                    version = 94,
+                    version = GlobalConstants.CENTRAL_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomCentralDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -78,6 +79,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
+            Utilities.setAppPreferenceDbVersionCentral(context, GlobalConstants.CENTRAL_DB_VERSION);
             Utilities.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();
             try {

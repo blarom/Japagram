@@ -371,6 +371,10 @@ public class DictionaryFragment extends Fragment implements
             Word currentWord = wordsList.get(i);
             if (currentWord==null) continue;
 
+            if (currentWord.getRomaji().equals("shiken")) {
+                queryWordWithoutTo = mInputQuery.substring(3);
+            }
+
             String language = LocaleHelper.getLanguage(getContext());
             int ranking = Utilities.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
 

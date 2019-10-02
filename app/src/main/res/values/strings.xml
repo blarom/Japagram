@@ -12,7 +12,7 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="hidden_names_search">Don\'t search names</string>
-    <string name="shown_names_search">Search names (may cause search delays and requires names database installation)</string>
+    <string name="shown_names_search">Search names (requires names database download &amp; installation)</string>
     <string name="hidden_online_search">Don\'t get words and meanings online</string>
     <string name="shown_online_search">Merge online search results with local results</string>
     <string name="use_japanese_font_for_asian_characters">Use Japanese font for Asian characters (Chinese characters used in Japanese will be displayed in Japanese font)</string>
@@ -361,6 +361,8 @@
     <string name="sorry_only_have_second_part">MB left in internal memory and can\'t install the OCR data. Please clear some app data and try again.</string>
     <string name="downloading_ocr_data_first_part">Downloading the\u0020</string>
     <string name="downloading_ocr_data_second_part">OCR data on Wifi only.</string>
+    <string name="delay_extended_db_installation" translatable="false">delay_extended_db_installation</string>
+    <string name="delay_names_db_installation" translatable="false">delay_names_db_installation</string>
     <string name="attempting_download_first_part">Attempting to download the\u0020</string>
     <string name="attempting_download_second_part">OCR data. Please wait.</string>
     <string name="failed_to_connect_to_internet">Failed to connect to the Internet.</string>
@@ -394,10 +396,15 @@
     <string name="finished_loading_databases">Finished loading the databases.</string>
     <string name="word_and_verb_database_finished_loading_flag" translatable="false">word_and_verb_database_finished_loading_flag</string>
     <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>
+    <string name="pref_db_version_central" translatable="false">pref_db_version_central</string>
+    <string name="pref_db_version_kanji" translatable="false">pref_db_version_kanji</string>
+    <string name="pref_db_version_extended" translatable="false">pref_db_version_extended</string>
+    <string name="pref_db_version_names" translatable="false">pref_db_version_names</string>
     <string name="first_time_installing_flag" translatable="false">first_time_installing_flag</string>
     <string name="names_database_finished_loading_flag" translatable="false">names_database_finished_loading_flag</string>
     <string name="database_being_installed">The database is currently being installed.\nThis may take a few minutes.\nThis delay only occurs when installing or upgrading the app.</string>
     <string name="sure_you_want_to_exit">Are you sure you want to exit the app?</string>
+    <string name="confirm_download_names_db">Please confirm you wish to install the names database. It may take up to 20 minutes until you can see names in the search results.</string>
     <string name="yes">Yes</string>
     <string name="no_matching_words_online">No matching words found online.</string>
     <string name="no_new_words_or_meanings_found_online">No new words or meaningsEN found online.</string>

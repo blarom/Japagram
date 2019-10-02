@@ -2245,19 +2245,21 @@ public final class Utilities {
                 baseMeaningLength = 1000; //was 1500
 
                 //If meaning has the exact word, get the length as follows
-                String[] currentMeaningIndividualElements = currentMeaning.split(",");
+                String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 lateHitInMeaningPenalty = 0;
                 cumulativeMeaningLength = 0;
                 for (String currentMeaningElement : currentMeaningIndividualElements) {
 
+                    String trimmedElement = currentMeaningElement.trim();
+
                     //If there's an exact match, push the word up in ranking
-                    if (currentMeaningElement.equals(inputQuery)) {
+                    if (trimmedElement.equals(inputQuery)) {
                         ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                         foundMeaningLength = true;
                     }
                     if (foundMeaningLength) break;
 
-                    String[] currentMeaningIndividualWords = currentMeaningElement.trim().split(" ");
+                    String[] currentMeaningIndividualWords = trimmedElement.split(" ");
                     for (String word : currentMeaningIndividualWords) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
@@ -2270,7 +2272,7 @@ public final class Utilities {
                     if (foundMeaningLength) break;
 
                     //If meaning has the exact word but maybe in parentheses, get the length as follows
-                    String[] currentMeaningIndividualWordsWithoutParentheses = currentMeaningElement.trim()
+                    String[] currentMeaningIndividualWordsWithoutParentheses = trimmedElement
                             .replace("(","").replace(")","").split(" ");
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
@@ -2300,28 +2302,28 @@ public final class Utilities {
             else {
                 foundMeaningLength = false;
 
-                String[] currentMeaningIndividualElements;
+                String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 if (!queryIsVerbWithTo) {
                     baseMeaningLength = 1000;
 
                     //Calculate the length first by adding "to " to the input query. If it leads to a hit, that means that this verb is relevant
                     inputQuery = "to " + mInputQuery;
 
-                    currentMeaningIndividualElements = currentMeaning.split(",");
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
                     for (String element : currentMeaningIndividualElements) {
 
+                        String trimmedElement = element.trim();
+
                         //If there's an exact match, push the word up in ranking
-                        if (element.equals(inputQuery)) {
+                        if (trimmedElement.equals(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        String trimmedElement = element.trim();
-                        if (trimmedElement.equals(inputQuery)) {
+                        if (trimmedElement.contains(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
@@ -2333,21 +2335,20 @@ public final class Utilities {
 
                     //Otherwise, use the original query to get the length
                     inputQuery = mInputQuery;
-
-                    currentMeaningIndividualElements = currentMeaning.split(",");
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
                     for (String element : currentMeaningIndividualElements) {
 
+                        String trimmedElement = element.trim();
+
                         //If there's an exact match, push the word up in ranking
-                        if (element.equals(inputQuery)) {
+                        if (trimmedElement.equals(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
-                        String trimmedElement = element.trim();
-                        if (trimmedElement.equals(inputQuery)) {
+                        if (trimmedElement.contains(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
@@ -2362,21 +2363,21 @@ public final class Utilities {
                     inputQuery = mInputQuery;
 
                     //Get the length according to the position of the verb in the meanings list
-                    currentMeaningIndividualElements = currentMeaning.split(",");
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
                     for (String element : currentMeaningIndividualElements) {
 
+                        String trimmedElement = element.trim();
+
                         //If there's an exact match, push the word up in ranking
-                        if (element.equals(inputQuery)) {
+                        if (trimmedElement.equals(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        String trimmedElement = element.trim();
-                        if (trimmedElement.equals(inputQuery)) {
+                        if (trimmedElement.contains(inputQuery)) {
                             ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
@@ -2407,7 +2408,7 @@ public final class Utilities {
             ranking -= 100;
         }
 
-        //If the word first meaning is "*", this very likely means it's a name, the ranking worsens
+        //If the word is a name, the ranking worsens
         if (GlobalConstants.NAMES_LIST.contains(currentWord.getMeaningsEN().get(0).getType())) ranking += 5000;
 
         //If the word is common, the ranking improves
@@ -3408,9 +3409,8 @@ public final class Utilities {
     public static int getPreferenceQueryHistorySize(SharedPreferences sharedPreferences, Context context) {
         int queryHistorySize = Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_default_value));
         try {
-            String queryHist = sharedPreferences.getString(context.getResources().getString(R.string.pref_query_history_size_key),
-                    context.getResources().getString(R.string.pref_query_history_size_default_value));
-            queryHistorySize = Integer.parseInt(queryHist == null? "0" : queryHist);
+            String queryHist = sharedPreferences.getString(context.getResources().getString(R.string.pref_query_history_size_key), context.getResources().getString(R.string.pref_query_history_size_default_value));
+            queryHistorySize = Integer.parseInt(queryHist);
         } catch (Exception e) {
             queryHistorySize = Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_default_value));
         } finally {
@@ -3444,7 +3444,7 @@ public final class Utilities {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.word_and_verb_database_finished_loading_flag), false);
     }
-    public static void setAppPreferenceExtendedDatabasesFinishedLoadingFlag(Context context, boolean flag) {
+    public static void setAppPreferenceExtendedDatabaseFinishedLoadingFlag(Context context, boolean flag) {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -3481,6 +3481,55 @@ public final class Utilities {
         return sharedPref.getBoolean(context.getString(R.string.first_time_installing_flag), true);
     }
 
+    public static void setAppPreferenceDbVersionCentral(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.pref_db_version_central), 1);
+            editor.apply();
+        }
+    }
+    public static int getAppPreferenceDbVersionCentral(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.pref_db_version_central), 1);
+    }
+    public static void setAppPreferenceDbVersionKanji(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.pref_db_version_kanji), 1);
+            editor.apply();
+        }
+    }
+    public static int getAppPreferenceDbVersionKanji(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.pref_db_version_kanji), 1);
+    }
+    public static void setAppPreferenceDbVersionExtended(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.pref_db_version_extended), 1);
+            editor.apply();
+        }
+    }
+    public static int getAppPreferenceDbVersionExtended(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.pref_db_version_extended), 1);
+    }
+    public static void setAppPreferenceDbVersionNames(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.pref_db_version_names), 1);
+            editor.apply();
+        }
+    }
+    public static int getAppPreferenceDbVersionNames(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.pref_db_version_names), 1);
+    }
+
     public static void setAppPreferenceColorTheme(Context context, String theme) {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
@@ -3491,7 +3540,7 @@ public final class Utilities {
     }
     public static String getAppPreferenceColorTheme(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_lightbluegreen));
+        return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_lightredblack));
     }
     public static boolean changeThemeColor(Activity activity) {
 

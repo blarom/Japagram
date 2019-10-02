@@ -1,7 +1,6 @@
 package com.japagram.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -238,7 +237,7 @@ public class MainActivity extends BaseActivity implements
         }
         else if (key.equals(getString(R.string.pref_query_history_size_key))) {
             mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(sharedPreferences, getApplicationContext());
-            updateQueryHistorySize();
+            updateQueryHistory();
         }
         else if (key.equals(getString(R.string.pref_preferred_STT_language_key))) {
             setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
@@ -395,6 +394,9 @@ public class MainActivity extends BaseActivity implements
         }
 
         fragmentTransaction.commit();
+        if (mInputQueryFragment!=null) {
+            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
+        }
     }
     private void updateInputQuery(String word, boolean keepPreviousText) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -406,6 +408,10 @@ public class MainActivity extends BaseActivity implements
         }
 
         fragmentTransaction.commit();
+
+        if (mInputQueryFragment!=null) {
+            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
+        }
     }
     private void clearBackstack() {
 
@@ -499,41 +505,37 @@ public class MainActivity extends BaseActivity implements
         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
         alertDialog.setMessage(getString(R.string.sure_you_want_to_exit));
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        dialog.dismiss();
-                    }
+                (dialog, which) -> {
+                    finish();
+                    dialog.dismiss();
                 });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
+                (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }
-    private void updateQueryHistorySize() {
+    private void updateQueryHistory() {
 
         //Getting the history
         SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preferences_query_history_list), Context.MODE_PRIVATE);
         String queryHistoryAsString = sharedPref.getString(getString(R.string.preferences_query_history_list), "");
-        if (queryHistoryAsString!=null && !queryHistoryAsString.equals(""))
+        if (!queryHistoryAsString.equals(""))
             mQueryHistory = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER)));
         else mQueryHistory = new ArrayList<>();
 
         //Updating its size
         if (mQueryHistory.size() > mQueryHistorySize) mQueryHistory = mQueryHistory.subList(0, mQueryHistorySize);
 
-        //Saving the hstory
+        //Saving the history
         queryHistoryAsString = TextUtils.join(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER, mQueryHistory);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.preferences_query_history_list), queryHistoryAsString);
         editor.apply();
 
-        if (mInputQueryFragment!=null) mInputQueryFragment.updateQueryHistoryList(mQueryHistory, mQueryHistorySize);
+        if (mInputQueryFragment!=null) {
+            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
+            mInputQueryFragment.updateQueryHistoryList(mQueryHistory);
+        }
     }
-
 
     //Asynchronous methods
     @NonNull

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
+import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexRomaji.class,
                         IndexEnglish.class,
                         IndexKanji.class},
-                    version = 2,
+                    version = GlobalConstants.NAMES_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomNamesDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -63,6 +64,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
+            Utilities.setAppPreferenceDbVersionNames(context, GlobalConstants.NAMES_DB_VERSION);
             Utilities.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();
             try {

@@ -7,7 +7,7 @@
     <string name="settings">Paramètres</string>
     <string name="about">À propos</string>
     <string name="hidden_names_search">Ne pas chercher les noms</string>
-    <string name="shown_names_search">Chercher les noms (peut causer un ralentissement des recherches et nécessite l\'installation de la base de données de noms)</string>
+    <string name="shown_names_search">Chercher les noms (nécessite la décharge et l\'installation de la base de données de noms)</string>
     <string name="hidden_online_search">Ne pas chercher les mots et sens en ligne</string>
     <string name="shown_online_search">Fusionner les résultats de la recherche en ligne avec les résultats locaux</string>
     <string name="wait_for_online_results_off">Afficher la liste de résultats immédiatement et l\'actualiser après avoir obtenu des résultats en ligne</string>
@@ -720,4 +720,6 @@
     <string name="simplification">simplification</string>
     <string name="radical">Radical</string>
     <string name="english_meanings_available_only">(Senses en anglais disponibles uniquement)</string>
+    <string name="confirm_download_names_db">Veuillez confirmer que vous voulez installer la base de données de noms.
+        Cela peut prendre jusqu\'à 20 minutes afin de voir les noms dans les résultats de recherche.</string>
 </resources>
