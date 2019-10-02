@@ -91,7 +91,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         };
 
         mFirstTickThread = true;
-        countDownTimer = new CountDownTimer(15000, 5000) {
+        countDownTimer = new CountDownTimer(30000, 5000) {
 
             @Override
             public void onTick(long l) {
@@ -130,7 +130,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                if (mFirstTickDisplay) return;
+                if (mFirstTickDisplay) {
+                    mFirstTickDisplay = false;
+                    return;
+                }
 
                 if (mExtendedDbBeingLoaded) {
                     notificationBuilder.setContentText("Installing full dictionary.");

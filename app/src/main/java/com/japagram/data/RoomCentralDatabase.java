@@ -153,6 +153,10 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, i);
             wordList.add(word);
+            if (wordList.size() % 2000 == 0) {
+                word().insertAll(wordList);
+                wordList = new ArrayList<>();
+            }
         }
         word().insertAll(wordList);
         Log.i("Diagnosis Time","Loaded Words Database.");
@@ -162,6 +166,10 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             if (verbsDatabase.get(i)[0].equals("")) break;
             Verb verb = Utilities.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
             verbList.add(verb);
+            if (verbList.size() % 2000 == 0) {
+                verb().insertAll(verbList);
+                verbList = new ArrayList<>();
+            }
         }
         verb().insertAll(verbList);
         Log.i("Diagnosis Time","Loaded Verbs Database.");

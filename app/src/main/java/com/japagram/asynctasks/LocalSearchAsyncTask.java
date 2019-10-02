@@ -38,8 +38,10 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
         List<Word> localMatchingWordsList = new ArrayList<>();
         if (!TextUtils.isEmpty(mQuery)) {
             RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
-            RoomExtendedDatabase roomExtendedDatabase = RoomExtendedDatabase.getInstance(contextRef.get());
-            RoomNamesDatabase roomNamesDatabase = mShowNames? RoomNamesDatabase.getInstance(contextRef.get()) : null;
+            RoomExtendedDatabase roomExtendedDatabase = Utilities.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get())?
+                    RoomExtendedDatabase.getInstance(contextRef.get()) : null;
+            RoomNamesDatabase roomNamesDatabase = Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get())?
+                    (mShowNames? RoomNamesDatabase.getInstance(contextRef.get()) : null) : null;
             String language = LocaleHelper.getLanguage(contextRef.get());
             Object[] matchingWordIds = Utilities.getMatchingWordIdsAndDoBasicFiltering(mQuery,
                     roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language);

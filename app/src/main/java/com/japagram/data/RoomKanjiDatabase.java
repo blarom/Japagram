@@ -109,6 +109,10 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
             KanjiCharacter kanjiCharacter = new KanjiCharacter(CJK_Database.get(i)[0], CJK_Database.get(i)[1], CJK_Database.get(i)[2]);
             kanjiCharacter.setKanji(Utilities.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
             kanjiCharacterList.add(kanjiCharacter);
+            if (kanjiCharacterList.size() % 5000 == 0) {
+                kanjiCharacter().insertAll(kanjiCharacterList);
+                kanjiCharacterList = new ArrayList<>();
+            }
         }
         kanjiCharacter().insertAll(kanjiCharacterList);
 
@@ -159,7 +163,13 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
                 kanjiComponent.setAssociatedComponents(associatedComponents);
                 associatedComponents = new ArrayList<>();
-                if (i>1) kanjiComponents.add(kanjiComponent);
+                if (i>1) {
+                    kanjiComponents.add(kanjiComponent);
+                    if (kanjiComponents.size() % 1000 == 0) {
+                        kanjiComponent().insertAll(kanjiComponents);
+                        kanjiComponents = new ArrayList<>();
+                    }
+                }
 
                 if (i==3000) kanjiComponent = new KanjiComponent("full2");
                 else if (i < Components_Database.size()-1) kanjiComponent = new KanjiComponent(firstElement);
