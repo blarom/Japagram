@@ -12,6 +12,7 @@ import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -162,7 +163,7 @@ public class ConvertFragment extends Fragment {
 
         String hiraganaAlphabet = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたてとだでどちつづなぬねのんにはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをゔっゐゑぢぁゃゅぅょぉぇぃ";
         String katakanaAlphabet = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタテトダデドチツヅナニヌネノンハヒフヘホバビブベボパピプポペマミムメモヤユヨラリルレロワヲヴーッヰヱァャュゥォョェィ";
-        String latinAlphabet = "aáÀÂÄÆbcÇdeÈÉÊËfghiíÎÏjklmnñoóÔŒpqrstuúÙÛÜvwxyz".toLowerCase();
+        String latinAlphabet = "aāáÀÂÄÆbcÇdeēÈÉÊËfghiíÎÏjklmnñoōóÔŒpqrstuūúÙÛÜvwxyz".toLowerCase();
         String latinAlphabetCap = latinAlphabet.toUpperCase();
         String numberAlphabet = "0123456789";
 
@@ -1318,5 +1319,78 @@ public class ConvertFragment extends Fragment {
         output.add(added_string_katakana);
 
         return output;
+    }
+    public static List<String> getKunreiShikiRomanizations(String text) {
+        List<List<String>> possibleInterpretations = new ArrayList<>();
+        List<String> newCharacterList;
+        for (String character : text.split("(?!^)")) {
+            if (character.equalsIgnoreCase("ō") || character.equalsIgnoreCase("ô")) {
+                if (possibleInterpretations.size() == 0) {
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add("ou");
+                    possibleInterpretations.add(newCharacterList);
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add("oo");
+                    possibleInterpretations.add(newCharacterList);
+                } else {
+                    int initialSize = possibleInterpretations.size();
+                    for (int i = 0; i < initialSize; i++) {
+                        newCharacterList = new ArrayList<>(possibleInterpretations.get(i));
+                        newCharacterList.add("oo");
+                        possibleInterpretations.get(i).add("ou");
+                        possibleInterpretations.add(newCharacterList);
+                    }
+                }
+            }
+            else if (character.equalsIgnoreCase("ā") || character.equalsIgnoreCase("â")) {
+                if (possibleInterpretations.size() == 0) {
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add("aa");
+                    possibleInterpretations.add(newCharacterList);
+                } else {
+                    for (int i = 0; i < possibleInterpretations.size(); i++) {
+                        possibleInterpretations.get(i).add("aa");
+                    }
+                }
+            }
+            else if (character.equalsIgnoreCase("ē") || character.equalsIgnoreCase("ê")) {
+                if (possibleInterpretations.size() == 0) {
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add("ee");
+                    possibleInterpretations.add(newCharacterList);
+                } else {
+                    for (int i = 0; i < possibleInterpretations.size(); i++) {
+                        possibleInterpretations.get(i).add("ee");
+                    }
+                }
+            }
+            else if (character.equalsIgnoreCase("ū") || character.equalsIgnoreCase("û")) {
+                if (possibleInterpretations.size() == 0) {
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add("uu");
+                    possibleInterpretations.add(newCharacterList);
+                } else {
+                    for (int i = 0; i < possibleInterpretations.size(); i++) {
+                        possibleInterpretations.get(i).add("uu");
+                    }
+                }
+            }
+            else {
+                if (possibleInterpretations.size() == 0) {
+                    newCharacterList = new ArrayList<>();
+                    newCharacterList.add(character);
+                    possibleInterpretations.add(newCharacterList);
+                } else {
+                    for (int i = 0; i < possibleInterpretations.size(); i++) {
+                        possibleInterpretations.get(i).add(character);
+                    }
+                }
+            }
+        }
+        List<String> finalStrings = new ArrayList<>();
+        for (int i=0; i<possibleInterpretations.size(); i++) {
+            finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
+        }
+        return finalStrings;
     }
 }

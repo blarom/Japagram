@@ -2829,9 +2829,15 @@ public final class Utilities {
                 keywordsList.add(getConcatenatedMeanings(word));
                 keywords = TextUtils.join(", ", keywordsList).replace(" ","").toLowerCase();
 
-                foundMatch = keywords.contains(searchWordNoSpaces)
-                        || keywords.contains(inglessVerb)
-                        || queryIsVerbWithTo && keywords.contains(searchWordWithoutTo);
+                List<String> possibleInterpretations = ConvertFragment.getKunreiShikiRomanizations(searchWordNoSpaces);
+                for (String interpretation : possibleInterpretations) {
+                    if (keywords.contains(interpretation)) {
+                        foundMatch = true;
+                        break;
+                    }
+                }
+                foundMatch |= keywords.contains(inglessVerb);
+                foundMatch |= queryIsVerbWithTo && keywords.contains(searchWordWithoutTo);
             }
 
             if (foundMatch) {
@@ -3229,9 +3235,12 @@ public final class Utilities {
             //Preventing the index search from returning too many results and crashing the app
 
             if (Arrays.asList(searchType).contains("romaji")) {
-                IndexRomaji indexRomaji = use_extended_db? japaneseToolboxExtendedRoomDatabase.getRomajiIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getRomajiIndexForExactWord(concatenated_word);
-                if (indexRomaji != null) matchingIndices.add(indexRomaji); //Only add the index if the word was found in the index
+                List<String> possibleInterpretations = ConvertFragment.getKunreiShikiRomanizations(concatenated_word);
+                for (String word : possibleInterpretations) {
+                    IndexRomaji indexRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexForExactWord(word)
+                            : roomCentralDatabase.getRomajiIndexForExactWord(word);
+                    if (indexRomaji != null) matchingIndices.add(indexRomaji); //Only add the index if the word was found in the index
+                }
             }
 
             if (Arrays.asList(searchType).contains(GlobalConstants.LANG_STR_EN)) {
@@ -3258,9 +3267,12 @@ public final class Utilities {
 
         } else {
             if (Arrays.asList(searchType).contains("romaji")) {
-                List<IndexRomaji> indexesRomaji = use_extended_db? japaneseToolboxExtendedRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
-                if (indexesRomaji != null && indexesRomaji.size()>0) matchingIndices.addAll(indexesRomaji);
+                List<String> possibleInterpretations = ConvertFragment.getKunreiShikiRomanizations(concatenated_word);
+                for (String word : possibleInterpretations) {
+                    List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexesListForStartingWord(word)
+                            : roomCentralDatabase.getRomajiIndexesListForStartingWord(word);
+                    if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
+                }
             }
 
             if (Arrays.asList(searchType).contains(GlobalConstants.LANG_STR_EN)) {
