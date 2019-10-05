@@ -14,6 +14,7 @@ import com.japagram.resources.Utilities;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1399,5 +1400,19 @@ public class ConvertFragment extends Fragment {
             finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
         }
         return finalStrings;
+    }
+    public static String getOfficialRomanizations(String kana) {
+
+        //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
+        String romanizedKana = kana;
+        int textType = getTextType(kana);
+        if (textType == GlobalConstants.TYPE_HIRAGANA || textType == GlobalConstants.TYPE_KANJI) {
+
+        }
+        else if (textType == GlobalConstants.TYPE_KATAKANA) {
+
+        }
+
+        return "";
     }
 }
