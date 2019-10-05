@@ -536,6 +536,9 @@ public class MainActivity extends BaseActivity implements
             mInputQueryFragment.updateQueryHistoryList(mQueryHistory);
         }
     }
+    private void setQueryElements(String query) {
+
+    }
 
     //Asynchronous methods
     @NonNull

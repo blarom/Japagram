@@ -2,6 +2,7 @@ package com.japagram.data;
 
 import android.content.Context;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.japagram.resources.GlobalConstants;

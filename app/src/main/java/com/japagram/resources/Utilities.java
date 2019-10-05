@@ -2224,7 +2224,6 @@ public final class Utilities {
             currentMeanings = currentWord.getMeaningsEN();
         }
 
-
         String currentMeaning;
         String inputQuery;
         int baseMeaningLength = 1500;
@@ -2235,7 +2234,7 @@ public final class Utilities {
 
         ranking = baseMeaningLength;
         for (int j = 0; j< currentMeanings.size(); j++) {
-            currentMeaning = currentMeanings.get(j).getMeaning();
+            currentMeaning = currentMeanings.get(j).getMeaning().toLowerCase();
 
             //region If the current word is not a verb
             if (!currentWordIsAVerb) {
@@ -2250,7 +2249,7 @@ public final class Utilities {
                 cumulativeMeaningLength = 0;
                 for (String currentMeaningElement : currentMeaningIndividualElements) {
 
-                    String trimmedElement = currentMeaningElement.trim();
+                    String trimmedElement = currentMeaningElement.trim().toLowerCase();
 
                     //If there's an exact match, push the word up in ranking
                     if (trimmedElement.equals(inputQuery)) {
@@ -2394,15 +2393,15 @@ public final class Utilities {
 
         }
 
-        //Adding the romaji and kanji lengths to the ranking
-        ranking = romaji_value.length() + kanji_value.length() + ranking;
+        //Adding the romaji and kanji lengths to the ranking (ie. shorter is better)
+        ranking = 2*(romaji_value.length() + kanji_value.length()) + ranking;
 
         //If the word starts with the inputQuery, its ranking improves
         String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);
 
         if (       (romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0,mInputQuery.length()).equals(mInputQuery))
-                || romajiNoSpaces.equals(mInputQuery) || romajiNoSpaces.equals(inputQueryLatin)
                 || (romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0,mInputQuery.length()).equals(inputQueryLatin))
+                || romajiNoSpaces.equals(mInputQuery) || romajiNoSpaces.equals(inputQueryLatin)
                 || (kanji_value.length() >= mInputQuery.length() && kanji_value.substring(0,mInputQuery.length()).equals(mInputQuery))
                 ) {
             ranking -= 100;
@@ -2443,8 +2442,6 @@ public final class Utilities {
                 break;
             }
         }
-
-        ranking = romaji_value.length() + kanji_value.length() + ranking;
 
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
         if (romaji_value.equals(mInputQuery) || kanji_value.equals(mInputQuery)) ranking = 0;
@@ -3230,17 +3227,16 @@ public final class Utilities {
                                                         RoomCentralDatabase roomCentralDatabase,
                                                         RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase, boolean use_extended_db) {
 
+        //Exact search Prevents the index search from returning too many results and crashing the app
+
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
-            //Preventing the index search from returning too many results and crashing the app
 
             if (Arrays.asList(searchType).contains("romaji")) {
                 List<String> possibleInterpretations = ConvertFragment.getKunreiShikiRomanizations(concatenated_word);
-                for (String word : possibleInterpretations) {
-                    IndexRomaji indexRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexForExactWord(word)
-                            : roomCentralDatabase.getRomajiIndexForExactWord(word);
-                    if (indexRomaji != null) matchingIndices.add(indexRomaji); //Only add the index if the word was found in the index
-                }
+                List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexForExactWordsList(possibleInterpretations)
+                        : roomCentralDatabase.getRomajiIndexForExactWordsList(possibleInterpretations);
+                if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
             }
 
             if (Arrays.asList(searchType).contains(GlobalConstants.LANG_STR_EN)) {
@@ -3268,11 +3264,9 @@ public final class Utilities {
         } else {
             if (Arrays.asList(searchType).contains("romaji")) {
                 List<String> possibleInterpretations = ConvertFragment.getKunreiShikiRomanizations(concatenated_word);
-                for (String word : possibleInterpretations) {
-                    List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexesListForStartingWord(word)
-                            : roomCentralDatabase.getRomajiIndexesListForStartingWord(word);
-                    if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
-                }
+                List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations)
+                        : roomCentralDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations);
+                if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
             }
 
             if (Arrays.asList(searchType).contains(GlobalConstants.LANG_STR_EN)) {
@@ -3497,7 +3491,7 @@ public final class Utilities {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(context.getString(R.string.pref_db_version_central), 1);
+            editor.putInt(context.getString(R.string.pref_db_version_central), value);
             editor.apply();
         }
     }
@@ -3509,7 +3503,7 @@ public final class Utilities {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(context.getString(R.string.pref_db_version_kanji), 1);
+            editor.putInt(context.getString(R.string.pref_db_version_kanji), value);
             editor.apply();
         }
     }
@@ -3521,7 +3515,7 @@ public final class Utilities {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(context.getString(R.string.pref_db_version_extended), 1);
+            editor.putInt(context.getString(R.string.pref_db_version_extended), value);
             editor.apply();
         }
     }
@@ -3533,7 +3527,7 @@ public final class Utilities {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt(context.getString(R.string.pref_db_version_names), 1);
+            editor.putInt(context.getString(R.string.pref_db_version_names), value);
             editor.apply();
         }
     }

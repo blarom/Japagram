@@ -26,8 +26,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
     private boolean mNamesDbBeingLoaded;
     private Notification notification;
     private NotificationCompat.Builder notificationBuilder;
-    private CountDownTimer countDownTimer;
-    private Thread dbLoadThread;
+    private CountDownTimer countDownTimerDisplay;
+    private CountDownTimer countDownTimerThread;
+    private Thread dbLoadThreadExtended;
+    private Thread dbLoadThreadNames;
     private boolean mFirstTickDisplay;
     private boolean mFirstTickThread;
 
@@ -62,48 +64,48 @@ public class RoomDatabasesInstallationForegroundService extends Service {
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             notification = notificationBuilder.setOngoing(true)
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
-                    .setContentTitle("Installing extra databases... please wait")
-                    .setContentText("Starting installation")
+                    .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
+                    .setContentText(getBaseContext().getString(R.string.starting_installation))
                     .setPriority(NotificationManager.IMPORTANCE_MIN)
                     .setCategory(Notification.CATEGORY_SERVICE)
                     .build();
-            startForeground(2, notification);
         }
         else {
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             notification = notificationBuilder.setOngoing(true)
-                    .setContentTitle("Installing extra databases... please wait")
-                    .setContentText("Starting installation")
+                    .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
+                    .setContentText(getBaseContext().getString(R.string.starting_installation))
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
                     .build();
-            startForeground(1, notification);
         }
 
         mExtendedDbBeingLoaded = true;
         mNamesDbBeingLoaded = true;
         Runnable dbLoadRunnableExtended = () -> {
+            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
             RoomExtendedDatabase.getInstance(this); //Required for Room
             mExtendedDbBeingLoaded = false;
         };
         Runnable dbLoadRunnableNames = () -> {
+            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
             RoomNamesDatabase.getInstance(this); //Required for Room
             mNamesDbBeingLoaded = false;
         };
 
         mFirstTickThread = true;
-        countDownTimer = new CountDownTimer(30000, 5000) {
+        countDownTimerThread = new CountDownTimer(30000, 5000) {
 
             @Override
             public void onTick(long l) {
 
                 if (mFirstTickThread) {
                     if (!delayExtendedDbInstallation) {
-                        dbLoadThread = new Thread(dbLoadRunnableExtended);
-                        dbLoadThread.start();
+                        dbLoadThreadExtended = new Thread(dbLoadRunnableExtended);
+                        dbLoadThreadExtended.start();
                     }
                     if (!delayNamesDbInstallation && showNames) {
-                        dbLoadThread = new Thread(dbLoadRunnableNames);
-                        dbLoadThread.start();
+                        dbLoadThreadNames = new Thread(dbLoadRunnableNames);
+                        dbLoadThreadNames.start();
                     }
                     mFirstTickThread = false;
                 }
@@ -112,20 +114,21 @@ public class RoomDatabasesInstallationForegroundService extends Service {
             @Override
             public void onFinish() {
                 if (delayExtendedDbInstallation) {
-                    dbLoadThread = new Thread(dbLoadRunnableExtended);
-                    dbLoadThread.start();
+                    dbLoadThreadExtended = new Thread(dbLoadRunnableExtended);
+                    dbLoadThreadExtended.start();
                 }
                 if (delayNamesDbInstallation && showNames) {
-                    dbLoadThread = new Thread(dbLoadRunnableNames);
-                    dbLoadThread.start();
+                    dbLoadThreadNames = new Thread(dbLoadRunnableNames);
+                    dbLoadThreadNames.start();
                 }
+                countDownTimerThread.cancel();
             }
         };
-        countDownTimer.start();
+        countDownTimerThread.start();
 
         final int totalTime = 3600000;
         mFirstTickDisplay = true;
-        countDownTimer = new CountDownTimer(totalTime, 5000) {
+        countDownTimerDisplay = new CountDownTimer(totalTime, 5000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -136,26 +139,33 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                 }
 
                 if (mExtendedDbBeingLoaded) {
-                    notificationBuilder.setContentText("Installing full dictionary.");
+                    notificationBuilder.setContentText(getBaseContext().getString(R.string.installing_EDICT));
                 } else if (mNamesDbBeingLoaded) {
-                    notificationBuilder.setContentText("Installing names dictionary.");
+                    notificationBuilder.setContentText(getBaseContext().getString(R.string.installing_names));
                 } else {
-                    notificationBuilder.setContentText("Finished!");
+                    notificationBuilder.setContentText(getBaseContext().getString(R.string.finished));
                 }
                 notification = notificationBuilder.build();
-                startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
+
+                if (!mExtendedDbBeingLoaded) {
+                    if (dbLoadThreadExtended != null) dbLoadThreadExtended.interrupt();
+                }
+                if (showNames && !mNamesDbBeingLoaded) {
+                    if (dbLoadThreadNames != null) dbLoadThreadNames.interrupt();
+                }
 
                 if (!mExtendedDbBeingLoaded && (!showNames || !mNamesDbBeingLoaded)){
-                    countDownTimer.onFinish();
+                    countDownTimerDisplay.onFinish();
                 }
             }
 
             @Override
             public void onFinish() {
+                countDownTimerDisplay.cancel();
                 stopSelf();
             }
         };
-        countDownTimer.start();
+        countDownTimerDisplay.start();
 
         return START_NOT_STICKY;
     }

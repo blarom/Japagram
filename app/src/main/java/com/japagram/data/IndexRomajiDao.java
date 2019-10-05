@@ -36,6 +36,10 @@ public interface IndexRomajiDao {
     @Query("SELECT * FROM " + IndexRomaji.TABLE_NAME + " WHERE " + IndexRomaji.COLUMN_VALUE + " LIKE :query  || '%' ")
     List<IndexRomaji> getIndexByStartingQuery(String query);
 
+    //Get a IndexRomaji by query list
+    @Query("SELECT * FROM " + IndexRomaji.TABLE_NAME + " WHERE " + IndexRomaji.COLUMN_VALUE + " IN (:queries)")
+    List<IndexRomaji> getIndexByExactQueries(List<String> queries);
+
     //Delete a IndexRomaji by Latin
     @Query("DELETE FROM " + IndexRomaji.TABLE_NAME + " WHERE " + IndexRomaji.COLUMN_VALUE + " = :romaji")
     int deletIndexByRomaji(String romaji);

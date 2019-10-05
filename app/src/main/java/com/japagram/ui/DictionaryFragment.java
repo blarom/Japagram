@@ -358,7 +358,7 @@ public class DictionaryFragment extends Fragment implements
         //endregion
 
         //region Replacing the Kana input word by its romaji equivalent
-        String inputQuery = mInputQuery;
+        String inputQuery = mInputQuery.toLowerCase();
         int inputTextType = ConvertFragment.getTextType(inputQuery);
         if (inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
             List<String> translationList = ConvertFragment.getLatinHiraganaKatakana(inputQuery.replace(" ", ""));
@@ -370,10 +370,6 @@ public class DictionaryFragment extends Fragment implements
 
             Word currentWord = wordsList.get(i);
             if (currentWord==null) continue;
-
-            if (currentWord.getRomaji().equals("shiken")) {
-                queryWordWithoutTo = mInputQuery.substring(3);
-            }
 
             String language = LocaleHelper.getLanguage(getContext());
             int ranking = Utilities.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);

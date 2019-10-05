@@ -142,6 +142,15 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         return word().count();
     }
 
+    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(List<String> words) {
+        for (int i=0; i< words.size(); i++) {
+            words.set(i, words.get(i) + "%");
+        }
+        return this.indexRomaji().getIndexByExactQueries(words);
+    }
+    public List<IndexRomaji> getRomajiIndexForExactWordsList(List<String> words) {
+        return this.indexRomaji().getIndexByExactQueries(words);
+    }
     public List<IndexRomaji> getRomajiIndexesListForStartingWord(String query) {
         return this.indexRomaji().getIndexByStartingQuery(query);
     }

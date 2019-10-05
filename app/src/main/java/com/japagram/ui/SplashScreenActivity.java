@@ -32,18 +32,13 @@ public class SplashScreenActivity extends BaseActivity {
     @BindView(R.id.splashscreen_current_loading_database) TextView mLoadingDatabaseTextView;
     @BindView(R.id.splashscreen_loading_database_textview) TextView mLoadingDbTextView;
     private boolean mCentralDbBeingLoaded;
-    private boolean mExtendedDbBeingLoaded;
-    private boolean mNamesDbBeingLoaded;
     private boolean mKanjiDbBeingLoaded;
     private CountDownTimer countDownTimer;
     private Runnable dbLoadRunnableCentral;
-    private Runnable dbLoadRunnableExtended;
-    private Runnable dbLoadRunnableNames;
     private Runnable dbLoadRunnableKanji;
-    private Thread dbLoadThread;
+    private Thread dbLoadThreadCentral;
+    private Thread dbLoadThreadKanji;
     boolean mLastUIUpdateWasCentral;
-    boolean mLastUIUpdateWasExtended;
-    boolean mLastUIUpdateWasNames;
     boolean mLastUIUpdateWasKanji;
     private int mTicks;
 
@@ -61,8 +56,6 @@ public class SplashScreenActivity extends BaseActivity {
         mLoadingDbTextView.setTextColor(Utilities.getResColorValue(this, R.attr.colorPrimaryLight));
 
         mCentralDbBeingLoaded = true;
-        mExtendedDbBeingLoaded = true;
-        mNamesDbBeingLoaded = true;
         mKanjiDbBeingLoaded = true;
 
         startDbInstallationForegroundService();
@@ -78,20 +71,10 @@ public class SplashScreenActivity extends BaseActivity {
             RoomKanjiDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             mKanjiDbBeingLoaded = false;
         };
-        dbLoadRunnableExtended = () -> {
-            mExtendedDbBeingLoaded = true;
-            RoomExtendedDatabase.getInstance(SplashScreenActivity.this); //Required for Room
-            mExtendedDbBeingLoaded = false;
-        };
-        dbLoadRunnableNames = () -> {
-            mNamesDbBeingLoaded = true;
-            RoomNamesDatabase.getInstance(SplashScreenActivity.this); //Required for Room
-            mNamesDbBeingLoaded = false;
-        };
-        dbLoadThread = new Thread(dbLoadRunnableCentral);
-        dbLoadThread.start();
-        dbLoadThread = new Thread(dbLoadRunnableKanji);
-        dbLoadThread.start();
+        dbLoadThreadCentral = new Thread(dbLoadRunnableCentral);
+        dbLoadThreadCentral.start();
+        dbLoadThreadKanji = new Thread(dbLoadRunnableKanji);
+        dbLoadThreadKanji.start();
 
         //showLoadingIndicator();
         if (Utilities.getAppPreferenceFirstTimeInstalling(SplashScreenActivity.this)) {
@@ -122,6 +105,12 @@ public class SplashScreenActivity extends BaseActivity {
                             mLastUIUpdateWasCentral = false;
                             mLastUIUpdateWasKanji = true;
                         }
+                    }
+                    if (finishedLoadingCentralDatabase) {
+                        if (dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
+                    }
+                    if (finishedLoadingKanjiDatabase) {
+                        if (dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
                     }
                     if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
                         hideLoadingIndicator();
@@ -176,8 +165,10 @@ public class SplashScreenActivity extends BaseActivity {
     private void startDbInstallationForegroundService() {
         Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
         boolean showNames = Utilities.getPreferenceShowNames(this) && !Utilities.getAppPreferenceFirstTimeInstalling(this);
-        boolean delayExtendedDbInstallation = Utilities.getAppPreferenceDbVersionExtended(this) != GlobalConstants.EXTENDED_DB_VERSION;
-        boolean delayNamesDbInstallation = Utilities.getAppPreferenceDbVersionNames(this) != GlobalConstants.NAMES_DB_VERSION;
+        int currentExtendedDbVersion = Utilities.getAppPreferenceDbVersionExtended(this);
+        int currentNamesDbVersion = Utilities.getAppPreferenceDbVersionNames(this);
+        boolean delayExtendedDbInstallation = currentExtendedDbVersion != GlobalConstants.EXTENDED_DB_VERSION;
+        boolean delayNamesDbInstallation = currentNamesDbVersion != GlobalConstants.NAMES_DB_VERSION;
         serviceIntent.putExtra(getString(R.string.show_names), showNames);
         serviceIntent.putExtra(getString(R.string.delay_extended_db_installation), delayExtendedDbInstallation);
         serviceIntent.putExtra(getString(R.string.delay_names_db_installation), delayNamesDbInstallation);

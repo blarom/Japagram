@@ -2,6 +2,7 @@ package com.japagram.data;
 
 import android.content.Context;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.japagram.resources.GlobalConstants;
@@ -218,6 +219,16 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         return word().count();
     }
 
+    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(List<String> words) {
+        List<IndexRomaji> preparedSqlElements = new ArrayList<>();
+        for (String word : words) {
+            preparedSqlElements.addAll(this.indexRomaji().getIndexByStartingQuery(word));
+        }
+        return preparedSqlElements;
+    }
+    public List<IndexRomaji> getRomajiIndexForExactWordsList(List<String> words) {
+        return this.indexRomaji().getIndexByExactQueries(words);
+    }
     public List<IndexRomaji> getRomajiIndexesListForStartingWord(String query) {
         return this.indexRomaji().getIndexByStartingQuery(query);
     }

@@ -388,11 +388,11 @@
     <string name="decomposition_radical_iteration" translatable="false">decomposition_radical_iteration</string>
     <string name="database_finished_loading_flag" translatable="false">database_finished_loading_flag</string>
     <string name="app_preferences" translatable="false">app_preferences</string>
-    <string name="loading_central_database">Installing the Central words database.\n~ May take up to one minute ~</string>
+    <string name="loading_central_database">Installing the Central words database.</string>
     <string name="loading_extended_database">Finished installing the Central database.\nCurrently installing the Extended database.\n~ May take up to 5 minutes ~</string>
     <string name="loading_names_database">Finished installing the Central database.\nCurrently installing the Names database.\n~ May take up to 20 minutes ~</string>
     <string name="loading_kanji_database">Finished installing the Central database.\nCurrently installing the Kanji database.\n~ May take up to one minute ~</string>
-    <string name="first_time_installing">NOTE: Since this is you first time installing the app, installing all the databases may take up to 30min. Go make yourself some coffee in the meanwhile.</string>
+    <string name="first_time_installing">NOTE: It may some time (5-10min) to install the full database and get full search results.</string>
     <string name="finished_loading_databases">Finished loading the databases.</string>
     <string name="word_and_verb_database_finished_loading_flag" translatable="false">word_and_verb_database_finished_loading_flag</string>
     <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>
@@ -853,5 +853,10 @@
     <string name="radical_variant">radical variant</string>
     <string name="simplification">simplification</string>
     <string name="english_meanings_available_only">(English meanings available only)</string>
+    <string name="installing_extra_dbs_please_wait">Installing extra databases… please wait</string>
+    <string name="starting_installation">Starting installation.</string>
+    <string name="installing_EDICT">Installing full dictionary.</string>
+    <string name="installing_names">Installing names dictionary.</string>
+    <string name="finished">Finished!</string>
 
 </resources>

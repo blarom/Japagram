@@ -806,7 +806,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         //endregion
 
         //region Replacing the Kana input word by its romaji equivalent
-        String inputQuery = mInputQuery;
+        String inputQuery = mInputQuery.toLowerCase();
         int textType = ConvertFragment.getTextType(inputQuery);
         if (textType == TYPE_HIRAGANA || textType == TYPE_KATAKANA) {
             List<String> translationList = ConvertFragment.getLatinHiraganaKatakana(inputQuery.replace(" ", ""));

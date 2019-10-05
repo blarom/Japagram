@@ -1321,6 +1321,14 @@ public class ConvertFragment extends Fragment {
         return output;
     }
     public static List<String> getKunreiShikiRomanizations(String text) {
+        List<String> finalStrings = new ArrayList<>();
+        if (!text.contains("ō") && !text.contains("ô")
+                && !text.contains("ā") && !text.contains("ā")
+                && !text.contains("ē") && !text.contains("ê")
+                && !text.contains("ū") && !text.contains("û")) {
+            finalStrings.add(text);
+            return finalStrings;
+        }
         List<List<String>> possibleInterpretations = new ArrayList<>();
         List<String> newCharacterList;
         for (String character : text.split("(?!^)")) {
@@ -1387,7 +1395,6 @@ public class ConvertFragment extends Fragment {
                 }
             }
         }
-        List<String> finalStrings = new ArrayList<>();
         for (int i=0; i<possibleInterpretations.size(); i++) {
             finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
         }
