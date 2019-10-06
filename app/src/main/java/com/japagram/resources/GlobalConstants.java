@@ -165,6 +165,18 @@ public final class GlobalConstants {
     public final static int NDB_COL_POS                        = 3;
     public final static int NDB_COL_MEANINGS_EN                = 4;
 
+    public final static int ROM_COL_HIRAGANA                   = 0;
+    public final static int ROM_COL_KATAKANA                   = 1;
+    public final static int ROM_COL_WAAPURO                    = 2;
+    public final static int ROM_COL_MOD_HEPBURN                = 3;
+    public final static int ROM_COL_NIHON_SHIKI                = 4;
+    public final static int ROM_COL_KUNREI_SHIKI               = 5;
+
+    public final static int ROM_WAAPURO                        = 0;
+    public final static int ROM_MOD_HEPBURN                    = 1;
+    public final static int ROM_NIHON_SHIKI                    = 2;
+    public final static int ROM_KUNREI_SHIKI                   = 3;
+
     public final static int Index_full = 0;
     public final static int Index_across2 = 1;
     public final static int Index_across3 = 2;

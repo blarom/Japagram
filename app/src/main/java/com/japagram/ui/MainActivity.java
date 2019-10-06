@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity implements
     private List<String[]> VerbKanjiConjDatabase;
     private List<String[]> SimilarsDatabase;
     private List<String[]> RadicalsOnlyDatabase;
+    public static List<String[]> Romanizations;
     private Typeface CJK_typeface;
 
     private boolean mShowNames;
@@ -116,7 +117,7 @@ public class MainActivity extends BaseActivity implements
         Log.i("Diagnosis Time", "Started MainActivity.");
         initializeParameters();
         setupSharedPreferences();
-        startLoadingDatabasesInBackground();
+        startLoadingSmallDatabasesInBackground();
 
         setFragments();
 
@@ -422,7 +423,7 @@ public class MainActivity extends BaseActivity implements
             getSupportFragmentManager().executePendingTransactions();
         }
     }
-    private void startLoadingDatabasesInBackground() {
+    private void startLoadingSmallDatabasesInBackground() {
 
         if (!mAlreadyLoadedSmallDatabases) {
             LoaderManager loaderManager = getSupportLoaderManager();
@@ -561,6 +562,7 @@ public class MainActivity extends BaseActivity implements
             VerbLatinConjDatabase = new ArrayList((List<String[]>) databases[1]);
             VerbKanjiConjDatabase = new ArrayList((List<String[]>) databases[2]);
             RadicalsOnlyDatabase = new ArrayList((List<String[]>) databases[3]);
+            Romanizations = new ArrayList((List<String[]>) databases[4]);
 
             if (getLoaderManager()!=null) getLoaderManager().destroyLoader(SMALL_DATABASE_LOADER);
         }
@@ -589,6 +591,7 @@ public class MainActivity extends BaseActivity implements
             List<String[]> VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getContext());
             List<String[]> VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getContext());
             List<String[]> RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getContext());
+            List<String[]> Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getContext());
 
             Log.i("Diagnosis Time","Loaded All Small Databases.");
             return new Object[] {
@@ -596,6 +599,7 @@ public class MainActivity extends BaseActivity implements
                     VerbLatinConjDatabase,
                     VerbKanjiConjDatabase,
                     RadicalsOnlyDatabase,
+                    Romanizations,
             };
         }
 

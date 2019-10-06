@@ -12,9 +12,7 @@ import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -57,32 +55,44 @@ public class ConvertFragment extends Fragment {
 
         if (getActivity() == null) return;
 
-        TextView Conversion = getActivity().findViewById(R.id.conversion);
-        TextView ConversionLatin = getActivity().findViewById(R.id.conversion_latin);
+        TextView Conversion = getActivity().findViewById(R.id.transliteration);
+        TextView ConversionLatin = getActivity().findViewById(R.id.conversion_waapuro);
         TextView ConversionHiragana = getActivity().findViewById(R.id.conversion_hiragana);
         TextView ConversionKatakana = getActivity().findViewById(R.id.conversion_katakana);
-        TextView ResultLatin = getActivity().findViewById(R.id.Result_latin);
         TextView ResultHiragana = getActivity().findViewById(R.id.Result_hiragana);
         TextView ResultKatakana = getActivity().findViewById(R.id.Result_katakana);
+        TextView transliterationWaapuro = getActivity().findViewById(R.id.Result_waapuro);
+        TextView transliterationModHepburn = getActivity().findViewById(R.id.Result_mod_hepburn);
+        TextView transliterationNihonShiki = getActivity().findViewById(R.id.Result_nihon_shiki);
+        TextView transliterationKunreiShiki = getActivity().findViewById(R.id.Result_kunrei_shiki);
 
         if (getLatinHiraganaKatakana(inputQuery).get(0).equals("no_input")) {
             Conversion.setText(getResources().getString(R.string.EnterWord));
             ConversionLatin.setText("");
             ConversionHiragana.setText("");
             ConversionKatakana.setText("");
-            ResultLatin.setText("");
             ResultHiragana.setText("");
             ResultKatakana.setText("");
+            transliterationWaapuro.setText("");
+            transliterationModHepburn.setText("");
+            transliterationNihonShiki.setText("");
+            transliterationKunreiShiki.setText("");
         }
         else {
-            Conversion.setText(getResources().getString(R.string.Conversion));
-            ConversionLatin.setText(getResources().getString(R.string.ConversionLatin));
+            Conversion.setText(getResources().getString(R.string.transliteration));
+            ConversionLatin.setText(getResources().getString(R.string.conversion_waapuro));
             ConversionHiragana.setText(getResources().getString(R.string.ConversionHiragana));
             ConversionKatakana.setText(getResources().getString(R.string.ConversionKatakana));
-            ResultLatin.setText(getLatinHiraganaKatakana(inputQuery).get(0));
-            ResultHiragana.setText(getLatinHiraganaKatakana(inputQuery).get(1));
-            ResultKatakana.setText(getLatinHiraganaKatakana(inputQuery).get(2));
-
+            String[] romanizations = getOfficialRomanizations(inputQuery);
+            String latin = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN);
+            String hiragana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_HIRAGANA);
+            String katakana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_KATAKANA);
+            ResultHiragana.setText(hiragana);
+            ResultKatakana.setText(katakana);
+            transliterationWaapuro.setText(romanizations[GlobalConstants.ROM_WAAPURO]);
+            transliterationModHepburn.setText(romanizations[GlobalConstants.ROM_MOD_HEPBURN]);
+            transliterationNihonShiki.setText(romanizations[GlobalConstants.ROM_NIHON_SHIKI]);
+            transliterationKunreiShiki.setText(romanizations[GlobalConstants.ROM_KUNREI_SHIKI]);
         }
     }
     public static List<String> getLatinHiraganaKatakana(String input_value) {
@@ -1401,18 +1411,40 @@ public class ConvertFragment extends Fragment {
         }
         return finalStrings;
     }
-    public static String getOfficialRomanizations(String kana) {
+    public static String[] getOfficialRomanizations(String kana) {
 
+        if (MainActivity.Romanizations == null) {
+            return new String[]{"", "", "", ""};
+        }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
-        String romanizedKana = kana;
-        int textType = getTextType(kana);
-        if (textType == GlobalConstants.TYPE_HIRAGANA || textType == GlobalConstants.TYPE_KANJI) {
+        /*
+        Rules:
+        The combination o + u is written ou if they are in two adjacent syllables or it is the end part of terminal form of a verb
+        The combination u + u is written uu if they are in two adjacent syllables or it is the end part of terminal form of a verb
 
+         */
+        String romanizedKanaWaapuro = kana;
+        String romanizedKanaModHepburn = kana;
+        String romanizedKanaNihonShiki = kana;
+        String romanizedKanaKunreiShiki = kana;
+        String[] currentRow;
+        for (int i=1; i<MainActivity.Romanizations.size(); i++) {
+            currentRow = MainActivity.Romanizations.get(i);
+            if (currentRow.length < 6) break;
+
+            romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_WAAPURO]);
+            romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_WAAPURO]);
+
+            romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
+            romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
+
+            romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
+            romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
+
+            romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+            romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
         }
-        else if (textType == GlobalConstants.TYPE_KATAKANA) {
 
-        }
-
-        return "";
+        return new String[]{romanizedKanaWaapuro, romanizedKanaModHepburn, romanizedKanaNihonShiki, romanizedKanaKunreiShiki};
     }
 }

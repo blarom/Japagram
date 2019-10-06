@@ -1,4 +1,4 @@
-<RelativeLayout
+<LinearLayout
     android:id="@+id/fragment_grammarmodule"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -9,62 +9,31 @@
     android:layout_marginStart="8dp"
     android:layout_centerInParent="true"
     android:focusableInTouchMode="true"
-    android:paddingBottom="@dimen/activity_vertical_margin">
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/conversion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|start"
-            android:text="@string/Conversion"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="?attr/appTextPrimaryColor"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_convert_constraint_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/conversion_latin"
+                android:id="@+id/transliteration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:layout_marginStart="8dp"
-                android:text="@string/ConversionLatin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_centerInParent="true"
+                android:text="@string/transliteration"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?attr/appTextSecondaryColor"
-                android:textIsSelectable="true"
+                android:textColor="?attr/appTextPrimaryColor"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-
-            <TextView
-                android:id="@+id/Result_latin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:layout_marginStart="42dp"
-                android:text="@string/EmptyResult"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?attr/appTextSecondaryColor"
-                android:textIsSelectable="true"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/conversion_hiragana"
@@ -72,68 +41,195 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|start"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/ConversionHiragana"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?attr/appTextSecondaryColor"
                 android:textIsSelectable="true"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/transliteration" />
 
             <TextView
                 android:id="@+id/Result_hiragana"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/EmptyResult"
+                android:textAlignment="viewStart"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?attr/appTextSecondaryColor"
                 android:textIsSelectable="true"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_hiragana" />
 
             <TextView
                 android:id="@+id/conversion_katakana"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
                 android:layout_marginStart="8dp"
                 android:text="@string/ConversionKatakana"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?attr/appTextSecondaryColor"
                 android:textIsSelectable="true"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Result_hiragana" />
 
             <TextView
                 android:id="@+id/Result_katakana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/EmptyResult"
+                android:textAlignment="viewStart"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_katakana" />
+
+            <TextView
+                android:id="@+id/conversion_waapuro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|start"
-                android:layout_marginStart="20dp"
-                android:text="@string/EmptyResult"
+                app:layout_constraintTop_toBottomOf="@id/Result_katakana"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:text="@string/conversion_waapuro"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="?attr/appTextSecondaryColor"
                 android:textIsSelectable="true"
                 android:textSize="18sp"
                 android:textStyle="bold"/>
-        </LinearLayout>
-    </LinearLayout>
 
-    <TextView
-        android:id="@+id/Hint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/linearLayout1"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="20dp"
-        android:background="#BFFFFFFF"
-        android:text="@string/TransliteratorHint"/>
+            <TextView
+                android:id="@+id/Result_waapuro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/EmptyResult"
+                android:textAlignment="viewStart"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_waapuro" />
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/conversion_mod_hepburn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/Result_waapuro"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:text="@string/conversion_mod_hepburn"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/Result_mod_hepburn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/EmptyResult"
+                android:textAlignment="viewStart"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_mod_hepburn" />
+
+            <TextView
+                android:id="@+id/conversion_nihon_shiki"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/Result_mod_hepburn"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:text="@string/conversion_nihon_shiki"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/Result_nihon_shiki"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/EmptyResult"
+                android:textAlignment="viewStart"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_nihon_shiki" />
+
+            <TextView
+                android:id="@+id/conversion_kunrei_shiki"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/Result_nihon_shiki"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp"
+                android:text="@string/conversion_kunrei_shiki"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/Result_kunrei_shiki"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/EmptyResult"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="?attr/appTextSecondaryColor"
+                android:textIsSelectable="true"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/conversion_mod_hepburn"
+                app:layout_constraintTop_toTopOf="@id/conversion_kunrei_shiki" />
+
+            <TextView
+                android:id="@+id/Hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                app:layout_constraintTop_toBottomOf="@id/Result_kunrei_shiki"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="12dp"
+                android:background="#BFFFFFFF"
+                android:text="@string/transliteration_hint"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

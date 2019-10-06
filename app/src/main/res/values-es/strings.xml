@@ -118,15 +118,20 @@
     <string name="PleaseEnterJapVerb">Por favor, introduzca un verbo japonés.</string>
     <string name="CanEnterEngVerb">También puede ingresar un verbo en inglés/francés/español en forma infinitiva.</string>
     <string name="SeeHints">Consulte las reglas a continuación para obtener sugerencias.</string>
-    <string name="Conversion">Transcripción:</string>
-    <string name="ConversionLatin">Romaji:</string>
+    <string name="transliteration">Transcripción Kana-Romaji</string>
+    <string name="conversion_waapuro">Wāpuro:</string>
+    <string name="conversion_mod_hepburn">Hepburn mod.:</string>
+    <string name="conversion_nihon_shiki">Nihon-Shiki:</string>
+    <string name="conversion_kunrei_shiki">Kunrei-Shiki:</string>
     <string name="ConversionHiragana">Hiragana</string>
     <string name="ConversionKatakana">Katakana:</string>
     <string name="EnterWord">Por favor ingrese una palabra.</string>
-    <string name="TransliteratorHint">
-        \n<b>Sugerencia:</b>
+    <string name="transliteration_hint">
+        \n<b>Notas Importantes:</b>
         \nUtilice un apóstrofe (\') después de \"n\" para asegurar su transliteración a \"ん\".
-        \n\nTambién tenga en cuenta que esta aplicación utiliza una variación de la romanización Kunrei-Shiki donde todos los homófonos kana se transcriben a formas únicas de romaji, lo que permite transliteraciones inequívocas.</string>
+        \n\nEsta aplicación utiliza Wāpuro rōmaji, que permite una transcripción uno a uno entre palabras en Romaji y Kana, pero puede carecer de información sobre la pronunciación correcta en japonés.
+        \nLas transliteraciones en Hepburn Modificado, Nihon-Shiki y Kunrei-Shiki anteriores, que están diseñadas en torno a la pronunciación japonesa, pueden generarse incorrectamente en algunos casos.
+        \nPor ejemplo, las conjugaciones de verbos que se terminan en \"おう\" se transcriben a \"ō\"/\"ô\" en lugar de \"ou\" que es la correcta transcripción.</string>
     <string name="DecompositionsHint">
         \n<b>Sugerencia:</b>
         \nIntroduzca un kanji en la barra de búsqueda y haga clic en él botón de descomposición (好 ⇒ 女+子) para obtener sus descomposiciones.

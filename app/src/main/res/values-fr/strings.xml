@@ -114,15 +114,20 @@
     <string name="PleaseEnterJapVerb">S\'il vous plaît entrer un verbe japonais.</string>
     <string name="CanEnterEngVerb">Vous pouvez également entrer un verbe anglais/français/espagnol sous forme infinitive.</string>
     <string name="SeeHints">Vérifiez les règles ci-dessous pour des indices.</string>
-    <string name="Conversion">Translitération:</string>
-    <string name="ConversionLatin">Romaji:</string>
+    <string name="transliteration">Translitération Kana-Romaji</string>
+    <string name="conversion_waapuro">Wāpuro:</string>
+    <string name="conversion_mod_hepburn">Hepburn mod.:</string>
+    <string name="conversion_nihon_shiki">Nihon-Shiki:</string>
+    <string name="conversion_kunrei_shiki">Kunrei-Shiki:</string>
     <string name="ConversionHiragana">Hiragana:</string>
     <string name="ConversionKatakana">Katakana:</string>
     <string name="EnterWord">Veuillez entrer un mot.</string>
-    <string name="TransliteratorHint">
-        \n<b>Indice:</b>
+    <string name="transliteration_hint">
+        \n<b>Notes Importantes:</b>
         \nUtilisez une apostrophe (\') après \"n\" pour assurer sa translitération en \"ん\".
-        \n\nNotez également que cette application utilise une variante de la romanisation Kunrei-Shiki où tous les kana homophones sont translitérés en formes uniques de romaji, permettant ainsi des translitérations non ambiguës.</string>
+        \n\nCette application utilise Wāpuro rōmaji, qui permet une translittération unique entre les mots en romaji et kana, mais peut manquer d\'informations sur la prononciation correcte en japonais.
+        \nLes translittérations en Hepburn Modifé, Nihon-Shiki et Kunrei-Shiki ci-dessus, conçues autour de la prononciation japonaise, peuvent être générées incorrectement.
+        \nPar exemple, les conjugaisons de verbes se terminant par \"おう\" sont translittérés en \"ō\"/\"ô\" au lieu de \"ou\" qui est la correcte translittération.</string>
     <string name="DecompositionsHint">
         \n<b>Indice:</b>
         \nEntrez un Kanji dans la barre de recherche et cliquez sur le bouton de décomposition (好 ⇒ 女+子) pour obtenir ses décompositions.

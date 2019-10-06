@@ -197,15 +197,20 @@
     <string name="PleaseEnterJapVerb">Please enter a Japanese verb.</string>
     <string name="CanEnterEngVerb">You can also enter an English/French/Spanish verb in infinitive form.</string>
     <string name="SeeHints">Check the rules below for hints.</string>
-    <string name="Conversion">Transliteration: </string>
-    <string name="ConversionLatin">Romaji:</string>
+    <string name="transliteration">Kana-Romaji Transliteration</string>
+    <string name="conversion_waapuro">Wāpuro:</string>
+    <string name="conversion_mod_hepburn">Mod. Hepburn:</string>
+    <string name="conversion_nihon_shiki">Nihon-Shiki:</string>
+    <string name="conversion_kunrei_shiki">Kunrei-Shiki:</string>
     <string name="ConversionHiragana">Hiragana: </string>
     <string name="ConversionKatakana">Katakana: </string>
     <string name="EnterWord">Please enter a word.</string>
-    <string name="TransliteratorHint">
-        \n<b>Hint</b>
+    <string name="transliteration_hint">
+        \n<b>Important Notes:</b>
         \nUse an apostrophe (\') after \"n\" to ensure its transliteration to \"ん\".
-        \n\nAlso note that this app uses a variation of Kunrei-Shiki romanization where all kana homophones are transliterated to unique Romaji forms, thereby allowing for unambiguous transliterations.</string>
+        \n\nThis app uses Wāpuro rōmaji, which allows a one-to-one transliteration between Romaji and Kana words but may lack information on correct pronunciation in Japanese.
+        \nThe above Modified Hepburn, Nihon-Shiki and Kunrei-Shiki transliterations, which are designed around Japanese pronunciation, may not be generated correctly in some cases.
+        \nFor example, verb conjugations ending in \"おう\" are transliterated to \"ō\"/\"ô\" instead of the correct transliteration \"ou\".</string>
     <string name="DecompositionsHint">
         \n<b>Hint</b>
         \nEnter a Kanji into the Search bar and click on the decomposition (好 ⇒ 女+子) button in order to get its decompositions.
