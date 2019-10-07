@@ -726,9 +726,9 @@
     <string name="english_meanings_available_only">(Senses en anglais disponibles uniquement)</string>
     <string name="confirm_download_names_db">Veuillez confirmer que vous voulez installer la base de données de noms.
         Cela peut prendre jusqu\'à 20 minutes afin de voir les noms dans les résultats de recherche.</string>
-    <string name="installing_extra_dbs_please_wait">Installe bases de données supplémentaires… veuillez patienter</string>
+    <string name="installing_extra_dbs_please_wait">Installe bases de données:</string>
     <string name="starting_installation">Commence l\'installation</string>
-    <string name="installing_EDICT">Installation du dictionnaire complet.</string>
-    <string name="installing_names">Installation du dictionnaire de noms.</string>
+    <string name="installing_EDICT">Dictionnaire complet</string>
+    <string name="installing_names">Dictionnaire de noms</string>
     <string name="finished">Finished!</string>
 </resources>

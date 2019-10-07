@@ -15,8 +15,11 @@ import android.os.IBinder;
 import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
+import com.japagram.resources.Utilities;
 import com.japagram.ui.MainActivity;
 import com.japagram.ui.SplashScreenActivity;
+
+import java.net.IDN;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -32,6 +35,8 @@ public class RoomDatabasesInstallationForegroundService extends Service {
     private Thread dbLoadThreadNames;
     private boolean mFirstTickDisplay;
     private boolean mFirstTickThread;
+    private NotificationManager manager;
+    private NotificationChannel chan;
 
     public RoomDatabasesInstallationForegroundService() {
     }
@@ -52,32 +57,41 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         boolean delayExtendedDbInstallation = intent.getBooleanExtra(getString(R.string.delay_extended_db_installation), true);
         boolean delayNamesDbInstallation = intent.getBooleanExtra(getString(R.string.delay_names_db_installation), true);
 
+        Intent appIntent = new Intent(this, MainActivity.class);
+        appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelName = "ExtendedDbForegroundServiceChannel";
-            NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+            chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
             chan.setLightColor(Color.BLUE);
             chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             assert manager != null;
             manager.createNotificationChannel(chan);
 
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-            notification = notificationBuilder.setOngoing(true)
+            notificationBuilder.setOngoing(true)
                     .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
                     .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
                     .setContentText(getBaseContext().getString(R.string.starting_installation))
+                    .setProgress(100, 0, false)
                     .setPriority(NotificationManager.IMPORTANCE_MIN)
                     .setCategory(Notification.CATEGORY_SERVICE)
-                    .build();
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(false);
+            notification = notificationBuilder.build();
         }
         else {
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-            notification = notificationBuilder.setOngoing(true)
+            notificationBuilder.setOngoing(true)
                     .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
                     .setContentText(getBaseContext().getString(R.string.starting_installation))
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
-                    .build();
+                    .setProgress(100, 0, false)
+                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_light);
+            notification = notificationBuilder.build();
         }
+        if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
 
         mExtendedDbBeingLoaded = true;
         mNamesDbBeingLoaded = true;
@@ -138,14 +152,24 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                     return;
                 }
 
+                String content;
+                int currentProgress = 100;
                 if (mExtendedDbBeingLoaded) {
-                    notificationBuilder.setContentText(getBaseContext().getString(R.string.installing_EDICT));
+                    currentProgress = Utilities.getProgressValueExtendedDb(getBaseContext());
+                    content = getBaseContext().getString(R.string.installing_EDICT) + " (" + currentProgress + "%)";
                 } else if (mNamesDbBeingLoaded) {
-                    notificationBuilder.setContentText(getBaseContext().getString(R.string.installing_names));
+                    currentProgress = Utilities.getProgressValueNamesDb(getBaseContext());
+                    content = getBaseContext().getString(R.string.installing_names) + " (" + currentProgress + "%)";
                 } else {
-                    notificationBuilder.setContentText(getBaseContext().getString(R.string.finished));
+                    content = getBaseContext().getString(R.string.finished);
                 }
+                notificationBuilder.setOngoing(true)
+                        .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
+                        .setContentText(content)
+                        .setProgress(100, currentProgress, false)
+                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_light);
                 notification = notificationBuilder.build();
+                if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
 
                 if (!mExtendedDbBeingLoaded) {
                     if (dbLoadThreadExtended != null) dbLoadThreadExtended.interrupt();

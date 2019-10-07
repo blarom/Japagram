@@ -1297,9 +1297,13 @@ public final class Utilities {
             int MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK = 20000;
             int MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK = 50000;
 
+            int currentProgress = 0;
+            float increment = 0;
             switch (dBType) {
                 case "extendedDbWords":
                     WordDao extendedDbWordDao = (WordDao) dao;
+                    currentProgress = 0;
+                    increment = (GlobalConstants.extendedDbSizeWords*100/GlobalConstants.extendedDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK*100/GlobalConstants.extendedDbLinesWords) / 400;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
                         if (tokens.length > 0) {
@@ -1312,11 +1316,17 @@ public final class Utilities {
                             extendedDbWordDao.insertAll(wordList);
                             wordList = new ArrayList<>();
                         }
+                        if (lineNum % (MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK/4) == 0) {
+                            currentProgress += increment;
+                            Utilities.setProgressValueExtendedDb(context, currentProgress);
+                        }
                     }
                     extendedDbWordDao.insertAll(wordList);
                     break;
                 case "namesDbWords":
                     WordDao namesDbWordDao = (WordDao) dao;
+                    currentProgress = 0;s
+                    increment = ((float) GlobalConstants.namesDbSizeWords*100/GlobalConstants.namesDbSizeTotal) * ((float) MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK/GlobalConstants.namesDbLinesWords) / 2;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
                         if (tokens.length > 0) {
@@ -1329,10 +1339,21 @@ public final class Utilities {
                             namesDbWordDao.insertAll(wordList);
                             wordList = new ArrayList<>();
                         }
+                        if (lineNum % (MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK/2) == 0) {
+                            currentProgress += increment;
+                            Utilities.setProgressValueNamesDb(context, currentProgress);
+                        }
                     }
                     namesDbWordDao.insertAll(wordList);
                     break;
                 case "indexRomaji":
+                    if (filename.contains("Extended")) {
+                        currentProgress = Utilities.getProgressValueExtendedDb(context);
+                        increment = (GlobalConstants.extendedDbSizeRomajiIndex*100/GlobalConstants.extendedDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK*100/GlobalConstants.extendedDbLinesRomajiIndex) / 100;
+                    } else if (filename.contains("Names")) {
+                        currentProgress = Utilities.getProgressValueNamesDb(context);
+                        increment = (GlobalConstants.namesDbSizeRomajiIndex * 100 / GlobalConstants.namesDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK * 100 / GlobalConstants.namesDbLinesRomajiIndex) / 100;
+                    }
                     IndexRomajiDao indexRomajiDao = (IndexRomajiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
@@ -1345,11 +1366,22 @@ public final class Utilities {
                         if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
                             indexRomajiDao.insertAll(indexRomajiList);
                             indexRomajiList = new ArrayList<>();
+                            if (filename.contains("Extended")) {
+                                currentProgress += increment;
+                                Utilities.setProgressValueExtendedDb(context, currentProgress);
+                            } else if (filename.contains("Names")) {
+                                currentProgress += increment;
+                                Utilities.setProgressValueNamesDb(context, currentProgress);
+                            }
                         }
                     }
                     indexRomajiDao.insertAll(indexRomajiList);
                     break;
                 case "indexEnglish":
+                    if (filename.contains("Extended")) {
+                        currentProgress = Utilities.getProgressValueExtendedDb(context);
+                        increment = (GlobalConstants.extendedDbSizeEnglishIndex*100/GlobalConstants.extendedDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK*100/GlobalConstants.extendedDbLinesEnglishIndex) / 100;
+                    }
                     IndexEnglishDao indexEnglishDao = (IndexEnglishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
@@ -1362,11 +1394,18 @@ public final class Utilities {
                         if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
                             indexEnglishDao.insertAll(indexEnglishList);
                             indexEnglishList = new ArrayList<>();
+                            if (filename.contains("Extended")) {
+                                currentProgress += increment;
+                                Utilities.setProgressValueExtendedDb(context, currentProgress);
+                            }
                         }
                     }
                     indexEnglishDao.insertAll(indexEnglishList);
                     break;
                 case "indexFrench":
+                    if (filename.contains("Extended")) {
+                        currentProgress = Utilities.getProgressValueExtendedDb(context);
+                    }
                     IndexFrenchDao indexFrenchDao = (IndexFrenchDao) dao;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
@@ -1382,8 +1421,15 @@ public final class Utilities {
                         }
                     }
                     indexFrenchDao.insertAll(indexFrenchList);
+                    if (filename.contains("Extended")) {
+                        currentProgress += GlobalConstants.extendedDbSizeFrenchIndex * 100 / GlobalConstants.extendedDbSizeTotal;
+                        Utilities.setProgressValueExtendedDb(context, currentProgress);
+                    }
                     break;
                 case "indexSpanish":
+                    if (filename.contains("Extended")) {
+                        currentProgress = Utilities.getProgressValueExtendedDb(context);
+                    }
                     IndexSpanishDao indexSpanishDao = (IndexSpanishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
@@ -1399,8 +1445,19 @@ public final class Utilities {
                         }
                     }
                     indexSpanishDao.insertAll(indexSpanishList);
+                    if (filename.contains("Extended")) {
+                        currentProgress += GlobalConstants.extendedDbSizeSpanishIndex * 100 / GlobalConstants.extendedDbSizeTotal;
+                        Utilities.setProgressValueExtendedDb(context, currentProgress);
+                    }
                     break;
                 case "indexKanji":
+                    if (filename.contains("Extended")) {
+                        currentProgress = Utilities.getProgressValueExtendedDb(context);
+                        increment = (GlobalConstants.extendedDbSizeKanjiIndex*100/GlobalConstants.extendedDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK*100/GlobalConstants.extendedDbLinesKanjiIndex) / 100;
+                    } else if (filename.contains("Names")) {
+                        currentProgress = Utilities.getProgressValueNamesDb(context);
+                        increment = (GlobalConstants.namesDbSizeKanjiIndex * 100 / GlobalConstants.namesDbSizeTotal) * (MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK * 100 / GlobalConstants.namesDbLinesKanjiIndex) / 100;
+                    }
                     IndexKanjiDao indexKanjiDao = (IndexKanjiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|",-1);
@@ -1413,6 +1470,13 @@ public final class Utilities {
                         if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
                             indexKanjiDao.insertAll(indexKanjiList);
                             indexKanjiList = new ArrayList<>();
+                            if (filename.contains("Extended")) {
+                                currentProgress += increment;
+                                Utilities.setProgressValueExtendedDb(context, currentProgress);
+                            } else if (filename.contains("Names")) {
+                                currentProgress += increment;
+                                Utilities.setProgressValueNamesDb(context, currentProgress);
+                            }
                         }
                     }
                     indexKanjiDao.insertAll(indexKanjiList);
@@ -3534,6 +3598,31 @@ public final class Utilities {
     public static int getAppPreferenceDbVersionNames(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getInt(context.getString(R.string.pref_db_version_names), 1);
+    }
+
+    public static void setProgressValueExtendedDb(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.progress_value_extended_db), value);
+            editor.apply();
+        }
+    }
+    public static int getProgressValueExtendedDb(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.progress_value_extended_db), 0);
+    }
+    public static void setProgressValueNamesDb(Context context, int value) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putInt(context.getString(R.string.progress_value_names_db), value);
+            editor.apply();
+        }
+    }
+    public static int getProgressValueNamesDb(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getInt(context.getString(R.string.progress_value_names_db), 0);
     }
 
     public static void setAppPreferenceColorTheme(Context context, String theme) {

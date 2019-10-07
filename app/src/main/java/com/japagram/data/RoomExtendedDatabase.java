@@ -67,6 +67,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
+        Utilities.setProgressValueExtendedDb(context, 0);
         if (word().count() == 0) {
             Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
             Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
@@ -96,6 +97,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
             }
         }
         Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
+        Utilities.setProgressValueExtendedDb(context, 100);
 
     }
 

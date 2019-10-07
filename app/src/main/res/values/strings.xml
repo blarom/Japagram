@@ -857,10 +857,12 @@
     <string name="radical_variant">radical variant</string>
     <string name="simplification">simplification</string>
     <string name="english_meanings_available_only">(English meanings available only)</string>
-    <string name="installing_extra_dbs_please_wait">Installing extra databases… please wait</string>
-    <string name="starting_installation">Starting installation.</string>
-    <string name="installing_EDICT">Installing full dictionary.</string>
-    <string name="installing_names">Installing names dictionary.</string>
+    <string name="installing_extra_dbs_please_wait">Installing database:</string>
+    <string name="starting_installation">Starting installation</string>
+    <string name="installing_EDICT">Complete dictionary</string>
+    <string name="installing_names">Names dictionary</string>
     <string name="finished">Finished!</string>
+    <string name="progress_value_extended_db" translatable="false">progress_value_extended_db</string>
+    <string name="progress_value_names_db" translatable="false">progress_value_names_db</string>
 
 </resources>

@@ -734,9 +734,9 @@
     <string name="radical">Radical</string>
     <string name="english_meanings_available_only">(Sentidos en inglés disponibles solamente)</string>
     <string name="confirm_download_names_db">Por favor confirme que quiere instalar la base de datos de nombres. Puede tardar 20 minutos para de ver los nombres en los resultados de busqueda.</string>
-    <string name="installing_extra_dbs_please_wait">Instalando bases de datos adicionales… por favor espere</string>
+    <string name="installing_extra_dbs_please_wait">Instale bases de datos:</string>
     <string name="starting_installation">Empieza la instalación.</string>
-    <string name="installing_EDICT">Instalación del diccionario completo.</string>
-    <string name="installing_names">Instalación del diccionario de nombres.</string>
+    <string name="installing_EDICT">Diccionario completo</string>
+    <string name="installing_names">Diccionario de nombres</string>
     <string name="finished">Finished!</string>
 </resources>

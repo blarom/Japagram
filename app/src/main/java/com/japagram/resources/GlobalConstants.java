@@ -14,6 +14,27 @@ public final class GlobalConstants {
     public static final int EXTENDED_DB_VERSION = 5;
     public static final int NAMES_DB_VERSION = 2;
 
+    public static final int extendedDbLinesWords = 162314;
+    public static final int extendedDbSizeWords = 12917;
+    public static final int extendedDbLinesKanjiIndex = 190374;
+    public static final int extendedDbSizeKanjiIndex = 4063;
+    public static final int extendedDbLinesEnglishIndex = 64639;
+    public static final int extendedDbSizeEnglishIndex = 4436;
+    public static final int extendedDbLinesRomajiIndex = 157921;
+    public static final int extendedDbSizeRomajiIndex = 3169;
+    public static final int extendedDbSizeFrenchIndex = 143;
+    public static final int extendedDbSizeSpanishIndex = 624;
+    public static final int extendedDbSizeTotal = extendedDbSizeWords + extendedDbSizeKanjiIndex + extendedDbSizeEnglishIndex + extendedDbSizeRomajiIndex + extendedDbSizeFrenchIndex + extendedDbSizeSpanishIndex;
+
+    public static final int namesDbLinesWords = 737309;
+    public static final int namesDbSizeWords = 22597;
+    public static final int namesDbLinesKanjiIndex = 607507;
+    public static final int namesDbSizeKanjiIndex = 12761;
+    public static final int namesDbLinesRomajiIndex = 413295;
+    public static final int namesDbSizeRomajiIndex = 10545;
+    public static final int namesDbSizeTotal = namesDbLinesWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
+
+
     public static final String DB_ELEMENTS_DELIMITER = ";";
     public static final String KANJI_ASSOCIATED_COMPONENTS_DELIMITER = "";
     public static final String[][] EDICT_EXCEPTIONS = new String[][]{
