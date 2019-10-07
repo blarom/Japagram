@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/search_by_radical_container_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/search_by_radicals_overall_block_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:alpha="0.90"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingBottom="16dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp">
+
+                <LinearLayout
+                    android:id="@+id/search_by_radical_elements_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:elevation="4dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/SearchByRadicalTextStyle"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="2dp"
+                        android:text="@string/elements_"/>
+
+                    <FrameLayout
+                        android:id="@+id/search_by_radical_elementA_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/background_search_by_radical_three_sided">
+
+                        <EditText
+                            android:id="@+id/search_by_radical_elementA"
+                            style="@style/SearchByRadicalElementStyle"
+                            android:hint=" A "
+                            android:autofillHints="kanji element"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/search_by_radical_elementB_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/search_by_radical_elementB"
+                            style="@style/SearchByRadicalElementStyle"
+                            android:hint=" B "
+                            android:autofillHints="kanji element"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/search_by_radical_elementC_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/search_by_radical_elementC"
+                            style="@style/SearchByRadicalElementStyle"
+                            android:hint=" C "
+                            android:autofillHints="kanji element"/>
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/search_by_radical_elementD_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/search_by_radical_elementD"
+                            style="@style/SearchByRadicalElementStyle"
+                            android:hint=" D "
+                            android:autofillHints="kanji element"/>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/search_by_radical_selection_buttons_container"
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="44dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@drawable/background_kanji_grid_item"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_radical"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_radical"/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_component"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/select_component"/>
+                </LinearLayout>
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/search_by_radical_overall_structure_button"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/background_kanji_grid_item"
+                android:drawableEnd="@drawable/colored_structure_2_overlapping"
+                android:drawablePadding="8dp"
+                android:gravity="center"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="@string/select_overall_kanji_structure"/>
+
+            <Button
+                android:id="@+id/search_by_radical_button_search"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/background_search_by_radical_search"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
+                android:text="@string/find_the_kanji"/>
+
+            <LinearLayout
+                android:id="@+id/search_by_radical_selection_grid_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_kanji_grid_item"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    android:id="@+id/search_by_radical_selection_grid_title"
+                    style="@style/SearchByRadicalTextStyle"
+                    android:text="@string/select_the_component"/>
+
+                <Button
+                    android:id="@+id/search_by_radical_requested_component_structure"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_kanji_grid_item"
+                    android:drawableEnd="@drawable/colored_structure_2_left_right"
+                    android:drawablePadding="8dp"
+                    android:gravity="center"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="8dp"
+                    android:text="@string/component_is_used_to_create_this_substructure"/>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/search_by_radical_button_selection_grid_descriptor_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/background_kanji_grid_item"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/search_by_radical_character_descriptor"
+                        style="@style/SearchByRadicalElementStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="4dp"
+                        android:hint="@string/search_any_property_"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/search_by_radical_button_filter"
+                        app:layout_constraintEnd_toStartOf="@+id/search_by_radical_button_filter"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:autofillHints="property of kanji element, including name, radical number, etc.."/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_filter"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@string/filter_list"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/search_by_radical_button_selection_grid_enter_cancel_container_top"
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_cancel_top"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel"/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_send_to_element_top"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_to_element"/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_send_to_input_top"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_to_input"/>
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_by_radical_selection_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/search_by_radical_selection_grid_no_elements_textview"
+                    style="@style/SearchByRadicalTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/no_elements_found"/>
+
+                <LinearLayout
+                    android:id="@+id/search_by_radical_button_selection_grid_enter_cancel_container_bottom"
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_cancel_bottom"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cancel"/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_send_to_element_bottom"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_to_element"/>
+
+                    <Button
+                        android:id="@+id/search_by_radical_button_selection_grid_send_to_input_bottom"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/send_to_input"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/search_by_radical_results_grid_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_kanji_grid_item"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <TextView
+                    style="@style/SearchByRadicalTextStyle"
+                    android:background="@drawable/background_search_by_radical_results_title_underline"
+                    android:layout_height="28dp"
+                    android:text="@string/results"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/search_by_radical_results_grid"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="4dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/search_by_radical_selection_grid_no_results_textview"
+                    style="@style/SearchByRadicalTextStyle"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/no_elements_found"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/search_by_radical_loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

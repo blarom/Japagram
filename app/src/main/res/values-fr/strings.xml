@@ -93,7 +93,6 @@
         <b>Veuillez entrer un mot valide.</b>
         \n<br/><br/>Des mots complets donneront les meilleurs résultats, mais les fragments de mot sont aussi valides.
         \n<br/><br/>Vous pouvez entrez des mots en anglais, français, espagnol, romaji, hiragana, katakana ou kanji.
-        \n<br/><br/> Notez également que cette application utilise une variante de la romanisation Kunrei-Shiki où tous les homophones de kana sont translittérés en formes romaji uniques, permettant ainsi des translitérations non ambiguës.
         ]]>
     </string>
     <string name="show_examples">Exemples: (&gt;montrer)</string>

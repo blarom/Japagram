@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
-import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
@@ -71,7 +70,7 @@ public class DecomposeKanjiFragment extends Fragment implements
     }
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        final View rootView = inflater.inflate(R.layout.fragment_decompose_kanji, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_decomposition, container, false);
 
         //setRetainInstance(true);
         if (getContext()==null) return rootView;

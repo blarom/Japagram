@@ -83,10 +83,10 @@ public class ConvertFragment extends Fragment {
             ConversionLatin.setText(getResources().getString(R.string.conversion_waapuro));
             ConversionHiragana.setText(getResources().getString(R.string.ConversionHiragana));
             ConversionKatakana.setText(getResources().getString(R.string.ConversionKatakana));
-            String[] romanizations = getOfficialRomanizations(inputQuery);
             String latin = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN);
             String hiragana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_HIRAGANA);
             String katakana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_KATAKANA);
+            String[] romanizations = getOfficialRomanizations(hiragana);
             ResultHiragana.setText(hiragana);
             ResultKatakana.setText(katakana);
             transliterationWaapuro.setText(romanizations[GlobalConstants.ROM_WAAPURO]);

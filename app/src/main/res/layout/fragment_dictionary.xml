@@ -1,7 +1,5 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/fragment_grammarmodule"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/fragment_convert"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
@@ -10,38 +8,10 @@
     android:focusableInTouchMode="true"
     android:paddingBottom="@dimen/activity_vertical_margin">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dictionary_recyclerview"
+    <include
+        android:id="@+id/fragment_dictionary_body"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="0dp"
-        android:background="#BFFFFFFF"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/word_hint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:background="#BFFFFFFF"
-        android:text="@string/please_enter_word"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ProgressBar
-        android:id="@+id/dict_results_loading_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:layout_height="match_parent"
+        layout="@layout/fragment_dictionary_body" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

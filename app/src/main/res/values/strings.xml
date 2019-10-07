@@ -176,7 +176,6 @@
         <b>Please enter a valid word.</b>
         \n\n<br/><br/>Complete words will yield the best results, but word fragments will also do.
         \n\n<br/><br/>You can enter words in English, Romaji, Hiragana, Katakana or Kanji.
-        \n\n<br/><br/>Also note that this app uses a variation of Kunrei-Shiki romanization where all kana homophones are transliterated to unique Romaji forms, thereby allowing for unambiguous transliterations.
         ]]>
     </string>
     <string name="show_examples">Examples: (&gt;show)</string>
