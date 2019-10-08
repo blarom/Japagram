@@ -233,6 +233,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         if (getActivity() == null) return;
         Intent serviceIntent = new Intent(getActivity(), RoomDatabasesInstallationForegroundService.class);
         serviceIntent.putExtra(getString(R.string.show_names), true);
+        serviceIntent.putExtra(getString(R.string.delay_extended_db_installation), false);
+        serviceIntent.putExtra(getString(R.string.delay_names_db_installation), false);
         getActivity().startService(serviceIntent);
 
     }

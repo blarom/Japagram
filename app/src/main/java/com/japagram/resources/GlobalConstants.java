@@ -14,25 +14,25 @@ public final class GlobalConstants {
     public static final int EXTENDED_DB_VERSION = 5;
     public static final int NAMES_DB_VERSION = 2;
 
-    public static final int extendedDbLinesWords = 162314;
-    public static final int extendedDbSizeWords = 12917;
-    public static final int extendedDbLinesKanjiIndex = 190374;
-    public static final int extendedDbSizeKanjiIndex = 4063;
-    public static final int extendedDbLinesEnglishIndex = 64639;
-    public static final int extendedDbSizeEnglishIndex = 4436;
-    public static final int extendedDbLinesRomajiIndex = 157921;
-    public static final int extendedDbSizeRomajiIndex = 3169;
-    public static final int extendedDbSizeFrenchIndex = 143;
-    public static final int extendedDbSizeSpanishIndex = 624;
-    public static final int extendedDbSizeTotal = extendedDbSizeWords + extendedDbSizeKanjiIndex + extendedDbSizeEnglishIndex + extendedDbSizeRomajiIndex + extendedDbSizeFrenchIndex + extendedDbSizeSpanishIndex;
+    public static final float extendedDbLinesWords = 162314.f;
+    public static final float extendedDbSizeWords = 12917.f;
+    public static final float extendedDbLinesKanjiIndex = 190374.f;
+    public static final float extendedDbSizeKanjiIndex = 4063.f;
+    public static final float extendedDbLinesEnglishIndex = 64639.f;
+    public static final float extendedDbSizeEnglishIndex = 4436.f;
+    public static final float extendedDbLinesRomajiIndex = 157921.f;
+    public static final float extendedDbSizeRomajiIndex = 3169.f;
+    public static final float extendedDbSizeFrenchIndex = 143.f;
+    public static final float extendedDbSizeSpanishIndex = 624.f;
+    public static final float extendedDbSizeTotal = extendedDbSizeWords + extendedDbSizeKanjiIndex + extendedDbSizeEnglishIndex + extendedDbSizeRomajiIndex + extendedDbSizeFrenchIndex + extendedDbSizeSpanishIndex;
 
-    public static final int namesDbLinesWords = 737309;
-    public static final int namesDbSizeWords = 22597;
-    public static final int namesDbLinesKanjiIndex = 607507;
-    public static final int namesDbSizeKanjiIndex = 12761;
-    public static final int namesDbLinesRomajiIndex = 413295;
-    public static final int namesDbSizeRomajiIndex = 10545;
-    public static final int namesDbSizeTotal = namesDbLinesWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
+    public static final float namesDbLinesWords = 737309.f;
+    public static final float namesDbSizeWords = 22597.f;
+    public static final float namesDbLinesKanjiIndex = 607507.f;
+    public static final float namesDbSizeKanjiIndex = 12761.f;
+    public static final float namesDbLinesRomajiIndex = 413295.f;
+    public static final float namesDbSizeRomajiIndex = 10545.f;
+    public static final float namesDbSizeTotal = namesDbLinesWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
 
 
     public static final String DB_ELEMENTS_DELIMITER = ";";

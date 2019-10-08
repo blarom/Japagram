@@ -65,7 +65,8 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         Utilities.setProgressValueNamesDb(context, 0);
-        if (word().count() == 0) {
+        if (word().count() == 0 || indexRomaji().count() == 0) {
+            word().nukeTable();
             Utilities.setAppPreferenceDbVersionNames(context, GlobalConstants.NAMES_DB_VERSION);
             Utilities.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();

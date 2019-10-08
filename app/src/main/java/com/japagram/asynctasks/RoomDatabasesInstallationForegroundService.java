@@ -36,7 +36,6 @@ public class RoomDatabasesInstallationForegroundService extends Service {
     private boolean mFirstTickDisplay;
     private boolean mFirstTickThread;
     private NotificationManager manager;
-    private NotificationChannel chan;
 
     public RoomDatabasesInstallationForegroundService() {
     }
@@ -63,7 +62,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelName = "ExtendedDbForegroundServiceChannel";
-            chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
+            NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
             chan.setLightColor(Color.BLUE);
             chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
             manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -72,7 +71,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
 
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             notificationBuilder.setOngoing(true)
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
                     .setContentText(getBaseContext().getString(R.string.starting_installation))
                     .setProgress(100, 0, false)
@@ -85,10 +84,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         else {
             notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             notificationBuilder.setOngoing(true)
+                    .setSmallIcon(R.mipmap.ic_launcher)
                     .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
                     .setContentText(getBaseContext().getString(R.string.starting_installation))
-                    .setProgress(100, 0, false)
-                    .setSmallIcon(R.drawable.common_google_signin_btn_icon_light);
+                    .setProgress(100, 0, false);
             notification = notificationBuilder.build();
         }
         if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
@@ -155,10 +154,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                 String content;
                 int currentProgress = 100;
                 if (mExtendedDbBeingLoaded) {
-                    currentProgress = Utilities.getProgressValueExtendedDb(getBaseContext());
+                    currentProgress = (int) Utilities.getProgressValueExtendedDb(getBaseContext());
                     content = getBaseContext().getString(R.string.installing_EDICT) + " (" + currentProgress + "%)";
                 } else if (mNamesDbBeingLoaded) {
-                    currentProgress = Utilities.getProgressValueNamesDb(getBaseContext());
+                    currentProgress = (int) Utilities.getProgressValueNamesDb(getBaseContext());
                     content = getBaseContext().getString(R.string.installing_names) + " (" + currentProgress + "%)";
                 } else {
                     content = getBaseContext().getString(R.string.finished);
@@ -166,8 +165,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                 notificationBuilder.setOngoing(true)
                         .setContentTitle(getBaseContext().getString(R.string.installing_extra_dbs_please_wait))
                         .setContentText(content)
-                        .setProgress(100, currentProgress, false)
-                        .setSmallIcon(R.drawable.common_google_signin_btn_icon_light);
+                        .setProgress(100, currentProgress, false);
                 notification = notificationBuilder.build();
                 if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
 

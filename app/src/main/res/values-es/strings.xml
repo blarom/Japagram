@@ -7,7 +7,7 @@
     <string name="settings">Ajustes</string>
     <string name="about">Acerca de</string>
     <string name="hidden_names_search">No buscar nombres</string>
-    <string name="shown_names_search">Buscar nombres (requiere decarga y instalación de la base de datos de nombres)</string>
+    <string name="shown_names_search">Buscar nombres (requiere la instalación de la base de datos de nombres)</string>
     <string name="hidden_online_search">No obtengar palabras y significados en línea</string>
     <string name="shown_online_search">Fusionar resultados de búsqueda en línea con resultados locales</string>
     <string name="wait_for_online_results_off">Mostrar la lista inmediatamente cuando encuentre resultados y actualícela cuando obtenga resultados en línea</string>
@@ -275,14 +275,14 @@
     <string name="attempting_download_first_part">Intentando descargar los datos de ROC\u0020</string>
     <string name="attempting_download_second_part">. Por favor espera.</string>
     <string name="failed_to_connect_to_internet">Error al conectarse a internet.</string>
-    <string name="loading_central_database">Instalando la base de datos central.</string>
+    <string name="loading_central_database">Instalando el diccionario central.</string>
     <string name="loading_extended_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos extendita.
          ~ Puede tardar 5 minutos ~</string>
     <string name="loading_names_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos de nombres.
          ~ Puede tardar 20 minutos ~</string>
     <string name="loading_kanji_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos de kanji.
          ~ Puede tardar un minuto ~</string>
-    <string name="first_time_installing">NOTA: Puede llevar algún tiempo (5-10 min) instalar la base de datos completa y obtener resultados completos de búsqueda.</string>
+    <string name="first_time_installing">NOTA: Puede llevar hasta 5-10min para instalar el diccionario completo y obtener resultados de búsqueda completos.</string>
     <string name="finished_loading_databases">Terminé de cargar las bases de datos.</string>
     <string name="database_being_installed">La base de datos se está instalando actualmente.\nEsto puede tardar unos minutos.\nEste retraso solo se produce al instalar o actualizar la aplicación.</string>
     <string name="sure_you_want_to_exit">¿Estás seguro de que quieres salir de la aplicación?</string>
@@ -733,7 +733,7 @@
     <string name="simplification">simplificacíon</string>
     <string name="radical">Radical</string>
     <string name="english_meanings_available_only">(Sentidos en inglés disponibles solamente)</string>
-    <string name="confirm_download_names_db">Por favor confirme que quiere instalar la base de datos de nombres. Puede tardar 20 minutos para de ver los nombres en los resultados de busqueda.</string>
+    <string name="confirm_download_names_db">Por favor confirme que quiere instalar la base de datos de nombres. Puede tardar 5-20 minutos para de ver los nombres en los resultados de busqueda.</string>
     <string name="installing_extra_dbs_please_wait">Instale bases de datos:</string>
     <string name="starting_installation">Empieza la instalación.</string>
     <string name="installing_EDICT">Diccionario completo</string>

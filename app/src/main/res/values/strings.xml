@@ -5,14 +5,14 @@
     <string name="title_activity_main" translatable="false">MainActivity</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="EmptyResult" translatable="false"> </string>
-    <string name="NoText" translatable="false"></string>
+    <string name="NoText" translatable="false">""</string>
     <string name="splashscreen_intro_sentence">Your personal aid for deciphering\nthe Japanese language.</string>
     <string name="splashscreen_loading_database">Loading Local Database…</string>
     <string name="splashscreen_should_take_only_a_few_seconds">This should only take a few seconds.</string>
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="hidden_names_search">Don\'t search names</string>
-    <string name="shown_names_search">Search names (requires names database download &amp; installation)</string>
+    <string name="shown_names_search">Search names (requires names database installation)</string>
     <string name="hidden_online_search">Don\'t get words and meanings online</string>
     <string name="shown_online_search">Merge online search results with local results</string>
     <string name="use_japanese_font_for_asian_characters">Use Japanese font for Asian characters (Chinese characters used in Japanese will be displayed in Japanese font)</string>
@@ -392,11 +392,11 @@
     <string name="decomposition_radical_iteration" translatable="false">decomposition_radical_iteration</string>
     <string name="database_finished_loading_flag" translatable="false">database_finished_loading_flag</string>
     <string name="app_preferences" translatable="false">app_preferences</string>
-    <string name="loading_central_database">Installing the Central words database.</string>
+    <string name="loading_central_database">Installing the core dictionary.</string>
     <string name="loading_extended_database">Finished installing the Central database.\nCurrently installing the Extended database.\n~ May take up to 5 minutes ~</string>
     <string name="loading_names_database">Finished installing the Central database.\nCurrently installing the Names database.\n~ May take up to 20 minutes ~</string>
     <string name="loading_kanji_database">Finished installing the Central database.\nCurrently installing the Kanji database.\n~ May take up to one minute ~</string>
-    <string name="first_time_installing">NOTE: It may some time (5-10min) to install the full database and get full search results.</string>
+    <string name="first_time_installing">NOTE: It may take up to 5-10min to install the complete dictionary and get full search results.</string>
     <string name="finished_loading_databases">Finished loading the databases.</string>
     <string name="word_and_verb_database_finished_loading_flag" translatable="false">word_and_verb_database_finished_loading_flag</string>
     <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>
@@ -408,7 +408,7 @@
     <string name="names_database_finished_loading_flag" translatable="false">names_database_finished_loading_flag</string>
     <string name="database_being_installed">The database is currently being installed.\nThis may take a few minutes.\nThis delay only occurs when installing or upgrading the app.</string>
     <string name="sure_you_want_to_exit">Are you sure you want to exit the app?</string>
-    <string name="confirm_download_names_db">Please confirm you wish to install the names database. It may take up to 20 minutes until you can see names in the search results.</string>
+    <string name="confirm_download_names_db">Please confirm you wish to install the names database. It may take 5-20 minutes until you can see names in the search results.</string>
     <string name="yes">Yes</string>
     <string name="no_matching_words_online">No matching words found online.</string>
     <string name="no_new_words_or_meanings_found_online">No new words or meaningsEN found online.</string>

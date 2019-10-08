@@ -68,7 +68,8 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         Utilities.setProgressValueExtendedDb(context, 0);
-        if (word().count() == 0) {
+        if (word().count() == 0 || indexEnglish().count() == 0) {
+            word().nukeTable();
             Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
             Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
@@ -81,7 +82,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
                 endTransaction();
             }
         }
-        if (this.indexEnglish().count() == 0) {
+        if (indexEnglish().count() == 0) {
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();

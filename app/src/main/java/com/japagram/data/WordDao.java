@@ -55,5 +55,8 @@ public interface WordDao {
     @Update
     int update(Word Word);
 
+    //Delete all words
+    @Query("DELETE FROM " + Word.TABLE_NAME)
+    public void nukeTable();
 
 }
