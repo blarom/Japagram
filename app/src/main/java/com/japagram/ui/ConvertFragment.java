@@ -11,6 +11,8 @@ import com.japagram.R;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1331,80 +1333,131 @@ public class ConvertFragment extends Fragment {
 
         return output;
     }
-    public static List<String> getKunreiShikiRomanizations(String text) {
-        List<String> finalStrings = new ArrayList<>();
-        if (!text.contains("ō") && !text.contains("ô")
-                && !text.contains("ā") && !text.contains("ā")
-                && !text.contains("ē") && !text.contains("ê")
-                && !text.contains("ū") && !text.contains("û")) {
-            finalStrings.add(text);
-            return finalStrings;
-        }
-        List<List<String>> possibleInterpretations = new ArrayList<>();
+    private static List<List<String>> addPhonemesToInterpretations(List<List<String>> possibleInterpretations, @NotNull String[] phonemes) {
         List<String> newCharacterList;
+        if (phonemes.length == 2) {
+            if (possibleInterpretations.size() == 0) {
+                newCharacterList = new ArrayList<>();
+                newCharacterList.add(phonemes[0]);
+                possibleInterpretations.add(newCharacterList);
+                newCharacterList = new ArrayList<>();
+                newCharacterList.add(phonemes[1]);
+                possibleInterpretations.add(newCharacterList);
+            } else {
+                int initialSize = possibleInterpretations.size();
+                for (int i = 0; i < initialSize; i++) {
+                    newCharacterList = new ArrayList<>(possibleInterpretations.get(i));
+                    newCharacterList.add(phonemes[0]);
+                    possibleInterpretations.get(i).add(phonemes[1]);
+                    possibleInterpretations.add(newCharacterList);
+                }
+            }
+        }
+        else if (phonemes.length == 1) {
+            if (possibleInterpretations.size() == 0) {
+                newCharacterList = new ArrayList<>();
+                newCharacterList.add(phonemes[0]);
+                possibleInterpretations.add(newCharacterList);
+            } else {
+                for (int i = 0; i < possibleInterpretations.size(); i++) {
+                    possibleInterpretations.get(i).add(phonemes[0]);
+                }
+            }
+        }
+        else return new ArrayList<>();
+
+        return possibleInterpretations;
+    }
+    public static List<String> getWaapuroRomanizations(String text) {
+
+        text = text.toLowerCase();
+        List<String> finalStrings = new ArrayList<>();
+
+        //Reverting directly from Nihon/Kunrei-Shiki special forms to Waapuro
+        text = text.replace("sy","sh")
+                .replace("ty","ch");
+
+        //Phonemes that can have multiple Waapuro equivalents are prepared here
+        //Note that wi we wo (ゐ ゑ を - i e o in MH/NH/KH romanizations) are not handled here since they could lead to too many false positives
+        text = text.replace("j","A")
+                .replace("zy","B")
+                .replace("ts","C")
+                .replace("zu","D")
+                .replace("wê","E")
+                .replace("dû","F")
+                .replace("si","G")
+                .replace("ti","H")
+                .replaceAll("([^sc])hu","\1I")
+                .replaceAll("([^sc])hû","\1J")
+                .replace("tû","K")
+                .replace("tu","L")
+                .replace("zû","M")
+                .replace("n\'","N");
+
+        //Replacing relevant phonemes with the Waapuro equivalent
+        List<List<String>> possibleInterpretations = new ArrayList<>();
+        String[] newPhonemes;
         for (String character : text.split("(?!^)")) {
-            if (character.equalsIgnoreCase("ō") || character.equalsIgnoreCase("ô")) {
-                if (possibleInterpretations.size() == 0) {
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add("ou");
-                    possibleInterpretations.add(newCharacterList);
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add("oo");
-                    possibleInterpretations.add(newCharacterList);
-                } else {
-                    int initialSize = possibleInterpretations.size();
-                    for (int i = 0; i < initialSize; i++) {
-                        newCharacterList = new ArrayList<>(possibleInterpretations.get(i));
-                        newCharacterList.add("oo");
-                        possibleInterpretations.get(i).add("ou");
-                        possibleInterpretations.add(newCharacterList);
-                    }
-                }
+            switch (character) {
+                case "ō":
+                case "ô":
+                    newPhonemes = new String[]{"ou", "oo"};
+                    break;
+                case "A":
+                case "B":
+                    newPhonemes = new String[]{"j", "dy"};
+                    break;
+                case "C":
+                    newPhonemes = new String[]{"ts"};
+                    break;
+                case "D":
+                    newPhonemes = new String[]{"zu", "du"};
+                    break;
+                case "E":
+                case "ē":
+                case "ê":
+                    newPhonemes = new String[]{"ee"};
+                    break;
+                case "F":
+                    newPhonemes = new String[]{"zuu"};
+                    break;
+                case "G":
+                    newPhonemes = new String[]{"shi"};
+                    break;
+                case "H":
+                    newPhonemes = new String[]{"chi"};
+                    break;
+                case "I":
+                    newPhonemes = new String[]{"fu"};
+                    break;
+                case "J":
+                    newPhonemes = new String[]{"fuu"};
+                    break;
+                case "K":
+                    newPhonemes = new String[]{"tsuu"};
+                    break;
+                case "L":
+                    newPhonemes = new String[]{"tsu"};
+                    break;
+                case "M":
+                    newPhonemes = new String[]{"duu", "zuu"};
+                    break;
+                case "N":
+                    newPhonemes = new String[]{"n\'"};
+                    break;
+                case "ā":
+                case "â":
+                    newPhonemes = new String[]{"aa"};
+                    break;
+                case "ū":
+                case "û":
+                    newPhonemes = new String[]{"uu"};
+                    break;
+                default:
+                    newPhonemes = new String[]{character};
+                    break;
             }
-            else if (character.equalsIgnoreCase("ā") || character.equalsIgnoreCase("â")) {
-                if (possibleInterpretations.size() == 0) {
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add("aa");
-                    possibleInterpretations.add(newCharacterList);
-                } else {
-                    for (int i = 0; i < possibleInterpretations.size(); i++) {
-                        possibleInterpretations.get(i).add("aa");
-                    }
-                }
-            }
-            else if (character.equalsIgnoreCase("ē") || character.equalsIgnoreCase("ê")) {
-                if (possibleInterpretations.size() == 0) {
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add("ee");
-                    possibleInterpretations.add(newCharacterList);
-                } else {
-                    for (int i = 0; i < possibleInterpretations.size(); i++) {
-                        possibleInterpretations.get(i).add("ee");
-                    }
-                }
-            }
-            else if (character.equalsIgnoreCase("ū") || character.equalsIgnoreCase("û")) {
-                if (possibleInterpretations.size() == 0) {
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add("uu");
-                    possibleInterpretations.add(newCharacterList);
-                } else {
-                    for (int i = 0; i < possibleInterpretations.size(); i++) {
-                        possibleInterpretations.get(i).add("uu");
-                    }
-                }
-            }
-            else {
-                if (possibleInterpretations.size() == 0) {
-                    newCharacterList = new ArrayList<>();
-                    newCharacterList.add(character);
-                    possibleInterpretations.add(newCharacterList);
-                } else {
-                    for (int i = 0; i < possibleInterpretations.size(); i++) {
-                        possibleInterpretations.get(i).add(character);
-                    }
-                }
-            }
+            possibleInterpretations = addPhonemesToInterpretations(possibleInterpretations, newPhonemes);
         }
         for (int i=0; i<possibleInterpretations.size(); i++) {
             finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
