@@ -7,6 +7,7 @@ import android.util.Log;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.VisibleForTesting;
@@ -146,10 +147,11 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     }
 
     public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(List<String> words) {
-        for (int i=0; i< words.size(); i++) {
-            words.set(i, words.get(i) + "%");
+        List<IndexRomaji> indexes = new ArrayList<>();
+        for (String word : words) {
+            indexes.addAll(indexRomaji().getIndexByStartingQuery(word));
         }
-        return this.indexRomaji().getIndexByExactQueries(words);
+        return indexes;
     }
     public List<IndexRomaji> getRomajiIndexForExactWordsList(List<String> words) {
         return this.indexRomaji().getIndexByExactQueries(words);
