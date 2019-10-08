@@ -42,19 +42,19 @@
         android:summaryOn="@string/shown_names_search"
         android:title="@string/complete_local_with_names_search" />
 
-    <CheckBoxPreference
-        android:defaultValue="@bool/pref_complete_local_with_online_search_default"
-        android:key="@string/pref_complete_local_with_online_search_key"
-        android:summaryOff="@string/hidden_online_search"
-        android:summaryOn="@string/shown_online_search"
-        android:title="@string/complete_local_with_online_search" />
+<!--    <CheckBoxPreference-->
+<!--        android:defaultValue="@bool/pref_complete_local_with_online_search_default"-->
+<!--        android:key="@string/pref_complete_local_with_online_search_key"-->
+<!--        android:summaryOff="@string/hidden_online_search"-->
+<!--        android:summaryOn="@string/shown_online_search"-->
+<!--        android:title="@string/complete_local_with_online_search" />-->
 
-    <CheckBoxPreference
-        android:defaultValue="@bool/pref_wait_for_online_results_default"
-        android:key="@string/pref_wait_for_online_results_key"
-        android:summaryOff="@string/wait_for_online_results_off"
-        android:summaryOn="@string/wait_for_online_results_on"
-        android:title="@string/wait_for_online_results" />
+<!--    <CheckBoxPreference-->
+<!--        android:defaultValue="@bool/pref_wait_for_online_results_default"-->
+<!--        android:key="@string/pref_wait_for_online_results_key"-->
+<!--        android:summaryOff="@string/wait_for_online_results_off"-->
+<!--        android:summaryOn="@string/wait_for_online_results_on"-->
+<!--        android:title="@string/wait_for_online_results" />-->
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_complete_with_conj_search_default"

@@ -32,7 +32,7 @@ public final class GlobalConstants {
     public static final float namesDbSizeKanjiIndex = 12761.f;
     public static final float namesDbLinesRomajiIndex = 413295.f;
     public static final float namesDbSizeRomajiIndex = 10545.f;
-    public static final float namesDbSizeTotal = namesDbLinesWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
+    public static final float namesDbSizeTotal = namesDbSizeWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
 
 
     public static final String DB_ELEMENTS_DELIMITER = ";";
