@@ -13,9 +13,7 @@ import android.widget.Toast;
 import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.R;
 import com.japagram.data.RoomCentralDatabase;
-import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomKanjiDatabase;
-import com.japagram.data.RoomNamesDatabase;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
@@ -167,10 +165,10 @@ public class SplashScreenActivity extends BaseActivity {
         boolean showNames = Utilities.getPreferenceShowNames(this) && !Utilities.getAppPreferenceFirstTimeInstalling(this);
         int currentExtendedDbVersion = Utilities.getAppPreferenceDbVersionExtended(this);
         int currentNamesDbVersion = Utilities.getAppPreferenceDbVersionNames(this);
-        boolean delayExtendedDbInstallation = currentExtendedDbVersion != GlobalConstants.EXTENDED_DB_VERSION;
+        boolean installExtendedDb = currentExtendedDbVersion != GlobalConstants.EXTENDED_DB_VERSION;
         boolean delayNamesDbInstallation = currentNamesDbVersion != GlobalConstants.NAMES_DB_VERSION;
         serviceIntent.putExtra(getString(R.string.show_names), showNames);
-        serviceIntent.putExtra(getString(R.string.delay_extended_db_installation), delayExtendedDbInstallation);
+        serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
         serviceIntent.putExtra(getString(R.string.delay_names_db_installation), delayNamesDbInstallation);
         startService(serviceIntent);
 

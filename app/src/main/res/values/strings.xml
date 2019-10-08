@@ -365,7 +365,7 @@
     <string name="sorry_only_have_second_part">MB left in internal memory and can\'t install the OCR data. Please clear some app data and try again.</string>
     <string name="downloading_ocr_data_first_part">Downloading the\u0020</string>
     <string name="downloading_ocr_data_second_part">OCR data on Wifi only.</string>
-    <string name="delay_extended_db_installation" translatable="false">delay_extended_db_installation</string>
+    <string name="install_extended_db" translatable="false">delay_extended_db_installation</string>
     <string name="delay_names_db_installation" translatable="false">delay_names_db_installation</string>
     <string name="attempting_download_first_part">Attempting to download the\u0020</string>
     <string name="attempting_download_second_part">OCR data. Please wait.</string>

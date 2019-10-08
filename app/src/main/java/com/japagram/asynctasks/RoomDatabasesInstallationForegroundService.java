@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -15,11 +16,11 @@ import android.os.IBinder;
 import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
+import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.ui.MainActivity;
-import com.japagram.ui.SplashScreenActivity;
 
-import java.net.IDN;
+import java.util.Locale;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -46,14 +47,25 @@ public class RoomDatabasesInstallationForegroundService extends Service {
     public void onCreate() {
         super.onCreate();
 
+        Locale locale = Locale.getDefault();// get the locale to use...
+        Configuration conf = getResources().getConfiguration();
+        if (Build.VERSION.SDK_INT >= 17) {
+            conf.setLocale(locale);
+        } else {
+            conf.locale = locale;
+        }
 
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(LocaleHelper.onAttach(base));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         final boolean showNames = intent.getBooleanExtra(getString(R.string.show_names), false);
-        boolean delayExtendedDbInstallation = intent.getBooleanExtra(getString(R.string.delay_extended_db_installation), true);
+        boolean installExtendedDb = intent.getBooleanExtra(getString(R.string.install_extended_db), false);
         boolean delayNamesDbInstallation = intent.getBooleanExtra(getString(R.string.delay_names_db_installation), true);
 
         Intent appIntent = new Intent(this, MainActivity.class);
@@ -92,7 +104,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         }
         if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
 
-        mExtendedDbBeingLoaded = true;
+        mExtendedDbBeingLoaded = installExtendedDb;
         mNamesDbBeingLoaded = true;
         Runnable dbLoadRunnableExtended = () -> {
             startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
@@ -112,10 +124,6 @@ public class RoomDatabasesInstallationForegroundService extends Service {
             public void onTick(long l) {
 
                 if (mFirstTickThread) {
-                    if (!delayExtendedDbInstallation) {
-                        dbLoadThreadExtended = new Thread(dbLoadRunnableExtended);
-                        dbLoadThreadExtended.start();
-                    }
                     if (!delayNamesDbInstallation && showNames) {
                         dbLoadThreadNames = new Thread(dbLoadRunnableNames);
                         dbLoadThreadNames.start();
@@ -126,7 +134,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
 
             @Override
             public void onFinish() {
-                if (delayExtendedDbInstallation) {
+                if (installExtendedDb) {
                     dbLoadThreadExtended = new Thread(dbLoadRunnableExtended);
                     dbLoadThreadExtended.start();
                 }

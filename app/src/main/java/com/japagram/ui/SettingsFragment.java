@@ -12,6 +12,7 @@ import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -90,7 +91,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {
                 boolean finishedLoadingNamesDatabase = Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
                 boolean showNames = sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_names_search_key), false);
-                if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog();
+                if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog((CheckBoxPreference) currentPreference, sharedPreferences);
             }
         }
     }
@@ -233,12 +234,12 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         if (getActivity() == null) return;
         Intent serviceIntent = new Intent(getActivity(), RoomDatabasesInstallationForegroundService.class);
         serviceIntent.putExtra(getString(R.string.show_names), true);
-        serviceIntent.putExtra(getString(R.string.delay_extended_db_installation), false);
+        serviceIntent.putExtra(getString(R.string.install_extended_db), false);
         serviceIntent.putExtra(getString(R.string.delay_names_db_installation), false);
         getActivity().startService(serviceIntent);
 
     }
-    private void showNamesDbDownloadDialog() {
+    private void showNamesDbDownloadDialog(final CheckBoxPreference currentPreference, final SharedPreferences sharedPreferences) {
         if (getActivity() == null) return;
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setMessage(getString(R.string.confirm_download_names_db));
@@ -248,7 +249,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                     dialog.dismiss();
                 });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
-                (dialog, which) -> dialog.dismiss());
+                (dialog, which) -> {
+                    if (getContext()!=null) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean(getContext().getString(R.string.pref_complete_local_with_names_search_key), false);
+                        editor.apply();
+                        currentPreference.setChecked(false);
+                    }
+                    dialog.dismiss();
+                });
         alertDialog.show();
     }
 
