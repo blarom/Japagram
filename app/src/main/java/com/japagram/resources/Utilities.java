@@ -2599,7 +2599,12 @@ public final class Utilities {
         String searchWordTransliteratedHiragana = translationList.get(GlobalConstants.TYPE_HIRAGANA);
         String searchWordTransliteratedKatakana = translationList.get(GlobalConstants.TYPE_KATAKANA);
         int inputTextType = ConvertFragment.getTextType(searchWord);
-        List<String> possibleInterpretations = ConvertFragment.getWaapuroRomanizations(searchWordNoSpaces);
+
+        List<String> possibleInterpretations = new ArrayList<>();
+        if (inputTextType == GlobalConstants.TYPE_LATIN) possibleInterpretations = ConvertFragment.getWaapuroRomanizations(searchWordNoSpaces);
+        else {
+            possibleInterpretations.add(searchWordTransliteratedLatin);
+        }
 
         if (inputTextType == GlobalConstants.TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
         //endregion
@@ -3552,7 +3557,7 @@ public final class Utilities {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.names_database_finished_loading_flag), false);
     }
-    public static void setAppPreferenceFirstTimeInstalling(Context context, boolean flag) {
+    public static void setAppPreferenceFirstTimeRunningApp(Context context, boolean flag) {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -3560,7 +3565,7 @@ public final class Utilities {
             editor.apply();
         }
     }
-    public static boolean getAppPreferenceFirstTimeInstalling(Context context) {
+    public static boolean getAppPreferenceFirstTimeRunningApp(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.first_time_installing_flag), true);
     }

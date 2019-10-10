@@ -75,7 +75,7 @@ public class SplashScreenActivity extends BaseActivity {
         dbLoadThreadKanji.start();
 
         //showLoadingIndicator();
-        if (Utilities.getAppPreferenceFirstTimeInstalling(SplashScreenActivity.this)) {
+        if (Utilities.getAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this)) {
             Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
         }
 
@@ -126,7 +126,7 @@ public class SplashScreenActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                Utilities.setAppPreferenceFirstTimeInstalling(SplashScreenActivity.this, false);
+                Utilities.setAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this, false);
                 hideLoadingIndicator();
                 if (Looper.myLooper()==null) Looper.prepare();
                 //Toast.makeText(SplashScreenActivity.this, R.string.finished_loading_databases, Toast.LENGTH_SHORT).show();
@@ -162,15 +162,15 @@ public class SplashScreenActivity extends BaseActivity {
     }
     private void startDbInstallationForegroundService() {
         Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
-        boolean showNames = Utilities.getPreferenceShowNames(this) && !Utilities.getAppPreferenceFirstTimeInstalling(this);
+        boolean showNames = Utilities.getPreferenceShowNames(this);
         int currentExtendedDbVersion = Utilities.getAppPreferenceDbVersionExtended(this);
         int currentNamesDbVersion = Utilities.getAppPreferenceDbVersionNames(this);
         boolean installExtendedDb = currentExtendedDbVersion != GlobalConstants.EXTENDED_DB_VERSION;
-        boolean delayNamesDbInstallation = currentNamesDbVersion != GlobalConstants.NAMES_DB_VERSION;
+        boolean installNamesDb = currentNamesDbVersion != GlobalConstants.NAMES_DB_VERSION;
         serviceIntent.putExtra(getString(R.string.show_names), showNames);
         serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
-        serviceIntent.putExtra(getString(R.string.delay_names_db_installation), delayNamesDbInstallation);
-        startService(serviceIntent);
+        serviceIntent.putExtra(getString(R.string.install_names_db), installNamesDb);
+        if (installExtendedDb || installNamesDb && showNames) startService(serviceIntent);
 
     }
     private void stopDbInstallationForegroundService() {

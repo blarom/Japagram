@@ -66,7 +66,8 @@ public class RoomDatabasesInstallationForegroundService extends Service {
 
         final boolean showNames = intent.getBooleanExtra(getString(R.string.show_names), false);
         boolean installExtendedDb = intent.getBooleanExtra(getString(R.string.install_extended_db), false);
-        boolean delayNamesDbInstallation = intent.getBooleanExtra(getString(R.string.delay_names_db_installation), true);
+        boolean installNamesDb = intent.getBooleanExtra(getString(R.string.install_names_db), true);
+        boolean firstTimeRunningApp = Utilities.getAppPreferenceFirstTimeRunningApp(this);
 
         Intent appIntent = new Intent(this, MainActivity.class);
         appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -124,7 +125,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
             public void onTick(long l) {
 
                 if (mFirstTickThread) {
-                    if (!delayNamesDbInstallation && showNames) {
+                    if (installNamesDb && showNames && !firstTimeRunningApp) {
                         dbLoadThreadNames = new Thread(dbLoadRunnableNames);
                         dbLoadThreadNames.start();
                     }
@@ -138,7 +139,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                     dbLoadThreadExtended = new Thread(dbLoadRunnableExtended);
                     dbLoadThreadExtended.start();
                 }
-                if (delayNamesDbInstallation && showNames) {
+                if (installNamesDb && showNames && firstTimeRunningApp) {
                     dbLoadThreadNames = new Thread(dbLoadRunnableNames);
                     dbLoadThreadNames.start();
                 }
