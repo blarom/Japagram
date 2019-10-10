@@ -2535,13 +2535,18 @@ public final class Utilities {
      * Performing basic filtering according to each word's keywords list if length>=4, or differently for shorter words.
      * @param inputWord
      * @param roomCentralDatabase
+     * @param roomExtendedRoomDatabase
+     * @param roomNamesRoomDatabase
+     * @param language
+     * @param completeWithNamesIfNoResultsEvenIfDontShowNames
      * @return
      */
     public static Object[] getMatchingWordIdsAndDoBasicFiltering(String inputWord,
                                                                  RoomCentralDatabase roomCentralDatabase,
-                                                                 RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase,
-                                                                 RoomNamesDatabase japaneseToolboxNamesRoomDatabase,
-                                                                 String language) {
+                                                                 RoomExtendedDatabase roomExtendedRoomDatabase,
+                                                                 RoomNamesDatabase roomNamesRoomDatabase,
+                                                                 String language,
+                                                                 boolean showNames, boolean completeWithNamesIfNoResultsEvenIfDontShowNames) {
 
         //region Initializations
         List<Long> matchingWordIdsCentral = new ArrayList<>();
@@ -2619,20 +2624,20 @@ public final class Utilities {
         //region Getting the matches
         matchingWordIdsCentral = addNormalMatchesToMatchesList(searchWord, searchWordNoSpaces, inglessVerb, searchWordWithoutTo, possibleInterpretations,
                 queryIsVerbWithTo, inputTextType, matchingWordIdsCentral,
-                roomCentralDatabase, japaneseToolboxExtendedRoomDatabase,
+                roomCentralDatabase, roomExtendedRoomDatabase,
                 language, false);
 
         matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(searchWord, possibleInterpretations, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
         matchingWordIdsCentral = addCountersToMatchesList(searchWord, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
 
-        if (japaneseToolboxExtendedRoomDatabase != null)
+        if (roomExtendedRoomDatabase != null)
             matchingWordIdsExtended = addNormalMatchesToMatchesList(searchWord, searchWordNoSpaces, inglessVerb, searchWordWithoutTo, possibleInterpretations,
                 queryIsVerbWithTo, inputTextType, new ArrayList<>(),
-                    roomCentralDatabase, japaneseToolboxExtendedRoomDatabase,
+                    roomCentralDatabase, roomExtendedRoomDatabase,
                 language, true);
 
-        if (japaneseToolboxNamesRoomDatabase != null) {
-            matchingWordIdsNames = addNamesToMatchesList(searchWord, inputTextType, japaneseToolboxNamesRoomDatabase);
+        if (roomNamesRoomDatabase != null && (showNames || matchingWordIdsCentral.size()==0 && completeWithNamesIfNoResultsEvenIfDontShowNames)) {
+            matchingWordIdsNames = addNamesToMatchesList(searchWord, inputTextType, roomNamesRoomDatabase);
         }
 
         //endregion
@@ -3568,6 +3573,18 @@ public final class Utilities {
     public static boolean getAppPreferenceFirstTimeRunningApp(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.first_time_installing_flag), true);
+    }
+    public static void setAppPreferenceCompleteWithNames(Context context, boolean flag) {
+        if (context != null) {
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(context.getString(R.string.pref_complete_with_names_key), flag);
+            editor.apply();
+        }
+    }
+    public static boolean getAppPreferenceCompleteWithNames(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
+        return sharedPref.getBoolean(context.getString(R.string.pref_complete_with_names_key), true);
     }
 
     public static void setAppPreferenceDbVersionCentral(Context context, int value) {

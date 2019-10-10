@@ -504,7 +504,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
             List<Long> mMatchingWordIds = ((List<Long>) Utilities.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
-                    mRoomCentralDatabase, null, null, language)[0]);
+                    mRoomCentralDatabase, null, null, language, false, false)[0]);
             mMatchingWords = mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
         }
         else {

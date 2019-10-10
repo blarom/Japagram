@@ -13,6 +13,8 @@
     <string name="about">About</string>
     <string name="hidden_names_search">Don\'t search names</string>
     <string name="shown_names_search">Search names (requires names database installation)</string>
+    <string name="no_complete_with_names">Don\'t search for names if no results are found in the dictionary</string>
+    <string name="yes_complete_with_names">Search for names if no results are found in the dictionary</string>
     <string name="hidden_online_search">Don\'t get words and meanings online</string>
     <string name="shown_online_search">Merge online search results with local results</string>
     <string name="use_japanese_font_for_asian_characters">Use Japanese font for Asian characters (Chinese characters used in Japanese will be displayed in Japanese font)</string>
@@ -35,6 +37,7 @@
     <string name="hidden_decomp_structure_info">Don\'t show Kanji structure explanation</string>
     <string name="shown_decomp_structure_info">Show decomposed Kanji structure explanation</string>
     <string name="pref_complete_local_with_names_search_key" translatable="false">complete_local_with_names_search</string>
+    <string name="pref_complete_with_names_key" translatable="false">search_names_if_no_results_found</string>
     <string name="pref_complete_local_with_online_search_key" translatable="false">complete_local_with_online_search</string>
     <string name="pref_use_japanese_font_key" translatable="false">use_japanese_font</string>
     <string name="pref_wait_for_online_results_key" translatable="false">wait_for_online_results</string>
@@ -48,6 +51,7 @@
     <string name="pref_show_decomp_structure_info_key" translatable="false">show_decomp_structure_info</string>
     <string name="pref_show" translatable="false">complete_local_with_online_search</string>
     <string name="complete_local_with_names_search">Search for names</string>
+    <string name="complete_with_names">Complete with names</string>
     <string name="complete_local_with_online_search">Search for words online</string>
     <string name="use_japanese_font_in_texts">Use Japanese Font in Texts</string>
     <string name="wait_for_online_results">Wait for online results</string>

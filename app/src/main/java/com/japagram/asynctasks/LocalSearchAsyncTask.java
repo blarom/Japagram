@@ -37,14 +37,16 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
 
         List<Word> localMatchingWordsList = new ArrayList<>();
         if (!TextUtils.isEmpty(mQuery)) {
+            boolean completeWithNamesIfNoResultsEvenIfDontShowNames = Utilities.getAppPreferenceCompleteWithNames(contextRef.get());
             RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
             RoomExtendedDatabase roomExtendedDatabase = Utilities.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get())?
                     RoomExtendedDatabase.getInstance(contextRef.get()) : null;
-            RoomNamesDatabase roomNamesDatabase = Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get())?
-                    (mShowNames? RoomNamesDatabase.getInstance(contextRef.get()) : null) : null;
+            RoomNamesDatabase roomNamesDatabase = (
+                    Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get())
+                    && (mShowNames || completeWithNamesIfNoResultsEvenIfDontShowNames))? RoomNamesDatabase.getInstance(contextRef.get()) : null;
             String language = LocaleHelper.getLanguage(contextRef.get());
             Object[] matchingWordIds = Utilities.getMatchingWordIdsAndDoBasicFiltering(mQuery,
-                    roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language);
+                    roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language, mShowNames, completeWithNamesIfNoResultsEvenIfDontShowNames);
             List<Long> matchingWordIdsCentral = (List<Long>) matchingWordIds[0];
             List<Long> matchingWordIdsExtended = (List<Long>) matchingWordIds[1];
             List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];

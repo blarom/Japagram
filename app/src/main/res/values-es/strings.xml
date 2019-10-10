@@ -8,6 +8,8 @@
     <string name="about">Acerca de</string>
     <string name="hidden_names_search">No buscar nombres</string>
     <string name="shown_names_search">Buscar nombres (requiere la instalación de la base de datos de nombres)</string>
+    <string name="no_complete_with_names">No buscar nombres si no se encuentran resultados en el diccionario</string>
+    <string name="yes_complete_with_names">Buscar nombres si no se encuentran resultados en el diccionario</string>
     <string name="hidden_online_search">No obtengar palabras y significados en línea</string>
     <string name="shown_online_search">Fusionar resultados de búsqueda en línea con resultados locales</string>
     <string name="wait_for_online_results_off">Mostrar la lista inmediatamente cuando encuentre resultados y actualícela cuando obtenga resultados en línea</string>
@@ -29,6 +31,7 @@
     <string name="hidden_decomp_structure_info">No mostrar explicación sobre la estructura del kanji</string>
     <string name="shown_decomp_structure_info">Mostrar explicación sobre la estructura del kanji descompuesto</string>
     <string name="complete_local_with_names_search">Buscar nombres</string>
+    <string name="complete_with_names">Completar con nombres</string>
     <string name="complete_local_with_online_search">Buscar palabras en línea</string>
     <string name="wait_for_online_results">Esperar los resultados en línea</string>
     <string name="complete_with_conj_search">Buscar conjugaciones verbales</string>
