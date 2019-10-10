@@ -260,7 +260,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 260|please try to do|VC|Please try to [do/be] X.|X goran @ X = verb te form||||
 261|do as a personal favor for someone or for me|VC|Someone [does/is] X as a personal favor for someone or for me. Use "te morau" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence). Usage of "te kureru" corresponds to an active phrase as opposed to "te morau"that corresponds to a passive phrase.|Y ni Z wo X morau @ X = verb te form, Y = person doing the favor, Z = object of the favor|1430;1432;1439;1441||te kureru, te ageru|
 262|want someone to do (as a favor)|VC|I want someone to [do/be] X (as a favor).|X moraitai @ X = verb te form||||
-263||-||||||
+263|pay the bill|VsuruI||||||
 264|fail to do|VC|To fail to [do/be] X.|X sokonau @ X = verb te form||||
 265|would you please do (as a favor)|VC|Would you please [do/be] X (as a favor).|X moraitai n desu ga @ X = verb te form||||
 266|completely finished doing|VC|[I/you/he/she] [have/has] completely finished [doing/being] X.|X shimau @ X = verb te form||||
@@ -382,7 +382,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 382|black|A|||627|||
 383|comparatively|A||||||
 384|rate, ratio, percentage, proportion|N;MSE||||||
-385||-||||||
+385|male, manly|Sl||||||
 386|apiece, each|A|||643|||
 387|either choice|A||||||
 388|every kind|A||Always followed by affirmative verb.||||
@@ -1427,7 +1427,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1427|got stuck and there is no way back|CE|||1205|||
 1428|Greetings / Sorry for disturbing you|CE|ME#0241;0242|||||
 1429|have no choice|CE||||||
-1430|hello|CE|||1158|||
+1430|hello, good day, good afternoon|CE|||1158|||
 1431||-||||||
 1432|hold it carefully because it is important|CE||||||
 1433|how|CE||||||
@@ -1583,7 +1583,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1583|with pleasure|CE|||1210|||
 1584|with regards to, regarding, concerning|CE||||||
 1585|would you like to see it? (polite)|CE|||1154|||
-1586|you're welcome, not at all|CE|||1163|||
+1586||-||||||
 1587|yours sincerely, respectfully yours|CE||||||
 1588|an disliked person|IES||||||
 1589|ass|IES||||||
@@ -4035,7 +4035,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4035|department store|N;Pl||||||
 4036|desert|N;Pl||||||
 4037|dine-in|N;Pl||||||
-4038|bus stop|N;Pl||||||
+4038|bus stop, bus station|N;Pl||||||
 4039|direction, way, side, area (in a particular direction)|N;Pl||||||
 4040|district, section, sector|N;Pl||||||
 4041|doctor's office, clinic, dispensary|N;Pl||||||
@@ -4189,7 +4189,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4189|small shrine|N;Pl||||||
 4190|south|N;Pl||||||
 4191||-||||||
-4192|place for boarding vehicles, bus stop, bus terminal, railway platform, taxi stand, jetty, wharf|N;Pl||||||
+4192|place for boarding vehicles, bus stop, bus station, bus terminal, railway platform, taxi stand, jetty, wharf|N;Pl||||||
 4193|railway station, train station|N;Pl|As of transportation only|||||
 4194|stationary shop|N;Pl||||||
 4195|store|N;Pl||||||
@@ -7815,7 +7815,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 7815|extend over, spread over, span, extend into|VrugI||||||
 7816|step over, step across, stride over, stride across, cross|VguT||||||
 7817|stretch over, span, bridge, saddle, straddle|VguT||||||
-7818|or, otherwise|PP||||||
+7818||-||||||
 7819||-||||||
 7820|keep (a person) waiting|VruiT||||||
 7821|keep (a person) waiting|VsuT||||||
@@ -9693,7 +9693,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 9693|sense (of something's arrival), feeling|N;Abs||||||
 9694|voice, voiced sound|N;Abs||||||
 9695|flour, meal, powder, dust|N;Abs||||||
-9696|hello, good day, good afternoon|CE;idp||||||
+9696||-||||||
 9697|(approximate) time, around, about, toward|N;Abs||||||
 9698|suitable time (or condition)|N;Abs||||||
 9699|time of year, season|N;Abs||||||
@@ -11478,7 +11478,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 11478|instinct|N;Abs||||||
 11479|delve into|VrugT||||||
 11480|dig up (e.g. vegetables)|VrugT||||||
-11481|r two men) to have anal sex|VrugT||||||
+11481|have anal sex (for two men) |VrugT||||||
 11482|holder|N;Abs||||||
 11483|hormone|N;Abs||||||
 11484|cows' or pigs' offal (entrails)|N;Abs||||||
@@ -15277,7 +15277,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 15277|that time, then|P||||||
 15278|there (indicating a place near the listener)|P||||||
 15279|you|P||||||
-15280|and, thereupon, because of that|PP||||||
+15280||-||||||
 15281|well then ...|CE|||1233|||
 15282|in that situation, in which case|CE||||||
 15283|but (still), and yet, nevertheless, even so, notwithstanding|PP||||||
@@ -24730,7 +24730,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 24730|same opinion, same view|N;Ano||||||
 24731|same meaning|N;Ano||||||
 24732|mobilization, mobilisation|N||||||
-24733|you are welcome, don't mention it, not at all, my pleasure|OI||||||
+24733|you are welcome, don't mention it, not at all, my pleasure|CE|||1163|||
 24734|copper coin|N||||||
 24735|the same prefecture|N||||||
 24736|the same country, the same province, the said country|N||||||
@@ -28538,7 +28538,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 28538|go institution, go club, go hall|N||||||
 28539|basis, foundation, core, criterion, standard|N||||||
 28540|on the desk|N;Ano||||||
-28541|theoretical, academic, armchair (e.g. plan), desktop, paper, not yet implemented|Ano;CES||||||
+28541|theoretical, academic, armchair (e.g. plan), desktop, paper, not yet implemented|Ano;idp||||||
 28542|naturalization, naturalisation|N||||||
 28543|geometry|N||||||
 28544|geometric|N||||||
@@ -33408,7 +33408,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 33408|a help, assistance|N||||||
 33409|means, method|N||||||
 33410|handmade, homegrown, hand-crafted, homemade|N;Ano||||||
-33411|handwriting|N||||||
+33411|handwriting, hand drawing|N||||||
 33412|handwritten, hand-painted, hand-drawn|Ano||||||
 33413|achievement, feat, meritorious deed, distinguished service|N||||||
 33414|easiness, simplicity, informality, offhandedness, cheapness|N||||||
@@ -35317,7 +35317,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 35317|extreme, unusually strong|Ai||||||
 35318|personal information|N||||||
 35319|minutely, in detail, with particular attention|A||||||
-35320|hello, good day (daytime greeting)|UNC||||||
+35320||-||||||
 35321|verse (of 5 or 7 mora in Japanese poetry, of 4, 5, or 7 characters in Chinese poetry)|N||||||
 35322|mouth (of a bottle), spout, nozzle, mouthpiece|N||||||
 35323|fog (on a mirror, glasses, etc.), cloud (e.g. in marble), blur, mist, shadow, dimness|N||||||
@@ -36625,7 +36625,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36625|offshoot|N;Sx||||||
 36626|interest|N;Sx||||||
 36627|player who is not a dealer (in cards, mahjong, etc.)|N||||||
-36628|hello, good day, good afternoon|CE||||||
+36628||-||||||
 36629|old custom, old style|N;Ano||||||
 36630|corners of the mouth|N||||||
 36631|foolish, idiotic|Af||||||
@@ -36749,3 +36749,27 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36749|injure, damage, harm, hurt|VsuruT||||||
 36750|kill|VsuruT||||||
 36751|hinder, obstruct|VsuruT||||||
+36752|easier|A;Dg||||||
+36753|easier|A;Dg||||||
+36754|harder, more difficult|A;Dg||||||
+36755|harder, more difficult|A;Dg||||||
+36756|shorter|A;Dg||||||
+36757|shorter|A;Dg||||||
+36758|longer, lengthier|A;Dg||||||
+36759|longer, lengthier|A;Dg||||||
+36760|thinner|A;Dg||||||
+36761|thinner|A;Dg||||||
+36762|wider|A;Dg||||||
+36763|wider|A;Dg||||||
+36764|cheaper|A;Dg||||||
+36765|cheaper|A;Dg||||||
+36766|more expensive|A;Dg||||||
+36767|more expensive|A;Dg||||||
+36768|better|A;Dg||||||
+36769|better|A;Dg||||||
+36770|worse|A;Dg||||||
+36771|worse|A;Dg||||||
+36772|weaker|A;Dg||||||
+36773|weaker|A;Dg||||||
+36774|stronger|A;Dg||||||
+36775|stronger|A;Dg||||||
