@@ -457,9 +457,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             fullType = TextUtils.join(", ", types);
             if (fullType.equals("")) fullType = type;
 
-            String typeAsHtmlText;
-            if (!fullType.equals("")) {
-                typeAsHtmlText =
+            String typeAndMeaningHtml;
+            if (!fullType.equals("") && !meaning.equals("*")) {
+                typeAndMeaningHtml =
                         "<i><b><font color='" +
                         Utilities.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
                         "'>" +
@@ -467,11 +467,20 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         "<br>" + "</font></b></i>"  +
                         meaning;
             }
+            else if (meaning.equals("*")) {
+                typeAndMeaningHtml =
+                        "<i><b><font color='" +
+                        Utilities.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
+                        "'>" +
+                        "Proper noun" +
+                        "<br>" + "</font></b></i>"  +
+                        fullType;
+            }
             else {
-                typeAsHtmlText = meaning;
+                typeAndMeaningHtml = meaning;
             }
 
-            Spanned type_and_meaning = Utilities.fromHtml(typeAsHtmlText);
+            Spanned type_and_meaning = Utilities.fromHtml(typeAndMeaningHtml);
             TextView typeAndMeaningTv = new TextView(mContext);
             setMeaningsTvProperties(typeAndMeaningTv, type_and_meaning);
             holder.childElementsLinearLayout.addView(typeAndMeaningTv);
@@ -605,15 +614,15 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     String[] parsedRule = rules.split(RULE_DELIMITER);
                     Spanned spanned_rule;
                     if (parsedRule.length == 1) { // If the rule doesn't have a "where" clause
-                        typeAsHtmlText = rules;
-                        spanned_rule = Utilities.fromHtml(typeAsHtmlText);
+                        typeAndMeaningHtml = rules;
+                        spanned_rule = Utilities.fromHtml(typeAndMeaningHtml);
                     } else {
-                        typeAsHtmlText = parsedRule[0] +
+                        typeAndMeaningHtml = parsedRule[0] +
                                 "<font color='" + Utilities.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
                                 mContext.getString(R.string._where_) +
                                 "</font>" +
                                 parsedRule[1];
-                        spanned_rule = Utilities.fromHtml(typeAsHtmlText);
+                        spanned_rule = Utilities.fromHtml(typeAndMeaningHtml);
                     }
                     addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(spanned_rule));
                 }
