@@ -140,7 +140,7 @@
         \n\nLas descomposiciones se evalúan utilizando una versión muy modificada y corregida de la base de datos de descomposición de Gavin Grover (ver cjkdecomp.codeplex.com).</string>
     <string name="DONE">HECHO</string>
     <string name="AboutTextIntro1">
-        Japanese Toolbox está una aplicación creada por un estudiante del japonés para estudiantes del japoneses.
+        Japagram está una aplicación creada por un estudiante del japonés para estudiantes del japoneses.
     </string>
     <string name="AboutTextIntro2">
         La aplicación está diseñada para ayudarte a descifrar a mano textos en japonés intermedio a avanzado, más rápido que pueden ofrecer otras herramientas de traducción,
@@ -222,10 +222,10 @@
         Si tiene algún comentario o encontró un error, le invitamos a publicarlos en japagram@gmail.com.
     </string>
     <string name="AboutTextPersonalParagraph2">
-        Construí JapaneseToolbox en mi tiempo libre por amor al idioma japonés y para ayudar a las personas a aprender japonés más rápido. La aplicación siempre se mantendrá GRATUITA y sin publicidad, y ninguna información que ingresó en la aplicación se usará de ninguna otra forma para fines distintos a los servicios proporcionados en la aplicación.
+        Construí Japagram en mi tiempo libre por amor al idioma japonés y para ayudar a las personas a aprender japonés más rápido. La aplicación siempre se mantendrá GRATUITA y sin publicidad, y ninguna información que ingresó en la aplicación se usará de ninguna otra forma para fines distintos a los servicios proporcionados en la aplicación.
     </string>
     <string name="AboutTextPersonalParagraph3">
-        Él código fuente del proyecto está disponible gratuitamente en https://github.com/blarom/JapaneseToolbox. ¡Usted puede copiar él código a voluntad! Recomiendo él intercambio gratuito de conocimientos, y si desea crear una aplicación con funciones similares, es más que bienvenido a hacerlo. Simplemente no olvide darme crédito, pasé mucho tiempo desarrollando estas herramientas :)
+        Él código fuente del proyecto está disponible gratuitamente en https://github.com/blarom/japagram. ¡Usted puede copiar él código a voluntad! Recomiendo él intercambio gratuito de conocimientos, y si desea crear una aplicación con funciones similares, es más que bienvenido a hacerlo. Simplemente no olvide darme crédito, pasé mucho tiempo desarrollando estas herramientas :)
     </string>
     <string name="AboutTextCreditsTitle">
         Créditos: parte de las herramientas de la aplicación se basan en lo siguiente:

@@ -136,7 +136,7 @@
         \n\nLes décompositions sont évaluées à l\'aide d\'une version fortement modifiée et corrigée de la base de données de décomposition de Gavin Grover (voir cjkdecomp.codeplex.com).</string>
     <string name="DONE">TERMINÉ</string>
     <string name="AboutTextIntro1">
-        Japanese Toolbox est une application créée par un étudiant du japonais pour les édudiants du japonais.
+        Japagram est une application créée par un étudiant du japonais pour les édudiants du japonais.
     </string>
     <string name="AboutTextIntro2">
         L\'application est conçue pour vous aider à déchiffrer manuellement les textes en japonais intermédiaire à avancé,
@@ -218,11 +218,11 @@
         Si vous avez des commentaires ou si vous avez rencontré un bogue, n\'hésitez pas à les poster à l\'adresse japagram@gmail.com.
     </string>
     <string name="AboutTextPersonalParagraph2">
-        J\'ai construit JapaneseToolbox pendant mon temps libre par amour pour la langue japonaise et pour aider les gens à apprendre le japonais plus rapidement.
+        J\'ai construit Japagram pendant mon temps libre par amour pour la langue japonaise et pour aider les gens à apprendre le japonais plus rapidement.
         L\'application restera toujours GRATUITE et sans publicités, et aucune des informations saisies dans l\'application ne sera utilisée de quelque manière que ce soit à des fins autres que les services fournis dans l\'application.
     </string>
     <string name="AboutTextPersonalParagraph3">
-        Le code source du projet est disponible gratuitement sur https://github.com/blarom/JapaneseToolbox. Vous pouvez copier le code à volonté! J\'encourage le partage gratuit des connaissances, et si vous voulez créer une application avec des fonctions similaires, vous êtes le bienvenu. N\'oubliez pas de me créditer, j\'ai passé beaucoup de temps à développer ces outils :)
+        Le code source du projet est disponible gratuitement sur https://github.com/blarom/japagram. Vous pouvez copier le code à volonté! J\'encourage le partage gratuit des connaissances, et si vous voulez créer une application avec des fonctions similaires, vous êtes le bienvenu. N\'oubliez pas de me créditer, j\'ai passé beaucoup de temps à développer ces outils :)
     </string>
     <string name="AboutTextCreditsTitle">
         Crédits - Une partie des outils de l\'application sont basés sur les éléments suivants:

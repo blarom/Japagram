@@ -220,7 +220,7 @@
         \n\nThe decompositions are evaluated using a heavily modified and corrected version of Gavin Grover\'s decomposition database (see cjkdecomp.codeplex.com). </string>
     <string name="DONE">DONE</string>
     <string name="AboutTextIntro1">
-        Japanese Toolbox is an app created by a Japanese learner for Japanese learners.
+        Japagram is an app created by a Japanese learner for Japanese learners.
     </string>
     <string name="AboutTextIntro2">
         The app is designed to help you manually decipher texts in intermediate to advanced Japanese,
@@ -305,11 +305,11 @@
         If you have any comments or encountered a bug, you\'re welcome to post them at japagram@gmail.com.
     </string>
     <string name="AboutTextPersonalParagraph2">
-        I built JapaneseToolbox on my spare time out of love for the Japanese language and to help people learn Japanese faster. The app will always remain
+        I built Japagram on my spare time out of love for the Japanese language and to help people learn Japanese faster. The app will always remain
         FREE and ad-less, and no information you entered in the app is in any way used for purposes other than the services provided in the app.
     </string>
     <string name="AboutTextPersonalParagraph3">
-        The source code for the project is freely available at https://github.com/blarom/JapaneseToolbox. You
+        The source code for the project is freely available at https://github.com/blarom/japagram. You
         can copy the code to your heart\'s content! I encourage the free sharing of knowledge, and if you want to build an app with similar functions,
         you\'re more than welcome to do so. Just don\'t forget to credit me, I spent a lot of time developing these tools :)
     </string>
