@@ -122,7 +122,7 @@
     <string name="SeeHints">Consulte las reglas a continuación para obtener sugerencias.</string>
     <string name="transliteration">Transcripción Kana-Romaji</string>
     <string name="conversion_waapuro">Wāpuro:</string>
-    <string name="conversion_mod_hepburn">Hepburn mod.:</string>
+    <string name="conversion_mod_hepburn">Hepburn modif.:</string>
     <string name="conversion_nihon_shiki">Nihon-Shiki:</string>
     <string name="conversion_kunrei_shiki">Kunrei-Shiki:</string>
     <string name="ConversionHiragana">Hiragana</string>
@@ -177,7 +177,7 @@
         Un convertidor de texto romaji-hiragana-katakana.
     </string>
     <string name="AboutTextButtonsConvertParagraph2">
-        Aunque hay varias formas de transcribir las sílabas de kana a romaji y volver, elegí una forma más intuitiva para los estudiantes occidentales y compatible con la mayoría de las convenciones modernas.
+        Si bien la aplicación utiliza principalmente Waapuro Romaji, puede manejar todas las formas modernas de romanización: Waapuro, Hepburn modificado, Nihon-Shiki y Kunrei-Shiki.
     </string>
     <string name="AboutTextButtonsSearchByRadicalTitle">女+子 ⇒ 好</string>
     <string name="AboutTextButtonsSearchByRadicalParagraph1">

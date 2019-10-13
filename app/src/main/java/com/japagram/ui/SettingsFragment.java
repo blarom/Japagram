@@ -235,7 +235,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         Intent serviceIntent = new Intent(getActivity(), RoomDatabasesInstallationForegroundService.class);
         serviceIntent.putExtra(getString(R.string.show_names), true);
         serviceIntent.putExtra(getString(R.string.install_extended_db), false);
-        serviceIntent.putExtra(getString(R.string.install_names_db), false);
+        serviceIntent.putExtra(getString(R.string.install_names_db), true);
         getActivity().startService(serviceIntent);
 
     }

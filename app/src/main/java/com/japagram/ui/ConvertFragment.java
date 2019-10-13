@@ -85,16 +85,33 @@ public class ConvertFragment extends Fragment {
             ConversionLatin.setText(getResources().getString(R.string.conversion_waapuro));
             ConversionHiragana.setText(getResources().getString(R.string.ConversionHiragana));
             ConversionKatakana.setText(getResources().getString(R.string.ConversionKatakana));
-            String latin = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN);
-            String hiragana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_HIRAGANA);
-            String katakana = getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_KATAKANA);
-            String[] romanizations = getOfficialRomanizations(hiragana);
-            ResultHiragana.setText(hiragana);
-            ResultKatakana.setText(katakana);
-            transliterationWaapuro.setText(romanizations[GlobalConstants.ROM_WAAPURO]);
-            transliterationModHepburn.setText(romanizations[GlobalConstants.ROM_MOD_HEPBURN]);
-            transliterationNihonShiki.setText(romanizations[GlobalConstants.ROM_NIHON_SHIKI]);
-            transliterationKunreiShiki.setText(romanizations[GlobalConstants.ROM_KUNREI_SHIKI]);
+            List<String> waapuroRomanizations = getWaapuroRomanizations(inputQuery);
+            List<String> hiraganaConversions = new ArrayList<>();
+            List<String> katakanaConversions = new ArrayList<>();
+            List<String> waapuroConversions = new ArrayList<>();
+            List<String> MHConversions = new ArrayList<>();
+            List<String> NSConversions = new ArrayList<>();
+            List<String> KSConversions = new ArrayList<>();
+            for (String conversion : waapuroRomanizations) {
+                List<String> LHK = getLatinHiraganaKatakana(conversion);
+                String latin = LHK.get(GlobalConstants.TYPE_LATIN);
+                String hiragana = LHK.get(GlobalConstants.TYPE_HIRAGANA);
+                String katakana = LHK.get(GlobalConstants.TYPE_KATAKANA);
+                String[] romanizations = getOfficialRomanizations(hiragana);
+                hiraganaConversions.add(hiragana);
+                katakanaConversions.add(katakana);
+                waapuroConversions.add(romanizations[GlobalConstants.ROM_WAAPURO]);
+                MHConversions.add(romanizations[GlobalConstants.ROM_MOD_HEPBURN]);
+                NSConversions.add(romanizations[GlobalConstants.ROM_NIHON_SHIKI]);
+                KSConversions.add(romanizations[GlobalConstants.ROM_KUNREI_SHIKI]);
+            }
+
+            ResultHiragana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(hiraganaConversions)));
+            ResultKatakana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(katakanaConversions)));
+            transliterationWaapuro.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(waapuroConversions)));
+            transliterationModHepburn.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(MHConversions)));
+            transliterationNihonShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(NSConversions)));
+            transliterationKunreiShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList(KSConversions)));
         }
     }
     public static List<String> getLatinHiraganaKatakana(String input_value) {

@@ -202,7 +202,7 @@
     <string name="SeeHints">Check the rules below for hints.</string>
     <string name="transliteration">Kana-Romaji Transliteration</string>
     <string name="conversion_waapuro">Wāpuro:</string>
-    <string name="conversion_mod_hepburn">Mod. Hepburn:</string>
+    <string name="conversion_mod_hepburn">Modif. Hepburn:</string>
     <string name="conversion_nihon_shiki">Nihon-Shiki:</string>
     <string name="conversion_kunrei_shiki">Kunrei-Shiki:</string>
     <string name="ConversionHiragana">Hiragana: </string>
@@ -258,8 +258,7 @@
         A Romaji-Hiragana-Katakana text converter.
     </string>
     <string name="AboutTextButtonsConvertParagraph2">
-        Though there are various ways of transliterating Kana syllables to Romaji and back,
-        I chose the way that will feel most intuitive to Western learners and is compatible with most modern conventions.
+        While the app primarily uses Waapuro Romaji, it can handle all modern romanization forms: Waapuro, Modified Hepburn, Nihon-Shiki and Kunrei-Shiki.
     </string>
     <string name="AboutTextButtonsSearchByRadicalTitle">女+子 ⇒ 好</string>
     <string name="AboutTextButtonsSearchByRadicalParagraph1">
