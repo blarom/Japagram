@@ -547,6 +547,10 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String trimmedAltSpelling;
         for (Verb verb : mCompleteVerbsList) {
 
+            if (verb.getRomaji().equals("kega suru")) {
+                family = verb.getFamily();
+            }
+
             //region Skipping verbs that were already found
             verbAlreadyFound = false;
             for (long[] idAndCol : copyOfMatchingVerbIdsAndColsFromBasicCharacteristics) {
@@ -623,7 +627,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 //region Getting the verb characteristics
                 romaji = verbSearchCandidate[INDEX_ROMAJI];
                 hiraganaFirstChar = verbSearchCandidate[INDEX_HIRAGANA_FIRST_CHAR].charAt(0);
-                latinRoot = verbSearchCandidate[INDEX_LATIN_ROOT];
+                latinRoot = verbSearchCandidate[INDEX_LATIN_ROOT].replace(" ","");
                 kanjiRoot = verbSearchCandidate[INDEX_KANJI_ROOT];
                 //endregion
 
