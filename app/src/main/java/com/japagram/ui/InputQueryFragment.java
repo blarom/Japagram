@@ -94,7 +94,6 @@ public class InputQueryFragment extends Fragment implements
     @BindView(R.id.button_clear_query) Button mClearQueryButton;
     private static final boolean ALLOW_OCR_FOR_LATIN_LANGUAGES = false;
     private static final int MAX_OCR_DIALOG_RECYCLERVIEW_HEIGHT_DP = 150;
-    private int mQueryHistoryMaxSize = 20;
     private static final int RESULT_OK = -1;
     private static final int SPEECH_RECOGNIZER_REQUEST_CODE = 101;
     private static final int ADJUST_IMAGE_ACTIVITY_REQUEST_CODE = 201;
@@ -108,8 +107,6 @@ public class InputQueryFragment extends Fragment implements
     private static final String ENG_FILE_DOWNLOADING_FLAG = "eng_file_downloading";
     private static final String FRA_FILE_DOWNLOADING_FLAG = "fra_file_downloading";
     private static final String SPA_FILE_DOWNLOADING_FLAG = "spa_file_downloading";
-    private List<String> mQueryHistory;
-    private List<String> mQueryHistoryWordsOnly;
     private String mInputQuery;
     private Bitmap mImageToBeDecoded;
     private TessBaseAPI mTess;
@@ -155,8 +152,6 @@ public class InputQueryFragment extends Fragment implements
     private boolean mAlreadyGotRomajiFromKanji;
     private Typeface mDroidSansJapaneseTypeface;
     private int mMaxOCRDialogResultHeightPixels;
-    private String mFirstMeaning;
-    private String mFirstMeaningRomaji;
     //endregion
 
 
@@ -177,7 +172,6 @@ public class InputQueryFragment extends Fragment implements
         final View rootView = inflater.inflate(R.layout.fragment_inputquery, container, false);
 
         setRetainInstance(true);
-        restoreQueryHistory();
         initializeViews(rootView);
 
         if (savedInstanceState!=null) {
@@ -235,6 +229,7 @@ public class InputQueryFragment extends Fragment implements
 
             if (data == null) return;
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            if (results == null || results.size()==0) return;
 
             mInputQuery = results.get(0);
             mInputQueryAutoCompleteTextView.setText(mInputQuery);
@@ -298,8 +293,6 @@ public class InputQueryFragment extends Fragment implements
     }
     private void initializeParameters() {
 
-        mQueryHistory = new ArrayList<>();
-        mQueryHistoryWordsOnly = new ArrayList<>();
         mInputQuery = "";
         mOcrResultString = "";
         firstTimeInitializedJpn = true;
@@ -332,30 +325,23 @@ public class InputQueryFragment extends Fragment implements
 
         mBinding = ButterKnife.bind(this, rootView);
 
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(
-                getContext(),
-                R.layout.spinner_item_queryhistory,
-                mQueryHistoryWordsOnly));
-
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
         mInputQueryAutoCompleteTextView.setTypeface(mDroidSansJapaneseTypeface);
         mInputQueryAutoCompleteTextView.setTextColor(Utilities.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
 
-        mInputQueryAutoCompleteTextView.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQueryAutoCompleteTextView.setOnEditorActionListener((exampleView, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
 
-                    mInputQueryAutoCompleteTextView.dismissDropDown();
+                mInputQueryAutoCompleteTextView.dismissDropDown();
 
-                    registerThatUserIsRequestingDictSearch(true);
+                registerThatUserIsRequestingDictSearch(true);
 
-                    drawBorderAroundThisButton(mDictButton);
-                    mInputQueryOperationsHandler.onDictRequested(mInputQuery);
-                }
-                return true;
-            } } );
+                drawBorderAroundThisButton(mDictButton);
+                mInputQueryOperationsHandler.onDictRequested(mInputQuery);
+            }
+            return true;
+        });
 
         mSearchByRadicalButton.setEnabled(true);
         mDecomposeButton.setEnabled(true);
@@ -407,24 +393,35 @@ public class InputQueryFragment extends Fragment implements
         else if (button.getId() == mSearchByRadicalButton.getId()) mSearchByRadicalButton.setBackgroundResource(R.drawable.background_full_no_borders);
         else if (button.getId() == mDecomposeButton.getId()) mDecomposeButton.setBackgroundResource(R.drawable.background_full_no_borders);
     }
-
+    private List<String> getQueryHistoryWordsOnly(List<String> queryHistory) {
+        List<String> result = new ArrayList<>();
+        for (String item : queryHistory) {
+            result.add(item.split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim());
+        }
+        return result;
+    }
 
     //View click listeners
     @OnClick(R.id.button_dict) public void onDictButtonClick() {
+        if (getActivity()==null || getContext()==null) return;
+
         String inputWordString = mInputQueryAutoCompleteTextView.getText().toString();
         mInputQuery = inputWordString;
 
-        updateQueryHistory(false);
+        List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
+        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
         registerThatUserIsRequestingDictSearch(true); //TODO: remove this?
         drawBorderAroundThisButton(mDictButton);
 
         mInputQueryOperationsHandler.onDictRequested(inputWordString);
     }
     @OnClick(R.id.button_conj) public void onSearchVerbButtonClick() {
-
+        if (getActivity()==null || getContext()==null) return;
         String inputVerbString = mInputQueryAutoCompleteTextView.getText().toString();
         mInputQuery = inputVerbString;
-        updateQueryHistory(false);
+
+        List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
+        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         registerThatUserIsRequestingDictSearch(false); //TODO: remove this?
 
@@ -433,50 +430,59 @@ public class InputQueryFragment extends Fragment implements
 
     }
     @OnClick(R.id.button_convert) public void onConvertButtonClick() {
-
+        if (getActivity()==null || getContext()==null) return;
         mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
-        updateQueryHistory(false);
+
+        List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
+        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         drawBorderAroundThisButton(mConvertButton);
         mInputQueryOperationsHandler.onConvertRequested(mInputQuery);
     }
     @OnClick(R.id.button_search_by_radical) public void onSearchByRadicalButtonClick() {
-
+        if (getActivity()==null || getContext()==null) return;
         // Break up a Kanji to Radicals
 
         mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
 
-        updateQueryHistory(false);
+        List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
+        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         drawBorderAroundThisButton(mSearchByRadicalButton);
         mInputQueryOperationsHandler.onSearchByRadicalRequested(Utilities.removeSpecialCharacters(mInputQuery));
     }
     @OnClick(R.id.button_decompose) public void onDecomposeButtonClick() {
-
+        if (getActivity()==null || getContext()==null) return;
         mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
 
-        updateQueryHistory(false);
+        List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
+        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         drawBorderAroundThisButton(mDecomposeButton);
         mInputQueryOperationsHandler.onDecomposeRequested(Utilities.removeSpecialCharacters(mInputQuery));
     }
     @OnClick(R.id.button_clear_query) public void onClearQueryButtonClick() {
-
+        if (getActivity()==null || getContext()==null) return;
         mInputQueryAutoCompleteTextView.setText("");
         mInputQuery = "";
     }
     @OnClick(R.id.button_show_history) public void onShowHistoryButtonClick() {
+        if (getActivity()==null || getContext()==null) return;
+        Utilities.hideSoftKeyboard(getActivity());
 
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-
+        List<String> queryHistory = MainActivity.getQueryHistoryFromPreferences(getContext());
         boolean queryHistoryIsEmpty = true;
-        for (String element : mQueryHistory) {
+        for (String element : queryHistory) {
             if (!element.equals("")) { queryHistoryIsEmpty = false; break; }
         }
-        if (!queryHistoryIsEmpty) mInputQueryAutoCompleteTextView.showDropDown();
+        if (!queryHistoryIsEmpty) {
+            mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+            mInputQueryAutoCompleteTextView.showDropDown();
+        }
 
     }
     @OnClick(R.id.button_speech_to_text) public void onSpeechToTextButtonClick() {
+        if (getActivity()==null || getContext()==null) return;
 
         int maxResultsToReturn = 1;
         try {
@@ -510,6 +516,7 @@ public class InputQueryFragment extends Fragment implements
 
     }
     @OnClick(R.id.button_ocr) public void onOcrButtonClick() {
+        if (getActivity()==null || getContext()==null) return;
 
         getOcrDataDownloadingStatus();
         if ((mOCRLanguage.equals("eng") && mEngOcrFileIsDownloading)
@@ -581,6 +588,7 @@ public class InputQueryFragment extends Fragment implements
 
     }
     @OnClick(R.id.button_text_to_speech) public void onTextToSpeechButtonClick() {
+        if (getActivity()==null || getContext()==null) return;
 
         String queryString = mInputQueryAutoCompleteTextView.getText().toString();
         mInputQuery = queryString;
@@ -1209,9 +1217,11 @@ public class InputQueryFragment extends Fragment implements
     //Query input methods
     private class QueryInputSpinnerAdapter extends ArrayAdapter<String> {
         // Code adapted from http://mrbool.com/how-to-customize-spinner-in-android/28286
-        QueryInputSpinnerAdapter(Context ctx, int txtViewResourceId, List<String> list) {
-            super(ctx, txtViewResourceId, list);
-            }
+        List<String> mQueryHistory;
+        QueryInputSpinnerAdapter(Context ctx, int txtViewResourceId, List<String> queries, List<String> queriesRomajiMeaning) {
+            super(ctx, txtViewResourceId, queries);
+            mQueryHistory = queriesRomajiMeaning;
+        }
         @Override
         public View getDropDownView(int position, View cnvtView, @NonNull ViewGroup prnt) {
             return getCustomView(position, cnvtView, prnt);
@@ -1239,83 +1249,6 @@ public class InputQueryFragment extends Fragment implements
         }
 
     }
-    private void restoreQueryHistory() {
-
-        if (getContext() != null) {
-            SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.preferences_query_history_list), Context.MODE_PRIVATE);
-            String queryHistoryAsString = sharedPref.getString(getString(R.string.preferences_query_history_list), "");
-            if (!TextUtils.isEmpty(queryHistoryAsString)) mQueryHistory = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER)));
-        }
-
-        updateQueryHistoryWordsOnly();
-    }
-    private void updateQueryHistory(boolean saveDefinition) {
-
-        // Implementing a FIFO array for the spinner
-        // Add the entry at the beginning of the stack
-        // If the entry is already in the spinner, remove that entry
-
-        if (TextUtils.isEmpty(mInputQuery) || getContext()==null) return;
-
-        //Preparing the displayed query history value
-        String queryAndMeaning = mInputQuery;
-        if (saveDefinition) {
-            queryAndMeaning = mInputQuery
-                + (TextUtils.isEmpty(mFirstMeaning) ? "" :
-                (" " + GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER + " "
-                        + ( (TextUtils.isEmpty(mFirstMeaningRomaji) || mFirstMeaningRomaji.equals(mInputQuery)) ? "" : "[" + mFirstMeaningRomaji + "] ")
-                        + mFirstMeaning)
-            );
-        }
-        else if (mQueryHistory.size() > 0) {
-            if (mQueryHistory.get(0).length() > mInputQuery.length()
-                && mQueryHistory.get(0).substring(0,mInputQuery.length()).equals(mInputQuery)) {
-                queryAndMeaning = mQueryHistory.get(0);
-            }
-        }
-
-        //Adding the prepared query history value to the history and removing old identical entries
-        boolean alreadyExistsInHistory = false;
-        for (int i = 0; i< mQueryHistory.size(); i++) {
-            String queryHistoryWord = mQueryHistory.get(i).split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim();
-            if (mInputQuery.equalsIgnoreCase(queryHistoryWord)) {
-                mQueryHistory.remove(i);
-                if (mQueryHistory.size()==0) mQueryHistory.add(queryAndMeaning);
-                else mQueryHistory.add(0, queryAndMeaning);
-                alreadyExistsInHistory = true;
-                break;
-            }
-        }
-        if (!alreadyExistsInHistory) {
-            if (mQueryHistory.size()==0) mQueryHistory.add(queryAndMeaning);
-            else mQueryHistory.add(0, queryAndMeaning);
-            if (mQueryHistory.size() > mQueryHistoryMaxSize) mQueryHistory.remove(mQueryHistoryMaxSize);
-        }
-
-        updateQueryHistoryWordsOnly();
-        saveQueryHistoryToPreferences();
-
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(
-                getContext(),
-                R.layout.spinner_item_queryhistory,
-                mQueryHistoryWordsOnly));
-
-    }
-    private void saveQueryHistoryToPreferences() {
-        if (getContext() != null) {
-            String queryHistoryAsString = TextUtils.join(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER, mQueryHistory);
-            SharedPreferences sharedPref = getContext().getSharedPreferences(getString(R.string.preferences_query_history_list), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.preferences_query_history_list), queryHistoryAsString);
-            editor.apply();
-        }
-    }
-    private void updateQueryHistoryWordsOnly() {
-        mQueryHistoryWordsOnly = new ArrayList<>();
-        for (String element : mQueryHistory) {
-            mQueryHistoryWordsOnly.add(element.split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim());
-        }
-    }
     private void registerThatUserIsRequestingDictSearch(Boolean state) {
         if (getActivity() != null) {
             SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
@@ -1341,14 +1274,11 @@ public class InputQueryFragment extends Fragment implements
             mProgressDialog.setMessage(getContext().getResources().getString(R.string.OCR_waitWhileProcessingExplanation));
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(true);
-            mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (mTess!=null) mTess.stop();
-                    initializeTesseractAPI(mOCRLanguage);
-                    if (mTesseractOCRAsyncTask!=null) mTesseractOCRAsyncTask.cancel(true);
-                    dialog.dismiss();
-                }
+            mProgressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getContext().getResources().getString(R.string.cancel), (dialog, which) -> {
+                if (mTess!=null) mTess.stop();
+                initializeTesseractAPI(mOCRLanguage);
+                if (mTesseractOCRAsyncTask!=null) mTesseractOCRAsyncTask.cancel(true);
+                dialog.dismiss();
             });
             mProgressDialog.show();
 
@@ -1408,28 +1338,10 @@ public class InputQueryFragment extends Fragment implements
     public void setConjButtonSelected() {
         drawBorderAroundThisButton(mConjButton);
     }
-    public void updateQueryDefinitionInHistory(String romaji, String meaning) {
-        mFirstMeaningRomaji = romaji;
-        mFirstMeaning = meaning;
-        updateQueryHistory(true);
-    }
     public void setSTTLanguage(String chosenSpeechToTextLanguage) {
         mChosenSpeechToTextLanguage = chosenSpeechToTextLanguage;
     }
     public void clearHistory() {
-        mQueryHistoryWordsOnly = new ArrayList<>();
-        mQueryHistory = new ArrayList<>();
-        saveQueryHistoryToPreferences();
-    }
-    public void updateQueryHistorySize(int queryHistoryMaxSize) {
-        mQueryHistoryMaxSize = queryHistoryMaxSize;
-    }
-    public void updateQueryHistoryList(List<String> queryHistory) {
-        mQueryHistory = queryHistory;
-        updateQueryHistoryWordsOnly();
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(
-                getContext(),
-                R.layout.spinner_item_queryhistory,
-                mQueryHistoryWordsOnly));
+        MainActivity.saveQueryHistoryToPreferences(getContext(), new ArrayList<>());
     }
 }

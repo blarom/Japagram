@@ -547,10 +547,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String trimmedAltSpelling;
         for (Verb verb : mCompleteVerbsList) {
 
-            if (verb.getRomaji().equals("kega suru")) {
-                family = verb.getFamily();
-            }
-
             //region Skipping verbs that were already found
             verbAlreadyFound = false;
             for (long[] idAndCol : copyOfMatchingVerbIdsAndColsFromBasicCharacteristics) {

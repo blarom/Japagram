@@ -237,8 +237,7 @@ public class MainActivity extends BaseActivity implements
             setShowKanjiStructureInfo(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_show_decomp_structure_info_default)));
         }
         else if (key.equals(getString(R.string.pref_query_history_size_key))) {
-            mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(sharedPreferences, getApplicationContext());
-            updateQueryHistory();
+            updateQueryHistorySize();
         }
         else if (key.equals(getString(R.string.pref_preferred_STT_language_key))) {
             setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
@@ -271,7 +270,6 @@ public class MainActivity extends BaseActivity implements
                 getResources().getBoolean(R.bool.pref_wait_for_conj_results_default)));
         setShowSources(sharedPreferences.getBoolean(getString(R.string.pref_show_sources_key),
                 getResources().getBoolean(R.bool.pref_show_sources_default)));
-        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(sharedPreferences, getApplicationContext());
         setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
         setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
         setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
@@ -350,6 +348,7 @@ public class MainActivity extends BaseActivity implements
         mBinding =  ButterKnife.bind(this);
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
+        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getApplicationContext());
 
         //Code allowing to bypass strict mode
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -395,9 +394,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         fragmentTransaction.commit();
-        if (mInputQueryFragment!=null) {
-            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
-        }
     }
     private void updateInputQuery(String word, boolean keepPreviousText) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -410,9 +406,6 @@ public class MainActivity extends BaseActivity implements
 
         fragmentTransaction.commit();
 
-        if (mInputQueryFragment!=null) {
-            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
-        }
     }
     private void clearBackstack() {
 
@@ -441,28 +434,28 @@ public class MainActivity extends BaseActivity implements
         mSearchByRadicalFragment = null;
         mDecomposeKanjiFragment = null;
     }
-    private void updateInputQueryWithDefinition(List<Word> matchingWords, boolean fromConjSearch) {
-        if (mInputQueryFragment==null) return;
+    public void updateQueryHistoryListWithCurrentQueryAndMeaning(Context context, String inputQuery, List<Word> matchingWords, boolean fromConjSearch, String language) {
 
+        if (context == null || inputQuery == null) return;
         String romaji = "";
         String meaning = "";
         if ( matchingWords == null || matchingWords.size() == 0) {
-            mInputQueryFragment.updateQueryDefinitionInHistory(romaji, "");
+            updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery, "", "");
         }
         else if (fromConjSearch) {
-            mInputQueryFragment.updateQueryDefinitionInHistory(
+            updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery,
                     matchingWords.get(0).getRomaji(),
-                    Utilities.getMeaningsExtract(matchingWords.get(0).getMeaningsByLanguage(mLanguageCode), 2)
+                    Utilities.getMeaningsExtract(matchingWords.get(0).getMeaningsByLanguage(language), 2)
             );
         }
         else {
             //Get the first definition matching the romaji / kanji
             for (Word word : matchingWords) {
-                if (word.getRomaji().equals(mInputQuery) || word.getKanji().equals(mInputQuery)
+                if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || Utilities.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                            .equals(ConvertFragment.getLatinHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
+                        .equals(ConvertFragment.getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(mLanguageCode), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
             }
@@ -470,9 +463,9 @@ public class MainActivity extends BaseActivity implements
             if (romaji.equals("")) {
                 for (Word word : matchingWords) {
                     List<String> altSpellings = (word.getAltSpellings() != null) ? Arrays.asList(word.getAltSpellings().split(",")) : new ArrayList<>();
-                    if (altSpellings.contains(mInputQuery)) {
+                    if (altSpellings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(mLanguageCode), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }
@@ -481,7 +474,7 @@ public class MainActivity extends BaseActivity implements
             if (romaji.equals("")) {
                 for (Word word : matchingWords) {
                     List<String> wordsInMeanings = new ArrayList<>();
-                    for (Word.Meaning wordMeaning : word.getMeaningsByLanguage(mLanguageCode)) {
+                    for (Word.Meaning wordMeaning : word.getMeaningsByLanguage(language)) {
                         wordsInMeanings.add(wordMeaning.getMeaning()
                                 .replace(", ", ";")
                                 .replace("(", "")
@@ -492,14 +485,69 @@ public class MainActivity extends BaseActivity implements
                     for (int i=0; i<wordsInMeanings.size(); i++) {
                         wordsInMeanings.set(i, wordsInMeanings.get(i).trim());
                     }
-                    if (wordsInMeanings.contains(mInputQuery)) {
+                    if (wordsInMeanings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(mLanguageCode), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }
             }
-            mInputQueryFragment.updateQueryDefinitionInHistory(romaji, meaning);
+            updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery, romaji, meaning);
+        }
+    }
+    public static List<String> updateQueryHistoryWithQueryRomajiMeaning(Context context, String inputQuery, String romaji, String meaning) {
+
+        if (TextUtils.isEmpty(inputQuery) || context==null) return new ArrayList<>();
+        List<String> queryHistory_QueryRomajiMeaning = getQueryHistoryFromPreferences(context);
+
+        //Preparing the displayed query history value
+        String queryRomajiMeaning = inputQuery.trim()
+                + (meaning.equals("") ? "" :
+                (" " + GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER + " " + ( (romaji.equals("") || romaji.equals(inputQuery)) ? "" : "[" + romaji + "] ") + meaning)
+        );
+
+        //Adding the prepared query history value to the history and removing old identical entries
+        boolean alreadyExistsInHistory = false;
+        for (int i = 0; i< queryHistory_QueryRomajiMeaning.size(); i++) {
+            String queryHistoryWord = queryHistory_QueryRomajiMeaning.get(i).split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim();
+            if (inputQuery.trim().equalsIgnoreCase(queryHistoryWord)) {
+                queryHistory_QueryRomajiMeaning.remove(i);
+                if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
+                else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaning);
+                alreadyExistsInHistory = true;
+                break;
+            }
+        }
+        if (!alreadyExistsInHistory) {
+            if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
+            else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaning);
+            int queryHistorySize = Utilities.getPreferenceQueryHistorySize(context);
+            if (queryHistory_QueryRomajiMeaning.size() > queryHistorySize) queryHistory_QueryRomajiMeaning.remove(queryHistorySize);
+        }
+
+        saveQueryHistoryToPreferences(context, queryHistory_QueryRomajiMeaning);
+
+        return queryHistory_QueryRomajiMeaning;
+    }
+    public static List<String> getQueryHistoryFromPreferences(Context context) {
+
+        //Getting the history
+        List<String> queryHistory_QueryRomajiMeaning;
+        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preferences_query_history_list), MODE_PRIVATE);
+        String queryHistoryAsString = sharedPref.getString(context.getString(R.string.preferences_query_history_list), "");
+        if (!queryHistoryAsString.equals(""))
+            queryHistory_QueryRomajiMeaning = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER)));
+        else queryHistory_QueryRomajiMeaning = new ArrayList<>();
+
+        return queryHistory_QueryRomajiMeaning;
+    }
+    public static void saveQueryHistoryToPreferences(Context context, List<String> queryHistory) {
+        if (context != null) {
+            String queryHistoryAsString = TextUtils.join(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER, queryHistory);
+            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preferences_query_history_list), MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(context.getString(R.string.preferences_query_history_list), queryHistoryAsString);
+            editor.apply();
         }
     }
     private void showExitAppDialog() {
@@ -514,31 +562,17 @@ public class MainActivity extends BaseActivity implements
                 (dialog, which) -> dialog.dismiss());
         alertDialog.show();
     }
-    private void updateQueryHistory() {
+    private void updateQueryHistorySize() {
 
         //Getting the history
-        SharedPreferences sharedPref = getSharedPreferences(getString(R.string.preferences_query_history_list), Context.MODE_PRIVATE);
-        String queryHistoryAsString = sharedPref.getString(getString(R.string.preferences_query_history_list), "");
-        if (!queryHistoryAsString.equals(""))
-            mQueryHistory = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER)));
-        else mQueryHistory = new ArrayList<>();
+        mQueryHistory = getQueryHistoryFromPreferences(getApplicationContext());
 
         //Updating its size
+        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getApplicationContext());
         if (mQueryHistory.size() > mQueryHistorySize) mQueryHistory = mQueryHistory.subList(0, mQueryHistorySize);
 
         //Saving the history
-        queryHistoryAsString = TextUtils.join(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER, mQueryHistory);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.preferences_query_history_list), queryHistoryAsString);
-        editor.apply();
-
-        if (mInputQueryFragment!=null) {
-            mInputQueryFragment.updateQueryHistorySize( mQueryHistorySize);
-            mInputQueryFragment.updateQueryHistoryList(mQueryHistory);
-        }
-    }
-    private void setQueryElements(String query) {
-
+        saveQueryHistoryToPreferences(getApplicationContext(), mQueryHistory);
     }
 
     //Asynchronous methods
@@ -776,10 +810,10 @@ public class MainActivity extends BaseActivity implements
         mLocalMatchingWords = matchingWords;
     }
     @Override public void onFinalMatchingWordsFound(List<Word> matchingWords) {
-        updateInputQueryWithDefinition(matchingWords, false);
+        updateQueryHistoryListWithCurrentQueryAndMeaning(getApplicationContext(), mInputQuery, matchingWords, false, mLanguageCode);
     }
     @Override public void onMatchingVerbsFound(List<Word> matchingVerbsAsWords) {
-        updateInputQueryWithDefinition(matchingVerbsAsWords, true);
+        updateQueryHistoryListWithCurrentQueryAndMeaning(getApplicationContext(), mInputQuery, matchingVerbsAsWords, true, mLanguageCode);
     }
 
     //Communication with SearchByRadicalFragment

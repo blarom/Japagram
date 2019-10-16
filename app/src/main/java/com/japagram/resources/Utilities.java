@@ -3500,7 +3500,9 @@ public final class Utilities {
         }
         return showDecompStructureInfo;
     }
-    public static int getPreferenceQueryHistorySize(SharedPreferences sharedPreferences, Context context) {
+    public static int getPreferenceQueryHistorySize(Context context) {
+        if (context==null) return 0;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         int queryHistorySize = Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_default_value));
         try {
             String queryHist = sharedPreferences.getString(context.getResources().getString(R.string.pref_query_history_size_key), context.getResources().getString(R.string.pref_query_history_size_default_value));
