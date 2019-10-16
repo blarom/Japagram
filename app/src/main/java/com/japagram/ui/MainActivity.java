@@ -26,6 +26,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.loader.app.LoaderManager;
@@ -109,6 +110,7 @@ public class MainActivity extends BaseActivity implements
     @Override protected void onCreate(Bundle savedInstanceState) {
 
         Utilities.changeThemeColor(this);
+        //super.onCreate(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -249,13 +251,13 @@ public class MainActivity extends BaseActivity implements
             setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
         }
         else if (key.equals(getString(R.string.pref_OCR_image_saturation_key))) {
-            mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getApplicationContext());
+            mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_contrast_key))) {
-            mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getApplicationContext());
+            mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_brightness_key))) {
-            mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getApplicationContext());
+            mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         }
     }
     private void setupSharedPreferences() {
@@ -273,9 +275,9 @@ public class MainActivity extends BaseActivity implements
         setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
         setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
         setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
-        mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getApplicationContext());
-        mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getApplicationContext());
-        mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getApplicationContext());
+        mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
     private void setShowNames(boolean state) {
@@ -348,7 +350,7 @@ public class MainActivity extends BaseActivity implements
         mBinding =  ButterKnife.bind(this);
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
-        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getApplicationContext());
+        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getBaseContext());
 
         //Code allowing to bypass strict mode
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -367,13 +369,21 @@ public class MainActivity extends BaseActivity implements
         //CJK_typeface = Typeface.createFromAsset(getAssets(), "fonts/DroidSansJapanese.ttf");
         //see https://stackoverflow.com/questions/11786553/changing-the-android-typeface-doesnt-work
 
-        mLanguageCode = LocaleHelper.getLanguage(getApplicationContext());
+        mLanguageCode = LocaleHelper.getLanguage(getBaseContext());
     }
     private void setFragments() {
 
         // Get the fragment manager
         mFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        if (mInputQueryFragment==null) {
+            //When switching between split-screen/popup view and regular view, mInputQueryFragment is null
+            //In this case, reset the app's fragments to that it can continue to work correctly
+            for (Fragment fragment : mFragmentManager.getFragments()) {
+                mFragmentManager.beginTransaction().remove(fragment).commit();
+            }
+            mSavedInstanceState = null;
+        }
 
         // Load the Fragments depending on the device orientation
         Configuration config = getResources().getConfiguration();
@@ -565,14 +575,14 @@ public class MainActivity extends BaseActivity implements
     private void updateQueryHistorySize() {
 
         //Getting the history
-        mQueryHistory = getQueryHistoryFromPreferences(getApplicationContext());
+        mQueryHistory = getQueryHistoryFromPreferences(getBaseContext());
 
         //Updating its size
-        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getApplicationContext());
+        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getBaseContext());
         if (mQueryHistory.size() > mQueryHistorySize) mQueryHistory = mQueryHistory.subList(0, mQueryHistorySize);
 
         //Saving the history
-        saveQueryHistoryToPreferences(getApplicationContext(), mQueryHistory);
+        saveQueryHistoryToPreferences(getBaseContext(), mQueryHistory);
     }
 
     //Asynchronous methods
@@ -810,10 +820,10 @@ public class MainActivity extends BaseActivity implements
         mLocalMatchingWords = matchingWords;
     }
     @Override public void onFinalMatchingWordsFound(List<Word> matchingWords) {
-        updateQueryHistoryListWithCurrentQueryAndMeaning(getApplicationContext(), mInputQuery, matchingWords, false, mLanguageCode);
+        updateQueryHistoryListWithCurrentQueryAndMeaning(getBaseContext(), mInputQuery, matchingWords, false, mLanguageCode);
     }
     @Override public void onMatchingVerbsFound(List<Word> matchingVerbsAsWords) {
-        updateQueryHistoryListWithCurrentQueryAndMeaning(getApplicationContext(), mInputQuery, matchingVerbsAsWords, true, mLanguageCode);
+        updateQueryHistoryListWithCurrentQueryAndMeaning(getBaseContext(), mInputQuery, matchingVerbsAsWords, true, mLanguageCode);
     }
 
     //Communication with SearchByRadicalFragment

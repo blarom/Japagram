@@ -219,7 +219,13 @@ public class InputQueryFragment extends Fragment implements
             tts.stop();
             tts.shutdown();
         }
-        if (getActivity() != null && mBroadcastReceiver != null) getActivity().unregisterReceiver(mBroadcastReceiver);
+        if (getActivity() != null && mBroadcastReceiver != null) {
+            try {
+                getActivity().unregisterReceiver(mBroadcastReceiver);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
     @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
