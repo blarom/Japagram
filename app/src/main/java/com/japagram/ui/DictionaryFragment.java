@@ -494,14 +494,19 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedVerbs = true;
         List<Verb> mMatchingVerbs = (List<Verb>) dataElements[0];
         mMatchingWordsFromVerbs = (List<Word>) dataElements[1];
-        List<Object[]> mMatchingConjugationParameters = (List<Object[]>) dataElements[2];
+        List<Object[]> mMatchingConjugationParametersList = (List<Object[]>) dataElements[2];
 
         //Adapting the words list to include information used for proper display in the results list
         for (int i = 0; i < mMatchingWordsFromVerbs.size(); i++) {
             Word word = mMatchingWordsFromVerbs.get(i);
             word.setIsLocal(true);
-            String matchingConjugation = (String) mMatchingConjugationParameters.get(i)[VerbSearchAsyncTask.MATCHING_CONJUGATION];
-            word.setMatchingConj(matchingConjugation);
+            for (Object[] matchingConjugationParameters : mMatchingConjugationParametersList) {
+                if ((long) matchingConjugationParameters[VerbSearchAsyncTask.MATCHING_ID] == word.getWordId()) {
+                    String matchingConjugation = (String) matchingConjugationParameters[VerbSearchAsyncTask.MATCHING_CONJUGATION];
+                    word.setMatchingConj(matchingConjugation);
+                    break;
+                }
+            }
         }
 
         Log.i(DEBUG_TAG, "Displaying Verb merged words");

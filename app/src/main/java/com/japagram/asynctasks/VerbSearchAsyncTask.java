@@ -38,8 +38,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     private WeakReference<Context> contextRef;
     public VerbSearchAsyncResponseHandler listener;
     private static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
-    private static final int MATCHING_CATEGORY_INDEX = 0;
-    public static final int MATCHING_CONJUGATION = 1;
+    public static final int MATCHING_ID = 0;
+    private static final int MATCHING_CATEGORY_INDEX = 1;
+    public static final int MATCHING_CONJUGATION = 2;
     private List<Verb> mCompleteVerbsList;
     private final List<Word> mWordsFromDictFragment;
     private String mInputQuery;
@@ -232,7 +233,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
         }
 
-        Object[] parameters = new Object[2];
+        Object[] parameters = new Object[3];
+        parameters[MATCHING_ID] = verb.getVerbId();
         parameters[MATCHING_CATEGORY_INDEX] = matchingConjugationCategoryIndex;
         parameters[MATCHING_CONJUGATION] = matchingConjugation;
 
