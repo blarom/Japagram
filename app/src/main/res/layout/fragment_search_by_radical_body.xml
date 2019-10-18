@@ -222,35 +222,51 @@
                         android:text="@string/filter_list"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/search_by_radical_button_selection_grid_enter_cancel_container_top"
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_cancel_top"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cancel"/>
+                        app:layout_constraintWidth_min="100dp"
+                        android:text="@string/cancel"
+                        app:layout_constraintEnd_toStartOf="@+id/search_by_radical_button_selection_grid_send_to_element_top"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_send_to_element_top"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/send_to_element"/>
+                        app:layout_constraintWidth_min="100dp"
+                        app:layout_constrainedWidth="true"
+                        android:text="@string/send_to_element"
+                        app:layout_constraintEnd_toStartOf="@+id/search_by_radical_button_selection_grid_send_to_input_top"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@+id/search_by_radical_button_selection_grid_cancel_top"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_send_to_input_top"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/send_to_input"/>
+                        app:layout_constraintWidth_min="100dp"
+                        app:layout_constrainedWidth="true"
+                        android:text="@string/send_to_input"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@+id/search_by_radical_button_selection_grid_send_to_element_top"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/search_by_radical_selection_grid"
@@ -267,35 +283,51 @@
                     android:layout_marginStart="16dp"
                     android:text="@string/no_elements_found"/>
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/search_by_radical_button_selection_grid_enter_cancel_container_bottom"
                     style="?android:attr/buttonBarStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_cancel_bottom"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/cancel"/>
+                        app:layout_constraintWidth_min="100dp"
+                        android:text="@string/cancel"
+                        app:layout_constraintEnd_toStartOf="@+id/search_by_radical_button_selection_grid_send_to_element_bottom"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_send_to_element_bottom"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/send_to_element"/>
+                        app:layout_constraintWidth_min="100dp"
+                        android:text="@string/send_to_element"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toStartOf="@+id/search_by_radical_button_selection_grid_send_to_input_bottom"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@+id/search_by_radical_button_selection_grid_cancel_bottom"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/search_by_radical_button_selection_grid_send_to_input_bottom"
                         style="?android:attr/buttonBarButtonStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/send_to_input"/>
+                        app:layout_constraintWidth_min="100dp"
+                        android:text="@string/send_to_input"
+                        app:layout_constrainedWidth="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread"
+                        app:layout_constraintStart_toEndOf="@+id/search_by_radical_button_selection_grid_send_to_element_bottom"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
 

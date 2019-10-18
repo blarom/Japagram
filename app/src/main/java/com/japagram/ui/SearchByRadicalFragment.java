@@ -351,14 +351,11 @@ public class SearchByRadicalFragment extends Fragment implements
 
         StructuresGridViewAdapter gridAdapter = new StructuresGridViewAdapter(getContext(), R.layout.list_item_structures_grid, structureIds);
         structuresGrid.setAdapter(gridAdapter);
-        structuresGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-                if (getContext()==null) return;
-                mTempSelectedStructureId = structureIds.get(pos);
-                Drawable image = getContext().getResources().getDrawable(mTempSelectedStructureId);
-                requestedStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
-            }
+        structuresGrid.setOnItemClickListener((adapterView, view, pos, id) -> {
+            if (getContext()==null) return;
+            mTempSelectedStructureId = structureIds.get(pos);
+            Drawable image1 = getContext().getResources().getDrawable(mTempSelectedStructureId);
+            requestedStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image1, null);
         });
         //endregion
 
