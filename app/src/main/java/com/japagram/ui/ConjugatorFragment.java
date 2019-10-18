@@ -244,7 +244,8 @@ public class ConjugatorFragment extends Fragment implements
         }
 
         //Setting the conjugation spinner to the position of the first item matching the user query
-        mConjugationChooserSpinner.setSelection((int) mMatchingConjugationParameters.get(verbIndex)[0], false);
+        int index = (int) mMatchingConjugationParameters.get(verbIndex)[VerbSearchAsyncTask.MATCHING_CATEGORY_INDEX];
+        mConjugationChooserSpinner.setSelection(index, false);
 
     }
     private void showSelectedConjugationsInCategory(final int verbIndex, final int conjugationIndex) {

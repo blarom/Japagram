@@ -39,7 +39,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     public VerbSearchAsyncResponseHandler listener;
     private static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
     public static final int MATCHING_ID = 0;
-    private static final int MATCHING_CATEGORY_INDEX = 1;
+    public static final int MATCHING_CATEGORY_INDEX = 1;
     public static final int MATCHING_CONJUGATION = 2;
     private List<Verb> mCompleteVerbsList;
     private final List<Word> mWordsFromDictFragment;
