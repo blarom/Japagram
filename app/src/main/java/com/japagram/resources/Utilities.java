@@ -2606,7 +2606,7 @@ public final class Utilities {
         int inputTextType = ConvertFragment.getTextType(searchWord);
 
         List<String> possibleInterpretations = new ArrayList<>();
-        if (inputTextType == GlobalConstants.TYPE_LATIN) possibleInterpretations = ConvertFragment.getWaapuroRomanizations(searchWordNoSpaces);
+        if (inputTextType == GlobalConstants.TYPE_LATIN) possibleInterpretations = ConvertFragment.getWaapuroRomanizationsFromLatinText(searchWordNoSpaces);
         else {
             possibleInterpretations.add(searchWordTransliteratedLatin);
         }
@@ -3147,7 +3147,7 @@ public final class Utilities {
 
             boolean exactSearch = baseAdjective.length() < 3 || forceExactSearch;
 
-            List<String> possibleInterpretations = ConvertFragment.getWaapuroRomanizations(baseAdjective);
+            List<String> possibleInterpretations = ConvertFragment.getWaapuroRomanizationsFromLatinText(baseAdjective);
             List<Object> latinIndicesForAdjective = findQueryInLatinIndices(baseAdjective, possibleInterpretations, exactSearch, new String[]{"romaji"}, roomCentralDatabase, null, false);
 
             if (latinIndicesForAdjective.size()==0) return matchingWordIds;

@@ -85,7 +85,7 @@ public class ConvertFragment extends Fragment {
             ConversionLatin.setText(getResources().getString(R.string.conversion_waapuro));
             ConversionHiragana.setText(getResources().getString(R.string.ConversionHiragana));
             ConversionKatakana.setText(getResources().getString(R.string.ConversionKatakana));
-            List<String> waapuroRomanizations = getWaapuroRomanizations(inputQuery);
+            List<String> waapuroRomanizations = getWaapuroRomanizationsFromLatinText(inputQuery);
             List<String> hiraganaConversions = new ArrayList<>();
             List<String> katakanaConversions = new ArrayList<>();
             List<String> waapuroConversions = new ArrayList<>();
@@ -1276,11 +1276,11 @@ public class ConvertFragment extends Fragment {
             case "to": added_string_latin = "to"; added_string_hiragana = "と"; added_string_katakana = "ト"; break;
             case "tsu": added_string_latin = "tsu"; added_string_hiragana = "つ"; added_string_katakana = "ツ"; break;
             case "u": added_string_latin = "u"; added_string_hiragana = "う"; added_string_katakana = "ウ"; break;
-            case "va": added_string_latin = "va"; added_string_hiragana = "ヴぁ"; added_string_katakana = "ヴァ"; break;
-            case "vi": added_string_latin = "vi"; added_string_hiragana = "ヴぃ"; added_string_katakana = "ヴィ"; break;
-            case "vu": added_string_latin = "vu"; added_string_hiragana = "ヴ"; added_string_katakana = "ヴ"; break;
-            case "ve": added_string_latin = "ve"; added_string_hiragana = "ヴぇ"; added_string_katakana = "ヴェ"; break;
-            case "vo": added_string_latin = "vo"; added_string_hiragana = "ヴぉ"; added_string_katakana = "ヴォ"; break;
+            case "va": added_string_latin = "va"; added_string_hiragana = "ゔぁ"; added_string_katakana = "ヴァ"; break;
+            case "vi": added_string_latin = "vi"; added_string_hiragana = "ゔぃ"; added_string_katakana = "ヴィ"; break;
+            case "vu": added_string_latin = "vu"; added_string_hiragana = "ゔ"; added_string_katakana = "ヴ"; break;
+            case "ve": added_string_latin = "ve"; added_string_hiragana = "ゔぇ"; added_string_katakana = "ヴェ"; break;
+            case "vo": added_string_latin = "vo"; added_string_hiragana = "ゔぉ"; added_string_katakana = "ヴォ"; break;
             case "wa": added_string_latin = "wa"; added_string_hiragana = "わ"; added_string_katakana = "ワ"; break;
             case "wi": added_string_latin = "wi"; added_string_hiragana = "うぃ"; added_string_katakana = "ウィ"; break;
             case "wu": added_string_latin = "wu"; added_string_hiragana = "う"; added_string_katakana = "ウ"; break;
@@ -1385,7 +1385,7 @@ public class ConvertFragment extends Fragment {
 
         return possibleInterpretations;
     }
-    public static List<String> getWaapuroRomanizations(String text) {
+    public static List<String> getWaapuroRomanizationsFromLatinText(String text) {
 
         text = text.toLowerCase();
         List<String> finalStrings = new ArrayList<>();
@@ -1498,21 +1498,26 @@ public class ConvertFragment extends Fragment {
         String romanizedKanaNihonShiki = kana;
         String romanizedKanaKunreiShiki = kana;
         String[] currentRow;
+        String currentKana;
         for (int i=1; i<MainActivity.Romanizations.size(); i++) {
             currentRow = MainActivity.Romanizations.get(i);
             if (currentRow.length < 6) break;
 
-            romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_WAAPURO]);
-            romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_WAAPURO]);
+            currentKana = currentRow[GlobalConstants.ROM_COL_HIRAGANA];
+            if (!currentKana.equals("")) {
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[GlobalConstants.ROM_COL_WAAPURO]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+            }
 
-            romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
-            romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
-
-            romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
-            romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
-
-            romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentRow[GlobalConstants.ROM_COL_HIRAGANA], currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
-            romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentRow[GlobalConstants.ROM_COL_KATAKANA], currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+            currentKana = currentRow[GlobalConstants.ROM_COL_KATAKANA];
+            if (!currentKana.equals("")) {
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[GlobalConstants.ROM_COL_WAAPURO]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+            }
         }
 
         return new String[]{romanizedKanaWaapuro, romanizedKanaModHepburn, romanizedKanaNihonShiki, romanizedKanaKunreiShiki};
