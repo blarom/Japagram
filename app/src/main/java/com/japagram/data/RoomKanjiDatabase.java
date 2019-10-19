@@ -70,7 +70,6 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
 
         if (kanjiCharacter().count() == 0) {
-            Utilities.setAppPreferenceDbVersionKanji(context, GlobalConstants.KANJI_DB_VERSION);
             Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
@@ -92,7 +91,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
-
+            Utilities.setAppPreferenceDbVersionKanji(context, GlobalConstants.KANJI_DB_VERSION);
         }
         Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
     }

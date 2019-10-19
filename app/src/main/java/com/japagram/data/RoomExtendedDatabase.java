@@ -71,7 +71,6 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         Utilities.setProgressValueExtendedDb(context, 0);
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
-            Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
             Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
@@ -97,6 +96,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
+            Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
         }
         Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
         Utilities.setProgressValueExtendedDb(context, 100);

@@ -192,7 +192,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 192|and also|CO|X is true and also Y.|X. ato Y|129|||
 193|try to do|PC|(Try/make an effort) in order to [do/be] X, in the hopes of something uncertain.|X you ni to suru @ X = action|984||tame ni|
 194|in order to, for the purpose of, for the sake of|CO|Y for the purpose of [doing/being] X, for the sake of something certain.|X tame ni Y @ X = verb, Y = verb|991||you ni|
-195|for the benefit of|CO|ME#0172;0173|||||
+195|for, for the benefit of|CO|ME#0172;0173|||||
 196|tell/ask to do|PC|Tell/ask to [do/be] X|X you ni to Y @ X = action, Y = iu, tsutaeru|994;995|||
 197|say/tell that|PC|ME#0174;0175|||||
 198|think that|PC|ME#0176;0177|||||
@@ -392,7 +392,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 392|lankily, spindly, frailly|A;M||||||
 393|everyone, every person, all, anyone|A||||||
 394|everything|A||||||
-395||-||||||
+395|more rice please|CE||||||
 396|him/her (here)|A|ME#0006;0007|||||
 397|this one (something physically close to the speaker)|A|ME#0015;0016|||||
 398|him/her (over there)|A|ME#0010;0011|||||
@@ -401,13 +401,13 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 401|that one (something close to the listener)|A|ME#0017;0018|||||
 402|in addition to, besides, other than, else|A|ME#0004;0005|||||
 403|me too|A||||||
-404|(some) more, even more, longer, further|A|||646;647|||
+404|more, some more, even more, longer, further|A|||646;647|||
 405|monotone, monotonic|Ana||||||
 406|monotony, dullness|N;Abs||||||
 407|neither choice|A||||||
 408|none|A||||||
 409|no one, nobody|A|||710|||
-410||-||||||
+410|more noodles please|CE||||||
 411|nothing (with neg. verbs), not any|A|||1376|||
 412|particularly, especially|A|||631|||
 413|some kind|A||||||
@@ -437,12 +437,12 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 437|good grief (expression of exasperation)|CE||||||
 438|indeed, really, absolutely, truly, in truth, actually, very, quite|A||||||
 439|maybe, possibly|A|||622|||
-440||-||||||
+440|to have a bad time, to go through a bitter experience, to get into trouble, to get hurt, to suffer|CE||||||
 441|no, nay|A|Used by both male and female subjects.|||||
 442|no, nay|A||||||
 443|tentatively, for the time being|A|||1401|||
 444|almost all, in large part, for the greater part, in majority|A||||||
-445||-||||||
+445|to bring someone grief, to give someone hell|CE||||||
 446|please|A||||||
 447|please|A|Dialect.|||||
 448|please give me|A||||||
@@ -667,13 +667,13 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 667|not fresh, late|Ai||||atarashii, wakai||
 668|rough|Ai||||||
 669|painful, sore|Ai||||||
-670|painful, bitter, heartbreaking|Ai||||||
+670|painful, bitter, heartbreaking, difficult (emotionally)|Ai||||||
 671|agonizing|Ai||||||
 672|painful, heartrending, trying, oppressive, suffocating, miserable|Ai||||||
 673|poor, needy|Ai||||okanemochi|binbou|
 674|powerful, strong, forceful, vigorous, reassuring, encouraging|Ai||||||
 675|precious, valuable, priceless, noble, exalted, sacred|Ai||||||
-676||-||||||
+676|tough, difficult, hard (usu. of situations)|Ai||||||
 677|proud, haughty, arrogant, splendid, magnificent|Ai||||||
 678|puzzling, tangled, complicated, complex|Ai||||||
 679|quick, fast|Ai||||||
@@ -684,7 +684,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 684|reliable, trustworthy, hopeful, promising|Ai||||||
 685|straightforward, perfect|Ai||||||
 686|rough, wild|Ai||||||
-687||-||||||
+687|cruel, harsh, cold|Ai||||||
 688|sad, sorrowful, unhappy|Ai||||ureshi||
 689|salty|Ai||||||
 690|few, a little, scarce, insufficient, seldom|Ai||||ooi||
@@ -831,14 +831,14 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 831|soon, momentarily, before long, any time now|A;T|Mainly used to refer to an event that will be related to the subject of the sentence (usually a person).||1382||sugu|
 832|by slurping (noodles)|A;M||||||
 833|softly, gently, quietly, secretly|A;M||||||
-834||-||||||
+834|suddenly (stopping)|A;M||||||
 835|soundly (asleep), fast (asleep)|A;M||||||
 836|stealthily, secretly|A;M||||||
 837|strongly|A;M||||||
 838|suddenly, all of a sudden|A;M||||||
-839||-||||||
+839|exactly, precisely|A;M||||||
 840|thus, in this way|A;M||||||
-841|tightly, closely, exactly, precisely, suddenly stopping, perfectly suited, ideally|A;M||||||
+841|tightly, closely|A;M||||||
 842|time and time again, many times, a number of times|A;M||||||
 843|turning round and round, going around in circles, wrapped around|A;M||||||
 844|unexpectedly, surprisingly|A;M||||||
@@ -848,10 +848,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 848|just (now)|A;T||||||
 849|very hard, with utmost effort, with all one's might, for dear life|A;M|||1353|||
 850|very hard, desperately hard, with utmost effort|Ana||||||
-851||-||||||
+851|perfectly (suited), ideally|A;M||||||
 852|well, proficiently|A;M|||628||yoku, yoroshiku, umaku|
 853|well, properly, suitably|A;M|||||yoku, jouzu ni, umaku|
-854||-||||||
+854|stick into, pierce, run into|VrugT||||||
 855|much|A;T|||662|||
 856|willingly|A;M||||||
 857|with trouble, at great pains|A;M|||1386|||
@@ -1275,7 +1275,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1275|steadily in time, one after another, all at once|A;T|||||one after the other|
 1276|drumming noise|OI||||||
 1277|recently, nowadays, these days, now, at present|A;T|||||saikin|
-1278||-||||||
+1278|lacking time to ..., without time to ...|A;T||||||
 1279|shortly, soon|A;T|||||sugu ni, sassoku|
 1280|neighborhood, neighbourhood, vicinity, near|N;Pl||||||
 1281|since then, after that|A;T||||||
@@ -1388,7 +1388,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1388|are you well?|CE|||1152|||
 1389|as (in the role of), for (from the viewpoint of), (not) even|CE||||||
 1390||-||||||
-1391|as I though, in spite of, absolutely, of course|CE||||||
+1391||-||||||
 1392||-||||||
 1393|as one would expect|CE||||||
 1394|at the very least|CE||||||
@@ -1951,7 +1951,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1951|accident, incident, trouble|N;Abs||||||
 1952|account (e.g. bank)|N;Abs|e.g. bank account|||||
 1953|account number|N;Abs||||||
-1954|account, finance, accountant, treasurer, paymaster, reckoning, bill|N;Abs||||||
+1954|bill (e.g. restaurant), tab, account, finance, accountant, treasurer, paymaster, reckoning|N;Abs||||||
 1955|achievement, attainment, accomplishment, realization|N;Abs||||||
 1956|acquaintance|N;Abs||||||
 1957|action, activity|N;Abs||||||
@@ -4047,14 +4047,14 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4047|embassy|N;Pl||||||
 4048|emergency exit|N;Pl|||||deguchi|
 4049|entrance, entry, gate, approach, mouth|N;Pl||||deguchi||
-4050||-||||||
+4050|remake, remold, remould, convert, reconstruct, adapt, parody, alter|VruiT||||||
 4051|exit|N;Pl||||genkan, iriguchi||
 4052|facing, opposite, across the street, other side|N;Pl||||||
 4053|factory, plant, mill, workshop|N;Pl||||||
 4054|fare adjustment office|N;Pl||||||
 4055|field, cultivated land, vegetable plot, kitchen garden, plantation, specialization, sphere|N;Pl||||||
 4056|floor, stage|N;Pl||||||
-4057||-||||||
+4057|rebuild|VruiT||||||
 4058|juxtaposed to|N;Pl||||ushiro|mae|
 4059|garden, yard, courtyard|N;Pl||||||
 4060|greengrocer, vegetable store|N;Pl||||||
@@ -5392,7 +5392,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5392|keep, be doing|VruiT||||||
 5393|have (when noun in position of direct object is animate), stay|VruiI||||||
 5394|to remain, to continue to be|CE||||||
-5395|to look over|VruiT||||||
+5395||-||||||
 5396|wear (bodywear)|VruiT||||||
 5397|be scattered|VruiI||||||
 5398|come (polite, humble)|VruiI||||||
@@ -5738,7 +5738,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5738|flirt|VruiI||||||
 5739|pull down, lower, reduce, withdraw|VruiT||||||
 5740|prosper, flourish|VruiI||||||
-5741|shine, look attractive, look pretty|VruiI||||||
+5741||-||||||
 5742|grant (request, wish), answer (prayer)|VruiT||||||
 5743|fulfill (conditions), meet (requirements)|VruiT||||||
 5744|loosen, slow down|VruiT||||||
@@ -6238,7 +6238,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6238|gun|N;GO||||||
 6239|gun, firearm|N;GO||||||
 6240|gun, pistol|N;GO||||||
-6241||-||||||
+6241|scatter, spread|VsuI||||||
 6242|empty gun, gun loaded with blanks, firing a blank|N;GO||||||
 6243|hunting gun, sports gun|N;GO||||||
 6244|use, service, role|N;Abs||||||
@@ -6255,7 +6255,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6255|profit, gains|N;Abs||||||
 6256|officer, official, executive, staff|N;Pe||||||
 6257|part, assigning (allotment of) parts, role, duties|N;Abs||||||
-6258||-||||||
+6258|at will|A;M||||||
 6259|medicines, drugs|N;Abs||||||
 6260|North Korea|N;Nn||||||
 6261|top|N;Abs||||||
@@ -6353,10 +6353,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6353|come, go|VbuT||||||
 6354|Chinese Yuan, renminbi (currency)|N;Abs||||||
 6355|profit, earnings|N;Abs||||||
-6356|to receive, to welcome, to greet, to salute, to hail, to reach, to approach, to enter (a phase, era, etc.)|VruiT||||||
-6357|to accept (e.g. as a member of a group or family)|VruiT||||||
-6358|to call for, to summon, to invite|VruiT||||||
-6359|to approach (a certain time, a point in one's life, etc.)|VruiT||||||
+6356|receive, welcome, greet, salute, hail, reach, approach, enter (a phase, era, etc.)|VruiT||||||
+6357|accept (e.g. as a member of a group or family)|VruiT||||||
+6358|call for, summon, invite|VruiT||||||
+6359|approach (a certain time, a point in one's life, etc.)|VruiT||||||
 6360|because of, due to|CO|ME#0249;0250|||||
 6361|clinch (a victory), decide (the outcome of a match)|VruiT||||||
 6362|persist in doing, go through with|VruiT||||||
@@ -20488,8 +20488,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 20488|breadth (e.g. of one's knowledge), scope (e.g. of one's work), range|N;Abs||||||
 20489|roll up, enfold, swallow up|VmuT||||||
 20490|involve, drag into|VmuT||||||
-20491|soon, before long, in a short time|A||||||
-20492|lacking time to ..., without time to ...|A||||||
+20491||-||||||
+20492||-||||||
 20493|Manchester (Britain)|N;Pl||||||
 20494|Manhattan|N;Pl||||||
 20495|to make do with, to manage with, to make shift|CE||||||
@@ -29675,7 +29675,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 29675|ambush, lying in wait for an ambush|N||||||
 29676|looking forward to, anxiously awaited|Ai||||||
 29677|certain, sure, doubtless|Ai;CE||||||
-29678|I have no doubt, You can depend on it, It's a safe bet|CE||||||
+29678|I have no doubt, you can depend on it, it's a safe bet|CE||||||
 29679|lie in wait, be on the watch for|VruiT||||||
 29680|wait impatiently for|VruiT||||||
 29681|wait eagerly for, look forward to|VmuT||||||
@@ -36077,7 +36077,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36077|faith, belief, piety, devotion, godliness|N||||||
 36078|win, victory|N||||||
 36079|beautiful scenery, scenic spot|N||||||
-36080||-||||||
+36080|begin to dance, break into a dance|VsuI||||||
 36081|counter for wins|C||||||
 36082|abundance|N||||||
 36083|stock, amount, existing amount|N||||||
@@ -36168,11 +36168,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36168|reconsider, rethink, reassess|VsuT||||||
 36169|hunter|N||||||
 36170|shape, appearance|N;Sx||||||
-36171||-||||||
+36171|soak (dirty laundry, dishes etc., before washing)|VsuruT||||||
 36172|collateral|N;Sx||||||
-36173||-||||||
+36173|soaking (dirty laundry, dishes etc., before washing)|N||||||
 36174|obverse of an old "zeni" coin|N;Sx||||||
-36175||-||||||
+36175|rinse (one's mouth), gargle|VguT||||||
 36176|lightweight equipment or dress|N||||||
 36177|the late (deceased)|Px||||||
 36178|breakdown, failure, fault, accident, out of order|N||||||
@@ -36264,8 +36264,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36264|terrorism|N||||||
 36265|take, catch, capture|VrugT||||||
 36266|class, order, rank|N;Sx;C||||||
-36267||-||||||
-36268||-||||||
+36267|rince, wash out|VguT||||||
+36268|have one's revenge, wipe out a disgrace|VguT||||||
 36269|et cetera, etc., and the like|Sx||||||
 36270|equal, iso-|Px||||||
 36271|and so on, at last, finally, after all|N||||||
@@ -36520,8 +36520,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36520|be helpful, be useful|VsuI||||||
 36521|too, also, likewise, either|A||||||
 36522|still, as before|A||||||
-36523|even so, either way, after all, nonetheless, in any event, all the same|A||||||
-36524|as expected|A||||||
+36523|even so, either way, after all, nonetheless, in any event, all the same, in spite of this|A||||||
+36524|as expected, as I thought|A||||||
 36525|pushing back one's opponent while locked in close quarters|N||||||
 36526|having a tendency towards, being close to|Sx||||||
 36527|burned down, entirely destroyed|N||||||

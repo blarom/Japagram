@@ -80,7 +80,6 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
-            Utilities.setAppPreferenceDbVersionCentral(context, GlobalConstants.CENTRAL_DB_VERSION);
             Utilities.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
@@ -106,6 +105,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
+            Utilities.setAppPreferenceDbVersionCentral(context, GlobalConstants.CENTRAL_DB_VERSION);
         }
         Utilities.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, true);
 
