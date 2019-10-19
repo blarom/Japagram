@@ -453,14 +453,26 @@ public class MainActivity extends BaseActivity implements
             updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery, "", "");
         }
         else if (fromConjSearch) {
-            updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery,
-                    matchingWords.get(0).getRomaji(),
-                    Utilities.getMeaningsExtract(matchingWords.get(0).getMeaningsByLanguage(language), 2)
-            );
+            //Get the first definition matching the romaji / kanji
+            for (Word word : matchingWords) {
+                String type = word.getMeaningsEN().get(0).getType();
+                if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(0) == 'I' || type.charAt(0) == 'T') ) {
+                    romaji = word.getRomaji();
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    break;
+                }
+            }
+            updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery, romaji, meaning);
         }
         else {
             //Get the first definition matching the romaji / kanji
             for (Word word : matchingWords) {
+                String type = word.getMeaningsEN().get(0).getType();
+                if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(type.length()-1) == 'I' || type.charAt(type.length()-1) == 'T') ) {
+                    romaji = word.getRomaji();
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    break;
+                }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || Utilities.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
                         .equals(ConvertFragment.getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
@@ -822,7 +834,7 @@ public class MainActivity extends BaseActivity implements
     @Override public void onFinalMatchingWordsFound(List<Word> matchingWords) {
         updateQueryHistoryListWithCurrentQueryAndMeaning(getBaseContext(), mInputQuery, matchingWords, false, mLanguageCode);
     }
-    @Override public void onMatchingVerbsFound(List<Word> matchingVerbsAsWords) {
+    @Override public void onMatchingVerbsFoundInConjSearch(List<Word> matchingVerbsAsWords) {
         updateQueryHistoryListWithCurrentQueryAndMeaning(getBaseContext(), mInputQuery, matchingVerbsAsWords, true, mLanguageCode);
     }
 

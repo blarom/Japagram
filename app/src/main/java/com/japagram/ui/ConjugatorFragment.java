@@ -506,7 +506,7 @@ public class ConjugatorFragment extends Fragment implements
     //Communication with parent activity
     private ConjugatorFragmentOperationsHandler conjugatorFragmentOperationsHandler;
     interface ConjugatorFragmentOperationsHandler {
-        void onMatchingVerbsFound(List<Word> matchingVerbsAsWords);
+        void onMatchingVerbsFoundInConjSearch(List<Word> matchingVerbsAsWords);
     }
 
     //Communication with AsyncTasks
@@ -516,7 +516,7 @@ public class ConjugatorFragment extends Fragment implements
         List<Word> matchingWords = (List<Word>) dataElements[1];
         mMatchingConjugationParameters = (List<Object[]>) dataElements[2];
 
-        conjugatorFragmentOperationsHandler.onMatchingVerbsFound(matchingWords);
+        conjugatorFragmentOperationsHandler.onMatchingVerbsFoundInConjSearch(matchingWords);
 
         //Displaying the local results
         hideLoadingIndicator();

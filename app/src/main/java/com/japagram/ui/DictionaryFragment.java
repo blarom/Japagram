@@ -300,7 +300,7 @@ public class DictionaryFragment extends Fragment implements
 
             displayResults(mMergedMatchingWordsList);
 
-            int maxIndex = mLocalMatchingWordsList.size()> MAX_NUM_WORDS_TO_SHARE ? MAX_NUM_WORDS_TO_SHARE : mLocalMatchingWordsList.size();
+            int maxIndex = mMergedMatchingWordsList.size()>MAX_NUM_WORDS_TO_SHARE ? MAX_NUM_WORDS_TO_SHARE : mMergedMatchingWordsList.size();
             dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
 
             if (mLocalMatchingWordsList.size()==0) {
