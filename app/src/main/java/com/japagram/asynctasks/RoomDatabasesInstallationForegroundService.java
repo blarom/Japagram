@@ -26,6 +26,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 public class RoomDatabasesInstallationForegroundService extends Service {
+    public static final int NOTIF_CHAN_1 = 1;
+    public static final int NOTIF_CHAN_2 = 2;
     private boolean mExtendedDbBeingLoaded;
     private boolean mNamesDbBeingLoaded;
     private Notification notification;
@@ -103,17 +105,17 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                     .setProgress(100, 0, false);
             notification = notificationBuilder.build();
         }
-        if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
+        if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? NOTIF_CHAN_2 : NOTIF_CHAN_1, notification);
 
         mExtendedDbBeingLoaded = installExtendedDb;
         mNamesDbBeingLoaded = installNamesDb && showNames;
         Runnable dbLoadRunnableExtended = () -> {
-            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
+            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? NOTIF_CHAN_2 : NOTIF_CHAN_1, notification);
             RoomExtendedDatabase.getInstance(this); //Required for Room
             mExtendedDbBeingLoaded = false;
         };
         Runnable dbLoadRunnableNames = () -> {
-            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
+            startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? NOTIF_CHAN_2 : NOTIF_CHAN_1, notification);
             RoomNamesDatabase.getInstance(this); //Required for Room
             mNamesDbBeingLoaded = false;
         };
@@ -176,7 +178,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                         .setContentText(content)
                         .setProgress(100, currentProgress, false);
                 notification = notificationBuilder.build();
-                if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
+                if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? NOTIF_CHAN_2 : NOTIF_CHAN_1, notification);
 
                 if (!mExtendedDbBeingLoaded) {
                     if (dbLoadThreadExtended != null) dbLoadThreadExtended.interrupt();
