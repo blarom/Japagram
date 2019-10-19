@@ -106,7 +106,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         if (manager!=null) manager.notify(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
 
         mExtendedDbBeingLoaded = installExtendedDb;
-        mNamesDbBeingLoaded = true;
+        mNamesDbBeingLoaded = installNamesDb && showNames;
         Runnable dbLoadRunnableExtended = () -> {
             startForeground(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O? 2 :1, notification);
             RoomExtendedDatabase.getInstance(this); //Required for Room
