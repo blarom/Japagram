@@ -2627,7 +2627,7 @@ public final class Utilities {
                 roomCentralDatabase, roomExtendedRoomDatabase,
                 language, false);
 
-        matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(searchWord, possibleInterpretations, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
+        matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(searchWord, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
         matchingWordIdsCentral = addCountersToMatchesList(searchWord, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
 
         if (roomExtendedRoomDatabase != null)
@@ -3002,15 +3002,15 @@ public final class Utilities {
         }
         return TextUtils.join(", ", meanings);
     }
-    private static List<Long> addConjugatedAdjectivesToMatchesList(String searchWord, List<String> possibleInterpretations, int inputTextType, List<Long> matchingWordIds,
+    private static List<Long> addConjugatedAdjectivesToMatchesList(String searchWord, int inputTextType, List<Long> matchingWordIds,
                                                                    RoomCentralDatabase roomCentralDatabase) {
 
         //Adding relevant adjectives to the list of matches if the input query is an adjective conjugation
-        List<Long> matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, possibleInterpretations, inputTextType,
+        List<Long> matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, inputTextType,
                 matchingWordIds, roomCentralDatabase, false);
 
         if (matchingWordIdsFromIndex.size() > GlobalConstants.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, possibleInterpretations, inputTextType,
+            matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, inputTextType,
                     matchingWordIds, roomCentralDatabase, true);
         }
 
@@ -3094,7 +3094,7 @@ public final class Utilities {
 
         return matchingWordIds;
     }
-    private static List<Long> getmatchingWordIdsFromIndexForAdjectiveSearch(String searchWord, List<String> possibleInterpretations, int inputTextType, List<Long> matchingWordIds,
+    private static List<Long> getmatchingWordIdsFromIndexForAdjectiveSearch(String searchWord, int inputTextType, List<Long> matchingWordIds,
                                                                      RoomCentralDatabase roomCentralDatabase,
                                                                      boolean forceExactSearch) {
 
@@ -3146,6 +3146,8 @@ public final class Utilities {
             if (!isPotentialAdjective) return matchingWordIds;
 
             boolean exactSearch = baseAdjective.length() < 3 || forceExactSearch;
+
+            List<String> possibleInterpretations = ConvertFragment.getWaapuroRomanizations(baseAdjective);
             List<Object> latinIndicesForAdjective = findQueryInLatinIndices(baseAdjective, possibleInterpretations, exactSearch, new String[]{"romaji"}, roomCentralDatabase, null, false);
 
             if (latinIndicesForAdjective.size()==0) return matchingWordIds;
