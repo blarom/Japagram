@@ -1409,7 +1409,8 @@ public class ConvertFragment extends Fragment {
                 .replace("tû","K")
                 .replace("tu","L")
                 .replace("zû","M")
-                .replace("n\'","N");
+                .replace("n\'","N")
+                .replace("du","O");
 
         //Replacing relevant phonemes with the Waapuro equivalent
         List<List<String>> possibleInterpretations = new ArrayList<>();
@@ -1428,6 +1429,7 @@ public class ConvertFragment extends Fragment {
                     newPhonemes = new String[]{"ts"};
                     break;
                 case "D":
+                case "O":
                     newPhonemes = new String[]{"zu", "du"};
                     break;
                 case "E":
