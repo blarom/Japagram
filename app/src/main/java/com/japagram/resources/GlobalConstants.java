@@ -495,6 +495,7 @@ public final class GlobalConstants {
         map.put("Ps", R.string.verb_Ps);
         map.put("PN", R.string.verb_PN);
         map.put("PPg", R.string.verb_PPg);
+        map.put("PlPg", R.string.verb_PlPg);
         map.put("Pl", R.string.verb_Pl);
         map.put("PPr1", R.string.verb_PlPr1);
         map.put("PPr2", R.string.verb_PlPr2);
