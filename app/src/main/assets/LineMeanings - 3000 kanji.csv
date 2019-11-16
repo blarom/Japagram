@@ -73,7 +73,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 73|like, similar to|PS||X you de||||
 74|like, similar to, same as|PP||X goto||||
 75|between|PS|between X and Y|X to Y no made||||
-76|made by, because of, due to, by means of, depending on, according to|PP||X ni yotte|1309;1310;1311|||
+76|according to, by (means of), due to, because of|CE||X ni yotte|1309;1310;1311|||
 77|at (place, time), during, performing a continuous action at a location|PP|Is differentiated from the use of "de" for an action taking place at a location by the long-term continuity of the action, e.g. sleeping at a location.|X ni @ X = noun|823;827|||
 78|to (direction, state), toward, into|PP||X ni @ X = noun|824;825|||
 79|and, in addition to|PP||X ni||||
@@ -551,14 +551,14 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 551|relatively|A;Dg||||||
 552|why don't (you) do?|VC|Why don't [I/you/he/she] [do/be] X? |X ka? @ X = verb nai form||||
 553|roughly, in round numbers|A;Dg||||||
-554||-||||||
+554|... are different|PC||X to Y wa chigau @ X/Y = phrase|977|||
 555|somehow or other, for some reason or another|A;Dg||||||
 556|to that degree, to that extent|A;Dg||||||
 557|to that extent|A;Dg||||||
 558|until then, till then, up to that time|A;T||||||
 559|to that extent, to that degree|A;Dg|||728|||
-560||-||||||
-561||-||||||
+560|being done|VC|X is being done (present progressive, humble).|X oru @ X = verb te form||||
+561|still being done|VC|X is a past action/event that is still relevant to the present (progressive, humble).|X oru @ X = verb te form||||
 562|very, awfully, exceedingly|A;Dg|"tottemo" is usually used in a more expressive context than "totemo".||637;1275|||
 563|very, extremely|A;Dg||||||
 564|that is…|CE||||||
@@ -1029,11 +1029,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1029|physiological, physiologic|Ana||||||
 1030|plain, frank, candid, open, direct, straightforward, unabashed, blatant, flagrant|Ana||||||
 1031|pleasant, agreeable, comfortable|Ana||||ochisukanai||
-1032||-||||||
+1032|not one's cup of tea, not one's favorite|Ana||||||
 1033|kind|Ana||||shitsurei||
 1034|political|Ana||||||
-1035|poor at, weak in, not very good at|Ana||||||
-1036|dislike (of), difficult to deal with|N;Abs||||||
+1035|weakness (in), incompetence (in)|N||||||
+1036||-||||||
 1037|destitute|Ana||||okanemochi|mazushii|
 1038|poor person|IES||||||
 1039|poverty, destitution|N;Abs||||||
@@ -1056,7 +1056,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1056|unprotected (not wearing a condom), live (not recorded)|Ana||||||
 1057|raw, uncooked, fresh, natural, as is, unedited, unprocessed, live (i.e.. not recorded), inexperienced, unpolished, green, crude, unpasteurized|Ana||||||
 1058|just a little, somehow, vaguely, partially, somewhat, half-, semi-, irresponsibly, half-baked|Px||||||
-1059|regrettable, unsatisfactory|Ana||||||
+1059||-||||||
 1060|regrettable, vexing, upsetting, unthinkable, wholly unexpected|Ana||||||
 1061|remaining, fraction of|Ana||||||
 1062|remnant, fragment, incomplete set, fraction, odd sum, incompleteness|N;Abs||||||
@@ -1291,7 +1291,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1291|suddenly, abruptly, instantly|A;T|Archaic.|||||
 1292|the other day, a few days ago|A;T||||||
 1293|the year after next|A;T|||762|||
-1294|this evening, tonight|A;T||||||
+1294||-||||||
 1295|this month|A;T|||757|||
 1296|this week|A;T|||753|||
 1297|this year, this fiscal year, this school year|A;T|||760|||
@@ -2451,7 +2451,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 2451|news|N;Abs||||||
 2452|gossip, (military) intelligence|N;Abs||||||
 2453||-||||||
-2454|free of charge|N;Abs||||||
+2454||-||||||
 2455|mid-day|N;Abs||||||
 2456|nothing, naught, nought, nil, zero|N;Abs||||||
 2457|notice, attention, observation|N;Abs||||||
@@ -3039,7 +3039,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 3039|mayonnaise|N;Cu||||||
 3040|meal, dinner|N;Cu||||||
 3041|meat|N;Cu||||||
-3042|minced meat|N;Cu||||||
+3042|minced meat, ground meat|N;Cu||||||
 3043|bean paste|N;Cu||||||
 3044||-||||||
 3045|natto|N;Cu||||||
@@ -3072,7 +3072,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 3072|sake, Japanese rice wine|N;Cu||||||
 3073|salad|N;Cu||||||
 3074|salad oil|N;Cu||||||
-3075|salmon|N;Cu||||||
+3075|mix, stir, scramble, churn|VruiT||||||
 3076|salt (i.e. sodium chloride), common salt, table salt|N;Cu||||||
 3077|sandwich|N;Cu||||||
 3078|sashimi|N;Cu||||||
@@ -3896,7 +3896,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 3896|painter, artist|N;Pe||||||
 3897|patient|N;Pe||||||
 3898|pedestrian|N;Pe||||||
-3899|person, lady, gentleman|N;Pe|Honorific reference.||||hito|
+3899|person, lady, gentleman|N;Pe|Used in extra-formal situations instead of "hito".||||hito|
 3900|method of, manner of, way of, how to|Sx|||1115;1116;1307;1477;1478|||
 3901|person|N;Pe|Rarely used without a qualifier.|||||
 3902|being on duty, person on duty|N;Pe||||||
@@ -4717,7 +4717,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4717|spread out, lay out|VkuT||||||
 4718||-||||||
 4719|continue, last, go on|VkuI||||||
-4720|bake, grill, burn (an object, a disc), toast|VkuT||||||
+4720|burn|VkuT||||||
 4721|give up, except|VkuI||||||
 4722|match, equal, catch up with, overtake|VkuT||||||
 4723|occur repeatedly, be repeated (archaic)|VkuI||||||
@@ -4726,8 +4726,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4726|explain, advocate, preach, persuade|VkuT||||||
 4727|dissolve (paint), scramble (eggs), melt (metal, etc.), mix (water with flour, etc.)|VkuT||||||
 4728|take, carry (away), bear|VikuT||||||
-4729|burn (down), suntan|VkuI||||||
-4730||-||||||
+4729|roast, broil, grill, bake, toast, barbecue|VkuT||||||
+4730|heat, heat up|VkuT||||||
 4731|conquer, subjugate|VkuT||||||
 4732|go out, take a stroll, go about|VkuI||||||
 4733|feel sick, feel irritated, feel offended, feel angry|VkuI||||||
@@ -4746,7 +4746,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4746|scatter, sprinkle, strew, distribute (handbills, etc.), spread (rumors, etc.), give the slip, throw off, shake off, lose|VkuT||||||
 4747|scratch|VkuT||||||
 4748|be prolonged, drag on|VkuI||||||
-4749|maintain itself, last, to make itself pay, make a living, keep going|VikuI||||||
+4749|maintain itself, last, make itself pay, make a living, keep going|VikuI||||||
 4750|walk down the road|VyukuI||||||
 4751|cook (grains, e.g. rice), boil, simmer, stew, seethe|VkuT||||||
 4752|well (up), gush forth (of water), spring out, surge|VkuI||||||
@@ -4801,7 +4801,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4801|block up, stand in the way, obstruct|VguT||||||
 4802|pour (into), shed (e.g. tears), concentrate one's strength or spirit on|VguT||||||
 4803|defend (against), protect, prevent|VguT||||||
-4804|call out to, garner (support)|VbuT||Less formal version of "sasou".|||sasou|
+4804||-||||||
 4805|jump, leap, spring, bound, hop|VbuI||||||
 4806|fly, soar|VbuI||||||
 4807|play for fun, be idle, do nothing, be unused|VbuI||||||
@@ -4876,7 +4876,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4876||-||||||
 4877|take in (light, wind, etc..)|VmuT||||||
 4878|contain, comprise, have, hold, include, embrace|VmuT||||||
-4879|apply for, make an application, propose (marriage), offer (mediation), make an overture (of peace), challenge, lodge (objections), request (an interview), subscribe for, book, reserve|VmuT||||||
+4879|apply for, sign up for, make an application, propose (marriage), offer (mediation), make an overture (of peace), challenge, lodge (objections), request (an interview), subscribe for, book, reserve|VmuT||||||
 4880|thrust something in something, go in deeply, interfere|VmuI||||||
 4881|jump in, leap in, dive|VmuI||||||
 4882|mourn, lament, be sorry, regret, repent|VmuT||||||
@@ -5004,7 +5004,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5004|desire, want, wish for, covet|VrugT|As understood by the speaker.|||||
 5005|feel hot, flush, burn|VrugI||||||
 5006|surge, well up, gush out|VrugI||||||
-5007|live, to make a living, to get on with|VikuI||||||
+5007|live, make a living, get on with|VikuI||||||
 5008|pick on, tease, torment, roast (figurative)|VrugT||||||
 5009|go back|VikuI||||||
 5010|grope about, feel for something|VrugT||||||
@@ -5025,7 +5025,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5025|be the work of, be the result of, be done by, concern, affect, involve, relate to|VrugI||||||
 5026|be affected, be influenced, be concerned with, have do with, stick (opinions)|VrugI||||||
 5027|soar, fly, run, dash|VrugI||||||
-5028|be on the right track, to go well|VikuI||||||
+5028|be on the right track, go well|VikuI||||||
 5029|harden, solidify|VrugI||||||
 5030|favor|VrugT||||||
 5031|change, be transformed, be altered, vary|VrugI||||||
@@ -5094,7 +5094,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5094|collect, gather, save, accumulate, pile up|VrugI||||||
 5095|have recourse to|VrugI||||||
 5096|shine, look slightly upward (of a noh mask indicating joy, etc.)|VrugI||||||
-5097|accept (e.g. an explanation), to be satisfied (with), to assent (to)|CE||||||
+5097|to accept (e.g. an explanation), to be satisfied (with), to assent (to)|CE||||||
 5098|flub (one's lines), muff (lines)|VrugT||||||
 5099|pile up, accumulate|VrugI||||||
 5100|pinch|VrugT||||||
@@ -5817,7 +5817,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 5817||-||||||
 5818|keep in mind, bear in mind, try, aim to do, endeavor, endeavour|VruiT||||||
 5819|change lower-body clothing (shoes, slippers, pants, skirt…)|VruiT||||||
-5820|enchant, to enrapture, to enthrall, to enthral, to charm|VruiT||||||
+5820|enchant, enrapture, enthrall, enthral, charm|VruiT||||||
 5821|there is|VdaI||||||
 5822|come (spatially or temporally), approach, arrive|VkuruI||||||
 5823|bring something|VkuruT||||||
@@ -6244,8 +6244,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6244|use, service, role|N;Abs||||||
 6245|post, position|N;Abs||||||
 6246|scoring combination (e.g. in mahjong, card games, etc.), hand|N;Abs||||||
-6247|develop (photos)|VkuT||||||
-6248|be jealous, to be envious|VkuI||||||
+6247|make (charcoal, pottery, bricks, etc.), bake, fire, burn|VkuT||||||
+6248|tan (i.e. suntan), burn|VkuT||||||
 6249|approximately, about|A;Dg||||||
 6250|promise|N;Abs||||||
 6251|shortening, reduction, simplification|N;Abs||||||
@@ -6320,8 +6320,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6320|mistake, fault|N;Abs||||||
 6321|words mainly used in song or poetry|N;Abs||||||
 6322|Chinese language|N;Abs||||||
-6323||-||||||
-6324||-||||||
+6323|print (a photo), burn (an optical disc)|VkuT||||||
+6324|be jealous of, be envious of, envy|VkuT||||||
 6325||-||||||
 6326||-||||||
 6327|virtual|Ana||||||
@@ -6419,11 +6419,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 6419|round, turn|Sx||||||
 6420|size|Sx||||||
 6421|12-year period, 12-year age difference|Sx||||||
-6422|travel (movement of vehicles), to drive, to flow (e.g. energy)|VrugI||||||
+6422|travel (movement of vehicles), drive, flow (e.g. energy)|VrugI||||||
 6423|hurry to|VrugI||||||
-6424|retreat (from battle), to take flight|VrugI||||||
+6424|retreat (from battle), take flight|VrugI||||||
 6425|elope|VrugI||||||
-6426|flash, to streak, to shoot through (e.g. pain)|VrugI||||||
+6426|flash, streak, shoot through (e.g. pain)|VrugI||||||
 6427|run away from home|VrugI||||||
 6428|tend heavily toward|VrugI||||||
 6429|run (between), operate (between), connect|VrugI|Of public transport.|||||
@@ -8645,10 +8645,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 8645|government office, public office|N;Abs||||||
 8646|post, official position|N;Abs||||||
 8647|managerial position, executive position|N;Abs||||||
-8648|in order to (e.g. meet goal), so that, take care (so as)|CE|(Try/make an effort) in order to [do/be] X, in the hopes of something uncertain.|X you ni to suru @ X = action|984||tame ni|
+8648|in order to (e.g. meet goal), so that, take care (so as to)|CE|(Try/make an effort) in order to [do/be] X, in the hopes of something uncertain.|X you ni @ X = verb plain affirmative/negative form|982;984||tame ni|
 8649|hoping or wishing for something|CE||||||
 8650|approval|N;Abs||||||
-8651|reach the point that, come to be that, turn into|CE||||||
+8651||-||||||
 8652|(following a verb) to be sure to, to do (something) so that ..., to make sure to, to try to|CE||||||
 8653|whole (body), full-length (e.g. portrait)|N;Abs||||||
 8654|antecedents, ancestor, previous position, previous existence, predecessor organization, predecessor organisation|N;Abs||||||
@@ -12739,8 +12739,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 12739|telescope|N;Abs||||||
 12740|Byoudou|N;Pl||||||
 12741|fry, juvenile fish, fingerling|N;Abs||||||
-12742|super-, ultra-, hyper-, very, really|N;Abs||||||
-12743|over (after a number or counter), more than|N;Abs||Used after a number or a counter.||||
+12742||-||||||
+12743||-||||||
 12744|transcendence, transcendency|N;Abs||||||
 12745|signature, signing, sealing|N;Abs||||||
 12746|excess, being more than|N;Abs||||||
@@ -15127,12 +15127,12 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 15127|royal family|N;Abs||||||
 15128|check|N;Abs||||||
 15129|throne|N;Abs||||||
-15130||-||||||
+15130|even when, even on the occasion of|CE||||||
 15131||-||||||
 15132||-||||||
 15133|Dragon King|N;Abs||||||
 15134|promoted rook|N;Abs||||||
-15135|on the occasion of, circumstances, juncture|N;Abs||||||
+15135|on the occasion of, circumstances, juncture|N;Abs|ME#0235;0236|||||
 15136|limits, end, bounds|N;Abs||||||
 15137|meeting, facing, confronting|N;Abs||||||
 15138|cold (e.g. weather)|Ai||||||
@@ -15288,7 +15288,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 15288||-||||||
 15289|those (near the second person)|P||||||
 15290|turn away, bear off, veer away, swerve from, miss (e.g. a target)|VruiI||||||
-15291|deviate (e.g. of a conversation), digress, to go astray, wander|VruiI||||||
+15291|deviate (e.g. of a conversation), digress, go astray, wander|VruiI||||||
 15292|each, respectively|N;Abs||||||
 15293||-||||||
 15294|grass-covered plain, grasslands, meadows, savannah, prairie, steppe|N;Abs||||||
@@ -15382,7 +15382,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 15382|(many) mountains|N;Abs||||||
 15383|very much (esp. wanting to do something one cannot), greatly, really|A||||||
 15384|Yamayama|N;Pl||||||
-15385|call out (to), call, invoke|VbuT||||||
+15385|call out (to), call, invoke|VbuT||Less formal version of "sasou" (invite, call for).|||sasou|
 15386|summon (a doctor, etc.)|VbuT||||||
 15387|designate, name, brand|VbuT||||||
 15388|garner (support, etc.), gather|VbuT||||||
@@ -19192,12 +19192,12 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 19192|national railway (esp. former Japan National Railways)|N;Abs||||||
 19193|ancient document, archives, ancient manuscript, paleograph|N;Abs||||||
 19194|document addressed to someone in particular (jargon used in paleography)|N;Abs||||||
-19195|this evening, tonight|UNC||||||
-19196|this time, now|UNC||||||
-19197|next time, another time, shortly, soon|UNC||||||
-19198|recently, previous, last|UNC||||||
-19199|this summer, next summer, last summer|UNC||||||
-19200|the present term|UNC||||||
+19195|this evening, tonight|A;T||||||
+19196|this time, now|A;T||||||
+19197|next time, another time, shortly, soon|A;T||||||
+19198|recently, previous, last|A;T||||||
+19199|this summer, next summer, last summer|A;T||||||
+19200|the present term|A;T||||||
 19201|difficulty, hardship, trouble, distress|N;Abs||||||
 19202|difficult, hard, troubling, distressful|Ana||||||
 19203|modern, up-to-date|Ana||||||
@@ -20558,7 +20558,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 20558|future (starting now)|N;Abs||||||
 20559|Lithospermum erythrorhizon (species of gromwell)|N;Abs||||||
 20560|type of soy sauce|N;Abs||||||
-20561|free, no charge|N;Abs||||||
+20561||-||||||
 20562|six|N;Ne||||||
 20563|have to (verb), must (verb)|CE||||||
 20564|intermediation, acting as an intermediary|N;Abs||||||
@@ -21383,7 +21383,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 21383|first ten days of the lunar month|N;Abs||||||
 21384|Tsuitachi|N;Pl||||||
 21385|about, concerning, as to, regarding|CE||||||
-21386|to accompany, to follow, to keep up with|UNC||||||
+21386||-||||||
 21387|rear-end collision|N;Abs||||||
 21388|spend, expend, consume|VsuT||||||
 21389|waste, squander, throw away|VsuT||||||
@@ -35528,7 +35528,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 35528|status of forces agreement, SOFA|N||||||
 35529|super-, ultra-, hyper-, extreme|Px||||||
 35530|extremely, really, totally, absolutely|Px||||||
-35531|over, more than|Sx||||||
+35531|over, more than|Sx||Used after a number or a counter.||||
 35532|the large part of|Px||||||
 35533|approximate size, no larger than|Sx||||||
 35534|-university|Sx||||||
@@ -35536,7 +35536,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 35536|major incident, major happening, big scandal|N||||||
 35537|substitute|N||||||
 35538|detective|N||||||
-35539||-||||||
+35539|insurance card|N||||||
 35540|Denmark|Pl||||||
 35541|Danish (language)|N||||||
 35542|thick, viscous, mushy, pulpy, slushy, syrupy, sticky|N||||||
@@ -35719,7 +35719,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 35719|fever, febrile disease|N||||||
 35720|manual laborer, manual labourer|N||||||
 35721|bear (burden, responsibility, etc.), take upon oneself|VuT||||||
-35722|according to, by (means of), due to, because of|CE||||||
+35722||-||||||
 35723|carefree, at leisure|A||||||
 35724|knot (nautical mile per hour)|N||||||
 35725|brains, mind|N||||||
@@ -36388,7 +36388,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36388|trekker|N||||||
 36389|trench coat|N||||||
 36390|trendy|Ana||||||
-36391||-||||||
+36391|please make sure that|CE||||||
 36392|trend|N||||||
 36393|cold (to the touch), chilly, icy, freezing|Ai||||||
 36394|coldhearted, unfeeling, indifferent, unfriendly|Ai||||||
@@ -36773,3 +36773,5 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 36773|weaker|A;Dg||||||
 36774|stronger|A;Dg||||||
 36775|stronger|A;Dg||||||
+36776|black market|CE||||||
+36777|black market|CE||||||

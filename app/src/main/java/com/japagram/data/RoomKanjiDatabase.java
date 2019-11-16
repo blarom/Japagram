@@ -54,7 +54,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
                             @Override
                             public void onCreate(@NonNull SupportSQLiteDatabase db) {
                                 super.onCreate(db);
-                                getInstance(context).populateDatabases(context);
+                                //getInstance(context).populateDatabases(context);
                             }
                         })
                         .enableMultiInstanceInvalidation()
@@ -85,7 +85,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
-                loadKanjiComponentsIntoRoomDb(context);
+                Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
                 Log.i("Diagnosis Time", "Loaded Room Kanji Components Database.");
                 setTransactionSuccessful();
             } finally {
@@ -97,23 +97,10 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     }
     private void loadKanjiCharactersIntoRoomDb(Context context) {
 
+        Utilities.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
 
-        List<String[]> CJK_Database = Utilities.readCSVFile("LineCJK_Decomposition - 3000 kanji.csv", context);
         List<String[]> KanjiDict_Database = Utilities.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
         List<String[]> RadicalsDatabase = Utilities.readCSVFile("LineRadicals - 3000 kanji.csv", context);
-
-        List<KanjiCharacter> kanjiCharacterList = new ArrayList<>();
-        for (int i=0; i<CJK_Database.size(); i++) {
-            if (TextUtils.isEmpty(CJK_Database.get(i)[0])) break;
-            KanjiCharacter kanjiCharacter = new KanjiCharacter(CJK_Database.get(i)[0], CJK_Database.get(i)[1], CJK_Database.get(i)[2]);
-            kanjiCharacter.setKanji(Utilities.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
-            kanjiCharacterList.add(kanjiCharacter);
-            if (kanjiCharacterList.size() % 5000 == 0) {
-                kanjiCharacter().insertAll(kanjiCharacterList);
-                kanjiCharacterList = new ArrayList<>();
-            }
-        }
-        kanjiCharacter().insertAll(kanjiCharacterList);
 
         for (int i=0; i<KanjiDict_Database.size(); i++) {
             if (TextUtils.isEmpty(KanjiDict_Database.get(i)[0])) break;
@@ -141,48 +128,6 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
         }
 
         Log.i("Diagnosis Time","Loaded Kanji Characters Database.");
-    }
-    private void loadKanjiComponentsIntoRoomDb(Context context) {
-
-        List<String[]> Components_Database = Utilities.readCSVFile("LineComponents - 3000 kanji.csv", context);
-
-        KanjiComponent kanjiComponent = new KanjiComponent("full1");
-        List<KanjiComponent> kanjiComponents = new ArrayList<>();
-        List<KanjiComponent.AssociatedComponent> associatedComponents = new ArrayList<>();
-        String firstElement;
-        String secondElement;
-        for (int i=0; i<Components_Database.size();i++) {
-
-            firstElement = Components_Database.get(i)[0];
-            secondElement = Components_Database.get(i)[1];
-
-            if (TextUtils.isEmpty(firstElement)) break;
-
-            if (!firstElement.equals("") && secondElement.equals("") || i == Components_Database.size()-1 || i==3000) {
-
-                kanjiComponent.setAssociatedComponents(associatedComponents);
-                associatedComponents = new ArrayList<>();
-                if (i>1) {
-                    kanjiComponents.add(kanjiComponent);
-                    if (kanjiComponents.size() % 1000 == 0) {
-                        kanjiComponent().insertAll(kanjiComponents);
-                        kanjiComponents = new ArrayList<>();
-                    }
-                }
-
-                if (i==3000) kanjiComponent = new KanjiComponent("full2");
-                else if (i < Components_Database.size()-1) kanjiComponent = new KanjiComponent(firstElement);
-            }
-            if (!firstElement.equals("") && !secondElement.equals("")) {
-                KanjiComponent.AssociatedComponent associatedComponent = new KanjiComponent.AssociatedComponent();
-                associatedComponent.setComponent(firstElement);
-                associatedComponent.setAssociatedComponents(secondElement);
-                associatedComponents.add(associatedComponent);
-            }
-        }
-        kanjiComponent().insertAll(kanjiComponents);
-
-        Log.i("Diagnosis Time","Loaded Kanji Components Database.");
     }
 
     //Switches the internal implementation with an empty in-memory database

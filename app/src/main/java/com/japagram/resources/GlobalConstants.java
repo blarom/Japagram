@@ -9,9 +9,9 @@ import java.util.List;
 
 public final class GlobalConstants {
 
-    public static final int CENTRAL_DB_VERSION = 97;
-    public static final int KANJI_DB_VERSION = 18;
-    public static final int EXTENDED_DB_VERSION = 9;
+    public static final int CENTRAL_DB_VERSION = 98;
+    public static final int KANJI_DB_VERSION = 19;
+    public static final int EXTENDED_DB_VERSION = 10;
     public static final int NAMES_DB_VERSION = 2;
 
     public static final float extendedDbLinesWords = 162314.f;

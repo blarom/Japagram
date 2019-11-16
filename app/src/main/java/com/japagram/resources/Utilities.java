@@ -47,6 +47,10 @@ import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexRomajiDao;
 import com.japagram.data.IndexSpanish;
 import com.japagram.data.IndexSpanishDao;
+import com.japagram.data.KanjiCharacter;
+import com.japagram.data.KanjiCharacterDao;
+import com.japagram.data.KanjiComponent;
+import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
@@ -1287,6 +1291,8 @@ public final class Utilities {
             String line;
             fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
             List<Word> wordList = new ArrayList<>();
+            List<KanjiCharacter> kanjiCharacterList = new ArrayList<>();
+            List<KanjiComponent> kanjiComponentList = new ArrayList<>();
             List<IndexRomaji> indexRomajiList = new ArrayList<>();
             List<IndexEnglish> indexEnglishList = new ArrayList<>();
             List<IndexFrench> indexFrenchList = new ArrayList<>();
@@ -1294,6 +1300,9 @@ public final class Utilities {
             List<IndexKanji> indexKanjiList = new ArrayList<>();
             fileReader.readLine(); //Discarding the first line of the file (titles)
             int lineNum = 0;
+            int MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK = 3;
+            int KANJI_COMPONENTS_FULL1_BLOCK_SIZE = 3000;
+            int MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK = 5000;
             int MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK = 20000;
             int MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK = 50000;
 
@@ -1496,6 +1505,73 @@ public final class Utilities {
                         }
                     }
                     indexKanjiDao.insertAll(indexKanjiList);
+                    break;
+                case "kanjiCharactersDb":
+                    KanjiCharacterDao kanjiCharacterDaoDao = (KanjiCharacterDao) dao;
+                    while ((line = fileReader.readLine()) != null) {
+                        String[] tokens = line.split("\\|",-1);
+                        if (tokens.length > 0) {
+                            if (TextUtils.isEmpty(tokens[0])) break;
+                            KanjiCharacter kanjiCharacter = new KanjiCharacter(tokens[0], tokens[1], tokens[2]);
+                            kanjiCharacter.setKanji(Utilities.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                            kanjiCharacterList.add(kanjiCharacter);
+                        }
+                        lineNum++;
+                        if (lineNum % MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK == 0) {
+                            kanjiCharacterDaoDao.insertAll(kanjiCharacterList);
+                            kanjiCharacterList = new ArrayList<>();
+                        }
+                    }
+                    kanjiCharacterDaoDao.insertAll(kanjiCharacterList);
+                    break;
+                case "kanjiComponentsDb":
+                    KanjiComponentDao kanjiComponentDao = (KanjiComponentDao) dao;
+                    //KanjiComponents are defined as structure -> component -> associatedComponents
+                    //NOTE: "full" block split into "full1" and "full2" to prevent memory crashes when requesting all kanji components with structure "full"
+                    //The CSV file starts with the "full" block, so "full1" is defined first
+                    List<KanjiComponent> kanjiComponents = new ArrayList<>();
+                    List<KanjiComponent.AssociatedComponent> associatedComponents = new ArrayList<>();
+                    KanjiComponent kanjiComponent = new KanjiComponent("full1");
+                    String firstElement;
+                    String secondElement;
+                    boolean isBlockTitle;
+                    while ((line = fileReader.readLine()) != null) {
+                        String[] tokens = line.split("\\|",-1);
+                        if (tokens.length > 1) {
+                            if (TextUtils.isEmpty(tokens[0])) break;
+                            firstElement = tokens[0];
+                            secondElement = tokens[1];
+                            isBlockTitle = secondElement.equals("");
+                            if (isBlockTitle || lineNum==KANJI_COMPONENTS_FULL1_BLOCK_SIZE) {
+                                kanjiComponent.setAssociatedComponents(associatedComponents);
+                                associatedComponents = new ArrayList<>();
+                                if (lineNum != 0) {
+                                    kanjiComponents.add(kanjiComponent);
+                                    if (kanjiComponents.size() % MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK == 0) {
+                                        kanjiComponentDao.insertAll(kanjiComponents);
+                                        kanjiComponents = new ArrayList<>();
+                                    }
+                                }
+
+                                //We define the kanjiComponent's structure here
+                                //Since the "full" block has no bockTitle line, it is defined before the loop starts and again when we switch to full2
+                                //Thereafter, the structure is defined by firstElement when isBlockTitle==true
+                                kanjiComponent = lineNum==KANJI_COMPONENTS_FULL1_BLOCK_SIZE?
+                                        new KanjiComponent("full2") : new KanjiComponent(firstElement);
+                            }
+                            if (!isBlockTitle) {
+                                KanjiComponent.AssociatedComponent associatedComponent = new KanjiComponent.AssociatedComponent();
+                                associatedComponent.setComponent(firstElement);
+                                associatedComponent.setAssociatedComponents(secondElement);
+                                associatedComponents.add(associatedComponent);
+                            }
+
+                        }
+                        lineNum++;
+                    }
+                    kanjiComponent.setAssociatedComponents(associatedComponents);
+                    kanjiComponents.add(kanjiComponent);
+                    kanjiComponentDao.insertAll(kanjiComponents);
                     break;
             }
         } catch (Exception e) {
