@@ -415,8 +415,9 @@ public class DictionaryFragment extends Fragment implements
     //Communication with other classes
 
     //Communication with DictionaryRecyclerViewAdapter
-    @Override public void onWordLinkClicked(String text) {
+    @Override public void onDecomposeKanjiLinkClicked(String text) {
         dictionaryFragmentOperationsHandler.onQueryTextUpdateFromDictRequested(text);
+        dictionaryFragmentOperationsHandler.onDecomposeKanjiRequested(text);
     }
     @Override public void onVerbLinkClicked(String text) {
         dictionaryFragmentOperationsHandler.onQueryTextUpdateFromDictRequested(text);
@@ -427,6 +428,7 @@ public class DictionaryFragment extends Fragment implements
     private DictionaryFragmentOperationsHandler dictionaryFragmentOperationsHandler;
     interface DictionaryFragmentOperationsHandler {
         void onQueryTextUpdateFromDictRequested(String selectedWordString);
+        void onDecomposeKanjiRequested(String selectedKanji);
         void onVerbConjugationFromDictRequested(String selectedVerbString);
         void onLocalMatchingWordsFound(List<Word> matchingWords);
         void onFinalMatchingWordsFound(List<Word> matchingWords);

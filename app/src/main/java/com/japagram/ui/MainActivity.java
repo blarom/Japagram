@@ -596,6 +596,39 @@ public class MainActivity extends BaseActivity implements
         //Saving the history
         saveQueryHistoryToPreferences(getBaseContext(), mQueryHistory);
     }
+    private void startDecomposeFragment(String query) {
+
+        if (!mAllowButtonOperations) return;
+
+        cleanSavedData();
+
+        if (SimilarsDatabase==null) {
+            Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        query = Utilities.replaceInvalidKanjisWithValidOnes(query, SimilarsDatabase);
+
+        mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
+
+        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        mSecondFragmentPlaceholder.bringToFront();
+
+        mDecomposeKanjiFragment = new DecomposeKanjiFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(getString(R.string.user_query_word), query);
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(RadicalsOnlyDatabase));
+
+        mDecomposeKanjiFragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.second_fragment_placeholder, mDecomposeKanjiFragment, getString(R.string.dcmp_fragment));
+
+        //fragmentTransaction.addToBackStack(getString(R.string.decompose_fragment_instance));
+        fragmentTransaction.commit();
+    }
+
 
     //Asynchronous methods
     @NonNull
@@ -787,41 +820,15 @@ public class MainActivity extends BaseActivity implements
 
     }
     @Override public void onDecomposeRequested(String query) {
-
-        if (!mAllowButtonOperations) return;
-
-        cleanSavedData();
-
-        if (SimilarsDatabase==null) {
-            Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        query = Utilities.replaceInvalidKanjisWithValidOnes(query, SimilarsDatabase);
-
-        mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
-
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
-
-        mDecomposeKanjiFragment = new DecomposeKanjiFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(RadicalsOnlyDatabase));
-
-        mDecomposeKanjiFragment.setArguments(bundle);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.second_fragment_placeholder, mDecomposeKanjiFragment, getString(R.string.dcmp_fragment));
-
-        //fragmentTransaction.addToBackStack(getString(R.string.decompose_fragment_instance));
-        fragmentTransaction.commit();
+        startDecomposeFragment(query);
     }
 
     //Communication with DictionaryFragment
     @Override public void onQueryTextUpdateFromDictRequested(String word) {
         updateInputQuery(word, false);
+    }
+    @Override public void onDecomposeKanjiRequested(String selectedKanji) {
+        startDecomposeFragment(selectedKanji);
     }
     @Override public void onVerbConjugationFromDictRequested(String verb) {
         if (mInputQueryFragment!=null) mInputQueryFragment.setConjButtonSelected();

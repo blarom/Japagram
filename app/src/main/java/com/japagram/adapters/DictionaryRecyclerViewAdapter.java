@@ -155,37 +155,33 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //region Initialization
         holder.childElementsLinearLayout.removeAllViews();
         holder.childElementsLinearLayout.setFocusable(false);
-        holder.kanjiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
         holder.romajiAndKanjiTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorAccentDark));
         holder.sourceInfoTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
         holder.meaningsTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimary));
         holder.meaningsTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimary));
         holder.childLinearLayout.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
-        holder.romajiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
+        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
         //endregion
 
-        //region Showing the romaji and kanji values for user click
+        //region Handling the hyperlink values for user click
         if (mWordsTypeIsVerb.get(position) && mWordsList.get(position).getIsLocal()) {
-            holder.romajiChildTextView.setVisibility(View.VISIBLE);
-            holder.kanjiChildTextView.setVisibility(View.VISIBLE);
+            holder.conjugateHyperlinkRomajiChildTextView.setVisibility(View.VISIBLE);
+            holder.conjugateHyperlinkKanjiChildTextView.setVisibility(View.VISIBLE);
         }
         else {
-            holder.romajiChildTextView.setVisibility(View.GONE);
-            holder.kanjiChildTextView.setVisibility(View.GONE);
+            holder.conjugateHyperlinkRomajiChildTextView.setVisibility(View.GONE);
+            holder.conjugateHyperlinkKanjiChildTextView.setVisibility(View.GONE);
         }
 
-        if (romaji.length() > 0 && kanji.length() > 0) {
-            if (mWordsTypeIsVerb.get(position)) {
-                setHyperlinksInCopyToInputLine("verb", holder.romajiChildTextView, mContext.getString(R.string.conjugate)+" ", romaji, " ");
-                setHyperlinksInCopyToInputLine("verb", holder.kanjiChildTextView, "(", kanji, ").");
-            } else {
-                setHyperlinksInCopyToInputLine("word", holder.romajiChildTextView, mContext.getString(R.string.copy)+" ", romaji, " ");
-                setHyperlinksInCopyToInputLine("word", holder.kanjiChildTextView, "(", kanji, ") "+ mContext.getString(R.string.to_search_field)+".");
-            }
-        } else if (romaji.length() == 0) {
-            setHyperlinksInCopyToInputLine("word", holder.romajiChildTextView, mContext.getString(R.string.copy)+" ", kanji, " "+ mContext.getString(R.string.to_search_field)+".");
-        } else {
-            setHyperlinksInCopyToInputLine("word", holder.romajiChildTextView, mContext.getString(R.string.copy)+" ", romaji, " "+ mContext.getString(R.string.to_search_field)+".");
+        if (mWordsTypeIsVerb.get(position) && romaji.length() > 0 && kanji.length() > 0) {
+            setHyperlinksInConjugateLine(holder.conjugateHyperlinkRomajiChildTextView, mContext.getString(R.string.conjugate)+" ", romaji, " ");
+            setHyperlinksInConjugateLine(holder.conjugateHyperlinkKanjiChildTextView, "(", kanji, ").");
+        }
+
+        holder.decomposeHyperlinkChildTextView.setVisibility(View.VISIBLE);
+        if (kanji.length() > 0) {
+            setHyperlinkInDecomposeLine(holder.decomposeHyperlinkChildTextView, mContext.getString(R.string.decompose)+" ", kanji, ".");
         }
         //endregion
 
@@ -500,7 +496,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         startIndex = endIndex + 2;
                         endIndex = startIndex + antonymsList[i].length() - 1;
                     }
-                    fullAntonymSpannable.setSpan(new WordClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    fullAntonymSpannable.setSpan(new KanjiClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 addSubHeaderField(holder.childElementsLinearLayout, fullAntonymSpannable);
@@ -521,7 +517,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         startIndex = endIndex + 2;
                         endIndex = startIndex + synonymsList[i].length() - 1;
                     }
-                    fullSynonymSpannable.setSpan(new WordClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    fullSynonymSpannable.setSpan(new KanjiClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
                 addSubHeaderField(holder.childElementsLinearLayout, fullSynonymSpannable);
@@ -771,7 +767,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             }
         }
     }
-    private void setHyperlinksInCopyToInputLine(String type, TextView textView, String before, String hyperlinkText, String after) {
+    private void setHyperlinkInDecomposeLine(TextView textView, String before, String hyperlinkText, String after) {
         String totalText = "<b>" +
                 "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 before +
@@ -781,19 +777,33 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 after +
                 "</font>";
         Spanned spanned_totalText = Utilities.fromHtml(totalText);
-        SpannableString WordSpannable = new SpannableString(spanned_totalText);
-        if (type.equals("word")) {
-            WordSpannable.setSpan(new WordClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        } else {
-            WordSpannable.setSpan(new VerbClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
-        textView.setText(WordSpannable);
+        SpannableString spannable = new SpannableString(spanned_totalText);
+        spannable.setSpan(new KanjiClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
         textView.setTypeface(Typeface.SERIF);
         textView.setTypeface(null, Typeface.BOLD_ITALIC);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
-    private class WordClickableSpan extends ClickableSpan {
+    private void setHyperlinksInConjugateLine(TextView textView, String before, String hyperlinkText, String after) {
+        String totalText = "<b>" +
+                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                before +
+                "</font>" +
+                hyperlinkText +
+                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                after +
+                "</font>";
+        Spanned spanned_totalText = Utilities.fromHtml(totalText);
+        SpannableString spannable = new SpannableString(spanned_totalText);
+        spannable.setSpan(new VerbClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(spannable);
+        textView.setTypeface(Typeface.SERIF);
+        textView.setTypeface(null, Typeface.BOLD_ITALIC);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+    private class KanjiClickableSpan extends ClickableSpan {
         // code extracted from http://stackoverflow.com/questions/15475907/make-parts-of-textview-clickable-not-url
         public void onClick(@NonNull View textView) {
             // code extracted from http://stackoverflow.com/questions/19750458/android-clickablespan-get-text-onclick
@@ -804,7 +814,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             int end = s.getSpanEnd(this);
 
             String outputText = text.getText().subSequence(start, end).toString();
-            mOnItemClickHandler.onWordLinkClicked(outputText);
+            mOnItemClickHandler.onDecomposeKanjiLinkClicked(outputText);
 
         }
         @Override
@@ -858,8 +868,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         @BindView(R.id.dropdown_arrow) ImageView dropdownArrowImageView;
         @BindView(R.id.list_item_meanings) TextView meaningsTextView;
         @BindView(R.id.list_item_child_linearlayout) LinearLayout childLinearLayout;
-        @BindView(R.id.list_item_child_romaji) TextView romajiChildTextView;
-        @BindView(R.id.list_item_child_kanji) TextView kanjiChildTextView;
+        @BindView(R.id.list_item_conjugate_hyperlink_romaji) TextView conjugateHyperlinkRomajiChildTextView;
+        @BindView(R.id.list_item_conjugate_hyperlink_kanji) TextView conjugateHyperlinkKanjiChildTextView;
+        @BindView(R.id.list_item_decompose_hyperlink) TextView decomposeHyperlinkChildTextView;
         @BindView(R.id.list_item_child_elements_container) LinearLayout childElementsLinearLayout;
 
         DictItemViewHolder(View itemView) {
@@ -896,7 +907,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     }
 
     public interface DictionaryItemClickHandler {
-        void onWordLinkClicked(String text);
+        void onDecomposeKanjiLinkClicked(String text);
         void onVerbLinkClicked(String text);
     }
 }
