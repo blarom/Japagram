@@ -901,13 +901,11 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         }
         //endregion
 
-        ////itte not detected as exact conj for iu?
-
         //region Updating the verbs with their conjugations
         for (int t = 0; t < matchingVerbIdAndColList.size(); t++) {
             matchingVerbId = matchingVerbIdAndColList.get(t)[0];
-            currentVerb = matchingVerb.get(t); //mRoomCentralDatabase.getVerbByVerbId(matchingVerbId);
-            currentWord = matchingWords.get(t); //mRoomCentralDatabase.getWordByWordId(matchingVerbId);
+            currentVerb = matchingVerb.get(t);
+            currentWord = matchingWords.get(t);
             if (currentWord == null || currentVerb == null
                     || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) continue;
             currentFamilyConjugationsIndex = mFamilyConjugationIndexes.get(currentVerb.getFamily());

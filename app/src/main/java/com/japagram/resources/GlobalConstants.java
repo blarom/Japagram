@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class GlobalConstants {
 
-    public static final int CENTRAL_DB_VERSION = 99;
+    public static final int CENTRAL_DB_VERSION = 100;
     public static final int KANJI_DB_VERSION = 19;
     public static final int EXTENDED_DB_VERSION = 11;
     public static final int NAMES_DB_VERSION = 2;
