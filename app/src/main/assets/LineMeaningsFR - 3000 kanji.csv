@@ -12094,8 +12094,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 12094|planche à découper|N;Abs||||||
 12095|chef (en part. de haute cuisine japonaise), cuisinier|N;Abs||||||
 12096|plateau (de théâtre), scène|N;Abs||||||
-12097|jamais (neg), n'importe quand, toujours|||||||
-12098|avant qu'on s'en rende compte, inaperçu|A||||||
+12097|jamais (neg), n'importe quand, toujours|A;T||||||
+12098|avant qu'on s'en rende compte, inaperçu|A;T||||||
 12099|ambition, désir|N;Sx||||||
 12100|camp, campement|N;Abs||||||
 12101|formation (militaire)|N;Abs||||||
@@ -20095,49 +20095,51 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 20095|essayer, tenter|VruiT||||||
 20096|être fou de quelqu'un ou quelque chose, avoir des vertiges (dus à un afflux de sang dans la tête), devenir orgueilleux, ne plus être en mesure de juger correctement à cause de sentiments trop forts, perdre la tête|VruiI||||||
 20097|être agité, être perturbé, perdre son sang-froid|VruiI||||||
-20098|revenir, faire... et revenir|VkuruI||||||
-20099|s'agir de|VkuruI||||||
-20100|apporter|VkuruT||||||
-20101|amener quelqu'un|VkuruT;CE||||||
-20102|arriver|VkuruI;CE||||||
-20103|toucher, entrer en contact avec, border, donner sur, être adjacent, être proche|VsuruI||||||
-20104|recevoir (par ex. un visiteur), servir, prendre soin de, s'occuper de, faire face à, voir|VsuruI||||||
-20105|recevoir (des nouvelles), obtenir, entendre|VsuruI||||||
-20106|rencontrer, rentrer en contact avec|VsuruI||||||
-20107|être tangent à|VsuruI||||||
-20108|faire toucher, mettre en contact avec, amener à proximité de, rapprocher, connecter|VsuruI||||||
-20109|atteindre, aboutir à, arriver à, parvenir à|VsuruI||||||
-20110|châtier, punir, pénaliser, sanctionner|VsuruT||||||
-20111|boire, faire une pause, fumer, souffrir (d'un malheur, d'une catastrophe)|VsuruT||||||
-20112|désirer, vouloir|VsuruT||||||
-20113|être contraire à, aller à l'encontre de, aller contre, s'opposer à, se révolter, se rebeller, transgresser|VsuruT||||||
-20114|émettre, pousser (un cri)|VsuruT||||||
-20115|blesser, endommager, entraver, faire du mal à, faire du tort à, nuire à, porter préjudice à|VsuruT||||||
-20116|faire|VsuruT||||||
-20117|faire devenir, rendre, transformer |VsuruT||||||
-20118|nommer, ou promouvoir, une personne A à un poste ou un statut B|VsuruT||||||
-20119|transformer A en B, échanger A pour B|VsuruT||||||
-20120|utiliser A pour B, voir A comme B, gérer A comme si c'était B|VsuruT||||||
-20121|sentir A à propos de B|VsuruT||||||
-20122|suffixe de transformation en verbe (s'applique aux noms repérés dans ce dictionnaire par « vs »)|VsuruT||||||
-20123|utilisé pour former un verbe à la forme humble (après un nom avec le préfixe « o » ou « go »)|VsuruT||||||
-20124|être sur le point de, commencer à peine à, essayer de, tenter de|VsuruT||||||
-20125|servir comme, agir comme, travailler comme|VsuruT||||||
-20126|porter (un vêtement, une expression du visage, etc.)|VsuruT||||||
-20127|juger comme, voir comme, considérer comme, traiter comme, utiliser comme|VsuruT||||||
-20128|opter pour, choisir|VsuruT||||||
-20129|se faire sentir (d'une odeur, etc.), se faire entendre (d'un bruit, etc.)|VsuruT||||||
-20130|être (dans un état, dans une condition, etc.)|VsuruT||||||
-20131|valoir, coûter|VsuruT||||||
-20132|passer (à propos du temps), s'écouler|VsuruT||||||
-20133|aimer|VsuruT||||||
-20134|demander, requérir|VsuruT||||||
-20135|être affilié à, appartenir à, faire partie de, relever de|VsuruI||||||
-20136|être épris, aimer|VsuruT||||||
-20137|être tourné vers|VsuruT||||||
-20138|avoir, posséder|VsuruT||||||
-20139|concerner, être lié, être apparenté|VsuruT||||||
-20140|appeler, nommer|VsuruT||||||
-20141|se donner pour, se prétendre|VsuruT||||||
-20142|délimiter, limiter, mettre fin, tirer un trait|VsuruT||||||
-20143|être digne, mériter, valoir|VsuruI||||||
+20098|être caché, être enfoui, être enterré, être recouvert|VruiI||||||
+20099|faire des histoires|VruiI||||||
+20100|revenir, faire... et revenir|VkuruI||||||
+20101|s'agir de|VkuruI||||||
+20102|apporter|VkuruT||||||
+20103|amener quelqu'un|VkuruT;CE||||||
+20104|arriver|VkuruI;CE||||||
+20105|toucher, entrer en contact avec, border, donner sur, être adjacent, être proche|VsuruI||||||
+20106|recevoir (par ex. un visiteur), servir, prendre soin de, s'occuper de, faire face à, voir|VsuruI||||||
+20107|recevoir (des nouvelles), obtenir, entendre|VsuruI||||||
+20108|rencontrer, rentrer en contact avec|VsuruI||||||
+20109|être tangent à|VsuruI||||||
+20110|faire toucher, mettre en contact avec, amener à proximité de, rapprocher, connecter|VsuruI||||||
+20111|atteindre, aboutir à, arriver à, parvenir à|VsuruI||||||
+20112|châtier, punir, pénaliser, sanctionner|VsuruT||||||
+20113|boire, faire une pause, fumer, souffrir (d'un malheur, d'une catastrophe)|VsuruT||||||
+20114|désirer, vouloir|VsuruT||||||
+20115|être contraire à, aller à l'encontre de, aller contre, s'opposer à, se révolter, se rebeller, transgresser|VsuruT||||||
+20116|émettre, pousser (un cri)|VsuruT||||||
+20117|blesser, endommager, entraver, faire du mal à, faire du tort à, nuire à, porter préjudice à|VsuruT||||||
+20118|faire|VsuruT||||||
+20119|faire devenir, rendre, transformer |VsuruT||||||
+20120|nommer, ou promouvoir, une personne A à un poste ou un statut B|VsuruT||||||
+20121|transformer A en B, échanger A pour B|VsuruT||||||
+20122|utiliser A pour B, voir A comme B, gérer A comme si c'était B|VsuruT||||||
+20123|sentir A à propos de B|VsuruT||||||
+20124|suffixe de transformation en verbe (s'applique aux noms repérés dans ce dictionnaire par « vs »)|VsuruT||||||
+20125|utilisé pour former un verbe à la forme humble (après un nom avec le préfixe « o » ou « go »)|VsuruT||||||
+20126|être sur le point de, commencer à peine à, essayer de, tenter de|VsuruT||||||
+20127|servir comme, agir comme, travailler comme|VsuruT||||||
+20128|porter (un vêtement, une expression du visage, etc.)|VsuruT||||||
+20129|juger comme, voir comme, considérer comme, traiter comme, utiliser comme|VsuruT||||||
+20130|opter pour, choisir|VsuruT||||||
+20131|se faire sentir (d'une odeur, etc.), se faire entendre (d'un bruit, etc.)|VsuruT||||||
+20132|être (dans un état, dans une condition, etc.)|VsuruT||||||
+20133|valoir, coûter|VsuruT||||||
+20134|passer (à propos du temps), s'écouler|VsuruT||||||
+20135|aimer|VsuruT||||||
+20136|demander, requérir|VsuruT||||||
+20137|être affilié à, appartenir à, faire partie de, relever de|VsuruI||||||
+20138|être épris, aimer|VsuruT||||||
+20139|être tourné vers|VsuruT||||||
+20140|avoir, posséder|VsuruT||||||
+20141|concerner, être lié, être apparenté|VsuruT||||||
+20142|appeler, nommer|VsuruT||||||
+20143|se donner pour, se prétendre|VsuruT||||||
+20144|délimiter, limiter, mettre fin, tirer un trait|VsuruT||||||
+20145|être digne, mériter, valoir|VsuruI||||||

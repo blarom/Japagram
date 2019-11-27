@@ -2380,7 +2380,7 @@ public final class Utilities {
         int lateHitInMeaningPenalty; //Adding a penalty for late hits in the meaning
         int cumulativeMeaningLength; //Using a cumulative meaning length instead of the total length, since if a word is at the start of a meaning it's more important and the hit is more likely to be relevant
 
-        ranking = baseMeaningLength;
+        ranking = 10000;
         for (int j = 0; j< currentMeanings.size(); j++) {
             currentMeaning = currentMeanings.get(j).getMeaning().toLowerCase();
 
@@ -2389,7 +2389,7 @@ public final class Utilities {
                 foundMeaningLength = false;
 
                 inputQuery = mInputQuery;
-                baseMeaningLength = 1000; //was 1500
+                baseMeaningLength = 1000;
 
                 //If meaning has the exact word, get the length as follows
                 String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
@@ -2401,7 +2401,7 @@ public final class Utilities {
 
                     //If there's an exact match, push the word up in ranking
                     if (trimmedElement.equals(inputQuery)) {
-                        ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                        ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                         foundMeaningLength = true;
                     }
                     if (foundMeaningLength) break;
@@ -2410,7 +2410,7 @@ public final class Utilities {
                     for (String word : currentMeaningIndividualWords) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -2426,7 +2426,7 @@ public final class Utilities {
                     for (String word : currentMeaningIndividualWordsWithoutParentheses) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
                             foundMeaningLength = true;
                             break;
                         }
@@ -2440,7 +2440,7 @@ public final class Utilities {
 
                 //If still not found, get the length of the less important results
                 if (currentMeaning.contains(inputQuery) && currentMeaning.length() <= ranking) {
-                    ranking = ranking + currentMeaning.length();
+                    ranking += currentMeaning.length();
                 }
             }
             //endregion
@@ -2464,14 +2464,14 @@ public final class Utilities {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -2490,13 +2490,13 @@ public final class Utilities {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -2518,14 +2518,14 @@ public final class Utilities {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking = baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -2542,7 +2542,7 @@ public final class Utilities {
         }
 
         //Adding the romaji and kanji lengths to the ranking (ie. shorter is better)
-        ranking = 2*(romaji_value.length() + kanji_value.length()) + ranking;
+        ranking += 2*(romaji_value.length() + kanji_value.length());
 
         //If the word starts with the inputQuery, its ranking improves
         String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);

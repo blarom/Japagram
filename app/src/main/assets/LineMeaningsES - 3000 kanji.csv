@@ -19357,52 +19357,54 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 19357|hacer (por alguien) |VruiT||||||
 19358|permitir (por alguien) a|VruiT||||||
 19359|temblar de miedo|VruiI||||||
-19360|copula humilde en japonés|VdaI||||||
-19361|ser, estar|VdaI||||||
-19362|llegar, venir|VkuruI||||||
-19363|traer (algo)|VkuruT||||||
-19364|llevarse a alguien|VkuruT;CE||||||
-19365|seguir, venir con alguien, acompañar|VkuruI||||||
-19366|venir, acudir, llegar a venir|VkuruI;CE||||||
-19367|escapar, librar, zafarse|VsuruI||||||
-19368|entrar en contacto, tocar, conectar (con)|VsuruI||||||
-19369|acudir a, asistir a|VsuruI||||||
-19370|recibir (visitas)|VsuruI||||||
-19371|alcanzar, llegar a|VsuruI||||||
-19372|castigar, penalizar|VsuruT||||||
-19373|tomar, ingerir, probar el amargo sabor de|VsuruT||||||
-19374|querer, desear|VsuruT||||||
-19375|contradecir|VsuruT||||||
-19376|ocurrir, tener lugar, pasar, emitir|VsuruT||||||
-19377|dañar, lastimar|VsuruT||||||
-19378|hacer, intentar, ejecutar, jugar, practicar, costar|VsuruT||||||
-19379|servir como, transcurrir|VsuruT||||||
-19380|servir, actuar como, trabajar como|VsuruT||||||
-19381|ponerse (ropa, una expresión facial, etc.)|VsuruT||||||
-19382|sentirse (una aroma, ruido, etc.)|VsuruT||||||
-19383|estar|VsuruT||||||
-19384|valer, costar|VsuruT||||||
-19385|pasar (tiempo), sufijo verbalizador (aplica a los sustantivos anotados en este diccionario con la parte del habla "vs")|VsuruT||||||
-19386|crea un verbo humilde (después de un sustantivo con prefijo "o" o "go")|VsuruT||||||
-19387|estar a punto de, tratat de, intentar|VsuruT||||||
-19388|amar|VsuruT||||||
-19389|viajar|VsuruI||||||
-19390|garantizar|VsuruT||||||
-19391|precisar, necesitar, requerir, demandar|VsuruT||||||
-19392|tener, poseer|VsuruT||||||
-19393|pertenecer|VsuruI||||||
-19394|acobardarse, arredrarse, temer|VsuruI||||||
-19395|transformarse, convertirse, variar, cambiar|VsuruI||||||
-19396|enamorarse, amar|VsuruT||||||
-19397|enfrentar, encarar, afrontar|VsuruT||||||
-19398|imponer|VsuruT||||||
-19399|infligir, causar, imponer (multa, etc.)|VsuruT||||||
-19400|titularse (ej. un libro), nombrarse|VsuruI||||||
-19401|poseer|VsuruT||||||
-19402|reprimir, sofocar, controlar, dominar|VsuruT||||||
-19403|concernir, afectar, estar relacionado|VsuruT||||||
-19404|llamarse, hacerse nombrar|VsuruT||||||
-19405|dibujar|VsuruT||||||
-19406|demarcar, marcar, dividir|VsuruT||||||
-19407|planear|VsuruT||||||
-19408|valer, merecer|VsuruI||||||
+19360|espolear, aguijonear, avivar, atizar|VruiT||||||
+19361|escribir de modo sensacionalista|VruiT||||||
+19362|copula humilde en japonés|VdaI||||||
+19363|ser, estar|VdaI||||||
+19364|llegar, venir|VkuruI||||||
+19365|traer (algo)|VkuruT||||||
+19366|llevarse a alguien|VkuruT;CE||||||
+19367|seguir, venir con alguien, acompañar|VkuruI||||||
+19368|venir, acudir, llegar a venir|VkuruI;CE||||||
+19369|escapar, librar, zafarse|VsuruI||||||
+19370|entrar en contacto, tocar, conectar (con)|VsuruI||||||
+19371|acudir a, asistir a|VsuruI||||||
+19372|recibir (visitas)|VsuruI||||||
+19373|alcanzar, llegar a|VsuruI||||||
+19374|castigar, penalizar|VsuruT||||||
+19375|tomar, ingerir, probar el amargo sabor de|VsuruT||||||
+19376|querer, desear|VsuruT||||||
+19377|contradecir|VsuruT||||||
+19378|ocurrir, tener lugar, pasar, emitir|VsuruT||||||
+19379|dañar, lastimar|VsuruT||||||
+19380|hacer, intentar, ejecutar, jugar, practicar, costar|VsuruT||||||
+19381|servir como, transcurrir|VsuruT||||||
+19382|servir, actuar como, trabajar como|VsuruT||||||
+19383|ponerse (ropa, una expresión facial, etc.)|VsuruT||||||
+19384|sentirse (una aroma, ruido, etc.)|VsuruT||||||
+19385|estar|VsuruT||||||
+19386|valer, costar|VsuruT||||||
+19387|pasar (tiempo), sufijo verbalizador (aplica a los sustantivos anotados en este diccionario con la parte del habla "vs")|VsuruT||||||
+19388|crea un verbo humilde (después de un sustantivo con prefijo "o" o "go")|VsuruT||||||
+19389|estar a punto de, tratat de, intentar|VsuruT||||||
+19390|amar|VsuruT||||||
+19391|viajar|VsuruI||||||
+19392|garantizar|VsuruT||||||
+19393|precisar, necesitar, requerir, demandar|VsuruT||||||
+19394|tener, poseer|VsuruT||||||
+19395|pertenecer|VsuruI||||||
+19396|acobardarse, arredrarse, temer|VsuruI||||||
+19397|transformarse, convertirse, variar, cambiar|VsuruI||||||
+19398|enamorarse, amar|VsuruT||||||
+19399|enfrentar, encarar, afrontar|VsuruT||||||
+19400|imponer|VsuruT||||||
+19401|infligir, causar, imponer (multa, etc.)|VsuruT||||||
+19402|titularse (ej. un libro), nombrarse|VsuruI||||||
+19403|poseer|VsuruT||||||
+19404|reprimir, sofocar, controlar, dominar|VsuruT||||||
+19405|concernir, afectar, estar relacionado|VsuruT||||||
+19406|llamarse, hacerse nombrar|VsuruT||||||
+19407|dibujar|VsuruT||||||
+19408|demarcar, marcar, dividir|VsuruT||||||
+19409|planear|VsuruT||||||
+19410|valer, merecer|VsuruI||||||

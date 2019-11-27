@@ -1213,7 +1213,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1213|never|A;T||Always followed by negative verb.||||
 1214|any hour, all hours|A;T|||744|||
 1215|any day|A;T|||745|||
-1216|anytime|A;T|||743|||
+1216||-||||||
 1217|around a specific point in time|A;T|||671|||
 1218|at once, immediately, directly, in person, automatically|A;T||||||
 1219|at that time, in those days|A;T||||||
@@ -1288,7 +1288,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 1288|from time to time|A;T|||663|||
 1289|soon, before long, in a short time|A;T||||||
 1290|suddenly, all of a sudden|A;T||||||
-1291|suddenly, abruptly, instantly|A;T|Archaic.|||||
+1291||-||||||
 1292|the other day, a few days ago|A;T||||||
 1293|the year after next|A;T|||762|||
 1294||-||||||
@@ -3041,7 +3041,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 3041|meat|N;Cu||||||
 3042|minced meat, ground meat|N;Cu||||||
 3043|bean paste|N;Cu||||||
-3044||-||||||
+3044|be buried, be covered, be hidden|VruiI||||||
 3045|natto|N;Cu||||||
 3046|noodles|N;Cu||||||
 3047|oden, soy-flavored dashi stew with various ingredients|N;Cu||||||
@@ -4535,18 +4535,18 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4535|shine|VsuI||||||
 4536|denote|VsuT||||||
 4537|attempt, test, try out|VsuT||||||
-4538||-||||||
+4538|soak, steep, macerate|VsuT||||||
 4539|add (numbers, something), take care of (e.g. one's business)|VsuT||||||
 4540|move (object, feelings), shift, operate, set in motion, mobilize, mobilise|VsuT||||||
 4541||-||||||
 4542|ferry across (a river, etc.)|VsuT||||||
-4543||-||||||
+4543|make a great fuss, raise a hue and cry, make an uproar, clamour|VruiI||||||
 4544|demarcate, mark, divide, map out, draw (a line), plan|VsuT||||||
 4545|behead (archaic), fire|VsuT||||||
 4546|compare (e.g. in a competition)|VsuT||||||
 4547|threaten, menace (archaic)|VsuT||||||
 4548|chastise, punish, discipline|VsuT||||||
-4549||-||||||
+4549|write (a person) up (in a positive or negative light), write something up so that it stands out, write up in an exaggerated fashion, detail, list|VruiT||||||
 4550|filter, strain|VsuT||||||
 4551|beat (a drum), pluck up courage|VsuT||||||
 4552|entrust, leave a person|VsuT||||||
@@ -4577,8 +4577,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 4577|waste (e.g. talents)|VsuT||||||
 4578|aim at, have an eye on|VsuT||||||
 4579|aim carefully at|VsuT||||||
-4580||-||||||
-4581|drop off (a passenger)|VsuT||||||
+4580|take away, carry away|VrugT||||||
+4581|stir up, arouse|VruiT||||||
 4582|fillet (e.g. a fish), cut up, grate, sell wholesale|VsuT||||||
 4583|abort (an embryo or foetus), have an abortion|VsuT||||||
 4584|separate, part, divide, keep apart|VsuT||||||
@@ -18976,8 +18976,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym|
 18976|chef (esp. of high-end Japanese cuisine), cook|N;Abs||||||
 18977|stage (i.e. at a theatre)|N;Abs||||||
 18978|intentional, on purpose|Ana||||||
-18979|(at) any time, always, at all times, whenever|A||||||
-18980|before one knows, before one becomes aware of, unnoticed, unawares|A||||||
+18979|(at) any time, anytime, always, at all times, whenever|A;T|||743|||
+18980|before one knows, before one becomes aware of, unnoticed, unawares|A;T||||||
 18981|rock, boulder|N;Abs||||||
 18982|crag, cliff|N;Abs||||||
 18983|anchor|N;Abs||||||
