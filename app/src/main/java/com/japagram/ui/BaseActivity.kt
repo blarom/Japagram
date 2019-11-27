@@ -22,11 +22,7 @@ open class BaseActivity : AppCompatActivity() {
 
         val locale = Locale.getDefault()// get the locale to use...
         val conf = resources.configuration
-        if (Build.VERSION.SDK_INT >= 17) {
-            conf.setLocale(locale)
-        } else {
-            conf.locale = locale
-        }
+        conf.setLocale(locale)
     }
 
     override fun attachBaseContext(base: Context) {

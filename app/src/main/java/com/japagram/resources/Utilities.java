@@ -2331,14 +2331,6 @@ public final class Utilities {
         return sortedMatchList;
     }
 
-    /**
-     * Gets the length of the shortest meaning containing the word and other characteristics, and use it to determine the word's ranking
-     * @param currentWord
-     * @param mInputQuery
-     * @param queryWordWithoutTo
-     * @param queryIsVerbWithTo
-     * @return
-     */
     public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, String queryWordWithoutTo, boolean queryIsVerbWithTo, String language) {
 
         String inputQueryLatin = ConvertFragment.getLatinHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
@@ -2374,9 +2366,9 @@ public final class Utilities {
                 kwLat_value = currentWord.getExtraKeywordsES() == null? "" : currentWord.getExtraKeywordsES();
                 break;
         }
-        int missingLanguagePenatly = 0;
+        int missingLanguagePenalty = 0;
         if (currentMeanings == null || currentMeanings.size()==0) {
-            missingLanguagePenatly = 10000;
+            missingLanguagePenalty = 10000;
             currentMeanings = currentWord.getMeaningsEN();
         }
 
@@ -2554,14 +2546,16 @@ public final class Utilities {
 
         //If the word starts with the inputQuery, its ranking improves
         String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);
-
         if (       (romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0,mInputQuery.length()).equals(mInputQuery))
                 || (romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0,mInputQuery.length()).equals(inputQueryLatin))
                 || romajiNoSpaces.equals(mInputQuery) || romajiNoSpaces.equals(inputQueryLatin)
                 || (kanji_value.length() >= mInputQuery.length() && kanji_value.substring(0,mInputQuery.length()).equals(mInputQuery))
                 ) {
-            ranking -= 100;
+            ranking -= 1000;
         }
+
+        //Otherwise, if the romaji or Kanji value contains the search word, then it must appear near the start of the list
+        else if (romaji_value.contains(mInputQuery) || kanji_value.contains(mInputQuery)) ranking -= 900;
 
         //If the word is a name, the ranking worsens
         if (GlobalConstants.NAMES_LIST.contains(currentWord.getMeaningsEN().get(0).getType())) ranking += 5000;
@@ -2569,11 +2563,11 @@ public final class Utilities {
         //If the word is common, the ranking improves
         if (currentWord.getIsCommon()) ranking -= 50;
 
-        //If the word is a verb and one of its conjugations is a perfect match, the ranking improves
-        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT) ranking -= 100;
+        //If the word is a verb and one of its conjugations is a perfect match, the ranking improves on a level similar to meaning bonuses
+        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT) ranking -= 1400;
 
-        //If the word is a verb and one of its conjugations is a partial match, the ranking improves a bit
-        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 30;
+        //If the word is a verb and one of its conjugations is a partial match, the ranking improves a bit less than for perfect matches
+        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 1000;
 
         //If one of the elements in altSpellings is a perfect match, the ranking improves
         for (String element : altSpellings_value.split(",")) {
@@ -2602,21 +2596,10 @@ public final class Utilities {
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
         if (romaji_value.equals(mInputQuery) || kanji_value.equals(mInputQuery)) ranking = 0;
 
-        ranking += missingLanguagePenatly;
+        ranking += missingLanguagePenalty;
 
         return ranking;
     }
-    /**
-     * Returns the word ids that match the searchWord.
-     * Performing basic filtering according to each word's keywords list if length>=4, or differently for shorter words.
-     * @param inputWord
-     * @param roomCentralDatabase
-     * @param roomExtendedRoomDatabase
-     * @param roomNamesRoomDatabase
-     * @param language
-     * @param completeWithNamesIfNoResultsEvenIfDontShowNames
-     * @return
-     */
     public static Object[] getMatchingWordIdsAndDoBasicFiltering(String inputWord,
                                                                  RoomCentralDatabase roomCentralDatabase,
                                                                  RoomExtendedDatabase roomExtendedRoomDatabase,
@@ -2832,17 +2815,7 @@ public final class Utilities {
 
         return newMatchingWordIdsFromIndex;
     }
-    /**
-     * Returns matching word ids before filtering, based on the latin an kanji indexes.
-     * If the returned list of ids is too big, returns a list of exact matches only.
-     * In any case, tries to add results where "ing" is removed from gerunds.
-     * @param inputTextType
-     * @param searchWord
-     * @param searchWordNoSpaces
-     * @param inglessVerb
-     * @param roomCentralDatabase
-     * @return
-     */
+
     private static List<Long> getMatchingWordIds(int inputTextType, String searchWord, String searchWordNoSpaces, String inglessVerb, List<String> possibleInterpretations,
                                                  RoomCentralDatabase roomCentralDatabase,
                                                  RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase,
@@ -2885,19 +2858,6 @@ public final class Utilities {
 
         return matchingWordIds;
     }
-    /**
-     * Gets the matching word ids from the latin/kanji indexes and filters them to return only words matching the searchWord/
-     * The filter checks the keywords list for matches for word of length 4 and up, and handles shorter words differently.
-     * @param searchWord
-     * @param searchWordNoSpaces
-     * @param inglessVerb
-     * @param searchWordWithoutTo
-     * @param queryIsVerbWithTo
-     * @param inputTextType
-     * @param matchingWordIds
-     * @param roomCentralDatabase
-     * @return
-     */
     private static List<Long> addNormalMatchesToMatchesList(String searchWord, String searchWordNoSpaces, String inglessVerb, String searchWordWithoutTo, List<String> possibleInterpretations,
                                                             boolean queryIsVerbWithTo, int inputTextType, List<Long> matchingWordIds,
                                                             RoomCentralDatabase roomCentralDatabase,
