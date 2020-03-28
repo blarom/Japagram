@@ -174,9 +174,9 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
         if (readings != null) {
             for (String reading : readings.split(";")) {
                 components = reading.split("\\.");
-                readingLatin = ConvertFragment.getLatinHiraganaKatakana(components[0]).get(GlobalConstants.TYPE_LATIN);
+                readingLatin = ConvertFragment.getWaapuroHiraganaKatakana(components[0]).get(GlobalConstants.TYPE_LATIN);
                 if (components.length > 1) readingLatin +=
-                        "(" + ConvertFragment.getLatinHiraganaKatakana(components[1]).get(GlobalConstants.TYPE_LATIN) + ")";
+                        "(" + ConvertFragment.getWaapuroHiraganaKatakana(components[1]).get(GlobalConstants.TYPE_LATIN) + ")";
                 readingsList.add(readingLatin);
             }
             readingsList = Utilities.removeDuplicatesFromList(readingsList);

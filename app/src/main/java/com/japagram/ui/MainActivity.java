@@ -475,7 +475,7 @@ public class MainActivity extends BaseActivity implements
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || Utilities.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                        .equals(ConvertFragment.getLatinHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
+                        .equals(ConvertFragment.getWaapuroHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
                     meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
                     break;

@@ -942,7 +942,7 @@ public final class Utilities {
             int textType = ConvertFragment.getTextType(kanji.toString());
             if (romaji.length()!=0 && (textType == GlobalConstants.TYPE_HIRAGANA || textType == GlobalConstants.TYPE_KATAKANA)) {
                 //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                romaji = new StringBuilder(ConvertFragment.getLatinHiraganaKatakana(kanji.toString()).get(0));
+                romaji = new StringBuilder(ConvertFragment.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
             }
 
             List<Object> conceptLightStatusData = (List<Object>) getElementAtHeader(conceptLightWrapperData,"concept_light-status");
@@ -963,13 +963,13 @@ public final class Utilities {
                         if (currentValue.length() != 0 &&
                                 (textType == GlobalConstants.TYPE_HIRAGANA || textType == GlobalConstants.TYPE_KATAKANA)) {
                             //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                            romaji = new StringBuilder(ConvertFragment.getLatinHiraganaKatakana(currentValue).get(0));
+                            romaji = new StringBuilder(ConvertFragment.getWaapuroHiraganaKatakana(currentValue).get(0));
                             break;
                         }
                     }
                 }
             }
-            currentWord.setRomaji(ConvertFragment.getLatinHiraganaKatakana(romaji.toString()).get(0));
+            currentWord.setRomaji(ConvertFragment.getWaapuroHiraganaKatakana(romaji.toString()).get(0));
             //endregion
 
             currentWord.setUniqueIdentifier(currentWord.getRomaji()+"-"+kanji);
@@ -1030,7 +1030,7 @@ public final class Utilities {
                         Matcher m = Pattern.compile("\\b(\\w+)\\s【(\\w+)】").matcher(altSpellingsContainer.toString());
                         while (m.find()) {
                             if (!m.group(1).equals(currentWord.getKanji())) altSpellings.add(m.group(1).trim());
-                            String convertedMatch = ConvertFragment.getLatinHiraganaKatakana(m.group(2)).get(GlobalConstants.TYPE_LATIN);
+                            String convertedMatch = ConvertFragment.getWaapuroHiraganaKatakana(m.group(2)).get(GlobalConstants.TYPE_LATIN);
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = removeDuplicatesFromList(altSpellings);
@@ -2023,7 +2023,7 @@ public final class Utilities {
         verb.setRomaji(verbDatabase.get(verbDbRowIndex)[GlobalConstants.COLUMN_ROMAJI]);
         verb.setKanji(verbDatabase.get(verbDbRowIndex)[GlobalConstants.COLUMN_KANJI]);
         verb.setAltSpellings(verbDatabase.get(verbDbRowIndex)[GlobalConstants.COLUMN_ALT_SPELLINGS]);
-        verb.setHiraganaFirstChar(ConvertFragment.getLatinHiraganaKatakana(verb.getRomaji()).get(GlobalConstants.TYPE_HIRAGANA).substring(0,1));
+        verb.setHiraganaFirstChar(ConvertFragment.getWaapuroHiraganaKatakana(verb.getRomaji()).get(GlobalConstants.TYPE_HIRAGANA).substring(0,1));
 
         //Setting the family
         String MM_index = verbDatabase.get(verbDbRowIndex)[GlobalConstants.COLUMN_MEANING_EN_INDEXES];
@@ -2333,7 +2333,7 @@ public final class Utilities {
 
     public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, String queryWordWithoutTo, boolean queryIsVerbWithTo, String language) {
 
-        String inputQueryLatin = ConvertFragment.getLatinHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
+        String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
         int ranking;
         String romaji_value = currentWord.getRomaji();
         String kanji_value = currentWord.getKanji();
@@ -2657,7 +2657,7 @@ public final class Utilities {
         //endregion
 
         //region Getting the input type and its converted form (romaji/kanji/invalid)
-        List<String> translationList = ConvertFragment.getLatinHiraganaKatakana(searchWordNoSpaces);
+        List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(searchWordNoSpaces);
 
         String searchWordTransliteratedLatin = translationList.get(GlobalConstants.TYPE_LATIN);
         String searchWordTransliteratedHiragana = translationList.get(GlobalConstants.TYPE_HIRAGANA);
@@ -3143,7 +3143,7 @@ public final class Utilities {
 
         if (inputTextType == GlobalConstants.TYPE_LATIN || inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
 
-            input_word = ConvertFragment.getLatinHiraganaKatakana(input_word).get(GlobalConstants.TYPE_LATIN);
+            input_word = ConvertFragment.getWaapuroHiraganaKatakana(input_word).get(GlobalConstants.TYPE_LATIN);
 
             if (input_word.length()>9) {
                 adjectiveConjugation = input_word.substring(input_word.length()-9);
@@ -3315,7 +3315,7 @@ public final class Utilities {
                 }
             } else {
                 if (inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
-                    concatenated_word = ConvertFragment.getLatinHiraganaKatakana(concatenated_word).get(GlobalConstants.TYPE_LATIN);
+                    concatenated_word = ConvertFragment.getWaapuroHiraganaKatakana(concatenated_word).get(GlobalConstants.TYPE_LATIN);
                 }
                 IndexRomaji indexRomaji = japaneseToolboxNamesRoomDatabase.getRomajiIndexForExactWord(concatenated_word);
                 if (indexRomaji != null) {
@@ -3333,7 +3333,7 @@ public final class Utilities {
                 }
             } else {
                 if (inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
-                    concatenated_word = ConvertFragment.getLatinHiraganaKatakana(concatenated_word).get(GlobalConstants.TYPE_LATIN);
+                    concatenated_word = ConvertFragment.getWaapuroHiraganaKatakana(concatenated_word).get(GlobalConstants.TYPE_LATIN);
                 }
                 List<IndexRomaji> indexesRomaji = japaneseToolboxNamesRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
                 if (indexesRomaji != null && indexesRomaji.size()>0) {

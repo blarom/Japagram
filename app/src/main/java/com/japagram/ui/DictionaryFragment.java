@@ -361,7 +361,7 @@ public class DictionaryFragment extends Fragment implements
         String inputQuery = mInputQuery.toLowerCase();
         int inputTextType = ConvertFragment.getTextType(inputQuery);
         if (inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
-            List<String> translationList = ConvertFragment.getLatinHiraganaKatakana(inputQuery.replace(" ", ""));
+            List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(inputQuery.replace(" ", ""));
             inputQuery = translationList.get(GlobalConstants.TYPE_LATIN);
         }
         //endregion

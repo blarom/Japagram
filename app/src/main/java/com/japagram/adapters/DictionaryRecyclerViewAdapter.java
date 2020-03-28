@@ -328,7 +328,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (kanji.equals("")) romajiAndKanji = romaji;
             else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
             String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = ConvertFragment.getLatinHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
+            String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
             String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
@@ -341,9 +341,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
                     && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
 
-                String latin = ConvertFragment.getLatinHiraganaKatakana(romaji).get(GlobalConstants.TYPE_LATIN);
-                String hiragana = ConvertFragment.getLatinHiraganaKatakana(romaji).get(GlobalConstants.TYPE_HIRAGANA);
-                String katakana = ConvertFragment.getLatinHiraganaKatakana(romaji).get(GlobalConstants.TYPE_KATAKANA);
+                String latin = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_LATIN);
+                String hiragana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_HIRAGANA);
+                String katakana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_KATAKANA);
 
                 if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
                     String[] altSpellingElements = alternatespellings.split(",");

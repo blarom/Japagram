@@ -187,7 +187,7 @@ public class ConjugatorFragment extends Fragment implements
         //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
         mInputQuery = mInputQuery.toLowerCase(Locale.ENGLISH);
 
-        //List<String> mInputQueryTransliterations = ConvertFragment.getLatinHiraganaKatakana(mInputQuery);
+        //List<String> mInputQueryTransliterations = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery);
 
         //int mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
     }

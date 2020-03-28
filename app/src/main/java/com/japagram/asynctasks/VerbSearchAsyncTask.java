@@ -258,7 +258,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         mInputQuery = mInputQuery.toLowerCase(Locale.ENGLISH);
         mInputQueryLength = mInputQuery.length();
 
-        mInputQueryTransliterations = ConvertFragment.getLatinHiraganaKatakana(mInputQuery);
+        mInputQueryTransliterations = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery);
 
         mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
 
@@ -325,7 +325,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         characteristics[INDEX_KANJI] = (altSpellingType == TYPE_KANJI)? trimmedAltSpelling : verb.getKanji();
         characteristics[INDEX_HIRAGANA_FIRST_CHAR] =
                 (altSpellingType == TYPE_HIRAGANA) ? trimmedAltSpelling.substring(0,1) :
-                        ConvertFragment.getLatinHiraganaKatakana(characteristics[INDEX_ROMAJI]).get(TYPE_HIRAGANA).substring(0,1);
+                        ConvertFragment.getWaapuroHiraganaKatakana(characteristics[INDEX_ROMAJI]).get(TYPE_HIRAGANA).substring(0,1);
         characteristics[INDEX_LATIN_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), TYPE_LATIN);
         characteristics[INDEX_KANJI_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), TYPE_KANJI);
         characteristics[INDEX_ACTIVE_ALTSPELLING] = trimmedAltSpelling;
@@ -554,7 +554,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         }
         //endregion
 
-        //region Getting the matching verbs according in the expanded conjugations and updating the conjugation roots if an altSpelling is used
+        //region Getting the matching verbs according to the expanded conjugations and updating the conjugation roots if an altSpelling is used
         List<long[]> matchingVerbIdsAndColsFromExpandedConjugations = new ArrayList<>();
         List<long[]> copyOfMatchingVerbIdsAndColsFromBasicCharacteristics = new ArrayList<>(matchingVerbIdsAndColsFromBasicCharacteristics);
         boolean verbAlreadyFound;
@@ -631,6 +631,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
             //endregion
 
+            if (verb.getRomaji().equals("taberu")) {
+                verb.setRomaji(verb.getRomaji());
+            }
             //region Checking if one of the relevant base words gets a match, and registering it in the match list
             for (String[] verbSearchCandidate : verbSearchCandidates) {
 
@@ -823,7 +826,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String inputQuery = mInputQuery.toLowerCase();
         int textType = ConvertFragment.getTextType(inputQuery);
         if (textType == TYPE_HIRAGANA || textType == TYPE_KATAKANA) {
-            List<String> translationList = ConvertFragment.getLatinHiraganaKatakana(inputQuery.replace(" ", ""));
+            List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(inputQuery.replace(" ", ""));
             inputQuery = translationList.get(0);
         }
         //endregion
