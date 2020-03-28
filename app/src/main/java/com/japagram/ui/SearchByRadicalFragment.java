@@ -164,6 +164,66 @@ public class SearchByRadicalFragment extends Fragment implements
         mDroidSansJapaneseTypeface = Utilities.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
     }
+    private int setCategoryBasedOnSelectedStructureId(int selectedStructureId) {
+
+        switch (selectedStructureId) {
+            case R.drawable.colored_structure_2_overlapping: return GlobalConstants.Index_full;
+            case R.drawable.colored_structure_2_left_right: return GlobalConstants.Index_across2;
+            case R.drawable.colored_structure_3_left_center_right: return GlobalConstants.Index_across3;
+            case R.drawable.colored_structure_4_left_right: return GlobalConstants.Index_across4;
+            case R.drawable.colored_structure_2_up_down: return GlobalConstants.Index_down2;
+            case R.drawable.colored_structure_3_up_center_down: return GlobalConstants.Index_down3;
+            case R.drawable.colored_structure_4_up_down: return GlobalConstants.Index_down4;
+            case R.drawable.colored_structure_2_enclosing_topleft_to_bottomright: return GlobalConstants.Index_topleftout;
+            case R.drawable.colored_structure_2_enclosing_top_to_bottom: return GlobalConstants.Index_topout;
+            case R.drawable.colored_structure_2_enclosing_topright_to_bottomleft: return GlobalConstants.Index_toprightout;
+            case R.drawable.colored_structure_2_enclosing_left_to_right: return GlobalConstants.Index_leftout;
+            case R.drawable.colored_structure_2_outlining: return GlobalConstants.Index_fullout;
+            case R.drawable.colored_structure_2_enclosing_bottomleft_to_topright: return GlobalConstants.Index_bottomleftout;
+            case R.drawable.colored_structure_2_enclosing_bottom_to_top: return GlobalConstants.Index_bottomout;
+            case R.drawable.colored_structure_3_upwards_triangle: return GlobalConstants.Index_three_repeat;
+            case R.drawable.colored_structure_4_square_repeat: return GlobalConstants.Index_four_repeat;
+            case R.drawable.colored_structure_4_square: return GlobalConstants.Index_foursquare;
+            case R.drawable.colored_structure_5_hourglass: return GlobalConstants.Index_five_repeat;
+            default: return 0;
+        }
+    }
+    private void startCreatingComponentKanjiGridElementsAsynchronously() {
+        if (getActivity()!=null) {
+            showLoadingIndicator();
+            mComponentGridCreationAsyncTask = new ComponentGridCreationAsyncTask(
+                    getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mSelectedComponentStructure, this);
+            mComponentGridCreationAsyncTask.execute();
+        }
+    }
+    private void startFilteringComponentKanjiGridElementsAsynchronously() {
+        if (getActivity()!=null) {
+            showLoadingIndicator();
+            mComponentsGridFilterAsyncTask = new ComponentsGridFilterAsyncTask(
+                    getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mKanjiCharacterNameForFilter, mUnfilteredDisplayableComponentSelections, this);
+            mComponentsGridFilterAsyncTask.execute();
+        }
+    }
+    private void startSearchingForKanjisAsynchronously(String[] elements_strings) {
+        if (getActivity()!=null) {
+            showLoadingIndicator();
+
+            mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, this);
+            mKanjiSearchAsyncTask.execute();
+        }
+    }
+    private void filterComponentKanjiGridElements() {
+        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+        mKanjiCharacterNameForFilter = mCharacterDescriptorEditText.getText().toString();
+        startFilteringComponentKanjiGridElementsAsynchronously();
+    }
+    private void cancelAsyncOperations() {
+        if (mKanjiSearchAsyncTask != null) mKanjiSearchAsyncTask.cancel(true);
+        if (mComponentGridCreationAsyncTask != null) mComponentGridCreationAsyncTask.cancel(true);
+        if (mComponentsGridFilterAsyncTask != null) mComponentsGridFilterAsyncTask.cancel(true);
+    }
+
+    //UI Functions
     private void initializeViews(View rootView) {
 
         if (getContext()==null) return;
@@ -275,19 +335,20 @@ public class SearchByRadicalFragment extends Fragment implements
         //Setting the recyclerview height depending on the device's display density
         mMaxRecyclerViewHeightPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MAX_RECYCLERVIEW_HEIGHT_DP, getResources().getDisplayMetrics());
     }
-    private void drawBorderAroundThisEditText(EditText editText) {
-
-        if (mElementAEditText==null || mElementBEditText==null || mElementCEditText==null || mElementDEditText==null) return;
-
-        mElementAEditTextContainer.setBackgroundResource(0);
-        mElementBEditTextContainer.setBackgroundResource(0);
-        mElementCEditTextContainer.setBackgroundResource(0);
-        mElementDEditTextContainer.setBackgroundResource(0);
-
-        if (editText.getId() == mElementAEditText.getId()) mElementAEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementBEditText.getId()) mElementBEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementCEditText.getId()) mElementCEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementDEditText.getId()) mElementDEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
+    private void showLoadingIndicator() {
+        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
+    }
+    private void hideLoadingIndicator() {
+        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+    }
+    private void showComponentsSelectionSection() {
+        mResultsGridRecyclerView.setAdapter(null);
+        if (mComponentSelectionType.equals("component")) mComponentStructureButton.setVisibility(View.VISIBLE);
+        else mComponentStructureButton.setVisibility(View.GONE);
+        mSelectionGridContainerLinearLayout.setVisibility(View.VISIBLE);
+        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
+        mSelectionGridRecyclerView.setVisibility(View.GONE);
+        mNoSelectionElementsTextView.setVisibility(View.GONE);
     }
     private void updateInputElements(String inputQuery) {
 
@@ -314,6 +375,86 @@ public class SearchByRadicalFragment extends Fragment implements
         if (!user_selections[2].equals("")) mElementCEditText.setText(user_selections[2]); else mElementCEditText.setText("");
         if (!user_selections[3].equals("")) mElementDEditText.setText(user_selections[3]); else mElementDEditText.setText("");
         //endregion
+    }
+    private void showResultsSection() {
+        mSelectionGridRecyclerView.setAdapter(null);
+        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
+        mResultsGridContainerLinearLayout.setVisibility(View.VISIBLE);
+        mResultsGridRecyclerView.setVisibility(View.GONE);
+        mNoResultsTextView.setVisibility(View.GONE);
+    }
+    private void hideAllSections() {
+        mSelectionGridRecyclerView.setAdapter(null);
+        mResultsGridRecyclerView.setAdapter(null);
+        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
+        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
+    }
+    private void createComponentsGrid() {
+        //mNumberOfResultGridColumns = 7;
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfComponentGridColumns);
+        mSelectionGridRecyclerView.setLayoutManager(layoutManager);
+        if (mComponentsGridAdapter==null) mComponentsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mDisplayableComponentSelections, false, mDroidSansJapaneseTypeface);
+        else mComponentsGridAdapter.setContents(mDisplayableComponentSelections);
+        mSelectionGridRecyclerView.setAdapter(mComponentsGridAdapter);
+
+        ViewGroup.LayoutParams params = mSelectionGridRecyclerView.getLayoutParams();
+        if (mDisplayableComponentSelections.size() <= 56) {
+            mSelectionGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
+        else {
+            params.height = mMaxRecyclerViewHeightPixels;
+            mSelectionGridRecyclerView.setLayoutParams(params);
+        }
+
+        mSelectionGridRecyclerView.setVisibility(View.VISIBLE);
+        mNoSelectionElementsTextView.setVisibility(View.GONE);
+    }
+    private void createResultsGrid() {
+        //mNumberOfResultGridColumns = 7;
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfResultGridColumns);
+        mResultsGridRecyclerView.setLayoutManager(layoutManager);
+        if (mResultsGridAdapter==null) mResultsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mPrintableSearchResults, true, mDroidSansJapaneseTypeface);
+        else mResultsGridAdapter.setContents(mPrintableSearchResults);
+        mResultsGridRecyclerView.setAdapter(mResultsGridAdapter);
+
+        ViewGroup.LayoutParams params = mResultsGridRecyclerView.getLayoutParams();
+        if (mPrintableSearchResults.size() <= 56) {
+            mResultsGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        }
+        else {
+            params.height = mMaxRecyclerViewHeightPixels;
+            mResultsGridRecyclerView.setLayoutParams(params);
+        }
+
+        mResultsGridRecyclerView.setVisibility(View.VISIBLE);
+        mNoResultsTextView.setVisibility(View.GONE);
+    }
+    private void showNoComponentsTextInsteadOfComponentsGrid() {
+        mSelectionGridRecyclerView.setAdapter(null);
+        mSelectionGridRecyclerView.setVisibility(View.GONE);
+        mNoSelectionElementsTextView.setVisibility(View.VISIBLE);
+    }
+    private void showNoResultsTextInsteadOfResultsGrid(String text) {
+        mResultsGridRecyclerView.setAdapter(null);
+        mResultsGridRecyclerView.setVisibility(View.GONE);
+        mNoResultsTextView.setVisibility(View.VISIBLE);
+        mNoResultsTextView.setText(text);
+    }
+    private void handleComponentSelection(boolean enterPressed) {
+
+        if (!enterPressed) {
+            mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
+            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+            mSelectionGridRecyclerView.setAdapter(null);
+        }
+
+        if (!enterPressed || getView()==null) return;
+        EditText edittext = getView().findViewById(mSelectedEditTextId);
+        edittext.setText(mSelectedComponent);
+
+        mOverallContainerScrollView.scrollTo(0,0);
     }
     private void showStructuresDialog(final String type) {
 
@@ -396,160 +537,20 @@ public class SearchByRadicalFragment extends Fragment implements
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-    private int setCategoryBasedOnSelectedStructureId(int selectedStructureId) {
+    private void drawBorderAroundThisEditText(EditText editText) {
 
-        switch (selectedStructureId) {
-            case R.drawable.colored_structure_2_overlapping: return GlobalConstants.Index_full;
-            case R.drawable.colored_structure_2_left_right: return GlobalConstants.Index_across2;
-            case R.drawable.colored_structure_3_left_center_right: return GlobalConstants.Index_across3;
-            case R.drawable.colored_structure_4_left_right: return GlobalConstants.Index_across4;
-            case R.drawable.colored_structure_2_up_down: return GlobalConstants.Index_down2;
-            case R.drawable.colored_structure_3_up_center_down: return GlobalConstants.Index_down3;
-            case R.drawable.colored_structure_4_up_down: return GlobalConstants.Index_down4;
-            case R.drawable.colored_structure_2_enclosing_topleft_to_bottomright: return GlobalConstants.Index_topleftout;
-            case R.drawable.colored_structure_2_enclosing_top_to_bottom: return GlobalConstants.Index_topout;
-            case R.drawable.colored_structure_2_enclosing_topright_to_bottomleft: return GlobalConstants.Index_toprightout;
-            case R.drawable.colored_structure_2_enclosing_left_to_right: return GlobalConstants.Index_leftout;
-            case R.drawable.colored_structure_2_outlining: return GlobalConstants.Index_fullout;
-            case R.drawable.colored_structure_2_enclosing_bottomleft_to_topright: return GlobalConstants.Index_bottomleftout;
-            case R.drawable.colored_structure_2_enclosing_bottom_to_top: return GlobalConstants.Index_bottomout;
-            case R.drawable.colored_structure_3_upwards_triangle: return GlobalConstants.Index_three_repeat;
-            case R.drawable.colored_structure_4_square_repeat: return GlobalConstants.Index_four_repeat;
-            case R.drawable.colored_structure_4_square: return GlobalConstants.Index_foursquare;
-            case R.drawable.colored_structure_5_hourglass: return GlobalConstants.Index_five_repeat;
-            default: return 0;
-        }
-    }
-    private void handleComponentSelection(boolean enterPressed) {
+        if (mElementAEditText==null || mElementBEditText==null || mElementCEditText==null || mElementDEditText==null) return;
 
-        if (!enterPressed) {
-            mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-            if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-            mSelectionGridRecyclerView.setAdapter(null);
-        }
+        mElementAEditTextContainer.setBackgroundResource(0);
+        mElementBEditTextContainer.setBackgroundResource(0);
+        mElementCEditTextContainer.setBackgroundResource(0);
+        mElementDEditTextContainer.setBackgroundResource(0);
 
-        if (!enterPressed || getView()==null) return;
-        EditText edittext = getView().findViewById(mSelectedEditTextId);
-        edittext.setText(mSelectedComponent);
-
-        mOverallContainerScrollView.scrollTo(0,0);
+        if (editText.getId() == mElementAEditText.getId()) mElementAEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
+        else if (editText.getId() == mElementBEditText.getId()) mElementBEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
+        else if (editText.getId() == mElementCEditText.getId()) mElementCEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
+        else if (editText.getId() == mElementDEditText.getId()) mElementDEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
     }
-    private void showLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
-    }
-    private void hideLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
-    }
-    private void showComponentsSelectionSection() {
-        mResultsGridRecyclerView.setAdapter(null);
-        if (mComponentSelectionType.equals("component")) mComponentStructureButton.setVisibility(View.VISIBLE);
-        else mComponentStructureButton.setVisibility(View.GONE);
-        mSelectionGridContainerLinearLayout.setVisibility(View.VISIBLE);
-        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
-        mSelectionGridRecyclerView.setVisibility(View.GONE);
-        mNoSelectionElementsTextView.setVisibility(View.GONE);
-    }
-    private void showResultsSection() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-        mResultsGridContainerLinearLayout.setVisibility(View.VISIBLE);
-        mResultsGridRecyclerView.setVisibility(View.GONE);
-        mNoResultsTextView.setVisibility(View.GONE);
-    }
-    private void hideAllSections() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mResultsGridRecyclerView.setAdapter(null);
-        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
-    }
-    private void showNoComponentsTextInsteadOfComponentsGrid() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mSelectionGridRecyclerView.setVisibility(View.GONE);
-        mNoSelectionElementsTextView.setVisibility(View.VISIBLE);
-    }
-    private void showNoResultsTextInsteadOfResultsGrid(String text) {
-        mResultsGridRecyclerView.setAdapter(null);
-        mResultsGridRecyclerView.setVisibility(View.GONE);
-        mNoResultsTextView.setVisibility(View.VISIBLE);
-        mNoResultsTextView.setText(text);
-    }
-    private void createComponentsGrid() {
-        //mNumberOfResultGridColumns = 7;
-
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfComponentGridColumns);
-        mSelectionGridRecyclerView.setLayoutManager(layoutManager);
-        if (mComponentsGridAdapter==null) mComponentsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mDisplayableComponentSelections, false, mDroidSansJapaneseTypeface);
-        else mComponentsGridAdapter.setContents(mDisplayableComponentSelections);
-        mSelectionGridRecyclerView.setAdapter(mComponentsGridAdapter);
-
-        ViewGroup.LayoutParams params = mSelectionGridRecyclerView.getLayoutParams();
-        if (mDisplayableComponentSelections.size() <= 56) {
-            mSelectionGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        }
-        else {
-            params.height = mMaxRecyclerViewHeightPixels;
-            mSelectionGridRecyclerView.setLayoutParams(params);
-        }
-
-        mSelectionGridRecyclerView.setVisibility(View.VISIBLE);
-        mNoSelectionElementsTextView.setVisibility(View.GONE);
-    }
-    private void createResultsGrid() {
-        //mNumberOfResultGridColumns = 7;
-
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfResultGridColumns);
-        mResultsGridRecyclerView.setLayoutManager(layoutManager);
-        if (mResultsGridAdapter==null) mResultsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mPrintableSearchResults, true, mDroidSansJapaneseTypeface);
-        else mResultsGridAdapter.setContents(mPrintableSearchResults);
-        mResultsGridRecyclerView.setAdapter(mResultsGridAdapter);
-
-        ViewGroup.LayoutParams params = mResultsGridRecyclerView.getLayoutParams();
-        if (mPrintableSearchResults.size() <= 56) {
-            mResultsGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        }
-        else {
-            params.height = mMaxRecyclerViewHeightPixels;
-            mResultsGridRecyclerView.setLayoutParams(params);
-        }
-
-        mResultsGridRecyclerView.setVisibility(View.VISIBLE);
-        mNoResultsTextView.setVisibility(View.GONE);
-    }
-    private void startCreatingComponentKanjiGridElementsAsynchronously() {
-        if (getActivity()!=null) {
-            showLoadingIndicator();
-            mComponentGridCreationAsyncTask = new ComponentGridCreationAsyncTask(
-                    getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mSelectedComponentStructure, this);
-            mComponentGridCreationAsyncTask.execute();
-        }
-    }
-    private void startFilteringComponentKanjiGridElementsAsynchronously() {
-        if (getActivity()!=null) {
-            showLoadingIndicator();
-            mComponentsGridFilterAsyncTask = new ComponentsGridFilterAsyncTask(
-                    getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mKanjiCharacterNameForFilter, mUnfilteredDisplayableComponentSelections, this);
-            mComponentsGridFilterAsyncTask.execute();
-        }
-    }
-    private void startSearchingForKanjisAsynchronously(String[] elements_strings) {
-        if (getActivity()!=null) {
-            showLoadingIndicator();
-
-            mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, this);
-            mKanjiSearchAsyncTask.execute();
-        }
-    }
-    private void filterComponentKanjiGridElements() {
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
-        mKanjiCharacterNameForFilter = mCharacterDescriptorEditText.getText().toString();
-        startFilteringComponentKanjiGridElementsAsynchronously();
-    }
-    private void cancelAsyncOperations() {
-        if (mKanjiSearchAsyncTask != null) mKanjiSearchAsyncTask.cancel(true);
-        if (mComponentGridCreationAsyncTask != null) mComponentGridCreationAsyncTask.cancel(true);
-        if (mComponentsGridFilterAsyncTask != null) mComponentsGridFilterAsyncTask.cancel(true);
-    }
-
 
     @OnClick (R.id.search_by_radical_overall_structure_button) void onRequestedStructureButtonClick() {
         showStructuresDialog("overall");
