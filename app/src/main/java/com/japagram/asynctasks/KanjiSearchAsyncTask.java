@@ -8,6 +8,7 @@ import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
+import com.japagram.ui.MainActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     protected Object[] doInBackground(Void... voids) {
 
         mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
-        List<String> result = findSearchResults();
+        List<String> result = findKanjis();
 
         return new Object[] {result, mSearchTooBroad};
     }
@@ -56,9 +57,19 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         void onKanjiSearchAsyncTaskResultsFound(Object[] data);
     }
 
-    private List<String> findSearchResults() {
+    private List<String> getSimilarComponents(String component) {
+        List<String> similarComponents = new ArrayList<>();
+        similarComponents.add(component);
+        for (int i=0; i < mSimilarsDatabase.size(); i++) {
+            if (mSimilarsDatabase.get(i)[1].equals(component)) {
+                similarComponents.add(mSimilarsDatabase.get(i)[0]);
+            }
+        }
+        return similarComponents;
+    }
+    private List<String> findKanjis() {
 
-        //region Initialization
+        //region Replacing similar elements and initializing
         for (int j=0; j<elements_list.length; j++) {
             if (!elements_list[j].equals("")) {
                 for (int i=0; i<mSimilarsDatabase.size(); i++) {
@@ -93,104 +104,122 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         if (kanjiComponentsFull1 != null && kanjiComponentsFull1.size() > 0) {
             associatedComponents = kanjiComponentsFull1.get(0).getAssociatedComponents();
         }
-        if (kanjiComponentsFull2 != null && kanjiComponentsFull2.size() > 0) {
+        if (associatedComponents != null && kanjiComponentsFull2 != null && kanjiComponentsFull2.size() > 0) {
             associatedComponents.addAll(kanjiComponentsFull2.get(0).getAssociatedComponents());
         }
+        if (associatedComponents == null) return new ArrayList<>();
 
         elementA = Utilities.removeSpecialCharacters(elementA);
         elementB = Utilities.removeSpecialCharacters(elementB);
         elementC = Utilities.removeSpecialCharacters(elementC);
         elementD = Utilities.removeSpecialCharacters(elementD);
-        boolean checkForExactMatchesOfElementA = !elementA.equals("");
-        boolean checkForExactMatchesOfElementB = !elementB.equals("");
-        boolean checkForExactMatchesOfElementC = !elementC.equals("");
-        boolean checkForExactMatchesOfElementD = !elementD.equals("");
+        boolean elementAisEmpty = elementA.equals("");
+        boolean elementBisEmpty = elementB.equals("");
+        boolean elementCisEmpty = elementC.equals("");
+        boolean elementDisEmpty = elementD.equals("");
         List<String> listOfMatchingResultsElementA = new ArrayList<>();
         List<String> listOfMatchingResultsElementB = new ArrayList<>();
         List<String> listOfMatchingResultsElementC = new ArrayList<>();
         List<String> listOfMatchingResultsElementD = new ArrayList<>();
 
-        if (!checkForExactMatchesOfElementA || !checkForExactMatchesOfElementB || !checkForExactMatchesOfElementC || !checkForExactMatchesOfElementD) {
+        if (elementAisEmpty || elementBisEmpty || elementCisEmpty || elementDisEmpty) {
             List<String> listOfAllKanjis = mRoomKanjiDatabase.getAllKanjis();
-            if (!checkForExactMatchesOfElementA) listOfMatchingResultsElementA = listOfAllKanjis;
-            if (!checkForExactMatchesOfElementB) listOfMatchingResultsElementB = listOfAllKanjis;
-            if (!checkForExactMatchesOfElementC) listOfMatchingResultsElementC = listOfAllKanjis;
-            if (!checkForExactMatchesOfElementD) listOfMatchingResultsElementD = listOfAllKanjis;
+            if (elementAisEmpty) listOfMatchingResultsElementA = listOfAllKanjis;
+            if (elementBisEmpty) listOfMatchingResultsElementB = listOfAllKanjis;
+            if (elementCisEmpty) listOfMatchingResultsElementC = listOfAllKanjis;
+            if (elementDisEmpty) listOfMatchingResultsElementD = listOfAllKanjis;
         }
 
-        for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
-            if (checkForExactMatchesOfElementA && associatedComponent.getComponent().equals(elementA)) {
-                listOfMatchingResultsElementA = Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
-                checkForExactMatchesOfElementA = false;
+        if (!elementAisEmpty) {
+            for (String component : getSimilarComponents(elementA)) {
+                for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
+                    if (associatedComponent.getComponent().equals(component)) {
+                        listOfMatchingResultsElementA.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                    }
+                }
             }
-            if (checkForExactMatchesOfElementB && associatedComponent.getComponent().equals(elementB)) {
-                listOfMatchingResultsElementB = Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
-                checkForExactMatchesOfElementB = false;
+        }
+        if (!elementBisEmpty) {
+            for (String component : getSimilarComponents(elementB)) {
+                for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
+                    if (associatedComponent.getComponent().equals(component)) {
+                        listOfMatchingResultsElementB.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                    }
+                }
             }
-            if (checkForExactMatchesOfElementC && associatedComponent.getComponent().equals(elementC)) {
-                listOfMatchingResultsElementC = Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
-                checkForExactMatchesOfElementC = false;
+        }
+        if (!elementCisEmpty) {
+            for (String component : getSimilarComponents(elementC)) {
+                for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
+                    if (associatedComponent.getComponent().equals(component)) {
+                        listOfMatchingResultsElementC.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                    }
+                }
             }
-            if (checkForExactMatchesOfElementD && associatedComponent.getComponent().equals(elementD)) {
-                listOfMatchingResultsElementD = Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
-                checkForExactMatchesOfElementD = false;
+        }
+        if (!elementDisEmpty) {
+            for (String component : getSimilarComponents(elementD)) {
+                for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
+                    if (associatedComponent.getComponent().equals(component)) {
+                        listOfMatchingResultsElementD.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                    }
+                }
             }
-            if (!checkForExactMatchesOfElementA && !checkForExactMatchesOfElementB &&!checkForExactMatchesOfElementC && !checkForExactMatchesOfElementD) break;
         }
         //endregion
 
         //region Getting the match intersections in the Full list
         List<String> listOfIntersectingResults = new ArrayList<>();
-        if      ( elementA.equals("") &&  elementB.equals("") &&  elementC.equals("") &&  elementD.equals("")) {
+        if      ( elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementA);
         }
-        else if ( elementA.equals("") &&  elementB.equals("") &&  elementC.equals("") && !elementD.equals("")) {
+        else if ( elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementD);
         }
-        else if ( elementA.equals("") &&  elementB.equals("") && !elementC.equals("") &&  elementC.equals("")) {
+        else if ( elementAisEmpty &&  elementBisEmpty && !elementCisEmpty &&  elementCisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementC);
         }
-        else if ( elementA.equals("") &&  elementB.equals("") && !elementC.equals("") && !elementD.equals("")) {
+        else if ( elementAisEmpty &&  elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementC, listOfMatchingResultsElementD);
         }
-        else if ( elementA.equals("") && !elementB.equals("") &&  elementC.equals("") &&  elementD.equals("")) {
+        else if ( elementAisEmpty && !elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementB);
         }
-        else if ( elementA.equals("") && !elementB.equals("") &&  elementC.equals("") && !elementD.equals("")) {
+        else if ( elementAisEmpty && !elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementD);
         }
-        else if ( elementA.equals("") && !elementB.equals("") && !elementC.equals("") &&  elementD.equals("")) {
+        else if ( elementAisEmpty && !elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
         }
-        else if ( elementA.equals("") && !elementB.equals("") && !elementC.equals("") && !elementD.equals("")) {
+        else if ( elementAisEmpty && !elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
-        else if (!elementA.equals("") &&  elementB.equals("") &&  elementC.equals("") &&  elementD.equals("")) {
+        else if (!elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementA);
         }
-        else if (!elementA.equals("") &&  elementB.equals("") &&  elementC.equals("") && !elementD.equals("")) {
+        else if (!elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementD);
         }
-        else if (!elementA.equals("") &&  elementB.equals("") && !elementC.equals("") &&  elementD.equals("")) {
+        else if (!elementAisEmpty &&  elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
         }
-        else if (!elementA.equals("") &&  elementB.equals("") && !elementC.equals("") && !elementD.equals("")) {
+        else if (!elementAisEmpty &&  elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
-        else if (!elementA.equals("") && !elementB.equals("") &&  elementC.equals("") &&  elementD.equals("")) {
+        else if (!elementAisEmpty && !elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
         }
-        else if (!elementA.equals("") && !elementB.equals("") &&  elementC.equals("") && !elementD.equals("")) {
+        else if (!elementAisEmpty && !elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
-        else if (!elementA.equals("") && !elementB.equals("") && !elementC.equals("") &&  elementD.equals("")) {
+        else if (!elementAisEmpty && !elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
         }
-        else if (!elementA.equals("") && !elementB.equals("") && !elementC.equals("") && !elementD.equals("")) {
+        else if (!elementAisEmpty && !elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
             listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
