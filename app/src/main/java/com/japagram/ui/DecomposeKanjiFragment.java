@@ -354,6 +354,14 @@ public class DecomposeKanjiFragment extends Fragment implements
                 //region Get the radical characteristics from the RadialsOnlyDatabase
                 List<String> parsed_number = Arrays.asList(mRadicalsOnlyDatabase.get(radicalIndex)[GlobalConstants.RADICAL_NUM].split(";"));
                 String[] main_radical_row = mRadicalsOnlyDatabase.get(radicalIndexOriginal);
+                List<String> radicalVariants = new ArrayList<>();
+                for (int i=radicalIndexOriginal; i<radicalIndexOriginal+10; i++) {
+                    if (i > mRadicalsOnlyDatabase.size()-1 || i>radicalIndexOriginal && !mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NUM].contains("variant")) break;
+                    String currentKana = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA];
+                    if (!currentKana.equals(mRadicalsOnlyDatabase.get(radicalIndex)[GlobalConstants.RADICAL_KANA])) {
+                        radicalVariants.add(mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA]);
+                    }
+                }
 
                 String strokes = " " + mLocalizedResources.getString(R.string.strokes) + ".";
                 if (main_radical_row[4].equals("1")) { strokes = " " + mLocalizedResources.getString(R.string.stroke) + ".";}
@@ -392,6 +400,9 @@ public class DecomposeKanjiFragment extends Fragment implements
                             + "\" (" + mLocalizedResources.getString(R.string.radical) + " "
                             + mLocalizedResources.getString(R.string.number_abbrev_) + " "
                             + parsed_number.get(0) + "), " + main_radical_row[GlobalConstants.RADICAL_NUM_STROKES] + strokes;
+                }
+                if (radicalVariants.size()>0) {
+                    radicalValue += "\nVariants: " + TextUtils.join(", ", radicalVariants);
                 }
                 radicalTV.setText(radicalValue);
                 //endregion
