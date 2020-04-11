@@ -17,6 +17,8 @@ import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.resources.GlobalConstants;
 import com.japagram.resources.Utilities;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -61,6 +63,11 @@ public class SplashScreenActivity extends BaseActivity {
         //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
         dbLoadRunnableCentral = () -> {
             mCentralDbBeingLoaded = true;
+            GlobalConstants.SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
+            GlobalConstants.VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            GlobalConstants.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
+            GlobalConstants.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
+            GlobalConstants.Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getBaseContext());
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             mCentralDbBeingLoaded = false;
         };

@@ -57,8 +57,7 @@ public class MainActivity extends BaseActivity implements
         DictionaryFragment.DictionaryFragmentOperationsHandler,
         ConjugatorFragment.ConjugatorFragmentOperationsHandler,
         SearchByRadicalFragment.SearchByRadicalFragmentOperationsHandler,
-        SharedPreferences.OnSharedPreferenceChangeListener,
-        LoaderManager.LoaderCallbacks<Object> {
+        SharedPreferences.OnSharedPreferenceChangeListener {
 
 
     //region Parameters
@@ -66,11 +65,6 @@ public class MainActivity extends BaseActivity implements
     @BindView(R.id.second_fragment_placeholder) FrameLayout mSecondFragmentPlaceholder;
     private String mSecondFragmentFlag;
     private InputQueryFragment mInputQueryFragment;
-    private List<String[]> VerbLatinConjDatabase;
-    private List<String[]> VerbKanjiConjDatabase;
-    private List<String[]> SimilarsDatabase;
-    private List<String[]> RadicalsOnlyDatabase;
-    public static List<String[]> Romanizations;
     private Typeface CJK_typeface;
 
     private boolean mShowNames;
@@ -119,7 +113,6 @@ public class MainActivity extends BaseActivity implements
         Log.i("Diagnosis Time", "Started MainActivity.");
         initializeParameters();
         setupSharedPreferences();
-        startLoadingSmallDatabasesInBackground();
 
         setFragments();
 
@@ -426,16 +419,6 @@ public class MainActivity extends BaseActivity implements
             getSupportFragmentManager().executePendingTransactions();
         }
     }
-    private void startLoadingSmallDatabasesInBackground() {
-
-        if (!mAlreadyLoadedSmallDatabases) {
-            LoaderManager loaderManager = getSupportLoaderManager();
-            Loader<String> roomDbSearchLoader = loaderManager.getLoader(SMALL_DATABASE_LOADER);
-            if (roomDbSearchLoader == null) loaderManager.initLoader(SMALL_DATABASE_LOADER, null, this);
-            else loaderManager.restartLoader(SMALL_DATABASE_LOADER, null, this);
-        }
-
-    }
     private void cleanSavedData() {
         mLocalMatchingWords = null;
         mDictionaryFragment = null;
@@ -602,12 +585,12 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (SimilarsDatabase==null) {
+        if (GlobalConstants.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        query = Utilities.replaceInvalidKanjisWithValidOnes(query, SimilarsDatabase);
+        query = Utilities.replaceInvalidKanjisWithValidOnes(query, GlobalConstants.SimilarsDatabase);
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
 
@@ -617,7 +600,7 @@ public class MainActivity extends BaseActivity implements
         mDecomposeKanjiFragment = new DecomposeKanjiFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(RadicalsOnlyDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(GlobalConstants.RadicalsOnlyDatabase));
 
         mDecomposeKanjiFragment.setArguments(bundle);
 
@@ -630,71 +613,6 @@ public class MainActivity extends BaseActivity implements
     }
 
 
-    //Asynchronous methods
-    @NonNull
-    @Override public Loader<Object> onCreateLoader(int id, final Bundle args) {
-
-        if (id == SMALL_DATABASE_LOADER) {
-            SmallDatabasesAsyncTaskLoader DbLoader = new SmallDatabasesAsyncTaskLoader(this, mAlreadyLoadedSmallDatabases);
-            return DbLoader;
-        }
-        else return new SmallDatabasesAsyncTaskLoader(this, true);
-    }
-    @Override public void onLoadFinished(@NonNull Loader<Object> loader, Object data) {
-
-        if (loader.getId() == SMALL_DATABASE_LOADER && !mAlreadyLoadedSmallDatabases && data!=null) {
-            mAlreadyLoadedSmallDatabases = true;
-
-            Object[] databases = (Object[]) data;
-
-            SimilarsDatabase = new ArrayList((List<String[]>) databases[0]);
-            VerbLatinConjDatabase = new ArrayList((List<String[]>) databases[1]);
-            VerbKanjiConjDatabase = new ArrayList((List<String[]>) databases[2]);
-            RadicalsOnlyDatabase = new ArrayList((List<String[]>) databases[3]);
-            Romanizations = new ArrayList((List<String[]>) databases[4]);
-
-            if (getLoaderManager()!=null) getLoaderManager().destroyLoader(SMALL_DATABASE_LOADER);
-        }
-
-    }
-    @Override public void onLoaderReset(@NonNull Loader<Object> loader) {}
-    private static class SmallDatabasesAsyncTaskLoader extends AsyncTaskLoader<Object> {
-
-        private final boolean mAlreadyLoadedVerbs;
-
-        SmallDatabasesAsyncTaskLoader(Context context, boolean mAlreadyLoadedVerbs) {
-            super(context);
-            this.mAlreadyLoadedVerbs = mAlreadyLoadedVerbs;
-        }
-
-        @Override
-        protected void onStartLoading() {
-            if (!mAlreadyLoadedVerbs) forceLoad();
-        }
-
-        @Override
-        public Object loadInBackground() {
-
-            //JapaneseToolboxRoomDatabase japaneseToolboxRoomDatabase = JapaneseToolboxRoomDatabase.getInstance(getContext()); //Required for Room
-            List<String[]> SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getContext());
-            List<String[]> VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getContext());
-            List<String[]> VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getContext());
-            List<String[]> RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getContext());
-            List<String[]> Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getContext());
-
-            Log.i("Diagnosis Time","Loaded All Small Databases.");
-            return new Object[] {
-                    SimilarsDatabase,
-                    VerbLatinConjDatabase,
-                    VerbKanjiConjDatabase,
-                    RadicalsOnlyDatabase,
-                    Romanizations,
-            };
-        }
-
-    }
-
-
     //Communication with other classes:
 
     //Communication with InputQueryFragment
@@ -703,7 +621,7 @@ public class MainActivity extends BaseActivity implements
         mInputQuery = query;
 
         if (!mAllowButtonOperations) return;
-        if (SimilarsDatabase==null) {
+        if (GlobalConstants.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -715,15 +633,15 @@ public class MainActivity extends BaseActivity implements
         mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
         mSecondFragmentPlaceholder.bringToFront();
 
-        query = Utilities.replaceInvalidKanjisWithValidOnes(query, SimilarsDatabase);
+        query = Utilities.replaceInvalidKanjisWithValidOnes(query, GlobalConstants.SimilarsDatabase);
         mShowNames = Utilities.getPreferenceShowNames(this);
 
         mDictionaryFragment = new DictionaryFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
         bundle.putBoolean(getString(R.string.show_names), mShowNames);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(VerbKanjiConjDatabase));
+        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(GlobalConstants.VerbLatinConjDatabase));
+        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(GlobalConstants.VerbKanjiConjDatabase));
         mDictionaryFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -740,7 +658,7 @@ public class MainActivity extends BaseActivity implements
         if (!mAllowButtonOperations) return;
         cleanSavedData();
         //clearBackstack();
-        if (SimilarsDatabase==null) {
+        if (GlobalConstants.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -753,8 +671,8 @@ public class MainActivity extends BaseActivity implements
         mConjugatorFragment = new ConjugatorFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(VerbKanjiConjDatabase));
+        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(GlobalConstants.VerbLatinConjDatabase));
+        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(GlobalConstants.VerbKanjiConjDatabase));
         if (mLocalMatchingWords!=null) bundle.putParcelableArrayList(getString(R.string.words_list), new ArrayList<>(mLocalMatchingWords));
         mConjugatorFragment.setArguments(bundle);
 
@@ -794,7 +712,7 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (SimilarsDatabase==null) {
+        if (GlobalConstants.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -807,8 +725,8 @@ public class MainActivity extends BaseActivity implements
         mSearchByRadicalFragment = new SearchByRadicalFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(RadicalsOnlyDatabase));
-        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(SimilarsDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(GlobalConstants.RadicalsOnlyDatabase));
+        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(GlobalConstants.SimilarsDatabase));
         mSearchByRadicalFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

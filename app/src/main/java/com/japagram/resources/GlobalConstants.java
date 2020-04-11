@@ -9,7 +9,13 @@ import java.util.List;
 
 public final class GlobalConstants {
 
-    public static final int CENTRAL_DB_VERSION = 100;
+    public static List<String[]> SimilarsDatabase;
+    public static List<String[]> VerbLatinConjDatabase;
+    public static List<String[]> VerbKanjiConjDatabase;
+    public static List<String[]> RadicalsOnlyDatabase;
+    public static List<String[]> Romanizations;
+
+    public static final int CENTRAL_DB_VERSION = 104;
     public static final int KANJI_DB_VERSION = 21;
     public static final int EXTENDED_DB_VERSION = 11;
     public static final int NAMES_DB_VERSION = 2;

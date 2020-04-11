@@ -142,74 +142,6 @@ public class ConvertFragment extends Fragment {
             translation.add(((List<String>) conversions[GlobalConstants.ROM_COL_KATAKANA]).get(0));
         }
 
-
-        /*
-        StringBuilder translation_latin = new StringBuilder();
-        StringBuilder translation_hiragana = new StringBuilder();
-        StringBuilder translation_katakana = new StringBuilder();
-        translation.add(translation_latin.toString());
-        translation.add(translation_hiragana.toString());
-        translation.add(translation_katakana.toString());
-
-        String character;
-        if (!input_value.equals("")) { character = Character.toString(input_value.charAt(0)); }
-        else { return translation; }
-
-        translation_latin = new StringBuilder();
-        translation_hiragana = new StringBuilder();
-        translation_katakana = new StringBuilder();
-
-        String added_string_latin;
-        String added_string_hiragana;
-        String added_string_katakana;
-
-        String character_next;
-        String character_next2;
-        String character_last;
-        String added_string;
-        String added_string_last = "";
-        List<String> scriptdetectorOutput;
-        List<String> charFinderOutput;
-
-        int final_index = 0;
-        final_index = input_value.length() - 1;
-
-        for (int i=0; i <= final_index; i++) {
-            character_next = "";
-            character_next2 = "";
-            character_last = "";
-
-            character = Character.toString(input_value.charAt(i));
-            if (i <= final_index-1) { character_next  = Character.toString(input_value.charAt(i+1));}
-            if (i <= final_index-2) { character_next2 = Character.toString(input_value.charAt(i+2));}
-            if (i>0) { character_last = Character.toString(input_value.charAt(i-1));}
-
-            // Detecting what the current character represents
-                scriptdetectorOutput = getPhonemeBasedOnLetter(i, character, character_next, character_next2, character_last);
-
-                i = Integer.parseInt(scriptdetectorOutput.get(0)); added_string = scriptdetectorOutput.get(1);
-
-            // Getting the current string addition
-                charFinderOutput = getCharBasedOnPhoneme(i, added_string, character, character_next, added_string_last);
-                added_string_last = added_string;
-
-                i = Integer.parseInt(charFinderOutput.get(0));
-                added_string_latin = charFinderOutput.get(1);
-                added_string_hiragana = charFinderOutput.get(2);
-                added_string_katakana = charFinderOutput.get(3);
-
-                // Add the string to the translation
-                translation_latin.append(added_string_latin);
-                translation_hiragana.append(added_string_hiragana);
-                translation_katakana.append(added_string_katakana);
-
-        }
-
-        translation.set(GlobalConstants.TYPE_LATIN, Utilities.removeSpecialCharacters(translation_latin.toString()));
-        translation.set(GlobalConstants.TYPE_HIRAGANA, Utilities.removeSpecialCharacters(translation_hiragana.toString()));
-        translation.set(GlobalConstants.TYPE_KATAKANA, Utilities.removeSpecialCharacters(translation_katakana.toString()));
-        */
-
         return translation;
     }
     public static int getTextType(String input_value) {
@@ -386,7 +318,7 @@ public class ConvertFragment extends Fragment {
     }
     private static String[] getOfficialRomanizations(String kana) {
 
-        if (MainActivity.Romanizations == null) {
+        if (GlobalConstants.Romanizations == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -402,8 +334,8 @@ public class ConvertFragment extends Fragment {
         String romanizedKanaKunreiShiki = kana;
         String[] currentRow;
         String currentKana;
-        for (int i=1; i<MainActivity.Romanizations.size(); i++) {
-            currentRow = MainActivity.Romanizations.get(i);
+        for (int i=1; i<GlobalConstants.Romanizations.size(); i++) {
+            currentRow = GlobalConstants.Romanizations.get(i);
             if (currentRow.length < 6) break;
 
             currentKana = currentRow[GlobalConstants.ROM_COL_HIRAGANA];
@@ -427,7 +359,7 @@ public class ConvertFragment extends Fragment {
     }
     private static String[] getOfficialKana(String romaji) {
 
-        if (MainActivity.Romanizations == null) {
+        if (GlobalConstants.Romanizations == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -443,8 +375,8 @@ public class ConvertFragment extends Fragment {
         String currentRomaji;
         int[] romajiTypes = new int[]{GlobalConstants.ROM_COL_WAAPURO, GlobalConstants.ROM_COL_MOD_HEPBURN, GlobalConstants.ROM_COL_NIHON_SHIKI, GlobalConstants.ROM_COL_KUNREI_SHIKI};
         for (int romajiType : romajiTypes) {
-            for (int i = 1; i < MainActivity.Romanizations.size(); i++) {
-                currentRow = MainActivity.Romanizations.get(i);
+            for (int i = 1; i < GlobalConstants.Romanizations.size(); i++) {
+                currentRow = GlobalConstants.Romanizations.get(i);
                 if (currentRow.length < 6) break;
 
                 currentRomaji = currentRow[romajiType];
