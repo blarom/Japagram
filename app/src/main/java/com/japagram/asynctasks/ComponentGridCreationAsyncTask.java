@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 
 import java.lang.ref.WeakReference;
@@ -75,34 +75,34 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
             String last_index = "0";
             for (int i = 0; i < mRadicalsOnlyDatabase.size(); i++) {
                 currentElement = mRadicalsOnlyDatabase.get(i);
-                parsed_list = currentElement[GlobalConstants.RADICAL_NUM].split(";");
+                parsed_list = currentElement[Globals.RADICAL_NUM].split(";");
 
                 //Skipping radicals not found in the CJK decompositons database
                 if (parsed_list.length == 3 && parsed_list[2].equals("not found in decompositions")) continue;
 
                 // Adding the header radical numbers to the list of radicals
-                if (!currentElement[GlobalConstants.RADICAL_NUM_STROKES].equals(last_index)) {
+                if (!currentElement[Globals.RADICAL_NUM_STROKES].equals(last_index)) {
                     if (parsed_list[0].equals("Special") || parsed_list[0].equals("Hiragana") || parsed_list[0].equals("Katakana")) {
                     } else if (parsed_list.length > 1) {
                         if (parsed_list[1].equals("variant")) {
-                            selections.add(currentElement[GlobalConstants.RADICAL_NUM_STROKES]);
-                            selections.add(currentElement[GlobalConstants.RADICAL_KANA] + "variant");
-                            last_index = currentElement[GlobalConstants.RADICAL_NUM_STROKES];
+                            selections.add(currentElement[Globals.RADICAL_NUM_STROKES]);
+                            selections.add(currentElement[Globals.RADICAL_KANA] + "variant");
+                            last_index = currentElement[Globals.RADICAL_NUM_STROKES];
                         }
                     } else {
-                        selections.add(currentElement[GlobalConstants.RADICAL_NUM_STROKES]);
-                        selections.add(currentElement[GlobalConstants.RADICAL_KANA]);
-                        last_index = currentElement[GlobalConstants.RADICAL_NUM_STROKES];
+                        selections.add(currentElement[Globals.RADICAL_NUM_STROKES]);
+                        selections.add(currentElement[Globals.RADICAL_KANA]);
+                        last_index = currentElement[Globals.RADICAL_NUM_STROKES];
                     }
-                } else if (currentElement[GlobalConstants.RADICAL_NUM_STROKES].equals(last_index)) {
+                } else if (currentElement[Globals.RADICAL_NUM_STROKES].equals(last_index)) {
                     if (parsed_list.length > 1) {
                         if (parsed_list[1].equals("variant")) {
-                            selections.add(currentElement[GlobalConstants.RADICAL_KANA] + "variant");
+                            selections.add(currentElement[Globals.RADICAL_KANA] + "variant");
                         }
                     } else {
-                        selections.add(currentElement[GlobalConstants.RADICAL_KANA]);
+                        selections.add(currentElement[Globals.RADICAL_KANA]);
                     }
-                    last_index = currentElement[GlobalConstants.RADICAL_NUM_STROKES];
+                    last_index = currentElement[Globals.RADICAL_NUM_STROKES];
                 }
             }
         }
@@ -115,7 +115,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
             boolean containsAtLeastOnePrintableGlyph;
 
             //List<KanjiComponent> kanjiComponents = mJapaneseToolboxRoomDatabase.getAllKanjiComponents();
-            String componentStructure = GlobalConstants.COMPONENT_STRUCTURES_MAP.get(chosen_components_list);
+            String componentStructure = Globals.COMPONENT_STRUCTURES_MAP.get(chosen_components_list);
             if (!TextUtils.isEmpty(componentStructure)) {
 
                 List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
@@ -135,7 +135,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
                         containsAtLeastOnePrintableGlyph = true;
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                            printableResultsForCurrentElement = associatedComponents.get(i).getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER);
+                            printableResultsForCurrentElement = associatedComponents.get(i).getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER);
                             for (String aPrintableResultsForCurrentElement : printableResultsForCurrentElement) {
                                 containsAtLeastOnePrintableGlyph = false;
                                 if (aPrintableResultsForCurrentElement.length() > 0 && Utilities.isPrintable(aPrintableResultsForCurrentElement.substring(0, 1))) {

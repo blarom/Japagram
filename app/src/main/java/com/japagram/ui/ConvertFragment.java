@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.japagram.R;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 
 import org.jetbrains.annotations.NotNull;
@@ -88,12 +88,12 @@ public class ConvertFragment extends Fragment {
 
             Object[] conversions = getTransliterationsAsLists(inputQuery);
 
-            ResultHiragana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_HIRAGANA])));
-            ResultKatakana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_KATAKANA])));
-            transliterationWaapuro.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_WAAPURO])));
-            transliterationModHepburn.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_MOD_HEPBURN])));
-            transliterationNihonShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_NIHON_SHIKI])));
-            transliterationKunreiShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[GlobalConstants.ROM_COL_KUNREI_SHIKI])));
+            ResultHiragana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_HIRAGANA])));
+            ResultKatakana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_KATAKANA])));
+            transliterationWaapuro.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_WAAPURO])));
+            transliterationModHepburn.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_MOD_HEPBURN])));
+            transliterationNihonShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_NIHON_SHIKI])));
+            transliterationKunreiShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_KUNREI_SHIKI])));
         }
     }
     private static Object[] getTransliterationsAsLists(String inputQuery) {
@@ -107,15 +107,15 @@ public class ConvertFragment extends Fragment {
         List<String> KSConversions = new ArrayList<>();
         for (String conversion : waapuroRomanizations) {
             String[] HK = getOfficialKana(conversion);
-            String hiragana = HK[GlobalConstants.ROM_COL_HIRAGANA];
-            String katakana = HK[GlobalConstants.ROM_COL_KATAKANA];
+            String hiragana = HK[Globals.ROM_COL_HIRAGANA];
+            String katakana = HK[Globals.ROM_COL_KATAKANA];
             String[] romanizations = getOfficialRomanizations(hiragana);
             hiraganaConversions.add(hiragana);
             katakanaConversions.add(katakana);
-            waapuroConversions.add(romanizations[GlobalConstants.ROM_WAAPURO]);
-            MHConversions.add(romanizations[GlobalConstants.ROM_MOD_HEPBURN]);
-            NSConversions.add(romanizations[GlobalConstants.ROM_NIHON_SHIKI]);
-            KSConversions.add(romanizations[GlobalConstants.ROM_KUNREI_SHIKI]);
+            waapuroConversions.add(romanizations[Globals.ROM_WAAPURO]);
+            MHConversions.add(romanizations[Globals.ROM_MOD_HEPBURN]);
+            NSConversions.add(romanizations[Globals.ROM_NIHON_SHIKI]);
+            KSConversions.add(romanizations[Globals.ROM_KUNREI_SHIKI]);
         }
 
         return new Object[]{
@@ -137,20 +137,20 @@ public class ConvertFragment extends Fragment {
             translation.add("");
         } else {
             Object[] conversions = getTransliterationsAsLists(input_value);
-            translation.add(((List<String>) conversions[GlobalConstants.ROM_COL_WAAPURO]).get(0));
-            translation.add(((List<String>) conversions[GlobalConstants.ROM_COL_HIRAGANA]).get(0));
-            translation.add(((List<String>) conversions[GlobalConstants.ROM_COL_KATAKANA]).get(0));
+            translation.add(((List<String>) conversions[Globals.ROM_COL_WAAPURO]).get(0));
+            translation.add(((List<String>) conversions[Globals.ROM_COL_HIRAGANA]).get(0));
+            translation.add(((List<String>) conversions[Globals.ROM_COL_KATAKANA]).get(0));
         }
 
         return translation;
     }
     public static int getTextType(String input_value) {
 
-        if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return GlobalConstants.TYPE_INVALID;}
+        if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return Globals.TYPE_INVALID;}
 
         input_value = Utilities.removeSpecialCharacters(input_value);
         String character;
-        int text_type = GlobalConstants.TYPE_INVALID;
+        int text_type = Globals.TYPE_INVALID;
 
         String hiraganaAlphabet = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたてとだでどちつづなぬねのんにはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをゔっゐゑぢぁゃゅぅょぉぇぃ";
         String katakanaAlphabet = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタテトダデドチツヅナニヌネノンハヒフヘホバビブベボパピプポペマミムメモヤユヨラリルレロワヲヴーッヰヱァャュゥォョェィ";
@@ -161,20 +161,20 @@ public class ConvertFragment extends Fragment {
         if (!input_value.equals("")) {
             for (int i=0; i<input_value.length();i++) {
 
-                if (text_type == GlobalConstants.TYPE_KANJI) { break;}
+                if (text_type == Globals.TYPE_KANJI) { break;}
 
                 character = Character.toString(input_value.charAt(i));
 
                 if (hiraganaAlphabet.contains(character)) {
-                    text_type = GlobalConstants.TYPE_HIRAGANA;
+                    text_type = Globals.TYPE_HIRAGANA;
                 } else if (katakanaAlphabet.contains(character)) {
-                    text_type = GlobalConstants.TYPE_KATAKANA;
+                    text_type = Globals.TYPE_KATAKANA;
                 } else if (latinAlphabet.contains(character) || latinAlphabetCap.contains(character)) {
-                    text_type = GlobalConstants.TYPE_LATIN;
+                    text_type = Globals.TYPE_LATIN;
                 } else if (numberAlphabet.contains(character)) {
-                    text_type = GlobalConstants.TYPE_NUMBER;
+                    text_type = Globals.TYPE_NUMBER;
                 } else {
-                    text_type = GlobalConstants.TYPE_KANJI;
+                    text_type = Globals.TYPE_KANJI;
                 }
             }
         } else {
@@ -318,7 +318,7 @@ public class ConvertFragment extends Fragment {
     }
     private static String[] getOfficialRomanizations(String kana) {
 
-        if (GlobalConstants.Romanizations == null) {
+        if (Globals.Romanizations == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -334,24 +334,24 @@ public class ConvertFragment extends Fragment {
         String romanizedKanaKunreiShiki = kana;
         String[] currentRow;
         String currentKana;
-        for (int i=1; i<GlobalConstants.Romanizations.size(); i++) {
-            currentRow = GlobalConstants.Romanizations.get(i);
+        for (int i = 1; i< Globals.Romanizations.size(); i++) {
+            currentRow = Globals.Romanizations.get(i);
             if (currentRow.length < 6) break;
 
-            currentKana = currentRow[GlobalConstants.ROM_COL_HIRAGANA];
+            currentKana = currentRow[Globals.ROM_COL_HIRAGANA];
             if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[GlobalConstants.ROM_COL_WAAPURO]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[Globals.ROM_COL_WAAPURO]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[Globals.ROM_COL_MOD_HEPBURN]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[Globals.ROM_COL_NIHON_SHIKI]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[Globals.ROM_COL_KUNREI_SHIKI]);
             }
 
-            currentKana = currentRow[GlobalConstants.ROM_COL_KATAKANA];
+            currentKana = currentRow[Globals.ROM_COL_KATAKANA];
             if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[GlobalConstants.ROM_COL_WAAPURO]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[GlobalConstants.ROM_COL_MOD_HEPBURN]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_NIHON_SHIKI]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[GlobalConstants.ROM_COL_KUNREI_SHIKI]);
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[Globals.ROM_COL_WAAPURO]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[Globals.ROM_COL_MOD_HEPBURN]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[Globals.ROM_COL_NIHON_SHIKI]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[Globals.ROM_COL_KUNREI_SHIKI]);
             }
         }
 
@@ -359,7 +359,7 @@ public class ConvertFragment extends Fragment {
     }
     private static String[] getOfficialKana(String romaji) {
 
-        if (GlobalConstants.Romanizations == null) {
+        if (Globals.Romanizations == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -373,15 +373,15 @@ public class ConvertFragment extends Fragment {
         String transliteratedToKatakana = romaji;
         String[] currentRow;
         String currentRomaji;
-        int[] romajiTypes = new int[]{GlobalConstants.ROM_COL_WAAPURO, GlobalConstants.ROM_COL_MOD_HEPBURN, GlobalConstants.ROM_COL_NIHON_SHIKI, GlobalConstants.ROM_COL_KUNREI_SHIKI};
+        int[] romajiTypes = new int[]{Globals.ROM_COL_WAAPURO, Globals.ROM_COL_MOD_HEPBURN, Globals.ROM_COL_NIHON_SHIKI, Globals.ROM_COL_KUNREI_SHIKI};
         for (int romajiType : romajiTypes) {
-            for (int i = 1; i < GlobalConstants.Romanizations.size(); i++) {
-                currentRow = GlobalConstants.Romanizations.get(i);
+            for (int i = 1; i < Globals.Romanizations.size(); i++) {
+                currentRow = Globals.Romanizations.get(i);
                 if (currentRow.length < 6) break;
 
                 currentRomaji = currentRow[romajiType];
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentRomaji, currentRow[GlobalConstants.ROM_COL_HIRAGANA]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentRomaji, currentRow[GlobalConstants.ROM_COL_KATAKANA]);
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentRomaji, currentRow[Globals.ROM_COL_HIRAGANA]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentRomaji, currentRow[Globals.ROM_COL_KATAKANA]);
             }
         }
 

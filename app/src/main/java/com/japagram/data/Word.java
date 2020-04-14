@@ -4,8 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
 
-import com.japagram.resources.GlobalConstants;
-import com.japagram.resources.Utilities;
+import com.japagram.resources.Globals;
+import com.japagram.resources.UtilitiesDb;
 
 import java.util.List;
 
@@ -87,7 +87,7 @@ public class Word implements Parcelable {
         this.uniqueIdentifier = uniqueIdentifier;
     }
     public void setUniqueIdentifierFromDetails() {
-        this.uniqueIdentifier = Utilities.cleanIdentifierForFirebase(romaji + "-" + kanji);
+        this.uniqueIdentifier = UtilitiesDb.cleanIdentifierForFirebase(romaji + "-" + kanji);
     }
     public String getUniqueIdentifier() {
         return uniqueIdentifier;
@@ -150,13 +150,13 @@ public class Word implements Parcelable {
     public List<Meaning> getMeaningsByLanguage(String languageCode) {
         List<Meaning> meanings;
         switch (languageCode) {
-            case GlobalConstants.LANG_STR_EN:
+            case Globals.LANG_STR_EN:
                 meanings = getMeaningsEN();
                 break;
-            case GlobalConstants.LANG_STR_FR:
+            case Globals.LANG_STR_FR:
                 meanings = getMeaningsFR();
                 break;
-            case GlobalConstants.LANG_STR_ES:
+            case Globals.LANG_STR_ES:
                 meanings = getMeaningsES();
                 break;
             default: meanings = getMeaningsEN();
@@ -170,13 +170,13 @@ public class Word implements Parcelable {
     public String getExtraKeywordsByLanguage(String languageCode) {
         String extraKeywords;
         switch (languageCode) {
-            case GlobalConstants.LANG_STR_EN:
+            case Globals.LANG_STR_EN:
                 extraKeywords = getExtraKeywordsEN();
                 break;
-            case GlobalConstants.LANG_STR_FR:
+            case Globals.LANG_STR_FR:
                 extraKeywords = getExtraKeywordsFR();
                 break;
-            case GlobalConstants.LANG_STR_ES:
+            case Globals.LANG_STR_ES:
                 extraKeywords = getExtraKeywordsES();
                 break;
             default: extraKeywords = getExtraKeywordsEN();

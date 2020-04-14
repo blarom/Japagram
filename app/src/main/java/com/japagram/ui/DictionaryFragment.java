@@ -23,9 +23,11 @@ import com.japagram.data.ConjugationTitle;
 import com.japagram.data.FirebaseDao;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +55,7 @@ public class DictionaryFragment extends Fragment implements
     private static final int WORD_RESULTS_MAX_RESPONSE_DELAY = 2000;
     private static final int MAX_NUMBER_RESULTS_SHOWN = 50;
     private static final int MAX_NUM_WORDS_TO_SHARE = 30;
-    private static final String DEBUG_TAG = "JT DEBUG";
+    private static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
     private String mInputQuery;
     private List<Word> mLocalMatchingWordsList;
     private List<Word> mMergedMatchingWordsList;
@@ -146,7 +148,7 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
 
-        mConjugationTitles = Utilities.getConjugationTitles(mVerbLatinConjDatabase, getContext());
+        mConjugationTitles = UtilitiesDb.getConjugationTitles(mVerbLatinConjDatabase, getContext());
     }
     private void initializeViews(View rootView) {
         mBinding = ButterKnife.bind(this, rootView);
@@ -154,7 +156,7 @@ public class DictionaryFragment extends Fragment implements
         if (getContext() == null) return;
 
         AssetManager am = getContext().getApplicationContext().getAssets();
-        Typeface typeface = Utilities.getPreferenceUseJapaneseFont(getActivity()) ?
+        Typeface typeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
         mDictionaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -177,13 +179,13 @@ public class DictionaryFragment extends Fragment implements
 
             showLoadingIndicator();
 
-            mDictionaryRecyclerViewAdapter.setShowSources(Utilities.getPreferenceShowSources(getActivity()));
+            mDictionaryRecyclerViewAdapter.setShowSources(UtilitiesPrefs.getPreferenceShowSources(getActivity()));
 
             startSearchingForWordsInRoomDb();
-            if (Utilities.getPreferenceShowConjResults(getActivity())) {
+            if (UtilitiesPrefs.getPreferenceShowConjResults(getActivity())) {
                 startReverseConjSearchForMatchingVerbs();
             }
-            if (Utilities.getPreferenceShowOnlineResults(getActivity())) {
+            if (UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) {
                 startSearchingForWordsInJisho();
             }
 
@@ -199,6 +201,7 @@ public class DictionaryFragment extends Fragment implements
     }
     private void startSearchingForWordsInRoomDb() {
         if (getActivity()!=null) {
+            Log.i(DEBUG_TAG, "Starting search for Room words");
             mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
             mLocalDictSearchAsyncTask.execute();
         }
@@ -206,6 +209,7 @@ public class DictionaryFragment extends Fragment implements
     private void startSearchingForWordsInJisho() {
 
         if (!TextUtils.isEmpty(mInputQuery) && getActivity() != null && getContext() != null) {
+            Log.i(DEBUG_TAG, "Starting search for Jisho words");
             mJishoSearchAsyncTask = new JishoSearchAsyncTask(getContext(), mInputQuery, this);
             mJishoSearchAsyncTask.execute();
         }
@@ -213,6 +217,7 @@ public class DictionaryFragment extends Fragment implements
     }
     private void startReverseConjSearchForMatchingVerbs() {
         if (getActivity()!=null) {
+            Log.i(DEBUG_TAG, "Starting search for verbs");
             mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles,
                     mVerbLatinConjDatabase, mVerbKanjiConjDatabase, new ArrayList<>(), this);
             mVerbSearchAsyncTask.execute();
@@ -225,10 +230,10 @@ public class DictionaryFragment extends Fragment implements
 
         if (getContext()==null || getActivity()==null) return;
 
-        boolean showOnlineResults = Utilities.getPreferenceShowOnlineResults(getActivity());
-        boolean showConjResults = Utilities.getPreferenceShowConjResults(getActivity());
-        boolean waitForOnlineResults = Utilities.getPreferenceWaitForOnlineResults(getActivity());
-        boolean waitForConjResults = Utilities.getPreferenceWaitForConjResults(getActivity());
+        boolean showOnlineResults = UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
+        boolean showConjResults = UtilitiesPrefs.getPreferenceShowConjResults(getActivity());
+        boolean waitForOnlineResults = UtilitiesPrefs.getPreferenceWaitForOnlineResults(getActivity());
+        boolean waitForConjResults = UtilitiesPrefs.getPreferenceWaitForConjResults(getActivity());
 
         if (!showOnlineResults) mJishoMatchingWordsList = new ArrayList<>();
         if (!showConjResults) mMatchingWordsFromVerbs = new ArrayList<>();
@@ -249,8 +254,8 @@ public class DictionaryFragment extends Fragment implements
             hideLoadingIndicator();
 
             //Getting the word lists
-            mMergedMatchingWordsList = Utilities.getMergedWordsList(mLocalMatchingWordsList, mJishoMatchingWordsList, "");
-            mMergedMatchingWordsList = Utilities.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
+            mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mLocalMatchingWordsList, mJishoMatchingWordsList, "");
+            mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
             mMergedMatchingWordsList = sortWordsAccordingToRanking(mMergedMatchingWordsList);
 
             String text = getString(R.string.found) + " "
@@ -307,7 +312,7 @@ public class DictionaryFragment extends Fragment implements
                 //performConjSearch();
             }
 
-            if (Utilities.getPreferenceShowInfoBoxesOnSearch(getActivity())) Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+            if (UtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
 
         }
 
@@ -360,9 +365,9 @@ public class DictionaryFragment extends Fragment implements
         //region Replacing the Kana input word by its romaji equivalent
         String inputQuery = mInputQuery.toLowerCase();
         int inputTextType = ConvertFragment.getTextType(inputQuery);
-        if (inputTextType == GlobalConstants.TYPE_HIRAGANA || inputTextType == GlobalConstants.TYPE_KATAKANA) {
+        if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
             List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(inputQuery.replace(" ", ""));
-            inputQuery = translationList.get(GlobalConstants.TYPE_LATIN);
+            inputQuery = translationList.get(Globals.TYPE_LATIN);
         }
         //endregion
 
@@ -372,7 +377,7 @@ public class DictionaryFragment extends Fragment implements
             if (currentWord==null) continue;
 
             String language = LocaleHelper.getLanguage(getContext());
-            int ranking = Utilities.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
+            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
 
             long[] currentMatchingWordIndexAndLength = new long[3];
             currentMatchingWordIndexAndLength[0] = i;
@@ -383,7 +388,7 @@ public class DictionaryFragment extends Fragment implements
 
         //Sort the results according to total length
         if (matchingWordIndexesAndLengths.size() != 0) {
-            matchingWordIndexesAndLengths = Utilities.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
+            matchingWordIndexesAndLengths = UtilitiesDb.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
         }
 
         //Return the sorted list
@@ -474,13 +479,13 @@ public class DictionaryFragment extends Fragment implements
         mJishoMatchingWordsList = Utilities.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
         for (Word word : mJishoMatchingWordsList) word.setIsLocal(false);
 
-        if (!Utilities.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
+        if (!UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
 
         if (mJishoMatchingWordsList.size() != 0) {
-            mDifferentJishoWords = Utilities.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
+            mDifferentJishoWords = UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
             if (mDifferentJishoWords.size()>0) {
-                updateFirebaseDbWithJishoWords(Utilities.getCommonWords(mDifferentJishoWords));
-                if (Utilities.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery)) {
+                updateFirebaseDbWithJishoWords(UtilitiesDb.getCommonWords(mDifferentJishoWords));
+                if (UtilitiesDb.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery)) {
                     updateFirebaseDbWithJishoWords(mDifferentJishoWords.subList(0, 1)); //If the word was searched for then it is useful even if it's not defined as common
                 }
             }

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.ui.ConvertFragment;
@@ -80,26 +80,26 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
             String matchingRadicalNumber = "";
             for (int i = 0; i < mRadicalsOnlyDatabase.size(); i++) {
 
-                radical = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA];
-                radicalNumber = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NUM];
+                radical = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_KANA];
+                radicalNumber = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NUM];
                 radicalNumberFirstElement = radicalNumber.split(";")[0];
                 radicalName = "";
                 switch (language) {
-                    case "en": radicalName = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NAME_EN]; break;
-                    case "fr": radicalName = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NAME_FR]; break;
-                    case "es": radicalName = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NAME_ES]; break;
+                    case "en": radicalName = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NAME_EN]; break;
+                    case "fr": radicalName = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NAME_FR]; break;
+                    case "es": radicalName = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NAME_ES]; break;
                 }
-                numberStrokes = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NUM_STROKES];
+                numberStrokes = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NUM_STROKES];
 
                 if (radical.equals(mKanjiCharacterNameForFilter)
                         || radicalNumberFirstElement.equals(mKanjiCharacterNameForFilter)
                         || radicalName.contains(mKanjiCharacterNameForFilter)
                         || numberStrokes.equals(mKanjiCharacterNameForFilter)) {
-                    matchingRadicals.add(mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA]);
+                    matchingRadicals.add(mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_KANA]);
                     matchingRadicalNumber = radicalNumber;
                 }
                 if (radicalName.equals("") && !matchingRadicalNumber.equals("") && radicalNumberFirstElement.equals(matchingRadicalNumber)) {
-                    matchingRadicals.add(mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA] + "variant");
+                    matchingRadicals.add(mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_KANA] + "variant");
                 }
             }
 
@@ -122,10 +122,10 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
             }
             matchingKanjiCharactersByDescriptor.addAll(matchingKanjiCharactersByMeaning);
 
-            String hiraganaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(GlobalConstants.TYPE_HIRAGANA);
+            String hiraganaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_HIRAGANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(hiraganaDescriptor));
 
-            String katakanaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(GlobalConstants.TYPE_KATAKANA);
+            String katakanaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_KATAKANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(katakanaDescriptor));
 
             List<String> matchingCharacters = new ArrayList<>();

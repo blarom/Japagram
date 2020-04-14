@@ -16,22 +16,20 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.data.Word;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.AsyncTaskLoader;
-import androidx.loader.content.Loader;
 import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,7 +59,6 @@ public class MainActivity extends BaseActivity implements
 
 
     //region Parameters
-    private static final int SMALL_DATABASE_LOADER = 9512;
     @BindView(R.id.second_fragment_placeholder) FrameLayout mSecondFragmentPlaceholder;
     private String mSecondFragmentFlag;
     private InputQueryFragment mInputQueryFragment;
@@ -91,7 +88,6 @@ public class MainActivity extends BaseActivity implements
     private SearchByRadicalFragment mSearchByRadicalFragment;
     private DecomposeKanjiFragment mDecomposeKanjiFragment;
     private String mSecondFragmentCurrentlyDisplayed;
-    private boolean mAlreadyLoadedSmallDatabases;
     private boolean mAllowButtonOperations;
     private List<Word> mLocalMatchingWords;
     private String mInputQuery;
@@ -103,7 +99,7 @@ public class MainActivity extends BaseActivity implements
     //Lifecycle methods
     @Override protected void onCreate(Bundle savedInstanceState) {
 
-        Utilities.changeThemeColor(this);
+        UtilitiesPrefs.changeThemeColor(this);
         //super.onCreate(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -343,7 +339,7 @@ public class MainActivity extends BaseActivity implements
         mBinding =  ButterKnife.bind(this);
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
-        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getBaseContext());
+        mQueryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
 
         //Code allowing to bypass strict mode
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -441,7 +437,7 @@ public class MainActivity extends BaseActivity implements
                 String type = word.getMeaningsEN().get(0).getType();
                 if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(0) == 'I' || type.charAt(0) == 'T') ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
             }
@@ -453,14 +449,14 @@ public class MainActivity extends BaseActivity implements
                 String type = word.getMeaningsEN().get(0).getType();
                 if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(type.length()-1) == 'I' || type.charAt(type.length()-1) == 'T') ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
-                        || Utilities.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                        .equals(ConvertFragment.getWaapuroHiraganaKatakana(inputQuery).get(GlobalConstants.TYPE_LATIN)) ) {
+                        || UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
+                        .equals(ConvertFragment.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
             }
@@ -470,7 +466,7 @@ public class MainActivity extends BaseActivity implements
                     List<String> altSpellings = (word.getAltSpellings() != null) ? Arrays.asList(word.getAltSpellings().split(",")) : new ArrayList<>();
                     if (altSpellings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }
@@ -492,7 +488,7 @@ public class MainActivity extends BaseActivity implements
                     }
                     if (wordsInMeanings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), GlobalConstants.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }
@@ -508,13 +504,13 @@ public class MainActivity extends BaseActivity implements
         //Preparing the displayed query history value
         String queryRomajiMeaning = inputQuery.trim()
                 + (meaning.equals("") ? "" :
-                (" " + GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER + " " + ( (romaji.equals("") || romaji.equals(inputQuery)) ? "" : "[" + romaji + "] ") + meaning)
+                (" " + Globals.QUERY_HISTORY_MEANINGS_DELIMITER + " " + ( (romaji.equals("") || romaji.equals(inputQuery)) ? "" : "[" + romaji + "] ") + meaning)
         );
 
         //Adding the prepared query history value to the history and removing old identical entries
         boolean alreadyExistsInHistory = false;
         for (int i = 0; i< queryHistory_QueryRomajiMeaning.size(); i++) {
-            String queryHistoryWord = queryHistory_QueryRomajiMeaning.get(i).split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim();
+            String queryHistoryWord = queryHistory_QueryRomajiMeaning.get(i).split(Globals.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim();
             if (inputQuery.trim().equalsIgnoreCase(queryHistoryWord)) {
                 queryHistory_QueryRomajiMeaning.remove(i);
                 if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
@@ -526,7 +522,7 @@ public class MainActivity extends BaseActivity implements
         if (!alreadyExistsInHistory) {
             if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
             else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaning);
-            int queryHistorySize = Utilities.getPreferenceQueryHistorySize(context);
+            int queryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(context);
             if (queryHistory_QueryRomajiMeaning.size() > queryHistorySize) queryHistory_QueryRomajiMeaning.remove(queryHistorySize);
         }
 
@@ -541,14 +537,14 @@ public class MainActivity extends BaseActivity implements
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preferences_query_history_list), MODE_PRIVATE);
         String queryHistoryAsString = sharedPref.getString(context.getString(R.string.preferences_query_history_list), "");
         if (!queryHistoryAsString.equals(""))
-            queryHistory_QueryRomajiMeaning = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER)));
+            queryHistory_QueryRomajiMeaning = new ArrayList<>(Arrays.asList(queryHistoryAsString.split(Globals.QUERY_HISTORY_ELEMENTS_DELIMITER)));
         else queryHistory_QueryRomajiMeaning = new ArrayList<>();
 
         return queryHistory_QueryRomajiMeaning;
     }
     public static void saveQueryHistoryToPreferences(Context context, List<String> queryHistory) {
         if (context != null) {
-            String queryHistoryAsString = TextUtils.join(GlobalConstants.QUERY_HISTORY_ELEMENTS_DELIMITER, queryHistory);
+            String queryHistoryAsString = TextUtils.join(Globals.QUERY_HISTORY_ELEMENTS_DELIMITER, queryHistory);
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.preferences_query_history_list), MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(context.getString(R.string.preferences_query_history_list), queryHistoryAsString);
@@ -573,7 +569,7 @@ public class MainActivity extends BaseActivity implements
         mQueryHistory = getQueryHistoryFromPreferences(getBaseContext());
 
         //Updating its size
-        mQueryHistorySize = Utilities.getPreferenceQueryHistorySize(getBaseContext());
+        mQueryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
         if (mQueryHistory.size() > mQueryHistorySize) mQueryHistory = mQueryHistory.subList(0, mQueryHistorySize);
 
         //Saving the history
@@ -585,12 +581,12 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (GlobalConstants.SimilarsDatabase==null) {
+        if (Globals.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        query = Utilities.replaceInvalidKanjisWithValidOnes(query, GlobalConstants.SimilarsDatabase);
+        query = UtilitiesDb.replaceInvalidKanjisWithValidOnes(query, Globals.SimilarsDatabase);
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
 
@@ -600,7 +596,7 @@ public class MainActivity extends BaseActivity implements
         mDecomposeKanjiFragment = new DecomposeKanjiFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(GlobalConstants.RadicalsOnlyDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RadicalsOnlyDatabase));
 
         mDecomposeKanjiFragment.setArguments(bundle);
 
@@ -621,7 +617,7 @@ public class MainActivity extends BaseActivity implements
         mInputQuery = query;
 
         if (!mAllowButtonOperations) return;
-        if (GlobalConstants.SimilarsDatabase==null) {
+        if (Globals.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -633,15 +629,15 @@ public class MainActivity extends BaseActivity implements
         mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
         mSecondFragmentPlaceholder.bringToFront();
 
-        query = Utilities.replaceInvalidKanjisWithValidOnes(query, GlobalConstants.SimilarsDatabase);
-        mShowNames = Utilities.getPreferenceShowNames(this);
+        query = UtilitiesDb.replaceInvalidKanjisWithValidOnes(query, Globals.SimilarsDatabase);
+        mShowNames = UtilitiesPrefs.getPreferenceShowNames(this);
 
         mDictionaryFragment = new DictionaryFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
         bundle.putBoolean(getString(R.string.show_names), mShowNames);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(GlobalConstants.VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(GlobalConstants.VerbKanjiConjDatabase));
+        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(Globals.VerbLatinConjDatabase));
+        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(Globals.VerbKanjiConjDatabase));
         mDictionaryFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -658,7 +654,7 @@ public class MainActivity extends BaseActivity implements
         if (!mAllowButtonOperations) return;
         cleanSavedData();
         //clearBackstack();
-        if (GlobalConstants.SimilarsDatabase==null) {
+        if (Globals.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -671,8 +667,8 @@ public class MainActivity extends BaseActivity implements
         mConjugatorFragment = new ConjugatorFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(GlobalConstants.VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(GlobalConstants.VerbKanjiConjDatabase));
+        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(Globals.VerbLatinConjDatabase));
+        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(Globals.VerbKanjiConjDatabase));
         if (mLocalMatchingWords!=null) bundle.putParcelableArrayList(getString(R.string.words_list), new ArrayList<>(mLocalMatchingWords));
         mConjugatorFragment.setArguments(bundle);
 
@@ -712,7 +708,7 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (GlobalConstants.SimilarsDatabase==null) {
+        if (Globals.SimilarsDatabase==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -725,8 +721,8 @@ public class MainActivity extends BaseActivity implements
         mSearchByRadicalFragment = new SearchByRadicalFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(GlobalConstants.RadicalsOnlyDatabase));
-        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(GlobalConstants.SimilarsDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RadicalsOnlyDatabase));
+        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(Globals.SimilarsDatabase));
         mSearchByRadicalFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

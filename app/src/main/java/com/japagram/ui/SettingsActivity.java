@@ -3,14 +3,14 @@ package com.japagram.ui;
 import android.os.Bundle;
 
 import com.japagram.R;
-import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Utilities.changeThemeColor(this);
+        UtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
     }

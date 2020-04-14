@@ -9,9 +9,10 @@ import com.japagram.data.ConjugationTitle;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
 import com.japagram.ui.ConvertFragment;
 
 import java.lang.ref.WeakReference;
@@ -21,16 +22,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import static com.japagram.resources.GlobalConstants.COLUMN_VERB_ISTEM;
-import static com.japagram.resources.GlobalConstants.TYPE_HIRAGANA;
-import static com.japagram.resources.GlobalConstants.TYPE_INVALID;
-import static com.japagram.resources.GlobalConstants.TYPE_KANJI;
-import static com.japagram.resources.GlobalConstants.TYPE_KATAKANA;
-import static com.japagram.resources.GlobalConstants.TYPE_LATIN;
-import static com.japagram.resources.GlobalConstants.VERB_FAMILIES_FULL_NAME_MAP;
-import static com.japagram.resources.GlobalConstants.VERB_FAMILY_DA;
-import static com.japagram.resources.GlobalConstants.VERB_FAMILY_KURU;
-import static com.japagram.resources.GlobalConstants.VERB_FAMILY_SURU;
+import static com.japagram.resources.Globals.COLUMN_VERB_ISTEM;
+import static com.japagram.resources.Globals.TYPE_HIRAGANA;
+import static com.japagram.resources.Globals.TYPE_INVALID;
+import static com.japagram.resources.Globals.TYPE_KANJI;
+import static com.japagram.resources.Globals.TYPE_KATAKANA;
+import static com.japagram.resources.Globals.TYPE_LATIN;
+import static com.japagram.resources.Globals.VERB_FAMILIES_FULL_NAME_MAP;
+import static com.japagram.resources.Globals.VERB_FAMILY_DA;
+import static com.japagram.resources.Globals.VERB_FAMILY_KURU;
+import static com.japagram.resources.Globals.VERB_FAMILY_SURU;
 
 public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
@@ -125,7 +126,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         List<Object[]> matchingConjugationParameters = new ArrayList<>();
         for (Verb verb : matchingVerbsSorted) {
-            Object[] parameters = getConjugationParameters(verb, mInputQuery, mInputQueryTransliterations.get(GlobalConstants.TYPE_LATIN));
+            Object[] parameters = getConjugationParameters(verb, mInputQuery, mInputQueryTransliterations.get(Globals.TYPE_LATIN));
             matchingConjugationParameters.add(parameters);
         }
 
@@ -262,8 +263,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
 
-        String mInputQueryTransliteratedLatinForm = mInputQueryTransliterations.get(GlobalConstants.TYPE_LATIN);
-        mInputQueryTransliteratedKanaForm = mInputQueryTransliterations.get(GlobalConstants.TYPE_HIRAGANA);
+        String mInputQueryTransliteratedLatinForm = mInputQueryTransliterations.get(Globals.TYPE_LATIN);
+        mInputQueryTransliteratedKanaForm = mInputQueryTransliterations.get(Globals.TYPE_HIRAGANA);
 
         mInputQueryContatenated = Utilities.removeSpecialCharacters(mInputQuery);
         mInputQueryContatenatedLength = mInputQueryContatenated.length();
@@ -276,40 +277,40 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
             if (mVerbLatinConjDatabase.get(rowIndex)[0].equals("") || !mVerbLatinConjDatabase.get(rowIndex)[1].equals("")) continue;
 
-            if ("su godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_SU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_SU_GODAN, rowIndex);
-            } else if ("ku godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_KU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_KU_GODAN, rowIndex);
-            } else if ("iku special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_IKU_SPECIAL)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_IKU_SPECIAL, rowIndex);
-            } else if ("yuku special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_YUKU_SPECIAL)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_YUKU_SPECIAL, rowIndex);
-            } else if ("gu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_GU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_GU_GODAN, rowIndex);
-            } else if ("bu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_BU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_BU_GODAN, rowIndex);
-            } else if ("mu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_MU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_MU_GODAN, rowIndex);
-            } else if ("nu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_NU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_NU_GODAN, rowIndex);
-            } else if ("ru godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_RU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_RU_GODAN, rowIndex);
-            } else if ("aru special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_ARU_SPECIAL)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_ARU_SPECIAL, rowIndex);
-            } else if ("tsu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_TSU_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_TSU_GODAN, rowIndex);
-            } else if ("u godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_U_GODAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_U_GODAN, rowIndex);
-            } else if ("u special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_U_SPECIAL)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_U_SPECIAL, rowIndex);
-            } else if ("ru ichidan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_RU_ICHIDAN)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_RU_ICHIDAN, rowIndex);
-            } else if ("desu copula".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_DA)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_DA, rowIndex);
-            } else if ("kuru verb".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_KURU)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_KURU, rowIndex);
-            } else if ("suru verb".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(GlobalConstants.VERB_FAMILY_SURU)) {
-                mFamilyConjugationIndexes.put(GlobalConstants.VERB_FAMILY_SURU, rowIndex);
+            if ("su godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_SU_GODAN, rowIndex);
+            } else if ("ku godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_KU_GODAN, rowIndex);
+            } else if ("iku special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_IKU_SPECIAL)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_IKU_SPECIAL, rowIndex);
+            } else if ("yuku special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_YUKU_SPECIAL)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_YUKU_SPECIAL, rowIndex);
+            } else if ("gu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_GU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_GU_GODAN, rowIndex);
+            } else if ("bu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_BU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_BU_GODAN, rowIndex);
+            } else if ("mu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_MU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_MU_GODAN, rowIndex);
+            } else if ("nu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_NU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_NU_GODAN, rowIndex);
+            } else if ("ru godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_RU_GODAN, rowIndex);
+            } else if ("aru special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_ARU_SPECIAL)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_ARU_SPECIAL, rowIndex);
+            } else if ("tsu godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_TSU_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_TSU_GODAN, rowIndex);
+            } else if ("u godan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_GODAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_U_GODAN, rowIndex);
+            } else if ("u special class".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_SPECIAL)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_U_SPECIAL, rowIndex);
+            } else if ("ru ichidan".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_ICHIDAN)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_RU_ICHIDAN, rowIndex);
+            } else if ("desu copula".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_DA)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_DA, rowIndex);
+            } else if ("kuru verb".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KURU)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_KURU, rowIndex);
+            } else if ("suru verb".equals(mVerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SURU)) {
+                mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_SURU, rowIndex);
             }
         }
     }
@@ -365,16 +366,16 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         if (mInputQueryLength > 2 && mInputQuery.substring(mInputQueryLength -3).equals("ing")) {
 
             if (mInputQueryLength > 5 && mInputQuery.substring(mInputQueryLength -6).equals("inging")) {
-                if (	(mInputQuery.substring(0, 2+1).equals("to ") && Utilities.isOfTypeIngIng(mInputQuery.substring(3, mInputQueryLength))) ||
-                        (!mInputQuery.substring(0, 2+1).equals("to ") && Utilities.isOfTypeIngIng(mInputQuery.substring(0, mInputQueryLength)))   ) {
+                if (	(mInputQuery.substring(0, 2+1).equals("to ") && UtilitiesDb.isOfTypeIngIng(mInputQuery.substring(3, mInputQueryLength))) ||
+                        (!mInputQuery.substring(0, 2+1).equals("to ") && UtilitiesDb.isOfTypeIngIng(mInputQuery.substring(0, mInputQueryLength)))   ) {
                     // If the verb ends with "inging" then remove the the second "ing"
                     mInputQuery = mInputQuery.substring(0, mInputQueryLength -3);
                 }
             }
             else {
                 String verb2WithIng = mInputQuery + "ing";
-                if ((verb2WithIng.substring(0, 2 + 1).equals("to ") && Utilities.isOfTypeIngIng(verb2WithIng.substring(3, mInputQueryLength + 3))) ||
-                        (!verb2WithIng.substring(0, 2 + 1).equals("to ") && Utilities.isOfTypeIngIng(verb2WithIng.substring(0, mInputQueryLength + 3)))) {
+                if ((verb2WithIng.substring(0, 2 + 1).equals("to ") && UtilitiesDb.isOfTypeIngIng(verb2WithIng.substring(3, mInputQueryLength + 3))) ||
+                        (!verb2WithIng.substring(0, 2 + 1).equals("to ") && UtilitiesDb.isOfTypeIngIng(verb2WithIng.substring(0, mInputQueryLength + 3)))) {
                 } else {
                     // If the verb does not belong to the list, then remove the ending "ing" so that it can be compared later on to the verbs excel
                     //If the verb is for e.g. to sing / sing (verb2 = to singing / singing), then check that verb2 (without the "to ") belongs to the list, and if it does then do nothing
@@ -517,7 +518,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = ((List<Long>) Utilities.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
+            List<Long> mMatchingWordIds = ((List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
                     mRoomCentralDatabase, null, null, language, false, false)[0]);
             mMatchingWords = mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
         }
@@ -843,7 +844,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             if (currentWord == null) continue;
 
             String language = LocaleHelper.getLanguage(contextRef.get());
-            int ranking = Utilities.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
+            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
 
             long[] currentMatchingVerbIdLengthCol = new long[3];
             currentMatchingVerbIdLengthCol[0] = matchingVerbIdsAndCols.get(i)[0];
@@ -855,7 +856,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         //Sort the results according to total length
         if (matchingVerbIdLengthColList.size() != 0) {
-            matchingVerbIdLengthColList = Utilities.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
+            matchingVerbIdLengthColList = UtilitiesDb.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
         }
 
         List<long[]> matchingVerbIdColListSorted = new ArrayList<>();
@@ -919,15 +920,15 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             List<Word.Meaning> meanings;
             String language = "";
             switch (LocaleHelper.getLanguage(contextRef.get())) {
-                case GlobalConstants.LANG_STR_EN:
+                case Globals.LANG_STR_EN:
                     language = contextRef.get().getResources().getString(R.string.language_label_english).toLowerCase();
                     meanings = currentWord.getMeaningsEN();
                     break;
-                case GlobalConstants.LANG_STR_FR:
+                case Globals.LANG_STR_FR:
                     language = contextRef.get().getResources().getString(R.string.language_label_french).toLowerCase();
                     meanings = currentWord.getMeaningsFR();
                     break;
-                case GlobalConstants.LANG_STR_ES:
+                case Globals.LANG_STR_ES:
                     language = contextRef.get().getResources().getString(R.string.language_label_spanish).toLowerCase();
                     meanings = currentWord.getMeaningsES();
                     break;
@@ -944,7 +945,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                         + contextRef.get().getString(R.string.unavailable)
                         + "] ";
             }
-            extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, GlobalConstants.BALANCE_POINT_REGULAR_DISPLAY));
+            extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             currentVerb.setMeaning(extract);
 
             switch (currentVerb.getTrans()) {
@@ -953,7 +954,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 case "T/I": currentVerb.setTrans(contextRef.get().getString(R.string.trans_intrans_)); break;
             }
 
-            if (GlobalConstants.VERB_FAMILIES_FULL_NAME_MAP.containsKey(currentVerb.getFamily())) {
+            if (Globals.VERB_FAMILIES_FULL_NAME_MAP.containsKey(currentVerb.getFamily())) {
                 currentVerb.setFamily(contextRef.get().getString(VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily())));
             }
             //endregion

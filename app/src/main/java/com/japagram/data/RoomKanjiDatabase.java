@@ -5,10 +5,10 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -20,7 +20,7 @@ import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 @Database(entities = {KanjiCharacter.class, KanjiComponent.class},
-        version = GlobalConstants.KANJI_DB_VERSION,
+        version = Globals.KANJI_DB_VERSION,
         exportSchema = false)
 public abstract class RoomKanjiDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -70,7 +70,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
 
         if (kanjiCharacter().count() == 0) {
-            Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
@@ -91,9 +91,9 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
-            Utilities.setAppPreferenceDbVersionKanji(context, GlobalConstants.KANJI_DB_VERSION);
+            UtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
         }
-        Utilities.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
+        UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
     }
     private void loadKanjiCharactersIntoRoomDb(Context context) {
 

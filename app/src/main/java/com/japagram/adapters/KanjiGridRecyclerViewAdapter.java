@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.japagram.R;
-import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.Arrays;
 import java.util.List;
@@ -64,18 +64,18 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
                 || kanji.contains("7") || kanji.contains("8") || kanji.contains("9")) {
             tv.setTextSize(26);
             tv.setTypeface(null, Typeface.BOLD);
-            tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorAccent));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccent));
         }
         else if (kanji.contains("variant")) {
             tv.setTextSize(28);
             tv.setText(kanji.substring(0,1));
-            tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimaryLight));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLight));
         }
         else {
             tv.setTextSize(isResultsGrid? 32 : 28);
             tv.setText(kanji);
             tv.setTypeface(null, Typeface.NORMAL);
-            tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimaryDark));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
         }
 
         tv.setOnClickListener(new View.OnClickListener() {

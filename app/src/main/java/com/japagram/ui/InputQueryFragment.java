@@ -29,7 +29,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +46,9 @@ import android.widget.Toast;
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.japagram.R;
 import com.japagram.data.Word;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
@@ -322,7 +322,7 @@ public class InputQueryFragment extends Fragment implements
         if (getContext() == null) return;
         //Setting the Typeface
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = Utilities.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
     }
     @SuppressLint("ClickableViewAccessibility") private void initializeViews(View rootView) {
@@ -333,7 +333,7 @@ public class InputQueryFragment extends Fragment implements
 
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
         mInputQueryAutoCompleteTextView.setTypeface(mDroidSansJapaneseTypeface);
-        mInputQueryAutoCompleteTextView.setTextColor(Utilities.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
+        mInputQueryAutoCompleteTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
 
         mInputQueryAutoCompleteTextView.setOnEditorActionListener((exampleView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -402,7 +402,7 @@ public class InputQueryFragment extends Fragment implements
     private List<String> getQueryHistoryWordsOnly(List<String> queryHistory) {
         List<String> result = new ArrayList<>();
         for (String item : queryHistory) {
-            result.add(item.split(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim());
+            result.add(item.split(Globals.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim());
         }
         return result;
     }
@@ -1045,8 +1045,8 @@ public class InputQueryFragment extends Fragment implements
             textDisplayedInDialog.set(i, "~ " + textDisplayedInDialog.get(i) + " ~");
         }
         ocrResultsTextView.setText(TextUtils.join("\n", textDisplayedInDialog));
-        ocrResultsTextView.setTextColor(Utilities.getResColorValue(getContext(), R.attr.colorAccent));
-        ocrResultsTextViewDialogInstructions.setTextColor(Utilities.getResColorValue(getContext(), R.attr.colorAccentDark));
+        ocrResultsTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccent));
+        ocrResultsTextViewDialogInstructions.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccentDark));
         ocrResultsScrollView.post(new Runnable() {
             @Override
             public void run() {
@@ -1243,12 +1243,12 @@ public class InputQueryFragment extends Fragment implements
                 LayoutInflater inflater = LayoutInflater.from(getActivity().getBaseContext());
                 View layout = inflater.inflate(R.layout.spinner_item_queryhistory, parent, false);
                 TextView queryHistoryElement = layout.findViewById(R.id.query_value);
-                queryHistoryElement.setText(mQueryHistory.get(position).replace(GlobalConstants.QUERY_HISTORY_MEANINGS_DELIMITER, GlobalConstants.QUERY_HISTORY_MEANINGS_DISPLAYED_DELIMITER));
+                queryHistoryElement.setText(mQueryHistory.get(position).replace(Globals.QUERY_HISTORY_MEANINGS_DELIMITER, Globals.QUERY_HISTORY_MEANINGS_DISPLAYED_DELIMITER));
                 queryHistoryElement.setMaxLines(1);
                 queryHistoryElement.setEllipsize(TextUtils.TruncateAt.END);
                 queryHistoryElement.setTypeface(mDroidSansJapaneseTypeface);
                 queryHistoryElement.setGravity(View.TEXT_ALIGNMENT_CENTER|View.TEXT_ALIGNMENT_TEXT_START);
-                queryHistoryElement.setTextColor(Utilities.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
+                queryHistoryElement.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
                 return layout;
             }
             else return null;

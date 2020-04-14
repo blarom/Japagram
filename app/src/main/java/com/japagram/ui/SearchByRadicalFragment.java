@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -32,8 +31,9 @@ import com.japagram.adapters.StructuresGridViewAdapter;
 import com.japagram.asynctasks.ComponentGridCreationAsyncTask;
 import com.japagram.asynctasks.ComponentsGridFilterAsyncTask;
 import com.japagram.asynctasks.KanjiSearchAsyncTask;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -161,30 +161,30 @@ public class SearchByRadicalFragment extends Fragment implements
         //Setting the Typeface
         if (getContext()==null) return;
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = Utilities.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
     }
     private int setCategoryBasedOnSelectedStructureId(int selectedStructureId) {
 
         switch (selectedStructureId) {
-            case R.drawable.colored_structure_2_overlapping: return GlobalConstants.Index_full;
-            case R.drawable.colored_structure_2_left_right: return GlobalConstants.Index_across2;
-            case R.drawable.colored_structure_3_left_center_right: return GlobalConstants.Index_across3;
-            case R.drawable.colored_structure_4_left_right: return GlobalConstants.Index_across4;
-            case R.drawable.colored_structure_2_up_down: return GlobalConstants.Index_down2;
-            case R.drawable.colored_structure_3_up_center_down: return GlobalConstants.Index_down3;
-            case R.drawable.colored_structure_4_up_down: return GlobalConstants.Index_down4;
-            case R.drawable.colored_structure_2_enclosing_topleft_to_bottomright: return GlobalConstants.Index_topleftout;
-            case R.drawable.colored_structure_2_enclosing_top_to_bottom: return GlobalConstants.Index_topout;
-            case R.drawable.colored_structure_2_enclosing_topright_to_bottomleft: return GlobalConstants.Index_toprightout;
-            case R.drawable.colored_structure_2_enclosing_left_to_right: return GlobalConstants.Index_leftout;
-            case R.drawable.colored_structure_2_outlining: return GlobalConstants.Index_fullout;
-            case R.drawable.colored_structure_2_enclosing_bottomleft_to_topright: return GlobalConstants.Index_bottomleftout;
-            case R.drawable.colored_structure_2_enclosing_bottom_to_top: return GlobalConstants.Index_bottomout;
-            case R.drawable.colored_structure_3_upwards_triangle: return GlobalConstants.Index_three_repeat;
-            case R.drawable.colored_structure_4_square_repeat: return GlobalConstants.Index_four_repeat;
-            case R.drawable.colored_structure_4_square: return GlobalConstants.Index_foursquare;
-            case R.drawable.colored_structure_5_hourglass: return GlobalConstants.Index_five_repeat;
+            case R.drawable.colored_structure_2_overlapping: return Globals.Index_full;
+            case R.drawable.colored_structure_2_left_right: return Globals.Index_across2;
+            case R.drawable.colored_structure_3_left_center_right: return Globals.Index_across3;
+            case R.drawable.colored_structure_4_left_right: return Globals.Index_across4;
+            case R.drawable.colored_structure_2_up_down: return Globals.Index_down2;
+            case R.drawable.colored_structure_3_up_center_down: return Globals.Index_down3;
+            case R.drawable.colored_structure_4_up_down: return Globals.Index_down4;
+            case R.drawable.colored_structure_2_enclosing_topleft_to_bottomright: return Globals.Index_topleftout;
+            case R.drawable.colored_structure_2_enclosing_top_to_bottom: return Globals.Index_topout;
+            case R.drawable.colored_structure_2_enclosing_topright_to_bottomleft: return Globals.Index_toprightout;
+            case R.drawable.colored_structure_2_enclosing_left_to_right: return Globals.Index_leftout;
+            case R.drawable.colored_structure_2_outlining: return Globals.Index_fullout;
+            case R.drawable.colored_structure_2_enclosing_bottomleft_to_topright: return Globals.Index_bottomleftout;
+            case R.drawable.colored_structure_2_enclosing_bottom_to_top: return Globals.Index_bottomout;
+            case R.drawable.colored_structure_3_upwards_triangle: return Globals.Index_three_repeat;
+            case R.drawable.colored_structure_4_square_repeat: return Globals.Index_four_repeat;
+            case R.drawable.colored_structure_4_square: return Globals.Index_foursquare;
+            case R.drawable.colored_structure_5_hourglass: return Globals.Index_five_repeat;
             default: return 0;
         }
     }
@@ -363,7 +363,7 @@ public class SearchByRadicalFragment extends Fragment implements
         for (int i=0; i<inputQuery.length(); i++) {
             currentChar = mInputQuery.substring(i,i+1);
             text_type = ConvertFragment.getTextType(currentChar);
-            if (text_type == GlobalConstants.TYPE_KANJI) {
+            if (text_type == Globals.TYPE_KANJI) {
                 user_selections[userSelectionIndex] = currentChar;
                 userSelectionIndex++;
             }

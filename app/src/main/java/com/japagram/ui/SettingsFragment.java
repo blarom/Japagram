@@ -7,9 +7,10 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
@@ -89,7 +90,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 }
             }
             else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {
-                boolean finishedLoadingNamesDatabase = Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
+                boolean finishedLoadingNamesDatabase = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
                 boolean showNames = sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_names_search_key), false);
                 if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog((CheckBoxPreference) currentPreference, sharedPreferences);
             }
@@ -97,7 +98,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     }
     private void setLanguage(Preference currentPreference) {
         String language = ((ListPreference) currentPreference).getValue();
-        String languageCode = GlobalConstants.LANGUAGE_CODE_MAP.get(language);
+        String languageCode = Globals.LANGUAGE_CODE_MAP.get(language);
         String currentLanguageCode = LocaleHelper.getLanguage(getContext());
         if (!currentLanguageCode.equals(languageCode)) {
             LocaleHelper.setLocale(getContext(), languageCode);
@@ -106,7 +107,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     private void setThemeColor(Preference currentPreference) {
         String themeColor = ((ListPreference) currentPreference).getValue();
         if (getActivity() == null || getContext() == null) return;
-        Utilities.setAppPreferenceColorTheme(getContext(), themeColor);
+        UtilitiesPrefs.setAppPreferenceColorTheme(getContext(), themeColor);
     }
     private void checkIfValueIsInRangeOrWarnUser(Preference preference, SharedPreferences sharedPreferences) {
         String newValue = sharedPreferences.getString(preference.getKey(), "");

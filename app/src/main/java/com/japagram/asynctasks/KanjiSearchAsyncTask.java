@@ -6,9 +6,8 @@ import android.text.TextUtils;
 
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
-import com.japagram.ui.MainActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -86,11 +85,11 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String elementC = elements_list[2];
         String elementD = elements_list[3];
 
-        if (    (mSelectedStructure == GlobalConstants.Index_full
-                || mSelectedStructure == GlobalConstants.Index_across2
-                || mSelectedStructure == GlobalConstants.Index_down2
-                || mSelectedStructure == GlobalConstants.Index_across3
-                || mSelectedStructure == GlobalConstants.Index_down3)
+        if (    (mSelectedStructure == Globals.Index_full
+                || mSelectedStructure == Globals.Index_across2
+                || mSelectedStructure == Globals.Index_down2
+                || mSelectedStructure == Globals.Index_across3
+                || mSelectedStructure == Globals.Index_down3)
                 && (elementA.equals("") && elementB.equals("") && elementC.equals("") && elementD.equals(""))) {
             mSearchTooBroad = true;
             return new ArrayList<>();
@@ -134,7 +133,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (String component : getSimilarComponents(elementA)) {
                 for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
                     if (associatedComponent.getComponent().equals(component)) {
-                        listOfMatchingResultsElementA.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                        listOfMatchingResultsElementA.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
                     }
                 }
             }
@@ -143,7 +142,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (String component : getSimilarComponents(elementB)) {
                 for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
                     if (associatedComponent.getComponent().equals(component)) {
-                        listOfMatchingResultsElementB.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                        listOfMatchingResultsElementB.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
                     }
                 }
             }
@@ -152,7 +151,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (String component : getSimilarComponents(elementC)) {
                 for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
                     if (associatedComponent.getComponent().equals(component)) {
-                        listOfMatchingResultsElementC.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                        listOfMatchingResultsElementC.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
                     }
                 }
             }
@@ -161,7 +160,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (String component : getSimilarComponents(elementD)) {
                 for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
                     if (associatedComponent.getComponent().equals(component)) {
-                        listOfMatchingResultsElementD.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
+                        listOfMatchingResultsElementD.addAll(Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER)));
                     }
                 }
             }
@@ -228,11 +227,11 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         //region Getting the subset of characters that match the user's selected structure
         List<String> listOfResultsRelevantToRequestedStructure = new ArrayList<>();
-        if (mSelectedStructure != GlobalConstants.Index_full) {
+        if (mSelectedStructure != Globals.Index_full) {
 
             //Getting the components list relevant to the requested structure
             KanjiComponent kanjiComponentForRequestedStructure = null;
-            String componentStructure = GlobalConstants.COMPONENT_STRUCTURES_MAP.get(mSelectedStructure);
+            String componentStructure = Globals.COMPONENT_STRUCTURES_MAP.get(mSelectedStructure);
             if (!TextUtils.isEmpty(componentStructure)) {
                 List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
                 if (kanjiComponents != null && kanjiComponents.size() > 0) {
@@ -246,7 +245,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             List<String> structureComponents;
             List<String> currentIntersections;
             for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
-                structureComponents = Arrays.asList(associatedComponent.getAssociatedComponents().split(GlobalConstants.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
+                structureComponents = Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
                 currentIntersections = Utilities.getIntersectionOfLists(listOfIntersectingResults, structureComponents);
                 listOfResultsRelevantToRequestedStructure.addAll(currentIntersections);
             }

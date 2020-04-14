@@ -14,10 +14,9 @@ import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.R;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomKanjiDatabase;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
-
-import java.util.List;
+import com.japagram.resources.UtilitiesPrefs;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,14 +45,14 @@ public class SplashScreenActivity extends BaseActivity {
 
         Log.i("Diagnosis Time", "Started Splashscreen.");
 
-        Utilities.changeThemeColor(this);
+        UtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splashscreen);
 
         mBinding =  ButterKnife.bind(this);
 
-        mLoadingDbTextView.setTextColor(Utilities.getResColorValue(this, R.attr.colorPrimaryLight));
+        mLoadingDbTextView.setTextColor(UtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
 
         mCentralDbBeingLoaded = true;
         mKanjiDbBeingLoaded = true;
@@ -63,11 +62,11 @@ public class SplashScreenActivity extends BaseActivity {
         //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
         dbLoadRunnableCentral = () -> {
             mCentralDbBeingLoaded = true;
-            GlobalConstants.SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
-            GlobalConstants.VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
-            GlobalConstants.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
-            GlobalConstants.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            GlobalConstants.Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getBaseContext());
+            Globals.SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
+            Globals.VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            Globals.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
+            Globals.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
+            Globals.Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getBaseContext());
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             mCentralDbBeingLoaded = false;
         };
@@ -82,7 +81,7 @@ public class SplashScreenActivity extends BaseActivity {
         dbLoadThreadKanji.start();
 
         //showLoadingIndicator();
-        if (Utilities.getAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this)) {
+        if (UtilitiesPrefs.getAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this)) {
             Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
         }
 
@@ -93,8 +92,8 @@ public class SplashScreenActivity extends BaseActivity {
             public void onTick(long l) {
 
                 //Delaying the start of db loading if the app uses too much memory
-                boolean finishedLoadingCentralDatabase = Utilities.getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
-                boolean finishedLoadingKanjiDatabase = Utilities.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
+                boolean finishedLoadingCentralDatabase = UtilitiesPrefs.getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
+                boolean finishedLoadingKanjiDatabase = UtilitiesPrefs.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
 
                 if (mTicks >= 2) {
                     if (mCentralDbBeingLoaded) {
@@ -133,7 +132,7 @@ public class SplashScreenActivity extends BaseActivity {
 
             @Override
             public void onFinish() {
-                Utilities.setAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this, false);
+                UtilitiesPrefs.setAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this, false);
                 hideLoadingIndicator();
                 if (Looper.myLooper()==null) Looper.prepare();
                 //Toast.makeText(SplashScreenActivity.this, R.string.finished_loading_databases, Toast.LENGTH_SHORT).show();
@@ -169,11 +168,11 @@ public class SplashScreenActivity extends BaseActivity {
     }
     private void startDbInstallationForegroundService() {
         Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
-        boolean showNames = Utilities.getPreferenceShowNames(this);
-        int currentExtendedDbVersion = Utilities.getAppPreferenceDbVersionExtended(this);
-        int currentNamesDbVersion = Utilities.getAppPreferenceDbVersionNames(this);
-        boolean installExtendedDb = currentExtendedDbVersion != GlobalConstants.EXTENDED_DB_VERSION;
-        boolean installNamesDb = currentNamesDbVersion != GlobalConstants.NAMES_DB_VERSION;
+        boolean showNames = UtilitiesPrefs.getPreferenceShowNames(this);
+        int currentExtendedDbVersion = UtilitiesPrefs.getAppPreferenceDbVersionExtended(this);
+        int currentNamesDbVersion = UtilitiesPrefs.getAppPreferenceDbVersionNames(this);
+        boolean installExtendedDb = currentExtendedDbVersion != Globals.EXTENDED_DB_VERSION;
+        boolean installNamesDb = currentNamesDbVersion != Globals.NAMES_DB_VERSION;
         serviceIntent.putExtra(getString(R.string.show_names), showNames);
         serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
         serviceIntent.putExtra(getString(R.string.install_names_db), installNamesDb);

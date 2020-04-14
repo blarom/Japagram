@@ -19,8 +19,9 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.data.Word;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 import com.japagram.ui.ConvertFragment;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             holder.childLinearLayout.setVisibility(View.VISIBLE);
             holder.meaningsTextView.setVisibility(View.GONE);
             holder.sourceInfoTextView.setVisibility(View.GONE);
-            holder.parentContainer.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
+            holder.parentContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
         }
         else {
             holder.childLinearLayout.setVisibility(View.GONE);
@@ -121,7 +122,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 else {
                     holder.childLinearLayout.setVisibility(View.VISIBLE);
                     holder.meaningsTextView.setVisibility(View.GONE);
-                    holder.parentContainer.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
+                    holder.parentContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
                     holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_black_24dp));
                     mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = true;
                 }
@@ -155,13 +156,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //region Initialization
         holder.childElementsLinearLayout.removeAllViews();
         holder.childElementsLinearLayout.setFocusable(false);
-        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.romajiAndKanjiTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorAccentDark));
-        holder.sourceInfoTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.meaningsTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.meaningsTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.childLinearLayout.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
-        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(Utilities.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
+        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.romajiAndKanjiTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccentDark));
+        holder.sourceInfoTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.meaningsTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.meaningsTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.childLinearLayout.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
+        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
         //endregion
 
         //region Handling the hyperlink values for user click
@@ -196,14 +197,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         //region Setting the wordMeaning elements
         switch (mUILanguage) {
-            case GlobalConstants.LANG_STR_EN:
-                if (mActiveMeaningLanguages[GlobalConstants.LANG_EN]) setMeaningsLayout(position, holder, GlobalConstants.LANG_EN);
+            case Globals.LANG_STR_EN:
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_EN);
                 break;
-            case GlobalConstants.LANG_STR_FR:
-                if (mActiveMeaningLanguages[GlobalConstants.LANG_EN]) setMeaningsLayout(position, holder, GlobalConstants.LANG_FR);
+            case Globals.LANG_STR_FR:
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_FR);
                 break;
-            case GlobalConstants.LANG_STR_ES:
-                if (mActiveMeaningLanguages[GlobalConstants.LANG_EN]) setMeaningsLayout(position, holder, GlobalConstants.LANG_ES);
+            case Globals.LANG_STR_ES:
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_ES);
                 break;
         }
         //endregion
@@ -234,17 +235,17 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
             String language = "";
             switch (mUILanguage) {
-                case GlobalConstants.LANG_STR_EN:
+                case Globals.LANG_STR_EN:
                     language = mContext.getResources().getString(R.string.language_label_english);
                     meanings = word.getMeaningsEN();
                     keywords = word.getExtraKeywordsEN();
                     break;
-                case GlobalConstants.LANG_STR_FR:
+                case Globals.LANG_STR_FR:
                     language = mContext.getResources().getString(R.string.language_label_french);
                     meanings = word.getMeaningsFR();
                     keywords = word.getExtraKeywordsFR();
                     break;
-                case GlobalConstants.LANG_STR_ES:
+                case Globals.LANG_STR_ES:
                     language = mContext.getResources().getString(R.string.language_label_spanish);
                     meanings = word.getMeaningsES();
                     keywords = word.getExtraKeywordsES();
@@ -262,16 +263,16 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             }
             else if (meanings.get(0).getMeaning().equals("*")) {
                 type = meanings.get(0).getType();
-                if (GlobalConstants.TYPES.containsKey(type)) {
+                if (Globals.TYPES.containsKey(type)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    extract = mContext.getString(GlobalConstants.TYPES.get(type));
+                    extract = mContext.getString(Globals.TYPES.get(type));
                 }
                 else {
                     extract = "*";
                 }
             }
             else {
-                extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, GlobalConstants.BALANCE_POINT_REGULAR_DISPLAY));
+                extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             }
             mWordsMeaningExtract.add(Utilities.fromHtml(extract));
 
@@ -328,7 +329,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (kanji.equals("")) romajiAndKanji = romaji;
             else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
             String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(GlobalConstants.TYPE_LATIN);
+            String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
             String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
@@ -341,9 +342,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
                     && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
 
-                String latin = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_LATIN);
-                String hiragana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_HIRAGANA);
-                String katakana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(GlobalConstants.TYPE_KATAKANA);
+                String latin = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
+                String hiragana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
+                String katakana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
 
                 if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
                     String[] altSpellingElements = alternatespellings.split(",");
@@ -379,13 +380,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                             || matchingConj.contains(inputQueryLatin)) {
                     sourceInfo.add((typeIsVerb)? mContext.getString(R.string.from_conjugated_form)+" \"" + matchingConj + "\"." : mContext.getString(R.string.from_associated_word)+" \"" + matchingConj + "\".");
                 }
-                else if ((mInputQueryTextType == GlobalConstants.TYPE_KANJI
+                else if ((mInputQueryTextType == Globals.TYPE_KANJI
                         && kanji.length() > 0 && !kanji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == GlobalConstants.TYPE_LATIN
+                        || (mInputQueryTextType == Globals.TYPE_LATIN
                         && romaji.length() > 0 && !romaji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == GlobalConstants.TYPE_HIRAGANA
+                        || (mInputQueryTextType == Globals.TYPE_HIRAGANA
                         && hiragana.length() > 0 && !hiragana.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == GlobalConstants.TYPE_KATAKANA
+                        || (mInputQueryTextType == Globals.TYPE_KATAKANA
                         && katakana.length() > 0 && !katakana.substring(0, 1).equals(mInputQueryFirstLetter))
                 ) {
                     sourceInfo.add(mContext.getString(R.string.derived_from) + " \"" + mInputQuery + "\".");
@@ -413,13 +414,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         int endIndex = 0;
         List<Word.Meaning> meanings = new ArrayList<>();
         switch (language) {
-            case GlobalConstants.LANG_EN:
+            case Globals.LANG_EN:
                 meanings = mWordsList.get(position).getMeaningsEN();
                 break;
-            case GlobalConstants.LANG_FR:
+            case Globals.LANG_FR:
                 meanings = mWordsList.get(position).getMeaningsFR();
                 break;
-            case GlobalConstants.LANG_ES:
+            case Globals.LANG_ES:
                 meanings = mWordsList.get(position).getMeaningsES();
                 break;
         }
@@ -440,11 +441,11 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             //region Setting the type and meaning
             List<String> types = new ArrayList<>();
 
-            for (String element : type.split(GlobalConstants.DB_ELEMENTS_DELIMITER)) {
-                if (GlobalConstants.TYPES.containsKey(element)) {
+            for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
+                if (Globals.TYPES.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = mContext.getString(GlobalConstants.TYPES.get(element));
-                    if (language != GlobalConstants.LANG_EN) {
+                    String currentType = mContext.getString(Globals.TYPES.get(element));
+                    if (language != Globals.LANG_EN) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }
                     types.add(currentType);
@@ -457,7 +458,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             if (!fullType.equals("") && !meaning.equals("*")) {
                 typeAndMeaningHtml =
                         "<i><b><font color='" +
-                        Utilities.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
+                        UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
                         "'>" +
                         fullType +
                         "<br>" + "</font></b></i>"  +
@@ -466,7 +467,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (meaning.equals("*")) {
                 typeAndMeaningHtml =
                         "<i><b><font color='" +
-                        Utilities.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
+                        UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
                         "'>" +
                         "Proper noun" +
                         "<br>" + "</font></b></i>"  +
@@ -614,7 +615,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         spanned_rule = Utilities.fromHtml(typeAndMeaningHtml);
                     } else {
                         typeAndMeaningHtml = parsedRule[0] +
-                                "<font color='" + Utilities.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
+                                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
                                 mContext.getString(R.string._where_) +
                                 "</font>" +
                                 parsedRule[1];
@@ -659,7 +660,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         //Setting the English example characteristics
                         tv = addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(examplesList.get(j).getLatinSentence()));
                         tv.setPadding(EXAMPLES_LEFT_PADDING, 0, 0, 16);
-                        tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorAccent));
+                        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccent));
                         tv.setVisibility(View.GONE);
                         examplesTextViews.add(tv);
 
@@ -697,7 +698,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
     private void setMeaningsTvProperties(TextView tv, Spanned spanned) {
         tv.setText(spanned);
-        tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimary));
+        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         tv.setTextIsSelectable(true);
         tv.setClickable(true);
@@ -713,7 +714,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     private void addExplanationsLineSeparator(LinearLayout linearLayout) {
         View line = new View(mContext);
         line.setLayoutParams(mubChildLineParams);
-        line.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorPrimaryLight));
+        line.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLight));
         linearLayout.addView(line);
     }
     private TextView addHeaderField(LinearLayout linearLayout, Spanned type_and_meaning) {
@@ -721,7 +722,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(layoutParams);
         tv.setText(type_and_meaning);
-        tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimaryDark));
+        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         //tv.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -737,7 +738,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         tv.setLayoutParams(layoutParams);
         tv.setText(spannableString);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
-        tv.setTextColor(Utilities.getResColorValue(mContext, R.attr.colorPrimaryDark));
+        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         tv.setTypeface(mDroidSansJapaneseTypeface);
         tv.setTextIsSelectable(true);
@@ -756,9 +757,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
                 List<Word.Meaning> meanings = new ArrayList<>();
                 switch (mUILanguage) {
-                    case GlobalConstants.LANG_STR_EN: meanings = mWordsList.get(i).getMeaningsEN(); break;
-                    case GlobalConstants.LANG_STR_FR: meanings = mWordsList.get(i).getMeaningsFR(); break;
-                    case GlobalConstants.LANG_STR_ES: meanings = mWordsList.get(i).getMeaningsES(); break;
+                    case Globals.LANG_STR_EN: meanings = mWordsList.get(i).getMeaningsEN(); break;
+                    case Globals.LANG_STR_FR: meanings = mWordsList.get(i).getMeaningsFR(); break;
+                    case Globals.LANG_STR_ES: meanings = mWordsList.get(i).getMeaningsES(); break;
                 }
                 if (meanings == null || meanings.size()==0) meanings = mWordsList.get(i).getMeaningsEN();
                 boolean[] explanationVisibilities = new boolean[meanings.size()];
@@ -769,11 +770,11 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     }
     private void setHyperlinkInDecomposeLine(TextView textView, String before, String hyperlinkText, String after) {
         String totalText = "<b>" +
-                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 before +
                 "</font>" +
                 hyperlinkText +
-                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 after +
                 "</font>";
         Spanned spanned_totalText = Utilities.fromHtml(totalText);
@@ -787,11 +788,11 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     }
     private void setHyperlinksInConjugateLine(TextView textView, String before, String hyperlinkText, String after) {
         String totalText = "<b>" +
-                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 before +
                 "</font>" +
                 hyperlinkText +
-                "<font color='" + Utilities.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
+                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 after +
                 "</font>";
         Spanned spanned_totalText = Utilities.fromHtml(totalText);
@@ -819,7 +820,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
         @Override
         public void updateDrawState(@NonNull TextPaint ds) {
-            ds.setColor(Utilities.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
+            ds.setColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
             ds.setUnderlineText(false);
         }
     }
@@ -840,7 +841,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         @Override
         public void updateDrawState(@NonNull TextPaint ds) {
-            ds.setColor(Utilities.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
+            ds.setColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
             ds.setUnderlineText(false);
         }
     }
@@ -899,7 +900,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 childLinearLayout.setVisibility(View.VISIBLE);
                 meaningsTextView.setVisibility(View.GONE);
                 sourceInfoTextView.setVisibility(View.GONE);
-                parentContainer.setBackgroundColor(Utilities.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
+                parentContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSelectedDictResultBackgroundColor));
                 dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_black_24dp));
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = true;
             }

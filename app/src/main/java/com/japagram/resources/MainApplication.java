@@ -62,7 +62,7 @@ public class MainApplication extends Application {
     private void activateFirebase() {
 
         /* Enable disk persistence  */
-        FirebaseDatabase database = Utilities.getDatabase();
+        FirebaseDatabase database = UtilitiesDb.getDatabase();
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();

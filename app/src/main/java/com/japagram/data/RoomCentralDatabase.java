@@ -2,11 +2,12 @@ package com.japagram.data;
 
 import android.content.Context;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexFrench.class,
                         IndexSpanish.class,
                         IndexKanji.class},
-                    version = GlobalConstants.CENTRAL_DB_VERSION,
+                    version = Globals.CENTRAL_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomCentralDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -80,7 +81,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
-            Utilities.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
@@ -105,9 +106,9 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
-            Utilities.setAppPreferenceDbVersionCentral(context, GlobalConstants.CENTRAL_DB_VERSION);
+            UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
         }
-        Utilities.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, true);
+        UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, true);
 
     }
     private void loadCentralDatabaseIntoRoomDb(Context context) {
@@ -136,20 +137,20 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         centralDatabase.addAll(verbsDatabase);
 
         //Checking that there were no accidental line breaks when building the database
-        Utilities.checkDatabaseStructure(verbsDatabase, "Verbs Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(centralDatabase, "Central Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(multExplENDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(multExplESDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        Utilities.checkDatabaseStructure(examplesDatabase, "Examples Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(verbsDatabase, "Verbs Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(centralDatabase, "Central Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplENDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
 
         List<Word> wordList = new ArrayList<>();
         for (int i=1; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
-            Word word = Utilities.createWordFromCsvDatabases(centralDatabase,
+            Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, i);
@@ -165,7 +166,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<Verb> verbList = new ArrayList<>();
         for (int i=1; i<verbsDatabase.size(); i++) {
             if (verbsDatabase.get(i)[0].equals("")) break;
-            Verb verb = Utilities.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
+            Verb verb = UtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
             verbList.add(verb);
             if (verbList.size() % 2000 == 0) {
                 verb().insertAll(verbList);

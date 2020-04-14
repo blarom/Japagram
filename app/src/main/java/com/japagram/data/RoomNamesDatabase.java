@@ -2,15 +2,14 @@ package com.japagram.data;
 
 import android.content.Context;
 import android.os.Looper;
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -22,7 +21,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexRomaji.class,
                         IndexEnglish.class,
                         IndexKanji.class},
-                    version = GlobalConstants.NAMES_DB_VERSION,
+                    version = Globals.NAMES_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomNamesDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -64,10 +63,10 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        Utilities.setProgressValueNamesDb(context, 0);
+        UtilitiesPrefs.setProgressValueNamesDb(context, 0);
         if (word().count() == 0 || indexRomaji().count() == 0) {
             word().nukeTable();
-            Utilities.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
@@ -89,10 +88,10 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
-            Utilities.setAppPreferenceDbVersionNames(context, GlobalConstants.NAMES_DB_VERSION);
+            UtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
         }
-        Utilities.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, true);
-        Utilities.setProgressValueNamesDb(context, 100);
+        UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, true);
+        UtilitiesPrefs.setProgressValueNamesDb(context, 100);
 
     }
 

@@ -4,8 +4,9 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
                         IndexFrench.class,
                         IndexSpanish.class,
                         IndexKanji.class},
-                    version = GlobalConstants.EXTENDED_DB_VERSION,
+                    version = Globals.EXTENDED_DB_VERSION,
                     exportSchema = false)
 public abstract class RoomExtendedDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
@@ -68,10 +69,10 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        Utilities.setProgressValueExtendedDb(context, 0);
+        UtilitiesPrefs.setProgressValueExtendedDb(context, 0);
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
-            Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             beginTransaction();
             try {
                 if (Looper.myLooper() == null) Looper.prepare();
@@ -96,10 +97,10 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
             } finally {
                 endTransaction();
             }
-            Utilities.setAppPreferenceDbVersionExtended(context, GlobalConstants.EXTENDED_DB_VERSION);
+            UtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
         }
-        Utilities.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
-        Utilities.setProgressValueExtendedDb(context, 100);
+        UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
+        UtilitiesPrefs.setProgressValueExtendedDb(context, 100);
 
     }
 

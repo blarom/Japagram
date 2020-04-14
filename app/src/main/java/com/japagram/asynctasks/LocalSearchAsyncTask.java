@@ -3,13 +3,15 @@ package com.japagram.asynctasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
     private WeakReference<Context> contextRef;
     private final String mQuery;
     public LocalDictSearchAsyncResponseHandler listener;
+    private static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
 
     public LocalSearchAsyncTask(Context context, String query, LocalDictSearchAsyncResponseHandler listener, boolean mShowNames) {
         contextRef = new WeakReference<>(context);
@@ -37,23 +40,26 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
 
         List<Word> localMatchingWordsList = new ArrayList<>();
         if (!TextUtils.isEmpty(mQuery)) {
-            boolean completeWithNamesIfNoResultsEvenIfDontShowNames = Utilities.getAppPreferenceCompleteWithNames(contextRef.get());
+            boolean completeWithNamesIfNoResultsEvenIfDontShowNames = UtilitiesPrefs.getAppPreferenceCompleteWithNames(contextRef.get());
             RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
-            RoomExtendedDatabase roomExtendedDatabase = Utilities.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get())?
-                    RoomExtendedDatabase.getInstance(contextRef.get()) : null;
-            RoomNamesDatabase roomNamesDatabase = (
-                    Utilities.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get())
-                    && (mShowNames || completeWithNamesIfNoResultsEvenIfDontShowNames))? RoomNamesDatabase.getInstance(contextRef.get()) : null;
+            RoomExtendedDatabase roomExtendedDatabase = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get())? RoomExtendedDatabase.getInstance(contextRef.get()) : null;
+            RoomNamesDatabase roomNamesDatabase = (UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get()) && (mShowNames || completeWithNamesIfNoResultsEvenIfDontShowNames))?
+                    RoomNamesDatabase.getInstance(contextRef.get()) : null;
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Loaded RoomDatabase instances");
             String language = LocaleHelper.getLanguage(contextRef.get());
-            Object[] matchingWordIds = Utilities.getMatchingWordIdsAndDoBasicFiltering(mQuery,
+            Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery,
                     roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language, mShowNames, completeWithNamesIfNoResultsEvenIfDontShowNames);
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Got matching word ids");
             List<Long> matchingWordIdsCentral = (List<Long>) matchingWordIds[0];
             List<Long> matchingWordIdsExtended = (List<Long>) matchingWordIds[1];
             List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];
             localMatchingWordsList = roomCentralDatabase.getWordListByWordIds(matchingWordIdsCentral);
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Got matching words");
             if (roomExtendedDatabase != null) localMatchingWordsList.addAll(roomExtendedDatabase.getWordListByWordIds(matchingWordIdsExtended));
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
             if (roomNamesDatabase != null) {
                 List<Word> originalNames = roomNamesDatabase.getWordListByWordIds(matchingWordIdsNames);
+                Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
                 List<Word> condensedNames = new ArrayList<>();
                 boolean foundName;
                 for (Word name : originalNames) {

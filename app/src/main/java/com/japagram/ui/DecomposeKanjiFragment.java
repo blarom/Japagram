@@ -23,9 +23,10 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
-import com.japagram.resources.GlobalConstants;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -79,7 +80,7 @@ public class DecomposeKanjiFragment extends Fragment implements
 
         //Setting the Typeface
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = Utilities.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
         getDecomposition();
@@ -114,11 +115,11 @@ public class DecomposeKanjiFragment extends Fragment implements
         mInputQueryKanjis = new ArrayList<>();
         for (int i=0; i<mInputQuery.length(); i++) {
             String currentChar = mInputQuery.substring(i,i+1);
-            if (ConvertFragment.getTextType(currentChar) == GlobalConstants.TYPE_KANJI) {
+            if (ConvertFragment.getTextType(currentChar) == Globals.TYPE_KANJI) {
                 Object[] elements = new Object[4];
-                elements[GlobalConstants.DECOMP_KANJI_LIST_INDEX] = currentChar;
-                elements[GlobalConstants.DECOMP_RADICAL_ITERATION] = 0;
-                elements[GlobalConstants.DECOMP_PARENT_ALREADY_DISPLAYED] = false;
+                elements[Globals.DECOMP_KANJI_LIST_INDEX] = currentChar;
+                elements[Globals.DECOMP_RADICAL_ITERATION] = 0;
+                elements[Globals.DECOMP_PARENT_ALREADY_DISPLAYED] = false;
                 mInputQueryKanjis.add(elements);
             }
         }
@@ -126,9 +127,9 @@ public class DecomposeKanjiFragment extends Fragment implements
         //Checking that the input is valid and getting the decompositions. If not, return no results
         if (mInputQueryKanjis.size() > 0) {
             Object[] elements = (Object[]) mInputQueryKanjis.get(0);
-            if (!TextUtils.isEmpty((String) elements[GlobalConstants.DECOMP_KANJI_LIST_INDEX])) {
+            if (!TextUtils.isEmpty((String) elements[Globals.DECOMP_KANJI_LIST_INDEX])) {
                 mDecompositionsHint.setVisibility(View.GONE);
-                startGettingDecompositionAsynchronously((String) elements[GlobalConstants.DECOMP_KANJI_LIST_INDEX], (int) elements[1], 0);
+                startGettingDecompositionAsynchronously((String) elements[Globals.DECOMP_KANJI_LIST_INDEX], (int) elements[1], 0);
             }
         }
         else {
@@ -187,7 +188,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         final TextView nameReadingTV = decompositionContainer.findViewById(R.id.decomposition_element_name_readings_value);
         final TextView meaningTV = decompositionContainer.findViewById(R.id.decomposition_element_meanings_value);
 
-        if (Utilities.getPreferenceShowDecompKanjiStructureInfo(getActivity())) {
+        if (UtilitiesPrefs.getPreferenceShowDecompKanjiStructureInfo(getActivity())) {
             structureTitleTV.setVisibility(View.VISIBLE);
             structureTV.setVisibility(View.VISIBLE);
         } else {
@@ -226,7 +227,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         //region Setting the main Kanji
         kanjiTV.setTypeface(mDroidSansJapaneseTypeface);
         kanjiTV.setTextLocale(Locale.JAPAN);
-        kanjiTV.setTextColor(Utilities.getResColorValue(getContext(), R.attr.colorPrimaryDark));
+        kanjiTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark));
         setPrintableKanji(kanjiTV, mainKanji);
         kanjiTV.setHint(mainKanji);
         structure_info = getStructureInfo(decomposedKanji.get(0).get(1));
@@ -245,7 +246,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             final TextView tv = new TextView(getContext());
             tv.setLayoutParams(radical_gallery_layoutParams);
             display_text = decomposedKanji.get(i).get(0);
-            text = Utilities.fromHtml("<font color='"+Utilities.getResColorValue(getContext(), R.attr.colorPrimaryDark)+"'>" + display_text + "</font>");
+            text = Utilities.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark)+"'>" + display_text + "</font>");
             clickable_text = new SpannableString(text);
 
             tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -294,7 +295,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             });
             tv.setTag(kanjiListIndex +";"+ radicalIteration +";"+mainKanji);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.DecompKanjiSize));
-            tv.setTextColor(Utilities.getResColorValue(getContext(), R.attr.colorPrimaryDark));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark));
             tv.setPadding(10,0,10,0);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
             radicalGalleryLL.addView(tv);
@@ -334,10 +335,10 @@ public class DecomposeKanjiFragment extends Fragment implements
                 radicalTV.setVisibility(View.GONE);
             }
 
-            onReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_ON_READING));
-            kunReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_KUN_READING));
-            nameReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_NAME_READING));
-            meaningTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_MEANING));
+            onReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_ON_READING));
+            kunReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_KUN_READING));
+            nameReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_NAME_READING));
+            meaningTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_MEANING));
         }
         else if (character_is_radical_or_kana) {
             //region Display Radical or Kana Meanings/Readings
@@ -352,14 +353,14 @@ public class DecomposeKanjiFragment extends Fragment implements
             }
             else {
                 //region Get the radical characteristics from the RadialsOnlyDatabase
-                List<String> parsed_number = Arrays.asList(mRadicalsOnlyDatabase.get(radicalIndex)[GlobalConstants.RADICAL_NUM].split(";"));
+                List<String> parsed_number = Arrays.asList(mRadicalsOnlyDatabase.get(radicalIndex)[Globals.RADICAL_NUM].split(";"));
                 String[] main_radical_row = mRadicalsOnlyDatabase.get(radicalIndexOriginal);
                 List<String> radicalVariants = new ArrayList<>();
                 for (int i=radicalIndexOriginal; i<radicalIndexOriginal+10; i++) {
-                    if (i > mRadicalsOnlyDatabase.size()-1 || i>radicalIndexOriginal && !mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_NUM].contains("variant")) break;
-                    String currentKana = mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA];
-                    if (!currentKana.equals(mRadicalsOnlyDatabase.get(radicalIndex)[GlobalConstants.RADICAL_KANA])) {
-                        radicalVariants.add(mRadicalsOnlyDatabase.get(i)[GlobalConstants.RADICAL_KANA]);
+                    if (i > mRadicalsOnlyDatabase.size()-1 || i>radicalIndexOriginal && !mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_NUM].contains("variant")) break;
+                    String currentKana = mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_KANA];
+                    if (!currentKana.equals(mRadicalsOnlyDatabase.get(radicalIndex)[Globals.RADICAL_KANA])) {
+                        radicalVariants.add(mRadicalsOnlyDatabase.get(i)[Globals.RADICAL_KANA]);
                     }
                 }
 
@@ -369,9 +370,9 @@ public class DecomposeKanjiFragment extends Fragment implements
                 radicalValue = "";
                 String radicalName = "";
                 switch (LocaleHelper.getLanguage(getContext())) {
-                    case "en": radicalName = main_radical_row[GlobalConstants.RADICAL_NAME_EN]; break;
-                    case "fr": radicalName = main_radical_row[GlobalConstants.RADICAL_NAME_FR]; break;
-                    case "es": radicalName = main_radical_row[GlobalConstants.RADICAL_NAME_ES]; break;
+                    case "en": radicalName = main_radical_row[Globals.RADICAL_NAME_EN]; break;
+                    case "fr": radicalName = main_radical_row[Globals.RADICAL_NAME_FR]; break;
+                    case "es": radicalName = main_radical_row[Globals.RADICAL_NAME_ES]; break;
                 }
                 if (parsed_number.size()>1) {
                     switch (parsed_number.get(1)) {
@@ -379,7 +380,7 @@ public class DecomposeKanjiFragment extends Fragment implements
                             radicalValue = "\"" + radicalName
                                     + "\" (" + mLocalizedResources.getString(R.string.radical) + " "
                                     + mLocalizedResources.getString(R.string.number_abbrev_) + parsed_number.get(0) + "), "
-                                    + main_radical_row[GlobalConstants.RADICAL_NUM_STROKES] + strokes;
+                                    + main_radical_row[Globals.RADICAL_NUM_STROKES] + strokes;
                             break;
                         case "variant":
                             radicalValue = "\"" + radicalName
@@ -399,7 +400,7 @@ public class DecomposeKanjiFragment extends Fragment implements
                     radicalValue = "\""+ radicalName
                             + "\" (" + mLocalizedResources.getString(R.string.radical) + " "
                             + mLocalizedResources.getString(R.string.number_abbrev_) + " "
-                            + parsed_number.get(0) + "), " + main_radical_row[GlobalConstants.RADICAL_NUM_STROKES] + strokes;
+                            + parsed_number.get(0) + "), " + main_radical_row[Globals.RADICAL_NUM_STROKES] + strokes;
                 }
                 if (radicalVariants.size()>0) {
                     radicalValue += "\nVariants: " + TextUtils.join(", ", radicalVariants);
@@ -411,10 +412,10 @@ public class DecomposeKanjiFragment extends Fragment implements
                 if (character_not_found_in_KanjiDictDatabase) {
                     currentKanjiDetailedCharacteristics = currentMainRadicalDetailedCharacteristics;
                 }
-                onReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_ON_READING));
-                kunReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_KUN_READING));
-                nameReadingTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_NAME_READING));
-                meaningTV.setText(currentKanjiDetailedCharacteristics.get(GlobalConstants.KANJI_MEANING));
+                onReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_ON_READING));
+                kunReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_KUN_READING));
+                nameReadingTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_NAME_READING));
+                meaningTV.setText(currentKanjiDetailedCharacteristics.get(Globals.KANJI_MEANING));
                 //endregion
             }
             //endregion
@@ -424,7 +425,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         //region Updating mInputQueryKanjis
         Object[] elements;
         elements = (Object[]) mInputQueryKanjis.get(kanjiListIndex);
-        elements[GlobalConstants.DECOMP_RADICAL_ITERATION] = radicalIteration;
+        elements[Globals.DECOMP_RADICAL_ITERATION] = radicalIteration;
         mInputQueryKanjis.set(kanjiListIndex, elements);
         //endregion
 
@@ -441,7 +442,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             int currentRadicalIteration = Integer.parseInt(tags[1]);
 
             Object[] elements1 = (Object[]) mInputQueryKanjis.get(currentKanjiListIndex);
-            elements1[GlobalConstants.DECOMP_RADICAL_ITERATION] = currentRadicalIteration - 1;
+            elements1[Globals.DECOMP_RADICAL_ITERATION] = currentRadicalIteration - 1;
             mInputQueryKanjis.set(currentKanjiListIndex, elements1);
 
             View child = mOverallBlockContainer.findViewById(decompositionContainer.getId());
@@ -703,19 +704,19 @@ public class DecomposeKanjiFragment extends Fragment implements
         //Saving the kanji in the decomposition list
         Object[] elements = (Object[]) mInputQueryKanjis.get(kanjiListIndex);
         mInputQueryKanjis.set(kanjiListIndex, new Object[]{
-                elements[GlobalConstants.DECOMP_KANJI_LIST_INDEX],
-                elements[GlobalConstants.DECOMP_RADICAL_ITERATION],
+                elements[Globals.DECOMP_KANJI_LIST_INDEX],
+                elements[Globals.DECOMP_RADICAL_ITERATION],
                 true
         });
 
         //Getting the decomposition for the next kanji if relevant
         for (int i=0; i<mInputQueryKanjis.size(); i++) {
             elements = (Object[]) mInputQueryKanjis.get(i);
-            if (!((boolean) elements[GlobalConstants.DECOMP_PARENT_ALREADY_DISPLAYED])) {
+            if (!((boolean) elements[Globals.DECOMP_PARENT_ALREADY_DISPLAYED])) {
                 if (!TextUtils.isEmpty((String) elements[0]))
                     startGettingDecompositionAsynchronously(
-                            (String) elements[GlobalConstants.DECOMP_KANJI_LIST_INDEX],
-                            (int) elements[GlobalConstants.DECOMP_RADICAL_ITERATION],
+                            (String) elements[Globals.DECOMP_KANJI_LIST_INDEX],
+                            (int) elements[Globals.DECOMP_RADICAL_ITERATION],
                             i
                     );
                 break;
