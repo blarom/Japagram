@@ -15,6 +15,8 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.japagram.R;
+import com.japagram.data.RoomExtendedDatabase;
+import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
@@ -108,6 +110,7 @@ public class MainActivity extends BaseActivity implements
 
         Log.i("Diagnosis Time", "Started MainActivity.");
         initializeParameters();
+        instantiateExtraDatabases();
         setupSharedPreferences();
 
         setFragments();
@@ -359,6 +362,14 @@ public class MainActivity extends BaseActivity implements
         //see https://stackoverflow.com/questions/11786553/changing-the-android-typeface-doesnt-work
 
         mLanguageCode = LocaleHelper.getLanguage(getBaseContext());
+    }
+    private void instantiateExtraDatabases() {
+        Runnable instantiateRunnable = () -> {
+            RoomExtendedDatabase.getInstance(this);
+            RoomNamesDatabase.getInstance(this);
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
     }
     private void setFragments() {
 

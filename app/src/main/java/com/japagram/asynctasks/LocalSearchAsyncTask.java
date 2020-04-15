@@ -40,12 +40,15 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
 
         List<Word> localMatchingWordsList = new ArrayList<>();
         if (!TextUtils.isEmpty(mQuery)) {
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Starting");
             boolean completeWithNamesIfNoResultsEvenIfDontShowNames = UtilitiesPrefs.getAppPreferenceCompleteWithNames(contextRef.get());
             RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Loaded RoomCentralDatabase instances");
             RoomExtendedDatabase roomExtendedDatabase = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get())? RoomExtendedDatabase.getInstance(contextRef.get()) : null;
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Loaded RoomExtendedDatabase instances");
             RoomNamesDatabase roomNamesDatabase = (UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get()) && (mShowNames || completeWithNamesIfNoResultsEvenIfDontShowNames))?
                     RoomNamesDatabase.getInstance(contextRef.get()) : null;
-            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Loaded RoomDatabase instances");
+            Log.i(DEBUG_TAG, "LocalSearchAsyncTask - Loaded RoomNamesDatabase instances");
             String language = LocaleHelper.getLanguage(contextRef.get());
             Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery,
                     roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language, mShowNames, completeWithNamesIfNoResultsEvenIfDontShowNames);
