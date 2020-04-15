@@ -198,14 +198,14 @@ public final class UtilitiesPrefs {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putBoolean(context.getString(R.string.pref_complete_with_names_key), flag);
+            editor.putBoolean(context.getString(R.string.pref_search_names_no_matter_what), flag);
             editor.apply();
         }
     }
 
     public static boolean getAppPreferenceCompleteWithNames(Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getBoolean(context.getString(R.string.pref_complete_with_names_key), true);
+        return sharedPref.getBoolean(context.getString(R.string.pref_search_names_no_matter_what), true);
     }
 
     public static void setAppPreferenceDbVersionCentral(Context context, int value) {

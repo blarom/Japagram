@@ -29,6 +29,9 @@ import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -81,7 +84,7 @@ public class DictionaryFragment extends Fragment implements
 
 
     //Fragment Lifecycle methods
-    @Override public void onAttach(Context context) {
+    @Override public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         dictionaryFragmentOperationsHandler = (DictionaryFragmentOperationsHandler) context;
    }
@@ -130,7 +133,7 @@ public class DictionaryFragment extends Fragment implements
 
 
 	//Functionality methods
-    private void getExtras() {
+    @SuppressWarnings("unchecked") private void getExtras() {
         if (getArguments()!=null) {
             mInputQuery = getArguments().getString(getString(R.string.user_query_word));
             mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));
@@ -305,25 +308,13 @@ public class DictionaryFragment extends Fragment implements
 
             displayResults(mMergedMatchingWordsList);
 
-            int maxIndex = mMergedMatchingWordsList.size()>MAX_NUM_WORDS_TO_SHARE ? MAX_NUM_WORDS_TO_SHARE : mMergedMatchingWordsList.size();
+            int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
             dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
-
-            if (mLocalMatchingWordsList.size()==0) {
-                //performConjSearch();
-            }
 
             if (UtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
 
         }
 
-    }
-    private void performConjSearch() {
-
-        cancelAsyncOperations();
-
-        if (!TextUtils.isEmpty(mInputQuery)) {
-            dictionaryFragmentOperationsHandler.onVerbConjugationFromDictRequested(mInputQuery);
-        }
     }
     private void displayResults(List<Word> wordsList) {
 
@@ -347,7 +338,7 @@ public class DictionaryFragment extends Fragment implements
         }
 
     }
-    private List<Word> sortWordsAccordingToRanking(List<Word> wordsList) {
+    @NotNull @Contract("null -> new") private List<Word> sortWordsAccordingToRanking(List<Word> wordsList) {
 
         if (wordsList == null || wordsList.size()==0) return new ArrayList<>();
 
@@ -458,13 +449,14 @@ public class DictionaryFragment extends Fragment implements
     @Override public void onLocalDictSearchAsyncTaskResultFound(List<Word> words) {
 
         if (getContext()==null) return;
+        Log.i(DEBUG_TAG, "Finished Words Search AsyncTask");
 
         mAlreadyLoadedRoomResults = true;
 
         mLocalMatchingWordsList = words;
         mLocalMatchingWordsList = sortWordsAccordingToRanking(mLocalMatchingWordsList);
 
-        int maxIndex = mLocalMatchingWordsList.size()> MAX_NUM_WORDS_TO_SHARE ? MAX_NUM_WORDS_TO_SHARE : mLocalMatchingWordsList.size();
+        int maxIndex = Math.min(mLocalMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
         dictionaryFragmentOperationsHandler.onLocalMatchingWordsFound(mLocalMatchingWordsList.subList(0,maxIndex));
 
         Log.i(DEBUG_TAG, "Displaying Room words");
@@ -494,9 +486,10 @@ public class DictionaryFragment extends Fragment implements
         Log.i(DEBUG_TAG, "Displaying Jisho merged words");
         displayMergedWordsToUser();
     }
-    @Override public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
+    @Override @SuppressWarnings("unchecked") public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
 
         if (getContext()==null) return;
+        Log.i(DEBUG_TAG, "Finished Verbs Search AsyncTask");
 
         mAlreadyLoadedVerbs = true;
         List<Verb> mMatchingVerbs = (List<Verb>) dataElements[0];

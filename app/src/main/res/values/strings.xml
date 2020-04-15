@@ -37,7 +37,7 @@
     <string name="hidden_decomp_structure_info">Don\'t show Kanji structure explanation</string>
     <string name="shown_decomp_structure_info">Show decomposed Kanji structure explanation</string>
     <string name="pref_complete_local_with_names_search_key" translatable="false">complete_local_with_names_search</string>
-    <string name="pref_complete_with_names_key" translatable="false">search_names_if_no_results_found</string>
+    <string name="pref_search_names_no_matter_what" translatable="false">search_names_no_matter_what</string>
     <string name="pref_complete_local_with_online_search_key" translatable="false">complete_local_with_online_search</string>
     <string name="pref_use_japanese_font_key" translatable="false">use_japanese_font</string>
     <string name="pref_wait_for_online_results_key" translatable="false">wait_for_online_results</string>

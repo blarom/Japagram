@@ -9,7 +9,7 @@ import java.util.List;
 
 public final class Globals {
 
-    static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
+    public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
     public static List<String[]> SimilarsDatabase;
     public static List<String[]> VerbLatinConjDatabase;
     public static List<String[]> VerbKanjiConjDatabase;
@@ -288,7 +288,7 @@ public final class Globals {
         return map;
     }
 
-    public static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
+    static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
     public static final int BALANCE_POINT_REGULAR_DISPLAY = 4;
     public static final int BALANCE_POINT_HISTORY_DISPLAY = 2;
 

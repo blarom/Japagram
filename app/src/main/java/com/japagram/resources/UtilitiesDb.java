@@ -565,7 +565,7 @@ public class UtilitiesDb {
                                                                  RoomExtendedDatabase roomExtendedRoomDatabase,
                                                                  RoomNamesDatabase roomNamesRoomDatabase,
                                                                  String language,
-                                                                 boolean showNames, boolean completeWithNamesIfNoResultsEvenIfDontShowNames) {
+                                                                 boolean showNames) {
 
         //region Initializations
         List<Long> matchingWordIdsCentral = new ArrayList<>();
@@ -654,7 +654,7 @@ public class UtilitiesDb {
                     roomCentralDatabase, roomExtendedRoomDatabase,
                     language, true);
 
-        if (roomNamesRoomDatabase != null && (showNames || matchingWordIdsCentral.size() == 0 && completeWithNamesIfNoResultsEvenIfDontShowNames)) {
+        if (roomNamesRoomDatabase != null && showNames) {
             matchingWordIdsNames = addNamesToMatchesList(searchWord, inputTextType, roomNamesRoomDatabase);
         }
 

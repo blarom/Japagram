@@ -38,7 +38,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        addPreferencesFromResource(R.xml.pref_japanesetoolbox);
+        addPreferencesFromResource(R.xml.prefs_panel);
 
         PreferenceScreen prefScreen = getPreferenceScreen();
         SharedPreferences sharedPreferences = prefScreen.getSharedPreferences();

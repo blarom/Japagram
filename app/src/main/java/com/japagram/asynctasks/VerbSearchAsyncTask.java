@@ -3,6 +3,7 @@ package com.japagram.asynctasks;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.japagram.R;
 import com.japagram.data.ConjugationTitle;
@@ -14,6 +15,9 @@ import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.ui.ConvertFragment;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -85,13 +89,16 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     protected void onPreExecute() {
         super.onPreExecute();
     }
-    @Override
-    protected Object[] doInBackground(Void... voids) {
+    @Override protected Object[] doInBackground(Void... voids) {
 
+        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
         mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
+        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
+
         if (mCompleteVerbsList == null || mCompleteVerbsList.size()==0) {
             mCompleteVerbsList = mRoomCentralDatabase.getAllVerbs();
         }
+        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
         List<Verb> matchingVerbs;
         List<Word> matchingWords;
@@ -101,16 +108,22 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         if (!TextUtils.isEmpty(mInputQuery)) {
             setInputQueryParameters();
             getFamilyConjugationIndexes();
-
             String language = LocaleHelper.getLanguage(contextRef.get());
+            Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
+
             mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(language);
+            Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
+
             List<Long> ids = new ArrayList<>();
             for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
             matchingWords = mRoomCentralDatabase.getWordListByWordIds(ids);
+            Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
+
             matchingVerbs = getVerbsWithConjugations(mMatchingVerbIdAndColList, matchingWords);
             matchingWords = updateWordsWithConjMatchStatus(matchingWords, matchingVerbs);
-            List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(mMatchingVerbIdAndColList, matchingWords);
+            Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
 
+            List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(mMatchingVerbIdAndColList, matchingWords);
             for (int i = 0; i < matchingVerbIdColListSortedByLength.size(); i++) {
                 for (int j = 0; j < matchingWords.size(); j++) {
                     Word word = matchingWords.get(j);
@@ -122,6 +135,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                     }
                 }
             }
+            Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Sorted verbs list");
         }
 
         List<Object[]> matchingConjugationParameters = new ArrayList<>();
@@ -133,7 +147,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
     }
 
-    private List<Word> updateWordsWithConjMatchStatus(List<Word> matchingWords, List<Verb> matchingVerbs) {
+    @NotNull @Contract("null, _ -> new; !null, null -> new") private List<Word> updateWordsWithConjMatchStatus(List<Word> matchingWords, List<Verb> matchingVerbs) {
         boolean foundExactMatch;
         boolean foundContainedMatch;
         if (matchingWords == null || matchingVerbs == null) return new ArrayList<>();
@@ -177,7 +191,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return matchingWords;
     }
 
-    private Object[] getConjugationParameters(Verb verb, String inputQuery, String inputQueryLatin) {
+    @NotNull private Object[] getConjugationParameters(@NotNull Verb verb, @NotNull String inputQuery, String inputQueryLatin) {
 
         List<Verb.ConjugationCategory> conjugationCategories = verb.getConjugationCategories();
         List<Verb.ConjugationCategory.Conjugation> conjugations;
@@ -314,7 +328,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
         }
     }
-    private String[] getVerbCharacteristicsFromAltSpelling(String trimmedAltSpelling, Verb verb) {
+    @NotNull private String[] getVerbCharacteristicsFromAltSpelling(String trimmedAltSpelling, Verb verb) {
 
         String[] characteristics = new String[6];
 
@@ -333,10 +347,11 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         return characteristics;
     }
-    private List<long[]> getMatchingVerbIdsAndCols(String language) {
+    @NotNull @SuppressWarnings("unchecked") private List<long[]> getMatchingVerbIdsAndCols(String language) {
 
         if (mInputQueryTextType == TYPE_INVALID || mCompleteVerbsList==null) return new ArrayList<>();
 
+        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
         //region Initializations
         int NumberOfSheetCols = mVerbLatinConjDatabase.get(0).length;
         List<Integer> dilutedConjugationColIndexes = new ArrayList<>();
@@ -364,22 +379,18 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         //region Removing the "ing" from the query verb (if relevant)
         if (mInputQueryLength > 2 && mInputQuery.substring(mInputQueryLength -3).equals("ing")) {
-
-            if (mInputQueryLength > 5 && mInputQuery.substring(mInputQueryLength -6).equals("inging")) {
-                if (	(mInputQuery.substring(0, 2+1).equals("to ") && UtilitiesDb.isOfTypeIngIng(mInputQuery.substring(3, mInputQueryLength))) ||
-                        (!mInputQuery.substring(0, 2+1).equals("to ") && UtilitiesDb.isOfTypeIngIng(mInputQuery.substring(0, mInputQueryLength)))   ) {
+            boolean startsWithTo = mInputQuery.substring(0, 3).equals("to ");
+            if (mInputQueryLength > 5 && mInputQuery.substring(mInputQueryLength - 6).equals("inging")) {
+                if (	(startsWithTo && UtilitiesDb.isOfTypeIngIng(mInputQuery.substring(3))) || (!startsWithTo && UtilitiesDb.isOfTypeIngIng(mInputQuery))   ) {
                     // If the verb ends with "inging" then remove the the second "ing"
                     mInputQuery = mInputQuery.substring(0, mInputQueryLength -3);
                 }
             }
             else {
-                String verb2WithIng = mInputQuery + "ing";
-                if ((verb2WithIng.substring(0, 2 + 1).equals("to ") && UtilitiesDb.isOfTypeIngIng(verb2WithIng.substring(3, mInputQueryLength + 3))) ||
-                        (!verb2WithIng.substring(0, 2 + 1).equals("to ") && UtilitiesDb.isOfTypeIngIng(verb2WithIng.substring(0, mInputQueryLength + 3)))) {
-                } else {
+                String inputQueryWithIng = mInputQuery + "ing";
+                if (    !((startsWithTo && UtilitiesDb.isOfTypeIngIng(inputQueryWithIng.substring(3))) || (!startsWithTo && UtilitiesDb.isOfTypeIngIng(inputQueryWithIng)))   ) {
                     // If the verb does not belong to the list, then remove the ending "ing" so that it can be compared later on to the verbs excel
                     //If the verb is for e.g. to sing / sing (verb2 = to singing / singing), then check that verb2 (without the "to ") belongs to the list, and if it does then do nothing
-
                     mInputQuery = mInputQuery.substring(0, mInputQueryLength -3);
                 }
             }
@@ -399,9 +410,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 case VERB_FAMILY_DA:
                     currentFamilyConjugations = mVerbLatinConjDatabase.get(familyIndex);
                     for (int column = 1; column < NumberOfSheetCols; column++) {
-                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated)
-                                || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
+                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated) || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
                             queryIsContainedInADesuConjugation = true;
+                            break;
                         }
                     }
                     if (queryIsContainedInADesuConjugation) break;
@@ -416,9 +427,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 case VERB_FAMILY_KURU:
                     currentFamilyConjugations = mVerbLatinConjDatabase.get(familyIndex);
                     for (int column = 1; column < NumberOfSheetCols; column++) {
-                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated)
-                                || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
+                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated) || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
                             queryIsContainedInAKuruConjugation = true;
+                            break;
                         }
                     }
                     if (queryIsContainedInAKuruConjugation) break;
@@ -433,9 +444,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 case VERB_FAMILY_SURU:
                     currentFamilyConjugations = mVerbLatinConjDatabase.get(familyIndex);
                     for (int column = 1; column < NumberOfSheetCols; column++) {
-                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated)
-                                || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
+                        if (currentFamilyConjugations[column].equals(mInputQueryContatenated) || currentFamilyConjugations[column].equals(mInputQueryTransliteratedKanaFormContatenated)) {
                             queryIsContainedInASuruConjugation = true;
+                            break;
                         }
                     }
                     if (queryIsContainedInASuruConjugation) break;
@@ -450,8 +461,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 default:
                     currentFamilyConjugations = mVerbLatinConjDatabase.get(familyIndex);
                     for (int column = COLUMN_VERB_ISTEM; column < NumberOfSheetCols; column++) {
-                        if (currentFamilyConjugations[column].contains(mInputQueryContatenated)
-                                || currentFamilyConjugations[column].contains(mInputQueryTransliteratedKanaFormContatenated)) {
+                        if (currentFamilyConjugations[column].contains(mInputQueryContatenated) || currentFamilyConjugations[column].contains(mInputQueryTransliteratedKanaFormContatenated)) {
                             queryIsContainedInNormalFamilyConjugation = true;
                             break;
                         }
@@ -518,8 +528,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = ((List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
-                    mRoomCentralDatabase, null, null, language, false, false)[0]);
+            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mInputQuery,
+                    mRoomCentralDatabase, null, null, language, false)[0];
             mMatchingWords = mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
         }
         else {
@@ -549,7 +559,10 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             Word suruVerb = mRoomCentralDatabase.getWordsByExactRomajiAndKanjiMatch("suru", "為る").get(0);
             boolean alreadyInList = false;
             for (long[] idAndCol : matchingVerbIdsAndColsFromBasicCharacteristics) {
-                if (idAndCol[0] == suruVerb.getWordId()) alreadyInList = true;
+                if (idAndCol[0] == suruVerb.getWordId()) {
+                    alreadyInList = true;
+                    break;
+                }
             }
             if (!alreadyInList) matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{suruVerb.getWordId(), 0});
         }
@@ -607,7 +620,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             //This includes the romaji/kanji/romajiroot/kanjiroot/kana1stchar, also also the altSpelling equivalents
             altSpellingsAsString = verb.getAltSpellings();
             family = verb.getFamily();
-            exceptionIndex = (verb.getExceptionIndex().equals(""))? 0 : Integer.valueOf(verb.getExceptionIndex());
+            exceptionIndex = (verb.getExceptionIndex().equals(""))? 0 : Integer.parseInt(verb.getExceptionIndex());
 
             verbSearchCandidates = new ArrayList<>();
             String[] characteristics = new String[6];
@@ -632,9 +645,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
             //endregion
 
-            if (verb.getRomaji().equals("taberu")) {
-                verb.setRomaji(verb.getRomaji());
-            }
             //region Checking if one of the relevant base words gets a match, and registering it in the match list
             for (String[] verbSearchCandidate : verbSearchCandidates) {
 
@@ -810,7 +820,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         return matchingVerbIdsAndCols;
     }
-    private List<long[]> sortMatchingVerbIdAndColList(List<long[]> matchingVerbIdsAndCols, List<Word> matchingWords) {
+    @NotNull private List<long[]> sortMatchingVerbIdAndColList(List<long[]> matchingVerbIdsAndCols, List<Word> matchingWords) {
 
         List<long[]> matchingVerbIdLengthColList = new ArrayList<>();
 
@@ -867,7 +877,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return matchingVerbIdColListSorted;
 
     }
-    private List<Verb> getVerbsWithConjugations(List<long[]> matchingVerbIdAndColList, List<Word> matchingWords) {
+    @NotNull @SuppressWarnings("ConstantConditions")  private List<Verb> getVerbsWithConjugations(@NotNull List<long[]> matchingVerbIdAndColList, List<Word> matchingWords) {
 
         if (matchingVerbIdAndColList.size() == 0) return new ArrayList<>();
 
@@ -910,8 +920,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             matchingVerbId = matchingVerbIdAndColList.get(t)[0];
             currentVerb = matchingVerb.get(t);
             currentWord = matchingWords.get(t);
-            if (currentWord == null || currentVerb == null
-                    || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) continue;
+            if (currentWord == null || currentVerb == null || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) continue;
             currentFamilyConjugationsIndex = mFamilyConjugationIndexes.get(currentVerb.getFamily());
             currentConjugationsRowLatin = Arrays.copyOf(mVerbLatinConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);
             currentConjugationsRowKanji = Arrays.copyOf(mVerbKanjiConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);
@@ -955,14 +964,15 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
 
             if (Globals.VERB_FAMILIES_FULL_NAME_MAP.containsKey(currentVerb.getFamily())) {
-                currentVerb.setFamily(contextRef.get().getString(VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily())));
+                int value = Globals.VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily());
+                currentVerb.setFamily(contextRef.get().getString(value));
             }
             //endregion
 
             //region Getting the conjugations row
             currentConjugationExceptionsRowLatin = new String[NumberOfSheetCols];
             currentConjugationExceptionsRowKanji = new String[NumberOfSheetCols];
-            int indexOfExceptionConjugations = Integer.valueOf(currentVerb.getExceptionIndex());
+            int indexOfExceptionConjugations = Integer.parseInt(currentVerb.getExceptionIndex());
 
             if (indexOfExceptionConjugations != currentFamilyConjugationsIndex) {
                 currentConjugationExceptionsRowLatin = Arrays.copyOf(mVerbLatinConjDatabase.get(indexOfExceptionConjugations), NumberOfSheetCols);
@@ -1065,8 +1075,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return verbs;
     }
 
-    @Override
-    protected void onPostExecute(Object[] objectArray) {
+    @Override protected void onPostExecute(Object[] objectArray) {
         super.onPostExecute(objectArray);
         listener.onVerbSearchAsyncTaskResultFound(objectArray);
     }

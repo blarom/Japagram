@@ -42,12 +42,12 @@
         android:summaryOn="@string/shown_names_search"
         android:title="@string/complete_local_with_names_search" />
 
-    <CheckBoxPreference
-        android:defaultValue="@bool/pref_complete_with_names_default"
-        android:key="@string/pref_complete_with_names_key"
-        android:summaryOff="@string/no_complete_with_names"
-        android:summaryOn="@string/yes_complete_with_names"
-        android:title="@string/complete_with_names" />
+<!--    <CheckBoxPreference-->
+<!--        android:defaultValue="@bool/pref_complete_with_names_default"-->
+<!--        android:key="@string/pref_search_names_no_matter_what"-->
+<!--        android:summaryOff="@string/no_complete_with_names"-->
+<!--        android:summaryOn="@string/yes_complete_with_names"-->
+<!--        android:title="@string/complete_with_names" />-->
 
 <!--    <CheckBoxPreference-->
 <!--        android:defaultValue="@bool/pref_complete_local_with_online_search_default"-->
