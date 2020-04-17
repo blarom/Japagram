@@ -19,6 +19,8 @@ import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.ui.ConvertFragment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -1884,5 +1886,19 @@ public class UtilitiesDb {
         }
 
         return conjugationTitles;
+    }
+
+    @NotNull public static List<String[]> removeSpacesFromConjDb(List<String[]> db) {
+        List<String[]> newDb = new ArrayList<>();
+        String[] currentItems;
+        int length = newDb.get(0).length;
+        for (int i = Globals.COLUMN_VERB_ISTEM; i< db.size(); i++) {
+            currentItems = new String[length];
+            for (int j=0; j<length; j++) {
+                currentItems[j] = newDb.get(i)[j].replace(" ", "");
+            }
+            newDb.add(currentItems);
+        }
+        return newDb;
     }
 }

@@ -13,6 +13,7 @@ public final class Globals {
     public static List<String[]> SimilarsDatabase;
     public static List<String[]> VerbLatinConjDatabase;
     public static List<String[]> VerbKanjiConjDatabase;
+    public static List<String[]> VerbLatinConjDatabaseNoSpaces;
     public static List<String[]> RadicalsOnlyDatabase;
     public static List<String[]> Romanizations;
 

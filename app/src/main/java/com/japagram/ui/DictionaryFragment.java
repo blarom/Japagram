@@ -67,8 +67,6 @@ public class DictionaryFragment extends Fragment implements
     private boolean mAlreadyLoadedRoomResults;
     private boolean mAlreadyLoadedJishoResults;
     private boolean mAlreadyLoadedVerbs;
-    private List<String[]> mVerbLatinConjDatabase;
-    private List<String[]> mVerbKanjiConjDatabase;
     private List<ConjugationTitle> mConjugationTitles;
     private DictionaryRecyclerViewAdapter mDictionaryRecyclerViewAdapter;
     private List<Word> mJishoMatchingWordsList;
@@ -133,11 +131,9 @@ public class DictionaryFragment extends Fragment implements
 
 
 	//Functionality methods
-    @SuppressWarnings("unchecked") private void getExtras() {
+    private void getExtras() {
         if (getArguments()!=null) {
             mInputQuery = getArguments().getString(getString(R.string.user_query_word));
-            mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));
-            mVerbKanjiConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.kanji_conj_database));
             mShowNames = getArguments().getBoolean(getString(R.string.show_names));
         }
     }
@@ -151,7 +147,7 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
 
-        mConjugationTitles = UtilitiesDb.getConjugationTitles(mVerbLatinConjDatabase, getContext());
+        mConjugationTitles = UtilitiesDb.getConjugationTitles(Globals.VerbLatinConjDatabase, getContext());
     }
     private void initializeViews(View rootView) {
         mBinding = ButterKnife.bind(this, rootView);
@@ -221,8 +217,7 @@ public class DictionaryFragment extends Fragment implements
     private void startReverseConjSearchForMatchingVerbs() {
         if (getActivity()!=null) {
             Log.i(DEBUG_TAG, "Starting search for verbs");
-            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles,
-                    mVerbLatinConjDatabase, mVerbKanjiConjDatabase, new ArrayList<>(), this);
+            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles, new ArrayList<>(), this);
             mVerbSearchAsyncTask.execute();
         }
     }

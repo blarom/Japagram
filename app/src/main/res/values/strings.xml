@@ -388,6 +388,7 @@
     <string name="legend_database" translatable="false">legend_database</string>
     <string name="latin_conj_database" translatable="false">latin_database</string>
     <string name="kanji_conj_database" translatable="false">kanji_database</string>
+    <string name="latin_conj_database_nospaces" translatable="false">latin_database_nospaces</string>
     <string name="rad_only_database" translatable="false">rad_only_database</string>
     <string name="words_list" translatable="false">words_list</string>
     <string name="search_by_radical_elements_list" translatable="false">search_by_radical_elements_list</string>

@@ -24,6 +24,8 @@ import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +38,8 @@ import androidx.preference.PreferenceManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.japagram.resources.Globals.COLUMN_VERB_ISTEM;
 
 //TODO: database upgrade
 //// Test app ranking algorithm using the following words: eat, car
@@ -619,7 +623,6 @@ public class MainActivity extends BaseActivity implements
         fragmentTransaction.commit();
     }
 
-
     //Communication with other classes:
 
     //Communication with InputQueryFragment
@@ -647,8 +650,7 @@ public class MainActivity extends BaseActivity implements
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
         bundle.putBoolean(getString(R.string.show_names), mShowNames);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(Globals.VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(Globals.VerbKanjiConjDatabase));
+
         mDictionaryFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -678,8 +680,6 @@ public class MainActivity extends BaseActivity implements
         mConjugatorFragment = new ConjugatorFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.latin_conj_database), new ArrayList<>(Globals.VerbLatinConjDatabase));
-        bundle.putSerializable(getString(R.string.kanji_conj_database), new ArrayList<>(Globals.VerbKanjiConjDatabase));
         if (mLocalMatchingWords!=null) bundle.putParcelableArrayList(getString(R.string.words_list), new ArrayList<>(mLocalMatchingWords));
         mConjugatorFragment.setArguments(bundle);
 

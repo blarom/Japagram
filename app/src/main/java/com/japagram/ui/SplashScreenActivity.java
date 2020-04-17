@@ -16,6 +16,7 @@ import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
 import butterknife.BindView;
@@ -64,6 +65,7 @@ public class SplashScreenActivity extends BaseActivity {
             mCentralDbBeingLoaded = true;
             Globals.SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
             Globals.VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            Globals.VerbLatinConjDatabaseNoSpaces = UtilitiesDb.removeSpacesFromConjDb(Globals.VerbLatinConjDatabase);
             Globals.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
             Globals.Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getBaseContext());

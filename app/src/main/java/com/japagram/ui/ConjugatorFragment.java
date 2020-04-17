@@ -24,6 +24,7 @@ import com.japagram.asynctasks.VerbSearchAsyncTask;
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
+import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
@@ -108,8 +109,6 @@ public class ConjugatorFragment extends Fragment implements
     private String mChosenRomajiOrKanji;
     private List<Verb> mMatchingVerbs;
     private List<ConjugationTitle> mConjugationTitles;
-    private List<String[]> mVerbLatinConjDatabase;
-    private List<String[]> mVerbKanjiConjDatabase;
     private List<Word> mWordsFromDictFragment;
     private Typeface mDroidSansJapaneseTypeface;
     private List<Object[]> mMatchingConjugationParameters;
@@ -160,15 +159,14 @@ public class ConjugatorFragment extends Fragment implements
     private void getExtras() {
         if (getArguments()!=null) {
             mInputQuery = getArguments().getString(getString(R.string.user_query_word));
-            mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));
-            mVerbKanjiConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.kanji_conj_database));
+            //mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));  //Leaving this here for syntax, send serializable to here with new ArrayList<>, not List<>
             mWordsFromDictFragment = getArguments().getParcelableArrayList(getString(R.string.words_list));
         }
     }
     private void initializeParameters() {
         mMatchingVerbs = new ArrayList<>();
         mMatchingConjugationParameters = new ArrayList<>();
-        mConjugationTitles = UtilitiesDb.getConjugationTitles(mVerbLatinConjDatabase, getContext());
+        mConjugationTitles = UtilitiesDb.getConjugationTitles(Globals.VerbLatinConjDatabase, getContext());
     }
     private void SearchForConjugations() {
 
@@ -179,7 +177,7 @@ public class ConjugatorFragment extends Fragment implements
     }
     private void startSearchingForMatchingVerbsInRoomDb() {
         if (getActivity()!=null) {
-            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles, mVerbLatinConjDatabase, mVerbKanjiConjDatabase, mWordsFromDictFragment, this);
+            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles, mWordsFromDictFragment, this);
             mVerbSearchAsyncTask.execute();
             showLoadingIndicator();
         }
