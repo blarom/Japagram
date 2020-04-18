@@ -44,7 +44,7 @@ public class SplashScreenActivity extends BaseActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
 
-        Log.i("Diagnosis Time", "Started Splashscreen.");
+        Log.i(Globals.DEBUG_TAG, "Started Splashscreen.");
 
         UtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
@@ -69,12 +69,15 @@ public class SplashScreenActivity extends BaseActivity {
             Globals.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
             Globals.Romanizations = Utilities.readCSVFile("LineRomanizations.csv", getBaseContext());
+            Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
+            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");
             mCentralDbBeingLoaded = false;
         };
         dbLoadRunnableKanji = () -> {
             mKanjiDbBeingLoaded = true;
             RoomKanjiDatabase.getInstance(SplashScreenActivity.this); //Required for Room
+            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomKanjiDatabase");
             mKanjiDbBeingLoaded = false;
         };
         dbLoadThreadCentral = new Thread(dbLoadRunnableCentral);

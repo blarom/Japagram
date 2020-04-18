@@ -307,6 +307,7 @@ public class UtilitiesDb {
 
         int EXACT_WORD_MATCH_BONUS = 300;
         int WORD_MATCH_IN_SENTENCE_BONUS = 100;
+        int WORD_MATCH_IN_PARENTHESES_BONUS = 25;
         int LATE_HIT_IN_SENTENCE_PENALTY = 25;
         int LATE_MEANING_MATCH_PENALTY = 100;
 
@@ -336,24 +337,27 @@ public class UtilitiesDb {
 
         String currentMeaning;
         String inputQuery;
-        int baseMeaningLength = 1500;
         int lateMeaningPenalty = 0;
         boolean foundMeaningLength;
         int lateHitInMeaningPenalty; //Adding a penalty for late hits in the meaning
         int cumulativeMeaningLength; //Using a cumulative meaning length instead of the total length, since if a word is at the start of a meaning it's more important and the hit is more likely to be relevant
 
         ranking = 10000;
+        if (!currentWordIsAVerb || !queryIsVerbWithTo) ranking += 1000;
+        else ranking += 200;
+
         for (int j = 0; j < currentMeanings.size(); j++) {
             currentMeaning = currentMeanings.get(j).getMeaning().toLowerCase();
 
             //region If the current word is not a verb
             if (!currentWordIsAVerb) {
                 foundMeaningLength = false;
-
                 inputQuery = mInputQuery;
-                baseMeaningLength = 1000;
 
                 //If meaning has the exact word, get the length as follows
+                if (currentMeaning.contains("three flat objects")) {
+                    currentMeaning = currentMeanings.get(j).getMeaning();
+                }
                 String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 lateHitInMeaningPenalty = 0;
                 cumulativeMeaningLength = 0;
@@ -363,7 +367,7 @@ public class UtilitiesDb {
 
                     //If there's an exact match, push the word up in ranking
                     if (trimmedElement.equals(inputQuery)) {
-                        ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                        ranking -= EXACT_WORD_MATCH_BONUS;
                         foundMeaningLength = true;
                     }
                     if (foundMeaningLength) break;
@@ -372,7 +376,7 @@ public class UtilitiesDb {
                     for (String word : currentMeaningIndividualWords) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -388,7 +392,7 @@ public class UtilitiesDb {
                     for (String word : currentMeaningIndividualWordsWithoutParentheses) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                            ranking -= WORD_MATCH_IN_PARENTHESES_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
@@ -398,7 +402,10 @@ public class UtilitiesDb {
 
                     lateHitInMeaningPenalty += 50;
                 }
-                if (foundMeaningLength) break;
+                if (foundMeaningLength) {
+                    ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                    break;
+                }
 
                 //If still not found, get the length of the less important results
                 if (currentMeaning.contains(inputQuery) && currentMeaning.length() <= ranking) {
@@ -413,7 +420,6 @@ public class UtilitiesDb {
 
                 String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 if (!queryIsVerbWithTo) {
-                    baseMeaningLength = 1000;
 
                     //Calculate the length first by adding "to " to the input query. If it leads to a hit, that means that this verb is relevant
                     inputQuery = "to " + mInputQuery;
@@ -426,21 +432,23 @@ public class UtilitiesDb {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking -= EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
                         lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                     }
-                    if (foundMeaningLength) break;
-
+                    if (foundMeaningLength) {
+                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                        break;
+                    }
 
                     //Otherwise, use the original query to get the length
                     inputQuery = mInputQuery;
@@ -452,22 +460,24 @@ public class UtilitiesDb {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking -= EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
                         lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                     }
-                    if (foundMeaningLength) break;
+                    if (foundMeaningLength) {
+                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                        break;
+                    }
                 } else {
-                    baseMeaningLength = 200;
                     inputQuery = mInputQuery;
 
                     //Get the length according to the position of the verb in the meanings list
@@ -479,20 +489,23 @@ public class UtilitiesDb {
 
                         //If there's an exact match, push the word up in ranking
                         if (trimmedElement.equals(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - EXACT_WORD_MATCH_BONUS;
+                            ranking -= EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
                         }
                         if (foundMeaningLength) break;
 
                         cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (trimmedElement.contains(inputQuery)) {
-                            ranking += baseMeaningLength + lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength - WORD_MATCH_IN_SENTENCE_BONUS;
+                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
                             foundMeaningLength = true;
                             break;
                         }
                         lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                     }
-                    if (foundMeaningLength) break;
+                    if (foundMeaningLength) {
+                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                        break;
+                    }
                 }
 
             }
@@ -1891,11 +1904,12 @@ public class UtilitiesDb {
     @NotNull public static List<String[]> removeSpacesFromConjDb(List<String[]> db) {
         List<String[]> newDb = new ArrayList<>();
         String[] currentItems;
-        int length = newDb.get(0).length;
-        for (int i = Globals.COLUMN_VERB_ISTEM; i< db.size(); i++) {
+        int length = db.get(0).length;
+        for (int i = 0; i< db.size(); i++) {
             currentItems = new String[length];
-            for (int j=0; j<length; j++) {
-                currentItems[j] = newDb.get(i)[j].replace(" ", "");
+            if (Globals.COLUMN_VERB_ISTEM >= 0) System.arraycopy(db.get(i), 0, currentItems, 0, Globals.COLUMN_VERB_ISTEM);
+            for (int j=Globals.COLUMN_VERB_ISTEM; j<length; j++) {
+                currentItems[j] = db.get(i)[j].replace(" ", "");
             }
             newDb.add(currentItems);
         }
