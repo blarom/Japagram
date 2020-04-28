@@ -65,6 +65,7 @@ public class SplashScreenActivity extends BaseActivity {
             mCentralDbBeingLoaded = true;
             Globals.SimilarsDatabase = Utilities.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
             Globals.VerbLatinConjDatabase = Utilities.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            Globals.ConjugationTitles = UtilitiesDb.getConjugationTitles(Globals.VerbLatinConjDatabase, this);
             Globals.VerbLatinConjDatabaseNoSpaces = UtilitiesDb.removeSpacesFromConjDb(Globals.VerbLatinConjDatabase);
             Globals.VerbKanjiConjDatabase = Utilities.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.RadicalsOnlyDatabase = Utilities.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());

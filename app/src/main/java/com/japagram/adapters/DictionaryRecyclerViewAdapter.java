@@ -18,11 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.japagram.R;
+import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesPrefs;
-import com.japagram.ui.ConvertFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,17 +62,17 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     public DictionaryRecyclerViewAdapter(Context context,
                                          DictionaryItemClickHandler listener,
                                          List<Word> wordsList,
-                                         String inputQuery,
+                                         InputQuery inputQuery,
                                          String language,
                                          Typeface typeface) {
         this.mContext = context;
         this.mWordsList = wordsList;
         this.mOnItemClickHandler = listener;
-        this.mInputQuery = inputQuery;
+        this.mInputQuery = inputQuery.getOriginal();
         this.mUILanguage = language;
         createVisibilityArray();
 
-        mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
+        mInputQueryTextType = InputQuery.getTextType(mInputQuery);
         mInputQueryFirstLetter = (mInputQuery.length()>0) ? mInputQuery.substring(0,1) : "";
 
         mDroidSansJapaneseTypeface = typeface;
@@ -329,7 +329,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (kanji.equals("")) romajiAndKanji = romaji;
             else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
             String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
+            String inputQueryLatin = InputQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
             String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
@@ -342,9 +342,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
                     && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
 
-                String latin = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
-                String hiragana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
-                String katakana = ConvertFragment.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
+                String latin = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
+                String hiragana = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
+                String katakana = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
 
                 if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
                     String[] altSpellingElements = alternatespellings.split(",");

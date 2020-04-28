@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.japagram.R;
 import com.japagram.asynctasks.VerbSearchAsyncTask;
 import com.japagram.data.ConjugationTitle;
+import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
@@ -33,6 +34,7 @@ import com.japagram.resources.UtilitiesPrefs;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -105,10 +107,9 @@ public class ConjugatorFragment extends Fragment implements
     @BindView(R.id.Tense13_Result) TextView mConjugationDisplayTenseResult13;
 
     private Unbinder mBinding;
-    private String mInputQuery;
+    private InputQuery mInputQuery;
     private String mChosenRomajiOrKanji;
     private List<Verb> mMatchingVerbs;
-    private List<ConjugationTitle> mConjugationTitles;
     private List<Word> mWordsFromDictFragment;
     private Typeface mDroidSansJapaneseTypeface;
     private List<Object[]> mMatchingConjugationParameters;
@@ -129,7 +130,7 @@ public class ConjugatorFragment extends Fragment implements
 
         mBinding = ButterKnife.bind(this, rootView);
 
-        if (!TextUtils.isEmpty(mInputQuery)) SearchForConjugations();
+        if (mInputQuery != null && !mInputQuery.isEmpty()) SearchForConjugations();
         else showHint();
 
         if (getContext()!=null) {
@@ -158,7 +159,7 @@ public class ConjugatorFragment extends Fragment implements
 	//Functionality Functions
     private void getExtras() {
         if (getArguments()!=null) {
-            mInputQuery = getArguments().getString(getString(R.string.user_query_word));
+            mInputQuery = new InputQuery(Objects.requireNonNull(getArguments().getString(getString(R.string.user_query_word))));
             //mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));  //Leaving this here for syntax, send serializable to here with new ArrayList<>, not List<>
             mWordsFromDictFragment = getArguments().getParcelableArrayList(getString(R.string.words_list));
         }
@@ -166,30 +167,19 @@ public class ConjugatorFragment extends Fragment implements
     private void initializeParameters() {
         mMatchingVerbs = new ArrayList<>();
         mMatchingConjugationParameters = new ArrayList<>();
-        mConjugationTitles = UtilitiesDb.getConjugationTitles(Globals.VerbLatinConjDatabase, getContext());
     }
     private void SearchForConjugations() {
 
         hideAll();
-        getInputQueryParameters();
         startSearchingForMatchingVerbsInRoomDb();
 
     }
     private void startSearchingForMatchingVerbsInRoomDb() {
         if (getActivity()!=null) {
-            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles, mWordsFromDictFragment, this);
+            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mWordsFromDictFragment, this);
             mVerbSearchAsyncTask.execute();
             showLoadingIndicator();
         }
-    }
-    private void getInputQueryParameters() {
-
-        //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
-        mInputQuery = mInputQuery.toLowerCase(Locale.ENGLISH);
-
-        //List<String> mInputQueryTransliterations = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery);
-
-        //int mInputQueryTextType = ConvertFragment.getTextType(mInputQuery);
     }
     private void displayVerbsInVerbChooserSpinner() {
 
@@ -219,7 +209,7 @@ public class ConjugatorFragment extends Fragment implements
         //Showing the verb conjugations
         Verb verb = mMatchingVerbs.get(verbIndex);
         List<Verb.ConjugationCategory> conjugationCategories = verb.getConjugationCategories();
-        List<ConjugationTitle> conjugationTitles = new ArrayList<>(mConjugationTitles);
+        List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.ConjugationTitles);
         conjugationTitles.remove(0);
         mConjugationChooserSpinner.setAdapter(new ConjugationsSpinnerAdapter(
                 getContext(),
@@ -276,7 +266,7 @@ public class ConjugatorFragment extends Fragment implements
         });
 
         mChosenRomajiOrKanji = "Romaji";
-        if (ConvertFragment.getTextType(mInputQuery) == TYPE_KANJI) {
+        if (mInputQuery.getType() == TYPE_KANJI) {
             mChosenRomajiOrKanji = "Kanji";
             mRomajiRadioButton.setChecked(false);
             mKanjiRadioButton.setChecked(true);
@@ -356,7 +346,7 @@ public class ConjugatorFragment extends Fragment implements
 
         for (int i = 0; i < conjugations.size(); i++) {
 
-            Tense.get(i).setText(mConjugationTitles.get(conjugationIndex+1).getSubtitles().get(i).getTense());
+            Tense.get(i).setText(Globals.ConjugationTitles.get(conjugationIndex+1).getSubtitles().get(i).getTense());
 
             if (mChosenRomajiOrKanji.equals("Romaji")) Tense_Result.get(i).setText(conjugations.get(i).getConjugationLatin());
             else Tense_Result.get(i).setText(conjugations.get(i).getConjugationKanji());

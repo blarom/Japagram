@@ -6,16 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.japagram.R;
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import com.japagram.data.InputQuery;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -23,7 +15,7 @@ import androidx.fragment.app.Fragment;
 public class ConvertFragment extends Fragment {
 
 
-    private String mInputQuery;
+    private InputQuery mInputQuery;
 
     // Fragment Lifecycle Functions
     @Override public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,10 +40,10 @@ public class ConvertFragment extends Fragment {
     // Fragment Modules
     private void getExtras() {
         if (getArguments()!=null) {
-            mInputQuery = getArguments().getString(getString(R.string.user_query_word));
+            mInputQuery = new InputQuery(getArguments().getString(getString(R.string.user_query_word)));
         }
     }
-    private void getConversion(final String inputQuery) {
+    private void getConversion(final InputQuery inputQuery) {
 
         // Gets the output of the InputQueryFragment and makes it available to the current fragment
 
@@ -68,7 +60,7 @@ public class ConvertFragment extends Fragment {
         TextView transliterationNihonShiki = getActivity().findViewById(R.id.Result_nihon_shiki);
         TextView transliterationKunreiShiki = getActivity().findViewById(R.id.Result_kunrei_shiki);
 
-        if (TextUtils.isEmpty(inputQuery)) {
+        if (inputQuery.isEmpty()) {
             Conversion.setText(getResources().getString(R.string.EnterWord));
             ConversionLatin.setText("");
             ConversionHiragana.setText("");
@@ -86,305 +78,13 @@ public class ConvertFragment extends Fragment {
             ConversionHiragana.setText(getResources().getString(R.string.ConversionHiragana));
             ConversionKatakana.setText(getResources().getString(R.string.ConversionKatakana));
 
-            Object[] conversions = getTransliterationsAsLists(inputQuery);
-
-            ResultHiragana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_HIRAGANA])));
-            ResultKatakana.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_KATAKANA])));
-            transliterationWaapuro.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_WAAPURO])));
-            transliterationModHepburn.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_MOD_HEPBURN])));
-            transliterationNihonShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_NIHON_SHIKI])));
-            transliterationKunreiShiki.setText(TextUtils.join(",\n", Utilities.removeDuplicatesFromList((List<String>)conversions[Globals.ROM_COL_KUNREI_SHIKI])));
+            ResultHiragana.setText(TextUtils.join(",\n", inputQuery.getHiraganaUniqueConversions()));
+            ResultKatakana.setText(TextUtils.join(",\n", inputQuery.getKatakanaUniqueConversions()));
+            transliterationWaapuro.setText(TextUtils.join(",\n", inputQuery.getWaapuroUniqueConversions()));
+            transliterationModHepburn.setText(TextUtils.join(",\n", inputQuery.getMHUniqueConversions()));
+            transliterationNihonShiki.setText(TextUtils.join(",\n", inputQuery.getNSUniqueConversions()));
+            transliterationKunreiShiki.setText(TextUtils.join(",\n", inputQuery.getKSUniqueConversions()));
         }
     }
-    private static Object[] getTransliterationsAsLists(String inputQuery) {
 
-        List<String> waapuroRomanizations = getWaapuroRomanizationsFromLatinText(inputQuery);
-        List<String> hiraganaConversions = new ArrayList<>();
-        List<String> katakanaConversions = new ArrayList<>();
-        List<String> waapuroConversions = new ArrayList<>();
-        List<String> MHConversions = new ArrayList<>();
-        List<String> NSConversions = new ArrayList<>();
-        List<String> KSConversions = new ArrayList<>();
-        for (String conversion : waapuroRomanizations) {
-            String[] HK = getOfficialKana(conversion);
-            String hiragana = HK[Globals.ROM_COL_HIRAGANA];
-            String katakana = HK[Globals.ROM_COL_KATAKANA];
-            String[] romanizations = getOfficialRomanizations(hiragana);
-            hiraganaConversions.add(hiragana);
-            katakanaConversions.add(katakana);
-            waapuroConversions.add(romanizations[Globals.ROM_WAAPURO]);
-            MHConversions.add(romanizations[Globals.ROM_MOD_HEPBURN]);
-            NSConversions.add(romanizations[Globals.ROM_NIHON_SHIKI]);
-            KSConversions.add(romanizations[Globals.ROM_KUNREI_SHIKI]);
-        }
-
-        return new Object[]{
-                hiraganaConversions,
-                katakanaConversions,
-                waapuroConversions,
-                MHConversions,
-                NSConversions,
-                KSConversions
-        };
-    }
-    public static List<String> getWaapuroHiraganaKatakana(String input_value) {
-
-        List<String> translation = new ArrayList<>();
-
-        if (TextUtils.isEmpty(input_value)) {
-            translation.add("");
-            translation.add("");
-            translation.add("");
-        } else {
-            Object[] conversions = getTransliterationsAsLists(input_value);
-            translation.add(((List<String>) conversions[Globals.ROM_COL_WAAPURO]).get(0));
-            translation.add(((List<String>) conversions[Globals.ROM_COL_HIRAGANA]).get(0));
-            translation.add(((List<String>) conversions[Globals.ROM_COL_KATAKANA]).get(0));
-        }
-
-        return translation;
-    }
-    public static int getTextType(String input_value) {
-
-        if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return Globals.TYPE_INVALID;}
-
-        input_value = Utilities.removeSpecialCharacters(input_value);
-        String character;
-        int text_type = Globals.TYPE_INVALID;
-
-        String hiraganaAlphabet = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたてとだでどちつづなぬねのんにはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをゔっゐゑぢぁゃゅぅょぉぇぃ";
-        String katakanaAlphabet = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタテトダデドチツヅナニヌネノンハヒフヘホバビブベボパピプポペマミムメモヤユヨラリルレロワヲヴーッヰヱァャュゥォョェィ";
-        String latinAlphabet = "aāáÀÂÄÆbcÇdeēÈÉÊËfghiíÎÏjklmnñoōóÔŒpqrstuūúÙÛÜvwxyz".toLowerCase();
-        String latinAlphabetCap = latinAlphabet.toUpperCase();
-        String numberAlphabet = "0123456789";
-
-        if (!input_value.equals("")) {
-            for (int i=0; i<input_value.length();i++) {
-
-                if (text_type == Globals.TYPE_KANJI) { break;}
-
-                character = Character.toString(input_value.charAt(i));
-
-                if (hiraganaAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_HIRAGANA;
-                } else if (katakanaAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_KATAKANA;
-                } else if (latinAlphabet.contains(character) || latinAlphabetCap.contains(character)) {
-                    text_type = Globals.TYPE_LATIN;
-                } else if (numberAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_NUMBER;
-                } else {
-                    text_type = Globals.TYPE_KANJI;
-                }
-            }
-        } else {
-            return text_type;
-        }
-
-        return text_type;
-    }
-    private static List<List<String>> addPhonemesToInterpretations(List<List<String>> possibleInterpretations, @NotNull String[] phonemes) {
-        List<String> newCharacterList;
-        if (phonemes.length == 2) {
-            if (possibleInterpretations.size() == 0) {
-                newCharacterList = new ArrayList<>();
-                newCharacterList.add(phonemes[0]);
-                possibleInterpretations.add(newCharacterList);
-                newCharacterList = new ArrayList<>();
-                newCharacterList.add(phonemes[1]);
-                possibleInterpretations.add(newCharacterList);
-            } else {
-                int initialSize = possibleInterpretations.size();
-                for (int i = 0; i < initialSize; i++) {
-                    newCharacterList = new ArrayList<>(possibleInterpretations.get(i));
-                    newCharacterList.add(phonemes[0]);
-                    possibleInterpretations.get(i).add(phonemes[1]);
-                    possibleInterpretations.add(newCharacterList);
-                }
-            }
-        }
-        else if (phonemes.length == 1) {
-            if (possibleInterpretations.size() == 0) {
-                newCharacterList = new ArrayList<>();
-                newCharacterList.add(phonemes[0]);
-                possibleInterpretations.add(newCharacterList);
-            } else {
-                for (int i = 0; i < possibleInterpretations.size(); i++) {
-                    possibleInterpretations.get(i).add(phonemes[0]);
-                }
-            }
-        }
-        else return new ArrayList<>();
-
-        return possibleInterpretations;
-    }
-    public static List<String> getWaapuroRomanizationsFromLatinText(String text) {
-
-        text = text.toLowerCase();
-        List<String> finalStrings = new ArrayList<>();
-
-        //Reverting directly from Nihon/Kunrei-Shiki special forms to Waapuro
-        text = text.replace("sy","sh")
-                .replace("ty","ch");
-
-        //Phonemes that can have multiple Waapuro equivalents are prepared here
-        //Note that wi we wo (ゐ ゑ を - i e o in MH/NH/KH romanizations) are not handled here since they could lead to too many false positives
-        text = text.replace("j","A")
-                .replace("zy","B")
-                .replace("ts","C")
-                .replace("zu","D")
-                .replace("wê","E")
-                .replace("dû","F")
-                .replace("si","G")
-                .replace("ti","H")
-                .replaceAll("([^sc])hu","\1I")
-                .replaceAll("([^sc])hû","\1J")
-                .replace("tû","K")
-                .replace("tu","L")
-                .replace("zû","M")
-                .replace("n\'","N")
-                .replace("du","O");
-
-        //Replacing relevant phonemes with the Waapuro equivalent
-        List<List<String>> possibleInterpretations = new ArrayList<>();
-        String[] newPhonemes;
-        for (String character : text.split("(?!^)")) {
-            switch (character) {
-                case "ō":
-                case "ô":
-                    newPhonemes = new String[]{"ou", "oo"};
-                    break;
-                case "A":
-                case "B":
-                    newPhonemes = new String[]{"j", "dy"};
-                    break;
-                case "C":
-                    newPhonemes = new String[]{"ts"};
-                    break;
-                case "D":
-                case "O":
-                    newPhonemes = new String[]{"zu", "du"};
-                    break;
-                case "E":
-                case "ē":
-                case "ê":
-                    newPhonemes = new String[]{"ee"};
-                    break;
-                case "F":
-                    newPhonemes = new String[]{"zuu"};
-                    break;
-                case "G":
-                    newPhonemes = new String[]{"shi"};
-                    break;
-                case "H":
-                    newPhonemes = new String[]{"chi"};
-                    break;
-                case "I":
-                    newPhonemes = new String[]{"fu"};
-                    break;
-                case "J":
-                    newPhonemes = new String[]{"fuu"};
-                    break;
-                case "K":
-                    newPhonemes = new String[]{"tsuu"};
-                    break;
-                case "L":
-                    newPhonemes = new String[]{"tsu"};
-                    break;
-                case "M":
-                    newPhonemes = new String[]{"duu", "zuu"};
-                    break;
-                case "N":
-                    newPhonemes = new String[]{"n\'"};
-                    break;
-                case "ā":
-                case "â":
-                    newPhonemes = new String[]{"aa"};
-                    break;
-                case "ū":
-                case "û":
-                    newPhonemes = new String[]{"uu"};
-                    break;
-                default:
-                    newPhonemes = new String[]{character};
-                    break;
-            }
-            possibleInterpretations = addPhonemesToInterpretations(possibleInterpretations, newPhonemes);
-        }
-        for (int i=0; i<possibleInterpretations.size(); i++) {
-            finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
-        }
-        return finalStrings;
-    }
-    private static String[] getOfficialRomanizations(String kana) {
-
-        if (Globals.Romanizations == null) {
-            return new String[]{"", "", "", ""};
-        }
-        //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
-        /*
-        Rules:
-        The combination o + u is written ou if they are in two adjacent syllables or it is the end part of terminal form of a verb
-        The combination u + u is written uu if they are in two adjacent syllables or it is the end part of terminal form of a verb
-
-         */
-        String romanizedKanaWaapuro = kana;
-        String romanizedKanaModHepburn = kana;
-        String romanizedKanaNihonShiki = kana;
-        String romanizedKanaKunreiShiki = kana;
-        String[] currentRow;
-        String currentKana;
-        for (int i = 1; i< Globals.Romanizations.size(); i++) {
-            currentRow = Globals.Romanizations.get(i);
-            if (currentRow.length < 6) break;
-
-            currentKana = currentRow[Globals.ROM_COL_HIRAGANA];
-            if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[Globals.ROM_COL_WAAPURO]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[Globals.ROM_COL_MOD_HEPBURN]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[Globals.ROM_COL_NIHON_SHIKI]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[Globals.ROM_COL_KUNREI_SHIKI]);
-            }
-
-            currentKana = currentRow[Globals.ROM_COL_KATAKANA];
-            if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, currentRow[Globals.ROM_COL_WAAPURO]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, currentRow[Globals.ROM_COL_MOD_HEPBURN]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, currentRow[Globals.ROM_COL_NIHON_SHIKI]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, currentRow[Globals.ROM_COL_KUNREI_SHIKI]);
-            }
-        }
-
-        return new String[]{romanizedKanaWaapuro, romanizedKanaModHepburn, romanizedKanaNihonShiki, romanizedKanaKunreiShiki};
-    }
-    private static String[] getOfficialKana(String romaji) {
-
-        if (Globals.Romanizations == null) {
-            return new String[]{"", "", "", ""};
-        }
-        //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
-        /*
-        Rules:
-        The combination o + u is written ou if they are in two adjacent syllables or it is the end part of terminal form of a verb
-        The combination u + u is written uu if they are in two adjacent syllables or it is the end part of terminal form of a verb
-
-         */
-        String transliteratedToHiragana = romaji;
-        String transliteratedToKatakana = romaji;
-        String[] currentRow;
-        String currentRomaji;
-        int[] romajiTypes = new int[]{Globals.ROM_COL_WAAPURO, Globals.ROM_COL_MOD_HEPBURN, Globals.ROM_COL_NIHON_SHIKI, Globals.ROM_COL_KUNREI_SHIKI};
-        for (int romajiType : romajiTypes) {
-            for (int i = 1; i < Globals.Romanizations.size(); i++) {
-                currentRow = Globals.Romanizations.get(i);
-                if (currentRow.length < 6) break;
-
-                currentRomaji = currentRow[romajiType];
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentRomaji, currentRow[Globals.ROM_COL_HIRAGANA]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentRomaji, currentRow[Globals.ROM_COL_KATAKANA]);
-            }
-        }
-
-        return new String[]{transliteratedToHiragana, transliteratedToKatakana};
-    }
 }

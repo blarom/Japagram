@@ -5,7 +5,6 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import com.japagram.asynctasks.LocalSearchAsyncTask;
 import com.japagram.asynctasks.VerbSearchAsyncTask;
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.FirebaseDao;
+import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
@@ -58,8 +58,7 @@ public class DictionaryFragment extends Fragment implements
     private static final int WORD_RESULTS_MAX_RESPONSE_DELAY = 2000;
     private static final int MAX_NUMBER_RESULTS_SHOWN = 50;
     private static final int MAX_NUM_WORDS_TO_SHARE = 30;
-    private static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
-    private String mInputQuery;
+    private InputQuery mInputQuery;
     private List<Word> mLocalMatchingWordsList;
     private List<Word> mMergedMatchingWordsList;
     private FirebaseDao mFirebaseDao;
@@ -109,7 +108,7 @@ public class DictionaryFragment extends Fragment implements
 
         //outState.putParcelableArrayList(getString(R.string.saved_local_results), new ArrayList<>(mLocalMatchingWordsList)); //causes cash because parcel too big, can limit with sublist
         //outState.putParcelableArrayList(getString(R.string.saved_merged_results), new ArrayList<>(mMergedMatchingWordsList));
-        outState.putString(getString(R.string.saved_input_query), mInputQuery);
+        outState.putParcelable(getString(R.string.saved_input_query), mInputQuery);
 
         cancelAsyncOperations();
 
@@ -133,7 +132,7 @@ public class DictionaryFragment extends Fragment implements
 	//Functionality methods
     private void getExtras() {
         if (getArguments()!=null) {
-            mInputQuery = getArguments().getString(getString(R.string.user_query_word));
+            mInputQuery = new InputQuery(getArguments().getString(getString(R.string.user_query_word)));
             mShowNames = getArguments().getBoolean(getString(R.string.show_names));
         }
     }
@@ -174,7 +173,7 @@ public class DictionaryFragment extends Fragment implements
         mDifferentJishoWords = new ArrayList<>();
         mMergedMatchingWordsList = new ArrayList<>();
         mMatchingWordsFromVerbs = new ArrayList<>();
-        if (!TextUtils.isEmpty(mInputQuery)) {
+        if (mInputQuery != null && !mInputQuery.isEmpty()) {
 
             showLoadingIndicator();
 
@@ -192,7 +191,7 @@ public class DictionaryFragment extends Fragment implements
             mOverrideDisplayConditions = false;
             new Handler().postDelayed(() -> {
                 mOverrideDisplayConditions = true;
-                Log.i(DEBUG_TAG, "Displaying merged words at WORD_RESULTS_MAX_RESPONSE_DELAY");
+                Log.i(Globals.DEBUG_TAG, "Displaying merged words at WORD_RESULTS_MAX_RESPONSE_DELAY");
                 if (!mAlreadyDisplayedResults) displayMergedWordsToUser();
             }, WORD_RESULTS_MAX_RESPONSE_DELAY);
         }
@@ -200,24 +199,24 @@ public class DictionaryFragment extends Fragment implements
     }
     private void startSearchingForWordsInRoomDb() {
         if (getActivity()!=null) {
-            Log.i(DEBUG_TAG, "Starting search for Room words");
+            Log.i(Globals.DEBUG_TAG, "Starting search for Room words");
             mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
             mLocalDictSearchAsyncTask.execute();
         }
     }
     private void startSearchingForWordsInJisho() {
 
-        if (!TextUtils.isEmpty(mInputQuery) && getActivity() != null && getContext() != null) {
-            Log.i(DEBUG_TAG, "Starting search for Jisho words");
-            mJishoSearchAsyncTask = new JishoSearchAsyncTask(getContext(), mInputQuery, this);
+        if (mInputQuery != null && !mInputQuery.isEmpty() && getActivity() != null && getContext() != null) {
+            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for Jisho words");
+            mJishoSearchAsyncTask = new JishoSearchAsyncTask(getContext(), mInputQuery.getOriginal(), this);
             mJishoSearchAsyncTask.execute();
         }
 
     }
     private void startReverseConjSearchForMatchingVerbs() {
         if (getActivity()!=null) {
-            Log.i(DEBUG_TAG, "Starting search for verbs");
-            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mConjugationTitles, new ArrayList<>(), this);
+            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for verbs");
+            mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, new ArrayList<>(), this);
             mVerbSearchAsyncTask.execute();
         }
     }
@@ -247,7 +246,7 @@ public class DictionaryFragment extends Fragment implements
                 ) || (  !showOnlineResults && !showConjResults)
             || mOverrideDisplayConditions) {
 
-            Log.i(DEBUG_TAG, "Display successful");
+            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
             mAlreadyDisplayedResults = true;
             hideLoadingIndicator();
 
@@ -326,7 +325,7 @@ public class DictionaryFragment extends Fragment implements
             mDictionaryRecyclerView.setVisibility(View.VISIBLE);
         }
         else {
-            if (mInputQuery.equals("")) mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_word)));
+            if (mInputQuery != null && !mInputQuery.isEmpty()) mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_word)));
             else mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found)));
             mHintTextView.setVisibility(View.VISIBLE);
             mDictionaryRecyclerView.setVisibility(View.GONE);
@@ -340,20 +339,15 @@ public class DictionaryFragment extends Fragment implements
         List<long[]> matchingWordIndexesAndLengths = new ArrayList<>();
 
         //region Registering if the input query is a "to " verb
-        boolean queryIsVerbWithTo = false;
-        String queryWordWithoutTo = "";
-        if (mInputQuery.length()>3 && mInputQuery.substring(0,3).equals("to ")) {
-            queryIsVerbWithTo = true;
-            queryWordWithoutTo = mInputQuery.substring(3);
-        }
+        boolean queryIsVerbWithTo = mInputQuery.getIsVerbWithTo();
+        String queryWordWithoutTo = mInputQuery.getWithoutTo();
         //endregion
 
         //region Replacing the Kana input word by its romaji equivalent
-        String inputQuery = mInputQuery.toLowerCase();
-        int inputTextType = ConvertFragment.getTextType(inputQuery);
+        String inputQuery = mInputQuery.getOriginal();
+        int inputTextType = mInputQuery.getType();
         if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-            List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(inputQuery.replace(" ", ""));
-            inputQuery = translationList.get(Globals.TYPE_LATIN);
+            inputQuery = mInputQuery.getRomajiSingleElement();
         }
         //endregion
 
@@ -425,7 +419,7 @@ public class DictionaryFragment extends Fragment implements
         void onFinalMatchingWordsFound(List<Word> matchingWords);
     }
     public void setQuery(String query) {
-        mInputQuery = query;
+        mInputQuery = new InputQuery(query);
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
         mAlreadyLoadedVerbs = false;
@@ -444,7 +438,7 @@ public class DictionaryFragment extends Fragment implements
     @Override public void onLocalDictSearchAsyncTaskResultFound(List<Word> words) {
 
         if (getContext()==null) return;
-        Log.i(DEBUG_TAG, "Finished Words Search AsyncTask");
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Finished Words Search AsyncTask");
 
         mAlreadyLoadedRoomResults = true;
 
@@ -454,7 +448,7 @@ public class DictionaryFragment extends Fragment implements
         int maxIndex = Math.min(mLocalMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
         dictionaryFragmentOperationsHandler.onLocalMatchingWordsFound(mLocalMatchingWordsList.subList(0,maxIndex));
 
-        Log.i(DEBUG_TAG, "Displaying Room words");
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Room words");
         displayMergedWordsToUser();
     }
     @Override public void onJishoSearchAsyncTaskResultFound(List<Word> loaderResultWordsList) {
@@ -472,19 +466,19 @@ public class DictionaryFragment extends Fragment implements
             mDifferentJishoWords = UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
             if (mDifferentJishoWords.size()>0) {
                 updateFirebaseDbWithJishoWords(UtilitiesDb.getCommonWords(mDifferentJishoWords));
-                if (UtilitiesDb.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery)) {
+                if (UtilitiesDb.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery.getOriginal())) {
                     updateFirebaseDbWithJishoWords(mDifferentJishoWords.subList(0, 1)); //If the word was searched for then it is useful even if it's not defined as common
                 }
             }
         }
 
-        Log.i(DEBUG_TAG, "Displaying Jisho merged words");
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Jisho merged words");
         displayMergedWordsToUser();
     }
     @Override @SuppressWarnings("unchecked") public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
 
         if (getContext()==null) return;
-        Log.i(DEBUG_TAG, "Finished Verbs Search AsyncTask");
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Finished Verbs Search AsyncTask");
 
         mAlreadyLoadedVerbs = true;
         List<Verb> mMatchingVerbs = (List<Verb>) dataElements[0];
@@ -504,7 +498,7 @@ public class DictionaryFragment extends Fragment implements
             }
         }
 
-        Log.i(DEBUG_TAG, "Displaying Verb merged words");
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Verb merged words");
         displayMergedWordsToUser();
     }
 }

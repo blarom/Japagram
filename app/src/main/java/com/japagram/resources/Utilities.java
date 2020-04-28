@@ -43,13 +43,13 @@ import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexRomajiDao;
 import com.japagram.data.IndexSpanish;
 import com.japagram.data.IndexSpanishDao;
+import com.japagram.data.InputQuery;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.data.KanjiCharacterDao;
 import com.japagram.data.KanjiComponent;
 import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
 import com.japagram.data.WordDao;
-import com.japagram.ui.ConvertFragment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -333,39 +333,12 @@ public final class Utilities {
         return "";
     }
 
-    static String removeNonSpaceSpecialCharacters(String sentence) {
-        String current_char;
-        StringBuilder concatenated_sentence = new StringBuilder();
-        for (int index = 0; index < sentence.length(); index++) {
-            current_char = Character.toString(sentence.charAt(index));
-            if (!(current_char.equals(".")
-                    || current_char.equals("-")
-                    || current_char.equals("(")
-                    || current_char.equals(")")
-                    || current_char.equals(":")
-                    || current_char.equals("/"))) {
-                concatenated_sentence.append(current_char);
-            }
-        }
-        return concatenated_sentence.toString();
+    public static String removeNonSpaceSpecialCharacters(String sentence) {
+        return sentence.replaceAll("[.\\-():/]", "");
     }
 
     public static String removeSpecialCharacters(String sentence) {
-        String current_char;
-        StringBuilder concatenated_sentence = new StringBuilder();
-        for (int index = 0; index < sentence.length(); index++) {
-            current_char = Character.toString(sentence.charAt(index));
-            if (!(current_char.equals(" ")
-                    || current_char.equals(".")
-                    || current_char.equals("-")
-                    || current_char.equals("(")
-                    || current_char.equals(")")
-                    || current_char.equals(":")
-                    || current_char.equals("/"))) {
-                concatenated_sentence.append(current_char);
-            }
-        }
-        return concatenated_sentence.toString();
+        return sentence.replaceAll("[.\\-():/\\s]", "");
     }
 
     @SuppressWarnings("deprecation")
@@ -668,7 +641,7 @@ public final class Utilities {
 
         //region Preparing the word to be included in the url
         StringBuilder prepared_word;
-        if (ConvertFragment.getTextType(word) == Globals.TYPE_KANJI) {
+        if (InputQuery.getTextType(word) == Globals.TYPE_KANJI) {
             String converted_word = convertToUTF8Index(word);
             converted_word = converted_word.substring(2);
             prepared_word = new StringBuilder();
@@ -960,10 +933,10 @@ public final class Utilities {
                 if (kanji1UpData.size() > 0) romaji.append((String) kanji1UpData.get(0));
             }
 
-            int textType = ConvertFragment.getTextType(kanji.toString());
+            int textType = InputQuery.getTextType(kanji.toString());
             if (romaji.length() != 0 && (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                 //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                romaji = new StringBuilder(ConvertFragment.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
+                romaji = new StringBuilder(InputQuery.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
             }
 
             List<Object> conceptLightStatusData = (List<Object>) getElementAtHeader(conceptLightWrapperData, "concept_light-status");
@@ -980,17 +953,17 @@ public final class Utilities {
                             currentValue = sentenceSearchFor.substring(20);
                         }
 
-                        textType = ConvertFragment.getTextType(currentValue);
+                        textType = InputQuery.getTextType(currentValue);
                         if (currentValue.length() != 0 &&
                                 (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                             //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                            romaji = new StringBuilder(ConvertFragment.getWaapuroHiraganaKatakana(currentValue).get(0));
+                            romaji = new StringBuilder(InputQuery.getWaapuroHiraganaKatakana(currentValue).get(0));
                             break;
                         }
                     }
                 }
             }
-            currentWord.setRomaji(ConvertFragment.getWaapuroHiraganaKatakana(romaji.toString()).get(0));
+            currentWord.setRomaji(InputQuery.getWaapuroHiraganaKatakana(romaji.toString()).get(0));
             //endregion
 
             currentWord.setUniqueIdentifier(currentWord.getRomaji() + "-" + kanji);
@@ -1054,7 +1027,7 @@ public final class Utilities {
                         Matcher m = Pattern.compile("\\b(\\w+)\\s【(\\w+)】").matcher(altSpellingsContainer.toString());
                         while (m.find()) {
                             if (!m.group(1).equals(currentWord.getKanji())) altSpellings.add(m.group(1).trim());
-                            String convertedMatch = ConvertFragment.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
+                            String convertedMatch = InputQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = removeDuplicatesFromList(altSpellings);

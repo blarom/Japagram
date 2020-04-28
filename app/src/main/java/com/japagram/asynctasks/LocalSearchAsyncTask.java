@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.japagram.data.InputQuery;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
@@ -22,10 +23,10 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
 
     private final boolean mShowNames;
     private WeakReference<Context> contextRef;
-    private final String mQuery;
+    private final InputQuery mQuery;
     public LocalDictSearchAsyncResponseHandler listener;
 
-    public LocalSearchAsyncTask(Context context, String query, LocalDictSearchAsyncResponseHandler listener, boolean mShowNames) {
+    public LocalSearchAsyncTask(Context context, InputQuery query, LocalDictSearchAsyncResponseHandler listener, boolean mShowNames) {
         contextRef = new WeakReference<>(context);
         this.mQuery = query;
         this.listener = listener;
@@ -39,10 +40,11 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
     protected List<Word> doInBackground(Void... voids) {
 
         List<Word> localMatchingWordsList = new ArrayList<>();
-        if (!TextUtils.isEmpty(mQuery)) {
+        if (!mQuery.isEmpty()) {
 
             Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Starting");
             String language = LocaleHelper.getLanguage(contextRef.get());
+
 
             boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get());
             boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get());
@@ -51,7 +53,7 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
             RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && (mShowNames))? RoomNamesDatabase.getInstance(contextRef.get()) : null;
             Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Loaded Room Database instances");
 
-            Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery, roomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, language, mShowNames);
+            Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery, language, mShowNames, contextRef.get());
             List<Long> matchingWordIdsCentral = (List<Long>) matchingWordIds[0];
             List<Long> matchingWordIdsExtended = (List<Long>) matchingWordIds[1];
             List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];

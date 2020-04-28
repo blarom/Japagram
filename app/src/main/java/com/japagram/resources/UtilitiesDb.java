@@ -12,12 +12,12 @@ import com.japagram.data.IndexFrench;
 import com.japagram.data.IndexKanji;
 import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexSpanish;
+import com.japagram.data.InputQuery;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.ui.ConvertFragment;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Locale;
+
+import androidx.appcompat.widget.ActivityChooserView;
 
 public class UtilitiesDb {
     private static final int WORD_SEARCH_CHAR_COUNT_THRESHOLD = 3;
@@ -295,7 +296,7 @@ public class UtilitiesDb {
 
     public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, String queryWordWithoutTo, boolean queryIsVerbWithTo, String language) {
 
-        String inputQueryLatin = ConvertFragment.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
+        String inputQueryLatin = InputQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
         int ranking;
         String romaji_value = currentWord.getRomaji();
         String kanji_value = currentWord.getKanji();
@@ -305,10 +306,11 @@ public class UtilitiesDb {
         String type = currentWord.getMeaningsEN().get(0).getType();
         boolean currentWordIsAVerb = type.length() > 0 && type.substring(0, 1).equals("V") && !type.equals("VC") && !type.equals("NV");
 
-        int EXACT_WORD_MATCH_BONUS = 300;
-        int WORD_MATCH_IN_SENTENCE_BONUS = 100;
-        int WORD_MATCH_IN_PARENTHESES_BONUS = 25;
+        int EXACT_WORD_MATCH_BONUS = 500;
+        int WORD_MATCH_IN_SENTENCE_BONUS = 300;
+        int WORD_MATCH_IN_PARENTHESES_BONUS = 50;
         int LATE_HIT_IN_SENTENCE_PENALTY = 25;
+        int LATE_HIT_IN_MEANING_ELEMENTS_PENALTY = 50;
         int LATE_MEANING_MATCH_PENALTY = 100;
 
         // Getting ranking according to meaning string length
@@ -362,7 +364,6 @@ public class UtilitiesDb {
                 lateHitInMeaningPenalty = 0;
                 cumulativeMeaningLength = 0;
                 for (String currentMeaningElement : currentMeaningIndividualElements) {
-
                     String trimmedElement = currentMeaningElement.trim().toLowerCase();
 
                     //If there's an exact match, push the word up in ranking
@@ -385,10 +386,7 @@ public class UtilitiesDb {
                     if (foundMeaningLength) break;
 
                     //If meaning has the exact word but maybe in parentheses, get the length as follows
-                    String[] currentMeaningIndividualWordsWithoutParentheses = trimmedElement
-                            .replace("(", "").replace(")", "").split(" ");
-                    lateHitInMeaningPenalty = 0;
-                    cumulativeMeaningLength = 0;
+                    String[] currentMeaningIndividualWordsWithoutParentheses = trimmedElement.replace("(", "").replace(")", "").split(" ");
                     for (String word : currentMeaningIndividualWordsWithoutParentheses) {
                         cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
                         if (word.equals(inputQuery)) {
@@ -400,7 +398,7 @@ public class UtilitiesDb {
                     }
                     if (foundMeaningLength) break;
 
-                    lateHitInMeaningPenalty += 50;
+                    lateHitInMeaningPenalty += LATE_HIT_IN_MEANING_ELEMENTS_PENALTY;
                 }
                 if (foundMeaningLength) {
                     ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
@@ -520,16 +518,16 @@ public class UtilitiesDb {
 
         //If the word starts with the inputQuery, its ranking improves
         String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);
-        if ((romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0, mInputQuery.length()).equals(mInputQuery))
-                || (romaji_value.length() >= mInputQuery.length() && romaji_value.substring(0, mInputQuery.length()).equals(inputQueryLatin))
+        if (       (romaji_value.length() >= mInputQuery.length()     && romaji_value.substring(0, mInputQuery.length()    ).equals(mInputQuery))
+                || (romaji_value.length() >= inputQueryLatin.length() && romaji_value.substring(0, inputQueryLatin.length()).equals(inputQueryLatin))
+                || (kanji_value.length() >= mInputQuery.length()      && kanji_value.substring(0, mInputQuery.length()     ).equals(mInputQuery))
                 || romajiNoSpaces.equals(mInputQuery) || romajiNoSpaces.equals(inputQueryLatin)
-                || (kanji_value.length() >= mInputQuery.length() && kanji_value.substring(0, mInputQuery.length()).equals(mInputQuery))
         ) {
             ranking -= 1000;
         }
 
         //Otherwise, if the romaji or Kanji value contains the search word, then it must appear near the start of the list
-        else if (romaji_value.contains(mInputQuery) || kanji_value.contains(mInputQuery)) ranking -= 900;
+        else if (romaji_value.contains(mInputQuery) || kanji_value.contains(mInputQuery)) ranking -= 300;
 
         //If the word is a name, the ranking worsens
         if (Globals.NAMES_LIST.contains(currentWord.getMeaningsEN().get(0).getType())) ranking += 5000;
@@ -575,102 +573,27 @@ public class UtilitiesDb {
         return ranking;
     }
 
-    public static Object[] getMatchingWordIdsAndDoBasicFiltering(String inputWord,
-                                                                 RoomCentralDatabase roomCentralDatabase,
-                                                                 RoomExtendedDatabase roomExtendedRoomDatabase,
-                                                                 RoomNamesDatabase roomNamesRoomDatabase,
-                                                                 String language,
-                                                                 boolean showNames) {
+    public static Object[] getMatchingWordIdsAndDoBasicFiltering(InputQuery query, String language, boolean showNames, Context context) {
 
         //region Initializations
         List<Long> matchingWordIdsCentral = new ArrayList<>();
         List<Long> matchingWordIdsExtended = new ArrayList<>();
         List<Long> matchingWordIdsNames = new ArrayList<>();
-        String searchWordNoSpaces;
-        boolean queryIsVerbWithTo = false;
-        String searchWordWithoutTo = "";
-        String searchWord;
-        //endregion
-
-        //region Converting the searchWord to usable forms, preventing invalid characters from influencing the search results
-        inputWord = inputWord.toLowerCase(Locale.ENGLISH);
-        inputWord = removeApostrophes(inputWord);
-        inputWord = Utilities.removeNonSpaceSpecialCharacters(inputWord);
-        searchWord = inputWord;
-        searchWordNoSpaces = searchWord.replace(" ", "");
-
-        //Registering if the input query is a "to " verb
-        if (searchWord.length() > 3 && searchWord.substring(0, 3).equals("to ")) {
-            queryIsVerbWithTo = true;
-            searchWordWithoutTo = searchWord.substring(3);
-        }
-        //endregion
-
-        //region If there is an "inging" verb instance, reduce it to an "ing" instance (e.g. singing >> sing)
-        String verb2;
-        String inglessVerb = searchWord;
-        if (searchWord.length() > 2 && searchWord.substring(searchWord.length() - 3).equals("ing")) {
-
-            if (searchWord.length() > 5 && searchWord.substring(searchWord.length() - 6).equals("inging")) {
-                if ((searchWord.substring(0, 3).equals("to ") && isOfTypeIngIng(searchWord.substring(3))) ||
-                        (!searchWord.substring(0, 3).equals("to ") && isOfTypeIngIng(searchWord))) {
-                    // If the verb ends with "inging" then remove the the second "ing"
-                    inglessVerb = searchWord.substring(0, searchWord.length() - 3);
-                }
-            } else {
-//                verb2 = searchWord + "ing";
-//                if ((!verb2.substring(0, 2+1).equals("to ") || !checkIfWordIsOfTypeIngIng(verb2.substring(3, searchWord.length() + 3))) &&
-//                        (verb2.substring(0, 2+1).equals("to ") || !checkIfWordIsOfTypeIngIng(verb2.substring(0, searchWord.length() + 3)))) {
-//                    // If the verb does not belong to the keywords, then remove the ending "ing" so that it can be compared later on to the verbs excel
-//                    //If the verb is for e.g. to sing / sing, where verb2 = to singing / singing, then check that verb2 (without the "to ") belongs to the keywords, and if it does then do nothing
-//
-//                    inglessVerb = searchWord.substring(0,searchWord.length()-3);
-//                }
-            }
-        }
-        //endregion
-
-        //region Getting the input type and its converted form (romaji/kanji/invalid)
-        List<String> translationList = ConvertFragment.getWaapuroHiraganaKatakana(searchWordNoSpaces);
-
-        String searchWordTransliteratedLatin = translationList.get(Globals.TYPE_LATIN);
-        String searchWordTransliteratedHiragana = translationList.get(Globals.TYPE_HIRAGANA);
-        String searchWordTransliteratedKatakana = translationList.get(Globals.TYPE_KATAKANA);
-        int inputTextType = ConvertFragment.getTextType(searchWord);
-
-        List<String> possibleInterpretations = new ArrayList<>();
-        if (inputTextType == Globals.TYPE_LATIN) possibleInterpretations = ConvertFragment.getWaapuroRomanizationsFromLatinText(searchWordNoSpaces);
-        else {
-            possibleInterpretations.add(searchWordTransliteratedLatin);
-        }
-
-        if (inputTextType == Globals.TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
-        //endregion
-
-        //region Replacing a Kana input by its Romaji form
-        if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-            searchWord = searchWordTransliteratedLatin;
-            searchWordNoSpaces = searchWordTransliteratedLatin;
-        }
+        int queryType = query.getType();
+        if (queryType == Globals.TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
         //endregion
 
         //region Getting the matches
-        matchingWordIdsCentral = addNormalMatchesToMatchesList(searchWord, searchWordNoSpaces, inglessVerb, searchWordWithoutTo, possibleInterpretations,
-                queryIsVerbWithTo, inputTextType, matchingWordIdsCentral,
-                roomCentralDatabase, roomExtendedRoomDatabase,
-                language, false);
+        matchingWordIdsCentral = addNormalMatchesToMatchesList(query, matchingWordIdsCentral, language, false, context);
 
-        matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(searchWord, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
-        matchingWordIdsCentral = addCountersToMatchesList(searchWord, inputTextType, matchingWordIdsCentral, roomCentralDatabase);
+        matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(query, matchingWordIdsCentral, context);
+        matchingWordIdsCentral = addCountersToMatchesList(query, matchingWordIdsCentral, context);
 
-        if (roomExtendedRoomDatabase != null)
-            matchingWordIdsExtended = addNormalMatchesToMatchesList(searchWord, searchWordNoSpaces, inglessVerb, searchWordWithoutTo, possibleInterpretations,
-                    queryIsVerbWithTo, inputTextType, new ArrayList<>(),
-                    roomCentralDatabase, roomExtendedRoomDatabase,
-                    language, true);
+        if (RoomExtendedDatabase.getInstance(context) != null)
+            matchingWordIdsExtended = addNormalMatchesToMatchesList(query, new ArrayList<>(), language, true, context);
 
-        if (roomNamesRoomDatabase != null && showNames) {
-            matchingWordIdsNames = addNamesToMatchesList(searchWord, inputTextType, roomNamesRoomDatabase);
+        if (RoomNamesDatabase.getInstance(context) != null && showNames) {
+            matchingWordIdsNames = addNamesToMatchesList(query, context);
         }
 
         //endregion
@@ -678,12 +601,14 @@ public class UtilitiesDb {
         return new Object[]{matchingWordIdsCentral, matchingWordIdsExtended, matchingWordIdsNames};
     }
 
-    private static List<Long> getMatchingWordIdsForOriginalInputQuery(boolean forceExactSearch, int inputTextType, String searchWord, String searchWordNoSpaces, List<String> possibleInterpretations,
-                                                                      RoomCentralDatabase roomCentralDatabase,
-                                                                      RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase,
-                                                                      String language, boolean use_extended_db) {
+    private static List<Long> getMatchingWordIdsForOriginalInputQuery(boolean forceExactSearch, InputQuery query, String language, boolean use_extended_db, Context context) {
+
+        String searchWord = query.getOriginalCleaned();
+        int inputTextType = query.getType();
+        List<String> possibleInterpretations = query.getWaapuroConversions();
 
         List<Long> matchingWordIds = new ArrayList<>();
+        String searchWordNoSpaces = searchWord.replaceAll("\\s","");
 
         //region Search for the matches in the indexed keywords
         List<String> searchResultIndexesArray = new ArrayList<>();
@@ -702,8 +627,7 @@ public class UtilitiesDb {
             String inputWordNoSpaces = Utilities.removeSpecialCharacters(inputWord);
 
             boolean exactSearch = inputWordNoSpaces.length() < 3 || forceExactSearch;
-            latinIndices = findQueryInLatinIndices(inputWordNoSpaces, possibleInterpretations, exactSearch, new String[]{"romaji", language},
-                    roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, use_extended_db);
+            latinIndices = findQueryInLatinIndices(inputWordNoSpaces, possibleInterpretations, exactSearch, new String[]{"romaji", language}, use_extended_db, context);
 
             if (latinIndices.size() == 0) return matchingWordIds;
 
@@ -740,7 +664,7 @@ public class UtilitiesDb {
             }
 
         } else if (inputTextType == Globals.TYPE_KANJI) {
-            kanjiIndices = findQueryInKanjiIndex(searchWordNoSpaces, forceExactSearch, roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, use_extended_db);
+            kanjiIndices = findQueryInKanjiIndex(searchWordNoSpaces, forceExactSearch, use_extended_db, context);
             if (kanjiIndices.size() == 0) return matchingWordIds;
             for (IndexKanji indexKanji : kanjiIndices) {
                 searchResultIndexesArray.add(indexKanji.getWordIds());
@@ -763,15 +687,12 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> getMatchingWordIdsForQueryWithoutExtraIng(boolean forceExactSearch, List<Long> matchingWordIdsFromIndex, String inglessVerb,
-                                                                        RoomCentralDatabase roomCentralDatabase,
-                                                                        RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase, boolean use_extended_db) {
+    private static List<Long> getMatchingWordIdsForQueryWithoutExtraIng(boolean forceExactSearch, List<Long> matchingWordIdsFromIndex, String inglessVerb, boolean use_extended_db, Context context) {
 
         List<Long> newMatchingWordIdsFromIndex = new ArrayList<>(matchingWordIdsFromIndex);
 
         boolean exactSearch = inglessVerb.length() < 3 || forceExactSearch;
-        List<Object> latinIndices = findQueryInLatinIndices(inglessVerb, new ArrayList<>(), exactSearch, new String[]{Globals.LANG_STR_EN},
-                roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, use_extended_db);
+        List<Object> latinIndices = findQueryInLatinIndices(inglessVerb, new ArrayList<>(), exactSearch, new String[]{Globals.LANG_STR_EN}, use_extended_db, context);
 
         for (Object indexLatin : latinIndices) {
             List<String> indexList = new ArrayList<>();
@@ -788,18 +709,17 @@ public class UtilitiesDb {
         return newMatchingWordIdsFromIndex;
     }
 
-    private static List<Long> getMatchingWordIds(int inputTextType, String searchWord, String searchWordNoSpaces, String inglessVerb, List<String> possibleInterpretations,
-                                                 RoomCentralDatabase roomCentralDatabase,
-                                                 RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase,
-                                                 String language, boolean use_extended_db) {
+    private static List<Long> getMatchingWordIds(InputQuery query, String language, boolean use_extended_db, Context context) {
 
-        List<Long> matchingWordIds = getMatchingWordIdsForOriginalInputQuery(false, inputTextType,
-                searchWord, searchWordNoSpaces, possibleInterpretations, roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, language, use_extended_db);
+        String searchWord = query.getOriginalCleaned();
+        String inglessVerb = query.getIngless();
+        int inputTextType = query.getType();
+
+        List<Long> matchingWordIds = getMatchingWordIdsForOriginalInputQuery(false, query, language, use_extended_db, context);
 
         //If the number of matching ids is larger than MAX_SQL_VARIABLES_FOR_QUERY, perform an exact search
         if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIds = getMatchingWordIdsForOriginalInputQuery(true, inputTextType,
-                    searchWord, searchWordNoSpaces, possibleInterpretations, roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, language, use_extended_db);
+            matchingWordIds = getMatchingWordIdsForOriginalInputQuery(true, query, language, use_extended_db, context);
         }
 
         //If the number of matching ids is still larger than MAX_SQL_VARIABLES_FOR_QUERY, limit the list length to MAX_SQL_VARIABLES_FOR_QUERY
@@ -812,12 +732,10 @@ public class UtilitiesDb {
                 && (inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA
                 || inputTextType == Globals.TYPE_KATAKANA || inputTextType == Globals.TYPE_NUMBER)) {
 
-            List<Long> newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(false,
-                    matchingWordIds, inglessVerb, roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, use_extended_db);
+            List<Long> newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(false, matchingWordIds, inglessVerb, use_extended_db, context);
 
             if (matchingWordIds.size() + newMatchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(true,
-                        matchingWordIds, inglessVerb, roomCentralDatabase, japaneseToolboxExtendedRoomDatabase, use_extended_db);
+                newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(true, matchingWordIds, inglessVerb, use_extended_db, context);
             }
 
             if (matchingWordIds.size() + newMatchingWordIds.size() <= Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
@@ -831,22 +749,22 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addNormalMatchesToMatchesList(String searchWord, String searchWordNoSpaces, String inglessVerb, String searchWordWithoutTo, List<String> possibleInterpretations,
-                                                            boolean queryIsVerbWithTo, int inputTextType, List<Long> matchingWordIds,
-                                                            RoomCentralDatabase roomCentralDatabase,
-                                                            RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase,
-                                                            String language, boolean use_extended_db) {
+    private static List<Long> addNormalMatchesToMatchesList(InputQuery query, List<Long> matchingWordIds, String language, boolean use_extended_db, Context context) {
 
         //region Initializations
         List<long[]> MatchList = new ArrayList<>();
         String keywords;
         long[] current_match_values;
         boolean foundMatch;
+        boolean queryIsVerbWithTo = query.getIsVerbWithTo();
+        String searchWordWithoutTo = query.getWithoutTo();
+        String searchWord = query.getOriginalCleaned();
+        String inglessVerb = query.getIngless();
+        int inputTextType = query.getType();
+        List<String> possibleInterpretations = query.getWaapuroConversions();
         //endregion
 
-        List<Long> matchingWordIdsFromIndex = getMatchingWordIds(inputTextType, searchWord, searchWordNoSpaces, inglessVerb, possibleInterpretations,
-                roomCentralDatabase, japaneseToolboxExtendedRoomDatabase,
-                language, use_extended_db);
+        List<Long> matchingWordIdsFromIndex = getMatchingWordIds(query, language, use_extended_db, context);
 
         //region Limiting the database query if there are too many results (prevents long query times)
         boolean onlyRetrieveShortRomajiWords = false;
@@ -857,8 +775,8 @@ public class UtilitiesDb {
         //endregion
 
         //region Filtering the matches
-        List<Word> matchingWordList = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getWordListByWordIds(matchingWordIdsFromIndex)
-                : roomCentralDatabase.getWordListByWordIds(matchingWordIdsFromIndex);
+        List<Word> matchingWordList = use_extended_db ? RoomExtendedDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex)
+                : RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
         String romaji;
         String altSpellings;
         boolean isExactMeaningWordsMatch;
@@ -957,13 +875,14 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addNamesToMatchesList(String searchWord, int inputTextType, RoomNamesDatabase japaneseToolboxNamesRoomDatabase) {
+    private static List<Long> addNamesToMatchesList(InputQuery query, Context context) {
 
-        List<Long> matchingWordIdsNames = findQueryInNameIndices(searchWord, false, inputTextType, japaneseToolboxNamesRoomDatabase);
+        String searchWord = query.getSearchQuery();
+        List<Long> matchingWordIdsNames = findQueryInNameIndices(searchWord, false, query.getType(), context);
 
         //If the number of matching ids is larger than MAX_SQL_VARIABLES_FOR_QUERY, perform an exact search
         if (matchingWordIdsNames.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIdsNames = findQueryInNameIndices(searchWord, true, inputTextType, japaneseToolboxNamesRoomDatabase);
+            matchingWordIdsNames = findQueryInNameIndices(searchWord, true, query.getType(), context);
         }
 
         //If the number of matching ids is still larger than MAX_SQL_VARIABLES_FOR_QUERY, limit the list length to MAX_SQL_VARIABLES_FOR_QUERY
@@ -1020,22 +939,20 @@ public class UtilitiesDb {
         return TextUtils.join(", ", meanings);
     }
 
-    private static List<Long> addConjugatedAdjectivesToMatchesList(String searchWord, int inputTextType, List<Long> matchingWordIds,
-                                                                   RoomCentralDatabase roomCentralDatabase) {
+    private static List<Long> addConjugatedAdjectivesToMatchesList(InputQuery query, List<Long> matchingWordIds, Context context) {
 
+        String searchWord = query.getSearchQuery();
         //Adding relevant adjectives to the list of matches if the input query is an adjective conjugation
-        List<Long> matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, inputTextType,
-                matchingWordIds, roomCentralDatabase, false);
+        List<Long> matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, query.getType(), matchingWordIds, false, context);
 
         if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, inputTextType,
-                    matchingWordIds, roomCentralDatabase, true);
+            matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, query.getType(), matchingWordIds, true, context);
         }
 
         if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
             Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY when searching for " + searchWord + " in adjectives search, but prevented crash.");
         } else {
-            List<Word> matchingPotentialAdjectives = roomCentralDatabase.getWordListByWordIds(matchingWordIdsFromIndex);
+            List<Word> matchingPotentialAdjectives = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
             boolean isAlreadyInList;
             for (Word word : matchingPotentialAdjectives) {
                 isAlreadyInList = false;
@@ -1060,13 +977,12 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addCountersToMatchesList(String searchWord, int inputTextType, List<Long> matchingWordIds,
-                                                       RoomCentralDatabase roomCentralDatabase) {
+    private static List<Long> addCountersToMatchesList(InputQuery query, List<Long> matchingWordIds, Context context) {
 
-        if (inputTextType == Globals.TYPE_KANJI && searchWord.length() == 2
-                && "何一二三四五六七八九十".contains(searchWord.substring(0, 1))) {
+        String searchWord = query.getSearchQuery();
+        if (query.getType() == Globals.TYPE_KANJI && searchWord.length() == 2 && "何一二三四五六七八九十".contains(searchWord.substring(0, 1))) {
 
-            List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(searchWord.substring(1, 2), true, roomCentralDatabase, null, false);
+            List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(searchWord.substring(1, 2), true, false, context);
 
             if (kanjiIndicesForCounter.size() == 0) return matchingWordIds;
 
@@ -1087,7 +1003,7 @@ public class UtilitiesDb {
             if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
                 Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY when searching for " + searchWord + " in counter search, but prevented crash.");
             } else {
-                List<Word> matchingPotentialCounters = roomCentralDatabase.getWordListByWordIds(matchingWordIdsFromIndex);
+                List<Word> matchingPotentialCounters = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
                 boolean isAlreadyInList;
                 for (Word word : matchingPotentialCounters) {
                     isAlreadyInList = false;
@@ -1112,9 +1028,7 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> getmatchingWordIdsFromIndexForAdjectiveSearch(String searchWord, int inputTextType, List<Long> matchingWordIds,
-                                                                            RoomCentralDatabase roomCentralDatabase,
-                                                                            boolean forceExactSearch) {
+    private static List<Long> getmatchingWordIdsFromIndexForAdjectiveSearch(String searchWord, int inputTextType, List<Long> matchingWordIds, boolean forceExactSearch, Context context) {
 
         List<Long> matchingWordIdsFromIndex = new ArrayList<>();
         String input_word = Utilities.removeNonSpaceSpecialCharacters(searchWord);
@@ -1125,7 +1039,7 @@ public class UtilitiesDb {
 
         if (inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
 
-            input_word = ConvertFragment.getWaapuroHiraganaKatakana(input_word).get(Globals.TYPE_LATIN);
+            input_word = InputQuery.getWaapuroHiraganaKatakana(input_word).get(Globals.TYPE_LATIN);
 
             if (input_word.length() > 9) {
                 adjectiveConjugation = input_word.substring(input_word.length() - 9);
@@ -1164,8 +1078,8 @@ public class UtilitiesDb {
 
             boolean exactSearch = baseAdjective.length() < 3 || forceExactSearch;
 
-            List<String> possibleInterpretations = ConvertFragment.getWaapuroRomanizationsFromLatinText(baseAdjective);
-            List<Object> latinIndicesForAdjective = findQueryInLatinIndices(baseAdjective, possibleInterpretations, exactSearch, new String[]{"romaji"}, roomCentralDatabase, null, false);
+            List<String> possibleInterpretations = InputQuery.getWaapuroRomanizationsFromLatinText(baseAdjective);
+            List<Object> latinIndicesForAdjective = findQueryInLatinIndices(baseAdjective, possibleInterpretations, exactSearch, new String[]{"romaji"}, false, context);
 
             if (latinIndicesForAdjective.size() == 0) return matchingWordIds;
 
@@ -1209,7 +1123,7 @@ public class UtilitiesDb {
 
             if (!isPotentialAdjective) return matchingWordIds;
 
-            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjective, forceExactSearch, roomCentralDatabase, null, false);
+            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjective, forceExactSearch, false, context);
 
             if (kanjiIndicesForAdjective.size() == 0) return matchingWordIds;
 
@@ -1251,57 +1165,25 @@ public class UtilitiesDb {
         return output.toString();
     }
 
-    public static Boolean isOfTypeIngIng(String verb) {
-        boolean answer = false;
-        if (verb.equals("accinging") || verb.equals("astringing") || verb.equals("befringing") || verb.equals("besinging") ||
-                verb.equals("binging") || verb.equals("boinging") || verb.equals("bowstringing") || verb.equals("bringing") ||
-                verb.equals("clinging") || verb.equals("constringing") || verb.equals("cringing") || verb.equals("dinging") ||
-                verb.equals("enringing") || verb.equals("flinging") || verb.equals("folksinging") || verb.equals("fringing") ||
-                verb.equals("gunslinging") || verb.equals("hamstringing") || verb.equals("handwringing") || verb.equals("hinging") ||
-                verb.equals("impinging") || verb.equals("inbringing") || verb.equals("infringing") || verb.equals("kinging") ||
-                verb.equals("minging") || verb.equals("mudslinging") || verb.equals("outringing") || verb.equals("outsinging") ||
-                verb.equals("outspringing") || verb.equals("outswinging") || verb.equals("outwinging") || verb.equals("overswinging") ||
-                verb.equals("overwinging") || verb.equals("perstringing") || verb.equals("pinging") || verb.equals("refringing") ||
-                verb.equals("rehinging") || verb.equals("respringing") || verb.equals("restringing") || verb.equals("ringing") ||
-                verb.equals("singing") || verb.equals("slinging") || verb.equals("springing") || verb.equals("stinging") ||
-                verb.equals("stringing") || verb.equals("swinging") || verb.equals("syringing") || verb.equals("twinging") ||
-                verb.equals("unhinging") || verb.equals("unkinging") || verb.equals("unslinging") || verb.equals("unstringing") ||
-                verb.equals("upbringing") || verb.equals("upflinging") || verb.equals("upspringing") || verb.equals("upswinging") ||
-                verb.equals("whinging") || verb.equals("winging") || verb.equals("wringing") || verb.equals("zinging")) {
-            answer = true;
-        }
-        return answer;
-    }
 
-    private static String removeApostrophes(String sentence) {
-        String current_char;
-        StringBuilder concatenated_sentence = new StringBuilder();
-        for (int index = 0; index < sentence.length(); index++) {
-            current_char = Character.toString(sentence.charAt(index));
-            if (!(current_char.equals("'"))) {
-                concatenated_sentence.append(current_char);
-            }
-        }
-        return concatenated_sentence.toString();
-    }
 
-    private static List<Long> findQueryInNameIndices(String concatenated_word, boolean exactSearch, int inputTextType,
-                                                     RoomNamesDatabase japaneseToolboxNamesRoomDatabase) {
+    private static List<Long> findQueryInNameIndices(String concatenated_word, boolean exactSearch, int inputTextType, Context context) {
 
         List<String> matchingIndices = new ArrayList<>();
+        RoomNamesDatabase namesRoomDatabase = RoomNamesDatabase.getInstance(context);
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
 
             if (inputTextType == Globals.TYPE_KANJI) {
-                IndexKanji indexKanji = japaneseToolboxNamesRoomDatabase.getKanjiIndexForExactWord(concatenated_word);
+                IndexKanji indexKanji = namesRoomDatabase.getKanjiIndexForExactWord(concatenated_word);
                 if (indexKanji != null) {
                     matchingIndices.addAll(Arrays.asList(indexKanji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
                 }
             } else {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = ConvertFragment.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                    concatenated_word = InputQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
-                IndexRomaji indexRomaji = japaneseToolboxNamesRoomDatabase.getRomajiIndexForExactWord(concatenated_word);
+                IndexRomaji indexRomaji = namesRoomDatabase.getRomajiIndexForExactWord(concatenated_word);
                 if (indexRomaji != null) {
                     matchingIndices.addAll(Arrays.asList(indexRomaji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
                 }
@@ -1309,7 +1191,7 @@ public class UtilitiesDb {
 
         } else {
             if (inputTextType == Globals.TYPE_KANJI) {
-                List<IndexKanji> indexesKanji = japaneseToolboxNamesRoomDatabase.getKanjiIndexesListForStartingWord(concatenated_word);
+                List<IndexKanji> indexesKanji = namesRoomDatabase.getKanjiIndexesListForStartingWord(concatenated_word);
                 if (indexesKanji != null && indexesKanji.size() > 0) {
                     for (IndexKanji indexKanji : indexesKanji) {
                         matchingIndices.addAll(Arrays.asList(indexKanji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
@@ -1317,9 +1199,9 @@ public class UtilitiesDb {
                 }
             } else {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = ConvertFragment.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                    concatenated_word = InputQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
-                List<IndexRomaji> indexesRomaji = japaneseToolboxNamesRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
+                List<IndexRomaji> indexesRomaji = namesRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) {
                     for (IndexRomaji indexRomaji : indexesRomaji) {
                         matchingIndices.addAll(Arrays.asList(indexRomaji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
@@ -1337,63 +1219,64 @@ public class UtilitiesDb {
     }
 
     private static List<Object> findQueryInLatinIndices(String concatenated_word, List<String> possibleInterpretations, boolean exactSearch, String[] searchType,
-                                                        RoomCentralDatabase roomCentralDatabase,
-                                                        RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase, boolean use_extended_db) {
+                                                        boolean use_extended_db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
 
+        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
+        RoomExtendedDatabase extendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
 
             if (Arrays.asList(searchType).contains("romaji")) {
-                List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexForExactWordsList(possibleInterpretations)
+                List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexForExactWordsList(possibleInterpretations)
                         : roomCentralDatabase.getRomajiIndexForExactWordsList(possibleInterpretations);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
             }
 
             if (Arrays.asList(searchType).contains(Globals.LANG_STR_EN)) {
-                IndexEnglish indexEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
+                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
                 if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
             } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_FR)) {
-                IndexFrench indexFrench = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getFrenchIndexForExactWord(concatenated_word)
+                IndexFrench indexFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexForExactWord(concatenated_word)
                         : roomCentralDatabase.getFrenchIndexForExactWord(concatenated_word);
                 if (indexFrench != null) matchingIndices.add(indexFrench); //Only add the index if the word was found in the index
-                IndexEnglish indexEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
+                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
                 if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
             } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_ES)) {
-                IndexSpanish indexSpanish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getSpanishIndexForExactWord(concatenated_word)
+                IndexSpanish indexSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexForExactWord(concatenated_word)
                         : roomCentralDatabase.getSpanishIndexForExactWord(concatenated_word);
                 if (indexSpanish != null) matchingIndices.add(indexSpanish); //Only add the index if the word was found in the index
-                IndexEnglish indexEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
+                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
                 if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
             }
 
         } else {
             if (Arrays.asList(searchType).contains("romaji")) {
-                List<IndexRomaji> indexesRomaji = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations)
+                List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations)
                         : roomCentralDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
             }
 
             if (Arrays.asList(searchType).contains(Globals.LANG_STR_EN)) {
-                List<IndexEnglish> indexesEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
+                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
                 if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
             } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_FR)) {
-                List<IndexFrench> indexesFrench = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getFrenchIndexesListForStartingWord(concatenated_word)
+                List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexesListForStartingWord(concatenated_word)
                         : roomCentralDatabase.getFrenchIndexesListForStartingWord(concatenated_word);
                 if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench);
-                List<IndexEnglish> indexesEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
+                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
                 if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
             } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_ES)) {
-                List<IndexSpanish> indexesSpanish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getSpanishIndexesListForStartingWord(concatenated_word)
+                List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexesListForStartingWord(concatenated_word)
                         : roomCentralDatabase.getSpanishIndexesListForStartingWord(concatenated_word);
                 if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish);
-                List<IndexEnglish> indexesEnglish = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
+                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
                         : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
                 if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
             }
@@ -1401,14 +1284,14 @@ public class UtilitiesDb {
         return matchingIndices;
     }
 
-    private static List<IndexKanji> findQueryInKanjiIndex(String concatenated_word, boolean exactSearch,
-                                                          RoomCentralDatabase roomCentralDatabase,
-                                                          RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase, boolean use_extended_db) {
+    private static List<IndexKanji> findQueryInKanjiIndex(String concatenated_word, boolean exactSearch, boolean use_extended_db, Context context) {
 
         // Prepare the input word to be used in the following algorithm: the word is converted to its hex utf-8 value as a string, in fractional form
         //String prepared_word = convertToUTF8Index(concatenated_word);
         String prepared_word = concatenated_word;
 
+        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
+        RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<IndexKanji> matchingIndexKanjis;
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
@@ -1799,7 +1682,7 @@ public class UtilitiesDb {
         verb.setRomaji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ROMAJI]);
         verb.setKanji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI]);
         verb.setAltSpellings(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ALT_SPELLINGS]);
-        verb.setHiraganaFirstChar(ConvertFragment.getWaapuroHiraganaKatakana(verb.getRomaji()).get(Globals.TYPE_HIRAGANA).substring(0, 1));
+        verb.setHiraganaFirstChar(InputQuery.getWaapuroHiraganaKatakana(verb.getRomaji()).get(Globals.TYPE_HIRAGANA).substring(0, 1));
 
         //Setting the family
         String MM_index = verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_MEANING_EN_INDEXES];

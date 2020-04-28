@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.japagram.data.InputQuery;
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
-import com.japagram.ui.ConvertFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -122,10 +122,10 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
             }
             matchingKanjiCharactersByDescriptor.addAll(matchingKanjiCharactersByMeaning);
 
-            String hiraganaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_HIRAGANA);
+            String hiraganaDescriptor = InputQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_HIRAGANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(hiraganaDescriptor));
 
-            String katakanaDescriptor = ConvertFragment.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_KATAKANA);
+            String katakanaDescriptor = InputQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_KATAKANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(katakanaDescriptor));
 
             List<String> matchingCharacters = new ArrayList<>();

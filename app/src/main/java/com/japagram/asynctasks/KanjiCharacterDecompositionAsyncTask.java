@@ -6,12 +6,12 @@ import android.os.AsyncTask;
 import android.text.TextUtils;
 
 import com.japagram.R;
+import com.japagram.data.InputQuery;
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
-import com.japagram.ui.ConvertFragment;
 
 import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
@@ -174,9 +174,9 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
         if (readings != null) {
             for (String reading : readings.split(";")) {
                 components = reading.split("\\.");
-                readingLatin = ConvertFragment.getWaapuroHiraganaKatakana(components[0]).get(Globals.TYPE_LATIN);
+                readingLatin = InputQuery.getWaapuroHiraganaKatakana(components[0]).get(Globals.TYPE_LATIN);
                 if (components.length > 1) readingLatin +=
-                        "(" + ConvertFragment.getWaapuroHiraganaKatakana(components[1]).get(Globals.TYPE_LATIN) + ")";
+                        "(" + InputQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TYPE_LATIN) + ")";
                 readingsList.add(readingLatin);
             }
             readingsList = Utilities.removeDuplicatesFromList(readingsList);

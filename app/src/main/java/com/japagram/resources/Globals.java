@@ -2,6 +2,7 @@ package com.japagram.resources;
 
 
 import com.japagram.R;
+import com.japagram.data.ConjugationTitle;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public final class Globals {
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
     public static List<String[]> SimilarsDatabase;
     public static List<String[]> VerbLatinConjDatabase;
+    public static List<ConjugationTitle> ConjugationTitles;
     public static List<String[]> VerbKanjiConjDatabase;
     public static List<String[]> VerbLatinConjDatabaseNoSpaces;
     public static List<String[]> RadicalsOnlyDatabase;

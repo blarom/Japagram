@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.japagram.R;
+import com.japagram.data.InputQuery;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
@@ -23,8 +24,6 @@ import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -39,10 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.japagram.resources.Globals.COLUMN_VERB_ISTEM;
-
 //TODO: database upgrade
-//// Test app ranking algorithm using the following words: eat, car
+//// Test app ranking algorithm using the following words: eat, car, rat, reef
 
 //TODO: features
 ////TODO: add wildcard characters to local searches
@@ -469,7 +466,7 @@ public class MainActivity extends BaseActivity implements
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                        .equals(ConvertFragment.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
+                        .equals(InputQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
                     meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
@@ -643,7 +640,6 @@ public class MainActivity extends BaseActivity implements
         mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
         mSecondFragmentPlaceholder.bringToFront();
 
-        query = UtilitiesDb.replaceInvalidKanjisWithValidOnes(query, Globals.SimilarsDatabase);
         mShowNames = UtilitiesPrefs.getPreferenceShowNames(this);
 
         mDictionaryFragment = new DictionaryFragment();

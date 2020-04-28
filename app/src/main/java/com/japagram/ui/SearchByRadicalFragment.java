@@ -31,6 +31,7 @@ import com.japagram.adapters.StructuresGridViewAdapter;
 import com.japagram.asynctasks.ComponentGridCreationAsyncTask;
 import com.japagram.asynctasks.ComponentsGridFilterAsyncTask;
 import com.japagram.asynctasks.KanjiSearchAsyncTask;
+import com.japagram.data.InputQuery;
 import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesPrefs;
@@ -362,7 +363,7 @@ public class SearchByRadicalFragment extends Fragment implements
         int text_type;
         for (int i=0; i<inputQuery.length(); i++) {
             currentChar = mInputQuery.substring(i,i+1);
-            text_type = ConvertFragment.getTextType(currentChar);
+            text_type = InputQuery.getTextType(currentChar);
             if (text_type == Globals.TYPE_KANJI) {
                 user_selections[userSelectionIndex] = currentChar;
                 userSelectionIndex++;

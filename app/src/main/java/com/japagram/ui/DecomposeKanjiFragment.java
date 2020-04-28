@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
+import com.japagram.data.InputQuery;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
@@ -115,7 +116,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         mInputQueryKanjis = new ArrayList<>();
         for (int i=0; i<mInputQuery.length(); i++) {
             String currentChar = mInputQuery.substring(i,i+1);
-            if (ConvertFragment.getTextType(currentChar) == Globals.TYPE_KANJI) {
+            if (InputQuery.getTextType(currentChar) == Globals.TYPE_KANJI) {
                 Object[] elements = new Object[4];
                 elements[Globals.DECOMP_KANJI_LIST_INDEX] = currentChar;
                 elements[Globals.DECOMP_RADICAL_ITERATION] = 0;
