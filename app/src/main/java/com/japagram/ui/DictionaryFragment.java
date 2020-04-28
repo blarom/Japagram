@@ -337,11 +337,7 @@ public class DictionaryFragment extends Fragment implements
         if (wordsList == null || wordsList.size()==0) return new ArrayList<>();
 
         List<long[]> matchingWordIndexesAndLengths = new ArrayList<>();
-
-        //region Registering if the input query is a "to " verb
         boolean queryIsVerbWithTo = mInputQuery.getIsVerbWithTo();
-        String queryWordWithoutTo = mInputQuery.getWithoutTo();
-        //endregion
 
         //region Replacing the Kana input word by its romaji equivalent
         String inputQuery = mInputQuery.getOriginal();
@@ -357,7 +353,7 @@ public class DictionaryFragment extends Fragment implements
             if (currentWord==null) continue;
 
             String language = LocaleHelper.getLanguage(getContext());
-            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
+            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
 
             long[] currentMatchingWordIndexAndLength = new long[3];
             currentMatchingWordIndexAndLength[0] = i;

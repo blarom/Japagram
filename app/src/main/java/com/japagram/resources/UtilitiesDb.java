@@ -294,7 +294,7 @@ public class UtilitiesDb {
         return sortedMatchList;
     }
 
-    public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, String queryWordWithoutTo, boolean queryIsVerbWithTo, String language) {
+    public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
         String inputQueryLatin = InputQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
         int ranking;

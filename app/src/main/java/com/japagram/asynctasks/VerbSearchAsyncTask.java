@@ -807,14 +807,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         List<long[]> matchingVerbIdLengthColList = new ArrayList<>();
 
-        //region Registering if the input query is a "to " verb
-        boolean queryIsVerbWithTo = false;
-        String queryWordWithoutTo = "";
-        if (mPreparedQuery.length()>3 && mPreparedQuery.substring(0,3).equals("to ")) {
-            queryIsVerbWithTo = true;
-            queryWordWithoutTo = mPreparedQuery.substring(3);
-        }
-        //endregion
+        boolean queryIsVerbWithTo = mInputQuery.getIsVerbWithTo();
 
         //region Replacing the Kana input word by its romaji equivalent
         String inputQuery = mPreparedQuery.toLowerCase();
@@ -837,7 +830,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             if (currentWord == null) continue;
 
             String language = LocaleHelper.getLanguage(contextRef.get());
-            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryWordWithoutTo, queryIsVerbWithTo, language);
+            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
 
             long[] currentMatchingVerbIdLengthCol = new long[3];
             currentMatchingVerbIdLengthCol[0] = matchingVerbIdsAndCols.get(i)[0];
