@@ -337,11 +337,11 @@ public class DictionaryFragment extends Fragment implements
         if (wordsList == null || wordsList.size()==0) return new ArrayList<>();
 
         List<long[]> matchingWordIndexesAndLengths = new ArrayList<>();
-        boolean queryIsVerbWithTo = mInputQuery.getIsVerbWithTo();
+        boolean queryIsVerbWithTo = mInputQuery.isVerbWithTo();
 
         //region Replacing the Kana input word by its romaji equivalent
         String inputQuery = mInputQuery.getOriginal();
-        int inputTextType = mInputQuery.getType();
+        int inputTextType = mInputQuery.getOriginalType();
         if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
             inputQuery = mInputQuery.getRomajiSingleElement();
         }

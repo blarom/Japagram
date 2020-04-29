@@ -249,7 +249,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 currentIntersections = Utilities.getIntersectionOfLists(listOfIntersectingResults, structureComponents);
                 listOfResultsRelevantToRequestedStructure.addAll(currentIntersections);
             }
-            listOfResultsRelevantToRequestedStructure = Utilities.removeDuplicatesFromList(listOfResultsRelevantToRequestedStructure);
+            listOfResultsRelevantToRequestedStructure = Utilities.removeDuplicatesFromStringList(listOfResultsRelevantToRequestedStructure);
 
         }
         else {

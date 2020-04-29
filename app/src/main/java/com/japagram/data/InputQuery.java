@@ -16,17 +16,20 @@ import java.util.List;
 import java.util.Locale;
 
 public class InputQuery implements Parcelable {
+    private int searchType;
+    private int originalType;
     private String withoutTo;
     private boolean isVerbWithTo;
     private boolean hasIngEnding;
+    private boolean isTooShort;
     private String katakanaSingleElement;
     private String hiraganaSingleElement;
     private String romajiSingleElement;
     private String original;
     private String originalNoIng;
-    private String searchQuery;
-    private int type;
-    private String noSpaces = "";
+    private List<String> searchQueriesRomaji = new ArrayList<>();
+    private List<String> searchQueriesNonJapanese = new ArrayList<>();
+    private List<String> searchQueriesKanji = new ArrayList<>();
     private String originalCleaned = "";
     private String ingless = "";
     private List<String> hiraganaConversions = new ArrayList<>();
@@ -44,20 +47,18 @@ public class InputQuery implements Parcelable {
 
     public InputQuery(String input) {
         this.original = input.toLowerCase(Locale.ENGLISH); //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
-        this.original = UtilitiesDb.replaceInvalidKanjisWithValidOnes(input, Globals.SimilarsDatabase);
         if (isEmpty()) return;
-        this.type = getTextType(this.original);
-        this.noSpaces = original.replace(" ","");
+        this.originalType = getTextType(this.original);
         this.originalCleaned = Utilities.removeNonSpaceSpecialCharacters(original);
         this.ingless = getInglessVerb(this.originalCleaned.replace("'",""));
-        this.originalNoIng = hasIngEnding()? "to " + this.ingless : this.original;
+        this.originalNoIng = hasIngEnding()? "to " + ingless : original;
 
-        if (this.originalCleaned.length() > 3 && this.originalCleaned.substring(0, 3).equals("to ")) {
+        if (originalCleaned.length() > 3 && originalCleaned.substring(0, 3).equals("to ")) {
             isVerbWithTo = true;
-            withoutTo = this.originalCleaned.substring(3);
+            withoutTo = originalCleaned.substring(3);
         }
 
-        Object[] conversions = InputQuery.getTransliterationsAsLists(this.originalCleaned.replaceAll("\\s",""));
+        Object[] conversions = InputQuery.getTransliterationsAsLists(originalCleaned.replaceAll("\\s",""));
         hiraganaConversions = (List<String>)conversions[Globals.ROM_COL_HIRAGANA];
         katakanaConversions = (List<String>)conversions[Globals.ROM_COL_KATAKANA];
         waapuroConversions = (List<String>)conversions[Globals.ROM_COL_WAAPURO];
@@ -65,18 +66,53 @@ public class InputQuery implements Parcelable {
         NSConversions = (List<String>)conversions[Globals.ROM_COL_NIHON_SHIKI];
         KSConversions = (List<String>)conversions[Globals.ROM_COL_KUNREI_SHIKI];
 
-        hiraganaUniqueConversions = Utilities.removeDuplicatesFromList(hiraganaConversions);
-        katakanaUniqueConversions = Utilities.removeDuplicatesFromList(katakanaConversions);
-        waapuroUniqueConversions = Utilities.removeDuplicatesFromList(waapuroConversions);
-        MHUniqueConversions = Utilities.removeDuplicatesFromList(MHConversions);
-        NSUniqueConversions = Utilities.removeDuplicatesFromList(NSConversions);
-        KSUniqueConversions = Utilities.removeDuplicatesFromList(KSConversions);
+        hiraganaUniqueConversions = Utilities.removeDuplicatesFromStringList(hiraganaConversions);
+        katakanaUniqueConversions = Utilities.removeDuplicatesFromStringList(katakanaConversions);
+        waapuroUniqueConversions = Utilities.removeDuplicatesFromStringList(waapuroConversions);
+        MHUniqueConversions = Utilities.removeDuplicatesFromStringList(MHConversions);
+        NSUniqueConversions = Utilities.removeDuplicatesFromStringList(NSConversions);
+        KSUniqueConversions = Utilities.removeDuplicatesFromStringList(KSConversions);
 
         this.romajiSingleElement = waapuroConversions.get(0);
         this.hiraganaSingleElement = hiraganaConversions.get(0);
         this.katakanaSingleElement = katakanaConversions.get(0);
 
-        this.searchQuery = (getType() == Globals.TYPE_HIRAGANA || getType() == Globals.TYPE_KATAKANA)? this.searchQuery = getRomajiSingleElement() : getOriginalCleaned();
+        if (getOriginalType() == Globals.TYPE_LATIN) {
+
+            searchType = Globals.TYPE_LATIN;
+            boolean isEnglishWord = false;
+            this.searchQueriesNonJapanese.add(originalCleaned);
+            if (originalCleaned.length() > 3 && originalCleaned.substring(originalCleaned.length()-3).equals("ing")) {
+                //this.searchQueriesNonJapanese.add(ingless);
+                isEnglishWord = true;
+            }
+            if (originalCleaned.length() > 3 && originalCleaned.substring(0, 3).equals("to ")) {
+                searchQueriesNonJapanese.add(withoutTo);
+                isEnglishWord = true;
+            }
+            if (!isEnglishWord) {
+                searchQueriesRomaji.add(originalCleaned);
+                for (String conversion : waapuroUniqueConversions) {
+                    if (!conversion.contains("*") && !conversion.equals(originalCleaned)) searchQueriesRomaji.add(conversion);
+                }
+            }
+        }
+        else if (getOriginalType() == Globals.TYPE_HIRAGANA || getOriginalType() == Globals.TYPE_KATAKANA) {
+            searchType = Globals.TYPE_LATIN;
+            searchQueriesRomaji.addAll(waapuroUniqueConversions);
+        }
+        else if (getOriginalType() == Globals.TYPE_NUMBER) {
+            searchType = Globals.TYPE_LATIN;
+            searchQueriesNonJapanese.add(originalCleaned);
+        }
+        else if (getOriginalType() == Globals.TYPE_KANJI) {
+            searchType = Globals.TYPE_KANJI;
+            searchQueriesKanji.add(UtilitiesDb.replaceInvalidKanjisWithValidOnes(originalCleaned));
+        }
+
+        String originalCleanedNoSpaces = originalCleaned.replace("\\s","");
+        isTooShort = originalType == Globals.TYPE_NUMBER && originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH - 1
+                || (originalType == Globals.TYPE_LATIN || originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) && originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH;
     }
 
 
@@ -89,9 +125,7 @@ public class InputQuery implements Parcelable {
         romajiSingleElement = in.readString();
         original = in.readString();
         originalNoIng = in.readString();
-        searchQuery = in.readString();
-        type = in.readInt();
-        noSpaces = in.readString();
+        originalType = in.readInt();
         originalCleaned = in.readString();
         ingless = in.readString();
         hiraganaConversions = in.createStringArrayList();
@@ -149,6 +183,10 @@ public class InputQuery implements Parcelable {
                 transliteratedToKatakana = transliteratedToKatakana.replace(currentRomaji, currentRow[Globals.ROM_COL_KATAKANA]);
             }
         }
+
+        //Cleaning the leftovers
+        transliteratedToHiragana = transliteratedToHiragana.replaceAll("[a-z]", "*");
+        transliteratedToKatakana = transliteratedToKatakana.replaceAll("[a-z]", "*");
 
         return new String[]{transliteratedToHiragana, transliteratedToKatakana};
     }
@@ -436,14 +474,18 @@ public class InputQuery implements Parcelable {
         String returnVerb = input;
         if (input.length() > 2 && input.substring(input.length() - 3).equals("ing")) {
 
+            String inputWithoutIng = input.substring(0, input.length() - 3);
             if (input.length() > 5 && input.substring(input.length() - 6).equals("inging")) {
                 if ( (input.substring(0, 3).equals("to ") && isOfTypeIngIng(input.substring(3))) || (!input.substring(0, 3).equals("to ") && isOfTypeIngIng(input)) ) {
                     // If the verb ends with "inging" then remove the the second "ing"
-                    returnVerb = input.substring(0, input.length() - 3);
+                    returnVerb = inputWithoutIng;
                 }
             }
+            else {
+                returnVerb = inputWithoutIng;
+            }
 
-            this.hasIngEnding = getType() == Globals.TYPE_LATIN;
+            hasIngEnding = getOriginalType() == Globals.TYPE_LATIN;
         }
 
         return returnVerb;
@@ -480,16 +522,16 @@ public class InputQuery implements Parcelable {
         return originalCleaned;
     }
 
-    public String getNoSpaces() {
-        return noSpaces;
+    public List<String> getSearchQueriesRomaji() {
+        return searchQueriesRomaji;
     }
 
     public String getIngless() {
         return ingless;
     }
 
-    public int getType() {
-        return type;
+    public int getOriginalType() {
+        return originalType;
     }
 
     public String getRomajiSingleElement() {
@@ -504,7 +546,7 @@ public class InputQuery implements Parcelable {
         return katakanaSingleElement;
     }
 
-    public boolean getIsVerbWithTo() {
+    public boolean isVerbWithTo() {
         return isVerbWithTo;
     }
 
@@ -570,10 +612,6 @@ public class InputQuery implements Parcelable {
         return originalNoIng;
     }
 
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
     @Override
     public int describeContents() {
         return 0;
@@ -589,9 +627,7 @@ public class InputQuery implements Parcelable {
         parcel.writeString(romajiSingleElement);
         parcel.writeString(original);
         parcel.writeString(originalNoIng);
-        parcel.writeString(searchQuery);
-        parcel.writeInt(type);
-        parcel.writeString(noSpaces);
+        parcel.writeInt(originalType);
         parcel.writeString(originalCleaned);
         parcel.writeString(ingless);
         parcel.writeStringList(hiraganaConversions);
@@ -606,5 +642,21 @@ public class InputQuery implements Parcelable {
         parcel.writeStringList(MHUniqueConversions);
         parcel.writeStringList(NSUniqueConversions);
         parcel.writeStringList(KSUniqueConversions);
+    }
+
+    public int getSearchType() {
+        return searchType;
+    }
+
+    public List<String> getSearchQueriesNonJapanese() {
+        return searchQueriesNonJapanese;
+    }
+
+    public List<String> getSearchQueriesKanji() {
+        return searchQueriesKanji;
+    }
+
+    public boolean isTooShort() {
+        return isTooShort;
     }
 }

@@ -36,6 +36,10 @@ public interface IndexFrenchDao {
     @Query("SELECT * FROM " + IndexFrench.TABLE_NAME + " WHERE " + IndexFrench.COLUMN_VALUE + " LIKE :query  || '%' ")
     List<IndexFrench> getIndexByStartingQuery(String query);
 
+    //Get a IndexFrench by query list
+    @Query("SELECT * FROM " + IndexFrench.TABLE_NAME + " WHERE " + IndexFrench.COLUMN_VALUE + " IN (:queries)")
+    List<IndexFrench> getIndexByExactQueries(List<String> queries);
+
     //Delete a IndexFrench by Latin
     @Query("DELETE FROM " + IndexFrench.TABLE_NAME + " WHERE " + IndexFrench.COLUMN_VALUE + " = :latin")
     int deletIndexByLatin(String latin);

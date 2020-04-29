@@ -1,6 +1,7 @@
 package com.japagram.resources;
 
 
+import com.japagram.BuildConfig;
 import com.japagram.R;
 import com.japagram.data.ConjugationTitle;
 
@@ -11,6 +12,9 @@ import java.util.List;
 public final class Globals {
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
+    public static final int SMALL_WORD_LENGTH = 3;
+    public static final String firebaseEmail = BuildConfig.firebaseEmail;
+    public static final String firebasePass = BuildConfig.firebasePass;
     public static List<String[]> SimilarsDatabase;
     public static List<String[]> VerbLatinConjDatabase;
     public static List<ConjugationTitle> ConjugationTitles;
@@ -19,9 +23,9 @@ public final class Globals {
     public static List<String[]> RadicalsOnlyDatabase;
     public static List<String[]> Romanizations;
 
-    public static final int CENTRAL_DB_VERSION = 104;
+    public static final int CENTRAL_DB_VERSION = 105;
     public static final int KANJI_DB_VERSION = 21;
-    public static final int EXTENDED_DB_VERSION = 11;
+    public static final int EXTENDED_DB_VERSION = 12;
     public static final int NAMES_DB_VERSION = 2;
 
     public static final float extendedDbLinesWords = 162314.f;

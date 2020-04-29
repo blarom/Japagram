@@ -51,6 +51,10 @@ import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
 import com.japagram.data.WordDao;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -105,9 +109,11 @@ public final class Utilities {
         }
     }
 
+    @Contract("null -> false")
     private static boolean deleteDir(File dir) {
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
+            if (children == null) return false;
             for (String aChildren : children) {
                 boolean success = deleteDir(new File(dir, aChildren));
                 if (!success) {
@@ -129,7 +135,7 @@ public final class Utilities {
         return availHeapSizeInMB;
     }
 
-    public static void hideSoftKeyboard(Activity activity) {
+    public static void hideSoftKeyboard(@NotNull Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager) activity.getBaseContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
         if (inputMethodManager != null && activity.getCurrentFocus() != null) {
             inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
@@ -152,7 +158,7 @@ public final class Utilities {
     }
 
     @NonNull
-    public static Boolean checkIfFileExistsInSpecificFolder(File dir, String filename) {
+    public static Boolean checkIfFileExistsInSpecificFolder(@NotNull File dir, String filename) {
 
         if (!dir.exists() && dir.mkdirs()) {
             return false;
@@ -208,12 +214,12 @@ public final class Utilities {
         return resultBuffer.toString();
     }
 
-    public static int convertPxToDpi(int pixels, Context context) {
+    public static int convertPxToDpi(int pixels, @NotNull Context context) {
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         return Math.round(pixels / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
     }
 
-    public static void restartApplication(Activity activity) {
+    public static void restartApplication(@NotNull Activity activity) {
 
         Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
         if (intent != null) {
@@ -224,7 +230,7 @@ public final class Utilities {
     }
 
     @NonNull
-    public static Resources getLocalizedResources(Context context, Locale desiredLocale) {
+    public static Resources getLocalizedResources(@NotNull Context context, Locale desiredLocale) {
         Configuration conf = context.getResources().getConfiguration();
         conf = new Configuration(conf);
         conf.setLocale(desiredLocale);
@@ -246,7 +252,7 @@ public final class Utilities {
         return imageToBeDecoded;
     }
 
-    public static Bitmap adjustImageAngleAndScale(Bitmap source, float angle, double scaleFactor) {
+    public static Bitmap adjustImageAngleAndScale(@NotNull Bitmap source, float angle, double scaleFactor) {
 
         int newWidth = (int) Math.floor(source.getWidth() * scaleFactor);
         int newHeight = (int) Math.floor(source.getHeight() * scaleFactor);
@@ -298,6 +304,7 @@ public final class Utilities {
     }
 
     //String manipulation utilities
+    @NotNull
     public static String convertToUTF8Index(String input_string) {
 
         byte[] byteArray;
@@ -312,7 +319,8 @@ public final class Utilities {
         return "";
     }
 
-    public static String convertFromUTF8Index(String inputHex) {
+    @NotNull
+    public static String convertFromUTF8Index(@NotNull String inputHex) {
 
         //inspired by: https://stackoverflow.com/questions/15749475/java-string-hex-to-string-ascii-with-accentuation
         if (inputHex.length() < 4) return "";
@@ -333,11 +341,13 @@ public final class Utilities {
         return "";
     }
 
-    public static String removeNonSpaceSpecialCharacters(String sentence) {
+    @NotNull
+    public static String removeNonSpaceSpecialCharacters(@NotNull String sentence) {
         return sentence.replaceAll("[.\\-():/]", "");
     }
 
-    public static String removeSpecialCharacters(String sentence) {
+    @NotNull
+    public static String removeSpecialCharacters(@NotNull String sentence) {
         return sentence.replaceAll("[.\\-():/\\s]", "");
     }
 
@@ -370,7 +380,15 @@ public final class Utilities {
         return TextUtils.join(", ", final_cumulative_meaning_value_array);
     }
 
-    public static List<String> getIntersectionOfLists(List<String> A, List<String> B) {
+    @NotNull
+    static List<String> combineLists(List<String> list1, List<String> list2) {
+        List<String> total = new ArrayList<>(list1);
+        total.addAll(list2);
+        return removeDuplicatesFromStringList(total);
+    }
+
+    @NotNull
+    public static List<String> getIntersectionOfLists(@NotNull List<String> A, List<String> B) {
         //https://stackoverflow.com/questions/2400838/efficient-intersection-of-component_substructures[2]-liststring-in-java
         List<String> rtnList = new LinkedList<>();
         for (String dto : A) {
@@ -381,7 +399,9 @@ public final class Utilities {
         return rtnList;
     }
 
-    public static List<String> removeDuplicatesFromList(List<String> list) {
+    @NotNull
+    @Contract("_ -> new")
+    public static List<String> removeDuplicatesFromStringList(@NotNull List<String> list) {
 
         //https://stackoverflow.com/questions/14040331/remove-duplicate-strings-in-a-list-in-java
 
@@ -398,7 +418,16 @@ public final class Utilities {
 
         return new ArrayList<>(set);
     }
+    public static List<Long> removeDuplicatesFromLongList(@NotNull List<Long> list) {
 
+        List<Long> newList = new ArrayList<>();
+        for (Long id : list) {
+            if (!newList.contains(id)) newList.add(id);
+        }
+        return newList;
+    }
+
+    @Contract("null, _, _ -> !null")
     public static String getVerbRoot(String verb, String family, int type) {
         String root;
         if (verb == null || verb.length() == 0 || family == null || family.length() == 0) {
@@ -466,6 +495,7 @@ public final class Utilities {
         return root;
     }
 
+    @Contract("null -> null")
     public static String capitalizeFirstLetter(String original) {
         if (original == null || original.length() == 0) {
             return original;
@@ -473,6 +503,7 @@ public final class Utilities {
         return original.substring(0, 1).toUpperCase() + original.substring(1);
     }
 
+    @Contract("null, _ -> !null")
     public static String getMeaningsExtract(List<Word.Meaning> meanings, int balancePoint) {
         if (meanings == null) return "";
         List<String> totalMeaningElements = new ArrayList<>();
@@ -493,6 +524,8 @@ public final class Utilities {
         } else return "";
     }
 
+    @NotNull
+    @Contract("_, _, _ -> param1")
     private static List<String> addMeaningElementsToListUpToMaxNumber(List<String> totalList, String meaning, int maxNumber) {
         String[] meaningelements = splitAtCommasOutsideParentheses(meaning);
         if (meaningelements.length <= maxNumber) totalList.addAll(Arrays.asList(meaningelements));
@@ -500,13 +533,14 @@ public final class Utilities {
         return totalList;
     }
 
-    static String[] splitAtCommasOutsideParentheses(String text) {
+    @NotNull
+    static String[] splitAtCommasOutsideParentheses(@NotNull String text) {
         // https://stackoverflow.com/questions/9030036/regex-to-match-only-commas-not-in-parentheses
         return text.split(",(?![^(]*\\))(?![^\"']*[\"'](?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)");
     }
 
     //OCR utilities
-    public static int loadOCRImageContrastFromSharedPreferences(SharedPreferences sharedPreferences, Context context) {
+    public static int loadOCRImageContrastFromSharedPreferences(SharedPreferences sharedPreferences, @NotNull Context context) {
         float contrastValue = Float.parseFloat(context.getResources().getString(R.string.pref_OCR_image_contrast_default_value));
         try {
             contrastValue = Float.parseFloat(sharedPreferences.getString(context.getResources().getString(R.string.pref_OCR_image_contrast_key),
@@ -521,7 +555,7 @@ public final class Utilities {
         return (int) contrastValue;
     }
 
-    public static int loadOCRImageSaturationFromSharedPreferences(SharedPreferences sharedPreferences, Context context) {
+    public static int loadOCRImageSaturationFromSharedPreferences(SharedPreferences sharedPreferences, @NotNull Context context) {
         float saturationValue = Float.parseFloat(context.getResources().getString(R.string.pref_OCR_image_saturation_default_value));
         try {
             saturationValue = Float.parseFloat(sharedPreferences.getString(context.getResources().getString(R.string.pref_OCR_image_saturation_key),
@@ -536,7 +570,7 @@ public final class Utilities {
         return (int) saturationValue;
     }
 
-    public static int loadOCRImageBrightnessFromSharedPreferences(SharedPreferences sharedPreferences, Context context) {
+    public static int loadOCRImageBrightnessFromSharedPreferences(SharedPreferences sharedPreferences, @NotNull Context context) {
         float brightnessValue = Float.parseFloat(context.getResources().getString(R.string.pref_OCR_image_brightness_default_value));
         try {
             brightnessValue = Float.parseFloat(sharedPreferences.getString(context.getResources().getString(R.string.pref_OCR_image_brightness_key),
@@ -551,60 +585,64 @@ public final class Utilities {
         return (int) brightnessValue;
     }
 
+    @Contract(pure = true)
     private static float truncateFloatToRange(float value, float min, float max) {
         if (value < min) value = min;
         else if (value > max) value = max;
         return value;
     }
 
+    @Contract(pure = true)
     static int truncateIntToRange(int value, int min, int max) {
         if (value < min) value = min;
         else if (value > max) value = max;
         return value;
     }
 
-    public static float convertContrastProgressToValue(float contrastBarValue, Context context) {
+    public static float convertContrastProgressToValue(float contrastBarValue, @NotNull Context context) {
         return contrastBarValue
                 / ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_contrast_range)))
                 * ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_contrast_max_value)));
     }
 
-    public static float convertSaturationProgressToValue(float saturationBarValue, Context context) {
+    public static float convertSaturationProgressToValue(float saturationBarValue, @NotNull Context context) {
         return saturationBarValue
                 / ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_range)))
                 * ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_multipliers)));
     }
 
-    public static float convertSaturationProgressToValueOLD(float saturationBarValue, Context context) {
+    public static float convertSaturationProgressToValueOLD(float saturationBarValue, @NotNull Context context) {
         return saturationBarValue
                 / ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_range)))
                 * ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_multipliers)));
     }
 
+    @Contract(pure = true)
     public static int convertBrightnessProgressToValue(int brightnessBarValue, Context context) {
         return brightnessBarValue - 256;
     }
 
-    public static int convertContrastValueToProgress(float contrastValue, Context context) {
+    public static int convertContrastValueToProgress(float contrastValue, @NotNull Context context) {
         float contrastBarValue = contrastValue
                 * ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_contrast_range)))
                 / ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_contrast_max_value)));
         return (int) contrastBarValue;
     }
 
-    public static int convertSaturationValueToProgress(float saturationValue, Context context) {
+    public static int convertSaturationValueToProgress(float saturationValue, @NotNull Context context) {
         float saturationBarValue = saturationValue
                 * ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_range)))
                 / ((float) Integer.parseInt(context.getString(R.string.pref_OCR_image_saturation_multipliers)));
         return (int) saturationBarValue;
     }
 
+    @Contract(pure = true)
     public static int convertBrightnessValueToProgress(int brightnessValue, Context context) {
         return brightnessValue + 256;
     }
 
     //Internet Connectivity utilities
-    public static boolean internetIsAvailableCheck(Context context) {
+    public static boolean internetIsAvailableCheck(@NotNull Context context) {
         //adapted from https://stackoverflow.com/questions/43315393/android-internet-connection-timeout
         final ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connMgr == null) return false;
@@ -633,6 +671,7 @@ public final class Utilities {
         }
     }
 
+    @NotNull
     public static List<Word> getWordsFromJishoOnWeb(String word, final Context context) {
 
         if (TextUtils.isEmpty(word)) {
@@ -673,7 +712,8 @@ public final class Utilities {
         return wordsList;
     }
 
-    public static List<Word> removeEdictExceptionsFromJisho(List<Word> words) {
+    @NotNull
+    public static List<Word> removeEdictExceptionsFromJisho(@NotNull List<Word> words) {
 
         List<Word> nonExceptionWords = new ArrayList<>();
         boolean isException;
@@ -689,7 +729,8 @@ public final class Utilities {
         return nonExceptionWords;
     }
 
-    public static List<Word> cleanUpProblematicWordsFromJisho(List<Word> words) {
+    @NotNull
+    public static List<Word> cleanUpProblematicWordsFromJisho(@NotNull List<Word> words) {
 
         List<Word> cleanWords = new ArrayList<>();
         //Clean up problematic words (e.g. that don't include a meaning)
@@ -699,6 +740,7 @@ public final class Utilities {
         return cleanWords;
     }
 
+    @Nullable
     private static String getWebsiteXml(String websiteUrl) {
 
         StringBuilder responseString = new StringBuilder();
@@ -740,7 +782,7 @@ public final class Utilities {
         return responseString.toString();
     }
 
-    private static List<Object> parseJishoWebsiteToTree(String website_code) {
+    private static List<Object> parseJishoWebsiteToTree(@NotNull String website_code) {
 
         runningIndex = 0;
         int initial_offset = 15; //Skips <!DOCTYPE html>
@@ -844,7 +886,8 @@ public final class Utilities {
         return currentParent;
     }
 
-    private static List<Word> adaptJishoTreeToWordsList(List<Object> parsedData) {
+    @NotNull
+    private static List<Word> adaptJishoTreeToWordsList(@NotNull List<Object> parsedData) {
 
         List<Word> wordsList = new ArrayList<>();
 
@@ -884,7 +927,8 @@ public final class Utilities {
         return wordsList;
     }
 
-    private static List<Word> addWordsFromBigBlock(List<Object> bigBlockData, int startingSubBlock) {
+    @NotNull
+    private static List<Word> addWordsFromBigBlock(@NotNull List<Object> bigBlockData, int startingSubBlock) {
 
         if (startingSubBlock >= bigBlockData.size()) return new ArrayList<>();
 
@@ -1030,7 +1074,7 @@ public final class Utilities {
                             String convertedMatch = InputQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
-                        altSpellings = removeDuplicatesFromList(altSpellings);
+                        altSpellings = removeDuplicatesFromStringList(altSpellings);
                         currentWord.setAltSpellings(TextUtils.join(", ", altSpellings));
                         break;
                     } else {
@@ -1197,14 +1241,16 @@ public final class Utilities {
         return wordsList;
     }
 
-    private static Object getElementAtHeader(List<Object> list, String header) {
+    @Nullable
+    private static Object getElementAtHeader(@NotNull List<Object> list, String header) {
         for (int i = 0; i < list.size() - 1; i++) {
             if (i % 2 == 0 && ((String) list.get(i)).contains(header)) return list.get(i + 1);
         }
         return null;
     }
 
-    private static String reformatMeanings(String meaningsOriginal) {
+    @NotNull
+    private static String reformatMeanings(@NotNull String meaningsOriginal) {
 
         String meanings_commas = meaningsOriginal.replace(Globals.DB_ELEMENTS_DELIMITER, ",");
         meanings_commas = Utilities.fromHtml(meanings_commas).toString();
@@ -1521,6 +1567,7 @@ public final class Utilities {
 
     }
 
+    @NotNull
     public static List<String[]> readCSVFile(String filename, Context context) {
 
         List<String[]> mySheet = new ArrayList<>();
@@ -1556,6 +1603,7 @@ public final class Utilities {
         return mySheet;
     }
 
+    @NotNull
     public static List<String[]> readCSVFileFirstRow(String filename, Context context) {
 
         List<String[]> mySheetFirstRow = new ArrayList<>();
@@ -1618,6 +1666,7 @@ public final class Utilities {
         return mySheetFirstRow;
     }
 
+
     public void makeDelay(int milliseconds) {
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -1626,6 +1675,7 @@ public final class Utilities {
         }, milliseconds);
     }
 
+    @NotNull
     public String createQueryOnJMDict(String word) {
         //inspired by: https://stackoverflow.com/questions/38220828/an-htmlunit-alternative-for-android
         //inspired by: https://stackoverflow.com/questions/15805771/submit-form-using-httpurlconnection

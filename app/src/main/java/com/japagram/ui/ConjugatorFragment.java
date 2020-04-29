@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +27,6 @@ import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
@@ -266,7 +264,7 @@ public class ConjugatorFragment extends Fragment implements
         });
 
         mChosenRomajiOrKanji = "Romaji";
-        if (mInputQuery.getType() == TYPE_KANJI) {
+        if (mInputQuery.getOriginalType() == TYPE_KANJI) {
             mChosenRomajiOrKanji = "Kanji";
             mRomajiRadioButton.setChecked(false);
             mKanjiRadioButton.setChecked(true);

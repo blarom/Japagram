@@ -48,6 +48,10 @@ public interface IndexKanjiDao {
     @Query("SELECT * FROM " + IndexKanji.TABLE_NAME + " WHERE " + IndexKanji.COLUMN_KANA + " LIKE :query")
     IndexKanji getKanjiIndexByExactQuery(String query);
 
+    //Get a IndexKanji by query list
+    @Query("SELECT * FROM " + IndexKanji.TABLE_NAME + " WHERE " + IndexKanji.COLUMN_KANA + " IN (:queries)")
+    List<IndexKanji> getIndexByExactQueries(List<String> queries);
+
     //Delete a IndexKanji by Kanji
     @Query("DELETE FROM " + IndexKanji.TABLE_NAME + " WHERE " + IndexKanji.COLUMN_KANA + " = :kana")
     int deleteKanjiIndexByKanji(String kana);

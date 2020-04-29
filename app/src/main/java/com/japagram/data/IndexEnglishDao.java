@@ -36,6 +36,10 @@ public interface IndexEnglishDao {
     @Query("SELECT * FROM " + IndexEnglish.TABLE_NAME + " WHERE " + IndexEnglish.COLUMN_VALUE + " LIKE :query  || '%' ")
     List<IndexEnglish> getIndexByStartingQuery(String query);
 
+    //Get a IndexEnglish by query list
+    @Query("SELECT * FROM " + IndexEnglish.TABLE_NAME + " WHERE " + IndexEnglish.COLUMN_VALUE + " IN (:queries)")
+    List<IndexEnglish> getIndexByExactQueries(List<String> queries);
+
     //Delete a IndexEnglish by Latin
     @Query("DELETE FROM " + IndexEnglish.TABLE_NAME + " WHERE " + IndexEnglish.COLUMN_VALUE + " = :latin")
     int deleteLatinIndexByLatin(String latin);

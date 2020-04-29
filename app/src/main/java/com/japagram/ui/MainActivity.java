@@ -598,7 +598,7 @@ public class MainActivity extends BaseActivity implements
             return;
         }
 
-        query = UtilitiesDb.replaceInvalidKanjisWithValidOnes(query, Globals.SimilarsDatabase);
+        query = UtilitiesDb.replaceInvalidKanjisWithValidOnes(query);
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
 

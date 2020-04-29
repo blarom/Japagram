@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.firebase.database.FirebaseDatabase;
-import com.japagram.BuildConfig;
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.IndexEnglish;
 import com.japagram.data.IndexFrench;
@@ -23,16 +22,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-import androidx.appcompat.widget.ActivityChooserView;
-
 public class UtilitiesDb {
-    private static final int WORD_SEARCH_CHAR_COUNT_THRESHOLD = 3;
     private static FirebaseDatabase mDatabase;
-    public static final String firebaseEmail = BuildConfig.firebaseEmail;
-    public static final String firebasePass = BuildConfig.firebasePass;
+
     //Database operations utilities
     public static List<Word> getMergedWordsList(List<Word> localWords, List<Word> asyncWords, String languageCode) {
 
@@ -296,7 +292,6 @@ public class UtilitiesDb {
 
     public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
-        String inputQueryLatin = InputQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
         int ranking;
         String romaji_value = currentWord.getRomaji();
         String kanji_value = currentWord.getKanji();
@@ -317,6 +312,7 @@ public class UtilitiesDb {
         // with penalties depending on the lateness of the word in the meanings
         // and the exactness of the match
         List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
+        if (currentMeanings == null) return 0;
         switch (language) {
             case "en":
                 currentMeanings = currentWord.getMeaningsEN();
@@ -519,9 +515,8 @@ public class UtilitiesDb {
         //If the word starts with the inputQuery, its ranking improves
         String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);
         if (       (romaji_value.length() >= mInputQuery.length()     && romaji_value.substring(0, mInputQuery.length()    ).equals(mInputQuery))
-                || (romaji_value.length() >= inputQueryLatin.length() && romaji_value.substring(0, inputQueryLatin.length()).equals(inputQueryLatin))
                 || (kanji_value.length() >= mInputQuery.length()      && kanji_value.substring(0, mInputQuery.length()     ).equals(mInputQuery))
-                || romajiNoSpaces.equals(mInputQuery) || romajiNoSpaces.equals(inputQueryLatin)
+                || romajiNoSpaces.equals(mInputQuery)
         ) {
             ranking -= 1000;
         }
@@ -543,7 +538,7 @@ public class UtilitiesDb {
 
         //If one of the elements in altSpellings is a perfect match, the ranking improves
         for (String element : altSpellings_value.split(",")) {
-            if (mInputQuery.equals(element.trim()) || inputQueryLatin.equals(element.trim())) {
+            if (mInputQuery.equals(element.trim())) {
                 ranking -= 70;
                 break;
             }
@@ -551,7 +546,7 @@ public class UtilitiesDb {
 
         //If one of the elements in the Japanese Keywords is a perfect match, the ranking improves
         for (String element : kwJap_value.split(",")) {
-            if (mInputQuery.equals(element.trim()) || inputQueryLatin.equals(element.trim())) {
+            if (mInputQuery.equals(element.trim())) {
                 ranking -= 70;
                 break;
             }
@@ -559,7 +554,7 @@ public class UtilitiesDb {
 
         //If one of the elements in the Latin Keywords is a perfect match, the ranking improves
         for (String element : kwLat_value.split(",")) {
-            if (mInputQuery.equals(element.trim()) || inputQueryLatin.equals(element.trim())) {
+            if (mInputQuery.equals(element.trim())) {
                 ranking -= 40;
                 break;
             }
@@ -573,98 +568,77 @@ public class UtilitiesDb {
         return ranking;
     }
 
-    public static Object[] getMatchingWordIdsAndDoBasicFiltering(InputQuery query, String language, boolean showNames, Context context) {
+    public static Object[] getMatchingWordIdsAndDoBasicFiltering(@NotNull InputQuery query, String language, boolean showNames, Context context) {
 
         //region Initializations
-        List<Long> matchingWordIdsCentral = new ArrayList<>();
+        List<Long> matchingWordIdsCentral;
         List<Long> matchingWordIdsExtended = new ArrayList<>();
         List<Long> matchingWordIdsNames = new ArrayList<>();
-        int queryType = query.getType();
+        int queryType = query.getOriginalType();
         if (queryType == Globals.TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
         //endregion
 
         //region Getting the matches
-        matchingWordIdsCentral = addNormalMatchesToMatchesList(query, matchingWordIdsCentral, language, false, context);
-
-        matchingWordIdsCentral = addConjugatedAdjectivesToMatchesList(query, matchingWordIdsCentral, context);
-        matchingWordIdsCentral = addCountersToMatchesList(query, matchingWordIdsCentral, context);
+        matchingWordIdsCentral = getNormalMatches(query, language, false, context);
+        matchingWordIdsCentral.addAll(getAdjectivesFromConjugation(query, context));
+        matchingWordIdsCentral.addAll(addCountersToMatchesList(query, context));
+        matchingWordIdsCentral = Utilities.removeDuplicatesFromLongList(matchingWordIdsCentral);
 
         if (RoomExtendedDatabase.getInstance(context) != null)
-            matchingWordIdsExtended = addNormalMatchesToMatchesList(query, new ArrayList<>(), language, true, context);
+            matchingWordIdsExtended = getNormalMatches(query, language, true, context);
 
         if (RoomNamesDatabase.getInstance(context) != null && showNames) {
             matchingWordIdsNames = addNamesToMatchesList(query, context);
         }
-
         //endregion
 
         return new Object[]{matchingWordIdsCentral, matchingWordIdsExtended, matchingWordIdsNames};
     }
 
-    private static List<Long> getMatchingWordIdsForOriginalInputQuery(boolean forceExactSearch, InputQuery query, String language, boolean use_extended_db, Context context) {
-
-        String searchWord = query.getOriginalCleaned();
-        int inputTextType = query.getType();
-        List<String> possibleInterpretations = query.getWaapuroConversions();
+    @NotNull
+    private static List<Long> getMatchingWordIds(boolean forceExactSearch, @NotNull InputQuery query, String language, boolean use_extended_db, Context context) {
 
         List<Long> matchingWordIds = new ArrayList<>();
-        String searchWordNoSpaces = searchWord.replaceAll("\\s","");
+        List<String> searchResultIndexesArray = new ArrayList<>();
+        List<IndexKanji> kanjiIndices;
 
         //region Search for the matches in the indexed keywords
-        List<String> searchResultIndexesArray = new ArrayList<>();
-        List<Object> latinIndices;
-        List<IndexKanji> kanjiIndices;
-        if (inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA
-                || inputTextType == Globals.TYPE_KATAKANA || inputTextType == Globals.TYPE_NUMBER) {
+        if (query.getSearchType() == Globals.TYPE_LATIN) {
 
-            //If the input is a verb in "to " form, remove the "to " for the search only (results will be filtered later on)
-            String inputWord = Utilities.removeNonSpaceSpecialCharacters(searchWord);
-            if (searchWord.length() > 3) {
-                if (searchWord.substring(0, 3).equals("to ")) {
-                    inputWord = searchWordNoSpaces.substring(2);
-                }
-            }
-            String inputWordNoSpaces = Utilities.removeSpecialCharacters(inputWord);
+            boolean exactSearch = query.isTooShort() || forceExactSearch;
 
-            boolean exactSearch = inputWordNoSpaces.length() < 3 || forceExactSearch;
-            latinIndices = findQueryInLatinIndices(inputWordNoSpaces, possibleInterpretations, exactSearch, new String[]{"romaji", language}, use_extended_db, context);
+            List<Object> indexes = findQueryInRomajiIndex(query.getSearchQueriesRomaji(), exactSearch, use_extended_db, context);
+            indexes.addAll(findQueryInNonJapIndices(query.getSearchQueriesNonJapanese(), exactSearch, language, use_extended_db, context));
 
-            if (latinIndices.size() == 0) return matchingWordIds;
+            if (indexes.size() == 0) return matchingWordIds;
 
-            // If the entered word is Latin and only has up to WORD_SEARCH_CHAR_COUNT_THRESHOLD characters, limit the word keywords to be checked later
-            if (((inputTextType == Globals.TYPE_LATIN
-                    || inputTextType == Globals.TYPE_HIRAGANA
-                    || inputTextType == Globals.TYPE_KATAKANA)
-                    && searchWordNoSpaces.length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD)
-                    || (inputTextType == Globals.TYPE_NUMBER
-                    && searchWordNoSpaces.length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD - 1)) {
-
-                for (Object indexLatin : latinIndices) {
-                    if (indexLatin instanceof IndexRomaji && ((IndexRomaji) indexLatin).getValue().length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD) {
+            // If the entered word is Latin and only has up to SMALL_WORD_LENGTH, limit the word keywords to be checked (prevents matches overflow))
+            if (query.isTooShort()) {
+                for (Object indexLatin : indexes) {
+                    if (indexLatin instanceof IndexRomaji && ((IndexRomaji) indexLatin).getValue().length() < Globals.SMALL_WORD_LENGTH) {
                         searchResultIndexesArray.add(((IndexRomaji) indexLatin).getWordIds());
                         break;
-                    } else if (indexLatin instanceof IndexEnglish && ((IndexEnglish) indexLatin).getValue().length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD) {
+                    } else if (indexLatin instanceof IndexEnglish && ((IndexEnglish) indexLatin).getValue().length() < Globals.SMALL_WORD_LENGTH) {
                         searchResultIndexesArray.add(((IndexEnglish) indexLatin).getWordIds());
                         break;
-                    } else if (indexLatin instanceof IndexFrench && ((IndexFrench) indexLatin).getValue().length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD) {
+                    } else if (indexLatin instanceof IndexFrench && ((IndexFrench) indexLatin).getValue().length() < Globals.SMALL_WORD_LENGTH) {
                         searchResultIndexesArray.add(((IndexFrench) indexLatin).getWordIds());
                         break;
-                    } else if (indexLatin instanceof IndexSpanish && ((IndexSpanish) indexLatin).getValue().length() < WORD_SEARCH_CHAR_COUNT_THRESHOLD) {
+                    } else if (indexLatin instanceof IndexSpanish && ((IndexSpanish) indexLatin).getValue().length() < Globals.SMALL_WORD_LENGTH) {
                         searchResultIndexesArray.add(((IndexSpanish) indexLatin).getWordIds());
                         break;
                     }
                 }
             } else {
-                for (Object indexLatin : latinIndices) {
+                for (Object indexLatin : indexes) {
                     if (indexLatin instanceof IndexRomaji) searchResultIndexesArray.add(((IndexRomaji) indexLatin).getWordIds());
                     else if (indexLatin instanceof IndexEnglish) searchResultIndexesArray.add(((IndexEnglish) indexLatin).getWordIds());
                     else if (indexLatin instanceof IndexFrench) searchResultIndexesArray.add(((IndexFrench) indexLatin).getWordIds());
                     else if (indexLatin instanceof IndexSpanish) searchResultIndexesArray.add(((IndexSpanish) indexLatin).getWordIds());
                 }
             }
-
-        } else if (inputTextType == Globals.TYPE_KANJI) {
-            kanjiIndices = findQueryInKanjiIndex(searchWordNoSpaces, forceExactSearch, use_extended_db, context);
+        } else if (query.getSearchType() == Globals.TYPE_KANJI) {
+            kanjiIndices = findQueryInKanjiIndex(query.getSearchQueriesKanji(), forceExactSearch, use_extended_db, context);
             if (kanjiIndices.size() == 0) return matchingWordIds;
             for (IndexKanji indexKanji : kanjiIndices) {
                 searchResultIndexesArray.add(indexKanji.getWordIds());
@@ -687,60 +661,18 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> getMatchingWordIdsForQueryWithoutExtraIng(boolean forceExactSearch, List<Long> matchingWordIdsFromIndex, String inglessVerb, boolean use_extended_db, Context context) {
+    private static List<Long> getMatchingWordIdsWithLimits(InputQuery query, String language, boolean use_extended_db, Context context) {
 
-        List<Long> newMatchingWordIdsFromIndex = new ArrayList<>(matchingWordIdsFromIndex);
-
-        boolean exactSearch = inglessVerb.length() < 3 || forceExactSearch;
-        List<Object> latinIndices = findQueryInLatinIndices(inglessVerb, new ArrayList<>(), exactSearch, new String[]{Globals.LANG_STR_EN}, use_extended_db, context);
-
-        for (Object indexLatin : latinIndices) {
-            List<String> indexList = new ArrayList<>();
-            if (indexLatin instanceof IndexRomaji) indexList = Arrays.asList(((IndexRomaji) indexLatin).getWordIds().split(Globals.DB_ELEMENTS_DELIMITER));
-            else if (indexLatin instanceof IndexEnglish) indexList = Arrays.asList(((IndexEnglish) indexLatin).getWordIds().split(Globals.DB_ELEMENTS_DELIMITER));
-            else if (indexLatin instanceof IndexFrench) indexList = Arrays.asList(((IndexFrench) indexLatin).getWordIds().split(Globals.DB_ELEMENTS_DELIMITER));
-            else if (indexLatin instanceof IndexSpanish) indexList = Arrays.asList(((IndexSpanish) indexLatin).getWordIds().split(Globals.DB_ELEMENTS_DELIMITER));
-
-            for (int j = 0; j < indexList.size(); j++) {
-                newMatchingWordIdsFromIndex.add(Long.valueOf(indexList.get(j)));
-            }
-        }
-
-        return newMatchingWordIdsFromIndex;
-    }
-
-    private static List<Long> getMatchingWordIds(InputQuery query, String language, boolean use_extended_db, Context context) {
-
-        String searchWord = query.getOriginalCleaned();
-        String inglessVerb = query.getIngless();
-        int inputTextType = query.getType();
-
-        List<Long> matchingWordIds = getMatchingWordIdsForOriginalInputQuery(false, query, language, use_extended_db, context);
+        List<Long> matchingWordIds = getMatchingWordIds(false, query, language, use_extended_db, context);
 
         //If the number of matching ids is larger than MAX_SQL_VARIABLES_FOR_QUERY, perform an exact search
         if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIds = getMatchingWordIdsForOriginalInputQuery(true, query, language, use_extended_db, context);
+            matchingWordIds = getMatchingWordIds(true, query, language, use_extended_db, context);
         }
 
         //If the number of matching ids is still larger than MAX_SQL_VARIABLES_FOR_QUERY, limit the list length to MAX_SQL_VARIABLES_FOR_QUERY
         if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
             matchingWordIds = matchingWordIds.subList(0, Globals.MAX_SQL_VARIABLES_FOR_QUERY);
-        }
-
-        //Adding search results where the "ing" is removed from an "ing" verb in english
-        if (language.equals(Globals.LANG_STR_EN) && !inglessVerb.equals(searchWord)
-                && (inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA
-                || inputTextType == Globals.TYPE_KATAKANA || inputTextType == Globals.TYPE_NUMBER)) {
-
-            List<Long> newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(false, matchingWordIds, inglessVerb, use_extended_db, context);
-
-            if (matchingWordIds.size() + newMatchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                newMatchingWordIds = getMatchingWordIdsForQueryWithoutExtraIng(true, matchingWordIds, inglessVerb, use_extended_db, context);
-            }
-
-            if (matchingWordIds.size() + newMatchingWordIds.size() <= Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                matchingWordIds.addAll(newMatchingWordIds);
-            }
         }
 
         //Removing duplicates while keeping the list order (https://stackoverflow.com/questions/19511797/remove-duplicates-in-an-array-without-changing-order-of-elements)
@@ -749,91 +681,57 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addNormalMatchesToMatchesList(InputQuery query, List<Long> matchingWordIds, String language, boolean use_extended_db, Context context) {
+    private static boolean stringContainsItemFromList(String inputStr, List<String> items) {
+        for (String item : items) {
+            if (inputStr.contains(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean listContainsItemFromList(List<String> list1, List<String> list2) {
+        for (String item1 : list1) {
+            for (String item : list2) {
+                if (item1.contains(item)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @NotNull
+    private static List<Long> getNormalMatches(@NotNull InputQuery query, String language, boolean use_extended_db, Context context) {
 
         //region Initializations
-        List<long[]> MatchList = new ArrayList<>();
+        List<Long> matchingWordIds = new ArrayList<>();
         String keywords;
-        long[] current_match_values;
         boolean foundMatch;
-        boolean queryIsVerbWithTo = query.getIsVerbWithTo();
-        String searchWordWithoutTo = query.getWithoutTo();
-        String searchWord = query.getOriginalCleaned();
-        String inglessVerb = query.getIngless();
-        int inputTextType = query.getType();
-        List<String> possibleInterpretations = query.getWaapuroConversions();
+        List<String> keywordsList;
+        List<String> romajiQueries = query.getSearchQueriesRomaji();
+        List<String> nonJapQueries = query.getSearchQueriesNonJapanese();
+        List<String> latinQueries = Utilities.combineLists(romajiQueries, nonJapQueries);
+        List<String> kanjiQueries = query.getSearchQueriesKanji();
+        List<String> combinedQueries = Utilities.combineLists(latinQueries, kanjiQueries);
+        boolean queryIsTooShort = query.isTooShort();
         //endregion
 
-        List<Long> matchingWordIdsFromIndex = getMatchingWordIds(query, language, use_extended_db, context);
-
-        //region Limiting the database query if there are too many results (prevents long query times)
-        boolean onlyRetrieveShortRomajiWords = false;
-        if ((inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA
-                || inputTextType == Globals.TYPE_KATAKANA) && searchWord.length() < 3) {
-            onlyRetrieveShortRomajiWords = true;
-        }
+        //region Getting the words
+        List<Long> matchingWordIdsFromIndex = getMatchingWordIdsWithLimits(query, language, use_extended_db, context);
+        List<Word> matchingWordList = use_extended_db ? RoomExtendedDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex)
+                : RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
         //endregion
 
         //region Filtering the matches
-        List<Word> matchingWordList = use_extended_db ? RoomExtendedDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex)
-                : RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
-        String romaji;
-        String altSpellings;
-        boolean isExactMeaningWordsMatch;
-        boolean isRomajiMatch;
-        boolean isAltSpellingsMatch;
-        int searchWordLength = searchWord.length();
-        int romajiLength;
-        List<String> keywordsList;
         for (Word word : matchingWordList) {
+            foundMatch = stringContainsItemFromList(word.getRomaji(), romajiQueries) ||
+                    stringContainsItemFromList(word.getKanji(), kanjiQueries) ||
+                    meaningsContainExactQueryMatch(nonJapQueries, word, language) ||
+                    listContainsItemFromList(Arrays.asList(word.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER)), combinedQueries);
 
-            foundMatch = false;
-            isRomajiMatch = false;
-            isAltSpellingsMatch = false;
-
-            //region Handling short words
-            if ((inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA
-                    || inputTextType == Globals.TYPE_KATAKANA) && onlyRetrieveShortRomajiWords) {
-
-                //Checking if the word is an exact match to one of the words in the meanings
-                isExactMeaningWordsMatch = getMeaningsContainingExactQueryMatch(searchWord, word, language);
-
-                if (!isExactMeaningWordsMatch) {
-                    //Checking if the romaji is a match
-                    romaji = word.getRomaji();
-                    romajiLength = romaji.length();
-                    isRomajiMatch = romajiLength <= searchWordLength + 1 && romaji.contains(searchWord);
-
-                }
-
-                if (!isExactMeaningWordsMatch && !isRomajiMatch) {
-
-                    //Checking if one of the elements of altSpellings is a match
-                    altSpellings = word.getAltSpellings();
-                    isAltSpellingsMatch = false;
-                    for (String altSpelling : altSpellings.split(",")) {
-                        if (altSpelling.trim().contains(searchWord)) {
-                            isAltSpellingsMatch = true;
-                            break;
-                        }
-                    }
-                }
-
-                //Setting foundMatch
-                if (isExactMeaningWordsMatch || isRomajiMatch || isAltSpellingsMatch) {
-                    foundMatch = true;
-                } else continue;
-
-            }
-            //endregion
-
-            //Otherwise, handling longer words
-            if (!foundMatch) {
-
+            if (!foundMatch && !queryIsTooShort) {
                 keywordsList = new ArrayList<>();
-                keywordsList.add(word.getRomaji());
-                keywordsList.add(word.getKanji());
-                keywordsList.add(word.getAltSpellings());
                 keywordsList.add(word.getExtraKeywordsJAP());
                 switch (language) {
                     case Globals.LANG_STR_EN:
@@ -846,29 +744,20 @@ public class UtilitiesDb {
                         keywordsList.add(word.getExtraKeywordsES());
                         break;
                 }
-                keywordsList.add(getConcatenatedMeanings(word));
-                keywords = TextUtils.join(", ", keywordsList).replace(" ", "").toLowerCase();
+                keywordsList.add(getCombinedMeanings(word, language));
+                keywords = TextUtils.join(", ", keywordsList).toLowerCase();
 
-                for (String interpretation : possibleInterpretations) {
-                    if (keywords.contains(interpretation.replace(" ", ""))) {
+                for (String latinQuery : latinQueries) {
+                    if (keywords.contains(latinQuery)) {
                         foundMatch = true;
                         break;
                     }
                 }
-                foundMatch |= keywords.contains(inglessVerb);
-                foundMatch |= queryIsVerbWithTo && keywords.contains(searchWordWithoutTo);
             }
 
             if (foundMatch) {
-                current_match_values = new long[2];
-                current_match_values[0] = word.getWordId();
-                //current_match_values[1] = (long) match_length;
-                MatchList.add(current_match_values);
+                matchingWordIds.add(word.getWordId());
             }
-        }
-
-        for (int i = 0; i < MatchList.size(); i++) {
-            matchingWordIds.add(MatchList.get(i)[0]);
         }
         //endregion
 
@@ -877,12 +766,11 @@ public class UtilitiesDb {
 
     private static List<Long> addNamesToMatchesList(InputQuery query, Context context) {
 
-        String searchWord = query.getSearchQuery();
-        List<Long> matchingWordIdsNames = findQueryInNameIndices(searchWord, false, query.getType(), context);
+        List<Long> matchingWordIdsNames = findQueryInNameIndices(query.getOriginalCleaned(), false, query.getOriginalType(), context);
 
         //If the number of matching ids is larger than MAX_SQL_VARIABLES_FOR_QUERY, perform an exact search
         if (matchingWordIdsNames.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIdsNames = findQueryInNameIndices(searchWord, true, query.getType(), context);
+            matchingWordIdsNames = findQueryInNameIndices(query.getOriginalCleaned(), true, query.getOriginalType(), context);
         }
 
         //If the number of matching ids is still larger than MAX_SQL_VARIABLES_FOR_QUERY, limit the list length to MAX_SQL_VARIABLES_FOR_QUERY
@@ -893,7 +781,7 @@ public class UtilitiesDb {
         return matchingWordIdsNames;
     }
 
-    private static boolean getMeaningsContainingExactQueryMatch(String searchWord, Word word, String language) {
+    private static boolean meaningsContainExactQueryMatch(List<String> searchWords, Word word, String language) {
 
         List<Word.Meaning> meanings = new ArrayList<>();
         switch (language) {
@@ -914,62 +802,86 @@ public class UtilitiesDb {
             builder.append(meaning.getMeaning().replace(", ", " ").replace("(", " ").replace(")", " "));
         }
         String meaningsString = builder.toString();
-        String[] meaningSet = meaningsString.split(" ");
-        boolean isExactMeaningWordsMatch = false;
-        for (String meaningSetElement : meaningSet) {
-            if (meaningSetElement.equals(searchWord)) {
-                isExactMeaningWordsMatch = true;
-                break;
-            }
-        }
-        return isExactMeaningWordsMatch;
+        List<String> meaningSet = Arrays.asList(meaningsString.split(" "));
+        return !Collections.disjoint(meaningSet, searchWords);
     }
 
-    private static String getConcatenatedMeanings(Word word) {
+    private static String getCombinedMeanings(Word word, String language) {
         List<String> meanings = new ArrayList<>();
-        for (Word.Meaning meaning : word.getMeaningsEN()) {
-            meanings.add(meaning.getMeaning());
-        }
-        for (Word.Meaning meaning : word.getMeaningsFR()) {
-            meanings.add(meaning.getMeaning());
-        }
-        for (Word.Meaning meaning : word.getMeaningsES()) {
-            meanings.add(meaning.getMeaning());
+        switch (language) {
+            case Globals.LANG_STR_EN:
+                for (Word.Meaning meaning : word.getMeaningsEN()) {
+                    meanings.add(meaning.getMeaning());
+                }
+                break;
+            case Globals.LANG_STR_FR:
+                for (Word.Meaning meaning : word.getMeaningsFR()) {
+                    meanings.add(meaning.getMeaning());
+                }
+                for (Word.Meaning meaning : word.getMeaningsEN()) {
+                    meanings.add(meaning.getMeaning());
+                }
+                break;
+            case Globals.LANG_STR_ES:
+                for (Word.Meaning meaning : word.getMeaningsES()) {
+                    meanings.add(meaning.getMeaning());
+                }
+                for (Word.Meaning meaning : word.getMeaningsEN()) {
+                    meanings.add(meaning.getMeaning());
+                }
+                break;
         }
         return TextUtils.join(", ", meanings);
     }
 
-    private static List<Long> addConjugatedAdjectivesToMatchesList(InputQuery query, List<Long> matchingWordIds, Context context) {
+    private static List<Long> getAdjectivesFromConjugation(InputQuery query , Context context) {
 
-        String searchWord = query.getSearchQuery();
+        List<Long> matchingWordIds = new ArrayList<>();
         //Adding relevant adjectives to the list of matches if the input query is an adjective conjugation
-        List<Long> matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, query.getType(), matchingWordIds, false, context);
+        List<Long> matchingWordIdsFromIndex = getMatchingAdjectiveIdsWithLimits(query, context);
+        if (matchingWordIdsFromIndex.size() == 0) return new ArrayList<>();
 
-        if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIdsFromIndex = getmatchingWordIdsFromIndexForAdjectiveSearch(searchWord, query.getType(), matchingWordIds, true, context);
+        List<Word> matchingPotentialAdjectives = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
+        List<String> typesList;
+        for (Word word : matchingPotentialAdjectives) {
+            typesList = new ArrayList<>();
+            for (Word.Meaning meaning : word.getMeaningsEN()) {
+                typesList.add(meaning.getType());
+            }
+            typesList = Arrays.asList(TextUtils.join(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
+            if (typesList.contains("Ai") || typesList.contains("Ana")) {
+                if (!matchingWordIds.contains(word.getWordId())) matchingWordIds.add(word.getWordId());
+            }
         }
 
-        if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY when searching for " + searchWord + " in adjectives search, but prevented crash.");
-        } else {
-            List<Word> matchingPotentialAdjectives = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
-            boolean isAlreadyInList;
-            for (Word word : matchingPotentialAdjectives) {
-                isAlreadyInList = false;
+        return matchingWordIds;
+    }
 
+    private static List<Long> addCountersToMatchesList(InputQuery query, Context context) {
+        if (query.getSearchType() != Globals.TYPE_KANJI) return new ArrayList<>();
+        List<String> potentialCounters = new ArrayList<>();
+        for (String word : query.getSearchQueriesKanji()) {
+            if ("何一二三四五六七八九十".contains(word.substring(0,1))) potentialCounters.add(word.substring(1));
+        }
+
+        List<Long> matchingWordIds;
+
+        List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(potentialCounters, true, false, context);
+        matchingWordIds = getWordIdsFromSearchResults(kanjiIndicesForCounter);
+        if (matchingWordIds.size() == 0) return new ArrayList<>();
+
+        if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
+            Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY in counter search, but prevented crash.");
+        } else {
+            List<Word> matchingPotentialCounters = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIds);
+            for (Word word : matchingPotentialCounters) {
                 List<String> typesList = new ArrayList<>();
                 for (Word.Meaning meaning : word.getMeaningsEN()) {
                     typesList.add(meaning.getType());
                 }
                 typesList = Arrays.asList(TextUtils.join(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
-                if (typesList.contains("Ai") || typesList.contains("Ana")) {
-                    for (long id : matchingWordIds) {
-                        if (id == word.getWordId()) {
-                            isAlreadyInList = true;
-                            break;
-                        }
-                    }
-                    if (!isAlreadyInList) matchingWordIds.add(word.getWordId());
+                if (typesList.contains("C")) {
+                    if (!matchingWordIds.contains(word.getWordId())) matchingWordIds.add(word.getWordId());
                 }
             }
         }
@@ -977,185 +889,145 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addCountersToMatchesList(InputQuery query, List<Long> matchingWordIds, Context context) {
+    @NotNull
+    private static List<Long> getMatchingAdjectiveIdsWithLimits(@NotNull InputQuery query, Context context) {
 
-        String searchWord = query.getSearchQuery();
-        if (query.getType() == Globals.TYPE_KANJI && searchWord.length() == 2 && "何一二三四五六七八九十".contains(searchWord.substring(0, 1))) {
-
-            List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(searchWord.substring(1, 2), true, false, context);
-
-            if (kanjiIndicesForCounter.size() == 0) return matchingWordIds;
-
-            List<String> searchResultIndexesArray = new ArrayList<>();
-            for (IndexKanji indexKanji : kanjiIndicesForCounter) {
-                searchResultIndexesArray.add(indexKanji.getWordIds());
-            }
-
-            List<String> indexList;
-            List<Long> matchingWordIdsFromIndex = new ArrayList<>();
-            for (String searchResultIndexes : searchResultIndexesArray) {
-                indexList = Arrays.asList(searchResultIndexes.split(Globals.DB_ELEMENTS_DELIMITER));
-                for (int j = 0; j < indexList.size(); j++) {
-                    matchingWordIdsFromIndex.add(Long.valueOf(indexList.get(j)));
-                }
-            }
-
-            if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY when searching for " + searchWord + " in counter search, but prevented crash.");
-            } else {
-                List<Word> matchingPotentialCounters = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
-                boolean isAlreadyInList;
-                for (Word word : matchingPotentialCounters) {
-                    isAlreadyInList = false;
-                    List<String> typesList = new ArrayList<>();
-                    for (Word.Meaning meaning : word.getMeaningsEN()) {
-                        typesList.add(meaning.getType());
-                    }
-                    typesList = Arrays.asList(TextUtils.join(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
-                    if (typesList.contains("C")) {
-                        for (long id : matchingWordIds) {
-                            if (id == word.getWordId()) {
-                                isAlreadyInList = true;
-                                break;
-                            }
-                        }
-                        if (!isAlreadyInList) matchingWordIds.add(word.getWordId());
-                    }
-                }
-            }
-        }
-
-        return matchingWordIds;
-    }
-
-    private static List<Long> getmatchingWordIdsFromIndexForAdjectiveSearch(String searchWord, int inputTextType, List<Long> matchingWordIds, boolean forceExactSearch, Context context) {
-
-        List<Long> matchingWordIdsFromIndex = new ArrayList<>();
-        String input_word = Utilities.removeNonSpaceSpecialCharacters(searchWord);
+        List<Long> matchingWordIdsFromIndex;
         String adjectiveConjugation;
         String baseAdjective = "";
+        List<String> baseAdjectives = new ArrayList<>();
+        int length;
+        int searchType = query.getSearchType();
         boolean isPotentialAdjective = false;
-        List<String> searchResultIndexesArray = new ArrayList<>();
 
-        if (inputTextType == Globals.TYPE_LATIN || inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
+        if (searchType == Globals.TYPE_LATIN) {
 
-            input_word = InputQuery.getWaapuroHiraganaKatakana(input_word).get(Globals.TYPE_LATIN);
+            //regon Getting the base adjectives
+            for (String word : query.getSearchQueriesRomaji()) {
+                length = word.length();
+                if (length > 9) {
+                    adjectiveConjugation = word.substring(length - 9);
+                    baseAdjective = word.substring(0, length - 9) + "i";
+                    if (adjectiveConjugation.equals("kunakatta")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && length > 6) {
+                    adjectiveConjugation = word.substring(length - 6);
+                    baseAdjective = word.substring(0, length - 6) + "i";
+                    if (adjectiveConjugation.equals("kereba")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && length > 5) {
+                    adjectiveConjugation = word.substring(length - 5);
+                    baseAdjective = word.substring(0, length - 5) + "i";
+                    if (adjectiveConjugation.equals("kunai")
+                            || adjectiveConjugation.equals("katta")
+                            || adjectiveConjugation.equals("karou")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && length > 4) {
+                    adjectiveConjugation = word.substring(length - 4);
+                    baseAdjective = word.substring(0, length - 4) + "i";
+                    if (adjectiveConjugation.equals("kute")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && length > 2) {
+                    adjectiveConjugation = word.substring(length - 2);
+                    if (adjectiveConjugation.equals("mi") || adjectiveConjugation.equals("ku")) {
+                        isPotentialAdjective = true;
+                        baseAdjective = word.substring(0, length - 2) + "i";
+                    } else if (adjectiveConjugation.equals("ni") || adjectiveConjugation.equals("na") || adjectiveConjugation.equals("de")) {
+                        isPotentialAdjective = true;
+                        baseAdjective = word.substring(0, length - 2);
+                    }
+                }
 
-            if (input_word.length() > 9) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 9);
-                baseAdjective = input_word.substring(0, input_word.length() - 9) + "i";
-                if (adjectiveConjugation.equals("kunakatta")) isPotentialAdjective = true;
+                if (isPotentialAdjective) baseAdjectives.add(baseAdjective);
             }
-            if (!isPotentialAdjective && input_word.length() > 6) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 6);
-                baseAdjective = input_word.substring(0, input_word.length() - 6) + "i";
-                if (adjectiveConjugation.equals("kereba")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 5) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 5);
-                baseAdjective = input_word.substring(0, input_word.length() - 5) + "i";
-                if (adjectiveConjugation.equals("kunai")
-                        || adjectiveConjugation.equals("katta")
-                        || adjectiveConjugation.equals("karou")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 4) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 4);
-                baseAdjective = input_word.substring(0, input_word.length() - 4) + "i";
-                if (adjectiveConjugation.equals("kute")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 2) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 2);
-                if (adjectiveConjugation.equals("mi") || adjectiveConjugation.equals("ku")) {
-                    isPotentialAdjective = true;
-                    baseAdjective = input_word.substring(0, input_word.length() - 2) + "i";
-                } else if (adjectiveConjugation.equals("ni") || adjectiveConjugation.equals("na") || adjectiveConjugation.equals("de")) {
-                    isPotentialAdjective = true;
-                    baseAdjective = input_word.substring(0, input_word.length() - 2);
+            //endregion
+
+            //region Getting the matching word indexes
+            boolean exactSearch = false;
+            for (String word : baseAdjectives) {
+                if (word.length() < Globals.SMALL_WORD_LENGTH) {
+                    exactSearch = true;
+                    break;
                 }
             }
 
-            if (!isPotentialAdjective) return matchingWordIds;
-
-            boolean exactSearch = baseAdjective.length() < 3 || forceExactSearch;
-
-            List<String> possibleInterpretations = InputQuery.getWaapuroRomanizationsFromLatinText(baseAdjective);
-            List<Object> latinIndicesForAdjective = findQueryInLatinIndices(baseAdjective, possibleInterpretations, exactSearch, new String[]{"romaji"}, false, context);
-
-            if (latinIndicesForAdjective.size() == 0) return matchingWordIds;
-
-            for (Object indexLatin : latinIndicesForAdjective) {
-                if (indexLatin instanceof IndexRomaji) searchResultIndexesArray.add(((IndexRomaji) indexLatin).getWordIds());
-                else if (indexLatin instanceof IndexEnglish) searchResultIndexesArray.add(((IndexEnglish) indexLatin).getWordIds());
-                else if (indexLatin instanceof IndexFrench) searchResultIndexesArray.add(((IndexFrench) indexLatin).getWordIds());
-                else if (indexLatin instanceof IndexSpanish) searchResultIndexesArray.add(((IndexSpanish) indexLatin).getWordIds());
+            List<Object> latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, exactSearch, false, context);
+            matchingWordIdsFromIndex = getWordIdsFromSearchResults(latinIndicesForAdjective);
+            if (!exactSearch && matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
+                latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, true, false, context);
             }
+            matchingWordIdsFromIndex = getWordIdsFromSearchResults(latinIndicesForAdjective);
+            if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
+                Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY in adjectives search, but prevented crash.");
+                return new ArrayList<>();
+            }
+            //endregion
 
-        } else if (inputTextType == Globals.TYPE_KANJI) {
+        } else if (searchType == Globals.TYPE_KANJI) {
 
-            if (input_word.length() > 5) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 5);
-                baseAdjective = input_word.substring(0, input_word.length() - 5) + "い";
-                if (adjectiveConjugation.equals("くなかった")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 3) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 3);
-                baseAdjective = input_word.substring(0, input_word.length() - 3) + "い";
-                if (adjectiveConjugation.equals("くない")
-                        || adjectiveConjugation.equals("ければ")
-                        || adjectiveConjugation.equals("かった")
-                        || adjectiveConjugation.equals("かろう")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 2) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 2);
-                baseAdjective = input_word.substring(0, input_word.length() - 2) + "い";
-                if (adjectiveConjugation.equals("くて")) isPotentialAdjective = true;
-            }
-            if (!isPotentialAdjective && input_word.length() > 1) {
-                adjectiveConjugation = input_word.substring(input_word.length() - 1);
-                if (adjectiveConjugation.equals("み") || adjectiveConjugation.equals("く")) {
-                    isPotentialAdjective = true;
-                    baseAdjective = input_word.substring(0, input_word.length() - 1) + "";
-                } else if (adjectiveConjugation.equals("に") || adjectiveConjugation.equals("な") || adjectiveConjugation.equals("で")) {
-                    isPotentialAdjective = true;
-                    baseAdjective = input_word.substring(0, input_word.length() - 1);
+            for (String word : query.getSearchQueriesRomaji()) {
+                length = word.length();
+                if (length > 5) {
+                    adjectiveConjugation = word.substring(length - 5);
+                    baseAdjective = word.substring(0, length - 5) + "い";
+                    if (adjectiveConjugation.equals("くなかった")) isPotentialAdjective = true;
                 }
+                if (!isPotentialAdjective && length > 3) {
+                    adjectiveConjugation = word.substring(word.length() - 3);
+                    baseAdjective = word.substring(0, length - 3) + "い";
+                    if (adjectiveConjugation.equals("くない")
+                            || adjectiveConjugation.equals("ければ")
+                            || adjectiveConjugation.equals("かった")
+                            || adjectiveConjugation.equals("かろう")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && length > 2) {
+                    adjectiveConjugation = word.substring(length - 2);
+                    baseAdjective = word.substring(0, length - 2) + "い";
+                    if (adjectiveConjugation.equals("くて")) isPotentialAdjective = true;
+                }
+                if (!isPotentialAdjective && word.length() > 1) {
+                    adjectiveConjugation = word.substring(length - 1);
+                    if (adjectiveConjugation.equals("み") || adjectiveConjugation.equals("く")) {
+                        isPotentialAdjective = true;
+                        baseAdjective = word.substring(0, length - 1) + "";
+                    } else if (adjectiveConjugation.equals("に") || adjectiveConjugation.equals("な") || adjectiveConjugation.equals("で")) {
+                        isPotentialAdjective = true;
+                        baseAdjective = word.substring(0, length - 1);
+                    }
+                }
+
+                if (isPotentialAdjective) baseAdjectives.add(baseAdjective);
             }
 
-            if (!isPotentialAdjective) return matchingWordIds;
-
-            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjective, forceExactSearch, false, context);
-
-            if (kanjiIndicesForAdjective.size() == 0) return matchingWordIds;
-
-            for (IndexKanji indexKanji : kanjiIndicesForAdjective) {
-                searchResultIndexesArray.add(indexKanji.getWordIds());
+            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, false, false, context);
+            matchingWordIdsFromIndex = getWordIdsFromSearchResults(kanjiIndicesForAdjective);
+            if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
+                kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, true, false, context);
+                matchingWordIdsFromIndex = getWordIdsFromSearchResults(kanjiIndicesForAdjective);
+            }
+            if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
+                Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY in adjectives search, but prevented crash.");
+                return new ArrayList<>();
             }
 
         } else {
-            return matchingWordIds;
-        }
-
-        List<String> indexList;
-        for (String searchResultIndexes : searchResultIndexesArray) {
-            indexList = Arrays.asList(searchResultIndexes.split(Globals.DB_ELEMENTS_DELIMITER));
-            for (int j = 0; j < indexList.size(); j++) {
-                matchingWordIdsFromIndex.add(Long.valueOf(indexList.get(j)));
-            }
+            return new ArrayList<>();
         }
 
         return matchingWordIdsFromIndex;
     }
 
-    public static String replaceInvalidKanjisWithValidOnes(String input, List<String[]> mSimilarsDatabase) {
+    @NotNull
+    public static String replaceInvalidKanjisWithValidOnes(@NotNull String input) {
         StringBuilder output = new StringBuilder();
         char currentChar;
         boolean found;
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.charAt(i);
             found = false;
-            for (int j = 0; j < mSimilarsDatabase.size(); j++) {
-                if (mSimilarsDatabase.get(j).length > 0 && mSimilarsDatabase.get(j)[0].charAt(0) == currentChar) {
-                    output.append(mSimilarsDatabase.get(j)[1].charAt(0));
+            for (int j = 0; j < Globals.SimilarsDatabase.size(); j++) {
+                if (Globals.SimilarsDatabase.get(j).length > 0 && Globals.SimilarsDatabase.get(j)[0].charAt(0) == currentChar) {
+                    output.append(Globals.SimilarsDatabase.get(j)[1].charAt(0));
                     found = true;
                     break;
                 }
@@ -1165,8 +1037,50 @@ public class UtilitiesDb {
         return output.toString();
     }
 
+    @NotNull
+    public static List<Long> getWordIdsFromSearchResults(Object indexes) {
+        List<String> searchResultIndexesArray = new ArrayList<>();
+        if (indexes instanceof List && ((List)indexes).size() > 0) {
+            if (((List) indexes).get(0) instanceof IndexRomaji) {
+                for (Object indexLatin : (List) indexes) {
+                    searchResultIndexesArray.add(((IndexRomaji) indexLatin).getWordIds());
+                }
+            }
+            if (((List) indexes).get(0) instanceof IndexEnglish) {
+                for (Object indexLatin : (List) indexes) {
+                    searchResultIndexesArray.add(((IndexEnglish) indexLatin).getWordIds());
+                }
+            }
+            if (((List) indexes).get(0) instanceof IndexFrench) {
+                for (Object indexLatin : (List) indexes) {
+                    searchResultIndexesArray.add(((IndexFrench) indexLatin).getWordIds());
+                }
+            }
+            if (((List) indexes).get(0) instanceof IndexSpanish) {
+                for (Object indexLatin : (List) indexes) {
+                    searchResultIndexesArray.add(((IndexSpanish) indexLatin).getWordIds());
+                }
+            }
+            if (((List) indexes).get(0) instanceof IndexKanji) {
+                for (Object indexLatin : (List) indexes) {
+                    searchResultIndexesArray.add(((IndexKanji) indexLatin).getWordIds());
+                }
+            }
+        }
+
+        List<Long> matchingWordIdsFromIndex = new ArrayList<>();
+        List<String> indexList;
+        for (String searchResultIndexes : searchResultIndexesArray) {
+            indexList = Arrays.asList(searchResultIndexes.split(Globals.DB_ELEMENTS_DELIMITER));
+            for (int j = 0; j < indexList.size(); j++) {
+                matchingWordIdsFromIndex.add(Long.valueOf(indexList.get(j)));
+            }
+        }
+        return matchingWordIdsFromIndex;
+    }
 
 
+    @NotNull
     private static List<Long> findQueryInNameIndices(String concatenated_word, boolean exactSearch, int inputTextType, Context context) {
 
         List<String> matchingIndices = new ArrayList<>();
@@ -1210,7 +1124,7 @@ public class UtilitiesDb {
             }
 
         }
-        matchingIndices = Utilities.removeDuplicatesFromList(matchingIndices);
+        matchingIndices = Utilities.removeDuplicatesFromStringList(matchingIndices);
         List<Long> finalIndexList = new ArrayList<>();
         for (String element : matchingIndices) {
             finalIndexList.add(Long.parseLong(element));
@@ -1218,8 +1132,25 @@ public class UtilitiesDb {
         return finalIndexList;
     }
 
-    private static List<Object> findQueryInLatinIndices(String concatenated_word, List<String> possibleInterpretations, boolean exactSearch, String[] searchType,
-                                                        boolean use_extended_db, Context context) {
+    private static List<Object> findQueryInRomajiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
+
+        //Exact search Prevents the index search from returning too many results and crashing the app
+        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
+        RoomExtendedDatabase extendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
+        List<Object> matchingIndices = new ArrayList<>();
+        if (exactSearch) {
+            List<IndexRomaji> indexes = use_extended_db ? extendedRoomDatabase.getRomajiIndexForExactWordsList(searchQueries)
+                    : roomCentralDatabase.getRomajiIndexForExactWordsList(searchQueries);
+            if (indexes != null && indexes.size() > 0) matchingIndices.addAll(indexes);
+
+        } else {
+            List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexesListForStartingWordsList(searchQueries)
+                    : roomCentralDatabase.getRomajiIndexesListForStartingWordsList(searchQueries);
+            if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
+        }
+        return matchingIndices;
+    }
+    private static List<Object> findQueryInNonJapIndices(List<String> searchQueries, boolean exactSearch, String language, boolean use_extended_db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
 
@@ -1227,82 +1158,78 @@ public class UtilitiesDb {
         RoomExtendedDatabase extendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
-
-            if (Arrays.asList(searchType).contains("romaji")) {
-                List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexForExactWordsList(possibleInterpretations)
-                        : roomCentralDatabase.getRomajiIndexForExactWordsList(possibleInterpretations);
-                if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
-            }
-
-            if (Arrays.asList(searchType).contains(Globals.LANG_STR_EN)) {
-                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
-                if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
-            } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_FR)) {
-                IndexFrench indexFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getFrenchIndexForExactWord(concatenated_word);
-                if (indexFrench != null) matchingIndices.add(indexFrench); //Only add the index if the word was found in the index
-                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
-                if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
-            } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_ES)) {
-                IndexSpanish indexSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getSpanishIndexForExactWord(concatenated_word);
-                if (indexSpanish != null) matchingIndices.add(indexSpanish); //Only add the index if the word was found in the index
-                IndexEnglish indexEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexForExactWord(concatenated_word);
-                if (indexEnglish != null) matchingIndices.add(indexEnglish); //Only add the index if the word was found in the index
+            switch (language) {
+                case Globals.LANG_STR_EN: {
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
+                    break;
+                }
+                case Globals.LANG_STR_FR: {
+                    List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexForExactWordsList(searchQueries)
+                            : roomCentralDatabase.getFrenchIndexForExactWordsList(searchQueries);
+                    if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench); //Only add the index if the word was found in the index
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
+                    break;
+                }
+                case Globals.LANG_STR_ES: {
+                    List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexForExactWordsList(searchQueries)
+                            : roomCentralDatabase.getSpanishIndexForExactWordsList(searchQueries);
+                    if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish); //Only add the index if the word was found in the index
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
+                    break;
+                }
             }
 
         } else {
-            if (Arrays.asList(searchType).contains("romaji")) {
-                List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations)
-                        : roomCentralDatabase.getRomajiIndexesListForStartingWordsList(possibleInterpretations);
-                if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
-            }
-
-            if (Arrays.asList(searchType).contains(Globals.LANG_STR_EN)) {
-                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
-                if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
-            } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_FR)) {
-                List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getFrenchIndexesListForStartingWord(concatenated_word);
-                if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench);
-                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
-                if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
-            } else if (Arrays.asList(searchType).contains(Globals.LANG_STR_ES)) {
-                List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getSpanishIndexesListForStartingWord(concatenated_word);
-                if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish);
-                List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWord(concatenated_word)
-                        : roomCentralDatabase.getEnglishIndexesListForStartingWord(concatenated_word);
-                if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
+            switch (language) {
+                case Globals.LANG_STR_EN: {
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
+                    break;
+                }
+                case Globals.LANG_STR_FR: {
+                    List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexesListForStartingWordsList(searchQueries)
+                            : roomCentralDatabase.getFrenchIndexesListForStartingWordsList(searchQueries);
+                    if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
+                    break;
+                }
+                case Globals.LANG_STR_ES: {
+                    List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexesListForStartingWordsList(searchQueries)
+                            : roomCentralDatabase.getSpanishIndexesListForStartingWordsList(searchQueries);
+                    if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
+                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
+                    break;
+                }
             }
         }
         return matchingIndices;
     }
 
-    private static List<IndexKanji> findQueryInKanjiIndex(String concatenated_word, boolean exactSearch, boolean use_extended_db, Context context) {
-
-        // Prepare the input word to be used in the following algorithm: the word is converted to its hex utf-8 value as a string, in fractional form
-        //String prepared_word = convertToUTF8Index(concatenated_word);
-        String prepared_word = concatenated_word;
-
+    private static List<IndexKanji> findQueryInKanjiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
         RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
         RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<IndexKanji> matchingIndexKanjis;
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
             matchingIndexKanjis = new ArrayList<>();
-            IndexKanji index = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexForExactWord(prepared_word)
-                    : roomCentralDatabase.getKanjiIndexForExactWord(prepared_word);
-            if (index != null) matchingIndexKanjis.add(index); //Only add the index if the word was found in the index
+            List<IndexKanji> indexes = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexForExactWordsList(searchQueries)
+                    : roomCentralDatabase.getKanjiIndexForExactWordsList(searchQueries);
+            if (indexes != null && indexes.size() > 0) matchingIndexKanjis.addAll(indexes); //Only add the index if the word was found in the index
             return matchingIndexKanjis;
         } else {
-            matchingIndexKanjis = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexesListForStartingWord(prepared_word)
-                    : roomCentralDatabase.getKanjiIndexesListForStartingWord(prepared_word);
+            matchingIndexKanjis = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexesListForStartingWordsList(searchQueries)
+                    : roomCentralDatabase.getKanjiIndexesListForStartingWordsList(searchQueries);
             return matchingIndexKanjis;
         }
     }
@@ -1394,7 +1321,10 @@ public class UtilitiesDb {
         //Getting the Meanings
         word.setMeaningsEN(getMeanings(centralDatabase, meaningsENDatabase, Globals.COLUMN_MEANING_EN_INDEXES,
                 multExplENDatabase, examplesDatabase, centralDbRowIndex, "en"));
-        if (word.getMeaningsEN().size() == 0) return new Word();
+        if (word.getMeaningsEN().size() == 0) {
+            Log.i(Globals.DEBUG_TAG, "************ ERROR ************ Word with id " + matchingWordId + " has invalid english meanings");
+            return new Word();
+        }
 
         word.setMeaningsFR(getMeanings(centralDatabase, meaningsFRDatabase, Globals.COLUMN_MEANING_FR_INDEXES,
                 multExplFRDatabase, examplesDatabase, centralDbRowIndex, "fr"));

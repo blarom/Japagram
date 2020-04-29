@@ -179,7 +179,7 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
                         "(" + InputQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TYPE_LATIN) + ")";
                 readingsList.add(readingLatin);
             }
-            readingsList = Utilities.removeDuplicatesFromList(readingsList);
+            readingsList = Utilities.removeDuplicatesFromStringList(readingsList);
         }
 
         return (readingsList.size()>0 && !readingsList.get(0).equals(""))? TextUtils.join(", ", readingsList) : "-";

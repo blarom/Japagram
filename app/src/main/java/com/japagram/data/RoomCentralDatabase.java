@@ -150,13 +150,20 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<Word> wordList = new ArrayList<>();
         for (int i=1; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
+            if (i == 18235) {
+                Word word1 = new Word();
+            }
             Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, i);
             wordList.add(word);
-            if (wordList.size() % 2000 == 0) {
-                word().insertAll(wordList);
+            if (wordList.size() % 1 == 0) { //2000
+                try {
+                    word().insertAll(wordList);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 wordList = new ArrayList<>();
             }
         }
@@ -242,11 +249,31 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public IndexEnglish getEnglishIndexForExactWord(String query) {
         return this.indexEnglish().getIndexByExactQuery(query);
     }
+    public List<IndexEnglish> getEnglishIndexesListForStartingWordsList(List<String> words) {
+        List<IndexEnglish> indexes = new ArrayList<>();
+        for (String word : words) {
+            indexes.addAll(indexEnglish().getIndexByStartingQuery(word));
+        }
+        return indexes;
+    }
+    public List<IndexEnglish> getEnglishIndexForExactWordsList(List<String> words) {
+        return this.indexEnglish().getIndexByExactQueries(words);
+    }
     public List<IndexFrench> getFrenchIndexesListForStartingWord(String query) {
         return this.indexFrench().getIndexByStartingQuery(query);
     }
     public IndexFrench getFrenchIndexForExactWord(String query) {
         return this.indexFrench().getIndexByExactQuery(query);
+    }
+    public List<IndexFrench> getFrenchIndexesListForStartingWordsList(List<String> words) {
+        List<IndexFrench> indexes = new ArrayList<>();
+        for (String word : words) {
+            indexes.addAll(indexFrench().getIndexByStartingQuery(word));
+        }
+        return indexes;
+    }
+    public List<IndexFrench> getFrenchIndexForExactWordsList(List<String> words) {
+        return this.indexFrench().getIndexByExactQueries(words);
     }
     public List<IndexSpanish> getSpanishIndexesListForStartingWord(String query) {
         return this.indexSpanish().getIndexByStartingQuery(query);
@@ -254,12 +281,33 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public IndexSpanish getSpanishIndexForExactWord(String query) {
         return this.indexSpanish().getIndexByExactQuery(query);
     }
+    public List<IndexSpanish> getSpanishIndexesListForStartingWordsList(List<String> words) {
+        List<IndexSpanish> indexes = new ArrayList<>();
+        for (String word : words) {
+            indexes.addAll(indexSpanish().getIndexByStartingQuery(word));
+        }
+        return indexes;
+    }
+    public List<IndexSpanish> getSpanishIndexForExactWordsList(List<String> words) {
+        return this.indexSpanish().getIndexByExactQueries(words);
+    }
     public IndexKanji getKanjiIndexForExactWord(String query) {
-        return indexKanji().getKanjiIndexByExactUTF8Query(query);
+        //return indexKanji().getKanjiIndexByExactUTF8Query(query);
+        return indexKanji().getKanjiIndexByExactQuery(query);
     }
     public List<IndexKanji> getKanjiIndexesListForStartingWord(String query) {
         //return indexKanji().getKanjiIndexByStartingUTF8Query(query);
         return indexKanji().getKanjiIndexByStartingQuery(query);
+    }
+    public List<IndexKanji> getKanjiIndexesListForStartingWordsList(List<String> words) {
+        List<IndexKanji> indexes = new ArrayList<>();
+        for (String word : words) {
+            indexes.addAll(indexKanji().getKanjiIndexByStartingQuery(word));
+        }
+        return indexes;
+    }
+    public List<IndexKanji> getKanjiIndexForExactWordsList(List<String> words) {
+        return this.indexKanji().getIndexByExactQueries(words);
     }
 
     public List<Verb> getVerbListByVerbIds(List<Long> verbIds) {
