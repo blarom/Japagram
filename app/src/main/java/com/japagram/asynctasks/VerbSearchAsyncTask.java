@@ -296,22 +296,25 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
         }
     }
-    @NotNull private String[] getVerbCharacteristicsFromAltSpelling(String trimmedAltSpelling, Verb verb) {
+    @NotNull private String[] getVerbCharacteristicsFromAltSpelling(String altSpelling, Verb verb) {
 
         String[] characteristics = new String[6];
 
-        int altSpellingType = InputQuery.getTextType(trimmedAltSpelling);
+        int altSpellingType = InputQuery.getTextType(altSpelling);
 
         if (altSpellingType != mPreparedQueryTextType) return new String[]{};
 
-        characteristics[INDEX_ROMAJI] = (altSpellingType == Globals.TYPE_LATIN)? trimmedAltSpelling : verb.getRomaji();
-        characteristics[INDEX_KANJI] = (altSpellingType == Globals.TYPE_KANJI)? trimmedAltSpelling : verb.getKanji();
-        characteristics[INDEX_HIRAGANA_FIRST_CHAR] =
-                (altSpellingType == Globals.TYPE_HIRAGANA) ? trimmedAltSpelling.substring(0,1) :
-                        InputQuery.getWaapuroHiraganaKatakana(characteristics[INDEX_ROMAJI]).get(Globals.TYPE_HIRAGANA).substring(0,1);
+        characteristics[INDEX_ROMAJI] = (altSpellingType == Globals.TYPE_LATIN)? altSpelling : verb.getRomaji();
+        characteristics[INDEX_KANJI] = (altSpellingType == Globals.TYPE_KANJI)? altSpelling : verb.getKanji();
+        if (altSpellingType == Globals.TYPE_HIRAGANA) {
+            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = altSpelling.substring(0,1);
+        } else {
+            String startOfWord = characteristics[INDEX_ROMAJI].length() > 5? characteristics[INDEX_ROMAJI].substring(0,5) : characteristics[INDEX_ROMAJI];
+            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = InputQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
+        }
         characteristics[INDEX_LATIN_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
         characteristics[INDEX_KANJI_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);
-        characteristics[INDEX_ACTIVE_ALTSPELLING] = trimmedAltSpelling;
+        characteristics[INDEX_ACTIVE_ALTSPELLING] = altSpelling;
 
         return characteristics;
     }
@@ -331,6 +334,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         boolean queryIsContainedInADesuConjugation;
         boolean queryIsContainedInIruVerbConjugation;
         int exceptionIndex;
+        int familyIndex;
+        String currentFamilyConj;
+        String currentConj;
         String[] currentFamilyConjugations;
         String[] currentConjugations;
         String family;
@@ -345,7 +351,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         boolean allowExpandedConjugationsComparison;
         int matchColumn = 0;
         boolean onlyRetrieveShortRomajiVerbs = false;
-        boolean onlyRetrieveEnglishWords;
+        boolean onlyRetrieveNonJapWords;
         //endregion
 
         //region Taking care of the case where the input is a basic conjugation that will cause the app to return too many verbs
@@ -354,8 +360,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         queryIsContainedInAKuruConjugation = false;
         queryIsContainedInADesuConjugation = false;
         queryIsContainedInIruVerbConjugation = false;
-        int familyIndex;
-        String currentFamilyConj;
         for (String key : mFamilyConjugationIndexes.keySet()) {
             familyIndex = mFamilyConjugationIndexes.get(key);
             switch (key) {
@@ -456,7 +460,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 || (mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA) && mPreparedCleaned.length() < 3) {
             onlyRetrieveShortRomajiVerbs = true;
         }
-        onlyRetrieveEnglishWords = mPreparedQueryTextType == Globals.TYPE_LATIN && mPreparedTranslHiragana.contains("*");
+        onlyRetrieveNonJapWords = mPreparedQueryTextType == Globals.TYPE_LATIN && mPreparedTranslHiragana.contains("*");
         //endregion
 
         //region Performing column dilution in order to make the search more efficient (the diluted column ArrayList is used in the Search Algorithm)
@@ -546,6 +550,23 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<long[]> copyOfMatchingVerbIdsAndColsFromBasicCharacteristics = new ArrayList<>(matchingVerbIdsAndColsFromBasicCharacteristics);
         boolean verbAlreadyFound;
         String trimmedAltSpelling;
+        boolean hasConjExceptions;
+        String lastFamily = "";
+        String[] characteristics;
+        char preparedTranslHiraganaChar0 = mPreparedTranslHiragana.charAt(0);
+        String preparedCleanedChar0String = mPreparedCleaned.substring(0,1);
+        char preparedCleanedChar0 = preparedCleanedChar0String.charAt(0);
+        boolean preparedIsLatin = mPreparedQueryTextType == Globals.TYPE_LATIN;
+        boolean preparedIsKana = mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA;
+        boolean preparedIsKanji = mPreparedQueryTextType == Globals.TYPE_KANJI;
+        currentFamilyConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get("su"));
+
+        //There's no point in checking again if the input query is part of the family conjugation,
+        // so we only check up to the substring that could contain all but the first char of the input query
+        // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
+        int maxCharIndexWhereMatchIsExpected = mPreparedQueryTextType != Globals.TYPE_LATIN && mPreparedQueryTextType != Globals.TYPE_KANJI ? mPreparedTranslRomajiLength - 1 : mPreparedCleanedLength - 1;
+
+
         for (Verb verb : mCompleteVerbsList) {
 
             //region Skipping verbs that were already found
@@ -555,14 +576,13 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
                     //Update the active fields for the current verb according to the altSpelling
                     boolean foundAltSpelling = false;
-                    for (String altSpelling : verb.getAltSpellings().split(",")) {
-                        trimmedAltSpelling = altSpelling.trim();
-                        if (trimmedAltSpelling.equals(mPreparedTranslRomaji) || trimmedAltSpelling.equals(mPreparedTranslHiragana)) {
-                            String[] characteristics = getVerbCharacteristicsFromAltSpelling(trimmedAltSpelling, verb);
+                    for (String altSpelling : verb.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER)) {
+                        if (altSpelling.equals(mPreparedTranslRomaji) || altSpelling.equals(mPreparedTranslHiragana)) {
+                            characteristics = getVerbCharacteristicsFromAltSpelling(altSpelling, verb);
                             if (characteristics.length == 0) continue;
                             verb.setActiveLatinRoot(characteristics[INDEX_LATIN_ROOT]);
                             verb.setActiveKanjiRoot(characteristics[INDEX_KANJI_ROOT]);
-                            verb.setActiveAltSpelling(trimmedAltSpelling);
+                            verb.setActiveAltSpelling(altSpelling);
                             foundAltSpelling = true;
                             break;
                         }
@@ -585,17 +605,24 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
             //region Loop starting parameters initialization
             foundMatch = false;
-            allowExpandedConjugationsComparison = !onlyRetrieveEnglishWords;
+            allowExpandedConjugationsComparison = !onlyRetrieveNonJapWords;
             //endregion
 
             //region Building the list of relevant base characteristics that the algorithm will check
             //This includes the romaji/kanji/romajiroot/kanjiroot/kana1stchar, also also the altSpelling equivalents
             altSpellingsAsString = verb.getAltSpellings();
             family = verb.getFamily();
+            if (!mFamilyConjugationIndexes.containsKey(family)) continue;
+            if (!family.equals(lastFamily)) {
+                //Updating the family conjugations only when a new family is seen
+                currentFamilyConjugations = preparedIsKanji?
+                        Globals.VerbKanjiConjDatabase.get(mFamilyConjugationIndexes.get(family)) : Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get(family));
+                lastFamily = family;
+            }
             exceptionIndex = (verb.getExceptionIndex().equals(""))? 0 : Integer.parseInt(verb.getExceptionIndex());
 
             verbSearchCandidates = new ArrayList<>();
-            String[] characteristics = new String[6];
+            characteristics = new String[6];
             characteristics[INDEX_ROMAJI] = verb.getRomaji();
             characteristics[INDEX_KANJI] = verb.getKanji();
             characteristics[INDEX_HIRAGANA_FIRST_CHAR] = verb.getHiraganaFirstChar();
@@ -604,16 +631,10 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             characteristics[INDEX_ACTIVE_ALTSPELLING] = verb.getRomaji();
             verbSearchCandidates.add(characteristics);
 
-            for (String altSpelling : altSpellingsAsString.split(",")) {
-
-                //Initializations
-                trimmedAltSpelling = altSpelling.trim();
-                if (trimmedAltSpelling.equals("")) continue;
-
-                characteristics = getVerbCharacteristicsFromAltSpelling(trimmedAltSpelling, verb);
-                if (characteristics.length == 0) continue;
-
-                verbSearchCandidates.add(characteristics);
+            for (String altSpelling : altSpellingsAsString.split(Globals.DB_ELEMENTS_DELIMITER)) {
+                if (altSpelling.equals("")) continue;
+                characteristics = getVerbCharacteristicsFromAltSpelling(altSpelling, verb);
+                if (characteristics.length != 0) verbSearchCandidates.add(characteristics);
             }
             //endregion
 
@@ -628,17 +649,15 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 //endregion
 
                 //region Only allowing searches on verbs that satisfy the following conditions (including identical 1st char, kuru/suru/da, query length)
-                if (    !(     ( mPreparedQueryTextType == Globals.TYPE_LATIN && romaji.charAt(0) == mPreparedCleaned.charAt(0) )
-                            || ( (mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA)
-                                && (hiraganaFirstChar == mPreparedTranslHiragana.charAt(0)) )
-                            || (mPreparedQueryTextType == Globals.TYPE_KANJI && kanjiRoot.contains(mPreparedCleaned.substring(0,1)))
+                if (    !(     ( preparedIsLatin && romaji.charAt(0) == preparedCleanedChar0 )
+                            || ( preparedIsKana && (hiraganaFirstChar == preparedTranslHiraganaChar0) )
+                            || ( preparedIsKanji && kanjiRoot.contains(preparedCleanedChar0String))
                             || romaji.contains("kuru")
                             || romaji.equals("suru")
                             || romaji.equals("da") )
-                        || (mPreparedQueryTextType == Globals.TYPE_LATIN && mPreparedCleaned.length() < 4 && !romaji.contains(mPreparedCleaned))
-                        || ((mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA)
-                            && mPreparedCleaned.length() < 3 && !romaji.contains(mPreparedTranslRomaji))
-                        || (mPreparedQueryTextType == Globals.TYPE_KANJI && mPreparedCleaned.length() < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
+                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && !romaji.contains(mPreparedCleaned))
+                        || ( preparedIsKana && mPreparedCleanedLength < 3 && !romaji.contains(mPreparedTranslRomaji))
+                        || ( preparedIsKanji && mPreparedCleanedLength < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
                         || (onlyRetrieveShortRomajiVerbs && romaji.length() > 4)     ) {
                     continue;
                 }
@@ -664,25 +683,21 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
                 //region Main Comparator Algorithm
                 if (allowExpandedConjugationsComparison) {
-                    if (!mFamilyConjugationIndexes.containsKey(family)) continue;
-                    boolean hasConjExceptions = exceptionIndex != mFamilyConjugationIndexes.get(family);
-                    String currentConj;
+
+                    hasConjExceptions = exceptionIndex != mFamilyConjugationIndexes.get(family);
 
                     //region Latin conjugations comparison
-                    if (mPreparedQueryTextType == Globals.TYPE_LATIN) {
+                    if (preparedIsLatin) {
 
-                        //There's no point in checking again if the input query is part of the family conjugation,
-                        // so we only check up to the substring that could contain all but the first char of the input query
-                        // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
-                        int maxCharIndexWhereMatchIsExpected = mPreparedCleanedLength - 1;
-                        currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
                         if (hasConjExceptions) {
-                            currentFamilyConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get(family));
+                            currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentFamilyConjugations[col];
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = latinRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
-                                } else conjugationValue = currentConjugations[col];
+                                    conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedCleaned)) {
                                     foundMatch = true;
@@ -693,8 +708,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                         }
                         else {
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentConjugations[col];
-                                conjugationValue = latinRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
 
                                 if (conjugationValue.contains(mPreparedCleaned)) {
                                     foundMatch = true;
@@ -707,20 +723,20 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                     //endregion
 
                     //region Kana conjugations comparison
-                    else if (mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA) {
+                    else if (preparedIsKana) {
 
                         //There's no point in checking again if the input query is part of the family conjugation,
                         // so we only check up to the substring that could contain all but the first char of the input query
                         // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
-                        int maxCharIndexWhereMatchIsExpected = mPreparedTranslRomajiLength - 1;
-                        currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
                         if (hasConjExceptions) {
-                            currentFamilyConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get(family));
+                            currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentFamilyConjugations[col];
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = latinRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
-                                } else conjugationValue = currentConjugations[col];
+                                    conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedTranslRomaji)) {
                                     foundMatch = true;
@@ -731,8 +747,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                         }
                         else {
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentConjugations[col];
-                                conjugationValue = latinRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
 
                                 if (conjugationValue.contains(mPreparedTranslRomaji)) {
                                     foundMatch = true;
@@ -745,20 +762,21 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                     //endregion
 
                     //region Kanji conjugations comparison
-                    else if (mPreparedQueryTextType == Globals.TYPE_KANJI) {
+                    else if (preparedIsKanji) {
 
                         //There's no point in checking again if the input query is part of the family conjugation,
                         // so we only check up to the substring that could contain all but the first char of the input query
                         // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
-                        int maxCharIndexWhereMatchIsExpected = mPreparedQueryLength - 1;
-                        currentConjugations = Globals.VerbKanjiConjDatabase.get(exceptionIndex);
+                        maxCharIndexWhereMatchIsExpected = mPreparedQueryLength - 1;
                         if (hasConjExceptions) {
-                            currentFamilyConjugations = Globals.VerbKanjiConjDatabase.get(mFamilyConjugationIndexes.get(family));
+                            currentConjugations = Globals.VerbKanjiConjDatabase.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentFamilyConjugations[col];
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = kanjiRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
-                                } else conjugationValue = currentConjugations[col];
+                                    conjugationValue = kanjiRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedQuery)) {
                                     foundMatch = true;
@@ -769,8 +787,9 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                         }
                         else {
                             for (int col : dilutedConjugationColIndexes) {
-                                currentConj = currentConjugations[col];
-                                conjugationValue = kanjiRoot + ((currentConj.length() > maxCharIndexWhereMatchIsExpected)? currentConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentConj);
+                                currentFamilyConj = currentFamilyConjugations[col];
+                                conjugationValue = kanjiRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
+                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
 
                                 if (conjugationValue.contains(mPreparedQuery)) {
                                     foundMatch = true;

@@ -150,20 +150,13 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<Word> wordList = new ArrayList<>();
         for (int i=1; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
-            if (i == 18235) {
-                Word word1 = new Word();
-            }
             Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, i);
             wordList.add(word);
-            if (wordList.size() % 1 == 0) { //2000
-                try {
-                    word().insertAll(wordList);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if (wordList.size() % 2000 == 0) {
+                word().insertAll(wordList);
                 wordList = new ArrayList<>();
             }
         }

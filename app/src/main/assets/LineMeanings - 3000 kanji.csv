@@ -1356,7 +1356,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1356|counter for stories, episodes of TV series, etc.|C|Used for stories, episodes of TV series, etc.||||
 1357|counter for swings, shakes, waves|C|||||
 1358|brightly|A;M|||||
-1359||-|||||
+1359|machine, cut, scrape|VsuT|||||
 1360|after a relatively long time interval (of waiting), after a pause|Sx|||1312;1313||
 1361|style, manner|Sx|||||
 1362|counter for Tatami mats|C|||1370||
@@ -8021,7 +8021,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 8021|balance, be in harmony, be in equilibrium|VuI|||||
 8022|suit, go well together, be a good match|VuI|||||
 8023|end, close, finish, truncation, discontinuance|N;Abs|||||
-8024|attack, defeat, destroy, avenge|VsuI|||||
+8024|attack, defeat, destroy, avenge|VtsuI|||||
 8025|tear, rip, break, destroy|VrugT|||||
 8026|break through (cordon, opponent's defense, etc.), breach|VrugT|||||
 8027|defeat, beat|VrugT|||||
@@ -10105,9 +10105,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 10105|make tea (matcha), perform the tea ceremony|VruiT|||||
 10106|divide by|VruiT|||||
 10107|do ... vigorously|VruiI|||||
-10108|stand, rise, stand up|VsuI|||||
-10109|find oneself (e.g. in a difficult position)|VsuI|||||
-10110|depart (on a plane, train, etc.)|VsuI|||||
+10108|stand, rise, stand up|VtsuI|||||
+10109|find oneself (e.g. in a difficult position)|VtsuI|||||
+10110|depart (on a plane, train, etc.)|VtsuI|||||
 10111|ask, enquire, inquire|VruiT|||||
 10112|search, look for, look into, investigate|VruiT|||||
 10113|raising (a question), bringing up (a problem), instituting (a lawsuit), filing (a claim), submitting (a case)|N;Abs|||||
@@ -14810,7 +14810,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 14810|North Korea|N;Abs|||||
 14811|north wind|N;Abs|||||
 14812|Kitachousen|N;Pl|||||
-14813|be prominent, be conspicuous|VsuI|||||
+14813|be prominent, be conspicuous|VtsuI|||||
 14814|machine parts, machinery, equipment|N;Abs|||||
 14815|national anthem|N;Abs|||||
 14816|National Diet, legislative assembly of Japan (1947-)|N;Abs|||||
@@ -14957,11 +14957,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 14957|ruler, measure|N;Abs|||||
 14958|terrible, frightful, horrible, ghastly|Ai|||||
 14959|unsatisfied, unsatisfactory, insufficient|Ai|||||
-14960|hold (in one's hand), take, carry|VsuI|||||
-14961|possess, have, own|VsuI|||||
-14962|maintain, keep|VsuI|||||
-14963|last, be durable, keep, survive|VsuI|||||
-14964|take charge of, be in charge of|VsuI|||||
+14960|hold (in one's hand), take, carry|VtsuT|||||
+14961|possess, have, own|VtsuT|||||
+14962|maintain, keep|VtsuT|||||
+14963|last, be durable, keep, survive|VtsuT|||||
+14964|take charge of, be in charge of|VtsuT|||||
 14965|pattern, figure, design|N;Abs|||||
 14966|state, condition|N;Abs|||||
 14967|conjecture of the current situation, the way it seems|N;Abs|||||
@@ -16761,8 +16761,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 16761|scholar of literature, literary person, man of letters|N;Abs|||||
 16762|writer|N;Abs|||||
 16763|tin plate|N;Abs|||||
-16764|hit (a person), strike, beat|VsuT|||||
-16765|deliver (a speech), give (an address)|VsuT|||||
+16764|hit (a person), strike, beat|VtsuT|||||
+16765|deliver (a speech), give (an address)|VtsuT|||||
 16766|hit (e.g. one's head), strike, crash into|VruiT|||||
 16767|throw (e.g. a ball, a question, a demand)|VruiT|||||
 16768|express, vent (e.g. one's anger)|VruiT|||||
@@ -17441,8 +17441,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 17441|raw food, perishables|N;Abs|||||
 17442|southern part, the south (of a region)|N;Abs|||||
 17443|get mended, be repaired, be fixed|VrugI|||||
-17444|be concluded (e.g. of an agreement), hold true (e.g. of a theory), be valid|VsuI|||||
-17445|be viable (of a business, lifestyle, etc.), carry on, keep going|VsuI|||||
+17444|be concluded (e.g. of an agreement), hold true (e.g. of a theory), be valid|VtsuI|||||
+17445|be viable (of a business, lifestyle, etc.), carry on, keep going|VtsuI|||||
 17446|summertime|N;Abs|||||
 17447|summer (May) tournament, held in Tokyo|N;Abs|||||
 17448|suffering from summer heat, summer heat fatigue|N;Abs|||||
@@ -17963,21 +17963,21 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 17963|making use of, application, practical use, effective management (e.g. of funds)|N;Abs|||||
 17964|operation, handling, steering (esp. a boat)|N;Abs|||||
 17965|turning to the right, right turn|N;Abs|||||
-17966|hit, strike, knock, beat, punch, slap, tap, bang, clap, pound|VsuT|||||
-17967|strike (noon, etc.), sound (cymbals, etc.), beat (a drum, etc.)|VsuT|||||
-17968|beat (rhythmically, e.g. pulse, waves, etc.)|VsuT|||||
-17969|move, impress, touch|VsuT|||||
-17970|drive in, hammer in, put in, inject|VsuT|||||
-17971|type, send, transmit|VsuT|||||
-17972|insert, write in, mark|VsuT|||||
-17973|make (noodles, etc.), prepare|VsuT|||||
-17974|till (soil)|VsuT|||||
-17975|sprinkle, throw, cast|VsuT|||||
-17976|do, carry out, play, perform, engage in (gambling, etc.)|VsuT|||||
-17977|pay (a deposit, etc.)|VsuT|||||
-17978|visit (on a pilgrimage)|VsuT|||||
-17979|line (a coat)|VsuT|||||
-17980|bind (a criminal)|VsuT|||||
+17966|hit, strike, knock, beat, punch, slap, tap, bang, clap, pound|VtsuT|||||
+17967|strike (noon, etc.), sound (cymbals, etc.), beat (a drum, etc.)|VtsuT|||||
+17968|beat (rhythmically, e.g. pulse, waves, etc.)|VtsuT|||||
+17969|move, impress, touch|VtsuT|||||
+17970|drive in, hammer in, put in, inject|VtsuT|||||
+17971|type, send, transmit|VtsuT|||||
+17972|insert, write in, mark|VtsuT|||||
+17973|make (noodles, etc.), prepare|VtsuT|||||
+17974|till (soil)|VtsuT|||||
+17975|sprinkle, throw, cast|VtsuT|||||
+17976|do, carry out, play, perform, engage in (gambling, etc.)|VtsuT|||||
+17977|pay (a deposit, etc.)|VtsuT|||||
+17978|visit (on a pilgrimage)|VtsuT|||||
+17979|line (a coat)|VtsuT|||||
+17980|bind (a criminal)|VtsuT|||||
 17981|bowl, vessel, container|N;Abs|||||
 17982|ability, capacity, calibre, caliber|N;Abs|||||
 17983|right-wing (politics)|N;Abs|||||
@@ -18455,11 +18455,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18455|height of prosperity|N;Abs|||||
 18456|the whole world|N;Abs|||||
 18457|complete works|N;Sx|||||
-18458||-|||||
+18458|disclose, divulge, expose|VkuT|||||
 18459|request an encore|VsuruI|||||
 18460|treat, serve|VsuruT|||||
 18461|work away from home|VsuruI|||||
-18462||-|||||
+18462|open (and rob) a cave|VkuT|||||
 18463|arrange (resources), deploy, station, post, configure, lay out|VsuruT|||||
 18464|subtract|VsuruT|||||
 18465|accomplish, fulfill, carry out|VsuruT|||||
@@ -19319,9 +19319,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19319|erasure, striking off, crossing out, cancellation, deletion|N;Abs|||||
 19320|straddle, sit astride, mount|VrugI|||||
 19321|blink (one's eyes), wink, bat|VkuI|||||
-19322|await, look forward to, anticipate|VsuI|||||
-19323|await, look forward to, anticipate|VsuI|||||
-19324|depend on, need|VsuI|||||
+19322|await, look forward to, anticipate|VtsuI|||||
+19323|await, look forward to, anticipate|VtsuI|||||
+19324|depend on, need|VtsuI|||||
 19325|pine tree (Pinus spp.)|N;Abs|||||
 19326|highest (of a three-tier ranking system)|N;Abs|||||
 19327|pine needle|N;Abs|||||
@@ -19740,8 +19740,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19740|north-to-south|N;Abs|||||
 19741|vertical (relationship), hierarchy|N;Abs|||||
 19742|(weaving) warp|N;Abs|||||
-19743|stand, rise, stand up|VsuI|||||
-19744|pass (of time), elapse|VsuI|||||
+19743|stand, rise, stand up|VtsuI|||||
+19744|pass (of time), elapse|VtsuI|||||
 19745|news, tidings, information, correspondence, letter|N;Sx|||||
 19746||-|||||
 19747|rely on, depend on, count on, turn to (for help)|VrugI|||||
@@ -19887,7 +19887,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19887|hey|PP|||||
 19888|hey, hold on|PP|||||
 19889|yo, hey|PP|||||
-19890|call out (to), call, invoke|VbuT|||||
+19890|summon (a doctor, etc.)|VbuT|||||
 19891|invite|VbuT|||||
 19892|prediction, prophecy, prognostication|N;Abs|||||
 19893|dirt, filth, stain, blot, spot|N;Abs|||||
@@ -22322,7 +22322,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 22322|stuff|N;Abs|||||
 22323|stadium|N;Abs|||||
 22324|Suzuki Ranran (1975.8-)|N;Ne|||||
-22325|begin a trip, depart, embark|VsuI|||||
+22325|begin a trip, depart, embark|VtsuI|||||
 22326|viewpoint, standpoint, point of view|N;Abs|||||
 22327|tie|N;Abs|||||
 22328|Thailand|N;Pl|||||
@@ -23454,7 +23454,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 23454|ukemi (the art of falling safely)|N|||||
 23455|falling safely|Ana|||||
 23456|charge (of something), matter in one's charge, (one's) assignment, (one's) job|N|||||
-23457|take (be in) charge of|VsuT|||||
+23457|take (be in) charge of|VtsuT|||||
 23458|react to, take (advice, etc.), accept, come to grips with|VruiT|||||
 23459|receiving, receipt|N|||||
 23460|take, interpret, understand|VrugT|||||
@@ -28746,7 +28746,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 28746|eyesore, unpleasant sight, obstructing a view|N|||||
 28747|wafer cake filled with bean jam|N|||||
 28748|unthinkable, out of the question|N|||||
-28749|stand all around (e.g. bamboo, pines, pampas grass)|VsuI|||||
+28749|stand all around (e.g. bamboo, pines, pampas grass)|VtsuI|||||
 28750|any, anything, whatever, whatever one likes, everything, all|CE|||||
 28751|I am told, I hear, I understand, they say|A|||||
 28752|going south|N|||||
@@ -28795,7 +28795,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 28795|contract (for work), contracting, undertaking|N|||||
 28796|contract, undertake|VuT|||||
 28797|take over, take responsibility for|VuT|||||
-28798|accept somebody's challenge, take up the gauntlet|VsuI|||||
+28798|accept somebody's challenge, take up the gauntlet|VtsuI|||||
 28799|millstone, mortar|N|||||
 28800|troublesome, burdenful, annoying, bothersome, worrisome|Ana|||||
 28801|trouble, burden, nuisance, bother, worry|N|||||
@@ -30913,7 +30913,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 30913|be delivered, be paid (e.g. taxes)|VrugI|||||
 30914|be settled (dispute, be sorted, subside (e.g. wind), calm down, abate|VrugI|||||
 30915|be satisfied (e.g. with an answer), consent, agree|VrugI|||||
-30916||-|||||
+30916|die down (storm, anger, conflict, etc.), calm down, cool off, abate, be settled, be brought under control|VrugI|||||
 30917|be at peace, be governed well|VrugI|||||
 30918|subside (of pain, be alleviated, get better, ease off|VrugI|||||
 30919|study, complete (a course), cultivate, master|VruiT|||||
@@ -35455,8 +35455,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35455|death, the next world|N|||||
 35456|confirmation, certification, ascertainment|N|||||
 35457|surely, certainly|A|||||
-35458|suppress, eradicate, exterminate|VsuT|||||
-35459|abstain (from), give up|VsuT|||||
+35458|suppress, eradicate, exterminate|VtsuT|||||
+35459|abstain (from), give up|VtsuT|||||
 35460|near, close by, within reach, handy|Ana|||||
 35461|nearness, closeness, handiness|N|||||
 35462|familiar|Ana|||||

@@ -18440,7 +18440,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18440|arrinconarse, inclinarse, ser parcial|VrugI|||||
 18441|romper, oponerse|VrugT|||||
 18442|capturar, usurpar|VrugT|||||
-18443|estar en paz, ponerse severo, disminuir (tormenta, terror, furia)|-|||||
+18443|estar en paz, ponerse severo, disminuir (tormenta, terror, furia)|VrugI|||||
 18444|caber en, alojarse, finalizarse|VrugI|||||
 18445|disuadir, desalentar, desengañar|VrugT|||||
 18446|cambiar de posición al dormir, traicionar|VrugI|||||
@@ -18486,13 +18486,13 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18486|decir, hablar, platicar, decir, hablar, decir, hablar, platicar|VaruT|||||
 18487|ser, estar, existir, haber, ser, estar, existir, tener, haber|VaruI|||||
 18488|hacer|VaruT|||||
-18489|partir (en tren, avión, etc), estar de pie, ponerse de pie|VsuI|||||
-18490|encontrarse uno mismo (en dificultades), partir (tren, avión, etc)|VsuI|||||
+18489|partir (en tren, avión, etc), estar de pie, ponerse de pie|VtsuI|||||
+18490|encontrarse uno mismo (en dificultades), partir (tren, avión, etc)|VtsuI|||||
 18491|esperar de, tener la esperanza puesta en, tener expectativas de, contar con, esperar|VtsuT|||||
 18492|ganar, ganar, vencer|VtsuI|||||
-18493|llevar, cargar, sostener|VsuI|||||
-18494|poseer|VsuI|||||
-18495|pasar, transcurrir|VsuI|||||
+18493|llevar, cargar, sostener|VtsuT|||||
+18494|poseer|VtsuT|||||
+18495|pasar, transcurrir|VtsuI|||||
 18496|golpear, pegar|VtsuT|||||
 18497|escribir a máquina, teclear|VtsuT|||||
 18498|inyectar|VtsuT|||||
@@ -18512,9 +18512,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18512|mantener (guardar, preservar)|VtsuT|||||
 18513|ser útil, servir|VtsuI|||||
 18514|empezar un viaje|VtsuI|||||
-18515|destacar, predominar|VsuI|||||
-18516|golpear|VsuT|||||
-18517|encargarse, estar a cargo de|VsuT|||||
+18515|destacar, predominar|VtsuI|||||
+18516|golpear|VtsuT|||||
+18517|encargarse, estar a cargo de|VtsuT|||||
 18518|liberar, soltar, pegar fuego a|VtsuT|||||
 18519|dividir, separar, distinguir|VtsuT|||||
 18520|recibir, aceptar|VuT|||||

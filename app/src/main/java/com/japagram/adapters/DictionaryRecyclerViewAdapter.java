@@ -139,7 +139,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //region Updating the parent values
         String romaji = mWordsList.get(position).getRomaji();
         String kanji = mWordsList.get(position).getKanji();
-        String alternatespellings = mWordsList.get(position).getAltSpellings();
+        String altSpellings = TextUtils.join(", ", mWordsList.get(position).getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
 
         holder.romajiAndKanjiTextView.setText(mWordsRomajiAndKanji.get(position));
         holder.romajiAndKanjiTextView.setTypeface(mDroidSansJapaneseTypeface, Typeface.BOLD);
@@ -187,9 +187,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //endregion
 
         //region Setting the alternate spellings
-        if (!TextUtils.isEmpty(alternatespellings)) {
+        if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
-            String htmlText = mContext.getString(R.string.alternate_forms_) + " " + alternatespellings;
+            String htmlText = mContext.getString(R.string.alternate_forms_) + " " + altSpellings;
             TextView tv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(htmlText));
             tv.setPadding(0, 16, 0, 16);
         }

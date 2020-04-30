@@ -18725,7 +18725,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18725|se donner des airs, se vanter|VrugT|||||
 18726|être corrompu, être injuste, être partial, prendre partie pour|VrugI|||||
 18727|capturer, détourner (avion), s'emparer|VrugT|||||
-18728|être en paix, s'apaiser, se calmer (tempête, peur, colère, agitation)|-|||||
+18728|être en paix, s'apaiser, se calmer (tempête, peur, colère, agitation)|VrugI|||||
 18729|être à sa place, être installé, s'établir, s'installer|VrugI|||||
 18730|être délivré, être obtenu, être payé, être réglé|VrugI|||||
 18731|abandonner (un projet), renoncer à (faire)|VrugT|||||
@@ -18777,18 +18777,18 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18777|être en train de (faire)|VaruI|||||
 18778|dire, parler, raconter|VaruT|||||
 18779|faire|VaruT|||||
-18780|se trouver (par ex. en position difficile)|VsuI|||||
-18781|partir (en avion, en train, etc.)|VsuI|||||
+18780|se trouver (par ex. en position difficile)|VtsuI|||||
+18781|partir (en avion, en train, etc.)|VtsuI|||||
 18782|attendre|VtsuT|||||
 18783|attendre, espérer, anticiper|VtsuT|||||
 18784|dépendre de, avoir besoin de|VtsuT|||||
 18785|être victorieux, gagner |VtsuI|||||
-18786|tenir (dans ses mains), porter|VsuI|||||
-18787|posséder, avoir|VsuI|||||
-18788|maintenir, garder, conserver|VsuI|||||
-18789|durer, être durable, se maintenir, survivre, se conserver|VsuI|||||
-18790|se charger de, être chargé de|VsuI|||||
-18791|passer, s'écouler|VsuI|||||
+18786|tenir (dans ses mains), porter|VtsuT|||||
+18787|posséder, avoir|VtsuT|||||
+18788|maintenir, garder, conserver|VtsuT|||||
+18789|durer, être durable, se maintenir, survivre, se conserver|VtsuT|||||
+18790|se charger de, être chargé de|VtsuT|||||
+18791|passer, s'écouler|VtsuI|||||
 18792|frapper, heurter, battre, donner un coup de poing, gifler, taper, cogner, applaudir|VtsuT|||||
 18793|sonner (midi, etc.), résonner (des cymbales, etc.), battre (un tambour, etc.)|VtsuT|||||
 18794|faire, mener à bien, jouer, effectuer, se livrer (au jeu, etc.)|VtsuT|||||
@@ -18818,8 +18818,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18818|conserver, garder|VtsuT|||||
 18819|être utile|VtsuI|||||
 18820|s'en aller en voyage|VtsuI|||||
-18821|être en évidence, être proéminent, se détacher|VsuI|||||
-18822|prendre en charge|VsuT|||||
+18821|être en évidence, être proéminent, se détacher|VtsuI|||||
+18822|prendre en charge|VtsuT|||||
 18823|enflammer, envoyer, libérer|VtsuT|||||
 18824|distinguer, diviser, séparer|VtsuT|||||
 18825|recevoir, prendre, accepter|VuT|||||

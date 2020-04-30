@@ -26,7 +26,6 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
 
     //return The DAO for the tables
-    @SuppressWarnings("WeakerAccess")
     public abstract KanjiCharacterDao kanjiCharacter();
     public abstract KanjiComponentDao kanjiComponent();
 
@@ -71,26 +70,14 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
         if (kanjiCharacter().count() == 0) {
             UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
-            beginTransaction();
-            try {
-                if (Looper.myLooper() == null) Looper.prepare();
-                loadKanjiCharactersIntoRoomDb(context);
-                Log.i("Diagnosis Time", "Loaded Room Kanji Characters Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
+            if (Looper.myLooper() == null) Looper.prepare();
+            loadKanjiCharactersIntoRoomDb(context);
+            Log.i("Diagnosis Time", "Loaded Room Kanji Characters Database.");
         }
         if (kanjiComponent().count() == 0) {
-            beginTransaction();
-            try {
-                if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
-                Log.i("Diagnosis Time", "Loaded Room Kanji Components Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
+            if (Looper.myLooper() == null) Looper.prepare();
+            Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+            Log.i("Diagnosis Time", "Loaded Room Kanji Components Database.");
             UtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
         }
         UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
