@@ -185,7 +185,7 @@ public class Word implements Parcelable {
         return extraKeywords;
     }
 
-    @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+    @TypeConverters({DbTypeConverters.class})
     @ColumnInfo(name = COLUMN_WORD_MEANINGS_EN)
     private List<Meaning> meaningsEN;
     public void setMeaningsEN(List<Meaning> meaningsEN) {
@@ -204,7 +204,7 @@ public class Word implements Parcelable {
         return extraKeywordsEN;
     }
 
-    @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+    @TypeConverters({DbTypeConverters.class})
     @ColumnInfo(name = COLUMN_WORD_MEANINGS_FR)
     private List<Meaning> meaningsFR;
     public void setMeaningsFR(List<Meaning> meaningsFR) {
@@ -223,7 +223,7 @@ public class Word implements Parcelable {
         return extraKeywordsFR;
     }
 
-    @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+    @TypeConverters({DbTypeConverters.class})
     @ColumnInfo(name = COLUMN_WORD_MEANINGS_ES)
     private List<Meaning> meaningsES;
     public void setMeaningsES(List<Meaning> meaningsES) {
@@ -322,7 +322,7 @@ public class Word implements Parcelable {
             return synonym;
         }
 
-        @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+        @TypeConverters({DbTypeConverters.class})
         private List<Explanation> explanations;
         public void setExplanations(List<Explanation> explanations) {
             this.explanations = explanations;
@@ -353,7 +353,7 @@ public class Word implements Parcelable {
                 return rules;
             }
 
-            @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+            @TypeConverters({DbTypeConverters.class})
             private List<Example> examples;
             public void setExamples(List<Example> examples) {
                 this.examples = examples;

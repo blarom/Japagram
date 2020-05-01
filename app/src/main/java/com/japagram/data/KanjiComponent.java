@@ -46,7 +46,7 @@ public class KanjiComponent {
     }
 
 
-    @TypeConverters({JapaneseToolboxDbTypeConverters.class})
+    @TypeConverters({DbTypeConverters.class})
     @ColumnInfo(name = COLUMN_COMPONENT_ASSOCIATED_COMPONENTS)
     private List<AssociatedComponent> associatedComponents;
     public void setAssociatedComponents(List<AssociatedComponent> associatedComponents) {

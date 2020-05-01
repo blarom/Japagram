@@ -148,7 +148,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
 
         List<Word> wordList = new ArrayList<>();
-        for (int i=1; i<centralDatabase.size(); i++) {
+        for (int i=0; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
             Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
@@ -164,7 +164,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         Log.i("Diagnosis Time","Loaded Words Database.");
 
         List<Verb> verbList = new ArrayList<>();
-        for (int i=1; i<verbsDatabase.size(); i++) {
+        for (int i=0; i<verbsDatabase.size(); i++) {
             if (verbsDatabase.get(i)[0].equals("")) break;
             Verb verb = UtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
             verbList.add(verb);

@@ -9,7 +9,7 @@ import java.util.List;
 
 import androidx.room.TypeConverter;
 
-public class JapaneseToolboxDbTypeConverters {
+public class DbTypeConverters {
 
     private static final Gson gson = new Gson();
 

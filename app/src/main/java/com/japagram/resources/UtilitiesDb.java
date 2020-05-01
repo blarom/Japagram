@@ -1685,6 +1685,12 @@ public class UtilitiesDb {
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);
             } else if (col == sheetLength - 1) {
+                ConjugationTitle.Subtitle subtitle = new ConjugationTitle.Subtitle();
+                int subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
+                subtitle.setSubtitle(context.getString(subtitleRef));
+                subtitle.setSubtitleIndex(col);
+                subtitles.add(subtitle);
+
                 conjugationTitle.setSubtitles(subtitles);
                 conjugationTitles.add(conjugationTitle);
             } else {
