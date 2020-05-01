@@ -549,7 +549,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<long[]> matchingVerbIdsAndColsFromExpandedConjugations = new ArrayList<>();
         List<long[]> copyOfMatchingVerbIdsAndColsFromBasicCharacteristics = new ArrayList<>(matchingVerbIdsAndColsFromBasicCharacteristics);
         boolean verbAlreadyFound;
-        String trimmedAltSpelling;
         boolean hasConjExceptions;
         String lastFamily = "";
         String[] characteristics;
