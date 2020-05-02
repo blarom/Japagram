@@ -11,6 +11,7 @@ import com.japagram.resources.UtilitiesPrefs;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -44,14 +45,25 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     public static synchronized RoomExtendedDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
+                if (UtilitiesPrefs.getAppPreferenceDbVersionExtended(context) != Globals.EXTENDED_DB_VERSION) {
+                    throw new Exception();
+                }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
                         .databaseBuilder(context.getApplicationContext(), RoomExtendedDatabase.class, "japagram_extended_room_database")
                         .addMigrations(FROM_1_TO_2)
+                        .addCallback(new Callback() {
+                            @Override
+                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                super.onCreate(db);
+                                //getInstance(context).populateDatabases(context);
+                            }
+                        })
                         .enableMultiInstanceInvalidation()
                         .build();
 
                 sInstance.populateDatabases(context);
+                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             } catch (Exception e) {
                 //If migrations weren't set up from version X to verion X+1, do a destructive migration (rebuilds the db from sratch using the assets)
                 e.printStackTrace();
@@ -62,6 +74,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
                         .build();
 
                 sInstance.populateDatabases(context);
+                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             }
         }
         return sInstance;
@@ -73,31 +86,23 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
             UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
-                Log.i("Diagnosis Time","Loaded Extended Words Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
+                Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
+            });
         }
         if (indexEnglish().count() == 0) {
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
                 Utilities.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
-                Log.i("Diagnosis Time","Loaded Extended Indexes Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
-            UtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
+                Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
+                UtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
+            });
         }
         UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
         UtilitiesPrefs.setProgressValueExtendedDb(context, 100);

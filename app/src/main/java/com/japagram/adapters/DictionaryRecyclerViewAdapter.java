@@ -24,6 +24,9 @@ import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesPrefs;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +65,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     public DictionaryRecyclerViewAdapter(Context context,
                                          DictionaryItemClickHandler listener,
                                          List<Word> wordsList,
-                                         InputQuery inputQuery,
+                                         @NotNull InputQuery inputQuery,
                                          String language,
                                          Typeface typeface) {
         this.mContext = context;
@@ -140,6 +143,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String romaji = mWordsList.get(position).getRomaji();
         String kanji = mWordsList.get(position).getKanji();
         String altSpellings = TextUtils.join(", ", mWordsList.get(position).getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
+        int frequency = mWordsList.get(position).getFrequency();
 
         holder.romajiAndKanjiTextView.setText(mWordsRomajiAndKanji.get(position));
         holder.romajiAndKanjiTextView.setTypeface(mDroidSansJapaneseTypeface, Typeface.BOLD);
@@ -186,12 +190,21 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
         //endregion
 
+        //Setting the frequency
+        String type = mWordsList.get(position).getMeaningsEN().get(0).getType();
+        if (!type.equals("CE")) {
+            String freqHtmlText = mContext.getString(R.string.frequency) + ": " + ((frequency == 0) ? "20001+ (uncommon)" : frequency);
+            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(freqHtmlText));
+            freqTtv.setPadding(0, 16, 0, 16);
+        }
+        //endregion
+
         //region Setting the alternate spellings
         if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
-            String htmlText = mContext.getString(R.string.alternate_forms_) + " " + altSpellings;
-            TextView tv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(htmlText));
-            tv.setPadding(0, 16, 0, 16);
+            String altSHtmlText = mContext.getString(R.string.alternate_forms) + ": " + altSpellings;
+            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(altSHtmlText));
+            altSTv.setPadding(0, 16, 0, 16);
         }
         //endregion
 
@@ -696,7 +709,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
     }
 
-    private void setMeaningsTvProperties(TextView tv, Spanned spanned) {
+    private void setMeaningsTvProperties(@NotNull TextView tv, Spanned spanned) {
         tv.setText(spanned);
         tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
@@ -705,19 +718,20 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         tv.setPadding(0, 16, 0, 16);
         tv.setTypeface(mDroidSansJapaneseTypeface);
     }
-    private void addMeaningsSeparator(LinearLayout linearLayout) {
+    private void addMeaningsSeparator(@NotNull LinearLayout linearLayout) {
         View line = new View(mContext);
         line.setLayoutParams(mChildLineParams);
         line.setBackgroundColor(Color.WHITE);
         linearLayout.addView(line);
     }
-    private void addExplanationsLineSeparator(LinearLayout linearLayout) {
+    private void addExplanationsLineSeparator(@NotNull LinearLayout linearLayout) {
         View line = new View(mContext);
         line.setLayoutParams(mubChildLineParams);
         line.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLight));
         linearLayout.addView(line);
     }
-    private TextView addHeaderField(LinearLayout linearLayout, Spanned type_and_meaning) {
+    @NotNull
+    private TextView addHeaderField(@NotNull LinearLayout linearLayout, Spanned type_and_meaning) {
         TextView tv = new TextView(mContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(layoutParams);
@@ -732,7 +746,8 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         linearLayout.addView(tv);
         return tv;
     }
-    private TextView addSubHeaderField(LinearLayout linearLayout, SpannableString spannableString) {
+    @NotNull
+    private TextView addSubHeaderField(@NotNull LinearLayout linearLayout, SpannableString spannableString) {
         TextView tv = new TextView(mContext);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(layoutParams);
@@ -768,7 +783,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             }
         }
     }
-    private void setHyperlinkInDecomposeLine(TextView textView, String before, String hyperlinkText, String after) {
+    private void setHyperlinkInDecomposeLine(@NotNull TextView textView, @NotNull String before, String hyperlinkText, @NotNull String after) {
         String totalText = "<b>" +
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 before +
@@ -786,7 +801,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
-    private void setHyperlinksInConjugateLine(TextView textView, String before, String hyperlinkText, String after) {
+    private void setHyperlinksInConjugateLine(@NotNull TextView textView, @NotNull String before, String hyperlinkText, @NotNull String after) {
         String totalText = "<b>" +
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.appTextSecondaryColor) + "'>" +
                 before +

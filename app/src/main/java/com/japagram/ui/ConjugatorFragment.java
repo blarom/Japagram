@@ -3,6 +3,7 @@ package com.japagram.ui;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -175,7 +176,7 @@ public class ConjugatorFragment extends Fragment implements
     private void startSearchingForMatchingVerbsInRoomDb() {
         if (getActivity()!=null) {
             mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, mWordsFromDictFragment, this);
-            mVerbSearchAsyncTask.execute();
+            mVerbSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             showLoadingIndicator();
         }
     }

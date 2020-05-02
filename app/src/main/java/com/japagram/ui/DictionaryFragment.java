@@ -3,6 +3,7 @@ package com.japagram.ui;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -201,7 +202,7 @@ public class DictionaryFragment extends Fragment implements
         if (getActivity()!=null) {
             Log.i(Globals.DEBUG_TAG, "Starting search for Room words");
             mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
-            mLocalDictSearchAsyncTask.execute();
+            mLocalDictSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void startSearchingForWordsInJisho() {
@@ -209,7 +210,7 @@ public class DictionaryFragment extends Fragment implements
         if (mInputQuery != null && !mInputQuery.isEmpty() && getActivity() != null && getContext() != null) {
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for Jisho words");
             mJishoSearchAsyncTask = new JishoSearchAsyncTask(getContext(), mInputQuery.getOriginal(), this);
-            mJishoSearchAsyncTask.execute();
+            mJishoSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
     }
@@ -217,7 +218,7 @@ public class DictionaryFragment extends Fragment implements
         if (getActivity()!=null) {
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for verbs");
             mVerbSearchAsyncTask = new VerbSearchAsyncTask(getContext(), mInputQuery, new ArrayList<>(), this);
-            mVerbSearchAsyncTask.execute();
+            mVerbSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void showEmptySearchResults() {

@@ -652,7 +652,8 @@
     <string name="antonyms_">Antonyms:</string>
     <string name="synonyms_">Synonyms:</string>
     <string name="explanation_">Explanation:</string>
-    <string name="alternate_forms_">Alternate forms:</string>
+    <string name="alternate_forms">Alternate forms</string>
+    <string name="frequency">Frequency rank</string>
     <string name="conjugate">Conjugate</string>
     <string name="decompose">Decompose</string>
     <string name="to_search_field">to search field</string>

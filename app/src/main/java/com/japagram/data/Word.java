@@ -23,6 +23,7 @@ public class Word implements Parcelable {
     private static final String COLUMN_WORD_UNIQUE_ID = "uniqueIdentifier";
     static final String COLUMN_WORD_ROMAJI = "romaji";
     static final String COLUMN_WORD_KANJI = "kanji";
+    private static final String COLUMN_WORD_FREQUENCY = "frequency";
     private static final String COLUMN_WORD_ALT_SPELLINGS = "altSpellings";
     private static final String COLUMN_WORD_MEANINGS_EN = "meaningsEN";
     private static final String COLUMN_WORD_MEANINGS_FR = "meaningsFR";
@@ -54,6 +55,7 @@ public class Word implements Parcelable {
         matchingConj = in.readString();
         romaji = in.readString();
         kanji = in.readString();
+        frequency = in.readInt();
         altSpellings = in.readString();
         isCommon = in.readByte() != 0;
         isLocal = in.readByte() != 0;
@@ -109,6 +111,15 @@ public class Word implements Parcelable {
     }
     public String getKanji() {
         return kanji;
+    }
+
+    @ColumnInfo(name = COLUMN_WORD_FREQUENCY)
+    private int frequency;
+    public void setFrequency(int frequency) {
+        this.frequency = frequency;
+    }
+    public int getFrequency() {
+        return frequency;
     }
 
     @ColumnInfo(name = COLUMN_WORD_ALT_SPELLINGS)
@@ -277,6 +288,7 @@ public class Word implements Parcelable {
         parcel.writeString(matchingConj);
         parcel.writeString(romaji);
         parcel.writeString(kanji);
+        parcel.writeInt(frequency);
         parcel.writeString(altSpellings);
         parcel.writeByte((byte) (isCommon? 1 : 0));
         parcel.writeByte((byte) (isLocal? 1 : 0));

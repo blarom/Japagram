@@ -6,6 +6,7 @@ import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -194,7 +195,7 @@ public class SearchByRadicalFragment extends Fragment implements
             showLoadingIndicator();
             mComponentGridCreationAsyncTask = new ComponentGridCreationAsyncTask(
                     getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mSelectedComponentStructure, this);
-            mComponentGridCreationAsyncTask.execute();
+            mComponentGridCreationAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void startFilteringComponentKanjiGridElementsAsynchronously() {
@@ -202,7 +203,7 @@ public class SearchByRadicalFragment extends Fragment implements
             showLoadingIndicator();
             mComponentsGridFilterAsyncTask = new ComponentsGridFilterAsyncTask(
                     getContext(), mComponentSelectionType, mRadicalsOnlyDatabase, mKanjiCharacterNameForFilter, mUnfilteredDisplayableComponentSelections, this);
-            mComponentsGridFilterAsyncTask.execute();
+            mComponentsGridFilterAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void startSearchingForKanjisAsynchronously(String[] elements_strings) {
@@ -210,7 +211,7 @@ public class SearchByRadicalFragment extends Fragment implements
             showLoadingIndicator();
 
             mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, this);
-            mKanjiSearchAsyncTask.execute();
+            mKanjiSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void filterComponentKanjiGridElements() {

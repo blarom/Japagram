@@ -367,7 +367,7 @@ public class MainActivity extends BaseActivity implements
     private void instantiateExtraDatabases() {
         Runnable instantiateRunnable = () -> {
             RoomExtendedDatabase.getInstance(this);
-            RoomNamesDatabase.getInstance(this);
+            if (mShowNames) RoomNamesDatabase.getInstance(this);
         };
         Thread instantiateThread = new Thread(instantiateRunnable);
         instantiateThread.start();

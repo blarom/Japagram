@@ -516,7 +516,8 @@
     <string name="antonyms_">Antonymes:</string>
     <string name="synonyms_">Synonymes:</string>
     <string name="explanation_">Explication:</string>
-    <string name="alternate_forms_">Formes alternatives:</string>
+    <string name="alternate_forms">Formes alternatives</string>
+    <string name="frequency">Rang de fréquence</string>
     <string name="conjugate">Conjuger</string>
     <string name="decompose">Décomposer</string>
     <string name="to_search_field">au champ de recherche</string>

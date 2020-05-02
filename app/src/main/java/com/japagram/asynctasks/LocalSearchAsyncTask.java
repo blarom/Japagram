@@ -61,7 +61,7 @@ public class LocalSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
             if (roomExtendedDatabase != null) localMatchingWordsList.addAll(roomExtendedDatabase.getWordListByWordIds(matchingWordIdsExtended));
             Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
-            RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && (mShowNames))? RoomNamesDatabase.getInstance(contextRef.get()) : null;
+            RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && mShowNames)? RoomNamesDatabase.getInstance(contextRef.get()) : null;
             if (roomNamesDatabase != null) {
                 List<Word> originalNames = roomNamesDatabase.getWordListByWordIds(matchingWordIdsNames);
                 Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");

@@ -525,7 +525,8 @@
     <string name="antonyms_">Antónimos:</string>
     <string name="synonyms_">Sinónimos:</string>
     <string name="explanation_">Explicación:</string>
-    <string name="alternate_forms_">Formas alternativas:</string>
+    <string name="alternate_forms">Formas alternativas</string>
+    <string name="frequency">Rango de frecuencia</string>
     <string name="conjugate">Conjugar</string>
     <string name="decompose">Descomponer</string>
     <string name="to_search_field">el campo de búsqueda</string>

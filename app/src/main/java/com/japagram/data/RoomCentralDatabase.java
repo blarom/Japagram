@@ -10,6 +10,7 @@ import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -48,6 +49,9 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public static synchronized RoomCentralDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
+                if (UtilitiesPrefs.getAppPreferenceDbVersionCentral(context) != Globals.CENTRAL_DB_VERSION) {
+                    throw new Exception();
+                }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
                         .databaseBuilder(context.getApplicationContext(), RoomCentralDatabase.class, "japagram_central_room_database")
@@ -63,6 +67,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                         .build();
 
                 sInstance.populateDatabases(context);
+                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             } catch (Exception e) {
                 //If migrations weren't set up from version X to verion X+1, do a destructive migration (rebuilds the db from sratch using the assets)
                 e.printStackTrace();
@@ -73,6 +78,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                         .build();
 
                 sInstance.populateDatabases(context);
+                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             }
         }
         return sInstance;
@@ -81,32 +87,26 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     private void populateDatabases(Context context) {
 
         if (word().count() == 0) {
+            word().nukeTable();
             UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadCentralDatabaseIntoRoomDb(context);
-                Log.i("Diagnosis Time", "Loaded Central Words & Verbs Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
+                Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
+            });
         }
         if (this.indexEnglish().count() == 0) {
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
-                Log.i("Diagnosis Time", "Loaded Central Indexes Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
-            UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
+                Log.i(Globals.DEBUG_TAG, "Loaded Central Indexes Database.");
+                UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
+                Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
+            });
         }
         UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, true);
 
@@ -125,6 +125,11 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<String[]> multExplFRDatabase       = Utilities.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
         List<String[]> multExplESDatabase       = Utilities.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
         List<String[]> examplesDatabase         = Utilities.readCSVFile("LineExamples - 3000 kanji.csv", context);
+        List<String> frequencies                = Utilities.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
+        HashMap<String, Integer> frequenciesHash = new HashMap<>();
+        for (int i=0; i<frequencies.size(); i++){
+            if (!frequenciesHash.containsKey(frequencies.get(i))) frequenciesHash.put(frequencies.get(i),i+1);
+        }
 
         //Removing the titles row in each sheet
         typesDatabase.remove(0);
@@ -153,7 +158,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
-                    examplesDatabase, i);
+                    examplesDatabase, frequenciesHash, i);
             wordList.add(word);
             if (wordList.size() % 2000 == 0) {
                 word().insertAll(wordList);
@@ -161,7 +166,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             }
         }
         word().insertAll(wordList);
-        Log.i("Diagnosis Time","Loaded Words Database.");
+        Log.i(Globals.DEBUG_TAG,"Loaded Words Database.");
 
         List<Verb> verbList = new ArrayList<>();
         for (int i=0; i<verbsDatabase.size(); i++) {
@@ -174,7 +179,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             }
         }
         verb().insertAll(verbList);
-        Log.i("Diagnosis Time","Loaded Verbs Database.");
+        Log.i(Globals.DEBUG_TAG,"Loaded Verbs Database.");
     }
 
     //Switches the internal implementation with an empty in-memory database

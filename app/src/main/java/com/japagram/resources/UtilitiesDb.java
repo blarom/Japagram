@@ -1,6 +1,7 @@
 package com.japagram.resources;
 
 import android.content.Context;
+import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -18,11 +19,13 @@ import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class UtilitiesDb {
     private static FirebaseDatabase mDatabase;
 
     //Database operations utilities
-    public static List<Word> getMergedWordsList(List<Word> localWords, List<Word> asyncWords, String languageCode) {
+    @NotNull
+    public static List<Word> getMergedWordsList(@NotNull List<Word> localWords, List<Word> asyncWords, String languageCode) {
 
         List<Word> finalWordsList = new ArrayList<>();
         List<Word> finalAsyncWords = new ArrayList<>(asyncWords);
@@ -43,6 +47,7 @@ public class UtilitiesDb {
             //Copying basic properties
             finalWord.setRomaji(currentLocalWord.getRomaji());
             finalWord.setKanji(currentLocalWord.getKanji());
+            finalWord.setFrequency(currentLocalWord.getFrequency());
             finalWord.setExtraKeywordsEN(currentLocalWord.getExtraKeywordsEN());
             finalWord.setExtraKeywordsFR(currentLocalWord.getExtraKeywordsFR());
             finalWord.setExtraKeywordsES(currentLocalWord.getExtraKeywordsES());
@@ -122,7 +127,8 @@ public class UtilitiesDb {
         return finalWordsList;
     }
 
-    public static List<Word> getDifferentAsyncWords(List<Word> localWords, List<Word> asyncWords) {
+    @NotNull
+    public static List<Word> getDifferentAsyncWords(List<Word> localWords, @NotNull List<Word> asyncWords) {
 
         List<Word> differentAsyncWords = new ArrayList<>();
         List<Word> remainingLocalWords = new ArrayList<>(localWords);
@@ -236,7 +242,8 @@ public class UtilitiesDb {
         return differentAsyncWords;
     }
 
-    public static List<Word> getCommonWords(List<Word> wordsList) {
+    @NotNull
+    public static List<Word> getCommonWords(@NotNull List<Word> wordsList) {
         List<Word> commonWords = new ArrayList<>();
         for (Word word : wordsList) {
             if (word.getIsCommon()) commonWords.add(word);
@@ -244,7 +251,8 @@ public class UtilitiesDb {
         return commonWords;
     }
 
-    public static List<long[]> bubbleSortForThreeIntegerList(List<long[]> MatchList) {
+    @NotNull
+    public static List<long[]> bubbleSortForThreeIntegerList(@NotNull List<long[]> MatchList) {
 
         // Sorting the results according to the shortest keyword as found in the above search
 
@@ -290,7 +298,7 @@ public class UtilitiesDb {
         return sortedMatchList;
     }
 
-    public static int getRankingFromWordAttributes(Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
+    public static int getRankingFromWordAttributes(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
         int ranking;
         String romaji_value = currentWord.getRomaji();
@@ -563,11 +571,18 @@ public class UtilitiesDb {
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
         if (romaji_value.equals(mInputQuery) || kanji_value.equals(mInputQuery)) ranking = 0;
 
+        //Penalizing for missing languages
         ranking += missingLanguagePenalty;
+
+        //Adding a bonus for high literary frequency
+        int frequency = currentWord.getFrequency();
+        ranking -= (20000 - ((frequency==0)? 20000 : frequency)) / 100;
 
         return ranking;
     }
 
+    @NotNull
+    @Contract("_, _, _, _ -> new")
     public static Object[] getMatchingWordIdsAndDoBasicFiltering(@NotNull InputQuery query, String language, boolean showNames, Context context) {
 
         //region Initializations
@@ -587,7 +602,7 @@ public class UtilitiesDb {
         if (RoomExtendedDatabase.getInstance(context) != null)
             matchingWordIdsExtended = getNormalMatches(query, language, true, context);
 
-        if (RoomNamesDatabase.getInstance(context) != null && showNames) {
+        if (showNames && UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context) && RoomNamesDatabase.getInstance(context) != null) {
             matchingWordIdsNames = addNamesToMatchesList(query, context);
         }
         //endregion
@@ -661,6 +676,7 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
+    @NotNull
     private static List<Long> getMatchingWordIdsWithLimits(InputQuery query, String language, boolean use_extended_db, Context context) {
 
         List<Long> matchingWordIds = getMatchingWordIds(false, query, language, use_extended_db, context);
@@ -681,7 +697,8 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static boolean stringContainsItemFromList(String inputStr, List<String> items) {
+    @Contract(pure = true)
+    private static boolean stringContainsItemFromList(String inputStr, @NotNull List<String> items) {
         for (String item : items) {
             if (inputStr.contains(item)) {
                 return true;
@@ -690,7 +707,8 @@ public class UtilitiesDb {
         return false;
     }
 
-    private static boolean listContainsItemFromList(List<String> list1, List<String> list2) {
+    @Contract(pure = true)
+    private static boolean listContainsItemFromList(@NotNull List<String> list1, List<String> list2) {
         for (String item1 : list1) {
             for (String item : list2) {
                 if (item1.contains(item)) {
@@ -764,7 +782,8 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addNamesToMatchesList(InputQuery query, Context context) {
+    @NotNull
+    private static List<Long> addNamesToMatchesList(@NotNull InputQuery query, Context context) {
 
         List<Long> matchingWordIdsNames = findQueryInNameIndices(query.getOriginalCleaned(), false, query.getOriginalType(), context);
 
@@ -781,7 +800,7 @@ public class UtilitiesDb {
         return matchingWordIdsNames;
     }
 
-    private static boolean meaningsContainExactQueryMatch(List<String> searchWords, Word word, String language) {
+    private static boolean meaningsContainExactQueryMatch(List<String> searchWords, Word word, @NotNull String language) {
 
         List<Word.Meaning> meanings = new ArrayList<>();
         switch (language) {
@@ -806,7 +825,7 @@ public class UtilitiesDb {
         return !Collections.disjoint(meaningSet, searchWords);
     }
 
-    private static String getCombinedMeanings(Word word, String language) {
+    private static String getCombinedMeanings(Word word, @NotNull String language) {
         List<String> meanings = new ArrayList<>();
         switch (language) {
             case Globals.LANG_STR_EN:
@@ -834,6 +853,7 @@ public class UtilitiesDb {
         return TextUtils.join(", ", meanings);
     }
 
+    @NotNull
     private static List<Long> getAdjectivesFromConjugation(InputQuery query , Context context) {
 
         List<Long> matchingWordIds = new ArrayList<>();
@@ -857,7 +877,8 @@ public class UtilitiesDb {
         return matchingWordIds;
     }
 
-    private static List<Long> addCountersToMatchesList(InputQuery query, Context context) {
+    @NotNull
+    private static List<Long> addCountersToMatchesList(@NotNull InputQuery query, Context context) {
         if (query.getSearchType() != Globals.TYPE_KANJI) return new ArrayList<>();
         List<String> potentialCounters = new ArrayList<>();
         for (String word : query.getSearchQueriesKanji()) {
@@ -1132,6 +1153,7 @@ public class UtilitiesDb {
         return finalIndexList;
     }
 
+    @NotNull
     private static List<Object> findQueryInRomajiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
@@ -1150,6 +1172,7 @@ public class UtilitiesDb {
         }
         return matchingIndices;
     }
+    @NotNull
     private static List<Object> findQueryInNonJapIndices(List<String> searchQueries, boolean exactSearch, String language, boolean use_extended_db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
@@ -1234,7 +1257,8 @@ public class UtilitiesDb {
         }
     }
 
-    public static String getRomajiNoSpacesForSpecialPartsOfSpeech(String romaji) {
+    @NotNull
+    public static String getRomajiNoSpacesForSpecialPartsOfSpeech(@NotNull String romaji) {
         return romaji.replace(" ni", "ni")
                 .replace(" de", "de")
                 .replace(" wo", "wo")
@@ -1242,11 +1266,11 @@ public class UtilitiesDb {
                 .replace(" na", "na");
     }
 
-    public static boolean wordsAreEquivalent(Word wordA, Word wordB) {
+    public static boolean wordsAreEquivalent(@NotNull Word wordA, @NotNull Word wordB) {
         return wordA.getRomaji().trim().equals(wordB.getRomaji().trim()) && wordA.getKanji().trim().equals(wordB.getKanji().trim());
     }
 
-    public static boolean wordsAreSimilar(Word wordA, String wordB) {
+    public static boolean wordsAreSimilar(@NotNull Word wordA, String wordB) {
         return wordA.getRomaji().trim().equals(wordB) || wordA.getKanji().trim().equals(wordB);
     }
 
@@ -1260,6 +1284,7 @@ public class UtilitiesDb {
         return mDatabase;
     }
 
+    @NotNull
     public static String cleanIdentifierForFirebase(String string) {
         if (TextUtils.isEmpty(string)) return "";
         string = string.replaceAll("\\.", "*");
@@ -1272,7 +1297,7 @@ public class UtilitiesDb {
         return string;
     }
 
-    public static void checkDatabaseStructure(List<String[]> databaseFromCsv, String databaseName, int numColumns) {
+    public static void checkDatabaseStructure(@NotNull List<String[]> databaseFromCsv, String databaseName, int numColumns) {
         for (String[] line : databaseFromCsv) {
             if (line.length < numColumns) {
                 Log.v("JapaneseToolbox", "Serious error in row [" + line[0] + "] in " + databaseName + ": CSV file row has less columns than expected! Check for accidental line breaks.");
@@ -1281,14 +1306,17 @@ public class UtilitiesDb {
         }
     }
 
-    public static Word createWordFromCsvDatabases(List<String[]> centralDatabase,
+    @NotNull
+    public static Word createWordFromCsvDatabases(@NotNull List<String[]> centralDatabase,
                                                   List<String[]> meaningsENDatabase,
                                                   List<String[]> meaningsFRDatabase,
                                                   List<String[]> meaningsESDatabase,
                                                   List<String[]> multExplENDatabase,
                                                   List<String[]> multExplFRDatabase,
                                                   List<String[]> multExplESDatabase,
-                                                  List<String[]> examplesDatabase, int centralDbRowIndex) {
+                                                  List<String[]> examplesDatabase,
+                                                  @NotNull HashMap<String, Integer> frequenciesHash,
+                                                  int centralDbRowIndex) {
 
         Word word = new Word();
 
@@ -1303,6 +1331,18 @@ public class UtilitiesDb {
         //Getting the Kanji value
         String matchingWordKanji = centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_KANJI];
         word.setKanji(matchingWordKanji);
+
+        //Setting the frequency
+        if (matchingWordKanji.equals("為る")) {
+            word.setFrequency(frequenciesHash.get("する"));
+        } else {
+            String key = matchingWordKanji.replace("～", "").replaceAll("する$", "");
+            if (frequenciesHash.containsKey(key)) word.setFrequency(frequenciesHash.get(key));
+            else {
+                String katakana = InputQuery.getWaapuroHiraganaKatakana(matchingWordRomaji).get(Globals.TYPE_KATAKANA);
+                if (frequenciesHash.containsKey(katakana)) word.setFrequency(frequenciesHash.get(katakana));
+            }
+        }
 
         //Setting the unique identifier
         word.setUniqueIdentifier(matchingWordRomaji + "-" + matchingWordKanji);
@@ -1339,7 +1379,8 @@ public class UtilitiesDb {
         return word;
     }
 
-    static Word createWordFromExtendedDatabase(String[] extendedDatabaseRow) {
+    @NotNull
+    static Word createWordFromExtendedDatabase(@NotNull String[] extendedDatabaseRow) {
 
         Word word = new Word();
         word.setWordId(Long.parseLong(extendedDatabaseRow[Globals.XDB_COL_INDEX]));
@@ -1392,7 +1433,8 @@ public class UtilitiesDb {
         return word;
     }
 
-    static Word createWordFromNamesDatabase(String[] namesDatabaseRow) {
+    @NotNull
+    static Word createWordFromNamesDatabase(@NotNull String[] namesDatabaseRow) {
 
         Word word = new Word();
         word.setWordId(Long.parseLong(namesDatabaseRow[Globals.NDB_COL_INDEX]));
@@ -1430,8 +1472,9 @@ public class UtilitiesDb {
         return word;
     }
 
+    @NotNull
     private static List<Word.Meaning> getMeanings(List<String[]> centralDatabase, List<String[]> meaningsDatabase, int meaningsColumn,
-                                                  List<String[]> multExplDatabase, List<String[]> examplesDatabase, int centralDbRowIndex, String language) {
+                                                  List<String[]> multExplDatabase, List<String[]> examplesDatabase, int centralDbRowIndex, @NotNull String language) {
 
         //Initializations
         int example_index;
@@ -1595,7 +1638,8 @@ public class UtilitiesDb {
         return meaningsList;
     }
 
-    public static Verb createVerbFromCsvDatabase(List<String[]> verbDatabase, List<String[]> meaningsDatabase, int verbDbRowIndex) {
+    @NotNull
+    public static Verb createVerbFromCsvDatabase(@NotNull List<String[]> verbDatabase, List<String[]> meaningsDatabase, int verbDbRowIndex) {
 
         // Value Initializations
         Verb verb = new Verb();
@@ -1662,7 +1706,8 @@ public class UtilitiesDb {
     }
 
     //Conjugator Module utilities
-    public static List<ConjugationTitle> getConjugationTitles(List<String[]> verbLatinConjDatabase, Context context) {
+    @NotNull
+    public static List<ConjugationTitle> getConjugationTitles(@NotNull List<String[]> verbLatinConjDatabase, Context context) {
 
         String[] titlesRow = verbLatinConjDatabase.get(0);
         String[] subtitlesRow = verbLatinConjDatabase.get(1);
@@ -1720,7 +1765,7 @@ public class UtilitiesDb {
         return conjugationTitles;
     }
 
-    @NotNull public static List<String[]> removeSpacesFromConjDb(List<String[]> db) {
+    @NotNull public static List<String[]> removeSpacesFromConjDb(@NotNull List<String[]> db) {
         List<String[]> newDb = new ArrayList<>();
         String[] currentItems;
         int length = db.get(0).length;

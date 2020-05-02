@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -659,7 +660,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         if (getActivity()!=null) {
             showLoadingIndicator();
             mKanjiCharacterDecompositionAsyncTask = new KanjiCharacterDecompositionAsyncTask(getContext(), inputKanjiAtIndex, radicalIteration, mRadicalsOnlyDatabase, kanjiListIndex, this);
-            mKanjiCharacterDecompositionAsyncTask.execute();
+            mKanjiCharacterDecompositionAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void showLoadingIndicator() {

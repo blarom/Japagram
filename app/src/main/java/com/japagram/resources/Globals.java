@@ -23,10 +23,10 @@ public final class Globals {
     public static List<String[]> RadicalsOnlyDatabase;
     public static List<String[]> Romanizations;
 
-    public static final int CENTRAL_DB_VERSION = 106;
+    public static final int CENTRAL_DB_VERSION = 119;
     public static final int KANJI_DB_VERSION = 21;
-    public static final int EXTENDED_DB_VERSION = 12;
-    public static final int NAMES_DB_VERSION = 2;
+    public static final int EXTENDED_DB_VERSION = 22;
+    public static final int NAMES_DB_VERSION = 12;
 
     public static final float extendedDbLinesWords = 162314.f;
     public static final float extendedDbSizeWords = 12917.f;

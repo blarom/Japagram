@@ -38,6 +38,9 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
     public static synchronized RoomNamesDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
+                if (UtilitiesPrefs.getAppPreferenceDbVersionNames(context) != Globals.NAMES_DB_VERSION) {
+                    throw new Exception();
+                }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
                         .databaseBuilder(context.getApplicationContext(), RoomNamesDatabase.class, "japagram_names_room_database")
@@ -67,28 +70,20 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
         if (word().count() == 0 || indexRomaji().count() == 0) {
             word().nukeTable();
             UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
-                Log.i("Diagnosis Time","Loaded Names Words Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
+                Log.i(Globals.DEBUG_TAG,"Loaded Names Words Database.");
+            });
         }
         if (this.indexRomaji().count() == 0) {
-            beginTransaction();
-            try {
+            runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
                 Utilities.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
-                Log.i("Diagnosis Time","Loaded Names Indexes Database.");
-                setTransactionSuccessful();
-            } finally {
-                endTransaction();
-            }
-            UtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
+                Log.i(Globals.DEBUG_TAG,"Loaded Names Indexes Database.");
+                UtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
+            });
         }
         UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, true);
         UtilitiesPrefs.setProgressValueNamesDb(context, 100);

@@ -1568,6 +1568,37 @@ public final class Utilities {
     }
 
     @NotNull
+    public static List<String> readSingleColumnFile(String filename, Context context) {
+
+        List<String> mySheet = new ArrayList<>();
+
+        BufferedReader fileReader = null;
+
+        try {
+            String line;
+            fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
+
+            while ((line = fileReader.readLine()) != null) {
+                mySheet.add(line);
+            }
+        } catch (Exception e) {
+            System.out.println("Error in CsvFileReader !!!");
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fileReader != null) {
+                    fileReader.close();
+                }
+            } catch (IOException e) {
+                System.out.println("Error while closing fileReader !!!");
+                e.printStackTrace();
+            }
+        }
+
+        return mySheet;
+    }
+
+    @NotNull
     public static List<String[]> readCSVFile(String filename, Context context) {
 
         List<String[]> mySheet = new ArrayList<>();

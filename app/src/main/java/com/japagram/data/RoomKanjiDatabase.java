@@ -26,6 +26,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     //Adapted from: https://github.com/googlesamples/android-architecture-components/blob/master/PersistenceContentProviderSample/app/src/main/java/com/example/android/contentprovidersample/data/SampleDatabase.java
 
     //return The DAO for the tables
+    @SuppressWarnings("WeakerAccess")
     public abstract KanjiCharacterDao kanjiCharacter();
     public abstract KanjiComponentDao kanjiComponent();
 
@@ -35,6 +36,9 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     public static synchronized RoomKanjiDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
+                if (UtilitiesPrefs.getAppPreferenceDbVersionKanji(context) != Globals.KANJI_DB_VERSION) {
+                    throw new Exception();
+                }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
                         .databaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class, "japanese_toolbox_kanji_room_database")
@@ -70,14 +74,18 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
         if (kanjiCharacter().count() == 0) {
             UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
-            if (Looper.myLooper() == null) Looper.prepare();
-            loadKanjiCharactersIntoRoomDb(context);
-            Log.i("Diagnosis Time", "Loaded Room Kanji Characters Database.");
+            runInTransaction(() -> {
+                if (Looper.myLooper() == null) Looper.prepare();
+                loadKanjiCharactersIntoRoomDb(context);
+                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Characters Database.");
+            });
         }
         if (kanjiComponent().count() == 0) {
-            if (Looper.myLooper() == null) Looper.prepare();
-            Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
-            Log.i("Diagnosis Time", "Loaded Room Kanji Components Database.");
+            runInTransaction(() -> {
+                if (Looper.myLooper() == null) Looper.prepare();
+                Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
+            });
             UtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
         }
         UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
