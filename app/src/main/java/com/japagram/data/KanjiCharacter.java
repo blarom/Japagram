@@ -26,6 +26,7 @@ public class KanjiCharacter  {
     static final String COLUMN_KANJI_MEANINGS_FR = "meaningsFR";
     static final String COLUMN_KANJI_MEANINGS_ES = "meaningsES";
     static final String COLUMN_KANJI_RADICAL_PLUS_STROKES = "radPlusStrokes";
+    static final String COLUMN_KANJI_USED_IN_JAP = "usedinjap";
 
     public KanjiCharacter() {
     }
@@ -157,4 +158,13 @@ public class KanjiCharacter  {
             return u1.getHexIdentifier().compareTo(u2.getHexIdentifier());
         }
     };
+
+    @ColumnInfo(name = COLUMN_KANJI_USED_IN_JAP)
+    private int usedInJapanese;
+    public void setUsedInJapanese(int usedInJapanese) {
+        this.usedInJapanese = usedInJapanese;
+    }
+    public int getUsedInJapanese() {
+        return usedInJapanese;
+    }
 }

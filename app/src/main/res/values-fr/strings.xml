@@ -31,6 +31,8 @@
     <string name="shown_info_boxes">Afficher des textes contextuels informatifs lors de la recherche</string>
     <string name="hidden_decomp_structure_info">Ne pas afficher d\'explication sur la structure du Kanji</string>
     <string name="shown_decomp_structure_info">Afficher l\'explication sur la structure du Kanji décomposé</string>
+    <string name="hidden_only_jap_characters">Afficher tous les caractères CJK (Chinois-Japonais-Coréen) lors d\'une recherche avec radicaux</string>
+    <string name="shown_only_jap_characters">Afficher seulement les caractères utilisés dans le Japonais lors d\'une recherche avec radicaux</string>
     <string name="complete_local_with_names_search">Rechercher les noms</string>
     <string name="complete_local_with_online_search">Rechercher des mots en ligne</string>
     <string name="wait_for_online_results">Attendre les résultats en ligne</string>
@@ -42,6 +44,7 @@
     <string name="pref_show_meanings_ES">Afficher Senses Espagnoles</string>
     <string name="show_info_boxes_when_searching">Afficher Boîtes d\'Info sur la Recherche</string>
     <string name="show_decomp_structure_info_text">Afficher Infos sur Structure</string>
+    <string name="show_only_jap_characters_text">Afficher Seulement Caractères Japonais</string>
     <string name="language_label_japanese">Japonais</string>
     <string name="language_label_english">Anglais (É.U.)</string>
     <string name="pref_preferred_STT_language">Langue de Parole-Texte</string>
@@ -284,6 +287,7 @@
     <string name="this_component_is_a_CJK_character">Ce composant est un caractère CJK.</string>
     <string name="search_for_radical_search_too_broad">Votre recherche est trop large. Veuillez sélectionner une autre structure ou sélectionner des éléments de kanji pour affiner la recherche.</string>
     <string name="search_by_radical_no_results_found">Aucun résultat trouvé pour vos sélections.</string>
+    <string name="search_by_radical_no_jap_results_found">Aucun caractère japonais trouvé pour vos sélections. Pour voir tous les résultats, désélectionnez \"Afficher uniquement les caractères japonais\" dans Options\>Outils pour Kanji.</string>
     <string name="copy_to_input">Copier à l\'input</string>
     <string name="clear_search_history">Effacer l\'historique</string>
     <string name="image_adjustment_hint">l\'image originale présente une saturation de 1.0 (couleurs normales), un contraste de 1.0 et une luminosité de 0.
@@ -342,7 +346,7 @@
     <string name="languages">Langues</string>
     <string name="speech">Parole</string>
     <string name="optical_character_recognition">Reconnaissance Optique de Caractères</string>
-    <string name="decomposition">Décomposition</string>
+    <string name="kanji_tools">Outils pour Kanjis</string>
     <string name="verb">verbe</string>
     <string name="from_alt_form">De la forme alt.</string>
     <string name="from_alt_form_containing">De la forme alt. contenant</string>

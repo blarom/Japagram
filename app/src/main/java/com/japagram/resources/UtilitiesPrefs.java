@@ -9,6 +9,8 @@ import android.util.TypedValue;
 
 import com.japagram.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.annotation.ColorInt;
 import androidx.preference.PreferenceManager;
 
@@ -78,13 +80,23 @@ public final class UtilitiesPrefs {
     }
 
     public static Boolean getPreferenceShowInfoBoxesOnSearch(Activity activity) {
-        boolean showInfoBoxesOnSearch = false;
+        boolean state = false;
         if (activity != null) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-            showInfoBoxesOnSearch = sharedPreferences.getBoolean(activity.getString(R.string.pref_show_info_boxes_on_search_key),
+            state = sharedPreferences.getBoolean(activity.getString(R.string.pref_show_info_boxes_on_search_key),
                     activity.getResources().getBoolean(R.bool.pref_show_info_boxes_on_search_default));
         }
-        return showInfoBoxesOnSearch;
+        return state;
+    }
+
+    public static boolean getAppPreferenceShowOnlyJapCharacters(Activity activity) {
+        boolean state = false;
+        if (activity != null) {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+            state = sharedPreferences.getBoolean(activity.getString(R.string.pref_show_only_jap_characters_key),
+                    activity.getResources().getBoolean(R.bool.pref_show_info_boxes_on_search_default));
+        }
+        return state;
     }
 
     public static Boolean getPreferenceUseJapaneseFont(Activity activity) {
@@ -133,7 +145,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceKanjiDatabaseFinishedLoadingFlag(Context context) {
+    public static boolean getAppPreferenceKanjiDatabaseFinishedLoadingFlag(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.database_finished_loading_flag), false);
     }
@@ -147,7 +159,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(Context context) {
+    public static boolean getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.word_and_verb_database_finished_loading_flag), false);
     }
@@ -161,7 +173,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceExtendedDatabasesFinishedLoadingFlag(Context context) {
+    public static boolean getAppPreferenceExtendedDatabasesFinishedLoadingFlag(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.extended_database_finished_loading_flag), false);
     }
@@ -175,7 +187,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceNamesDatabasesFinishedLoadingFlag(Context context) {
+    public static boolean getAppPreferenceNamesDatabasesFinishedLoadingFlag(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.names_database_finished_loading_flag), false);
     }
@@ -189,7 +201,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceFirstTimeRunningApp(Context context) {
+    public static boolean getAppPreferenceFirstTimeRunningApp(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.first_time_installing_flag), true);
     }
@@ -203,7 +215,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceCompleteWithNames(Context context) {
+    public static boolean getAppPreferenceCompleteWithNames(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.pref_search_names_no_matter_what), true);
     }
@@ -217,7 +229,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static int getAppPreferenceDbVersionCentral(Context context) {
+    public static int getAppPreferenceDbVersionCentral(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getInt(context.getString(R.string.pref_db_version_central), 1);
     }
@@ -231,7 +243,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static int getAppPreferenceDbVersionKanji(Context context) {
+    public static int getAppPreferenceDbVersionKanji(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getInt(context.getString(R.string.pref_db_version_kanji), 1);
     }
@@ -245,7 +257,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static int getAppPreferenceDbVersionExtended(Context context) {
+    public static int getAppPreferenceDbVersionExtended(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getInt(context.getString(R.string.pref_db_version_extended), 1);
     }
@@ -259,7 +271,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static int getAppPreferenceDbVersionNames(Context context) {
+    public static int getAppPreferenceDbVersionNames(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getInt(context.getString(R.string.pref_db_version_names), 1);
     }
@@ -273,7 +285,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static float getProgressValueExtendedDb(Context context) {
+    public static float getProgressValueExtendedDb(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getFloat(context.getString(R.string.progress_value_extended_db), 0.f);
     }
@@ -287,7 +299,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static float getProgressValueNamesDb(Context context) {
+    public static float getProgressValueNamesDb(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getFloat(context.getString(R.string.progress_value_names_db), 0.f);
     }
@@ -301,7 +313,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    static String getAppPreferenceColorTheme(Context context) {
+    static String getAppPreferenceColorTheme(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_lightredblack));
     }
@@ -326,7 +338,7 @@ public final class UtilitiesPrefs {
         return changeThemeColor;
     }
 
-    public static int getResColorValue(Context context, int res_value) {
+    public static int getResColorValue(@NotNull Context context, int res_value) {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = context.getTheme();
         theme.resolveAttribute(res_value, typedValue, true);

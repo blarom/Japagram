@@ -40,6 +40,10 @@ public interface KanjiCharacterDao {
     @Query("SELECT " + KanjiCharacter.COLUMN_KANJI + " FROM " + KanjiCharacter.TABLE_NAME)
     List<String> getAllKanjis();
 
+    //Get all Kanjis used in Japanese
+    @Query("SELECT " + KanjiCharacter.COLUMN_KANJI + " FROM " + KanjiCharacter.TABLE_NAME + " WHERE " + KanjiCharacter.COLUMN_KANJI_USED_IN_JAP + " = 1")
+    List<String> getAllKanjisUsedInJapanese();
+
     //Get a KanjiCharacter by Id
     @Query("SELECT * FROM " + KanjiCharacter.TABLE_NAME + " WHERE " + KanjiCharacter.COLUMN_KANJI_HEX_ID + " = :hexId")
     KanjiCharacter getKanjiCharacterByHexId(String hexId);
@@ -47,6 +51,10 @@ public interface KanjiCharacterDao {
     //Get a KanjiCharacter list by Ids
     @Query("SELECT * FROM " + KanjiCharacter.TABLE_NAME + " WHERE " + KanjiCharacter.COLUMN_KANJI_HEX_ID + " IN (:hexIdList)")
     List<KanjiCharacter> getKanjiCharactersByHexIdList(List<String> hexIdList);
+
+    //Get a KanjiCharacter list by Ids
+    @Query("SELECT * FROM " + KanjiCharacter.TABLE_NAME + " WHERE " + KanjiCharacter.COLUMN_KANJI_USED_IN_JAP + " = 1")
+    List<KanjiCharacter> getKanjiCharactersUsedInJapanese();
 
     //Get a KanjiCharacter list by Descriptor
     @Query("SELECT * FROM " + KanjiCharacter.TABLE_NAME + " WHERE "

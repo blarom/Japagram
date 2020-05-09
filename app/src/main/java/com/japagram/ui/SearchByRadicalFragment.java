@@ -97,7 +97,7 @@ public class SearchByRadicalFragment extends Fragment implements
     private int mSelectedEditTextId;
     private int mSelectedOverallStructureId;
     private int mTempSelectedStructureId;
-    private List<String> mPrintableSearchResults;
+    private List<String> mSearchResultsFinal;
     private KanjiGridRecyclerViewAdapter mComponentsGridAdapter;
     private KanjiGridRecyclerViewAdapter mResultsGridAdapter;
     private int mNumberOfResultGridColumns;
@@ -209,8 +209,8 @@ public class SearchByRadicalFragment extends Fragment implements
     private void startSearchingForKanjisAsynchronously(String[] elements_strings) {
         if (getActivity()!=null) {
             showLoadingIndicator();
-
-            mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, this);
+            boolean getOnlyCharsUsedInJapanese = UtilitiesPrefs.getAppPreferenceShowOnlyJapCharacters(getActivity());
+            mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, getOnlyCharsUsedInJapanese, this);
             mKanjiSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -417,12 +417,12 @@ public class SearchByRadicalFragment extends Fragment implements
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfResultGridColumns);
         mResultsGridRecyclerView.setLayoutManager(layoutManager);
-        if (mResultsGridAdapter==null) mResultsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mPrintableSearchResults, true, mDroidSansJapaneseTypeface);
-        else mResultsGridAdapter.setContents(mPrintableSearchResults);
+        if (mResultsGridAdapter==null) mResultsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mSearchResultsFinal, true, mDroidSansJapaneseTypeface);
+        else mResultsGridAdapter.setContents(mSearchResultsFinal);
         mResultsGridRecyclerView.setAdapter(mResultsGridAdapter);
 
         ViewGroup.LayoutParams params = mResultsGridRecyclerView.getLayoutParams();
-        if (mPrintableSearchResults.size() <= 56) {
+        if (mSearchResultsFinal.size() <= 56) {
             mResultsGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
         else {
@@ -628,48 +628,52 @@ public class SearchByRadicalFragment extends Fragment implements
         mSelectedComponent = mDisplayableComponentSelections.get(clickedPosition).substring(0,1);
     }
     @Override public void onSearchResultClicked(int clickedPosition) {
-        searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mPrintableSearchResults.get(clickedPosition));
+        searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mSearchResultsFinal.get(clickedPosition));
     }
 
     //Communication with AsyncTasks
     @Override public void onKanjiSearchAsyncTaskResultsFound(Object[] dataElements) {
         if (getContext()==null) return;
 
-        List<String> search_results = (List<String>) dataElements[0];
-        boolean searchTooBroad = (boolean) dataElements[1];
+        List<String> searchResultsRaw = (List<String>) dataElements[0];
+        int searchResultType = (int) dataElements[1];
 
         hideLoadingIndicator();
 
         //Displaying only the search results that have a glyph in the font
-        mPrintableSearchResults = new ArrayList<>();
+        mSearchResultsFinal = new ArrayList<>();
+        List<String> searchResultsPrintable = new ArrayList<>();
         String value;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            for (int i = 0; i < search_results.size(); i++) {
-                value = search_results.get(i);
+            for (int i = 0; i < searchResultsRaw.size(); i++) {
+                value = searchResultsRaw.get(i);
                 if (value.length()>0 && Utilities.isPrintable(value.substring(0, 1))) {
-                    mPrintableSearchResults.add(search_results.get(i));
+                    searchResultsPrintable.add(searchResultsRaw.get(i));
                 }
             }
         }
         else {
-            mPrintableSearchResults = search_results;
+            searchResultsPrintable = searchResultsRaw;
         }
 
         //Displaying only the first 400 values to prevent overload
         List<String> selections = new ArrayList<>();
         int display_limit = 400;
-        for (int i = 0; i < mPrintableSearchResults.size(); i++) {
-            selections.add(mPrintableSearchResults.get(i));
+        for (int i = 0; i < searchResultsPrintable.size(); i++) {
+            selections.add(searchResultsPrintable.get(i));
             if (i>display_limit) break;
         }
-        mPrintableSearchResults = selections;
+        mSearchResultsFinal = selections;
 
         //Displaying the results grid
-        if (searchTooBroad) showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_for_radical_search_too_broad));
-        else if (mPrintableSearchResults.size() != 0) createResultsGrid();
-        else showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_results_found));
+        if (searchResultType == Globals.KANJI_SEARCH_RESULT_SEARCH_TOO_BROAD) showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_for_radical_search_too_broad));
+        else if (searchResultType == Globals.KANJI_SEARCH_RESULT_DEFAULT) createResultsGrid();
+        else if (searchResultType == Globals.KANJI_SEARCH_RESULT_NO_JAP_RESULTS) {
+            showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_jap_results_found));
+        } else if (searchResultType == Globals.KANJI_SEARCH_RESULT_NO_RESULTS){
+            showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_results_found));
+        }
 
-        //createSearchResultsGrid(printable_search_results, searchTooBroad);
     }
     @Override public void onComponentGridCreationAsyncTaskDone(List<String> data) {
         if (getContext()==null) return;

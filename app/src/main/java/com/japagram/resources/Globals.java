@@ -24,9 +24,14 @@ public final class Globals {
     public static List<String[]> Romanizations;
 
     public static final int CENTRAL_DB_VERSION = 119;
-    public static final int KANJI_DB_VERSION = 21;
+    public static final int KANJI_DB_VERSION = 25;
     public static final int EXTENDED_DB_VERSION = 22;
     public static final int NAMES_DB_VERSION = 12;
+
+    public static final int KANJI_SEARCH_RESULT_DEFAULT = 0;
+    public static final int KANJI_SEARCH_RESULT_SEARCH_TOO_BROAD = 1;
+    public static final int KANJI_SEARCH_RESULT_NO_RESULTS = 2;
+    public static final int KANJI_SEARCH_RESULT_NO_JAP_RESULTS = 3;
 
     public static final float extendedDbLinesWords = 162314.f;
     public static final float extendedDbSizeWords = 12917.f;

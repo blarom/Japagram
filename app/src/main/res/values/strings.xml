@@ -36,6 +36,8 @@
     <string name="shown_info_boxes">Show informative popup texts on search</string>
     <string name="hidden_decomp_structure_info">Don\'t show Kanji structure explanation</string>
     <string name="shown_decomp_structure_info">Show decomposed Kanji structure explanation</string>
+    <string name="hidden_only_jap_characters">Show all CJK (Chinese-Japanese-Korean) characters when performing a radical search</string>
+    <string name="shown_only_jap_characters">Show only characters used in Japanese when performing a radical search</string>
     <string name="pref_complete_local_with_names_search_key" translatable="false">complete_local_with_names_search</string>
     <string name="pref_search_names_no_matter_what" translatable="false">search_names_no_matter_what</string>
     <string name="pref_complete_local_with_online_search_key" translatable="false">complete_local_with_online_search</string>
@@ -49,6 +51,7 @@
     <string name="pref_show_meanings_ES_key" translatable="false">show_meanings_ES</string>
     <string name="pref_show_info_boxes_on_search_key" translatable="false">show_info_boxes_on_search</string>
     <string name="pref_show_decomp_structure_info_key" translatable="false">show_decomp_structure_info</string>
+    <string name="pref_show_only_jap_characters_key" translatable="false">show_only_jap_characters</string>
     <string name="pref_show" translatable="false">complete_local_with_online_search</string>
     <string name="complete_local_with_names_search">Search for names</string>
     <string name="complete_with_names">Complete with names</string>
@@ -63,6 +66,7 @@
     <string name="pref_show_meanings_ES">Show Spanish Meanings</string>
     <string name="show_info_boxes_when_searching">Show Info Boxes On Search</string>
     <string name="show_decomp_structure_info_text">Show Decomp. Structure Text</string>
+    <string name="show_only_jap_characters_text">Show Only Japanese Characters</string>
     <string name="language_label_japanese">Japanese</string>
     <string name="theme_color_label_lightbluegreen">Blue-Green, Light Background</string>
     <string name="theme_color_label_lightredblack">Red-Black, Light Background</string>
@@ -421,6 +425,7 @@
     <string name="this_component_is_a_CJK_character">This component is a CJK Character.</string>
     <string name="search_for_radical_search_too_broad">Your search is too broad. Please select another structure or select Kanji elements to narrow the search.</string>
     <string name="search_by_radical_no_results_found">No results found for your selections.</string>
+    <string name="search_by_radical_no_jap_results_found">No japanese characters found for your selections. To see all results, deselect \"Show Only Japanese Characters\" in Options\>Kanji Tools.</string>
     <string name="similars_database" translatable="false">similars_database</string>
     <string name="copy_to_input">Copy to input</string>
     <string name="clear_search_history">Clear Search History</string>
@@ -477,7 +482,7 @@
     <string name="languages">Languages</string>
     <string name="speech">Speech</string>
     <string name="optical_character_recognition">Optical Character Recognition</string>
-    <string name="decomposition">Decomposition</string>
+    <string name="kanji_tools">Kanji Tools</string>
     <string name="verb">verb</string>
     <string name="from_alt_form">From alt. form</string>
     <string name="from_alt_form_containing">From alt. form containing</string>

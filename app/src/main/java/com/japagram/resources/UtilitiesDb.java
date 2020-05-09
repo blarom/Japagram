@@ -22,6 +22,8 @@ import com.japagram.data.Word;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -33,6 +35,28 @@ public class UtilitiesDb {
     private static FirebaseDatabase mDatabase;
 
     //Database operations utilities
+    @NotNull
+    public static String getHexId(@NotNull String word) {
+        byte[] bytes;
+        StringBuilder sb = new StringBuilder();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            bytes = word.getBytes(StandardCharsets.UTF_8);
+            for (byte b : bytes) {
+                sb.append(String.format("%02X", b));
+            }
+        } else {
+            try {
+                bytes = word.getBytes("UTF-8");
+                for (byte b : bytes) {
+                    sb.append(String.format("%02X", b));
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+        return "1." + sb.toString().toUpperCase();
+    }
+
     @NotNull
     public static List<Word> getMergedWordsList(@NotNull List<Word> localWords, List<Word> asyncWords, String languageCode) {
 
@@ -545,7 +569,7 @@ public class UtilitiesDb {
         if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 1000;
 
         //If one of the elements in altSpellings is a perfect match, the ranking improves
-        for (String element : altSpellings_value.split(",")) {
+        for (String element : altSpellings_value.split(Globals.DB_ELEMENTS_DELIMITER)) {
             if (mInputQuery.equals(element.trim())) {
                 ranking -= 70;
                 break;

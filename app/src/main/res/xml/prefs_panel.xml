@@ -93,7 +93,7 @@
 
 
     <PreferenceCategory
-        android:title="@string/decomposition" />
+        android:title="@string/kanji_tools" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_decomp_structure_info_default"
@@ -101,6 +101,13 @@
         android:summaryOff="@string/hidden_decomp_structure_info"
         android:summaryOn="@string/shown_decomp_structure_info"
         android:title="@string/show_decomp_structure_info_text" />
+
+    <CheckBoxPreference
+        android:defaultValue="@bool/pref_show_only_jap_characters_default"
+        android:key="@string/pref_show_only_jap_characters_key"
+        android:summaryOff="@string/hidden_only_jap_characters"
+        android:summaryOn="@string/shown_only_jap_characters"
+        android:title="@string/show_only_jap_characters_text" />
 
     <PreferenceCategory
         android:title="@string/speech" />

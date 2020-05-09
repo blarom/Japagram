@@ -109,6 +109,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
                 kanjiCharacter.setMeaningsEN(KanjiDict_Database.get(i)[2]);
                 kanjiCharacter.setMeaningsFR(KanjiDict_Database.get(i)[3]);
                 kanjiCharacter.setMeaningsES(KanjiDict_Database.get(i)[4]);
+                kanjiCharacter.setUsedInJapanese(1);
                 kanjiCharacter().update(kanjiCharacter);
             }
         }
@@ -161,12 +162,15 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     public List<KanjiCharacter> getKanjiCharactersByKanaDescriptor(String query) {
         return kanjiCharacter().getKanjiCharactersByKanaDescriptor(query);
     }
-    public List<String> getAllKanjis() {
-        return kanjiCharacter().getAllKanjis();
+    public List<String> getAllKanjis(boolean usedInJapanese) {
+        return usedInJapanese? kanjiCharacter().getAllKanjisUsedInJapanese() : kanjiCharacter().getAllKanjis();
     }
 
     public List<KanjiCharacter> getAllKanjiCharacters() {
         return kanjiCharacter().getAllKanjiCharacters();
+    }
+    public List<KanjiCharacter> getKanjiCharactersUsedInJapanese() {
+        return kanjiCharacter().getKanjiCharactersUsedInJapanese();
     }
     public KanjiCharacter getKanjiCharacterByHexId(String queryHex) {
         return kanjiCharacter().getKanjiCharacterByHexId(queryHex);

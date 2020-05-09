@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.japagram.data.KanjiCharacter;
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
 import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesDb;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -20,18 +22,22 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     private final String[] elements_list;
     private final int mSelectedStructure;
     private final List<String[]> mSimilarsDatabase;
+    private final boolean showOnlyJapCharacters;
     private RoomKanjiDatabase mRoomKanjiDatabase;
-    private boolean mSearchTooBroad;
+    private int mSearchInfoMessage;
     private WeakReference<Context> contextRef;
     //endregion
     public KanjiSearchAsyncResponseHandler listener;
+    private boolean mFoundNoJapaneseCharsButFoundCJK;
 
-    public KanjiSearchAsyncTask(Context context, String[] elements_list, int mSelectedStructure, List<String[]> mSimilarsDatabase, KanjiSearchAsyncResponseHandler listener) {
+    public KanjiSearchAsyncTask(Context context, String[] elements_list, int mSelectedStructure, List<String[]> mSimilarsDatabase,
+                                boolean showOnlyJapCharacters, KanjiSearchAsyncResponseHandler listener) {
         contextRef = new WeakReference<>(context);
         this.elements_list = elements_list;
         this.mSelectedStructure = mSelectedStructure;
         this.mSimilarsDatabase = mSimilarsDatabase;
         this.listener = listener;
+        this.showOnlyJapCharacters = showOnlyJapCharacters;
     }
 
     protected void onPreExecute() {
@@ -43,7 +49,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
         List<String> result = findKanjis();
 
-        return new Object[] {result, mSearchTooBroad};
+        return new Object[] {result, mSearchInfoMessage};
     }
 
     @Override
@@ -67,7 +73,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return similarComponents;
     }
     private List<String> findKanjis() {
-
+        
         //region Replacing similar elements and initializing
         for (int j=0; j<elements_list.length; j++) {
             if (!elements_list[j].equals("")) {
@@ -91,7 +97,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 || mSelectedStructure == Globals.Index_across3
                 || mSelectedStructure == Globals.Index_down3)
                 && (elementA.equals("") && elementB.equals("") && elementC.equals("") && elementD.equals(""))) {
-            mSearchTooBroad = true;
+            mSearchInfoMessage = Globals.KANJI_SEARCH_RESULT_DEFAULT;
             return new ArrayList<>();
         }
         //endregion
@@ -122,7 +128,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<String> listOfMatchingResultsElementD = new ArrayList<>();
 
         if (elementAisEmpty || elementBisEmpty || elementCisEmpty || elementDisEmpty) {
-            List<String> listOfAllKanjis = mRoomKanjiDatabase.getAllKanjis();
+            List<String> listOfAllKanjis = mRoomKanjiDatabase.getAllKanjis(showOnlyJapCharacters);
             if (elementAisEmpty) listOfMatchingResultsElementA = listOfAllKanjis;
             if (elementBisEmpty) listOfMatchingResultsElementB = listOfAllKanjis;
             if (elementCisEmpty) listOfMatchingResultsElementC = listOfAllKanjis;
@@ -257,6 +263,37 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         }
         //endregion
 
-        return listOfResultsRelevantToRequestedStructure;
+        //region If relevant, filtering the list for characters used only in Japanese
+        List<String> finalList = new ArrayList<>();
+        int size = listOfResultsRelevantToRequestedStructure.size();
+        int CHUNK_SIZE = 400;
+        if (size == 0) mSearchInfoMessage = Globals.KANJI_SEARCH_RESULT_NO_RESULTS;
+        if (showOnlyJapCharacters) {
+            //Splitting the results into chunks to prevent SQL overload
+            List<List<String>> chunks = new ArrayList<>();
+            int numChunks = size / CHUNK_SIZE + ((size % CHUNK_SIZE == 0)? 0: 1);
+            for (int i=0; i<numChunks; i++) {
+                int minIndex = i*CHUNK_SIZE;
+                int maxIndex = (i+1)*CHUNK_SIZE;
+                if (maxIndex > size) maxIndex = size;
+                List<String> chunk = listOfResultsRelevantToRequestedStructure.subList(minIndex, maxIndex);
+                List<String> hexIds = new ArrayList<>();
+                for (String character : chunk) {
+                    if (!character.equals("")) hexIds.add(UtilitiesDb.getHexId(character));
+                }
+                chunks.add(hexIds);
+            }
+            for (List<String> hexIds : chunks) {
+                List<KanjiCharacter> chars = mRoomKanjiDatabase.getKanjiCharactersByHexIdList(hexIds);
+                for (KanjiCharacter character : chars) {
+                    if (character.getUsedInJapanese() == 1) finalList.add(character.getKanji());
+                }
+            }
+            if (finalList.size() == 0 && size > 0) mSearchInfoMessage = Globals.KANJI_SEARCH_RESULT_NO_JAP_RESULTS;
+        } else {
+            finalList = listOfResultsRelevantToRequestedStructure;
+        }
+
+        return finalList;
     }
 }
