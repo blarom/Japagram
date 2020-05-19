@@ -48,10 +48,11 @@ public class InputQuery implements Parcelable {
     public InputQuery(String input) {
         this.original = input.toLowerCase(Locale.ENGLISH); //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
         if (isEmpty()) return;
-        this.originalType = getTextType(this.original);
-        this.originalCleaned = Utilities.removeNonSpaceSpecialCharacters(original);
-        this.ingless = getInglessVerb(this.originalCleaned.replace("'",""));
-        this.originalNoIng = hasIngEnding()? "to " + ingless : original;
+        originalType = getTextType(this.original);
+        originalCleaned = Utilities.removeNonSpaceSpecialCharacters(original);
+        ingless = getInglessVerb(this.originalCleaned.replace("'",""));
+        originalNoIng = hasIngEnding()? "to " + ingless : original;
+        String originalCleanedNoSpaces = originalCleaned.replace("\\s","");
 
         if (originalCleaned.length() > 3 && originalCleaned.substring(0, 3).equals("to ")) {
             isVerbWithTo = true;
@@ -77,8 +78,7 @@ public class InputQuery implements Parcelable {
         this.hiraganaSingleElement = hiraganaConversions.get(0);
         this.katakanaSingleElement = katakanaConversions.get(0);
 
-        if (getOriginalType() == Globals.TYPE_LATIN) {
-
+        if (originalType == Globals.TYPE_LATIN) {
             searchType = Globals.TYPE_LATIN;
             boolean isEnglishWord = false;
             this.searchQueriesNonJapanese.add(originalCleaned);
@@ -96,23 +96,24 @@ public class InputQuery implements Parcelable {
                     if (!conversion.contains("*") && !conversion.equals(originalCleaned)) searchQueriesRomaji.add(conversion);
                 }
             }
+            isTooShort = searchQueriesRomaji.get(0).length() < Globals.SMALL_WORD_LENGTH;
         }
-        else if (getOriginalType() == Globals.TYPE_HIRAGANA || getOriginalType() == Globals.TYPE_KATAKANA) {
+        else if (originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) {
             searchType = Globals.TYPE_LATIN;
             searchQueriesRomaji.addAll(waapuroUniqueConversions);
+            isTooShort = searchQueriesRomaji.get(0).length() < Globals.SMALL_WORD_LENGTH;
         }
-        else if (getOriginalType() == Globals.TYPE_NUMBER) {
+        else if (originalType == Globals.TYPE_NUMBER) {
             searchType = Globals.TYPE_LATIN;
             searchQueriesNonJapanese.add(originalCleaned);
+            isTooShort = originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH - 1;
         }
-        else if (getOriginalType() == Globals.TYPE_KANJI) {
+        else if (originalType == Globals.TYPE_KANJI) {
             searchType = Globals.TYPE_KANJI;
             searchQueriesKanji.add(UtilitiesDb.replaceInvalidKanjisWithValidOnes(originalCleaned));
+            isTooShort = false;
         }
 
-        String originalCleanedNoSpaces = originalCleaned.replace("\\s","");
-        isTooShort = originalType == Globals.TYPE_NUMBER && originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH - 1
-                || (originalType == Globals.TYPE_LATIN || originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) && originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH;
     }
 
 
