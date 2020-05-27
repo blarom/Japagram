@@ -174,6 +174,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<Verb.ConjugationCategory.Conjugation> conjugations;
         int matchingConjugationCategoryIndex = 0;
         String matchingConjugation = "";
+        String preparedConjugationLatin;
+        String preparedConjugationKanji;
         boolean foundMatch = false;
         if (!inputQuery.equals(verb.getLatinRoot()) && !inputQuery.equals(verb.getKanjiRoot())) {
 
@@ -181,20 +183,19 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (int i=0; i<conjugationCategories.size(); i++) {
                 conjugations = conjugationCategories.get(i).getConjugations();
                 for (Verb.ConjugationCategory.Conjugation conjugation : conjugations) {
-
+                    preparedConjugationLatin = conjugation.getConjugationLatin().replace(" ", "").split("\\(")[0];
+                    preparedConjugationKanji = conjugation.getConjugationKanji().replace(" ", "").split("\\(")[0];
                     if (mPreparedQueryTextType == Globals.TYPE_LATIN
-                            && conjugation.getConjugationLatin().replace(" ", "")
-                            .equals(inputQuery.replace(" ", ""))) {
+                            && preparedConjugationLatin.equals(inputQuery.replace(" ", ""))) {
                         matchingConjugation = conjugation.getConjugationLatin();
                         foundMatch = true;
                     }
                     else if ((mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA)
-                            && conjugation.getConjugationLatin().replace(" ", "")
-                            .equals(inputQueryLatin.replace(" ", ""))) {
+                            && preparedConjugationLatin.equals(inputQueryLatin.replace(" ", ""))) {
                         matchingConjugation = conjugation.getConjugationLatin();
                         foundMatch = true;
                     }
-                    else if (mPreparedQueryTextType == Globals.TYPE_KANJI && conjugation.getConjugationKanji().equals(inputQuery)) {
+                    else if (mPreparedQueryTextType == Globals.TYPE_KANJI && preparedConjugationKanji.equals(inputQuery)) {
                         matchingConjugation = conjugation.getConjugationKanji();
                         foundMatch = true;
                     }
@@ -212,17 +213,20 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 for (int i=0; i<conjugationCategories.size(); i++) {
                     conjugations = conjugationCategories.get(i).getConjugations();
                     for (Verb.ConjugationCategory.Conjugation conjugation : conjugations) {
-
-                        if (mPreparedQueryTextType == Globals.TYPE_LATIN && conjugation.getConjugationLatin().contains(inputQuery)) {
+                        preparedConjugationLatin = conjugation.getConjugationLatin().replace(" ", "").split("\\(")[0];
+                        preparedConjugationKanji = conjugation.getConjugationKanji().replace(" ", "").split("\\(")[0];
+                        if (mPreparedQueryTextType == Globals.TYPE_LATIN
+                                && (preparedConjugationLatin.contains(inputQuery) || conjugation.getConjugationLatin().contains(inputQuery))) {
                             matchingConjugation = conjugation.getConjugationLatin();
                             foundMatch = true;
                         }
                         else if ((mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA)
-                                && conjugation.getConjugationLatin().contains(inputQueryLatin)) {
+                                && (preparedConjugationLatin.contains(inputQueryLatin) || conjugation.getConjugationLatin().contains(inputQueryLatin))) {
                             matchingConjugation = conjugation.getConjugationLatin();
                             foundMatch = true;
                         }
-                        else if (mPreparedQueryTextType == Globals.TYPE_KANJI && conjugation.getConjugationKanji().contains(inputQuery)) {
+                        else if (mPreparedQueryTextType == Globals.TYPE_KANJI
+                                && (preparedConjugationKanji.contains(inputQuery) || conjugation.getConjugationKanji().contains(inputQuery))) {
                             matchingConjugation = conjugation.getConjugationKanji();
                             foundMatch = true;
                         }
