@@ -97,12 +97,18 @@
     <string name="DownloadDialogMessageSPA">Seleccione cómo desea descargar los datos requeridos del reconocimiento óptico de caracteres en español (aprox. 20 MB).</string>
     <string name="DownloadDialogWifiOnly">Sólo WiFi</string>
     <string name="DownloadDialogWifiAndMobile">En cualquier momento</string>
-    <string name="no_match_found">No se encuentra en él diccionario local. Buscando en otras fuentes…</string>
-    <string name="please_enter_word">
+    <string name="no_match_found_for_now">No se encuentra en él diccionario local. Buscando en otras fuentes…</string>
+    <string name="please_enter_valid_word">
         <![CDATA[
         <b> Introduzca una palabra válida.</b>
         \n<br/><br/>Las palabras completas darán los mejores resultados, pero fragmentos de palabra están también válidos.
         \n<br/><br/>Usted puede ingrese palabras en inglés, francés, español, romaji, hiragana, katakana o kanji.
+        ]]>
+    </string>
+    <string name="no_results_found">
+        <![CDATA[
+        <b>No se encuentran resultados.</b>
+        \n\n<br/><br/>Por favor revisa tu ortografía o prueba una palabra diferente.
         ]]>
     </string>
     <string name="show_examples">Ejemplos: (&gt;mostrar)</string>

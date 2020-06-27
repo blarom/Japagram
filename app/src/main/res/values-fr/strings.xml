@@ -93,12 +93,17 @@
     <string name="DownloadDialogMessageSPA">Veuillez sélectionner le mode de téléchargement des données de reconnaissance optique de caractères espagnols requises (environ 20 Mo).</string>
     <string name="DownloadDialogWifiOnly">WiFi uniquement</string>
     <string name="DownloadDialogWifiAndMobile">À tout moment</string>
-    <string name="no_match_found">Pas trouvé dans le dictionnaire local. Recherche d\'autres sources…</string>
-    <string name="please_enter_word">
+    <string name="no_match_found_for_now">Pas trouvé dans le dictionnaire local. Recherche d\'autres sources…</string>
+    <string name="please_enter_valid_word">
         <![CDATA[
         <b>Veuillez entrer un mot valide.</b>
         \n<br/><br/>Des mots complets donneront les meilleurs résultats, mais les fragments de mot sont aussi valides.
         \n<br/><br/>Vous pouvez entrez des mots en anglais, français, espagnol, romaji, hiragana, katakana ou kanji.
+        ]]>
+    </string>
+    <string name="no_results_found">
+        <![CDATA[Aucun résultat.</b>
+        \n\n<br/><br/>Veuillez vérifier votre orthographe ou essayer un autre mot.
         ]]>
     </string>
     <string name="show_examples">Exemples: (&gt;montrer)</string>

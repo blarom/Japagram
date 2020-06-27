@@ -66,13 +66,13 @@ public class DictionaryFragment extends Fragment implements
     private Unbinder mBinding;
     private boolean mAlreadyLoadedRoomResults;
     private boolean mAlreadyLoadedJishoResults;
-    private boolean mAlreadyLoadedVerbs;
+    private boolean mAlreadyLoadedConjResults;
     private List<ConjugationTitle> mConjugationTitles;
     private DictionaryRecyclerViewAdapter mDictionaryRecyclerViewAdapter;
     private List<Word> mJishoMatchingWordsList;
     private List<Word> mDifferentJishoWords;
     private List<Word> mMatchingWordsFromVerbs;
-    private boolean mAlreadyDisplayedResults;
+    private boolean mSuccessfullyDisplayedResultsBeforeTimeout;
     private boolean mOverrideDisplayConditions;
     private JishoSearchAsyncTask mJishoSearchAsyncTask;
     private LocalSearchAsyncTask mLocalDictSearchAsyncTask;
@@ -167,7 +167,7 @@ public class DictionaryFragment extends Fragment implements
 
         if (getContext()==null || getActivity()==null) return;
 
-        mAlreadyDisplayedResults = false;
+        mSuccessfullyDisplayedResultsBeforeTimeout = false;
         mLocalMatchingWordsList = new ArrayList<>();
         mJishoMatchingWordsList = new ArrayList<>();
         mMergedMatchingWordsList = new ArrayList<>();
@@ -193,7 +193,7 @@ public class DictionaryFragment extends Fragment implements
             new Handler().postDelayed(() -> {
                 mOverrideDisplayConditions = true;
                 Log.i(Globals.DEBUG_TAG, "Displaying merged words at WORD_RESULTS_MAX_RESPONSE_DELAY");
-                if (!mAlreadyDisplayedResults) displayMergedWordsToUser();
+                if (!mSuccessfullyDisplayedResultsBeforeTimeout) displayMergedWordsToUser();
             }, WORD_RESULTS_MAX_RESPONSE_DELAY);
         }
         else showEmptySearchResults();
@@ -222,11 +222,19 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        displayResults(new ArrayList<>());
+        if (mInputQuery != null && !mInputQuery.isEmpty()) {
+            mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+        }
+        else {
+            mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+        }
+        mHintTextView.setVisibility(View.VISIBLE);
+        mDictionaryRecyclerView.setVisibility(View.GONE);
     }
     private void displayMergedWordsToUser() {
 
         if (getContext()==null || getActivity()==null) return;
+        Utilities.hideSoftKeyboard(getActivity());
 
         boolean showOnlineResults = UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
         boolean showConjResults = UtilitiesPrefs.getPreferenceShowConjResults(getActivity());
@@ -239,97 +247,98 @@ public class DictionaryFragment extends Fragment implements
         if (mAlreadyLoadedRoomResults &&
                 (       showOnlineResults && showConjResults &&
                                 (!waitForOnlineResults && !waitForConjResults)
-                                || (!waitForOnlineResults && waitForConjResults && mAlreadyLoadedVerbs)
+                                || (!waitForOnlineResults && waitForConjResults && mAlreadyLoadedConjResults)
                                 || (waitForOnlineResults && !waitForConjResults && mAlreadyLoadedJishoResults)
-                                || (waitForOnlineResults && waitForConjResults && mAlreadyLoadedJishoResults && mAlreadyLoadedVerbs)
+                                || (waitForOnlineResults && waitForConjResults && mAlreadyLoadedJishoResults && mAlreadyLoadedConjResults)
                 ) || (  showOnlineResults && !showConjResults && (!waitForOnlineResults || mAlreadyLoadedJishoResults)
-                ) || (  !showOnlineResults && showConjResults && (!waitForConjResults || mAlreadyLoadedVerbs)
+                ) || (  !showOnlineResults && showConjResults && (!waitForConjResults || mAlreadyLoadedConjResults)
                 ) || (  !showOnlineResults && !showConjResults)
             || mOverrideDisplayConditions) {
 
-            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
-            mAlreadyDisplayedResults = true;
-            hideLoadingIndicator();
-
-            //Getting the word lists
+            //Getting the merged results
             mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mLocalMatchingWordsList, mJishoMatchingWordsList, "");
             mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
             mMergedMatchingWordsList = sortWordsAccordingToRanking(mMergedMatchingWordsList);
 
-            String text = getString(R.string.found) + " "
-                    + mLocalMatchingWordsList.size()
-                    + " "
-                    + ((mLocalMatchingWordsList.size()==1)? getString(R.string.local_result) : getString(R.string.local_results));
-
-            if (showOnlineResults && mAlreadyLoadedJishoResults) {
-                if (showConjResults) text += ", ";
-                else text += " " + getString(R.string.and) + " ";
-
-                switch (mDifferentJishoWords.size()) {
-                    case 0:
-                        text += getString(R.string.no_new_online_results);
-                        break;
-                    case 1:
-                        text += getString(R.string.one_new_or_fuller_online_result);
-                        break;
-                    default:
-                        text += mDifferentJishoWords.size() + " " + getString(R.string.new_or_fuller_online_results);
-                        break;
-                }
+            if (mMergedMatchingWordsList.size() > 0) {
+                List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ? mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
+                mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
+                mHintTextView.setVisibility(View.GONE);
+                mDictionaryRecyclerView.setVisibility(View.VISIBLE);
+                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
+                mSuccessfullyDisplayedResultsBeforeTimeout = true;
+                hideLoadingIndicator();
             }
-
-            if (showConjResults && mAlreadyLoadedVerbs) {
-                if (showOnlineResults && mAlreadyLoadedJishoResults) text += ", "+getString(R.string.and)+" ";
-                else if (showOnlineResults) text += ", ";
-                else text += " "+getString(R.string.and)+" ";
-
-                text += getString(R.string.including)+" ";
-
-                switch (mMatchingWordsFromVerbs.size()) {
-                    case 0:
-                        text += getString(R.string.no_verb);
-                        break;
-                    case 1:
-                        text += getString(R.string.one_verb);
-                        break;
-                    default:
-                        text += mMatchingWordsFromVerbs.size() + " " + getString(R.string.verbs);
-                        break;
+            else {
+                if (waitForConjResults) {
+                    mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+                    Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
+                    mSuccessfullyDisplayedResultsBeforeTimeout = true;
+                    hideLoadingIndicator();
+                } else {
+                    if (mAlreadyLoadedConjResults) {
+                        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_results_found)));
+                        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
+                        mSuccessfullyDisplayedResultsBeforeTimeout = true;
+                        hideLoadingIndicator();
+                    } else {
+                        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local without Conj Search");
+                    }
                 }
-                text += " " + getString(R.string.with_conjugations_matching_the_search_word);
+                mHintTextView.setVisibility(View.VISIBLE);
+                mDictionaryRecyclerView.setVisibility(View.GONE);
             }
-
-            text += ".";
-
-            displayResults(mMergedMatchingWordsList);
 
             int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
             dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
 
-            if (UtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+            if (UtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) {
+                String text = getString(R.string.found) + " "
+                        + mLocalMatchingWordsList.size()
+                        + " "
+                        + ((mLocalMatchingWordsList.size()==1)? getString(R.string.local_result) : getString(R.string.local_results));
 
-        }
+                if (showOnlineResults && mAlreadyLoadedJishoResults) {
+                    if (showConjResults) text += ", ";
+                    else text += " " + getString(R.string.and) + " ";
 
-    }
-    private void displayResults(List<Word> wordsList) {
+                    switch (mDifferentJishoWords.size()) {
+                        case 0:
+                            text += getString(R.string.no_new_online_results);
+                            break;
+                        case 1:
+                            text += getString(R.string.one_new_or_fuller_online_result);
+                            break;
+                        default:
+                            text += mDifferentJishoWords.size() + " " + getString(R.string.new_or_fuller_online_results);
+                            break;
+                    }
+                }
+                if (showConjResults && mAlreadyLoadedConjResults) {
+                    if (showOnlineResults && mAlreadyLoadedJishoResults) text += ", "+getString(R.string.and)+" ";
+                    else if (showOnlineResults) text += ", ";
+                    else text += " "+getString(R.string.and)+" ";
 
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+                    text += getString(R.string.including)+" ";
 
-        if (wordsList.size()>MAX_NUMBER_RESULTS_SHOWN) {
-            List<Word> displayedWords = wordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN);
-            mDictionaryRecyclerViewAdapter.setContents(displayedWords);
-        }
-        else mDictionaryRecyclerViewAdapter.setContents(wordsList);
+                    switch (mMatchingWordsFromVerbs.size()) {
+                        case 0:
+                            text += getString(R.string.no_verb);
+                            break;
+                        case 1:
+                            text += getString(R.string.one_verb);
+                            break;
+                        default:
+                            text += mMatchingWordsFromVerbs.size() + " " + getString(R.string.verbs);
+                            break;
+                    }
+                    text += " " + getString(R.string.with_conjugations_matching_the_search_word);
+                }
+                text += ".";
+                Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
+            }
 
-        if (wordsList.size()>0) {
-            mHintTextView.setVisibility(View.GONE);
-            mDictionaryRecyclerView.setVisibility(View.VISIBLE);
-        }
-        else {
-            if (mInputQuery != null && !mInputQuery.isEmpty()) mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_word)));
-            else mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found)));
-            mHintTextView.setVisibility(View.VISIBLE);
-            mDictionaryRecyclerView.setVisibility(View.GONE);
         }
 
     }
@@ -419,7 +428,7 @@ public class DictionaryFragment extends Fragment implements
         mInputQuery = new InputQuery(query);
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
-        mAlreadyLoadedVerbs = false;
+        mAlreadyLoadedConjResults = false;
         getQuerySearchResults();
     }
     void setShowNames(boolean status) {
@@ -477,7 +486,7 @@ public class DictionaryFragment extends Fragment implements
         if (getContext()==null) return;
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Finished Verbs Search AsyncTask");
 
-        mAlreadyLoadedVerbs = true;
+        mAlreadyLoadedConjResults = true;
         List<Verb> mMatchingVerbs = (List<Verb>) dataElements[0];
         mMatchingWordsFromVerbs = (List<Word>) dataElements[1];
         List<Object[]> mMatchingConjugationParametersList = (List<Object[]>) dataElements[2];

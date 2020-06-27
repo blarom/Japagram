@@ -178,12 +178,18 @@
     <string name="DownloadDialogMessageSPA">Please select how you want to download the required Spanish Optical Character Recognition data (approx. 20MB).</string>
     <string name="DownloadDialogWifiOnly">WiFi only</string>
     <string name="DownloadDialogWifiAndMobile">Anytime</string>
-    <string name="no_match_found">Not found in local dictionary. Searching in other sources </string>
-    <string name="please_enter_word">
+    <string name="no_match_found_for_now">Not found in local dictionary. Searching in other sources </string>
+    <string name="please_enter_valid_word">
         <![CDATA[
         <b>Please enter a valid word.</b>
         \n\n<br/><br/>Complete words will yield the best results, but word fragments will also do.
         \n\n<br/><br/>You can enter words in English, Romaji, Hiragana, Katakana or Kanji.
+        ]]>
+    </string>
+    <string name="no_results_found">
+        <![CDATA[
+        <b>No results found.</b>
+        \n\n<br/><br/>Please check your spelling or try a different word.
         ]]>
     </string>
     <string name="show_examples">Examples: (&gt;show)</string>
