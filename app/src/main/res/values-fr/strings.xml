@@ -293,6 +293,7 @@
     <string name="search_for_radical_search_too_broad">Votre recherche est trop large. Veuillez sélectionner une autre structure ou sélectionner des éléments de kanji pour affiner la recherche.</string>
     <string name="search_by_radical_no_results_found">Aucun résultat trouvé pour vos sélections.</string>
     <string name="search_by_radical_no_jap_results_found">Aucun caractère japonais trouvé pour vos sélections. Pour voir tous les résultats, désélectionnez \"Afficher uniquement les caractères japonais\" dans Options\>Outils pour Kanji.</string>
+    <string name="search_by_radical_no_jap_no_printable_results_found">Aucun caractère japonais trouvé pour vos sélections. Certains caractères chinois peuvent exister mais ne peuvent pas être affichés sur Android.</string>
     <string name="copy_to_input">Copier à l\'input</string>
     <string name="clear_search_history">Effacer l\'historique</string>
     <string name="image_adjustment_hint">l\'image originale présente une saturation de 1.0 (couleurs normales), un contraste de 1.0 et une luminosité de 0.

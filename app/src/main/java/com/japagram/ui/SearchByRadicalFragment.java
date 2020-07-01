@@ -670,6 +670,8 @@ public class SearchByRadicalFragment extends Fragment implements
         else if (searchResultType == Globals.KANJI_SEARCH_RESULT_DEFAULT) createResultsGrid();
         else if (searchResultType == Globals.KANJI_SEARCH_RESULT_NO_JAP_RESULTS) {
             showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_jap_results_found));
+        } else if (searchResultType == Globals.KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS) {
+            showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_jap_no_printable_results_found));
         } else if (searchResultType == Globals.KANJI_SEARCH_RESULT_NO_RESULTS){
             showNoResultsTextInsteadOfResultsGrid(getString(R.string.search_by_radical_no_results_found));
         }

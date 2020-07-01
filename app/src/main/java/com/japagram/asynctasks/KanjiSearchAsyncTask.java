@@ -2,6 +2,7 @@ package com.japagram.asynctasks;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.japagram.data.KanjiCharacter;
@@ -283,13 +284,31 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 }
                 chunks.add(hexIds);
             }
+            List<String> nonJapChars = new ArrayList<>();
             for (List<String> hexIds : chunks) {
                 List<KanjiCharacter> chars = mRoomKanjiDatabase.getKanjiCharactersByHexIdList(hexIds);
                 for (KanjiCharacter character : chars) {
                     if (character.getUsedInJapanese() == 1) finalList.add(character.getKanji());
+                    else nonJapChars.add(character.getKanji());
                 }
             }
-            if (finalList.size() == 0 && size > 0) mSearchInfoMessage = Globals.KANJI_SEARCH_RESULT_NO_JAP_RESULTS;
+
+            if (finalList.size() == 0 && size > 0) {
+                List<String> nonJapCharsPrintable = new ArrayList<>();
+                String value;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    for (int i = 0; i < nonJapChars.size(); i++) {
+                        value = nonJapChars.get(i);
+                        if (value.length()>0 && Utilities.isPrintable(value.substring(0, 1))) {
+                            nonJapCharsPrintable.add(nonJapChars.get(i));
+                        }
+                    }
+                }
+                else {
+                    nonJapCharsPrintable = nonJapChars;
+                }
+                mSearchInfoMessage = (nonJapCharsPrintable.size() > 0)? Globals.KANJI_SEARCH_RESULT_NO_JAP_RESULTS :  Globals.KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS;
+            }
         } else {
             finalList = listOfResultsRelevantToRequestedStructure;
         }

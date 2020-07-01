@@ -32,6 +32,7 @@ public final class Globals {
     public static final int KANJI_SEARCH_RESULT_SEARCH_TOO_BROAD = 1;
     public static final int KANJI_SEARCH_RESULT_NO_RESULTS = 2;
     public static final int KANJI_SEARCH_RESULT_NO_JAP_RESULTS = 3;
+    public static final int KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS = 4;
 
     public static final float extendedDbLinesWords = 162314.f;
     public static final float extendedDbSizeWords = 12917.f;
