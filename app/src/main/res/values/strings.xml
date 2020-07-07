@@ -68,8 +68,9 @@
     <string name="show_decomp_structure_info_text">Show Decomp. Structure Text</string>
     <string name="show_only_jap_characters_text">Show Only Japanese Characters</string>
     <string name="language_label_japanese">Japanese</string>
-    <string name="theme_color_label_lightbluegreen">Blue-Green, Light Background</string>
-    <string name="theme_color_label_lightredblack">Red-Black, Light Background</string>
+    <string name="theme_color_label_daybluegreen">Blue-Green, Day</string>
+    <string name="theme_color_label_dayredblack">Red-Black, Day</string>
+    <string name="theme_color_label_nightredblack">Red-Black, Night</string>
     <string name="language_label_english">English</string>
     <string name="language_label_french">French</string>
     <string name="language_label_spanish">Spanish</string>
@@ -77,11 +78,13 @@
     <string name="pref_app_language_key" translatable="false">app_language</string>
     <string name="pref_app_theme_color">Color Theme</string>
     <string name="pref_app_language">App Language</string>
-    <string name="pref_theme_colors_value_lightbluegreen" translatable="false">lightbluegreen</string>
-    <string name="pref_theme_colors_value_lightredblack" translatable="false">lightredblack</string>
+    <string name="pref_theme_colors_value_daybluegreen" translatable="false">daybluegreen</string>
+    <string name="pref_theme_colors_value_dayredblack" translatable="false">dayredblack</string>
+    <string name="pref_theme_colors_value_nightredblack" translatable="false">nightredblack</string>
     <string name="pref_language_value_japanese" translatable="false">japanese</string>
-    <string name="pref_theme_color_value_lightbluegreen" translatable="false">lightbluegreen</string>
-    <string name="pref_theme_color_value_lightredblack" translatable="false">lightredblack</string>
+    <string name="pref_theme_color_value_daybluegreen" translatable="false">daybluegreen</string>
+    <string name="pref_theme_color_value_dayredblack" translatable="false">dayredblack</string>
+    <string name="pref_theme_color_value_nightredblack" translatable="false">nightredblack</string>
     <string name="pref_language_value_english" translatable="false">english</string>
     <string name="pref_language_value_french" translatable="false">french</string>
     <string name="pref_language_value_spanish" translatable="false">spanish</string>

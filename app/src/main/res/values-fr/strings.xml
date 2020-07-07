@@ -341,8 +341,9 @@
     <string name="select_the_radical">Sélect. le radical</string>
     <string name="kanji_structure">structure du kanji</string>
     <string name="no_elements_found">Aucun élément trouvé.</string>
-    <string name="theme_color_label_lightbluegreen">Bleu-Vert, Fond Clair</string>
-    <string name="theme_color_label_lightredblack">Rouge-Noir, Fond Clair</string>
+    <string name="theme_color_label_daybluegreen">Bleu-Vert, Jour</string>
+    <string name="theme_color_label_dayredblack">Rouge-Noir, Jour</string>
+    <string name="theme_color_label_nightredblack">Rouge-Noir, Nuit</string>
     <string name="language_label_french">Français</string>
     <string name="language_label_spanish">Espagnol</string>
     <string name="pref_app_theme_color">Thème de Couleur</string>

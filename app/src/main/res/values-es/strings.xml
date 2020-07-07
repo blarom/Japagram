@@ -46,8 +46,9 @@
     <string name="show_decomp_structure_info_text">Mostrar Infos. sobre Estructura</string>
     <string name="show_only_jap_characters_text">Mostrar sólo caracteres japoneses</string>
     <string name="language_label_japanese">japonés</string>
-    <string name="theme_color_label_lightbluegreen">Azul-Verde, Fondo Claro</string>
-    <string name="theme_color_label_lightredblack">Rojo-Negro, Fondo Claro</string>
+    <string name="theme_color_label_daybluegreen">Azul-Verde, Día</string>
+    <string name="theme_color_label_dayredblack">Rojo-Negro, Día</string>
+    <string name="theme_color_label_nightredblack">Rojo-Negro, Noche</string>
     <string name="language_label_english">Inglés (EE. UU.)</string>
     <string name="language_label_french">Francés</string>
     <string name="language_label_spanish">Español</string>

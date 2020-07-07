@@ -2,13 +2,15 @@
 <resources>
 
     <array name="pref_app_theme_color_labels">
-        <item>@string/theme_color_label_lightbluegreen</item>
-        <item>@string/theme_color_label_lightredblack</item>
+        <item>@string/theme_color_label_daybluegreen</item>
+        <item>@string/theme_color_label_dayredblack</item>
+        <item>@string/theme_color_label_nightredblack</item>
     </array>
 
     <array name="pref_app_theme_color_values">
-        <item>@string/pref_theme_color_value_lightbluegreen</item>
-        <item>@string/pref_theme_color_value_lightredblack</item>
+        <item>@string/pref_theme_color_value_daybluegreen</item>
+        <item>@string/pref_theme_color_value_dayredblack</item>
+        <item>@string/pref_theme_color_value_nightredblack</item>
     </array>
 
     <array name="pref_app_language_labels">

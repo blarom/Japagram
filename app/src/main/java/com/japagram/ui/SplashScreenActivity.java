@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class SplashScreenActivity extends BaseActivity {
     @BindView(R.id.splashscreen_time_to_load_textview) TextView mTimeToLoadTextView;
     @BindView(R.id.splashscreen_current_loading_database) TextView mLoadingDatabaseTextView;
     @BindView(R.id.splashscreen_loading_database_textview) TextView mLoadingDbTextView;
+    @BindView(R.id.background) LinearLayout mBackground;
     private boolean mCentralDbBeingLoaded;
     private boolean mKanjiDbBeingLoaded;
     private CountDownTimer countDownTimer;
@@ -52,7 +54,7 @@ public class SplashScreenActivity extends BaseActivity {
         setContentView(R.layout.activity_splashscreen);
 
         mBinding =  ButterKnife.bind(this);
-
+        mBackground.setBackgroundResource(UtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1 : R.drawable.background1night);
         mLoadingDbTextView.setTextColor(UtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
 
         mCentralDbBeingLoaded = true;

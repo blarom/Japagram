@@ -1,8 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -11,6 +11,7 @@
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
         <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
+        <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
         <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
         <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
@@ -23,6 +24,7 @@
         <item name="textDictionarySpanClickedColor">@color/appThemeRedBlack_textDictionarySpanClicked</item>
         <item name="textDictionaryPOSColor">@color/appThemeRedBlack_textDictionaryTypeMeaning</item>
         <item name="textDictionaryRuleWhereClauseColor">@color/appThemeRedBlack_textDictionaryRuleWhereClause</item>
+        <item name="arrowDictionaryColor">@color/appThemeRedBlack_arrow</item>
         <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeRedBlack_textConjugatorVerbChooserPreposition</item>
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
@@ -41,7 +43,7 @@
         <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
     </style>
-    <style name="AppTheme.LightBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.DayBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/appThemeBlueGreen_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeBlueGreen_colorPrimaryDark</item>
         <item name="colorAccent">@color/appThemeBlueGreen_colorAccent</item>
@@ -50,6 +52,7 @@
         <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
         <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
         <item name="colorAccentLight">@color/appThemeBlueGreen_colorAccentLight</item>
+        <item name="widgetColor">@color/appThemeBlueGreen_widget</item>
 
         <item name="appTextPrimaryColor">@color/appThemeBlueGreen_appTextPrimary</item>
         <item name="appTextSecondaryColor">@color/appThemeBlueGreen_appTextSecondary</item>
@@ -62,6 +65,7 @@
         <item name="textDictionarySpanClickedColor">@color/appThemeBlueGreen_textDictionarySpanClicked</item>
         <item name="textDictionaryPOSColor">@color/appThemeBlueGreen_textDictionaryTypeMeaning</item>
         <item name="textDictionaryRuleWhereClauseColor">@color/appThemeBlueGreen_textDictionaryRuleWhereClause</item>
+        <item name="arrowDictionaryColor">@color/appThemeBlueGreen_arrow</item>
         <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeBlueGreen_textConjugatorVerbChooserPreposition</item>
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeBlueGreen_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeBlueGreen_textConjugatorVerbChooserCharacteristics</item>
@@ -80,7 +84,7 @@
         <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeBlueGreen_kanjiGridItemBorder</item>
     </style>
-    <style name="AppTheme.LightRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.DayRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</item>
         <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
@@ -89,6 +93,7 @@
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
         <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
+        <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
         <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
         <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
@@ -101,6 +106,7 @@
         <item name="textDictionarySpanClickedColor">@color/appThemeRedBlack_textDictionarySpanClicked</item>
         <item name="textDictionaryPOSColor">@color/appThemeRedBlack_textDictionaryTypeMeaning</item>
         <item name="textDictionaryRuleWhereClauseColor">@color/appThemeRedBlack_textDictionaryRuleWhereClause</item>
+        <item name="arrowDictionaryColor">@color/appThemeRedBlack_arrow</item>
         <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeRedBlack_textConjugatorVerbChooserPreposition</item>
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
@@ -118,6 +124,47 @@
         <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
         <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
+    </style>
+    <style name="AppTheme.NightRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/appThemeNightRedBlack_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/appThemeNightRedBlack_colorPrimaryDark</item>
+        <item name="colorAccent">@color/appThemeNightRedBlack_colorAccent</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
+        <item name="colorPrimaryLight">@color/appThemeNightRedBlack_colorPrimaryLight</item>
+        <item name="colorAccentDark">@color/appThemeNightRedBlack_colorAccentDark</item>
+        <item name="colorAccentLight">@color/appThemeNightRedBlack_colorAccentLight</item>
+        <item name="widgetColor">@color/appThemeNightRedBlack_widget</item>
+
+        <item name="appTextPrimaryColor">@color/appThemeNightRedBlack_appTextPrimary</item>
+        <item name="appTextSecondaryColor">@color/appThemeNightRedBlack_appTextSecondary</item>
+        <item name="textSearchColor">@color/appThemeNightRedBlack_textSearch</item>
+        <item name="buttonBackgroundColor">@color/appThemeNightRedBlack_buttonBackground</item>
+        <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeNightRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
+        <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeNightRedBlack_textDictionaryGroupItemMeanings</item>
+        <item name="textDictionaryChildItemRomajiColor">@color/appThemeNightRedBlack_textDictionaryChildItemRomaji</item>
+        <item name="textDictionaryChildItemKanjiColor">@color/appThemeNightRedBlack_textDictionaryChildItemKanji</item>
+        <item name="textDictionarySpanClickedColor">@color/appThemeNightRedBlack_textDictionarySpanClicked</item>
+        <item name="textDictionaryPOSColor">@color/appThemeNightRedBlack_textDictionaryTypeMeaning</item>
+        <item name="textDictionaryRuleWhereClauseColor">@color/appThemeNightRedBlack_textDictionaryRuleWhereClause</item>
+        <item name="arrowDictionaryColor">@color/appThemeNightRedBlack_arrow</item>
+        <item name="textConjugatorVerbChooserPrepositionColor">@color/appThemeNightRedBlack_textConjugatorVerbChooserPreposition</item>
+        <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeNightRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
+        <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeNightRedBlack_textConjugatorVerbChooserCharacteristics</item>
+        <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeNightRedBlack_textConjugatorVerbChooserMeaning</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeNightRedBlack_textConjugatorConjugationChooserUpper</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeNightRedBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorLabelColor">@color/appThemeNightRedBlack_textConjugatorLabel</item>
+        <item name="textConjugatorResultsColor">@color/appThemeNightRedBlack_textConjugatorResults</item>
+        <item name="textCompositionGridElementDefaultColor">@color/appThemeNightRedBlack_textCompositionGridElementDefault</item>
+        <item name="textCompositionGridElementSelectedColor">@color/appThemeNightRedBlack_textCompositionGridElementSelected</item>
+        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeNightRedBlack_colorSelectedDictResultBackground</item>
+        <item name="elementsBoxBorderColor">@color/appThemeNightRedBlack_elementsBoxBorder</item>
+        <item name="kanjiSelectionBoxBorderColor">@color/appThemeNightRedBlack_kanjiSelectionBoxBorder</item>
+        <item name="resultsTitleUnderlineColor">@color/appThemeNightRedBlack_resultsTitleUnderline</item>
+        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="kanjiGridItemBorderColor">@color/appThemeNightRedBlack_kanjiGridItemBorder</item>
     </style>
     <style name="VerbCharacteristicsDisplayLinearLayout">
         <item name="android:layout_width">match_parent</item>

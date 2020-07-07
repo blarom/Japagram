@@ -5,7 +5,7 @@
         android:title="@string/general" />
 
     <ListPreference
-        android:defaultValue="@string/pref_theme_colors_value_lightredblack"
+        android:defaultValue="@string/pref_theme_colors_value_dayredblack"
         android:entries="@array/pref_app_theme_color_labels"
         android:entryValues="@array/pref_app_theme_color_values"
         android:key="@string/pref_app_theme_color_key"

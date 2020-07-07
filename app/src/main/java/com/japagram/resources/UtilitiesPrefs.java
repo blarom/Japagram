@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.LinearGradient;
 import android.util.TypedValue;
+import android.widget.LinearLayout;
 
 import com.japagram.R;
 
@@ -313,9 +315,9 @@ public final class UtilitiesPrefs {
         }
     }
 
-    static String getAppPreferenceColorTheme(@NotNull Context context) {
+    public static String getAppPreferenceColorTheme(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_lightredblack));
+        return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_dayredblack));
     }
 
     public static boolean changeThemeColor(Activity activity) {
@@ -324,11 +326,22 @@ public final class UtilitiesPrefs {
         boolean changeThemeColor = false;
         try {
             int currentTheme = activity.getPackageManager().getActivityInfo(activity.getComponentName(), 0).getThemeResource();
-            if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_lightbluegreen)) && currentTheme != R.style.AppTheme_LightBlueGreen) {
-                activity.setTheme(R.style.AppTheme_LightBlueGreen);
+            if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_daybluegreen)) && currentTheme != R.style.AppTheme_DayBlueGreen) {
+                activity.setTheme(R.style.AppTheme_DayBlueGreen);
                 changeThemeColor = true;
-            } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_lightredblack)) && currentTheme != R.style.AppTheme_LightRedBlack) {
-                activity.setTheme(R.style.AppTheme_LightRedBlack);
+            } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_dayredblack)) && currentTheme != R.style.AppTheme_DayRedBlack) {
+                activity.setTheme(R.style.AppTheme_DayRedBlack);
+//                try {
+//                    LinearLayout layout = activity.findViewById(R.id.background);
+//                    layout.setBackgroundResource(R.drawable.background1);
+//                } catch (Exception ignored){}
+                changeThemeColor = true;
+            } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_nightredblack)) && currentTheme != R.style.AppTheme_NightRedBlack) {
+                activity.setTheme(R.style.AppTheme_NightRedBlack);
+//                try {
+//                    LinearLayout layout = activity.findViewById(R.id.background);
+//                    layout.setBackgroundResource(R.drawable.background1night);
+//                } catch (Exception ignored){}
                 changeThemeColor = true;
             }
             return changeThemeColor;

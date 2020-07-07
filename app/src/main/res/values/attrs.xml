@@ -15,6 +15,7 @@
     <!--InputQueryFragment colors-->
     <attr name="textSearchColor" format="reference"/>
     <attr name="buttonBackgroundColor" format="reference"/>
+    <attr name="widgetColor" format="reference"/>
 
     <!--Dictionary colors-->
     <attr name="textDictionaryGroupItemRomajiAndKanjiColor" format="reference"/>
@@ -24,6 +25,7 @@
     <attr name="textDictionarySpanClickedColor" format="reference"/>
     <attr name="textDictionaryPOSColor" format="reference"/>
     <attr name="textDictionaryRuleWhereClauseColor" format="reference"/>
+    <attr name="arrowDictionaryColor" format="reference"/>
 
     <!--Conjugation colors-->
     <attr name="textConjugatorVerbChooserPrepositionColor" format="reference"/>

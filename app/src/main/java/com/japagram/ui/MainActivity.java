@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.japagram.R;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements
 
     //region Parameters
     @BindView(R.id.second_fragment_placeholder) FrameLayout mSecondFragmentPlaceholder;
+    @BindView(R.id.background) LinearLayout mBackground;
     private String mSecondFragmentFlag;
     private InputQueryFragment mInputQueryFragment;
     private Typeface CJK_typeface;
@@ -108,7 +110,6 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         mSavedInstanceState = savedInstanceState;
-
         Log.i("Diagnosis Time", "Started MainActivity.");
         initializeParameters();
         instantiateExtraDatabases();
@@ -341,6 +342,8 @@ public class MainActivity extends BaseActivity implements
     private void initializeParameters() {
 
         mBinding =  ButterKnife.bind(this);
+        mBackground.setBackgroundResource(UtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1 : R.drawable.background1night);
+
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
         mQueryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
