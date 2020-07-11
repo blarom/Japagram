@@ -385,7 +385,7 @@ public class InputQueryFragment extends Fragment implements
     }
     private void drawBorderAroundThisButton(Button button) {
 
-        if (mDictButton==null) return;
+        if (mDictButton==null || getActivity() == null) return;
 
         mDictButton.setBackgroundResource(0);
         mConjButton.setBackgroundResource(0);
@@ -393,11 +393,13 @@ public class InputQueryFragment extends Fragment implements
         mSearchByRadicalButton.setBackgroundResource(0);
         mDecomposeButton.setBackgroundResource(0);
 
-        if (button.getId() == mDictButton.getId()) mDictButton.setBackgroundResource(R.drawable.background_full_no_borders);
-        else if (button.getId() == mConjButton.getId()) mConjButton.setBackgroundResource(R.drawable.background_full_no_borders);
-        else if (button.getId() == mConvertButton.getId()) mConvertButton.setBackgroundResource(R.drawable.background_full_no_borders);
-        else if (button.getId() == mSearchByRadicalButton.getId()) mSearchByRadicalButton.setBackgroundResource(R.drawable.background_full_no_borders);
-        else if (button.getId() == mDecomposeButton.getId()) mDecomposeButton.setBackgroundResource(R.drawable.background_full_no_borders);
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.inputQuery_buttonBackground, typedValue, true);
+        if (button.getId() == mDictButton.getId()) mDictButton.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == mConjButton.getId()) mConjButton.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == mConvertButton.getId()) mConvertButton.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == mSearchByRadicalButton.getId()) mSearchByRadicalButton.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == mDecomposeButton.getId()) mDecomposeButton.setBackgroundResource(typedValue.resourceId);
     }
     private List<String> getQueryHistoryWordsOnly(List<String> queryHistory) {
         List<String> result = new ArrayList<>();

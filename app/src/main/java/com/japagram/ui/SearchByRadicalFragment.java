@@ -541,6 +541,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     private void drawBorderAroundThisEditText(EditText editText) {
 
+        if (getActivity() == null) return;
         if (mElementAEditText==null || mElementBEditText==null || mElementCEditText==null || mElementDEditText==null) return;
 
         mElementAEditTextContainer.setBackgroundResource(0);
@@ -548,10 +549,12 @@ public class SearchByRadicalFragment extends Fragment implements
         mElementCEditTextContainer.setBackgroundResource(0);
         mElementDEditTextContainer.setBackgroundResource(0);
 
-        if (editText.getId() == mElementAEditText.getId()) mElementAEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementBEditText.getId()) mElementBEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementCEditText.getId()) mElementCEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
-        else if (editText.getId() == mElementDEditText.getId()) mElementDEditTextContainer.setBackgroundResource(R.drawable.background_search_by_radical_three_sided);
+        TypedValue typedValue = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.searchByRadical_three_sided_background, typedValue, true);
+        if (editText.getId() == mElementAEditText.getId()) mElementAEditTextContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == mElementBEditText.getId()) mElementBEditTextContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == mElementCEditText.getId()) mElementCEditTextContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == mElementDEditText.getId()) mElementDEditTextContainer.setBackgroundResource(typedValue.resourceId);
     }
 
     @OnClick (R.id.search_by_radical_overall_structure_button) void onRequestedStructureButtonClick() {

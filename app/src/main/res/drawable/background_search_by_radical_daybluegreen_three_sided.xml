@@ -2,17 +2,15 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/White" />
+            <solid android:color="@color/appThemeBlueGreen_colorMonochromeBlend" />
         </shape>
     </item>
     <item
-        android:top="-4dp"
-        android:left="-4dp"
-        android:right="-4dp">
+        android:bottom="-4dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="3dp"
-                android:color="?attr/resultsTitleUnderlineColor" />
+                android:color="@color/appThemeBlueGreen_kanjiGridItemBorder" />
         </shape>
     </item>
 </layer-list>

@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/White" />
+            <solid android:color="@color/appThemeRedBlack_colorMonochromeBlend" />
         </shape>
     </item>
     <item
@@ -10,7 +10,7 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="3dp"
-                android:color="?attr/elementsBoxBorderColor" />
+                android:color="@color/appThemeRedBlack_kanjiGridItemBorder" />
         </shape>
     </item>
 </layer-list>

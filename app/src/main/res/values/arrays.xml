@@ -4,13 +4,13 @@
     <array name="pref_app_theme_color_labels">
         <item>@string/theme_color_label_daybluegreen</item>
         <item>@string/theme_color_label_dayredblack</item>
-        <item>@string/theme_color_label_nightredblack</item>
+        <item>@string/theme_color_label_nightpurpleblack</item>
     </array>
 
     <array name="pref_app_theme_color_values">
         <item>@string/pref_theme_color_value_daybluegreen</item>
         <item>@string/pref_theme_color_value_dayredblack</item>
-        <item>@string/pref_theme_color_value_nightredblack</item>
+        <item>@string/pref_theme_color_value_NightPurpleBlack</item>
     </array>
 
     <array name="pref_app_language_labels">

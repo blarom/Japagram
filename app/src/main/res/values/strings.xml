@@ -70,7 +70,7 @@
     <string name="language_label_japanese">Japanese</string>
     <string name="theme_color_label_daybluegreen">Blue-Green, Day</string>
     <string name="theme_color_label_dayredblack">Red-Black, Day</string>
-    <string name="theme_color_label_nightredblack">Red-Black, Night</string>
+    <string name="theme_color_label_nightpurpleblack">Purple-Black, Night</string>
     <string name="language_label_english">English</string>
     <string name="language_label_french">French</string>
     <string name="language_label_spanish">Spanish</string>
@@ -80,11 +80,11 @@
     <string name="pref_app_language">App Language</string>
     <string name="pref_theme_colors_value_daybluegreen" translatable="false">daybluegreen</string>
     <string name="pref_theme_colors_value_dayredblack" translatable="false">dayredblack</string>
-    <string name="pref_theme_colors_value_nightredblack" translatable="false">nightredblack</string>
+    <string name="pref_theme_colors_value_NightPurpleBlack" translatable="false">NightPurpleBlack</string>
     <string name="pref_language_value_japanese" translatable="false">japanese</string>
     <string name="pref_theme_color_value_daybluegreen" translatable="false">daybluegreen</string>
     <string name="pref_theme_color_value_dayredblack" translatable="false">dayredblack</string>
-    <string name="pref_theme_color_value_nightredblack" translatable="false">nightredblack</string>
+    <string name="pref_theme_color_value_NightPurpleBlack" translatable="false">nightpurpleblack</string>
     <string name="pref_language_value_english" translatable="false">english</string>
     <string name="pref_language_value_french" translatable="false">french</string>
     <string name="pref_language_value_spanish" translatable="false">spanish</string>

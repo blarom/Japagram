@@ -93,21 +93,21 @@
     <color name="appThemeRedBlack_colorSecondaryNormal">@color/appThemeRedBlack_colorAccent</color>
     <color name="appThemeRedBlack_colorSecondaryLessPronounced">@color/appThemeRedBlack_colorAccentLight</color>
 
-    <color name="appThemeNightRedBlack_colorPrimary">#ba68c8</color>
-    <color name="appThemeNightRedBlack_colorPrimaryDark">#883997</color>
-    <color name="appThemeNightRedBlack_colorPrimaryLight">#ee98fb</color>
-    <color name="appThemeNightRedBlack_colorAccent">#e0e0e0</color>
-    <color name="appThemeNightRedBlack_colorAccentDark">#aeaeae</color>
-    <color name="appThemeNightRedBlack_colorAccentLight">#ffffff</color>
-    <color name="appThemeNightRedBlack_colorSelectedOption">#5c007a</color>
-    <color name="appThemeNightRedBlack_colorMonochromeContrast">@color/White</color>
-    <color name="appThemeNightRedBlack_colorMonochromeBlend">@color/Black</color>
-    <color name="appThemeNightRedBlack_colorPrimaryMorePronounced">@color/appThemeNightRedBlack_colorPrimaryLight</color>
-    <color name="appThemeNightRedBlack_colorPrimaryNormal">@color/appThemeNightRedBlack_colorPrimary</color>
-    <color name="appThemeNightRedBlack_colorPrimaryLessPronounced">@color/appThemeNightRedBlack_colorPrimaryDark</color>
-    <color name="appThemeNightRedBlack_colorSecondaryMorePronounced">@color/appThemeNightRedBlack_colorAccentLight</color>
-    <color name="appThemeNightRedBlack_colorSecondaryNormal">@color/appThemeNightRedBlack_colorAccent</color>
-    <color name="appThemeNightRedBlack_colorSecondaryLessPronounced">@color/appThemeNightRedBlack_colorAccentDark</color>
+    <color name="appThemeNightPurpleBlack_colorPrimary">#ba68c8</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryDark">#883997</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryLight">#ee98fb</color>
+    <color name="appThemeNightPurpleBlack_colorAccent">#e0e0e0</color>
+    <color name="appThemeNightPurpleBlack_colorAccentDark">#aeaeae</color>
+    <color name="appThemeNightPurpleBlack_colorAccentLight">#ffffff</color>
+    <color name="appThemeNightPurpleBlack_colorSelectedOption">#5c007a</color>
+    <color name="appThemeNightPurpleBlack_colorMonochromeContrast">@color/White</color>
+    <color name="appThemeNightPurpleBlack_colorMonochromeBlend">@color/Black</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryMorePronounced">@color/appThemeNightPurpleBlack_colorPrimaryLight</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryNormal">@color/appThemeNightPurpleBlack_colorPrimary</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryLessPronounced">@color/appThemeNightPurpleBlack_colorPrimaryDark</color>
+    <color name="appThemeNightPurpleBlack_colorSecondaryMorePronounced">@color/appThemeNightPurpleBlack_colorAccentLight</color>
+    <color name="appThemeNightPurpleBlack_colorSecondaryNormal">@color/appThemeNightPurpleBlack_colorAccent</color>
+    <color name="appThemeNightPurpleBlack_colorSecondaryLessPronounced">@color/appThemeNightPurpleBlack_colorAccentDark</color>
     <!-- ****************************************************************************** -->
     <!-- **************************** Theme Colors - End   **************************** -->
     <!-- ****************************************************************************** -->
@@ -122,23 +122,23 @@
     <color name="appThemeRedBlack_appTextPrimary">@color/appThemeRedBlack_colorPrimaryMorePronounced</color>
     <color name="appThemeRedBlack_appTextSecondary">@color/appThemeRedBlack_colorSecondaryNormal</color>
     <color name="appThemeRedBlack_colorTransparent">@color/color_transparentDay</color>
-    <color name="appThemeNightRedBlack_appTextPrimary">@color/appThemeNightRedBlack_colorPrimaryMorePronounced</color>
-    <color name="appThemeNightRedBlack_appTextSecondary">@color/appThemeNightRedBlack_colorSecondaryNormal</color>
-    <color name="appThemeNightRedBlack_colorTransparent">@color/color_transparentNight</color>
+    <color name="appThemeNightPurpleBlack_appTextPrimary">@color/appThemeNightPurpleBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeNightPurpleBlack_appTextSecondary">@color/appThemeNightPurpleBlack_colorSecondaryNormal</color>
+    <color name="appThemeNightPurpleBlack_colorTransparent">@color/color_transparentNight</color>
 
     <!--InputQueryFragment colors-->
     <color name="appThemeBlueGreen_textSearch">@color/appThemeBlueGreen_colorPrimaryMorePronounced</color>
     <color name="appThemeBlueGreen_buttonBackground">@color/appThemeBlueGreen_colorSelectedOption</color>
     <color name="appThemeRedBlack_textSearch">@color/appThemeRedBlack_colorPrimaryMorePronounced</color>
     <color name="appThemeRedBlack_buttonBackground">@color/appThemeRedBlack_colorSelectedOption</color>
-    <color name="appThemeNightRedBlack_textSearch">@color/appThemeNightRedBlack_colorPrimaryMorePronounced</color>
-    <color name="appThemeNightRedBlack_buttonBackground">@color/appThemeNightRedBlack_colorSelectedOption</color>
+    <color name="appThemeNightPurpleBlack_textSearch">@color/appThemeNightPurpleBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeNightPurpleBlack_buttonBackground">@color/appThemeNightPurpleBlack_colorSelectedOption</color>
 
     <!--Dictionary colors-->
     <color name="appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji">@color/appThemeBlueGreen_colorPrimaryMorePronounced</color>
     <color name="appThemeBlueGreen_textDictionaryGroupItemMeanings">@color/appThemeBlueGreen_colorPrimaryNormal</color>
-    <color name="appThemeBlueGreen_textDictionaryChildItemRomaji">@color/appThemeBlueGreen_colorAccentLight</color>
-    <color name="appThemeBlueGreen_textDictionaryChildItemKanji">@color/appThemeBlueGreen_colorAccent</color>
+    <color name="appThemeBlueGreen_textDictionaryChildItemRomaji">@color/appThemeBlueGreen_colorSecondaryLessPronounced</color>
+    <color name="appThemeBlueGreen_textDictionaryChildItemKanji">@color/appThemeBlueGreen_colorSecondaryNormal</color>
     <color name="appThemeBlueGreen_textDictionarySpanClicked">@color/appThemeBlueGreen_colorPrimaryNormal</color>
     <color name="appThemeBlueGreen_textDictionaryTypeMeaning">@color/appThemeBlueGreen_colorMonochromeContrast</color>
     <color name="appThemeBlueGreen_textDictionaryRuleWhereClause">@color/appThemeBlueGreen_appTextSecondary</color>
@@ -147,23 +147,23 @@
 
     <color name="appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji">@color/appThemeRedBlack_colorPrimaryMorePronounced</color>
     <color name="appThemeRedBlack_textDictionaryGroupItemMeanings">@color/appThemeRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeRedBlack_textDictionaryChildItemRomaji">@color/appThemeRedBlack_colorAccentLight</color>
-    <color name="appThemeRedBlack_textDictionaryChildItemKanji">@color/appThemeRedBlack_colorAccent</color>
+    <color name="appThemeRedBlack_textDictionaryChildItemRomaji">@color/appThemeRedBlack_colorSecondaryLessPronounced</color>
+    <color name="appThemeRedBlack_textDictionaryChildItemKanji">@color/appThemeRedBlack_colorSecondaryNormal</color>
     <color name="appThemeRedBlack_textDictionarySpanClicked">@color/appThemeRedBlack_colorPrimaryNormal</color>
     <color name="appThemeRedBlack_textDictionaryTypeMeaning">@color/appThemeRedBlack_colorMonochromeContrast</color>
     <color name="appThemeRedBlack_textDictionaryRuleWhereClause">@color/appThemeRedBlack_appTextSecondary</color>
     <color name="appThemeRedBlack_arrow">@color/color_arrowDay</color>
     <color name="appThemeRedBlack_widget">@color/color_widgetDay</color>
 
-    <color name="appThemeNightRedBlack_textDictionaryGroupItemRomajiAndKanji">@color/appThemeNightRedBlack_colorPrimaryMorePronounced</color>
-    <color name="appThemeNightRedBlack_textDictionaryGroupItemMeanings">@color/appThemeNightRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeNightRedBlack_textDictionaryChildItemRomaji">@color/appThemeNightRedBlack_colorAccentLight</color>
-    <color name="appThemeNightRedBlack_textDictionaryChildItemKanji">@color/appThemeNightRedBlack_colorAccent</color>
-    <color name="appThemeNightRedBlack_textDictionarySpanClicked">@color/appThemeNightRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeNightRedBlack_textDictionaryTypeMeaning">@color/appThemeNightRedBlack_colorMonochromeContrast</color>
-    <color name="appThemeNightRedBlack_textDictionaryRuleWhereClause">@color/appThemeNightRedBlack_appTextSecondary</color>
-    <color name="appThemeNightRedBlack_arrow">@color/color_arrowNight</color>
-    <color name="appThemeNightRedBlack_widget">@color/color_widgetNight</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryGroupItemRomajiAndKanji">@color/appThemeNightPurpleBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryGroupItemMeanings">@color/appThemeNightPurpleBlack_colorPrimaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryChildItemRomaji">@color/appThemeNightPurpleBlack_colorSecondaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryChildItemKanji">@color/appThemeNightPurpleBlack_colorSecondaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textDictionarySpanClicked">@color/appThemeNightPurpleBlack_colorPrimaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryTypeMeaning">@color/appThemeNightPurpleBlack_colorMonochromeContrast</color>
+    <color name="appThemeNightPurpleBlack_textDictionaryRuleWhereClause">@color/appThemeNightPurpleBlack_appTextSecondary</color>
+    <color name="appThemeNightPurpleBlack_arrow">@color/color_arrowNight</color>
+    <color name="appThemeNightPurpleBlack_widget">@color/color_widgetNight</color>
 
     <!--Conjugation colors-->
     <color name="appThemeBlueGreen_textConjugatorVerbChooserPreposition">@color/appThemeBlueGreen_colorPrimaryLessPronounced</color>
@@ -182,50 +182,50 @@
     <color name="appThemeRedBlack_textConjugatorConjugationChooserLower">@color/appThemeRedBlack_colorMonochromeContrast</color>
     <color name="appThemeRedBlack_textConjugatorLabel">@color/appThemeRedBlack_colorMonochromeContrast</color>
     <color name="appThemeRedBlack_textConjugatorResults">@color/appThemeRedBlack_appTextSecondary</color>
-    <color name="appThemeNightRedBlack_textConjugatorVerbChooserPreposition">@color/appThemeNightRedBlack_colorPrimaryLessPronounced</color>
-    <color name="appThemeNightRedBlack_textConjugatorVerbChooserKanjiRomaji">@color/appThemeNightRedBlack_colorPrimaryMorePronounced</color>
-    <color name="appThemeNightRedBlack_textConjugatorVerbChooserCharacteristics">@color/appThemeNightRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeNightRedBlack_textConjugatorVerbChooserMeaning">@color/appThemeNightRedBlack_colorMonochromeContrast</color>
-    <color name="appThemeNightRedBlack_textConjugatorConjugationChooserUpper">@color/appThemeNightRedBlack_appTextSecondary</color>
-    <color name="appThemeNightRedBlack_textConjugatorConjugationChooserLower">@color/appThemeNightRedBlack_colorMonochromeContrast</color>
-    <color name="appThemeNightRedBlack_textConjugatorLabel">@color/appThemeNightRedBlack_colorMonochromeContrast</color>
-    <color name="appThemeNightRedBlack_textConjugatorResults">@color/appThemeNightRedBlack_appTextSecondary</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorVerbChooserPreposition">@color/appThemeNightPurpleBlack_colorPrimaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorVerbChooserKanjiRomaji">@color/appThemeNightPurpleBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorVerbChooserCharacteristics">@color/appThemeNightPurpleBlack_colorPrimaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorVerbChooserMeaning">@color/appThemeNightPurpleBlack_colorMonochromeContrast</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorConjugationChooserUpper">@color/appThemeNightPurpleBlack_appTextSecondary</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorConjugationChooserLower">@color/appThemeNightPurpleBlack_colorMonochromeContrast</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorLabel">@color/appThemeNightPurpleBlack_colorMonochromeContrast</color>
+    <color name="appThemeNightPurpleBlack_textConjugatorResults">@color/appThemeNightPurpleBlack_appTextSecondary</color>
 
     <!--Search By Radical colors-->
     <color name="appThemeBlueGreen_textCompositionGridElementDefault">@color/appThemeBlueGreen_colorPrimaryMorePronounced</color>
-    <color name="appThemeBlueGreen_textCompositionGridElementSelected">@color/appThemeBlueGreen_colorAccent</color>
+    <color name="appThemeBlueGreen_textCompositionGridElementSelected">@color/appThemeBlueGreen_colorSecondaryNormal</color>
     <color name="appThemeBlueGreen_selectedDictParentBackground">@color/color_selectedDictParentBackgroundDay</color>
     <color name="appThemeBlueGreen_selectedDictChildBackground">@color/color_selectedDictChildBackgroundDay</color>
-    <color name="appThemeBlueGreen_elementsBoxBorder">@color/appThemeBlueGreen_colorAccentLight</color>
-    <color name="appThemeBlueGreen_kanjiSelectionBoxBorder">@color/appThemeBlueGreen_colorPrimaryDark</color>
-    <color name="appThemeBlueGreen_resultsTitleUnderline">@color/appThemeBlueGreen_colorPrimary</color>
+    <color name="appThemeBlueGreen_elementsBoxBorder">@color/appThemeBlueGreen_colorPrimaryLessPronounced</color>
+    <color name="appThemeBlueGreen_kanjiSelectionBoxBorder">@color/appThemeBlueGreen_colorPrimaryMorePronounced</color>
+    <color name="appThemeBlueGreen_resultsTitleUnderline">@color/appThemeBlueGreen_colorPrimaryNormal</color>
     <color name="appThemeRedBlack_textCompositionGridElementDefault">@color/appThemeRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeRedBlack_textCompositionGridElementSelected">@color/appThemeRedBlack_colorAccent</color>
+    <color name="appThemeRedBlack_textCompositionGridElementSelected">@color/appThemeRedBlack_colorSecondaryNormal</color>
     <color name="appThemeRedBlack_selectedDictParentBackground">@color/color_selectedDictParentBackgroundDay</color>
     <color name="appThemeRedBlack_selectedDictChildBackground">@color/color_selectedDictChildBackgroundDay</color>
-    <color name="appThemeRedBlack_elementsBoxBorder">@color/appThemeRedBlack_colorAccentLight</color>
-    <color name="appThemeRedBlack_kanjiSelectionBoxBorder">@color/appThemeRedBlack_colorPrimaryDark</color>
-    <color name="appThemeRedBlack_resultsTitleUnderline">@color/appThemeRedBlack_colorPrimary</color>
-    <color name="appThemeNightRedBlack_textCompositionGridElementDefault">@color/appThemeNightRedBlack_colorPrimaryNormal</color>
-    <color name="appThemeNightRedBlack_textCompositionGridElementSelected">@color/appThemeNightRedBlack_colorAccent</color>
-    <color name="appThemeNightRedBlack_selectedDictParentBackground">@color/color_selectedDictParentBackgroundNight</color>
-    <color name="appThemeNightRedBlack_selectedDictChildBackground">@color/color_selectedDictChildBackgroundNight</color>
-    <color name="appThemeNightRedBlack_elementsBoxBorder">@color/appThemeNightRedBlack_colorAccentLight</color>
-    <color name="appThemeNightRedBlack_kanjiSelectionBoxBorder">@color/appThemeNightRedBlack_colorPrimaryDark</color>
-    <color name="appThemeNightRedBlack_resultsTitleUnderline">@color/appThemeNightRedBlack_colorPrimary</color>
+    <color name="appThemeRedBlack_elementsBoxBorder">@color/appThemeRedBlack_colorPrimaryLessPronounced</color>
+    <color name="appThemeRedBlack_kanjiSelectionBoxBorder">@color/appThemeRedBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeRedBlack_resultsTitleUnderline">@color/appThemeRedBlack_colorPrimaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textCompositionGridElementDefault">@color/appThemeNightPurpleBlack_colorPrimaryNormal</color>
+    <color name="appThemeNightPurpleBlack_textCompositionGridElementSelected">@color/appThemeNightPurpleBlack_colorSecondaryNormal</color>
+    <color name="appThemeNightPurpleBlack_selectedDictParentBackground">@color/color_selectedDictParentBackgroundNight</color>
+    <color name="appThemeNightPurpleBlack_selectedDictChildBackground">@color/color_selectedDictChildBackgroundNight</color>
+    <color name="appThemeNightPurpleBlack_elementsBoxBorder">@color/appThemeNightPurpleBlack_colorPrimaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_kanjiSelectionBoxBorder">@color/appThemeNightPurpleBlack_colorPrimaryMorePronounced</color>
+    <color name="appThemeNightPurpleBlack_resultsTitleUnderline">@color/appThemeNightPurpleBlack_colorPrimaryNormal</color>
 
     <!--Decomposition colors-->
-    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgePrimary">@color/appThemeBlueGreen_colorPrimaryLight</color>
-    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary">@color/appThemeBlueGreen_colorAccentLight</color>
-    <color name="appThemeRedBlack_decomposition_FillWhiteEdgePrimary">@color/appThemeRedBlack_colorPrimaryLight</color>
-    <color name="appThemeRedBlack_decomposition_FillWhiteEdgeSecondary">@color/appThemeRedBlack_colorAccentLight</color>
-    <color name="appThemeNightRedBlack_decomposition_FillWhiteEdgePrimary">@color/appThemeNightRedBlack_colorPrimaryLight</color>
-    <color name="appThemeNightRedBlack_decomposition_FillWhiteEdgeSecondary">@color/appThemeNightRedBlack_colorAccentLight</color>
+    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgePrimary">@color/appThemeBlueGreen_colorPrimaryLessPronounced</color>
+    <color name="appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary">@color/appThemeBlueGreen_colorSecondaryLessPronounced</color>
+    <color name="appThemeRedBlack_decomposition_FillWhiteEdgePrimary">@color/appThemeRedBlack_colorPrimaryLessPronounced</color>
+    <color name="appThemeRedBlack_decomposition_FillWhiteEdgeSecondary">@color/appThemeRedBlack_colorSecondaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_decomposition_FillWhiteEdgePrimary">@color/appThemeNightPurpleBlack_colorPrimaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_decomposition_FillWhiteEdgeSecondary">@color/appThemeNightPurpleBlack_colorSecondaryLessPronounced</color>
 
     <!--Kanji Grid colors-->
-    <color name="appThemeBlueGreen_kanjiGridItemBorder">@color/appThemeBlueGreen_colorAccentLight</color>
-    <color name="appThemeRedBlack_kanjiGridItemBorder">@color/appThemeRedBlack_colorAccentLight</color>
-    <color name="appThemeNightRedBlack_kanjiGridItemBorder">@color/appThemeNightRedBlack_colorAccentLight</color>
+    <color name="appThemeBlueGreen_kanjiGridItemBorder">@color/appThemeBlueGreen_colorSecondaryLessPronounced</color>
+    <color name="appThemeRedBlack_kanjiGridItemBorder">@color/appThemeRedBlack_colorSecondaryLessPronounced</color>
+    <color name="appThemeNightPurpleBlack_kanjiGridItemBorder">@color/appThemeNightPurpleBlack_colorSecondaryLessPronounced</color>
 
     <!-- ****************************************************************************** -->
     <!-- **************************** Item Colors - End    **************************** -->

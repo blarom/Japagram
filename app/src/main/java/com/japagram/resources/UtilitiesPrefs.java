@@ -336,8 +336,8 @@ public final class UtilitiesPrefs {
 //                    layout.setBackgroundResource(R.drawable.background1_day);
 //                } catch (Exception ignored){}
                 changeThemeColor = true;
-            } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_nightredblack)) && currentTheme != R.style.AppTheme_NightRedBlack) {
-                activity.setTheme(R.style.AppTheme_NightRedBlack);
+            } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_NightPurpleBlack)) && currentTheme != R.style.AppTheme_NightPurpleBlack) {
+                activity.setTheme(R.style.AppTheme_NightPurpleBlack);
 //                try {
 //                    LinearLayout layout = activity.findViewById(R.id.background);
 //                    layout.setBackgroundResource(R.drawable.background1_night);

@@ -22,6 +22,7 @@
     <attr name="inputQueryTextColor" format="reference"/>
     <attr name="buttonBackgroundColor" format="reference"/>
     <attr name="widgetColor" format="reference"/>
+    <attr name="inputQuery_buttonBackground" format="reference"/>
 
     <!--Dictionary colors-->
     <attr name="selectedDictParentBackgroundColor" format="reference"/>
@@ -51,6 +52,10 @@
     <attr name="elementsBoxBorderColor" format="reference"/>
     <attr name="kanjiSelectionBoxBorderColor" format="reference"/>
     <attr name="resultsTitleUnderlineColor" format="reference"/>
+    <attr name="searchByRadical_kanjiGrid_itemBackground" format="reference"/>
+    <attr name="searchByRadical_results_title_underline" format="reference"/>
+    <attr name="searchByRadical_findTheKanjiBackground" format="reference"/>
+    <attr name="searchByRadical_three_sided_background" format="reference"/>
 
     <!--Decomposition colors-->
     <attr name="decomposition_boxPrimary" format="reference"/>

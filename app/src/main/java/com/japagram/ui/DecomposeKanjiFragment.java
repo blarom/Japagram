@@ -463,7 +463,6 @@ public class DecomposeKanjiFragment extends Fragment implements
             }
             else {
                 getActivity().getTheme().resolveAttribute(R.attr.decomposition_boxSecondary, typedValue, true);
-                //layout.setBackground(getContext().getResources().getDrawable(R.drawable.background_decompose_box_daybluegreen_primary));
             }
             layout.setBackgroundResource(typedValue.resourceId);
         }

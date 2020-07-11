@@ -3,6 +3,7 @@ package com.japagram.adapters;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,9 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
         String kanji = mKanjis.get(position);
         final TextView tv = holder.kanjiTextView;
 
-        if (mKanjiIsSelected[position]) tv.setBackgroundResource(R.drawable.background_kanji_grid_item);
+        TypedValue typedValue = new TypedValue();
+        mContext.getTheme().resolveAttribute(R.attr.searchByRadical_kanjiGrid_itemBackground, typedValue, true);
+        if (mKanjiIsSelected[position]) tv.setBackgroundResource(typedValue.resourceId);
         else tv.setBackgroundResource(0);
 
         tv.setText(kanji);
@@ -101,7 +104,7 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
         }
         else {
             createSelectedArray();
-            tv.setBackgroundResource(R.drawable.background_kanji_grid_item);
+            tv.setBackgroundResource(R.drawable.background_kanji_grid_item_daybluegreen);
             mKanjiIsSelected[position] = true;
         }
     }
