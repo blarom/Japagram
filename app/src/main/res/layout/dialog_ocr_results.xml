@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textIsSelectable="true"
-            android:background="@drawable/background_decompose_fill_white_edge_secondary"
+            android:background="@drawable/background_decompose_box_daybluegreen_secondary"
             android:lineSpacingMultiplier="1.5"
             android:focusable="true"
             android:textSize="22sp"

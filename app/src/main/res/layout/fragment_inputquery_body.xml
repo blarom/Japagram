@@ -30,9 +30,10 @@
             android:textSize="22sp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:theme="@style/InputQueryAutocomplete"
             android:scrollbars="horizontal"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="?attr/textSearchColor" />
+            android:textColor="?attr/inputQueryTextColor" />
 
         <Button
             android:id="@+id/button_clear_query"

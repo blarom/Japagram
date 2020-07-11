@@ -54,7 +54,7 @@ public class SplashScreenActivity extends BaseActivity {
         setContentView(R.layout.activity_splashscreen);
 
         mBinding =  ButterKnife.bind(this);
-        mBackground.setBackgroundResource(UtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1 : R.drawable.background1night);
+        mBackground.setBackgroundResource(UtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
         mLoadingDbTextView.setTextColor(UtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
 
         mCentralDbBeingLoaded = true;

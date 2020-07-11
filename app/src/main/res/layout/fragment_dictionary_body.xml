@@ -13,7 +13,8 @@
         android:layout_marginEnd="6dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="0dp"
-        android:background="#BFFFFFFF"
+        android:background="?attr/colorMonochromeBlend"
+        android:textColor="?attr/colorPrimaryNormal"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
@@ -23,7 +24,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="#BFFFFFFF"
+        android:background="?attr/colorMonochromeBlend"
+        android:textColor="?attr/colorPrimaryNormal"
         android:text="@string/please_enter_valid_word"
         app:layout_constraintTop_toTopOf="parent"/>
 

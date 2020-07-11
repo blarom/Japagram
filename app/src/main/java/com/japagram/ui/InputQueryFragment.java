@@ -333,7 +333,7 @@ public class InputQueryFragment extends Fragment implements
 
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
         mInputQueryAutoCompleteTextView.setTypeface(mDroidSansJapaneseTypeface);
-        mInputQueryAutoCompleteTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
+        mInputQueryAutoCompleteTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
 
         mInputQueryAutoCompleteTextView.setOnEditorActionListener((exampleView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -1248,7 +1248,7 @@ public class InputQueryFragment extends Fragment implements
                 queryHistoryElement.setEllipsize(TextUtils.TruncateAt.END);
                 queryHistoryElement.setTypeface(mDroidSansJapaneseTypeface);
                 queryHistoryElement.setGravity(View.TEXT_ALIGNMENT_CENTER|View.TEXT_ALIGNMENT_TEXT_START);
-                queryHistoryElement.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.appTextPrimaryColor));
+                queryHistoryElement.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
                 return layout;
             }
             else return null;

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/background1"
+        android:background="@drawable/background1_day"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -25,7 +25,7 @@
             android:fontFamily="sans-serif-medium"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/Black"
+            android:textColor="?attr/colorMonochromeContrast"
             android:textSize="26sp"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:text="@string/splashscreen_intro_sentence"
             android:layout_marginBottom="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/Black"
+            android:textColor="?attr/colorMonochromeContrast"
             android:textSize="18sp"/>
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_gravity="center"
             android:text="@string/splashscreen_loading_database"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="?attr/colorPrimaryLight"
+            android:textColor="?attr/colorPrimaryNormal"
             android:textSize="20sp"/>
 
         <TextView
@@ -57,6 +57,7 @@
             android:gravity="center"
             android:layout_marginBottom="16dp"
             android:text="@string/splashscreen_should_take_only_a_few_seconds"
+            android:textColor="?attr/colorPrimaryNormal"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp"/>
 
@@ -76,6 +77,7 @@
             android:gravity="center"
             android:layout_marginBottom="96dp"
             android:text="@string/loading_central_database"
+            android:textColor="?attr/colorPrimaryNormal"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="16sp"/>
 

@@ -229,7 +229,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         //region Setting the main Kanji
         kanjiTV.setTypeface(mDroidSansJapaneseTypeface);
         kanjiTV.setTextLocale(Locale.JAPAN);
-        kanjiTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark));
+        kanjiTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
         setPrintableKanji(kanjiTV, mainKanji);
         kanjiTV.setHint(mainKanji);
         structure_info = getStructureInfo(decomposedKanji.get(0).get(1));
@@ -248,7 +248,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             final TextView tv = new TextView(getContext());
             tv.setLayoutParams(radical_gallery_layoutParams);
             display_text = decomposedKanji.get(i).get(0);
-            text = Utilities.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark)+"'>" + display_text + "</font>");
+            text = Utilities.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
             clickable_text = new SpannableString(text);
 
             tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -297,7 +297,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             });
             tv.setTag(kanjiListIndex +";"+ radicalIteration +";"+mainKanji);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.DecompKanjiSize));
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryDark));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
             tv.setPadding(10,0,10,0);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
             radicalGalleryLL.addView(tv);
@@ -305,6 +305,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             if (i < decomposedKanji.size()-1) {
                 TextView separatorTV = new TextView(getContext());
                 separatorTV.setText("\u00B7");
+                separatorTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeContrast));
                 separatorTV.setPadding(10,0,10,0);
                 separatorTV.setTextSize(30);
                 separatorTV.setTypeface(null, Typeface.BOLD);
@@ -456,12 +457,15 @@ public class DecomposeKanjiFragment extends Fragment implements
 
         //region Setting the border color
         if (getContext()!=null) {
+            TypedValue typedValue = new TypedValue();
             if (kanjiListIndex % 2 == 0) {
-                layout.setBackground(getContext().getResources().getDrawable(R.drawable.background_decompose_fill_white_edge_secondary));
+                getActivity().getTheme().resolveAttribute(R.attr.decomposition_boxPrimary, typedValue, true);
             }
             else {
-                layout.setBackground(getContext().getResources().getDrawable(R.drawable.background_decompose_fill_white_edge_primary));
+                getActivity().getTheme().resolveAttribute(R.attr.decomposition_boxSecondary, typedValue, true);
+                //layout.setBackground(getContext().getResources().getDrawable(R.drawable.background_decompose_box_daybluegreen_primary));
             }
+            layout.setBackgroundResource(typedValue.resourceId);
         }
         //endregion
     }

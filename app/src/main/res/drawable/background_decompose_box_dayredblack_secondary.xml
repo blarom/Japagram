@@ -2,8 +2,8 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
        android:shape="rectangle">
     <solid
-        android:color="@android:color/white" />
+        android:color="@color/appThemeRedBlack_colorMonochromeBlend" />
     <stroke
         android:width="3dp"
-        android:color="?attr/decomposition_FillWhiteEdgeSecondaryColor" />
+        android:color="@color/appThemeRedBlack_colorSecondaryNormal" />
 </shape>

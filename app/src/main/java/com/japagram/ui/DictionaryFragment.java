@@ -222,12 +222,7 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        if (mInputQuery != null && !mInputQuery.isEmpty()) {
-            mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
-        }
-        else {
-            mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
-        }
+        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }

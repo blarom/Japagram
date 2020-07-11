@@ -333,14 +333,14 @@ public final class UtilitiesPrefs {
                 activity.setTheme(R.style.AppTheme_DayRedBlack);
 //                try {
 //                    LinearLayout layout = activity.findViewById(R.id.background);
-//                    layout.setBackgroundResource(R.drawable.background1);
+//                    layout.setBackgroundResource(R.drawable.background1_day);
 //                } catch (Exception ignored){}
                 changeThemeColor = true;
             } else if (themeColor.equals(activity.getString(R.string.pref_theme_color_value_nightredblack)) && currentTheme != R.style.AppTheme_NightRedBlack) {
                 activity.setTheme(R.style.AppTheme_NightRedBlack);
 //                try {
 //                    LinearLayout layout = activity.findViewById(R.id.background);
-//                    layout.setBackgroundResource(R.drawable.background1night);
+//                    layout.setBackgroundResource(R.drawable.background1_night);
 //                } catch (Exception ignored){}
                 changeThemeColor = true;
             }

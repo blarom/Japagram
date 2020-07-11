@@ -3,19 +3,26 @@
     <!-- Base application theme. -->
 <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
+        <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
+        <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
-        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
-        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
-        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
-        <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
-        <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
-        <item name="textSearchColor">@color/appThemeRedBlack_textSearch</item>
+        <item name="colorPrimaryLessPronounced">@color/appThemeRedBlack_colorPrimaryLessPronounced</item>
+        <item name="colorPrimaryNormal">@color/appThemeRedBlack_colorPrimaryNormal</item>
+        <item name="colorPrimaryMorePronounced">@color/appThemeRedBlack_colorPrimaryMorePronounced</item>
+        <item name="colorSecondaryLessPronounced">@color/appThemeRedBlack_colorSecondaryLessPronounced</item>
+        <item name="colorSecondaryNormal">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="colorSecondaryMorePronounced">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
+        <item name="inputQueryTextColor">@color/appThemeRedBlack_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeRedBlack_buttonBackground</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeRedBlack_textDictionaryGroupItemMeanings</item>
@@ -35,28 +42,40 @@
         <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
         <item name="textCompositionGridElementSelectedColor">@color/appThemeRedBlack_textCompositionGridElementSelected</item>
-        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeRedBlack_colorSelectedDictResultBackground</item>
+        <item name="selectedDictParentBackgroundColor">@color/appThemeRedBlack_selectedDictParentBackground</item>
+        <item name="selectedDictChildBackgroundColor">@color/appThemeRedBlack_selectedDictChildBackground</item>
         <item name="elementsBoxBorderColor">@color/appThemeRedBlack_elementsBoxBorder</item>
         <item name="kanjiSelectionBoxBorderColor">@color/appThemeRedBlack_kanjiSelectionBoxBorder</item>
         <item name="resultsTitleUnderlineColor">@color/appThemeRedBlack_resultsTitleUnderline</item>
-        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
-        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="decomposition_BoxPrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_BoxSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
+        <item name="decomposition_boxPrimary">@drawable/background_decompose_box_daybluegreen_primary</item>
+        <item name="decomposition_boxSecondary">@drawable/background_decompose_box_daybluegreen_secondary</item>
+        <item name="inputQueryLineColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="inputQueryLineActivatedColor">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
     </style>
     <style name="AppTheme.DayBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeBlueGreen_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeBlueGreen_colorPrimaryDark</item>
+        <item name="colorAccentLight">@color/appThemeBlueGreen_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeBlueGreen_colorAccent</item>
+        <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
+        <item name="colorMonochromeContrast">@color/appThemeBlueGreen_colorMonochromeContrast</item>
+        <item name="colorMonochromeBlend">@color/appThemeBlueGreen_colorMonochromeBlend</item>
+        <item name="colorTransparent">@color/appThemeBlueGreen_colorTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
-        <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
-        <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
-        <item name="colorAccentLight">@color/appThemeBlueGreen_colorAccentLight</item>
         <item name="widgetColor">@color/appThemeBlueGreen_widget</item>
 
-        <item name="appTextPrimaryColor">@color/appThemeBlueGreen_appTextPrimary</item>
-        <item name="appTextSecondaryColor">@color/appThemeBlueGreen_appTextSecondary</item>
-        <item name="textSearchColor">@color/appThemeBlueGreen_textSearch</item>
+        <item name="colorPrimaryLessPronounced">@color/appThemeBlueGreen_colorPrimaryLessPronounced</item>
+        <item name="colorPrimaryNormal">@color/appThemeBlueGreen_colorPrimaryNormal</item>
+        <item name="colorPrimaryMorePronounced">@color/appThemeBlueGreen_colorPrimaryMorePronounced</item>
+        <item name="colorSecondaryLessPronounced">@color/appThemeBlueGreen_colorSecondaryLessPronounced</item>
+        <item name="colorSecondaryNormal">@color/appThemeBlueGreen_colorSecondaryNormal</item>
+        <item name="colorSecondaryMorePronounced">@color/appThemeBlueGreen_colorSecondaryMorePronounced</item>
+        <item name="inputQueryTextColor">@color/appThemeBlueGreen_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeBlueGreen_buttonBackground</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeBlueGreen_textDictionaryGroupItemMeanings</item>
@@ -76,28 +95,40 @@
         <item name="textConjugatorResultsColor">@color/appThemeBlueGreen_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeBlueGreen_textCompositionGridElementDefault</item>
         <item name="textCompositionGridElementSelectedColor">@color/appThemeBlueGreen_textCompositionGridElementSelected</item>
-        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeBlueGreen_colorSelectedDictResultBackground</item>
+        <item name="selectedDictParentBackgroundColor">@color/appThemeBlueGreen_selectedDictParentBackground</item>
+        <item name="selectedDictChildBackgroundColor">@color/appThemeBlueGreen_selectedDictChildBackground</item>
         <item name="elementsBoxBorderColor">@color/appThemeBlueGreen_elementsBoxBorder</item>
         <item name="kanjiSelectionBoxBorderColor">@color/appThemeBlueGreen_kanjiSelectionBoxBorder</item>
         <item name="resultsTitleUnderlineColor">@color/appThemeBlueGreen_resultsTitleUnderline</item>
-        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgePrimary</item>
-        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="decomposition_BoxPrimaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_BoxSecondaryColor">@color/appThemeBlueGreen_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeBlueGreen_kanjiGridItemBorder</item>
+        <item name="decomposition_boxPrimary">@drawable/background_decompose_box_daybluegreen_primary</item>
+        <item name="decomposition_boxSecondary">@drawable/background_decompose_box_daybluegreen_secondary</item>
+        <item name="inputQueryLineColor">@color/appThemeBlueGreen_colorSecondaryNormal</item>
+        <item name="inputQueryLineActivatedColor">@color/appThemeBlueGreen_colorSecondaryMorePronounced</item>
     </style>
     <style name="AppTheme.DayRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</item>
+        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
+        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
+        <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
+        <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
-        <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
-        <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
-        <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
-        <item name="appTextPrimaryColor">@color/appThemeRedBlack_appTextPrimary</item>
-        <item name="appTextSecondaryColor">@color/appThemeRedBlack_appTextSecondary</item>
-        <item name="textSearchColor">@color/appThemeRedBlack_textSearch</item>
+        <item name="colorPrimaryLessPronounced">@color/appThemeRedBlack_colorPrimaryLessPronounced</item>
+        <item name="colorPrimaryNormal">@color/appThemeRedBlack_colorPrimaryNormal</item>
+        <item name="colorPrimaryMorePronounced">@color/appThemeRedBlack_colorPrimaryMorePronounced</item>
+        <item name="colorSecondaryLessPronounced">@color/appThemeRedBlack_colorSecondaryLessPronounced</item>
+        <item name="colorSecondaryNormal">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="colorSecondaryMorePronounced">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
+        <item name="inputQueryTextColor">@color/appThemeRedBlack_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeRedBlack_buttonBackground</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeRedBlack_textDictionaryGroupItemMeanings</item>
@@ -117,28 +148,41 @@
         <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
         <item name="textCompositionGridElementSelectedColor">@color/appThemeRedBlack_textCompositionGridElementSelected</item>
-        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeRedBlack_colorSelectedDictResultBackground</item>
+        <item name="selectedDictParentBackgroundColor">@color/appThemeRedBlack_selectedDictParentBackground</item>
+        <item name="selectedDictChildBackgroundColor">@color/appThemeRedBlack_selectedDictChildBackground</item>
         <item name="elementsBoxBorderColor">@color/appThemeRedBlack_elementsBoxBorder</item>
         <item name="kanjiSelectionBoxBorderColor">@color/appThemeRedBlack_kanjiSelectionBoxBorder</item>
         <item name="resultsTitleUnderlineColor">@color/appThemeRedBlack_resultsTitleUnderline</item>
-        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
-        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="decomposition_BoxPrimaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_BoxSecondaryColor">@color/appThemeRedBlack_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeRedBlack_kanjiGridItemBorder</item>
+        <item name="decomposition_boxPrimary">@drawable/background_decompose_box_dayredblack_primary</item>
+        <item name="decomposition_boxSecondary">@drawable/background_decompose_box_dayredblack_secondary</item>
+        <item name="inputQueryLineColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="inputQueryLineActivatedColor">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
     </style>
     <style name="AppTheme.NightRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimaryLight">@color/appThemeNightRedBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeNightRedBlack_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeNightRedBlack_colorPrimaryDark</item>
+        <item name="colorAccentLight">@color/appThemeNightRedBlack_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeNightRedBlack_colorAccent</item>
+        <item name="colorAccentDark">@color/appThemeNightRedBlack_colorAccentDark</item>
+        <item name="colorTransparent">@color/appThemeNightRedBlack_colorTransparent</item>
+        <item name="colorMonochromeContrast">@color/appThemeNightRedBlack_colorMonochromeContrast</item>
+        <item name="colorMonochromeBlend">@color/appThemeNightRedBlack_colorMonochromeBlend</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
-        <item name="colorPrimaryLight">@color/appThemeNightRedBlack_colorPrimaryLight</item>
-        <item name="colorAccentDark">@color/appThemeNightRedBlack_colorAccentDark</item>
-        <item name="colorAccentLight">@color/appThemeNightRedBlack_colorAccentLight</item>
         <item name="widgetColor">@color/appThemeNightRedBlack_widget</item>
 
-        <item name="appTextPrimaryColor">@color/appThemeNightRedBlack_appTextPrimary</item>
-        <item name="appTextSecondaryColor">@color/appThemeNightRedBlack_appTextSecondary</item>
-        <item name="textSearchColor">@color/appThemeNightRedBlack_textSearch</item>
+        <item name="colorPrimaryLessPronounced">@color/appThemeNightRedBlack_colorPrimaryLessPronounced</item>
+        <item name="colorPrimaryNormal">@color/appThemeNightRedBlack_colorPrimaryNormal</item>
+        <item name="colorPrimaryMorePronounced">@color/appThemeNightRedBlack_colorPrimaryMorePronounced</item>
+        <item name="colorSecondaryLessPronounced">@color/appThemeNightRedBlack_colorSecondaryLessPronounced</item>
+        <item name="colorSecondaryNormal">@color/appThemeNightRedBlack_colorSecondaryNormal</item>
+        <item name="colorSecondaryMorePronounced">@color/appThemeNightRedBlack_colorSecondaryMorePronounced</item>
+
+        <item name="inputQueryTextColor">@color/appThemeNightRedBlack_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeNightRedBlack_buttonBackground</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeNightRedBlack_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeNightRedBlack_textDictionaryGroupItemMeanings</item>
@@ -158,13 +202,22 @@
         <item name="textConjugatorResultsColor">@color/appThemeNightRedBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeNightRedBlack_textCompositionGridElementDefault</item>
         <item name="textCompositionGridElementSelectedColor">@color/appThemeNightRedBlack_textCompositionGridElementSelected</item>
-        <item name="colorSelectedDictResultBackgroundColor">@color/appThemeNightRedBlack_colorSelectedDictResultBackground</item>
+        <item name="selectedDictParentBackgroundColor">@color/appThemeNightRedBlack_selectedDictParentBackground</item>
+        <item name="selectedDictChildBackgroundColor">@color/appThemeNightRedBlack_selectedDictChildBackground</item>
         <item name="elementsBoxBorderColor">@color/appThemeNightRedBlack_elementsBoxBorder</item>
         <item name="kanjiSelectionBoxBorderColor">@color/appThemeNightRedBlack_kanjiSelectionBoxBorder</item>
         <item name="resultsTitleUnderlineColor">@color/appThemeNightRedBlack_resultsTitleUnderline</item>
-        <item name="decomposition_FillWhiteEdgePrimaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgePrimary</item>
-        <item name="decomposition_FillWhiteEdgeSecondaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgeSecondary</item>
+        <item name="decomposition_BoxPrimaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgePrimary</item>
+        <item name="decomposition_BoxSecondaryColor">@color/appThemeNightRedBlack_decomposition_FillWhiteEdgeSecondary</item>
         <item name="kanjiGridItemBorderColor">@color/appThemeNightRedBlack_kanjiGridItemBorder</item>
+        <item name="decomposition_boxPrimary">@drawable/background_decompose_box_nightredblack_primary</item>
+        <item name="decomposition_boxSecondary">@drawable/background_decompose_box_nightredblack_secondary</item>
+        <item name="inputQueryLineColor">@color/appThemeNightRedBlack_colorSecondaryNormal</item>
+        <item name="inputQueryLineActivatedColor">@color/appThemeNightRedBlack_colorSecondaryMorePronounced</item>
+    </style>
+    <style name="InputQueryAutocomplete">
+        <item name="colorControlNormal">?attr/inputQueryLineColor</item>
+        <item name="colorControlActivated">?attr/inputQueryLineActivatedColor</item>
     </style>
     <style name="VerbCharacteristicsDisplayLinearLayout">
         <item name="android:layout_width">match_parent</item>
