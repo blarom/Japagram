@@ -13,7 +13,7 @@ android {
     }
     defaultConfig {
         applicationId "com.japagram"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 9
         versionName "2.00"

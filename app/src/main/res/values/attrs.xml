@@ -15,6 +15,10 @@
     <attr name="colorSecondaryMorePronounced" format="reference"/>
     <attr name="colorMonochromeContrast" format="reference"/>
     <attr name="colorMonochromeBlend" format="reference"/>
+    <attr name="colorMonochromeContrastTransparent" format="reference"/>
+    <attr name="colorMonochromeBlendTransparent" format="reference"/>
+    <attr name="textColorPrefScreenTitle" format="reference"/>
+    <attr name="textColorPrefScreenItem" format="reference"/>
 
     <!--InputQueryFragment colors-->
     <attr name="inputQueryLineColor" format="reference"/>

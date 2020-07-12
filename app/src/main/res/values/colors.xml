@@ -70,6 +70,8 @@
     <color name="appThemeBlueGreen_colorSelectedOption">#1a2e7d32</color>
     <color name="appThemeBlueGreen_colorMonochromeContrast">@color/Black</color>
     <color name="appThemeBlueGreen_colorMonochromeBlend">@color/White</color>
+    <color name="appThemeBlueGreen_colorMonochromeContrastTransparent">@color/transparentBlack</color>
+    <color name="appThemeBlueGreen_colorMonochromeBlendTransparent">@color/transparentWhite</color>
     <color name="appThemeBlueGreen_colorPrimaryMorePronounced">@color/appThemeBlueGreen_colorPrimaryDark</color>
     <color name="appThemeBlueGreen_colorPrimaryNormal">@color/appThemeBlueGreen_colorPrimary</color>
     <color name="appThemeBlueGreen_colorPrimaryLessPronounced">@color/appThemeBlueGreen_colorPrimaryLight</color>
@@ -86,6 +88,8 @@
     <color name="appThemeRedBlack_colorSelectedOption">#1acf2e2e</color>
     <color name="appThemeRedBlack_colorMonochromeContrast">@color/Black</color>
     <color name="appThemeRedBlack_colorMonochromeBlend">@color/White</color>
+    <color name="appThemeRedBlack_colorMonochromeContrastTransparent">@color/transparentBlack</color>
+    <color name="appThemeRedBlack_colorMonochromeBlendTransparent">@color/transparentWhite</color>
     <color name="appThemeRedBlack_colorPrimaryMorePronounced">@color/appThemeRedBlack_colorPrimaryDark</color>
     <color name="appThemeRedBlack_colorPrimaryNormal">@color/appThemeRedBlack_colorPrimary</color>
     <color name="appThemeRedBlack_colorPrimaryLessPronounced">@color/appThemeRedBlack_colorPrimaryLight</color>
@@ -102,6 +106,8 @@
     <color name="appThemeNightPurpleBlack_colorSelectedOption">#5c007a</color>
     <color name="appThemeNightPurpleBlack_colorMonochromeContrast">@color/White</color>
     <color name="appThemeNightPurpleBlack_colorMonochromeBlend">@color/Black</color>
+    <color name="appThemeNightPurpleBlack_colorMonochromeContrastTransparent">@color/transparentWhite</color>
+    <color name="appThemeNightPurpleBlack_colorMonochromeBlendTransparent">@color/transparentBlack</color>
     <color name="appThemeNightPurpleBlack_colorPrimaryMorePronounced">@color/appThemeNightPurpleBlack_colorPrimaryLight</color>
     <color name="appThemeNightPurpleBlack_colorPrimaryNormal">@color/appThemeNightPurpleBlack_colorPrimary</color>
     <color name="appThemeNightPurpleBlack_colorPrimaryLessPronounced">@color/appThemeNightPurpleBlack_colorPrimaryDark</color>

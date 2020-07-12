@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -567,7 +568,11 @@ public class MainActivity extends BaseActivity implements
         }
     }
     private void showExitAppDialog() {
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.decomposition_boxPrimary, typedValue, true);
+
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle).create();
+
         alertDialog.setMessage(getString(R.string.sure_you_want_to_exit));
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
                 (dialog, which) -> {

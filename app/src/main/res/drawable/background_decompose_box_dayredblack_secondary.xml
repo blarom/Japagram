@@ -5,5 +5,5 @@
         android:color="@color/appThemeRedBlack_colorMonochromeBlend" />
     <stroke
         android:width="3dp"
-        android:color="@color/appThemeRedBlack_colorSecondaryNormal" />
+        android:color="@color/appThemeRedBlack_colorPrimaryNormal" />
 </shape>

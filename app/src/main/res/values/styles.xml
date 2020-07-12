@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
 <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
@@ -12,6 +12,8 @@
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
+        <item name="colorMonochromeContrastTransparent">@color/appThemeRedBlack_colorMonochromeContrastTransparent</item>
+        <item name="colorMonochromeBlendTransparent">@color/appThemeRedBlack_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
@@ -36,8 +38,8 @@
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
         <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeRedBlack_textConjugatorVerbChooserMeaning</item>
-        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_textConjugatorConjugationChooserUpper</item>
-        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="textConjugatorLabelColor">@color/appThemeRedBlack_textConjugatorLabel</item>
         <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
@@ -54,6 +56,8 @@
         <item name="decomposition_boxSecondary">@drawable/background_decompose_box_daybluegreen_secondary</item>
         <item name="inputQueryLineColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
         <item name="inputQueryLineActivatedColor">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
+        <item name="textColorPrefScreenTitle">@color/appThemeRedBlack_colorPrimaryNormal</item>
+        <item name="textColorPrefScreenItem">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="inputQuery_buttonBackground">@drawable/background_full_no_borders_dayredblack</item>
         <item name="searchByRadical_kanjiGrid_itemBackground">@drawable/background_kanji_grid_item_dayredblack</item>
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_dayredblack_results_title_underline</item>
@@ -70,6 +74,8 @@
         <item name="colorMonochromeContrast">@color/appThemeBlueGreen_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeBlueGreen_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeBlueGreen_colorTransparent</item>
+        <item name="colorMonochromeContrastTransparent">@color/appThemeBlueGreen_colorMonochromeContrastTransparent</item>
+        <item name="colorMonochromeBlendTransparent">@color/appThemeBlueGreen_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <item name="widgetColor">@color/appThemeBlueGreen_widget</item>
@@ -94,8 +100,8 @@
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeBlueGreen_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeBlueGreen_textConjugatorVerbChooserCharacteristics</item>
         <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeBlueGreen_textConjugatorVerbChooserMeaning</item>
-        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeBlueGreen_textConjugatorConjugationChooserUpper</item>
-        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeBlueGreen_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeBlueGreen_colorSecondaryNormal</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeBlueGreen_colorMonochromeContrast</item>
         <item name="textConjugatorLabelColor">@color/appThemeBlueGreen_textConjugatorLabel</item>
         <item name="textConjugatorResultsColor">@color/appThemeBlueGreen_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeBlueGreen_textCompositionGridElementDefault</item>
@@ -112,6 +118,8 @@
         <item name="decomposition_boxSecondary">@drawable/background_decompose_box_daybluegreen_secondary</item>
         <item name="inputQueryLineColor">@color/appThemeBlueGreen_colorSecondaryNormal</item>
         <item name="inputQueryLineActivatedColor">@color/appThemeBlueGreen_colorSecondaryMorePronounced</item>
+        <item name="textColorPrefScreenTitle">@color/appThemeBlueGreen_colorPrimaryNormal</item>
+        <item name="textColorPrefScreenItem">@color/appThemeBlueGreen_colorMonochromeContrast</item>
         <item name="inputQuery_buttonBackground">@drawable/background_full_no_borders_daybluegreen</item>
         <item name="searchByRadical_kanjiGrid_itemBackground">@drawable/background_kanji_grid_item_daybluegreen</item>
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_daybluegreen_results_title_underline</item>
@@ -128,6 +136,8 @@
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
+        <item name="colorMonochromeContrastTransparent">@color/appThemeRedBlack_colorMonochromeContrastTransparent</item>
+        <item name="colorMonochromeBlendTransparent">@color/appThemeRedBlack_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
@@ -152,8 +162,8 @@
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeRedBlack_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeRedBlack_textConjugatorVerbChooserCharacteristics</item>
         <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeRedBlack_textConjugatorVerbChooserMeaning</item>
-        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_textConjugatorConjugationChooserUpper</item>
-        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="textConjugatorLabelColor">@color/appThemeRedBlack_textConjugatorLabel</item>
         <item name="textConjugatorResultsColor">@color/appThemeRedBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeRedBlack_textCompositionGridElementDefault</item>
@@ -170,6 +180,8 @@
         <item name="decomposition_boxSecondary">@drawable/background_decompose_box_dayredblack_secondary</item>
         <item name="inputQueryLineColor">@color/appThemeRedBlack_colorSecondaryNormal</item>
         <item name="inputQueryLineActivatedColor">@color/appThemeRedBlack_colorSecondaryMorePronounced</item>
+        <item name="textColorPrefScreenTitle">@color/appThemeRedBlack_colorPrimaryNormal</item>
+        <item name="textColorPrefScreenItem">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="inputQuery_buttonBackground">@drawable/background_full_no_borders_dayredblack</item>
         <item name="searchByRadical_kanjiGrid_itemBackground">@drawable/background_kanji_grid_item_dayredblack</item>
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_dayredblack_results_title_underline</item>
@@ -187,6 +199,8 @@
         <item name="colorTransparent">@color/appThemeNightPurpleBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeNightPurpleBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeNightPurpleBlack_colorMonochromeBlend</item>
+        <item name="colorMonochromeContrastTransparent">@color/appThemeNightPurpleBlack_colorMonochromeContrastTransparent</item>
+        <item name="colorMonochromeBlendTransparent">@color/appThemeNightPurpleBlack_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <item name="widgetColor">@color/appThemeNightPurpleBlack_widget</item>
@@ -212,8 +226,8 @@
         <item name="textConjugatorVerbChooserKanjiRomajiColor">@color/appThemeNightPurpleBlack_textConjugatorVerbChooserKanjiRomaji</item>
         <item name="textConjugatorVerbChooserCharacteristicsColor">@color/appThemeNightPurpleBlack_textConjugatorVerbChooserCharacteristics</item>
         <item name="textConjugatorVerbChooserMeaningColor">@color/appThemeNightPurpleBlack_textConjugatorVerbChooserMeaning</item>
-        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeNightPurpleBlack_textConjugatorConjugationChooserUpper</item>
-        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeNightPurpleBlack_textConjugatorConjugationChooserLower</item>
+        <item name="textConjugatorConjugationChooserUpperColor">@color/appThemeNightPurpleBlack_colorSecondaryMorePronounced</item>
+        <item name="textConjugatorConjugationChooserLowerColor">@color/appThemeNightPurpleBlack_colorMonochromeContrast</item>
         <item name="textConjugatorLabelColor">@color/appThemeNightPurpleBlack_textConjugatorLabel</item>
         <item name="textConjugatorResultsColor">@color/appThemeNightPurpleBlack_textConjugatorResults</item>
         <item name="textCompositionGridElementDefaultColor">@color/appThemeNightPurpleBlack_textCompositionGridElementDefault</item>
@@ -230,6 +244,8 @@
         <item name="decomposition_boxSecondary">@drawable/background_decompose_box_nightpurpleblack_secondary</item>
         <item name="inputQueryLineColor">@color/appThemeNightPurpleBlack_colorSecondaryNormal</item>
         <item name="inputQueryLineActivatedColor">@color/appThemeNightPurpleBlack_colorSecondaryMorePronounced</item>
+        <item name="textColorPrefScreenTitle">@color/appThemeNightPurpleBlack_colorPrimaryNormal</item>
+        <item name="textColorPrefScreenItem">@color/appThemeNightPurpleBlack_colorMonochromeContrast</item>
         <item name="inputQuery_buttonBackground">@drawable/background_full_no_borders_nightpurpleblack</item>
         <item name="searchByRadical_kanjiGrid_itemBackground">@drawable/background_kanji_grid_item_nightpurpleblack</item>
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_nightpurpleblack_results_title_underline</item>
@@ -252,7 +268,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">0.8</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textColor">@color/Black</item>
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textIsSelectable">true</item>
         <item name="android:text">@string/NoText</item>
@@ -263,7 +279,7 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_marginStart">2dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textColor">?attr/colorSecondaryNormal</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textIsSelectable">true</item>
@@ -277,7 +293,7 @@
         <item name="android:layout_marginEnd">4dp</item>
         <item name="android:layout_marginTop">12dp</item>
         <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:text">?attr/colorAccentDark</item>
+        <item name="android:textColor">?attr/colorSecondaryMorePronounced</item>
         <item name="android:textSize">@dimen/AboutTextViewSize</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textIsSelectable">true</item>
@@ -289,7 +305,7 @@
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:layout_marginEnd">4dp</item>
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:text">@color/colorAccent</item>
+        <item name="android:textColor">?attr/colorSecondaryNormal</item>
         <item name="android:textSize">@dimen/AboutTextViewSubtextSize</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textIsSelectable">true</item>
@@ -301,7 +317,7 @@
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">4dp</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="android:text">@color/colorAccentLight</item>
+        <item name="android:textColor">?attr/colorSecondaryLessPronounced</item>
         <item name="android:textSize">@dimen/AboutTextViewSubtextSize</item>
         <item name="android:textIsSelectable">true</item>
     </style>
@@ -324,7 +340,7 @@
     <style name="SearchByRadicalElementStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textColor">?attr/colorPrimaryNormal</item>
         <item name="layout_constraintWidth_min">100dp</item>
         <item name="android:paddingStart">8dp</item>
         <item name="android:paddingEnd">8dp</item>
@@ -355,5 +371,12 @@
         <item name="android:text">@color/Blue</item>
         <item name="android:layout_marginStart">10dp</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:colorAccent">?attr/colorSecondaryNormal</item>
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+        <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>
+        <item name="android:background">?attr/colorMonochromeBlend</item>
     </style>
 </resources>

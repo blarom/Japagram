@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="?attr/colorMonochromeBlendTransparent"
     android:padding="2dp" >
     
     <TextView android:id="@+id/UpperPart"
@@ -11,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:text="@string/Kanji"
-		android:textColor="@color/appThemeBlueGreen_textConjugatorConjugationChooserUpper"
+		android:textColor="?attr/textConjugatorConjugationChooserUpperColor"
 		android:textSize="16sp"
 		android:textStyle="bold" />
     
@@ -22,6 +23,6 @@
         android:layout_marginStart="2dp"
         android:layout_marginBottom="2dp"
         android:text="@string/English"
-        android:textColor="@color/appThemeBlueGreen_textConjugatorConjugationChooserLower" />
+        android:textColor="?attr/textConjugatorConjugationChooserLowerColor" />
 
 </LinearLayout>

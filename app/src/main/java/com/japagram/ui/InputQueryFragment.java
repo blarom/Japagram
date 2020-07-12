@@ -1242,7 +1242,7 @@ public class InputQueryFragment extends Fragment implements
         View getCustomView(int position, View convertView, ViewGroup parent) {
 
             if (getActivity() != null) {
-                LayoutInflater inflater = LayoutInflater.from(getActivity().getBaseContext());
+                LayoutInflater inflater = LayoutInflater.from(getContext());
                 View layout = inflater.inflate(R.layout.spinner_item_queryhistory, parent, false);
                 TextView queryHistoryElement = layout.findViewById(R.id.query_value);
                 queryHistoryElement.setText(mQueryHistory.get(position).replace(Globals.QUERY_HISTORY_MEANINGS_DELIMITER, Globals.QUERY_HISTORY_MEANINGS_DISPLAYED_DELIMITER));

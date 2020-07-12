@@ -4,6 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="?attr/colorMonochromeBlend"
     android:padding="2dp" >
 
     <TextView
@@ -13,8 +14,9 @@
         android:layout_gravity="start|center_vertical"
         android:layout_marginStart="2dp"
         android:layout_marginTop="5dp"
+        android:background="?attr/colorMonochromeBlend"
         android:text="@string/EmptyResult"
-        android:textColor="@color/appThemeBlueGreen_appTextPrimary"
+        android:textColor="?attr/colorPrimaryNormal"
         android:textSize="16sp" />
   
 </LinearLayout>

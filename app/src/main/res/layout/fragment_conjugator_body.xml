@@ -19,7 +19,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#BFFFFFFF"
+        android:background="?attr/colorMonochromeBlendTransparent"
+        android:textColor="?attr/colorMonochromeContrast"
         android:text="@string/verbHint"/>
 
     <ProgressBar
@@ -30,6 +31,7 @@
         android:layout_centerVertical="true"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
+        android:background="?attr/colorMonochromeBlendTransparent"
         android:visibility="invisible"/>
 
     <ScrollView
@@ -44,7 +46,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#BFFFFFFF"
+            android:background="?attr/colorMonochromeBlendTransparent"
+            android:textColor="?attr/colorMonochromeContrast"
             android:orientation="vertical">
 
             <Spinner
@@ -68,6 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:textColor="?attr/colorMonochromeContrast"
                     android:text="@string/Romaji" />
 
                 <RadioButton
@@ -75,6 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:textColor="?attr/colorMonochromeContrast"
                     android:text="@string/Kanji" />
             </RadioGroup>
 
