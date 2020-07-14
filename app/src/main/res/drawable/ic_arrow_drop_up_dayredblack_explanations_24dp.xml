@@ -8,7 +8,7 @@
         android:pivotY="12"
         android:scaleX="1.5"
         android:scaleY="1.5">
-        <path android:fillColor="@color/colorAccentDark"
+        <path android:fillColor="@color/appThemeRedBlack_arrow"
               android:pathData="M7,14l5,-5 5,5z"/>
     </group>
 </vector>

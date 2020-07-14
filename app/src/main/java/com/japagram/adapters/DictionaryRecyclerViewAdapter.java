@@ -116,14 +116,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 holder.childLinearLayout.setVisibility(View.GONE);
                 holder.meaningsTextView.setVisibility(View.VISIBLE);
                 holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_24dp));
+                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_daybluegreen_24dp));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = false;
             }
             else {
                 holder.childLinearLayout.setVisibility(View.VISIBLE);
                 holder.meaningsTextView.setVisibility(View.GONE);
                 holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_24dp));
+                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_daybluegreen_24dp));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = true;
             }
         });
@@ -557,7 +557,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     || !currentExplanations.get(0).getRules().equals("")
                     || currentExplanations.get(0).getExamples() != null && currentExplanations.get(0).getExamples().size()>0 && hasAtLeastOneValidExample) {
                 ImageView iv = new ImageView(mContext);
-                iv.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_explanations_24dp));
+                TypedValue typedValue = new TypedValue();
+                mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrowExplanations, typedValue, true);
+                iv.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 iv.setLayoutParams(layoutParams);
                 iv.setId(100*position+meaningIndex);
@@ -572,12 +574,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
                     if (explanationsVisible[currentMeaningIndex]) {
                         meaningExplanationsLL.setVisibility(View.GONE);
-                        iv1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_explanations_24dp));
+                        mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrowExplanations, typedValue, true);
+                        iv1.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                         explanationsVisible[currentMeaningIndex] = false;
                     }
                     else {
                         meaningExplanationsLL.setVisibility(View.VISIBLE);
-                        iv1.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_explanations_24dp));
+                        mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrowExplanations, typedValue, true);
+                        iv1.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                         explanationsVisible[currentMeaningIndex] = true;
                     }
                     mVisibilitiesRegister[position][EXPLANATION_VISIBILITIES] = explanationsVisible;
@@ -893,13 +897,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
 
         private void switchVisibilityOfChildLayout(int clickedPosition) {
+            TypedValue typedValue = new TypedValue();
             if (childLinearLayout.getVisibility() == View.VISIBLE) {
                 childLinearLayout.setVisibility(View.GONE);
                 meaningsTextView.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(mWordsSourceInfo.get(getAdapterPosition()))) sourceInfoTextView.setVisibility(View.VISIBLE);
                 dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
 
-                dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_24dp));
+                mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = false;
             }
             else {
@@ -907,9 +912,10 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 meaningsTextView.setVisibility(View.GONE);
                 sourceInfoTextView.setVisibility(View.GONE);
                 dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
-                dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_24dp));
+                mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = true;
             }
+            dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
         }
     }
 

@@ -63,6 +63,10 @@
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_dayredblack_results_title_underline</item>
         <item name="searchByRadical_findTheKanjiBackground">@drawable/background_search_by_radical_dayredblack_search</item>
         <item name="searchByRadical_three_sided_background">@drawable/background_search_by_radical_dayredblack_three_sided</item>
+        <item name="dictionaryDropDownArrow">@drawable/ic_arrow_drop_down_dayredblack_24dp</item>
+        <item name="dictionaryDropUpArrow">@drawable/ic_arrow_drop_up_dayredblack_24dp</item>
+        <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_dayredblack_explanations_24dp</item>
+        <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_dayredblack_explanations_24dp</item>
     </style>
     <style name="AppTheme.DayBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
@@ -125,6 +129,10 @@
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_daybluegreen_results_title_underline</item>
         <item name="searchByRadical_findTheKanjiBackground">@drawable/background_search_by_radical_daybluegreen_search</item>
         <item name="searchByRadical_three_sided_background">@drawable/background_search_by_radical_daybluegreen_three_sided</item>
+        <item name="dictionaryDropDownArrow">@drawable/ic_arrow_drop_down_daybluegreen_24dp</item>
+        <item name="dictionaryDropUpArrow">@drawable/ic_arrow_drop_up_daybluegreen_24dp</item>
+        <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_daybluegreen_explanations_24dp</item>
+        <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_daybluegreen_explanations_24dp</item>
     </style>
     <style name="AppTheme.DayRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
@@ -187,6 +195,10 @@
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_dayredblack_results_title_underline</item>
         <item name="searchByRadical_findTheKanjiBackground">@drawable/background_search_by_radical_dayredblack_search</item>
         <item name="searchByRadical_three_sided_background">@drawable/background_search_by_radical_dayredblack_three_sided</item>
+        <item name="dictionaryDropDownArrow">@drawable/ic_arrow_drop_down_dayredblack_24dp</item>
+        <item name="dictionaryDropUpArrow">@drawable/ic_arrow_drop_up_dayredblack_24dp</item>
+        <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_dayredblack_explanations_24dp</item>
+        <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_dayredblack_explanations_24dp</item>
 
     </style>
     <style name="AppTheme.NightPurpleBlack" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -251,6 +263,10 @@
         <item name="searchByRadical_results_title_underline">@drawable/background_search_by_radical_nightpurpleblack_results_title_underline</item>
         <item name="searchByRadical_findTheKanjiBackground">@drawable/background_search_by_radical_nightpurpleblack_search</item>
         <item name="searchByRadical_three_sided_background">@drawable/background_search_by_radical_nightpurpleblack_three_sided</item>
+        <item name="dictionaryDropDownArrow">@drawable/ic_arrow_drop_down_nightpurpleblack_24dp</item>
+        <item name="dictionaryDropUpArrow">@drawable/ic_arrow_drop_up_nightpurpleblack_24dp</item>
+        <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_nightpurpleblack_explanations_24dp</item>
+        <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_nightpurpleblack_explanations_24dp</item>
     </style>
     <style name="InputQueryAutocomplete">
         <item name="colorControlNormal">?attr/inputQueryLineColor</item>

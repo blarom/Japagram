@@ -134,7 +134,7 @@
         app:layout_constraintBottom_toTopOf="@+id/list_item_meanings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/list_item_romaji_and_kanji"
-        app:srcCompat="@drawable/ic_arrow_drop_down_24dp"
+        app:srcCompat="@drawable/ic_arrow_drop_down_daybluegreen_24dp"
         android:contentDescription="@string/dropdown_arrow"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

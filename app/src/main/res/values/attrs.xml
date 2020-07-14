@@ -39,6 +39,10 @@
     <attr name="textDictionaryPOSColor" format="reference"/>
     <attr name="textDictionaryRuleWhereClauseColor" format="reference"/>
     <attr name="arrowDictionaryColor" format="reference"/>
+    <attr name="dictionaryDropDownArrow" format="reference"/>
+    <attr name="dictionaryDropUpArrow" format="reference"/>
+    <attr name="dictionaryDropDownArrowExplanations" format="reference"/>
+    <attr name="dictionaryDropUpArrowExplanations" format="reference"/>
 
     <!--Conjugation colors-->
     <attr name="textConjugatorVerbChooserPrepositionColor" format="reference"/>
