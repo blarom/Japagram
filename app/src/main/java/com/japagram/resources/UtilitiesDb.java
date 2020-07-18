@@ -333,6 +333,7 @@ public class UtilitiesDb {
         String type = currentWord.getMeaningsEN().get(0).getType();
         boolean currentWordIsAVerb = type.length() > 0 && type.substring(0, 1).equals("V") && !type.equals("VC") && !type.equals("NV");
 
+        int EXACT_MEANING_MATCH_BONUS = 1000;
         int EXACT_WORD_MATCH_BONUS = 500;
         int WORD_MATCH_IN_SENTENCE_BONUS = 300;
         int WORD_MATCH_IN_PARENTHESES_BONUS = 50;
@@ -346,15 +347,15 @@ public class UtilitiesDb {
         List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
         if (currentMeanings == null) return 0;
         switch (language) {
-            case "en":
+            case Globals.LANG_STR_EN:
                 currentMeanings = currentWord.getMeaningsEN();
                 kwLat_value = currentWord.getExtraKeywordsEN() == null ? "" : currentWord.getExtraKeywordsEN();
                 break;
-            case "fr":
+            case Globals.LANG_STR_FR:
                 currentMeanings = currentWord.getMeaningsFR();
                 kwLat_value = currentWord.getExtraKeywordsFR() == null ? "" : currentWord.getExtraKeywordsFR();
                 break;
-            case "es":
+            case Globals.LANG_STR_ES:
                 currentMeanings = currentWord.getMeaningsES();
                 kwLat_value = currentWord.getExtraKeywordsES() == null ? "" : currentWord.getExtraKeywordsES();
                 break;
@@ -378,55 +379,57 @@ public class UtilitiesDb {
 
         for (int j = 0; j < currentMeanings.size(); j++) {
             currentMeaning = currentMeanings.get(j).getMeaning().toLowerCase();
+            foundMeaningLength = false;
 
             //region If the current word is not a verb
             if (!currentWordIsAVerb) {
-                foundMeaningLength = false;
                 inputQuery = mInputQuery;
 
                 //If meaning has the exact word, get the length as follows
-                if (currentMeaning.contains("three flat objects")) {
-                    currentMeaning = currentMeanings.get(j).getMeaning();
-                }
                 String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 lateHitInMeaningPenalty = 0;
                 cumulativeMeaningLength = 0;
-                for (String currentMeaningElement : currentMeaningIndividualElements) {
-                    String trimmedElement = currentMeaningElement.trim().toLowerCase();
+                if (currentMeaning.equals(inputQuery)) {
+                    ranking -= EXACT_MEANING_MATCH_BONUS;
+                    foundMeaningLength = true;
+                } else {
+                    for (String currentMeaningElement : currentMeaningIndividualElements) {
+                        String trimmedElement = currentMeaningElement.trim().toLowerCase();
 
-                    //If there's an exact match, push the word up in ranking
-                    if (trimmedElement.equals(inputQuery)) {
-                        ranking -= EXACT_WORD_MATCH_BONUS;
-                        foundMeaningLength = true;
-                    }
-                    if (foundMeaningLength) break;
-
-                    String[] currentMeaningIndividualWords = trimmedElement.split(" ");
-                    for (String word : currentMeaningIndividualWords) {
-                        cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        if (word.equals(inputQuery)) {
-                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
+                        //If there's an exact match, push the word up in ranking
+                        if (trimmedElement.equals(inputQuery)) {
+                            ranking -= EXACT_WORD_MATCH_BONUS;
                             foundMeaningLength = true;
-                            break;
                         }
-                        lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
-                    }
-                    if (foundMeaningLength) break;
+                        if (foundMeaningLength) break;
 
-                    //If meaning has the exact word but maybe in parentheses, get the length as follows
-                    String[] currentMeaningIndividualWordsWithoutParentheses = trimmedElement.replace("(", "").replace(")", "").split(" ");
-                    for (String word : currentMeaningIndividualWordsWithoutParentheses) {
-                        cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        if (word.equals(inputQuery)) {
-                            ranking -= WORD_MATCH_IN_PARENTHESES_BONUS;
-                            foundMeaningLength = true;
-                            break;
+                        String[] currentMeaningIndividualWords = trimmedElement.split(" ");
+                        for (String word : currentMeaningIndividualWords) {
+                            cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
+                            if (word.equals(inputQuery)) {
+                                ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
+                                foundMeaningLength = true;
+                                break;
+                            }
+                            lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                         }
-                        lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
-                    }
-                    if (foundMeaningLength) break;
+                        if (foundMeaningLength) break;
 
-                    lateHitInMeaningPenalty += LATE_HIT_IN_MEANING_ELEMENTS_PENALTY;
+                        //If meaning has the exact word but maybe in parentheses, get the length as follows
+                        String[] currentMeaningIndividualWordsWithoutParentheses = trimmedElement.replace("(", "").replace(")", "").split(" ");
+                        for (String word : currentMeaningIndividualWordsWithoutParentheses) {
+                            cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
+                            if (word.equals(inputQuery)) {
+                                ranking -= WORD_MATCH_IN_PARENTHESES_BONUS;
+                                foundMeaningLength = true;
+                                break;
+                            }
+                            lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
+                        }
+                        if (foundMeaningLength) break;
+
+                        lateHitInMeaningPenalty += LATE_HIT_IN_MEANING_ELEMENTS_PENALTY;
+                    }
                 }
                 if (foundMeaningLength) {
                     ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
@@ -442,7 +445,6 @@ public class UtilitiesDb {
 
             //region If the current word is a verb
             else {
-                foundMeaningLength = false;
 
                 String[] currentMeaningIndividualElements = Utilities.splitAtCommasOutsideParentheses(currentMeaning);
                 if (!queryIsVerbWithTo) {
@@ -452,24 +454,29 @@ public class UtilitiesDb {
 
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
-                    for (String element : currentMeaningIndividualElements) {
+                    if (currentMeaning.equals(inputQuery)) {
+                        ranking -= EXACT_MEANING_MATCH_BONUS;
+                        foundMeaningLength = true;
+                    } else {
+                        for (String element : currentMeaningIndividualElements) {
 
-                        String trimmedElement = element.trim();
+                            String trimmedElement = element.trim();
 
-                        //If there's an exact match, push the word up in ranking
-                        if (trimmedElement.equals(inputQuery)) {
-                            ranking -= EXACT_WORD_MATCH_BONUS;
-                            foundMeaningLength = true;
+                            //If there's an exact match, push the word up in ranking
+                            if (trimmedElement.equals(inputQuery)) {
+                                ranking -= EXACT_WORD_MATCH_BONUS;
+                                foundMeaningLength = true;
+                            }
+                            if (foundMeaningLength) break;
+
+                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
+                            if (trimmedElement.contains(inputQuery)) {
+                                ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
+                                foundMeaningLength = true;
+                                break;
+                            }
+                            lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                         }
-                        if (foundMeaningLength) break;
-
-                        cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        if (trimmedElement.contains(inputQuery)) {
-                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
-                            foundMeaningLength = true;
-                            break;
-                        }
-                        lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                     }
                     if (foundMeaningLength) {
                         ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
@@ -480,28 +487,29 @@ public class UtilitiesDb {
                     inputQuery = mInputQuery;
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
-                    for (String element : currentMeaningIndividualElements) {
+                    if (currentMeaning.equals(inputQuery)) {
+                        ranking -= EXACT_MEANING_MATCH_BONUS;
+                        foundMeaningLength = true;
+                    } else {
+                        for (String element : currentMeaningIndividualElements) {
 
-                        String trimmedElement = element.trim();
+                            String trimmedElement = element.trim();
 
-                        //If there's an exact match, push the word up in ranking
-                        if (trimmedElement.equals(inputQuery)) {
-                            ranking -= EXACT_WORD_MATCH_BONUS;
-                            foundMeaningLength = true;
+                            //If there's an exact match, push the word up in ranking
+                            if (trimmedElement.equals(inputQuery)) {
+                                ranking -= EXACT_WORD_MATCH_BONUS;
+                                foundMeaningLength = true;
+                            }
+                            if (foundMeaningLength) break;
+
+                            if (trimmedElement.contains(inputQuery)) {
+                                ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
+                                foundMeaningLength = true;
+                                break;
+                            }
+                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
+                            lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                         }
-                        if (foundMeaningLength) break;
-
-                        if (trimmedElement.contains(inputQuery)) {
-                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
-                            foundMeaningLength = true;
-                            break;
-                        }
-                        cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
-                    }
-                    if (foundMeaningLength) {
-                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
-                        break;
                     }
                 } else {
                     inputQuery = mInputQuery;
@@ -509,29 +517,35 @@ public class UtilitiesDb {
                     //Get the length according to the position of the verb in the meanings list
                     lateHitInMeaningPenalty = 0;
                     cumulativeMeaningLength = 0;
-                    for (String element : currentMeaningIndividualElements) {
+                    if (currentMeaning.equals(inputQuery)) {
+                        ranking -= EXACT_MEANING_MATCH_BONUS;
+                        foundMeaningLength = true;
+                    } else {
+                        for (String element : currentMeaningIndividualElements) {
 
-                        String trimmedElement = element.trim();
+                            String trimmedElement = element.trim();
 
-                        //If there's an exact match, push the word up in ranking
-                        if (trimmedElement.equals(inputQuery)) {
-                            ranking -= EXACT_WORD_MATCH_BONUS;
-                            foundMeaningLength = true;
+                            //If there's an exact match, push the word up in ranking
+                            if (trimmedElement.equals(inputQuery)) {
+                                ranking -= EXACT_WORD_MATCH_BONUS;
+                                foundMeaningLength = true;
+                            }
+                            if (foundMeaningLength) break;
+
+                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
+                            if (trimmedElement.contains(inputQuery)) {
+                                ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
+                                foundMeaningLength = true;
+                                break;
+                            }
+                            lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
                         }
-                        if (foundMeaningLength) break;
+                    }
+                }
 
-                        cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                        if (trimmedElement.contains(inputQuery)) {
-                            ranking -= WORD_MATCH_IN_SENTENCE_BONUS;
-                            foundMeaningLength = true;
-                            break;
-                        }
-                        lateHitInMeaningPenalty += LATE_HIT_IN_SENTENCE_PENALTY;
-                    }
-                    if (foundMeaningLength) {
-                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
-                        break;
-                    }
+                if (foundMeaningLength) {
+                    ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
+                    break;
                 }
 
             }
