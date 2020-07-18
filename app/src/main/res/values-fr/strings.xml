@@ -346,7 +346,7 @@
     <string name="theme_color_label_nightpurpleblack">Violet-Noir, Nuit</string>
     <string name="language_label_french">Français</string>
     <string name="language_label_spanish">Espagnol</string>
-    <string name="pref_app_theme_color">Thème de Couleur</string>
+    <string name="pref_app_color_theme">Thème de Couleur</string>
     <string name="pref_app_language">Langage de l\'Application</string>
     <string name="general">Général</string>
     <string name="search">Recherche</string>

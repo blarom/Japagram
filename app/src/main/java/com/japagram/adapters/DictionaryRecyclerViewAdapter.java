@@ -112,18 +112,21 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
 
         holder.romajiAndKanjiTextView.setOnClickListener(view -> {
+            TypedValue typedValue = new TypedValue();
             if (holder.childLinearLayout.getVisibility() == View.VISIBLE) {
                 holder.childLinearLayout.setVisibility(View.GONE);
                 holder.meaningsTextView.setVisibility(View.VISIBLE);
                 holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_down_daybluegreen_24dp));
+                mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
+                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = false;
             }
             else {
                 holder.childLinearLayout.setVisibility(View.VISIBLE);
                 holder.meaningsTextView.setVisibility(View.GONE);
                 holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_arrow_drop_up_daybluegreen_24dp));
+                mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
+                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = true;
             }
         });

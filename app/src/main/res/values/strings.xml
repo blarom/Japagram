@@ -76,7 +76,7 @@
     <string name="language_label_spanish">Spanish</string>
     <string name="pref_app_theme_color_key" translatable="false">app_theme_color</string>
     <string name="pref_app_language_key" translatable="false">app_language</string>
-    <string name="pref_app_theme_color">Color Theme</string>
+    <string name="pref_app_color_theme">Color Theme</string>
     <string name="pref_app_language">App Language</string>
     <string name="pref_theme_colors_value_daybluegreen" translatable="false">daybluegreen</string>
     <string name="pref_theme_colors_value_dayredblack" translatable="false">dayredblack</string>

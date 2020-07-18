@@ -5,9 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.graphics.LinearGradient;
+import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
-import android.widget.LinearLayout;
 
 import com.japagram.R;
 
@@ -310,14 +309,14 @@ public final class UtilitiesPrefs {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(context.getString(R.string.pref_app_theme_color), theme);
+            editor.putString(context.getString(R.string.pref_app_color_theme), theme);
             editor.apply();
         }
     }
 
     public static String getAppPreferenceColorTheme(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getString(context.getString(R.string.pref_app_theme_color), context.getString(R.string.pref_theme_color_value_dayredblack));
+        return sharedPref.getString(context.getString(R.string.pref_app_color_theme), context.getString(R.string.pref_theme_color_value_dayredblack));
     }
 
     public static boolean changeThemeColor(Activity activity) {
@@ -347,6 +346,11 @@ public final class UtilitiesPrefs {
             return changeThemeColor;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
+        }
+        if (activity.getActionBar() != null) {
+            //TypedValue typedValue = new TypedValue();
+            //activity.getTheme().resolveAttribute(R.attr.colorMonochromeBlend, typedValue, true);
+            activity.getActionBar().setBackgroundDrawable(new ColorDrawable(R.attr.colorPrimaryMorePronounced));
         }
         return changeThemeColor;
     }

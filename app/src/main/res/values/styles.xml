@@ -2,19 +2,30 @@
 
     <!-- Base application theme. -->
 <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/CustomActionBar</item>
+<!--        <item name="android:actionBarStyle">@style/CustomActionBar</item>-->
+<!--        <item name="preferenceStyle">@style/CustomPreferenceTheme</item>-->
+<!--        <item name="android:preferenceStyle">@style/CustomPreferenceTheme</item>-->
+        <item name="popupMenuStyle">@style/CustomPopupMenuStyle</item>
+        <item name="android:popupMenuStyle">@style/CustomPopupMenuStyle</item>
+        <item name="actionOverflowMenuStyle">@style/CustomOverflowMenuStyle</item>
+        <item name="android:textAppearanceLargePopupMenu">@style/CustomPopupMenuTextAppearanceLarge</item>
+        <item name="android:textAppearanceSmallPopupMenu">@style/CustomPopupMenuTextAppearanceSmall</item>
+        <item name="preferenceTheme">@style/CustomPreferenceTheme</item>
+
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</item>
         <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="android:textColorSecondary">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
         <item name="colorMonochromeContrastTransparent">@color/appThemeRedBlack_colorMonochromeContrastTransparent</item>
         <item name="colorMonochromeBlendTransparent">@color/appThemeRedBlack_colorMonochromeBlendTransparent</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
@@ -68,13 +79,15 @@
         <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_dayredblack_explanations_24dp</item>
         <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_dayredblack_explanations_24dp</item>
     </style>
-    <style name="AppTheme.DayBlueGreen" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.DayBlueGreen" parent="AppTheme">
+
         <item name="colorPrimaryLight">@color/appThemeBlueGreen_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeBlueGreen_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeBlueGreen_colorPrimaryDark</item>
         <item name="colorAccentLight">@color/appThemeBlueGreen_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeBlueGreen_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
+        <item name="android:textColorSecondary">@color/appThemeBlueGreen_colorAccent</item>
         <item name="colorMonochromeContrast">@color/appThemeBlueGreen_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeBlueGreen_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeBlueGreen_colorTransparent</item>
@@ -134,13 +147,15 @@
         <item name="dictionaryDropDownArrowExplanations">@drawable/ic_arrow_drop_down_daybluegreen_explanations_24dp</item>
         <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_daybluegreen_explanations_24dp</item>
     </style>
-    <style name="AppTheme.DayRedBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.DayRedBlack" parent="AppTheme">
+
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</item>
         <item name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
+        <item name="android:textColorSecondary">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
@@ -201,13 +216,15 @@
         <item name="dictionaryDropUpArrowExplanations">@drawable/ic_arrow_drop_up_dayredblack_explanations_24dp</item>
 
     </style>
-    <style name="AppTheme.NightPurpleBlack" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme.NightPurpleBlack" parent="AppTheme">
+
         <item name="colorPrimaryLight">@color/appThemeNightPurpleBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeNightPurpleBlack_colorPrimary</item>
         <item name="colorPrimaryDark">@color/appThemeNightPurpleBlack_colorPrimaryDark</item>
         <item name="colorAccentLight">@color/appThemeNightPurpleBlack_colorAccentLight</item>
         <item name="colorAccent">@color/appThemeNightPurpleBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeNightPurpleBlack_colorAccentDark</item>
+        <item name="android:textColorSecondary">@color/appThemeNightPurpleBlack_colorAccent</item>
         <item name="colorTransparent">@color/appThemeNightPurpleBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeNightPurpleBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeNightPurpleBlack_colorMonochromeBlend</item>
@@ -394,5 +411,53 @@
         <item name="android:textColor">?attr/colorMonochromeContrast</item>
         <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>
         <item name="android:background">?attr/colorMonochromeBlend</item>
+    </style>
+
+    <style name="CustomPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:textColor">?attr/colorPrimaryNormal</item>
+<!--        <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>-->
+        <item name="android:textColorSecondary">?attr/colorSecondaryNormal</item>
+<!--        <item name="android:textColorTertiary">?attr/colorPrimaryNormal</item>-->
+        <item name="android:background">?attr/colorMonochromeBlend</item>
+        <item name="preferenceCategoryTitleTextAppearance">@style/CustomPreferenceCategoryTitleTextStyle</item>
+        <item name="android:textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
+    </style>
+    <style name="CustomPreferenceCategoryTitleTextStyle" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">?attr/colorPrimaryNormal</item>
+        <item name="android:textColorHint">?attr/colorPrimaryLessPronounced</item>
+        <item name="android:textColorHighlight">?attr/colorPrimaryLessPronounced</item>
+        <item name="android:textColorLink">?attr/colorPrimaryMorePronounced</item>
+    </style>
+    <style name="CustomActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
+        <item name="background">?attr/colorPrimaryNormal</item>
+<!--        <item name="android:background">?attr/colorPrimaryMorePronounced</item>-->
+        <item name="titleTextStyle">@style/CustomActionBarTitle</item>
+    </style>
+    <style name="CustomActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+<!--        <item name="android:textColor">?attr/colorMonochromeContrast</item>-->
+<!--        <item name="android:textSize">20sp</item>-->
+    </style>
+    <style name="CustomActionBar.MenuTextStyle" parent="@style/Widget.AppCompat.Light.PopupMenu">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+        <item name="android:textColorSecondary">?attr/colorSecondaryNormal</item>
+        <item name="android:background">?attr/colorMonochromeBlend</item>
+    </style>
+    <style name="CustomPopupMenuStyle" parent="@android:style/Widget.PopupMenu">
+        <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
+        <!--        <item name="android:divider">#444444</item>-->
+        <!--        <item name="android:dividerHeight">1px</item>-->
+        <!--        <item name="background">?attr/colorMonochromeBlend</item>-->
+        <!--        <item name="android:background">?attr/colorMonochromeBlend</item>-->
+    </style>
+    <style name="CustomOverflowMenuStyle" parent="@style/Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
+    </style>
+    <style name="CustomPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+<!--        <item name="android:textSize">12sp</item>-->
+    </style>
+    <style name="CustomPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+<!--        <item name="android:textSize">18sp</item>-->
     </style>
 </resources>

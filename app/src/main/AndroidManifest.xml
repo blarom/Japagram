@@ -59,6 +59,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.SettingsActivity"
+            android:theme="@style/CustomPreferenceTheme"
             android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

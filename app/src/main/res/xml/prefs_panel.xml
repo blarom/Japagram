@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?attr/colorMonochromeBlend" >
+    xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory
         android:title="@string/general"
@@ -12,32 +11,28 @@
         android:entries="@array/pref_app_theme_color_labels"
         android:entryValues="@array/pref_app_theme_color_values"
         android:key="@string/pref_app_theme_color_key"
-        android:title="@string/pref_app_theme_color"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_app_color_theme" />
 
     <ListPreference
         android:defaultValue="@string/pref_language_value_english"
         android:entries="@array/pref_app_language_labels"
         android:entryValues="@array/pref_app_language_values"
         android:key="@string/pref_app_language_key"
-        android:title="@string/pref_app_language"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_app_language" />
 
     <EditTextPreference
         android:defaultValue="@string/pref_query_history_size_default_value"
         android:key="@string/pref_query_history_size_key"
         android:summary="@string/pref_query_history_size_summary"
         android:inputType="number"
-        android:title="@string/pref_query_history_size_title"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_query_history_size_title" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_use_japanese_font_default"
         android:key="@string/pref_use_japanese_font_key"
         android:summaryOff="@string/use_default_font_for_asian_characters"
         android:summaryOn="@string/use_japanese_font_for_asian_characters"
-        android:title="@string/use_japanese_font_in_texts"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/use_japanese_font_in_texts" />
 
     <PreferenceCategory
         android:title="@string/search"
@@ -48,8 +43,7 @@
         android:key="@string/pref_complete_local_with_names_search_key"
         android:summaryOff="@string/hidden_names_search"
         android:summaryOn="@string/shown_names_search"
-        android:title="@string/complete_local_with_names_search"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/complete_local_with_names_search" />
 
 <!--    <CheckBoxPreference-->
 <!--        android:defaultValue="@bool/pref_complete_with_names_default"-->
@@ -77,32 +71,28 @@
         android:key="@string/pref_complete_with_conj_search_key"
         android:summaryOff="@string/complete_with_conj_search_off"
         android:summaryOn="@string/complete_with_conj_search_on"
-        android:title="@string/complete_with_conj_search"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/complete_with_conj_search" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_wait_for_conj_results_default"
         android:key="@string/pref_wait_for_conj_results_key"
         android:summaryOff="@string/wait_for_conj_results_off"
         android:summaryOn="@string/wait_for_conj_results_on"
-        android:title="@string/pref_wait_for_conj_results"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_wait_for_conj_results" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_sources_default"
         android:key="@string/pref_show_sources_key"
         android:summaryOff="@string/show_sources_off"
         android:summaryOn="@string/show_sources_on"
-        android:title="@string/pref_show_sources"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_show_sources" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_info_boxes_on_search_default"
         android:key="@string/pref_show_info_boxes_on_search_key"
         android:summaryOff="@string/hidden_info_boxes"
         android:summaryOn="@string/shown_info_boxes"
-        android:title="@string/show_info_boxes_when_searching"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/show_info_boxes_when_searching" />
 
 
     <PreferenceCategory
@@ -114,16 +104,14 @@
         android:key="@string/pref_show_decomp_structure_info_key"
         android:summaryOff="@string/hidden_decomp_structure_info"
         android:summaryOn="@string/shown_decomp_structure_info"
-        android:title="@string/show_decomp_structure_info_text"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/show_decomp_structure_info_text" />
 
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_only_jap_characters_default"
         android:key="@string/pref_show_only_jap_characters_key"
         android:summaryOff="@string/hidden_only_jap_characters"
         android:summaryOn="@string/shown_only_jap_characters"
-        android:title="@string/show_only_jap_characters_text"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/show_only_jap_characters_text" />
 
     <PreferenceCategory
         android:title="@string/speech"
@@ -134,16 +122,14 @@
         android:entries="@array/pref_preferred_STT_language_labels"
         android:entryValues="@array/pref_preferred_STT_language_values"
         android:key="@string/pref_preferred_STT_language_key"
-        android:title="@string/pref_preferred_STT_language"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_preferred_STT_language" />
 
     <ListPreference
         android:defaultValue="@string/pref_language_value_japanese"
         android:entries="@array/pref_preferred_TTS_language_labels"
         android:entryValues="@array/pref_preferred_TTS_language_values"
         android:key="@string/pref_preferred_TTS_language_key"
-        android:title="@string/pref_preferred_TTS_language"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_preferred_TTS_language" />
 
 
     <PreferenceCategory
@@ -162,24 +148,21 @@
         android:key="@string/pref_OCR_image_saturation_key"
         android:summary="@string/pref_OCR_image_saturation_summary"
         android:inputType="number"
-        android:title="@string/pref_OCR_image_saturation_title"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_OCR_image_saturation_title" />
 
     <EditTextPreference
         android:defaultValue="@string/pref_OCR_image_contrast_default_value"
         android:key="@string/pref_OCR_image_contrast_key"
         android:summary="@string/pref_OCR_image_contrast_summary"
         android:inputType="number"
-        android:title="@string/pref_OCR_image_contrast_title"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_OCR_image_contrast_title" />
 
     <EditTextPreference
         android:defaultValue="@string/pref_OCR_image_brightness_default_value"
         android:key="@string/pref_OCR_image_brightness_key"
         android:summary="@string/pref_OCR_image_brightness_summary"
         android:inputType="number"
-        android:title="@string/pref_OCR_image_brightness_title"
-        android:textColor="?attr/textColorPrefScreenItem" />
+        android:title="@string/pref_OCR_image_brightness_title" />
 
 
 </PreferenceScreen>

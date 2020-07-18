@@ -356,7 +356,7 @@
     <string name="select_the_radical">Selecc. él radical</string>
     <string name="kanji_structure">estructura del kanji</string>
     <string name="no_elements_found">No se encontraron elementos.</string>
-    <string name="pref_app_theme_color">Tema de Color</string>
+    <string name="pref_app_color_theme">Tema de Color</string>
     <string name="pref_app_language">Idioma de la Applicación</string>
     <string name="general">General</string>
     <string name="search">Búsqueda</string>
