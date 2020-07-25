@@ -157,7 +157,7 @@ public class InputQuery implements Parcelable {
 
     @NotNull
     @Contract("_ -> new")
-    private static String[] getOfficialKana(String romaji) {
+    private static String[] getOfficialKana(String input) {
 
         if (Globals.Romanizations == null) {
             return new String[]{"", "", "", ""};
@@ -169,19 +169,42 @@ public class InputQuery implements Parcelable {
         The combination u + u is written uu if they are in two adjacent syllables or it is the end part of terminal form of a verb
 
          */
-        String transliteratedToHiragana = romaji;
-        String transliteratedToKatakana = romaji;
+        String transliteratedToHiragana = input;
+        String transliteratedToKatakana = input;
         String[] currentRow;
-        String currentRomaji;
-        int[] romajiTypes = new int[]{Globals.ROM_COL_WAAPURO, Globals.ROM_COL_MOD_HEPBURN, Globals.ROM_COL_NIHON_SHIKI, Globals.ROM_COL_KUNREI_SHIKI};
-        for (int romajiType : romajiTypes) {
+        String currentChar;
+        for (int i = 1; i < Globals.Romanizations.size(); i++) {
+            currentRow = Globals.Romanizations.get(i);
+            if (currentRow.length < 6) break;
+            currentChar = currentRow[Globals.ROM_COL_KATAKANA];
+            if (currentChar.equals("")) continue;
+            transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
+        }
+        for (int i = 1; i < Globals.Romanizations.size(); i++) {
+            currentRow = Globals.Romanizations.get(i);
+            if (currentRow.length < 6) break;
+            currentChar = currentRow[Globals.ROM_COL_HIRAGANA];
+            if (currentChar.equals("")) continue;
+            transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
+            if (transliteratedToKatakana.length() > 4) {
+                transliteratedToKatakana = transliteratedToKatakana.replace("a", "");
+            }
+        }
+        int[] romajiTypes = new int[]{
+                Globals.ROM_COL_WAAPURO,
+                Globals.ROM_COL_MOD_HEPBURN,
+                Globals.ROM_COL_NIHON_SHIKI,
+                Globals.ROM_COL_KUNREI_SHIKI
+        };
+        for (int type : romajiTypes) {
             for (int i = 1; i < Globals.Romanizations.size(); i++) {
                 currentRow = Globals.Romanizations.get(i);
                 if (currentRow.length < 6) break;
 
-                currentRomaji = currentRow[romajiType];
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentRomaji, currentRow[Globals.ROM_COL_HIRAGANA]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentRomaji, currentRow[Globals.ROM_COL_KATAKANA]);
+                currentChar = currentRow[type];
+                if (currentChar.equals("")) continue;
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
             }
         }
 
