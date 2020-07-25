@@ -215,7 +215,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="12dp"
-            android:background="#BFFFFFFF"
+            android:background="?attr/colorMonochromeBlendTransparent"
             android:text="@string/transliteration_hint"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

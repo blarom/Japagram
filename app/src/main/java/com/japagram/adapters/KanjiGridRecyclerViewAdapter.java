@@ -67,29 +67,26 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
                 || kanji.contains("7") || kanji.contains("8") || kanji.contains("9")) {
             tv.setTextSize(26);
             tv.setTypeface(null, Typeface.BOLD);
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccent));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal));
         }
         else if (kanji.contains("variant")) {
             tv.setTextSize(28);
             tv.setText(kanji.substring(0,1));
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLight));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLessPronounced));
         }
         else {
             tv.setTextSize(isResultsGrid? 32 : 28);
             tv.setText(kanji);
             tv.setTypeface(null, Typeface.NORMAL);
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
+            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryMorePronounced));
         }
 
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getAdapterPosition();
-                setItemAsSelected(position, tv);
+        tv.setOnClickListener(v -> {
+            int position1 = holder.getAdapterPosition();
+            setItemAsSelected(position1, tv);
 
-                if (isResultsGrid) mOnItemClickHandler.onSearchResultClicked(position);
-                else mOnItemClickHandler.onComponentClicked(position);
-            }
+            if (isResultsGrid) mOnItemClickHandler.onSearchResultClicked(position1);
+            else mOnItemClickHandler.onComponentClicked(position1);
         });
 
     }

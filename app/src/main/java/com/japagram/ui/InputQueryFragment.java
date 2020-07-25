@@ -17,6 +17,7 @@ import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -902,29 +903,27 @@ public class InputQueryFragment extends Fragment implements
 
     }
     private void askForPreferredDownloadTimeAndDownload(String language, final String filename) {
+        if (getContext() == null) return;
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         //builder.setTitle(R.string.OCRDialogTitle);
-        builder.setPositiveButton(R.string.DownloadDialogWifiOnly, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                mDownloadType = "WifiOnly";
+        builder.setPositiveButton(R.string.DownloadDialogWifiOnly, (dialog, id) -> {
+            mDownloadType = "WifiOnly";
 
-                Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-                Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-                //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-                if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-                dialog.dismiss();
-            }
+            Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+            Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+            //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+            if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+            dialog.dismiss();
         });
-        builder.setNegativeButton(R.string.DownloadDialogWifiAndMobile, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                mDownloadType = "WifiAndMobile";
+        builder.setNegativeButton(R.string.DownloadDialogWifiAndMobile, (dialog, id) -> {
+            mDownloadType = "WifiAndMobile";
 
-                Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-                Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-                //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-                if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-                dialog.dismiss();
-            }
+            Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+            Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+            //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+            if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+            dialog.dismiss();
         });
         if (language.equals("jpn")) builder.setMessage(R.string.DownloadDialogMessageJPN);
         else if (language.equals("eng")) builder.setMessage(R.string.DownloadDialogMessageENG);
@@ -932,6 +931,8 @@ public class InputQueryFragment extends Fragment implements
         else if (language.equals("spa")) builder.setMessage(R.string.DownloadDialogMessageSPA);
         AlertDialog dialog = builder.create();
         dialog.show();
+        if (dialog.getWindow() == null) return;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
     }
     private Boolean checkIfStorageSpaceEnoughForTesseractDataOrShowApology() {
         //https://inducesmile.com/android/how-to-get-android-ram-internal-and-external-memory-information/
@@ -1049,39 +1050,29 @@ public class InputQueryFragment extends Fragment implements
         ocrResultsTextView.setText(TextUtils.join("\n", textDisplayedInDialog));
         ocrResultsTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccent));
         ocrResultsTextViewDialogInstructions.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccentDark));
-        ocrResultsScrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                ViewGroup.LayoutParams params = ocrResultsScrollView.getLayoutParams();
-                int totalTextHeight = ocrResultsTextView.getHeight();
-                if (totalTextHeight <= mMaxOCRDialogResultHeightPixels) {
-                    ocrResultsScrollView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-                }
-                else {
-                    params.height = mMaxOCRDialogResultHeightPixels;
-                    ocrResultsScrollView.setLayoutParams(params);
-                }
+        ocrResultsScrollView.post(() -> {
+            ViewGroup.LayoutParams params = ocrResultsScrollView.getLayoutParams();
+            int totalTextHeight = ocrResultsTextView.getHeight();
+            if (totalTextHeight <= mMaxOCRDialogResultHeightPixels) {
+                ocrResultsScrollView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            }
+            else {
+                params.height = mMaxOCRDialogResultHeightPixels;
+                ocrResultsScrollView.setLayoutParams(params);
             }
         });
 
         //Building the dialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.OCRDialogTitle);
-        builder.setPositiveButton(R.string.copy_to_input, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int id) {
-                //Overridden later on
-            }
+        builder.setPositiveButton(R.string.copy_to_input, (dialog, id) -> {
+            //Overridden later on
         });
-        builder.setNegativeButton(getString(R.string.close), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+        builder.setNegativeButton(getString(R.string.close), (dialog, id) -> {
 
-            }
         });
-        builder.setNeutralButton(R.string.readjust,new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
-            }
+        builder.setNeutralButton(R.string.readjust, (dialog, id) -> {
+            if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
         });
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             builder.setView(dialogView);
@@ -1091,30 +1082,29 @@ public class InputQueryFragment extends Fragment implements
         //scaleImage(ocrPictureHolder, 1);
         dialog.show();
 
+        if (dialog.getWindow() == null) return;
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (getContext()!=null) {
-                    String text = ocrResultsTextView.getText().toString();
-                    int startIndex = ocrResultsTextView.getSelectionStart();
-                    int endIndex = ocrResultsTextView.getSelectionEnd();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            if (getContext()!=null) {
+                String text = ocrResultsTextView.getText().toString();
+                int startIndex = ocrResultsTextView.getSelectionStart();
+                int endIndex = ocrResultsTextView.getSelectionEnd();
 
-                    if (startIndex != endIndex){
-                        text = text.substring(startIndex, endIndex);
-                    }
-                    else {
-                        text = text.split("\n")[0];
-                    }
-
-                    if (text.length()>2 && text.substring(0,2).equals("~ ")) text = text.substring(2);
-                    if (text.length()>2 && text.substring(text.length()-2).equals(" ~")) text = text.substring(0,text.length()-2);
-
-                    mInputQuery = text;
-                    mInputQueryAutoCompleteTextView.setText(text);
+                if (startIndex != endIndex){
+                    text = text.substring(startIndex, endIndex);
                 }
-                //dialog.dismiss();
+                else {
+                    text = text.split("\n")[0];
+                }
+
+                if (text.length()>2 && text.substring(0,2).equals("~ ")) text = text.substring(2);
+                if (text.length()>2 && text.substring(text.length()-2).equals(" ~")) text = text.substring(0,text.length()-2);
+
+                mInputQuery = text;
+                mInputQueryAutoCompleteTextView.setText(text);
             }
+            //dialog.dismiss();
         });
 
     }

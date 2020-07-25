@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,10 +31,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -575,7 +571,7 @@ public class MainActivity extends BaseActivity implements
         TypedValue typedValue = new TypedValue();
         getTheme().resolveAttribute(R.attr.decomposition_boxPrimary, typedValue, true);
 
-        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.AlertDialogStyle).create();
+        AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this, R.style.CustomAlertDialogStyle).create();
 
         alertDialog.setMessage(getString(R.string.sure_you_want_to_exit));
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),

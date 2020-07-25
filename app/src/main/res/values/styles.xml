@@ -4,14 +4,24 @@
 <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <item name="actionBarStyle">@style/CustomActionBar</item>
-<!--        <item name="android:actionBarStyle">@style/CustomActionBar</item>-->
-<!--        <item name="preferenceStyle">@style/CustomPreferenceTheme</item>-->
-<!--        <item name="android:preferenceStyle">@style/CustomPreferenceTheme</item>-->
+<!--        <item name="dialogPreferenceStyle">@style/AlertDialogStyle</item>-->
+<!--        <item name="dialogTheme">@style/AlertDialogStyle</item>-->
+<!--        <item name="alertDialogTheme">@style/AlertDialogStyle</item>-->
+        <item name="dialogTheme">@style/CustomAlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/CustomAlertDialogTheme</item>
+        <item name="alertDialogStyle">@style/CustomAlertDialogStyle</item>
+        <item name="android:dialogPreferenceStyle">@style/CustomAlertDialogStyle</item>
         <item name="popupMenuStyle">@style/CustomPopupMenuStyle</item>
         <item name="android:popupMenuStyle">@style/CustomPopupMenuStyle</item>
         <item name="actionOverflowMenuStyle">@style/CustomOverflowMenuStyle</item>
+        <item name="textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
+        <item name="android:editTextColor">?attr/colorSecondaryNormal</item>
         <item name="android:textAppearanceLargePopupMenu">@style/CustomPopupMenuTextAppearanceLarge</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/CustomPopupMenuTextAppearanceSmall</item>
+        <item name="android:textColorHighlight">?attr/colorPrimaryNormal</item>
+        <item name="android:textAppearanceLarge">@style/CustomTextAppearanceLarge</item>
+        <item name="android:textAppearanceMedium">@style/CustomTextAppearanceMedium</item>
+        <item name="android:textAppearanceSmall">@style/CustomTextAppearanceSmall</item>
         <item name="preferenceTheme">@style/CustomPreferenceTheme</item>
 
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
@@ -359,6 +369,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textIsSelectable">false</item>
@@ -406,21 +417,37 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+    <style name="CustomAlertDialogTheme" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">?attr/colorMonochromeBlend</item>
+        <item name="android:background">?attr/colorMonochromeBlend</item>
+        <item name="background">?attr/colorMonochromeBlend</item>
+        <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
+    </style>
+    <style name="CustomAlertDialogStyle" parent="AlertDialog.AppCompat">
+        <item name="android:windowNoTitle">true</item>
         <item name="android:colorAccent">?attr/colorSecondaryNormal</item>
         <item name="android:textColor">?attr/colorMonochromeContrast</item>
         <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>
         <item name="android:background">?attr/colorMonochromeBlend</item>
+        <item name="background">?attr/colorMonochromeBlend</item>
+        <item name="android:windowBackground">?attr/colorMonochromeBlend</item>
+        <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
+        <item name="textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
+        <item name="android:itemBackground">?attr/colorMonochromeBlend</item>
     </style>
 
     <style name="CustomPreferenceTheme" parent="@style/PreferenceThemeOverlay.v14.Material">
+        <item name="android:windowActionBar">true</item>
+        <item name="android:windowNoTitle">false</item>
         <item name="android:textColor">?attr/colorPrimaryNormal</item>
 <!--        <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>-->
         <item name="android:textColorSecondary">?attr/colorSecondaryNormal</item>
 <!--        <item name="android:textColorTertiary">?attr/colorPrimaryNormal</item>-->
-        <item name="android:background">?attr/colorMonochromeBlend</item>
+<!--        <item name="background">?attr/colorMonochromeBlend</item>-->
         <item name="preferenceCategoryTitleTextAppearance">@style/CustomPreferenceCategoryTitleTextStyle</item>
         <item name="android:textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
+<!--        <item name="actionBarStyle">@style/CustomActionBar</item>-->
     </style>
     <style name="CustomPreferenceCategoryTitleTextStyle" parent="@style/TextAppearance.AppCompat.Body2">
         <item name="android:textColor">?attr/colorPrimaryNormal</item>
@@ -430,7 +457,7 @@
     </style>
     <style name="CustomActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="background">?attr/colorPrimaryNormal</item>
-<!--        <item name="android:background">?attr/colorPrimaryMorePronounced</item>-->
+        <item name="android:background">?attr/colorPrimaryNormal</item>
         <item name="titleTextStyle">@style/CustomActionBarTitle</item>
     </style>
     <style name="CustomActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
@@ -444,6 +471,7 @@
     </style>
     <style name="CustomPopupMenuStyle" parent="@android:style/Widget.PopupMenu">
         <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
         <!--        <item name="android:divider">#444444</item>-->
         <!--        <item name="android:dividerHeight">1px</item>-->
         <!--        <item name="background">?attr/colorMonochromeBlend</item>-->
@@ -454,10 +482,22 @@
     </style>
     <style name="CustomPopupMenuTextAppearanceSmall" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
         <item name="android:textColor">?attr/colorMonochromeContrast</item>
-<!--        <item name="android:textSize">12sp</item>-->
+    </style>
+    <style name="CustomPreferenceListStyle" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Small">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
     </style>
     <style name="CustomPopupMenuTextAppearanceLarge" parent="@android:style/TextAppearance.DeviceDefault.Widget.PopupMenu.Large">
         <item name="android:textColor">?attr/colorMonochromeContrast</item>
-<!--        <item name="android:textSize">18sp</item>-->
+    </style>
+    <style name="CustomTextAppearanceLarge" parent="@android:style/TextAppearance.Material.Large">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+    </style>
+    <style name="CustomTextAppearanceSmall" parent="@android:style/TextAppearance.Material.Small">
+        <item name="android:textColor">?attr/colorMonochromeContrast</item>
+    </style>
+    <style name="CustomTextAppearanceMedium" parent="@android:style/TextAppearance.Material.Medium">
+        <item name="colorAccent">?attr/colorSecondaryNormal</item> //line color
+        <item name="android:textColor">?attr/colorPrimaryNormal</item>
+        <item name="android:textColorSecondary">?attr/colorSecondaryNormal</item>
     </style>
 </resources>
