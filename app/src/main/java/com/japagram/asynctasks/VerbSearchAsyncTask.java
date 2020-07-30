@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
@@ -103,7 +105,18 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             for (int i = 0; i < matchingVerbIdColListSortedByLength.size(); i++) {
                 for (int j = 0; j < matchingWords.size(); j++) {
                     Word word = matchingWords.get(j);
-                    Verb verb = matchingVerbs.get(j);
+                    Verb verb = null;
+                    for (Verb currentVerb : matchingVerbs) {
+                       if (currentVerb.getVerbId() == word.getWordId()){
+                           verb = currentVerb;
+                           break;
+                       }
+                    }
+                    if (verb == null) {
+                        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                        continue;
+                    }
+
                     if (word.getWordId() == matchingVerbIdColListSortedByLength.get(i)[0]) {
                         matchingWordsSorted.add(word);
                         matchingVerbsSorted.add(verb);
@@ -249,10 +262,51 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return parameters;
     }
     private void setInputQueryParameters() {
+
+        String terminations_ichidan_romaji = "(ta|teiru|teita|te|masu|mashita|nai|nakatta|masen *deshita|masen)";
+        String terminations_ugodan_romaji = "(tta|tteiru|tteita|tte|imasu|imashita|wanai|wanakatta|imasen *deshita|imasen)";
+        String terminations_kugodan_romaji = "(ita|iteiru|iteita|ite|kimasu|kimashita|kanai|kanakatta|kimasen *deshita|kimasen)";
+        String terminations_iku_romaji = "(itta|itteiru|itteita|itte|ikimasu|ikimashita|ikanai|ikanakatta|ikimasen *deshita|ikimasen)";
+        String terminations_sugodan_romaji = "(shita|shitteiru|shitteita|shitte|shimasu|shimashita|sanai|sanakatta|shimasen *deshita|shimasen)";
+        String terminations_ichidan_kana = "(た|ている|ていた|て|ます|ました|ない|なかった|あせんでした|ません)";
+        String terminations_ugodan_kana = "(った|っている|っていた|って|います|いました|わない|わなかった|いませんでした|いません)";
+        String terminations_kugodan_kana = "(いた|いている|いていた|いて|きます|きました|かない|かなかった|きませんでした|きません)";
+        String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません)";
+        String terminations_sugodan_kana = "(した|している|していた|して|します|しました|さない|さなかった|しませんでした|しません)";
+        mInputQuery = new InputQuery(mInputQuery.getOriginal()
+                .replaceAll("(te|de) *age" + terminations_ichidan_romaji + "$", "$1 ageru")
+                .replaceAll("(te|de) *kure" + terminations_ichidan_romaji + "$", "$1 kureru")
+                .replaceAll("(te|de) *mora" + terminations_ugodan_romaji + "$", "$1 morau")
+                .replaceAll("(te|de) *" + terminations_iku_romaji + "$", "$1 iku")
+                .replaceAll("(te|de) *o" + terminations_kugodan_romaji + "$", "$1 oku")
+                .replaceAll("([td])o" + terminations_kugodan_romaji + "$", "$1oku")
+                .replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "$", "$1 shimau")
+                .replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)$", "$1u")
+                .replaceAll("(te|de) *mi" + terminations_ichidan_romaji + "$", "$1 miru")
+                .replaceAll("(te|de) *shi" + terminations_ichidan_romaji + "$", "$1 suru")
+                .replaceAll("(te|de) *aru" + terminations_ichidan_romaji + "$", "$1 aru")
+                .replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "$", "$1 kuru")
+                .replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "$", "$1 sugiru")
+
+                .replaceAll("([てで])あげ" + terminations_ichidan_kana + "$", "$1あげる")
+                .replaceAll("([てで])くれ" + terminations_ichidan_kana + "$", "$1くれる")
+                .replaceAll("([てで])もら" + terminations_ugodan_kana + "$", "$1もらう")
+                .replaceAll("([てで])" + terminations_iku_kana + "$", "$1いく")
+                .replaceAll("([てで])お" + terminations_kugodan_kana + "$", "$1おく")
+                .replaceAll("([とど])" + terminations_kugodan_kana + "$", "$1おく")
+                .replaceAll("([てで])しま" + terminations_ugodan_kana + "$", "$1しまう")
+                .replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)$", "$1う")
+                .replaceAll("([てで])み" + terminations_ichidan_kana + "$", "$1みる")
+                .replaceAll("([てで])し" + terminations_ichidan_kana + "$", "$1する")
+                .replaceAll("([てで])ある" + terminations_ichidan_kana + "$", "$1ある")
+                .replaceAll("([てで])くる" + terminations_ichidan_kana + "$", "$1くる")
+                .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "$", "$1すぎる")
+        );
+
         mPreparedQuery = mInputQuery.getOriginal();
         mPreparedQueryLength = mInputQuery.getOriginal().length();
         mPreparedQueryTextType = mInputQuery.getOriginalType();
-        mPreparedCleaned = mInputQuery.getOriginalCleaned().replaceAll("\\s","");
+        mPreparedCleaned = mInputQuery.getOriginalCleaned().replaceAll("\\s", "");
         mPreparedCleanedLength = mPreparedCleaned.length();
         mPreparedTranslRomaji = mInputQuery.getRomajiSingleElement();
         mPreparedTranslRomajiLength = mPreparedTranslRomaji.length();
@@ -883,7 +937,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         //region Initializations
         List<Verb> verbs = new ArrayList<>();
         Word currentWord;
-        Verb currentVerb;
+        Verb currentVerb = null;
         long matchingVerbId;
         int conjLength;
         int NumberOfSheetCols = Globals.VerbLatinConjDatabase.get(0).length;
@@ -903,23 +957,40 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : matchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
         List<Verb> matchingVerbsBeforeOrderingByWordId = mRoomCentralDatabase.getVerbListByVerbIds(ids);
-        List<Verb> matchingVerb = new ArrayList<>();
+        List<Verb> matchingVerbs = new ArrayList<>();
+        boolean found = false;
         for (Word word : matchingWords) {
+            found = false;
             for (Verb verb : matchingVerbsBeforeOrderingByWordId) {
                 if (verb.getVerbId() == word.getWordId()) {
-                    matchingVerb.add(verb);
+                    matchingVerbs.add(verb);
+                    found = true;
                     break;
                 }
+            }
+            if (!found) {
+                word.setWordId(word.getWordId());
+                Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
             }
         }
         //endregion
 
+        ////////////////////////////////////TODO : fix shagamu verb not found
+        /// ids: 18455
+
         //region Updating the verbs with their conjugations
         for (int t = 0; t < matchingVerbIdAndColList.size(); t++) {
             matchingVerbId = matchingVerbIdAndColList.get(t)[0];
-            currentVerb = matchingVerb.get(t);
+            try {
+                currentVerb = matchingVerbs.get(t);
+            } catch (Exception e) {
+                e.printStackTrace();
+                continue;
+            }
             currentWord = matchingWords.get(t);
-            if (currentWord == null || currentVerb == null || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) continue;
+            if (currentWord == null || currentVerb == null || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) {
+                continue;
+            }
             currentFamilyConjugationsIndex = mFamilyConjugationIndexes.get(currentVerb.getFamily());
             currentConjugationsRowLatin = Arrays.copyOf(Globals.VerbLatinConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);
             currentConjugationsRowKanji = Arrays.copyOf(Globals.VerbKanjiConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);

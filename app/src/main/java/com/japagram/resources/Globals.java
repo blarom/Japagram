@@ -23,9 +23,9 @@ public final class Globals {
     public static List<String[]> RadicalsOnlyDatabase;
     public static List<String[]> Romanizations;
 
-    public static final int CENTRAL_DB_VERSION = 120;
+    public static final int CENTRAL_DB_VERSION = 124;
     public static final int KANJI_DB_VERSION = 26;
-    public static final int EXTENDED_DB_VERSION = 23;
+    public static final int EXTENDED_DB_VERSION = 24;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final int KANJI_SEARCH_RESULT_DEFAULT = 0;

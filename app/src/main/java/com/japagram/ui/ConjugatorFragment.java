@@ -158,7 +158,7 @@ public class ConjugatorFragment extends Fragment implements
 	//Functionality Functions
     private void getExtras() {
         if (getArguments()!=null) {
-            mInputQuery = new InputQuery(Objects.requireNonNull(getArguments().getString(getString(R.string.user_query_word))));
+            mInputQuery = new InputQuery(Objects.requireNonNull(requireArguments().getString(getString(R.string.user_query_word))));
             //mVerbLatinConjDatabase = (List<String[]>) getArguments().getSerializable(getString(R.string.latin_conj_database));  //Leaving this here for syntax, send serializable to here with new ArrayList<>, not List<>
             mWordsFromDictFragment = getArguments().getParcelableArrayList(getString(R.string.words_list));
         }

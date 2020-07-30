@@ -90,6 +90,9 @@ public final class Utilities {
 
     //Constants
     public static final int NUM_COLUMNS_IN_WORDS_CSV_SHEETS = 16;
+    public static final int NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS = 8;
+    public static final int NUM_COLUMNS_IN_EXPL_CSV_SHEETS = 4;
+    public static final int NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS = 6;
     private static int runningIndex = 0;
     private static String websiteCodeString = "";
 

@@ -373,7 +373,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 373|to turn into |naAC|na-adjective conjugation.|[root] + ni naru|1094;1095||
 374|to make|naAC|na-adjective conjugation.|[root] + ni suru|323||
 375|if|naAC|na-adjective conjugation.|[root] + deareba|||
-376|a number of|A|||741||
+376||-|||||
 377|any choice|A|ME#0021;0022||||
 378|any kind|A|ME#0023;0024||||
 379|any number of|A|||||
@@ -9618,7 +9618,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 9618|be insufficient, be short, be deficient, be negligent toward|VruiI|||||
 9619| the moon) to wane, go into eclipse|VruiI|||||
 9620|eating between meals, snacking|N;Abs|||||
-9621|cut (grass, hair, etc.), mow, clip, trim, prune, shear, reap, harvest|VrugT|||||
+9621||-|||||
 9622|pile up, heap up, stack up, put on top of another|VruiT|||||
 9623|repeat many times over, go through repeatedly, accumulate|VruiT|||||
 9624|first letter of a word, capital letter (at the start of a word or sentence)|N;Abs|||||
@@ -10209,7 +10209,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 10209|every month|N;Abs|||||
 10210|trite, commonplace, conventional, hackneyed|Ana|||||
 10211|triteness, conventionaliy|N;Abs|||||
-10212|be used up, be run out, be exhausted, be consumed, come to an end|VruiI|||||
+10212||-|||||
 10213|stab, pierce, thrust|VsuT|||||
 10214|attendance on, attendant, escort, chaperon, retinue|N;Abs|||||
 10215|prick, stab|VkuT|||||
@@ -11121,11 +11121,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 11121|Sara|N;Pl|||||
 11122|furthermore, again, after all, more and more, moreover, even more|A|||||
 11123||-|||||
-11124|leave, go away|VrugI|||||
-11125|pass, elapse|VrugI|||||
-11126|be distant|VrugI|||||
-11127|send away, drive off, divorce|VrugT|||||
-11128|(do) completely|VrugI|||||
+11124||-|||||
+11125||-|||||
+11126||-|||||
+11127||-|||||
+11128||-|||||
 11129|last ... (e.g. "last April")|P|||||
 11130|bathhouse prostitute|N;Abs|||||
 11131|Sarh (Chad), Sal|N;Pl|||||
@@ -11862,7 +11862,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 11862|nationality|Sx|||||
 11863|membership (club, party, etc.)|Sx|||||
 11864|barrier, gate|N;Sx|||||
-11865||-|||||
+11865|cut (grass, hair, etc.), mow, clip, trim, prune, shear, reap, harvest|VrugT|||||
 11866|seki (in go), mutual life|N;Abs|||||
 11867|equator|N;Abs|||||
 11868|blushing, getting red in the face|N;Abs|||||
@@ -11890,7 +11890,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 11890|execution, carrying out, performance, enforcement, exercise, service|N;Abs|||||
 11891|lead monk performing various tasks in a temple|N;Abs|||||
 11892|training, education, upbringing|N;Sx|||||
-11893||-|||||
+11893|pick someone's pocket, pickpocket|VrugT|||||
 11894|stocking up, laying in|N;Abs|||||
 11895|preparation (e.g. ingredients)|N;Abs|||||
 11896|girl studying to become a geisha|N;Abs|||||
@@ -19247,7 +19247,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19247|one's own house|N;Abs|||||
 19248|combination|N;Abs|||||
 19249|contest, comparison, competition|N;Sx|||||
-19250||-|||||
+19250|must do|VC|||||
 19251|be added to, be appended|VrugI|||||
 19252|join in (e.g. a group of friends), participate|VrugI|||||
 19253|increase (e.g. heat), gain in (e.g. influence), grow, gather (speed)|VrugI|||||
@@ -19330,7 +19330,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19330|Matsuya (department store)|N;Abs|||||
 19331|circulate, send around|VsuT|||||
 19332|medal|N;Abs|||||
-19333||-|||||
+19333|as ..., like ...|A|||||
 19334|main bank|N;Abs|||||
 19335|(direct) hit, hitting the mark|N;Abs|||||
 19336|naming, christening|N;Abs|||||
@@ -19369,8 +19369,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19369|why?, what for?|A|||||
 19370|how?, by what means?|A|||||
 19371|what, how, whatever|A|||||
-19372|furthermore, still, yet, more, still more, in addition, greater, further|A|||||
-19373|furthermore, still, yet, more, still more, in addition, greater, further|PP|||||
+19372|still, yet, even so|A|||||
+19373|furthermore, in addition, moreover, note that|PP|||||
 19374|besides, furthermore, on top of that|A|||||
 19375|and yet, nevertheless, even so|A|||||
 19376|still more, even more, all the more|A|||||
@@ -19403,7 +19403,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19403|appointment, nomination, ordination, commission, designation|N;Abs|||||
 19404|duty, function, office, mission, task|N;Abs|||||
 19405|field (of action), area|N;Abs|||||
-19406||-|||||
+19406|more, still more, greater, further|A|||||
 19407|agricultural cooperative|N;Abs|||||
 19408|joining (a group, team, etc.), enrollment, enrolment|N;Abs|||||
 19409|pollution, contamination, corruption, graft|N;Abs|||||
@@ -21068,7 +21068,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 21068|childcare, child-rearing, nursing, upbringing|N;Abs|||||
 21069|rearing, training, nurture, cultivation, promotion|N;Abs|||||
 21070|how old?|A|||||
-21071|(a) few, some, several|N;Abs|||||
+21071|(a) few, some, several, a number of|N;Abs|||741||
 21072|caution, admonition, warning, lesson|N;Abs|||||
 21073|prohibition, ban, commandment, precept|N;Abs|||||
 21074|punishment|N;Abs|||||
@@ -36318,9 +36318,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36318|outline, core|N|||||
 36319|backbone, spirit, fortitude|N|||||
 36320|laborious, troublesome, difficult|Ana|||||
-36321|survive|VrugI|||||
-36322|these days, nowadays, present day, modern times|UNC|||||
-36323|at this time (of the day)|UNC|||||
+36321||-|||||
+36322|these days, nowadays, present day, modern times|CE|||||
+36323|at this time (of the day)|CE|||||
 36324|declining, refusal, nonacceptance, turning down, withdrawal (e.g. of candidacy), pulling out (e.g. of a race), excusing oneself|N|||||
 36325|empress|N|||||
 36326|smithing, blacksmith|N|||||
@@ -36365,7 +36365,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36365|that, it|CE|||||
 36366|well yes, actually, now that you mention it, well, in fact|CE|||||
 36367|chafing, sore, scrape, scratch, mark, rub, rubbing together, blister|N;Sx|||||
-36368||-|||||
+36368|be used up, be run out, be exhausted, be consumed, come to an end|VruiI|||||
 36369|slave (device)|N|||||
 36370|slave (person)|N|||||
 36371|slate|N|||||
@@ -36625,7 +36625,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36625|offshoot|N;Sx|||||
 36626|interest|N;Sx|||||
 36627|player who is not a dealer (in cards, mahjong, etc.)|N|||||
-36628||-|||||
+36628|survive|VrugI|||||
 36629|old custom, old style|N;Ano|||||
 36630|corners of the mouth|N|||||
 36631|foolish, idiotic|Af|||||
@@ -36719,7 +36719,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36719||-|||||
 36720||-|||||
 36721|printing|N|||||
-36722|pick someone's pocket, pickpocket|VrugT|||||
+36722||-|||||
 36723|a few years ago, some years back|CE|||||
 36724|leaving one's office|N|||||
 36725|entrust (someone) with, leave (a matter) with someone, place under someone's care|VsuT|||||
@@ -36775,3 +36775,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36775|stronger|A;Dg|||||
 36776|black market|CE|||||
 36777|black market|CE|||||
+36778|leave, go away|VrugI|||||
+36779|pass, elapse|VrugI|||||
+36780|be distant|VrugI|||||
+36781|send away, drive off, divorce|VrugT|||||
+36782|(do) completely|VrugT|||||
