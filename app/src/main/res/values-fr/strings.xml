@@ -428,7 +428,8 @@
     <string name="verb_PPrL">Prés. Simple Litéraire</string>
     <string name="verb_Pr3rdPO">Prés. 3è pers. seulm.</string>
     <string name="verb_Pba">Simple (ba)</string>
-    <string name="verb_ClN">Familier Nég.</string>
+    <string name="verb_ClPba">Familier (ba))</string>
+    <string name="verb_ClNba">Familier Nég. (ba)</string>
     <string name="verb_PNba">Simple Nég. (ba)</string>
     <string name="verb_Plba">Poli (ba)</string>
     <string name="verb_PlNba">Poli Nég. (ba)</string>
@@ -476,6 +477,12 @@
     <string name="verb_teformCmp12">Il fait une X-sion</string>
     <string name="verb_teformCmp13">X a (déjà) été fait (p.ex. ouvert)</string>
     <string name="verb_teformCmp14">Il s\'est avéré qu\'il fait/est X</string>
+
+    <string name="verb_TitleteformRequestForPermission">te-form Obtenir l\'Autorisation</string>
+    <string name="verb_teformReq1">Je reçois la permission de faire/être X</string>
+    <string name="verb_teformReq2">Je reçois la permission de faire/être X (Humble)</string>
+    <string name="verb_teformReq3">Il donne la permission de faire/être X</string>
+    <string name="verb_teformReq4">Il donne la permission de faire/être X (Humble)</string>
 
     <string name="verb_TitleteformConj">te + Divers Conjonctifs</string>
     <string name="verb_teformConj1">Fais-moi une faveur et fais/sois X</string>

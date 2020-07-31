@@ -438,7 +438,8 @@
     <string name="verb_PPrL">Pres. Simple Literario</string>
     <string name="verb_Pr3rdPO">Pres. 3era persona solm.</string>
     <string name="verb_Pba">Simple (ba)</string>
-    <string name="verb_ClN">Coloquial Neg.</string>
+    <string name="verb_ClPba">Coloquial (ba))</string>
+    <string name="verb_ClNba">Coloquial Neg. (ba)</string>
     <string name="verb_PNba">Simple Neg. (ba)</string>
     <string name="verb_Plba">Cortés (ba)</string>
     <string name="verb_PlNba">Cortés Neg. (ba)</string>
@@ -486,6 +487,12 @@
     <string name="verb_teformCmp12">Él hace un X-endo</string>
     <string name="verb_teformCmp13">Ya ha sido X (ej. abierto)</string>
     <string name="verb_teformCmp14">Ha llegado a ser que él hace/es X</string>
+
+    <string name="verb_TitleteformRequestForPermission">te-form Obtener Permiso</string>
+    <string name="verb_teformReq1">Obtengo permiso para hacer/ser X</string>
+    <string name="verb_teformReq2">Obtengo permiso para hacer/ser X (Humilde)</string>
+    <string name="verb_teformReq3">Él da permiso para hacer/ser X</string>
+    <string name="verb_teformReq4">Él da permiso para hacer/ser X (Humilde)</string>
 
     <string name="verb_TitleteformConj">te + Conjunctivos Misc.</string>
     <string name="verb_teformConj1">Hazme un favor y haz/se X</string>

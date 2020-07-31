@@ -567,7 +567,8 @@
     <string name="verb_PPrL">Plain Pres. Literary</string>
     <string name="verb_Pr3rdPO">Pres. 3rd person only</string>
     <string name="verb_Pba">Plain (ba)</string>
-    <string name="verb_ClN">Colloquial Neg.</string>
+    <string name="verb_ClPba">Colloquial (ba)</string>
+    <string name="verb_ClNba">Colloquial Neg. (ba)</string>
     <string name="verb_PNba">Plain Neg. (ba)</string>
     <string name="verb_Plba">Polite (ba)</string>
     <string name="verb_PlNba">Polite Neg. (ba)</string>
@@ -615,6 +616,12 @@
     <string name="verb_teformCmp12">He makes an X-ing</string>
     <string name="verb_teformCmp13">It has (already) been X-ed (e.g. open)</string>
     <string name="verb_teformCmp14">It has come to be that he does/is X</string>
+
+    <string name="verb_TitleteformRequestForPermission">te-form Getting Permission</string>
+    <string name="verb_teformReq1">I get permission to do/be X</string>
+    <string name="verb_teformReq2">I get permission to do/be X (Humble)</string>
+    <string name="verb_teformReq3">He gives permission to do/be X</string>
+    <string name="verb_teformReq4">He gives permission to do/be X (Humble)</string>
 
     <string name="verb_TitleteformConj">te + Misc. Conjunctives</string>
     <string name="verb_teformConj1">Do me a favor and do/be X</string>

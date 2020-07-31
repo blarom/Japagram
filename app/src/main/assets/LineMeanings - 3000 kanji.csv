@@ -246,19 +246,19 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 246|not permitted, forbidden|VC|[doing/being] X is not permitted/forbidden.|X wa ikenai @ X = verb te form / sentence object|890;483;1484||cha ikenai
 247|not permitted, forbidden|VC|[doing/being] X is not permitted/forbidden. Colloquial form of "te wa ikenai" for verbs.|X cha ikenai @ X = verb root|1483||te wa ikenai
 248|fine to do|VC|Is it fine if [I/you/he/she] [does/is] X?|X mo ii desu ka @ X = verb te form|891||
-249|do as a favor|VC|[I/you/he/she] [do/does/am/are/is] X as a personal favor for someone. Use "te ageru" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence).|X ageru @ X = verb te form|885;1393;1436;1437;1440;1443||te morau, te kureru
+249|give to someone as a favor|VC|Give X to someone as a personal favor. Use "te ageru" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence).|X ageru @ X = verb te form|885;1393;1436;1437;1440;1443||te morau, te kureru
 250|want to do/be, hope to do/be|VC|[I/you/he/she] want someone to [do/be] X, hope someone [does/is] X.|X hoshii da @ X = verb te form|||
 251|please do/be|VC|Please [do/be] X.|X kudasai @ X = verb te form (add "sumimasen" or "chotto" to soften the request)|886||
 252|people say that, it is said that|CE||X to iu @ X = phrase|104||
 253|would you please do|VC|Would you please [do/be] X.|X kuremasen ka @ X = verb te form (expression used when the request may cause some trouble to the other person)|||te kurenai, te itadakemasen ka
-254|do as a favor|VC|[you/he/she] [do/does/are/is] X as a favor for me. Use "te kureru" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence). Usually refers to performing an act for the subject or a close familiar. Usage of "te kureru" corresponds to an active phrase as opposed to "te morau"that corresponds to a passive phrase.|Y ga Z wo X kureru @ X = verb te form, Y = person doing the favor, Z = object of the favor|1435;1438;1441||te morau, te ageru
+254|give to me as a favor to me|VC|Give X to me as a favor. Use "te kureru" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence). Usually refers to performing an act for the subject or a close familiar. Usage of "te kureru" corresponds to an active phrase as opposed to "te morau"that corresponds to a passive phrase.|Y ga Z wo X kureru @ X = verb te form, Y = person doing the favor, Z = object of the favor|1435;1438;1441||te morau, te ageru
 255|do and see what happens|VC|To [do/be] X and see what happens.|X miru @ X = verb te form|1349;1350;1390||
 256|want to do and see what happens, want to try doing|VC|To want to [do/be] X and see what happens, to want to try [doing/being] X.|X miru @ X = verb te form|990||
 257|can do as a favor|VC|[I/you/he/she] can [do/be] X as a favor.|X moraeru @ X = verb te form|||
 258|asking to do as a favor|VC|Could (you) [do/be] X (as a favor)?|X moraemasu ka @ X = verb te form|||
 259|if can do as a favor|VC|If someone can [do/be] X as a favor.|X moraeru to @ X = verb te form|||
 260|please try to do|VC|Please try to [do/be] X.|X goran @ X = verb te form|||
-261|do as a personal favor for someone or for me|VC|Someone [does/is] X as a personal favor for someone or for me. Use "te morau" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence). Usage of "te kureru" corresponds to an active phrase as opposed to "te morau"that corresponds to a passive phrase.|Y ni Z wo X morau @ X = verb te form, Y = person doing the favor, Z = object of the favor|1430;1432;1439;1441||te kureru, te ageru
+261|receive as a favor|VC|Receive X as a personal favor. Use "te morau" not only for polite language, but also for implicitly specifying the giver/recipient (e.g. "watashi/kare ni" is removed from the sentence). Usage of "te kureru" corresponds to an active phrase as opposed to "te morau"that corresponds to a passive phrase.|Y ni Z wo X morau @ X = verb te form, Y = person doing the favor, Z = object of the favor|1430;1432;1439;1441||te kureru, te ageru
 262|want someone to do (as a favor)|VC|I want someone to [do/be] X (as a favor).|X moraitai @ X = verb te form|||
 263|pay the bill|VsuruI|||||
 264|fail to do|VC|To fail to [do/be] X.|X sokonau @ X = verb te form|||
@@ -373,7 +373,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 373|to turn into |naAC|na-adjective conjugation.|[root] + ni naru|1094;1095||
 374|to make|naAC|na-adjective conjugation.|[root] + ni suru|323||
 375|if|naAC|na-adjective conjugation.|[root] + deareba|||
-376||-|||||
+376|say/tell that|PC|ME#0174;0175||||
 377|any choice|A|ME#0021;0022||||
 378|any kind|A|ME#0023;0024||||
 379|any number of|A|||||
@@ -6881,9 +6881,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 6881|switchboard number, main number|N;Abs|||||
 6882|side (of something, or taking someone's side), part|N;Sx|||||
 6883|was not|PC|(He) was not X.|X dewa nakatta @ X = phrase|||
-6884||-|||||
+6884|contracted form, contraction|N|||||
 6885|(watch) case|N;Sx|||||
-6886||-|||||
+6886|thing, matter|N|Contraction for "mono da".||||
 6887|art, craft|N;Abs|||||
 6888|hamster|N;Abs|||||
 6889|genuine article, real thing, real deal|N;Abs|||||

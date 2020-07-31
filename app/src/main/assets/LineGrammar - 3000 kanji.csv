@@ -1,210 +1,210 @@
 Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra keywords Jap|Preposition|Kanji Root|Latin Root|Exception index|MeaningEN|Extra keywordsEN|MeaningFR|Extra keywordsFR|MeaningES|Extra keywordsES
-17706|wa ... ga ii desu|～は...がいいです||1|wa, ga|||||104||188||177|
-17707|wa ... ga ...|～は...が...||1|wa, ga|||||105||189||178|
-17708|de ... en|～で...円||1|de, en|||||106|worth, priced, price, money|190|valeur, prix, argent|179|valor, precio, dinero
-17709|de utteiru|～で売っています||1|de utteimasu|||||107||191||180|
-17710|ni suru|～にする||1|ni shimasu, nisuru|||||108|will take, will order|192|va prendre, va commander|181|tomará, ordenará
-17711|mo sou|～もそう||1|mosou|||||109||193||182|
-17712|[verb] [noun]|～||1|ga|||||110||194||183|
-17713|toori|～とおり||1|doori, toori ni, doori ni|||||112||195||184|
-17714|hou ga ii da|ほうがいいです||1|hou ga ii desu, hou ga, ta hou ga, hougaii|||||113||196||185|
-17715|ikura ...te mo|幾ら...ても||1|de mo, demo, temo|||||121||197||186|
-17716|... to ... wa chigau|...と...は違う||1|chigau, chigaimasu|||||554||510||504|
-17717|ii desu ka|いいですか||1||||||122||198||187|
-17718|ikaga desu ka|いかがですか||1||||||160||199||188|
-17719|dearu|～である||1||||||123||200||189|
-17720|deatta|～であった||1||||||751||201||190|
-17721|ga tsuiteimasu|がついています||1||||||124||202||191|
-17722|ga hatteimasu|がはっています||1||||||125||203||192|
-17723|ka nanika wo|か何かを||1||||||126||204||193|
-17724|ka dareka wo|か誰かを||1||||||127||205||194|
-17725|ka dokoka wo|かどこかを||1||||||128||206||195|
-17726|darou|～だろう||1||||||129;130|likely, presumptive|207;208|probable, présomptif|196;197|probable, presunto
-17727|deshou|～でしょう||1||||||131;132|likely, presumptive|209;210|probable, présomptif|198;199|probable, presunto
-17728|no hoka|～のほか||1||||||133||211||200|
-17729|sugiru|～すぎる||1|sugimasu, suginai, sugimashita, sugita|||||134||212||201|
-17730|na n da|なんだ||1|bakkari ni, bakashi ni, bakkashi ni, nanda|||||137||213||202|
-17731|dou sureba ii desu ka|どうすればいいですか||1|ba ii desu ka, dou sureba, ba yokatta, nakereba ii desu, nakereba yokatta desu, baii|||||141|it will be fine if, it will be enough if, you should do|214|ça ira si, ça suffira si, tu devrais faire|203|estará bien si, será suficiente si, deberías hacer
-17732|dou shitara ii desu ka|どうしたらいいですか||1|tara yokatta da, tara yokatta desu|||||143||215||204|
-17733|tatoe …temo|たとえ...ても||1|tatoe demo|||||6204||216||205|
-17734|sore ni shite mo|それにしても||1||||||170||217||206|
-17735|naide|～ないで||1|do not do|||||172;173;174||218;219;220||207;208;209|
-17736|ja nakute|～じゃなくて||1||||||178||221||210|
-17737|mata wa|～又は||1|mata ha|||||179||222||211|
-17738|to issho ni|～と一緒に||1||||||180|altogether with|223|tout à fait avec|212|en conjunto con
-17739|uchi ni|～内に||1||||||188|when, during|224|quand, pendant|213|cuando, durante
-17740|no tochuu de|～の途中で||1|途中|||||189|in the middle of, in the midst of, during|225|au milieu, pendant|214|en medio de, durante
-17741|tochuu ni|～途中に||1|途中|||||190|in the middle of, in the midst of, during|226|au milieu, pendant|215|en medio de, durante
-17742|tochuu de|～途中で||1|途中|||||191|in the middle of, in the midst of, during|227|au milieu, pendant|216|en medio de, durante
-17743|you ni to|～ようにと||1||||||196|initiator, initiates|228|initiateur, initie|217|iniciador
-17744|to ii n desu ga|～といいんですが||1|da to ii n da, da to ii n desu, da to ii da, da to ii desu|||||6104||229||218|
-17745|to ii desu (ne)|～といいですね||1|da to ii n da, da to ii n desu, da to ii da, da to ii desu|||||6148||230||219|
-17746|to iu|～と言う||1|da to imasu, da to iu, to itta, toiu|||||197;252;167;177;182|say that, tell that, I said that, she said that|231;480;477;478;479|dis que, dit que|220;480;471;472;473|di que, dije que, dijo que
-17747|to tsutaeru|～と伝える||1|da to tsutaeru, da to tsutaemasu, to tsutaeta|||||183|I said that, she said that, say that, tell that|232|dis que, dit que|221|di que, dije que, dijo que
-17748|to omou|～と思う||1|da to omou, da to omoimasu|||||198|I think that, she thinks that, you think that|233|je pense que, elle pense que, tu penses que|222|pienso eso, piensa eso, piensas que
-17749|to wa kagiranai|～とは限らない|da to wa kagiranai;だとは限らない|1|da to wa kagiranai, da to wa kagirimasen|||||199|is not always, do not always|234|n'est pas toujours, ne pas toujours|223|no es siempre, no siempre
-17750|tokoro dewa|～ところでは||1||||||200||235||224|
-17751|ka ...ka|～か...か||1|ka, か|||||201|know if, believe that, think that, remember that, remember if|236|savoir si, croire que, penser que, se souvenir que|225|saber si, creer que, pensar que, recordar
-17752|ka dou ka|～かどうか||1||||||202;203|know if, believe that, think that|237;238|savoir si, croire que, penser que|226;227|saber si, creer que, pensar que, recordar
-17753|ka dou ka … te miru|～かどうか||1||||||204||239||228|
-17754|you ni naritai|～ようになりたい||1|etai|||||213|will be able to do, will be able to be|240|sera capable de faire, pourra être|229|se podrá hacer
-17755|you ni naru kamo shirenai|～ようになるかもしれない||1|you ni naru kamo shiremasen|||||214|will not be able to do, will not be able to be|241|ne sera pas capable de faire, ne pourra pas être|230|no se podrá hacer
-17756|ni niteiru|～に似ている||1||||||216||242||231|
-17757|ni tai suru|～にたいする||1||||||6742||243||232|
-17758|to dochira ga|～とどちが||1||||||217||244||233|
-17759|no naka de ... ga ichiban|～の中で...が一番||1||||||218||245||234|
-17760|yori ... hou ga|～より...ほうが||1|hou ga, yori|||||219||246||235|
-17761|noto ... noto|～のと...のと||1||||||221|which of, decision, decide|247|lequel de, décision, décide|236|cuál de, decisión, decide
-17762|yori mou sukoshi ...|～よりもう少し||1||||||222||248||237|
-17763|teite|～ていて|deite|1||||||231||249||238|
-17764|tete|～てて|dete|1||||||232||250||239|
-17765|te iru|～ている||1|iru, te imasu, de iru, de imasu|||||233;234||251;252||240;241|
-17766|te oru|～ておる||1|oru, te orimasu, de oru, de orimasu|||||560;561||508;509||502;503|
-17767|te aru|～てある||1|aru, te arimasu, de aru, de arimasu|||||235||253||242|
-17768|te iku|～て行く||1|iku, te ikimasu, de iku, de ikimasu|||||236;237;238||254;255;256||243;244;245|
-17769|te oku|～ておく||1|oku, te okimasu, de oku, de okimasu|||||239|do preemptively, do in preparation for, do in advance|257|faire de façon préventive, faire en préparation, faire à l'avance|246|hacer preventivamente, hacer en preparación para, hacer por adelantado
-17770|ttoku|～っとく||1|ttokimasu|||||240|preemptively, preparation|258|à titre préventif, préparation|247|preventivamente, preparación
-17771|te kara|～てから||1|kara, de kara|||||241|then, afterwards|259|ensuite|248|luego, después
-17772|te kuru|～て来る||1|kuru, te kimasu, de kuru, de kimasu|||||242;243;244||260;261;262||249;250;251|
-17773|te mo ii da|～てもいいだ||1|mo ii da, te mo ii desu, de mo ii da, de mo ii desu|||||245|alright, may, permission|263|d'accord, peut, permission|252|bien, mayo, permiso
-17774|nakya|～なきゃ||1||||||19250||1436||1096|
-17775|te wa ikenai|～てはいけない||1|wa ikenai, te wa ikemasen, de wa ikenai, de wa ikemasen, tehaikenai, tewaikenai|||||246|not allowed, not permitted, forbidden, may not, prohibition|264|interdit, interdiction|253|no permitido, prohibido, no puede, prohibición
-17776|cha ikenai|～ちゃいけない||1|ikenai, te wa ikemasen, de wa ikenai, de wa ikemasen|||||247|not allowed, not permitted, forbidden, may not, prohibition|265|interdit, interdiction|254|no permitido, prohibido, no puede, prohibición
-17777|te mo ii desu ka?|～てもいいですか?||1|mo ii desu ka, mou ii da, de mo ii desu ka, temoii, demoii|||||248|is it ok, is it fine, is ok, is fine, is acceptable, permission, may I, may she, may he, may they|266|est-ce que ça va, est-ce bien, est-il acceptable, permission, puis|255|está bien, es aceptable, permiso, puedo, puede
-17778|te ageru|～て上げる||1|ageru, te agemasu, de ageru, de agemasu|||||249||267||256|
-17779|te hoshii|～てほしい||1|hoshii, te hoshii desu|||||250||268||257|
-17780|te kudasai|～て下さい||1|kudasai, de kudasai|||||251||269||258|
-17781|te kurenai|～て呉れない||1|kurenai, de kurenai|||||253||270||259|
-17782|te kuremasen ka|～て呉れませんか||1|kuremasen ka, de kuremasen ka|||||6125||271||260|
-17783|te itadakemasen ka|～て呉れませんか||1|itadakemasen ka, de itadakemasen ka|||||6126||272||261|
-17784|te kureru|～て呉れる||1|kureru, te kuremasu, de kureru, de kuremasu|||||254||273||262|
-17785|te miru|～て見る||1|miru, te mimasu, de miru, de mimasu|||||255||274||263|
-17786|te mitai da|～て見たいだ||1|mitai da, te mitai desu, de mitai da, de mitai desu, te mitakatta, de mitakatta|||||256||275||264|
-17787|te moraeru|～て貰えます||1|moraeru, te moraemasu, de moraeru, de moraemasu|||||257||276||265|
-17788|te moraemasu ka|～て貰えますか||1|moraemasu ka, de moraemasu ka|||||258||277||266|
-17789|te moreru to|～て貰えると||1|moreru to, de moraeru to|||||259||278||267|
-17790|te itadaku|～ていただく||1|itadaku|||||6100||279||268|
-17791|te goran|～てご覧||1|goran|||||260||280||269|
-17792|te morau|～て貰う||1|morau, de moraimasu, de morau, de moraimasu|||||261||281||270|
-17793|te moraitai|～て貰いたい||1|moraitai, de moraitai|||||262||282||271|
-17794|te sokonau|～て損なう||1|sokonau|||||264||283||272|
-17795|te moraitai n desu ga|～て貰いたいんですが||1|moraitai n desu ga, de moraitai no desu ga, de moraitai n desu ga, de moraitai no desu ga|||||265||284||273|
-17796|te shimau|～て仕舞う||1|shimau, te shimau, te shimaimasu, de shimau, de shimaimasu|||||266;267||285;286||274;275|
-17797|te shimatta|～て仕舞った||1|shimatta, te shimaimashita, de shimatta, de shimaimashita|||||268||287||276|
-17798|cchimatta|～っちまった||1||||||269||288||277|
-17799|te sumimasen|～てすみません||1|sumimasen|||||270||289||278|
-17800|te bakari iru|～ばかりいる||1|bakari iru, bakkari iru, bakashi iru, bakkashi iru, bakkari imasu, bakashi imasu, bakkashi imasu|||||271||290||279|
-17801|te koto wa dekinai|～ことはできない||1|koto wa dekinai, koto ha dekinai, koto ha dekimasen|||||272||291||280|
-17802|te choudai|～て頂戴||1|choudai|||||273||292||281|
-17803|sou ni naru|～そう||1|sou ni narimasu|||||274||293||282|
-17804|nasasou|～無さそう||1|sou, sou ni nai, sou mo nai|||||275|doesn't look like, doesn't sound like, doesn't appear to be, apparently not, doesn't seem to be|294|ne ressemble pas, ne sonne pas, ne semble pas être, apparemment pas|283|no suena como, no parece ser, aparentemente no
-17805|eru|～える||1||||||276||295||284|
-17806|eta|～えた||1||||||277||296||285|
-17807|saseru|～させる||1||||||278||297||286|
-17808|koto ga dekiru|～ことが出来る||1||||||279||298||287|
-17809|koto|～こと|事|1|ru koto|||||280||299||288|
-17810|koto ni kimeru|～ことに決める||1||||||281||300||289|
-17811|beki|～べき||1||||||282||301||290|
-17812|komu|～込む|篭む;籠む;混む|1||||||283||302||291|
-17813|hajimeru|～始める|創める|1||||||284||303||292|
-17814|chau|～ちゃう||1||||||285||304||293|
-17815|chatta|～ちゃった||1|te shimaimashita, de shimatta, de shimaimashita|||||286||305||294|
-17816|jau|～じゃう||1||||||725||306||295|
-17817|jatta|～じゃった||1|te shimaimashita, de shimatta, de shimaimashita|||||726||307||296|
-17818|(o) ni naru|～になる||1|ni naru|||||287||308||297|
-17819|(o) nasaru|～なさる||1|nasaru|||||288||309||298|
-17820|(o) suru|～する||1|suru|||||289||310||299|
-17821|(o) itasu|～いたす||1|itasu|||||290||311||300|
-17822|(o) kudasai|～下さい||1|kudasai|||||291||312||301|
-17823|(o) naide kudasai|～ないで下さい||1|naide kudasai|||||292||313||302|
-17824|(o) nasaimase|～なさいませ||1|nasaimase|||||293||314||303|
-17825|(o) nasaimasu na|～なさいますな||1|nasaimasu na|||||294||315||304|
-17826|nasai|～なさい||1||||||295||316||305|
-17827|nasaru na|～なさるな||1||||||296||317||306|
-17828|ta mama|～た儘|た侭|1|tamama|||||297||318||307|
-17829|naosu|～直す||1||||||298||319||308|
-17830|tai|～たい||1||||||299||320||309|
-17831|takatta|～たかった||1||||||300||322||311|
-17832|takunai|～たくない||1||||||301||323||312|
-17833|takunakatta|～たくなかった||1||||||302||324||313|
-17834|tai desu|～たいです||1||||||303||325||314|
-17835|tai deshita|～たいでした||1||||||304||326||315|
-17836|taku arimasen|～たくありません||1||||||305||327||316|
-17837|taku arimasen deshita|～たくありませんでした||1||||||306||328||317|
-17838|tagaru|～たがる||1||||||307||329||318|
-17839|yasui|～やすい||1||||||308|easy to be|330|facile d'être|319|fácil de ser
-17840|nikui|～にくい||1||||||309|difficult to be, difficult to do, hard to be|331|difficile à être, difficile à faire|320|difícil de ser, difícil de hacer
-17841|yagaru|～やがる||1||||||310|difficult to be, difficult to do, hard to be|332|difficile à être, difficile à faire|321|difícil de ser, difícil de hacer
-17842|yagare|～やがる||1||||||311||333||322|
-17843|nu|～ぬ||1||||||312||334||323|
-17844|zu|～ず||1||||||313||335||324|
-17845|agaru|～上がる|上る;挙がる;揚がる; 上る|1||||||314||336||325|
-17846|hodo|～程||1||||||315||337||326|
-17847|ina ka|～否か||1|inaka|||||316||338||327|
-17848|koto ni suru|～ことにする||1|nai koto ni suru, nai koto ni shimasu, koto ni kimeru|||||317||339||328|
-17849|koto ni shita|～ことにした||1||||||318||340||329|
-17850|maji|～まじ||1||||||319||341||330|
-17851|koto ni shiteiru|～ことにしている||1||||||320||342||331|
-17852|koto ni naru|～ことになる||1|nai koto ni naru, nai koto ni narimasu|||||321||343||332|
-17853|ga hayai ka|～が早いか||1||||||322||344||333|
-17854|tara dou desu ka|～たらどうですか||1|dara dou desu, tara dou da, dara dou da|||||323||345||334|
-17855|tara ii desu ka|～たらいいですか||1|dara ii desu ka|||||324||346||335|
-17856|deshou ka|～でしょうか||1||||||325||347||336|
-17857|masen ka|～ませんか||1|nai ka, naika|||||326||348||337|
-17858|nai ka|～ないか||1|masen ka, naika|||||552||349||338|
-17859|mashou ka|～ませんか||1||||||327||350||339|
-17860|dake|～だけ||1|dake da, dake desu|||||328||351||340|
-17861|ta bakari|～たばかり||1|bakari, bakkari, bakashi, bakkashi|||||329|just done, recently done, just recently done, just did|352|juste fait, récemment fait|341|acaba de hacer, hace poco
-17862|bakari|～ばかり||1|bakkari, bakashi, bakkashi|||||330||353||342|
-17863|ta tokoro da|～たところだ||1|tokoro da, ta tokoro desu|||||331||354||343|
-17864|tokoro da|～ところだ||1||||||332||355||344|
-17865|teiru tokoro da|～ているところだ||1|tokoro da, teiru tokoro desu|||||333||356||345|
-17866|koto ga aru|～ことがある||1|nai koto ga aru, nai koto ga arimasu, koto ga nai, koto ga nakatta|||||334||357||346|
-17867|koto ga dearu|～ことがである||1|nai koto ga dearu, nai koto ga dearimasu|||||335||358||347|
-17868|ta koto ga aru|～たことがある||1|koto ga aru|||||336|have done before|359|fait avant|348|haber hecho antes
-17869|ta koto ni naru|～たことになる||1|koto ni naru|||||337||360||349|
-17870|ta to shite mo|～たとしても||1||||||7067||361||350|
-17871|koto ni natteiru|～ことになっている||1|nai koto ni natteiru, nai koto ni natteimasu|||||338|scheduled to do, due to do|362|prévu de faire, en raison de faire|351|programado para hacer, debido a hacer
-17872|ou to shiteiru|～おうとしている||1|ou to shiteiru, ou to shiteimasu|||||339|intend to|363|a l'intention de|352|tener la intención de
-17873|ou to suru|～おうとする||1|ou to suru, ou to shimasu|||||647|intend to|364|a l'intention de|353|tener la intención de
-17874|ou to shita|～おうとした||1|ou to shimashita|||||340||365||354|
-17875|ou to omou|～おうと思う||1|ou to omotteiru, ou to omoimasu, ou to moimasu, ou to mou|||||341|plan to be, considering to|366|envisage d'être, envisageant de|355|planar de ser, considerando a
-17876|ou to omotteiru|～おうと思っている||1|ou to omou, ou to omotteimasu, ou to motteimasu, ou to motteiru|||||342|plan to be, considering to|367|envisage d'être, envisageant de|356|planar de ser, considerando a
-17877|tomonaku|～ともなく||1||||||343|absentmindedly, without planning to, without intending to|368|distraitement, sans planifier, sans avoir l'intention de|357|distraídamente, sin planear, sin pretender
-17878|tsumori|～積もり|積り|1||||||344||369||358|
-17879|ba ii noni|～ばいいのに||1|ii noni|||||345||370||359|
-17880|ba yokatta noni|～ばよかったのに||1|yokatta noni|||||346||371||360|
-17881|ba yokatta|～ばよかった||1|yokatta|||||347||372||361|
-17882|i|～い||1|keiyoushi, i keiyoushi|||||348|i-adjective|373||362|
-17883|i desu|～いです||1|keiyoushi, i keiyoushi|||||349|i-adjective|374||363|
-17884|kunai desu|～くないです||1|keiyoushi, i keiyoushi|||||350|i-adjective|375||364|
-17885|ku arimasen|～くありません||1|keiyoushi, i keiyoushi|||||351|i-adjective|376||365|
-17886|katta desu|～かったです||1|keiyoushi, i keiyoushi|||||352|i-adjective|377||366|
-17887|kunakatta desu|～くなかったです||1|keiyoushi, i keiyoushi|||||353|i-adjective|378||367|
-17888|ku arimasen deshita|～くありませんでした||1|keiyoushi, i keiyoushi|||||354|i-adjective|379||368|
-17889|ku|～く||1|keiyoushi, i keiyoushi|||||355|i-adjective|380||369|
-17890|kute|～くて||1|keiyoushi, i keiyoushi|||||356;357|i-adjective|381;382||370;371|
-17891|kutemo|～くて||1|keiyoushi, i keiyoushi|||||6206|i-adjective|383||372|
-17892|ku naru|～くなる||1|keiyoushi, i keiyoushi|||||358|i-adjective|384||373|
-17893|ku suru|～くする||1|keiyoushi, i keiyoushi|||||359|i-adjective|385||374|
-17894|mi|～み||1|keiyoushi, i keiyoushi|||||360|i-adjective|386||375|
-17895|kereba|～ければ||1|kereba desu, keiyoushi, i keiyoushi|||||361|i-adjective, conditional|387|conditionnel|376|condicional
-17896|karou|～かろう||1|keiyoushi, i keiyoushi|||||362|i-adjective, volitional, suggestive|388|volitif, suggestif|377|volitivo, sugerente.
-17897|sa|～さ||1|keiyoushi, i keiyoushi|||||6197|i-adjective|389||378|
-17898|[root]|～||1|keiyoudoushi, na keiyoushi|||||363|na-adjective|390||379|
-17899|desu|～です||1|keiyoudoushi, na keiyoushi|||||364|na-adjective|391||380|
-17900|dewa arimasen|～ではありません||1|keiyoudoushi, na keiyoushi|||||365|na-adjective|392||381|
-17901|ja nai desu|～じゃないです||1|keiyoudoushi, na keiyoushi|||||366|na-adjective|393||382|
-17902|dewa nai|～ではない||1|keiyoudoushi, na keiyoushi|||||367;643|na-adjective, am not, is not|394;395|na-adjectif, ne suis pas, n'est pas|383;384|no soy, no es
-17903|ja nai|～じゃない||1|keiyoudoushi, na keiyoushi|||||368|na-adjective|396||385|
-17904|deshita|～でした||1|keiyoudoushi, na keiyoushi|||||369|na-adjective|397||386|
-17905|ja arimasen deshita|～じゃありませんでした||1|keiyoudoushi, na keiyoushi|||||370|na-adjective|398||387|
-17906|de wa arimasen deshita|～じゃありませんでした||1|keiyoudoushi, na keiyoushi|||||371|na-adjective|399||388|
-17907|de (next adj.)|～で||1|keiyoudoushi, na keiyoushi|||||372|na-adjective|400||389|
-17908|demo|～くて||1|keiyoudoushi, na keiyoushi|||||6207|na-adjective|401||390|
-17909|ni naru|～になる||1|keiyoudoushi, na keiyoushi|||||373|na-adjective|402||391|
-17910|ni suru|～にする||1|keiyoudoushi, na keiyoushi|||||374|na-adjective|403||392|
-17911|deareba|～であれば||1|deareba desu, keiyoudoushi, na keiyoushi|||||375|na-adjective, conditional|404|conditionnel|393|condicional
-17912|yotei da|～予定だ||1|to yotei da, to yotei desu|||||6149||405||394|
-17913|ni kyoumi ga aru|～に興味がある||1||||||6612||406||395|
-17914|dewa nakatta|～ではなかった||1||||||6883||407||396|
+17709|wa ... ga ii desu|～は...がいいです||1|wa, ga|||||104||188||177|
+17710|wa ... ga ...|～は...が...||1|wa, ga|||||105||189||178|
+17711|de ... en|～で...円||1|de, en|||||106|worth, priced, price, money|190|valeur, prix, argent|179|valor, precio, dinero
+17712|de utteiru|～で売っています||1|de utteimasu|||||107||191||180|
+17713|ni suru|～にする||1|ni shimasu, nisuru|||||108|will take, will order|192|va prendre, va commander|181|tomará, ordenará
+17714|mo sou|～もそう||1|mosou|||||109||193||182|
+17715|[verb] [noun]|～||1|ga|||||110||194||183|
+17716|toori|～とおり||1|doori, toori ni, doori ni|||||112||195||184|
+17717|hou ga ii da|ほうがいいです||1|hou ga ii desu, hou ga, ta hou ga, hougaii|||||113||196||185|
+17718|ikura ...te mo|幾ら...ても||1|de mo, demo, temo|||||121||197||186|
+17719|... to ... wa chigau|...と...は違う||1|chigau, chigaimasu|||||554||510||504|
+17720|ii desu ka|いいですか||1||||||122||198||187|
+17721|ikaga desu ka|いかがですか||1||||||160||199||188|
+17722|dearu|～である||1||||||123||200||189|
+17723|deatta|～であった||1||||||751||201||190|
+17724|ga tsuiteimasu|がついています||1||||||124||202||191|
+17725|ga hatteimasu|がはっています||1||||||125||203||192|
+17726|ka nanika wo|か何かを||1||||||126||204||193|
+17727|ka dareka wo|か誰かを||1||||||127||205||194|
+17728|ka dokoka wo|かどこかを||1||||||128||206||195|
+17729|darou|～だろう||1||||||129;130|likely, presumptive|207;208|probable, présomptif|196;197|probable, presunto
+17730|deshou|～でしょう||1||||||131;132|likely, presumptive|209;210|probable, présomptif|198;199|probable, presunto
+17731|no hoka|～のほか||1||||||133||211||200|
+17732|sugiru|～すぎる||1|sugimasu, suginai, sugimashita, sugita|||||134||212||201|
+17733|na n da|なんだ||1|bakkari ni, bakashi ni, bakkashi ni, nanda|||||137||213||202|
+17734|dou sureba ii desu ka|どうすればいいですか||1|ba ii desu ka, dou sureba, ba yokatta, nakereba ii desu, nakereba yokatta desu, baii|||||141|it will be fine if, it will be enough if, you should do|214|ça ira si, ça suffira si, tu devrais faire|203|estará bien si, será suficiente si, deberías hacer
+17735|dou shitara ii desu ka|どうしたらいいですか||1|tara yokatta da, tara yokatta desu|||||143||215||204|
+17736|tatoe …temo|たとえ...ても||1|tatoe demo|||||6204||216||205|
+17737|sore ni shite mo|それにしても||1||||||170||217||206|
+17738|naide|～ないで||1|do not do|||||172;173;174||218;219;220||207;208;209|
+17739|ja nakute|～じゃなくて||1||||||178||221||210|
+17740|mata wa|～又は||1|mata ha|||||179||222||211|
+17741|to issho ni|～と一緒に||1||||||180|altogether with|223|tout à fait avec|212|en conjunto con
+17742|uchi ni|～内に||1||||||188|when, during|224|quand, pendant|213|cuando, durante
+17743|no tochuu de|～の途中で||1|途中|||||189|in the middle of, in the midst of, during|225|au milieu, pendant|214|en medio de, durante
+17744|tochuu ni|～途中に||1|途中|||||190|in the middle of, in the midst of, during|226|au milieu, pendant|215|en medio de, durante
+17745|tochuu de|～途中で||1|途中|||||191|in the middle of, in the midst of, during|227|au milieu, pendant|216|en medio de, durante
+17746|you ni to|～ようにと||1||||||196|initiator, initiates|228|initiateur, initie|217|iniciador
+17747|to ii n desu ga|～といいんですが||1|da to ii n da, da to ii n desu, da to ii da, da to ii desu|||||6104||229||218|
+17748|to ii desu (ne)|～といいですね||1|da to ii n da, da to ii n desu, da to ii da, da to ii desu|||||6148||230||219|
+17749|to iu|～と言う|tte iu|1|da to imasu, da to iu, to itta, toiu|||||197;252;167;177;182|say that, tell that, I said that, she said that|231;480;477;478;479|dis que, dit que|220;480;471;472;473|di que, dije que, dijo que
+17750|to tsutaeru|～と伝える||1|da to tsutaeru, da to tsutaemasu, to tsutaeta|||||183|I said that, she said that, say that, tell that|232|dis que, dit que|221|di que, dije que, dijo que
+17751|to omou|～と思う||1|da to omou, da to omoimasu|||||198|I think that, she thinks that, you think that|233|je pense que, elle pense que, tu penses que|222|pienso eso, piensa eso, piensas que
+17752|to wa kagiranai|～とは限らない|da to wa kagiranai;だとは限らない|1|da to wa kagiranai, da to wa kagirimasen|||||199|is not always, do not always|234|n'est pas toujours, ne pas toujours|223|no es siempre, no siempre
+17753|tokoro dewa|～ところでは||1||||||200||235||224|
+17754|ka ...ka|～か...か||1|ka, か|||||201|know if, believe that, think that, remember that, remember if|236|savoir si, croire que, penser que, se souvenir que|225|saber si, creer que, pensar que, recordar
+17755|ka dou ka|～かどうか||1||||||202;203|know if, believe that, think that|237;238|savoir si, croire que, penser que|226;227|saber si, creer que, pensar que, recordar
+17756|ka dou ka … te miru|～かどうか||1||||||204||239||228|
+17757|you ni naritai|～ようになりたい||1|etai|||||213|will be able to do, will be able to be|240|sera capable de faire, pourra être|229|se podrá hacer
+17758|you ni naru kamo shirenai|～ようになるかもしれない||1|you ni naru kamo shiremasen|||||214|will not be able to do, will not be able to be|241|ne sera pas capable de faire, ne pourra pas être|230|no se podrá hacer
+17759|ni niteiru|～に似ている||1||||||216||242||231|
+17760|ni tai suru|～にたいする||1||||||6742||243||232|
+17761|to dochira ga|～とどちが||1||||||217||244||233|
+17762|no naka de ... ga ichiban|～の中で...が一番||1||||||218||245||234|
+17763|yori ... hou ga|～より...ほうが||1|hou ga, yori|||||219||246||235|
+17764|noto ... noto|～のと...のと||1||||||221|which of, decision, decide|247|lequel de, décision, décide|236|cuál de, decisión, decide
+17765|yori mou sukoshi ...|～よりもう少し||1||||||222||248||237|
+17766|teite|～ていて|deite|1||||||231||249||238|
+17767|tete|～てて|dete|1||||||232||250||239|
+17768|te iru|～ている||1|iru, te imasu, de iru, de imasu|||||233;234||251;252||240;241|
+17769|te oru|～ておる||1|oru, te orimasu, de oru, de orimasu|||||560;561||508;509||502;503|
+17770|te aru|～てある||1|aru, te arimasu, de aru, de arimasu|||||235||253||242|
+17771|te iku|～て行く||1|iku, te ikimasu, de iku, de ikimasu|||||236;237;238||254;255;256||243;244;245|
+17772|te oku|～ておく||1|oku, te okimasu, de oku, de okimasu|||||239|do preemptively, do in preparation for, do in advance|257|faire de façon préventive, faire en préparation, faire à l'avance|246|hacer preventivamente, hacer en preparación para, hacer por adelantado
+17773|ttoku|～っとく||1|ttokimasu|||||240|preemptively, preparation|258|à titre préventif, préparation|247|preventivamente, preparación
+17774|te kara|～てから||1|kara, de kara|||||241|then, afterwards|259|ensuite|248|luego, después
+17775|te kuru|～て来る||1|kuru, te kimasu, de kuru, de kimasu|||||242;243;244||260;261;262||249;250;251|
+17776|te mo ii da|～てもいいだ||1|mo ii da, te mo ii desu, de mo ii da, de mo ii desu|||||245|alright, may, permission|263|d'accord, peut, permission|252|bien, mayo, permiso
+17777|nakya|～なきゃ||1||||||19250||1436||1096|
+17778|te wa ikenai|～てはいけない||1|wa ikenai, te wa ikemasen, de wa ikenai, de wa ikemasen, tehaikenai, tewaikenai|||||246|not allowed, not permitted, forbidden, may not, prohibition|264|interdit, interdiction|253|no permitido, prohibido, no puede, prohibición
+17779|cha ikenai|～ちゃいけない||1|ikenai, te wa ikemasen, de wa ikenai, de wa ikemasen|||||247|not allowed, not permitted, forbidden, may not, prohibition|265|interdit, interdiction|254|no permitido, prohibido, no puede, prohibición
+17780|te mo ii desu ka?|～てもいいですか?||1|mo ii desu ka, mou ii da, de mo ii desu ka, temoii, demoii|||||248|is it ok, is it fine, is ok, is fine, is acceptable, permission, may I, may she, may he, may they|266|est-ce que ça va, est-ce bien, est-il acceptable, permission, puis|255|está bien, es aceptable, permiso, puedo, puede
+17781|te ageru|～て上げる||1|ageru, te agemasu, de ageru, de agemasu|||||249||267||256|
+17782|te hoshii|～てほしい||1|hoshii, te hoshii desu|||||250||268||257|
+17783|te kudasai|～て下さい||1|kudasai, de kudasai|||||251||269||258|
+17784|te kurenai|～て呉れない||1|kurenai, de kurenai|||||253||270||259|
+17785|te kuremasen ka|～て呉れませんか||1|kuremasen ka, de kuremasen ka|||||6125||271||260|
+17786|te itadakemasen ka|～て呉れませんか||1|itadakemasen ka, de itadakemasen ka|||||6126||272||261|
+17787|te kureru|～て呉れる||1|kureru, te kuremasu, de kureru, de kuremasu|||||254||273||262|
+17788|te miru|～て見る||1|miru, te mimasu, de miru, de mimasu|||||255||274||263|
+17789|te mitai da|～て見たいだ||1|mitai da, te mitai desu, de mitai da, de mitai desu, te mitakatta, de mitakatta|||||256||275||264|
+17790|te moraeru|～て貰えます||1|moraeru, te moraemasu, de moraeru, de moraemasu|||||257||276||265|
+17791|te moraemasu ka|～て貰えますか||1|moraemasu ka, de moraemasu ka|||||258||277||266|
+17792|te moreru to|～て貰えると||1|moreru to, de moraeru to|||||259||278||267|
+17793|te itadaku|～ていただく||1|itadaku|||||6100||279||268|
+17794|te goran|～てご覧||1|goran|||||260||280||269|
+17795|te morau|～て貰う||1|morau, de moraimasu, de morau, de moraimasu|||||261||281||270|
+17796|te moraitai|～て貰いたい||1|moraitai, de moraitai|||||262||282||271|
+17797|te sokonau|～て損なう||1|sokonau|||||264||283||272|
+17798|te moraitai n desu ga|～て貰いたいんですが||1|moraitai n desu ga, de moraitai no desu ga, de moraitai n desu ga, de moraitai no desu ga|||||265||284||273|
+17799|te shimau|～て仕舞う||1|shimau, te shimau, te shimaimasu, de shimau, de shimaimasu|||||266;267||285;286||274;275|
+17800|te shimatta|～て仕舞った||1|shimatta, te shimaimashita, de shimatta, de shimaimashita|||||268||287||276|
+17801|cchimatta|～っちまった||1||||||269||288||277|
+17802|te sumimasen|～てすみません||1|sumimasen|||||270||289||278|
+17803|te bakari iru|～ばかりいる||1|bakari iru, bakkari iru, bakashi iru, bakkashi iru, bakkari imasu, bakashi imasu, bakkashi imasu|||||271||290||279|
+17804|te koto wa dekinai|～ことはできない||1|koto wa dekinai, koto ha dekinai, koto ha dekimasen|||||272||291||280|
+17805|te choudai|～て頂戴||1|choudai|||||273||292||281|
+17806|sou ni naru|～そう||1|sou ni narimasu|||||274||293||282|
+17807|nasasou|～無さそう||1|sou, sou ni nai, sou mo nai|||||275|doesn't look like, doesn't sound like, doesn't appear to be, apparently not, doesn't seem to be|294|ne ressemble pas, ne sonne pas, ne semble pas être, apparemment pas|283|no suena como, no parece ser, aparentemente no
+17808|eru|～える||1||||||276||295||284|
+17809|eta|～えた||1||||||277||296||285|
+17810|saseru|～させる||1||||||278||297||286|
+17811|koto ga dekiru|～ことが出来る||1||||||279||298||287|
+17812|koto|～こと|事|1|ru koto|||||280||299||288|
+17813|koto ni kimeru|～ことに決める||1||||||281||300||289|
+17814|beki|～べき||1||||||282||301||290|
+17815|komu|～込む|篭む;籠む;混む|1||||||283||302||291|
+17816|hajimeru|～始める|創める|1||||||284||303||292|
+17817|chau|～ちゃう||1||||||285||304||293|
+17818|chatta|～ちゃった||1|te shimaimashita, de shimatta, de shimaimashita|||||286||305||294|
+17819|jau|～じゃう||1||||||725||306||295|
+17820|jatta|～じゃった||1|te shimaimashita, de shimatta, de shimaimashita|||||726||307||296|
+17821|(o) ni naru|～になる||1|ni naru|||||287||308||297|
+17822|(o) nasaru|～なさる||1|nasaru|||||288||309||298|
+17823|(o) suru|～する||1|suru|||||289||310||299|
+17824|(o) itasu|～いたす||1|itasu|||||290||311||300|
+17825|(o) kudasai|～下さい||1|kudasai|||||291||312||301|
+17826|(o) naide kudasai|～ないで下さい||1|naide kudasai|||||292||313||302|
+17827|(o) nasaimase|～なさいませ||1|nasaimase|||||293||314||303|
+17828|(o) nasaimasu na|～なさいますな||1|nasaimasu na|||||294||315||304|
+17829|nasai|～なさい||1||||||295||316||305|
+17830|nasaru na|～なさるな||1||||||296||317||306|
+17831|ta mama|～た儘|た侭|1|tamama|||||297||318||307|
+17832|naosu|～直す||1||||||298||319||308|
+17833|tai|～たい||1||||||299||320||309|
+17834|takatta|～たかった||1||||||300||322||311|
+17835|takunai|～たくない||1||||||301||323||312|
+17836|takunakatta|～たくなかった||1||||||302||324||313|
+17837|tai desu|～たいです||1||||||303||325||314|
+17838|tai deshita|～たいでした||1||||||304||326||315|
+17839|taku arimasen|～たくありません||1||||||305||327||316|
+17840|taku arimasen deshita|～たくありませんでした||1||||||306||328||317|
+17841|tagaru|～たがる||1||||||307||329||318|
+17842|yasui|～やすい||1||||||308|easy to be|330|facile d'être|319|fácil de ser
+17843|nikui|～にくい||1||||||309|difficult to be, difficult to do, hard to be|331|difficile à être, difficile à faire|320|difícil de ser, difícil de hacer
+17844|yagaru|～やがる||1||||||310|difficult to be, difficult to do, hard to be|332|difficile à être, difficile à faire|321|difícil de ser, difícil de hacer
+17845|yagare|～やがる||1||||||311||333||322|
+17846|nu|～ぬ||1||||||312||334||323|
+17847|zu|～ず||1||||||313||335||324|
+17848|agaru|～上がる|上る;挙がる;揚がる; 上る|1||||||314||336||325|
+17849|hodo|～程||1||||||315||337||326|
+17850|ina ka|～否か||1|inaka|||||316||338||327|
+17851|koto ni suru|～ことにする||1|nai koto ni suru, nai koto ni shimasu, koto ni kimeru|||||317||339||328|
+17852|koto ni shita|～ことにした||1||||||318||340||329|
+17853|maji|～まじ||1||||||319||341||330|
+17854|koto ni shiteiru|～ことにしている||1||||||320||342||331|
+17855|koto ni naru|～ことになる||1|nai koto ni naru, nai koto ni narimasu|||||321||343||332|
+17856|ga hayai ka|～が早いか||1||||||322||344||333|
+17857|tara dou desu ka|～たらどうですか||1|dara dou desu, tara dou da, dara dou da|||||323||345||334|
+17858|tara ii desu ka|～たらいいですか||1|dara ii desu ka|||||324||346||335|
+17859|deshou ka|～でしょうか||1||||||325||347||336|
+17860|masen ka|～ませんか||1|nai ka, naika|||||326||348||337|
+17861|nai ka|～ないか||1|masen ka, naika|||||552||349||338|
+17862|mashou ka|～ませんか||1||||||327||350||339|
+17863|dake|～だけ||1|dake da, dake desu|||||328||351||340|
+17864|ta bakari|～たばかり||1|bakari, bakkari, bakashi, bakkashi|||||329|just done, recently done, just recently done, just did|352|juste fait, récemment fait|341|acaba de hacer, hace poco
+17865|bakari|～ばかり||1|bakkari, bakashi, bakkashi|||||330||353||342|
+17866|ta tokoro da|～たところだ||1|tokoro da, ta tokoro desu|||||331||354||343|
+17867|tokoro da|～ところだ||1||||||332||355||344|
+17868|teiru tokoro da|～ているところだ||1|tokoro da, teiru tokoro desu|||||333||356||345|
+17869|koto ga aru|～ことがある||1|nai koto ga aru, nai koto ga arimasu, koto ga nai, koto ga nakatta|||||334||357||346|
+17870|koto ga dearu|～ことがである||1|nai koto ga dearu, nai koto ga dearimasu|||||335||358||347|
+17871|ta koto ga aru|～たことがある||1|koto ga aru|||||336|have done before|359|fait avant|348|haber hecho antes
+17872|ta koto ni naru|～たことになる||1|koto ni naru|||||337||360||349|
+17873|ta to shite mo|～たとしても||1||||||7067||361||350|
+17874|koto ni natteiru|～ことになっている||1|nai koto ni natteiru, nai koto ni natteimasu|||||338|scheduled to do, due to do|362|prévu de faire, en raison de faire|351|programado para hacer, debido a hacer
+17875|ou to shiteiru|～おうとしている||1|ou to shiteiru, ou to shiteimasu|||||339|intend to|363|a l'intention de|352|tener la intención de
+17876|ou to suru|～おうとする||1|ou to suru, ou to shimasu|||||647|intend to|364|a l'intention de|353|tener la intención de
+17877|ou to shita|～おうとした||1|ou to shimashita|||||340||365||354|
+17878|ou to omou|～おうと思う||1|ou to omotteiru, ou to omoimasu, ou to moimasu, ou to mou|||||341|plan to be, considering to|366|envisage d'être, envisageant de|355|planar de ser, considerando a
+17879|ou to omotteiru|～おうと思っている||1|ou to omou, ou to omotteimasu, ou to motteimasu, ou to motteiru|||||342|plan to be, considering to|367|envisage d'être, envisageant de|356|planar de ser, considerando a
+17880|tomonaku|～ともなく||1||||||343|absentmindedly, without planning to, without intending to|368|distraitement, sans planifier, sans avoir l'intention de|357|distraídamente, sin planear, sin pretender
+17881|tsumori|～積もり|積り|1||||||344||369||358|
+17882|ba ii noni|～ばいいのに||1|ii noni|||||345||370||359|
+17883|ba yokatta noni|～ばよかったのに||1|yokatta noni|||||346||371||360|
+17884|ba yokatta|～ばよかった||1|yokatta|||||347||372||361|
+17885|i|～い||1|keiyoushi, i keiyoushi|||||348|i-adjective|373||362|
+17886|i desu|～いです||1|keiyoushi, i keiyoushi|||||349|i-adjective|374||363|
+17887|kunai desu|～くないです||1|keiyoushi, i keiyoushi|||||350|i-adjective|375||364|
+17888|ku arimasen|～くありません||1|keiyoushi, i keiyoushi|||||351|i-adjective|376||365|
+17889|katta desu|～かったです||1|keiyoushi, i keiyoushi|||||352|i-adjective|377||366|
+17890|kunakatta desu|～くなかったです||1|keiyoushi, i keiyoushi|||||353|i-adjective|378||367|
+17891|ku arimasen deshita|～くありませんでした||1|keiyoushi, i keiyoushi|||||354|i-adjective|379||368|
+17892|ku|～く||1|keiyoushi, i keiyoushi|||||355|i-adjective|380||369|
+17893|kute|～くて||1|keiyoushi, i keiyoushi|||||356;357|i-adjective|381;382||370;371|
+17894|kutemo|～くて||1|keiyoushi, i keiyoushi|||||6206|i-adjective|383||372|
+17895|ku naru|～くなる||1|keiyoushi, i keiyoushi|||||358|i-adjective|384||373|
+17896|ku suru|～くする||1|keiyoushi, i keiyoushi|||||359|i-adjective|385||374|
+17897|mi|～み||1|keiyoushi, i keiyoushi|||||360|i-adjective|386||375|
+17898|kereba|～ければ||1|kereba desu, keiyoushi, i keiyoushi|||||361|i-adjective, conditional|387|conditionnel|376|condicional
+17899|karou|～かろう||1|keiyoushi, i keiyoushi|||||362|i-adjective, volitional, suggestive|388|volitif, suggestif|377|volitivo, sugerente.
+17900|sa|～さ||1|keiyoushi, i keiyoushi|||||6197|i-adjective|389||378|
+17901|[root]|～||1|keiyoudoushi, na keiyoushi|||||363|na-adjective|390||379|
+17902|desu|～です||1|keiyoudoushi, na keiyoushi|||||364|na-adjective|391||380|
+17903|dewa arimasen|～ではありません||1|keiyoudoushi, na keiyoushi|||||365|na-adjective|392||381|
+17904|ja nai desu|～じゃないです||1|keiyoudoushi, na keiyoushi|||||366|na-adjective|393||382|
+17905|dewa nai|～ではない||1|keiyoudoushi, na keiyoushi|||||367;643|na-adjective, am not, is not|394;395|na-adjectif, ne suis pas, n'est pas|383;384|no soy, no es
+17906|ja nai|～じゃない||1|keiyoudoushi, na keiyoushi|||||368|na-adjective|396||385|
+17907|deshita|～でした||1|keiyoudoushi, na keiyoushi|||||369|na-adjective|397||386|
+17908|ja arimasen deshita|～じゃありませんでした||1|keiyoudoushi, na keiyoushi|||||370|na-adjective|398||387|
+17909|de wa arimasen deshita|～じゃありませんでした||1|keiyoudoushi, na keiyoushi|||||371|na-adjective|399||388|
+17910|de (next adj.)|～で||1|keiyoudoushi, na keiyoushi|||||372|na-adjective|400||389|
+17911|demo|～くて||1|keiyoudoushi, na keiyoushi|||||6207|na-adjective|401||390|
+17912|ni naru|～になる||1|keiyoudoushi, na keiyoushi|||||373|na-adjective|402||391|
+17913|ni suru|～にする||1|keiyoudoushi, na keiyoushi|||||374|na-adjective|403||392|
+17914|deareba|～であれば||1|deareba desu, keiyoudoushi, na keiyoushi|||||375|na-adjective, conditional|404|conditionnel|393|condicional
+17915|yotei da|～予定だ||1|to yotei da, to yotei desu|||||6149||405||394|
+17916|ni kyoumi ga aru|～に興味がある||1||||||6612||406||395|
+17917|dewa nakatta|～ではなかった||1||||||6883||407||396|

@@ -23,7 +23,7 @@ public final class Globals {
     public static List<String[]> RadicalsOnlyDatabase;
     public static List<String[]> Romanizations;
 
-    public static final int CENTRAL_DB_VERSION = 124;
+    public static final int CENTRAL_DB_VERSION = 125;
     public static final int KANJI_DB_VERSION = 26;
     public static final int EXTENDED_DB_VERSION = 24;
     public static final int NAMES_DB_VERSION = 13;
@@ -502,7 +502,8 @@ public final class Globals {
         map.put("PPrL", R.string.verb_PPrL);
         map.put("Pr3rdPO", R.string.verb_Pr3rdPO);
         map.put("Pba", R.string.verb_Pba);
-        map.put("ClN", R.string.verb_ClN);
+        map.put("ClPba", R.string.verb_ClPba);
+        map.put("ClNba", R.string.verb_ClNba);
         map.put("PNba", R.string.verb_PNba);
         map.put("Plba", R.string.verb_Plba);
         map.put("PlNba", R.string.verb_PlNba);
@@ -550,6 +551,12 @@ public final class Globals {
         map.put("teformCmp12", R.string.verb_teformCmp12);
         map.put("teformCmp13", R.string.verb_teformCmp13);
         map.put("teformCmp14", R.string.verb_teformCmp14);
+
+        map.put("TitleteformRequestForPermission", R.string.verb_TitleteformRequestForPermission);
+        map.put("teformReq1", R.string.verb_teformReq1);
+        map.put("teformReq2", R.string.verb_teformReq2);
+        map.put("teformReq3", R.string.verb_teformReq3);
+        map.put("teformReq4", R.string.verb_teformReq4);
 
         map.put("TitleteformConj", R.string.verb_TitleteformConj);
         map.put("teformConj1", R.string.verb_teformConj1);

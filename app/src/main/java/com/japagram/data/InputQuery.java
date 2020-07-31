@@ -96,7 +96,7 @@ public class InputQuery implements Parcelable {
                     if (!conversion.contains("*") && !conversion.equals(originalCleaned)) searchQueriesRomaji.add(conversion);
                 }
             }
-            isTooShort = searchQueriesRomaji.get(0).length() < Globals.SMALL_WORD_LENGTH;
+            isTooShort = originalCleaned.length() < Globals.SMALL_WORD_LENGTH;
         }
         else if (originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) {
             searchType = Globals.TYPE_LATIN;
