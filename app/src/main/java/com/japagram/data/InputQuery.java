@@ -96,7 +96,7 @@ public class InputQuery implements Parcelable {
                     if (!conversion.contains("*") && !conversion.equals(originalCleaned)) searchQueriesRomaji.add(conversion);
                 }
             }
-            isTooShort = originalCleaned.length() < Globals.SMALL_WORD_LENGTH;
+            isTooShort = originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH;
         }
         else if (originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) {
             searchType = Globals.TYPE_LATIN;
@@ -202,7 +202,30 @@ public class InputQuery implements Parcelable {
                 if (currentRow.length < 6) break;
 
                 currentChar = currentRow[type];
-                if (currentChar.equals("")) continue;
+                if (currentChar.equals("")
+                        || currentChar.equals("aa")
+                        || currentChar.equals("ii")
+                        || currentChar.equals("uu")
+                        || currentChar.equals("ee")
+                        || currentChar.equals("oo"))
+                    continue;
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
+            }
+
+            //If there are leftover double-vowels, only then should they be replaced
+            for (int i = 1; i < Globals.Romanizations.size(); i++) {
+                currentRow = Globals.Romanizations.get(i);
+                if (currentRow.length < 6) break;
+
+                currentChar = currentRow[type];
+                if (currentChar.equals("")
+                        || !(currentChar.equals("aa")
+                        || currentChar.equals("ii")
+                        || currentChar.equals("uu")
+                        || currentChar.equals("ee")
+                        || currentChar.equals("oo")))
+                    continue;
                 transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
                 transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
             }

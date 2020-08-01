@@ -23,8 +23,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
@@ -275,37 +273,37 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません)";
         String terminations_sugodan_kana = "(した|している|していた|して|します|しました|さない|さなかった|しませんでした|しません)";
         mInputQuery = new InputQuery(mInputQuery.getOriginal()
-                .replaceAll("(te|de) *age" + terminations_ichidan_romaji + "$", "$1 ageru")
-                .replaceAll("(te|de) *kure" + terminations_ichidan_romaji + "$", "$1 kureru")
-                .replaceAll("(te|de) *mora" + terminations_ugodan_romaji + "$", "$1 morau")
-                .replaceAll("(te|de) *itada" + terminations_kugodan_romaji + "$", "$1 itadaku")
-                .replaceAll("(te|de) *kudasa" + terminations_arugodan_romaji + "$", "$1 kudasaru")
-                .replaceAll("(te|de) *" + terminations_iku_romaji + "$", "$1 iku")
-                .replaceAll("(te|de) *o" + terminations_kugodan_romaji + "$", "$1 oku")
-                .replaceAll("([td])o" + terminations_kugodan_romaji + "$", "$1oku")
-                .replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "$", "$1 shimau")
-                .replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)$", "$1u")
-                .replaceAll("(te|de) *mi" + terminations_ichidan_romaji + "$", "$1 miru")
-                .replaceAll("(te|de) *shi" + terminations_ichidan_romaji + "$", "$1 suru")
-                .replaceAll("(te|de) *aru" + terminations_ichidan_romaji + "$", "$1 aru")
-                .replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "$", "$1 kuru")
-                .replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "$", "$1 sugiru")
+                .replaceAll("(te|de) *age" + terminations_ichidan_romaji + "(| *ka)$", "$1 ageru")
+                .replaceAll("(te|de) *kure" + terminations_ichidan_romaji + "(| *ka)$", "$1 kureru")
+                .replaceAll("(te|de) *mora" + terminations_ugodan_romaji + "(| *ka)$", "$1 morau")
+                .replaceAll("(te|de) *itada" + terminations_kugodan_romaji + "(| *ka)$", "$1 itadaku")
+                .replaceAll("(te|de) *kudasa" + terminations_arugodan_romaji + "(| *ka)$", "$1 kudasaru")
+                .replaceAll("(te|de) *" + terminations_iku_romaji + "(| *ka)$", "$1 iku")
+                .replaceAll("(te|de) *o" + terminations_kugodan_romaji + "(| *ka)$", "$1 oku")
+                .replaceAll("([td])o" + terminations_kugodan_romaji + "(| *ka)$", "$1oku")
+                .replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "(| *ka)$", "$1 shimau")
+                .replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)(| *ka)$", "$1u")
+                .replaceAll("(te|de) *mi" + terminations_ichidan_romaji + "(| *ka)$", "$1 miru")
+                .replaceAll("(te|de) *shi" + terminations_ichidan_romaji + "(| *ka)$", "$1 suru")
+                .replaceAll("(te|de) *aru" + terminations_ichidan_romaji + "(| *ka)$", "$1 aru")
+                .replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "(| *ka)$", "$1 kuru")
+                .replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "(| *ka)$", "$1 sugiru")
 
-                .replaceAll("([てで])あげ" + terminations_ichidan_kana + "$", "$1あげる")
-                .replaceAll("([てで])くれ" + terminations_ichidan_kana + "$", "$1くれる")
-                .replaceAll("([てで])もら" + terminations_ugodan_kana + "$", "$1もらう")
-                .replaceAll("(te|de) *いただ" + terminations_kugodan_kana + "$", "$1いただく")
-                .replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "$", "$1くださる")
-                .replaceAll("([てで])" + terminations_iku_kana + "$", "$1いく")
-                .replaceAll("([てで])お" + terminations_kugodan_kana + "$", "$1おく")
-                .replaceAll("([とど])" + terminations_kugodan_kana + "$", "$1おく")
-                .replaceAll("([てで])しま" + terminations_ugodan_kana + "$", "$1しまう")
-                .replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)$", "$1う")
-                .replaceAll("([てで])み" + terminations_ichidan_kana + "$", "$1みる")
-                .replaceAll("([てで])し" + terminations_ichidan_kana + "$", "$1する")
-                .replaceAll("([てで])ある" + terminations_ichidan_kana + "$", "$1ある")
-                .replaceAll("([てで])くる" + terminations_ichidan_kana + "$", "$1くる")
-                .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "$", "$1すぎる")
+                .replaceAll("([てで])あげ" + terminations_ichidan_kana + "(|か)$", "$1あげる")
+                .replaceAll("([てで])くれ" + terminations_ichidan_kana + "(|か)$", "$1くれる")
+                .replaceAll("([てで])もら" + terminations_ugodan_kana + "(|か)$", "$1もらう")
+                .replaceAll("(te|de) *いただ" + terminations_kugodan_kana + "(|か)$", "$1いただく")
+                .replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "(|か)$", "$1くださる")
+                .replaceAll("([てで])" + terminations_iku_kana + "(|か)$", "$1いく")
+                .replaceAll("([てで])お" + terminations_kugodan_kana + "(|か)$", "$1おく")
+                .replaceAll("([とど])" + terminations_kugodan_kana + "(|か)$", "$1おく")
+                .replaceAll("([てで])しま" + terminations_ugodan_kana + "(|か)$", "$1しまう")
+                .replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)(|か)$", "$1う")
+                .replaceAll("([てで])み" + terminations_ichidan_kana + "(|か)$", "$1みる")
+                .replaceAll("([てで])し" + terminations_ichidan_kana + "(|か)$", "$1する")
+                .replaceAll("([てで])ある" + terminations_ichidan_kana + "(|か)$", "$1ある")
+                .replaceAll("([てで])くる" + terminations_ichidan_kana + "(|か)$", "$1くる")
+                .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "(|か)$", "$1すぎる")
         );
 
         mPreparedQuery = mInputQuery.getOriginal();
