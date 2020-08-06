@@ -34,6 +34,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -52,6 +53,10 @@ public class DictionaryFragment extends Fragment implements
         LocalSearchAsyncTask.LocalDictSearchAsyncResponseHandler, VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
 
 
+    public static final String LOCAL = "local";
+    public static final String CONJ = "conj";
+    public static final String ONLINE = "online";
+    public static final String ALL = "all";
     //region Parameters
     @BindView(R.id.dictionary_recyclerview) RecyclerView mDictionaryRecyclerView;
     @BindView(R.id.word_hint) TextView mHintTextView;
@@ -193,7 +198,7 @@ public class DictionaryFragment extends Fragment implements
             new Handler().postDelayed(() -> {
                 mOverrideDisplayConditions = true;
                 Log.i(Globals.DEBUG_TAG, "Displaying merged words at WORD_RESULTS_MAX_RESPONSE_DELAY");
-                if (!mSuccessfullyDisplayedResultsBeforeTimeout) displayMergedWordsToUser();
+                if (!mSuccessfullyDisplayedResultsBeforeTimeout) displayMergedWordsToUser(ALL);
             }, WORD_RESULTS_MAX_RESPONSE_DELAY);
         }
         else showEmptySearchResults();
@@ -226,7 +231,7 @@ public class DictionaryFragment extends Fragment implements
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }
-    private void displayMergedWordsToUser() {
+    private void displayMergedWordsToUser(String sourceType) {
 
         if (getContext()==null || getActivity()==null) return;
         Utilities.hideSoftKeyboard(getActivity());
@@ -235,6 +240,9 @@ public class DictionaryFragment extends Fragment implements
         boolean showConjResults = UtilitiesPrefs.getPreferenceShowConjResults(getActivity());
         boolean waitForOnlineResults = UtilitiesPrefs.getPreferenceWaitForOnlineResults(getActivity());
         boolean waitForConjResults = UtilitiesPrefs.getPreferenceWaitForConjResults(getActivity());
+        boolean gotNewResultsFromOnline = false; //Prevents refreshing the words list when there are no new results
+        boolean gotNewResultsFromConj = false; //Prevents refreshing the words list when there are no new results
+        boolean gotNewResultsOnTimerDelay = false; //Prevents refreshing the words list when there are no new results
 
         if (!showOnlineResults) mJishoMatchingWordsList = new ArrayList<>();
         if (!showConjResults) mMatchingWordsFromVerbs = new ArrayList<>();
@@ -251,13 +259,29 @@ public class DictionaryFragment extends Fragment implements
             || mOverrideDisplayConditions) {
 
             //Getting the merged results
-            mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mLocalMatchingWordsList, mJishoMatchingWordsList, "");
-            mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
+            int oldSize = mMergedMatchingWordsList.size();
+            if (sourceType.equals(LOCAL) && mLocalMatchingWordsList.size() > 0) {
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList, "");
+            }
+            if (sourceType.equals(ONLINE) && mJishoMatchingWordsList.size() > 0) {
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList, "");
+                gotNewResultsFromOnline = true;
+            }
+            if (sourceType.equals(CONJ) && mMatchingWordsFromVerbs.size() > 0) {
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
+                if (mMergedMatchingWordsList.size() > oldSize) gotNewResultsFromConj = true;
+            }
             mMergedMatchingWordsList = sortWordsAccordingToRanking(mMergedMatchingWordsList);
 
             if (mMergedMatchingWordsList.size() > 0) {
-                List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ? mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
-                mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
+                List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ?
+                        mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
+                if (sourceType.equals(LOCAL)
+                        || sourceType.equals(ALL)
+                        || sourceType.equals(ONLINE) && gotNewResultsFromOnline
+                        || sourceType.equals(CONJ) && gotNewResultsFromConj) {
+                    mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
+                }
                 mHintTextView.setVisibility(View.GONE);
                 mDictionaryRecyclerView.setVisibility(View.VISIBLE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
@@ -450,7 +474,7 @@ public class DictionaryFragment extends Fragment implements
         dictionaryFragmentOperationsHandler.onLocalMatchingWordsFound(mLocalMatchingWordsList.subList(0,maxIndex));
 
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Room words");
-        displayMergedWordsToUser();
+        displayMergedWordsToUser(LOCAL);
     }
     @Override public void onJishoSearchAsyncTaskResultFound(List<Word> loaderResultWordsList) {
 
@@ -474,7 +498,7 @@ public class DictionaryFragment extends Fragment implements
         }
 
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Jisho merged words");
-        displayMergedWordsToUser();
+        displayMergedWordsToUser(ONLINE);
     }
     @Override @SuppressWarnings("unchecked") public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
 
@@ -500,6 +524,6 @@ public class DictionaryFragment extends Fragment implements
         }
 
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Verb merged words");
-        displayMergedWordsToUser();
+        displayMergedWordsToUser(CONJ);
     }
 }
