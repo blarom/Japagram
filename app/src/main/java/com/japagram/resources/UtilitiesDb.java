@@ -1,7 +1,6 @@
 package com.japagram.resources;
 
 import android.content.Context;
-import android.renderscript.ScriptGroup;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -736,10 +735,18 @@ public class UtilitiesDb {
     }
 
     @Contract(pure = true)
-    private static boolean stringContainsItemFromList(String inputStr, @NotNull List<String> items) {
-        for (String item : items) {
-            if (inputStr.contains(item)) {
-                return true;
+    private static boolean stringContainsItemFromList(String inputStr, @NotNull List<String> items, boolean noSpaces) {
+        if (noSpaces) {
+            for (String item : items) {
+                if (inputStr.replace(" ","").contains(item.replace(" ",""))) {
+                    return true;
+                }
+            }
+        } else {
+            for (String item : items) {
+                if (inputStr.contains(item)) {
+                    return true;
+                }
             }
         }
         return false;
@@ -781,8 +788,8 @@ public class UtilitiesDb {
 
         //region Filtering the matches
         for (Word word : matchingWordList) {
-            foundMatch = stringContainsItemFromList(word.getRomaji(), romajiQueries) ||
-                    stringContainsItemFromList(word.getKanji(), kanjiQueries) ||
+            foundMatch = stringContainsItemFromList(word.getRomaji(), romajiQueries, true) ||
+                    stringContainsItemFromList(word.getKanji(), kanjiQueries, false) ||
                     meaningsContainExactQueryMatch(nonJapQueries, word, language) ||
                     listContainsItemFromList(Arrays.asList(word.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER)), combinedQueries);
 
