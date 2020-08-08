@@ -307,7 +307,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 307|como es, como a uno le gusta, porque, como, siempre y cuando|VC|Como es, como a uno le gusta, porque, como, siempre y cuando.|X mama @ X = verbo pasado simple|1394||
 308|hacer otra vez|VC|[Hacer/ser] X otra vez. A veces con la connotación de repetir una acción como reparación.|X naosu @ X = verbo raíz "masu"|1403||
 309|quiero hacer, quisiera ...|VC|Quiero/quisiera [hacer/ser] X.|X @ X = verbo forma "tai"|||
-310||-|||||
+310|antes de|CO||X uchi ni @ verbo forma "nai"|950||
 311|quería ...|VC|Quería [hacer/ser] X|X @ X = verbo forma "tai"|||
 312|no quiero ...|VC|No quiero [hacer/ser] X|X @ X = verbo forma "tai"|||
 313|no quería ...|VC|No quería [hacer/ser] X|X @ X = verbo forma "tai"|||
@@ -504,7 +504,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 504|... son diferentes|PC||X to Y wa chigau @ X/Y = frase|977||
 505|mercado negro|CE|||||
 506|mercado negro|CE|||||
-507|porcentaje, proporción, tasa||||||
+507|porcentaje, proporción, tasa||[él/ella] [hace/es] X en tanto que favor para mí. Forma cortés de "te kureru".|Y ga Z wo X kureru @ X = verbo forma "te", Y = persona haciendo el favor, Z = objeto del favor|||te morau, te ageru
 508|cada, cada uno, por cabeza||||||
 509|a la vez, poco a poco, centímetro a centímetro||||||
 510|todos, todo el mundo, todas las personas|A|||||
@@ -1350,258 +1350,258 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1350|discúlpeme por haberlo hecho esperar|CE|||||
 1351|gracias a dios, gracias a ti, afortunadamente, gracias a Dios, gracias a Ud., gracias a su ayuda, gracias a dios, gracias a ti|CE|||||
 1352|justo en frente, a la cabeza de, en primer plano||||||
-1353|inquietarse, intranquilizarse, desasosegarse, estar intranquilo, ponerse nervioso, estar molesto|CE|||||
-1354|recibir atenciones|CE|||||
-1355|en construcción|CE|||||
-1356|muy probable|CE|||||
-1357|muy pronto|CE|||||
-1358|(usado como imperativo cortés) ven, ves, quedate|CE|||||
-1359|bienvenido!|CE|||||
+1353|recibir atenciones|CE|||||
+1354|en construcción|CE|||||
+1355|muy probable|CE|||||
+1356|muy pronto|CE|||||
+1357|(usado como imperativo cortés) ven, ves, quedate|CE|||||
+1358|bienvenido!|CE|||||
+1359|bienvenido (en tiendas, etc.)|CE|||||
 1360|bienvenido (en tiendas, etc.)|CE|||||
-1361|bienvenido (en tiendas, etc.)|CE|||||
-1362|con mucho gusto, de mil amores, encantado|CE|||||
-1363|tacaño, mezquino|IES|||||
-1364|vagina|IES|||||
-1365|(echar un) polvo|IES|||||
-1366|matar|IES|||||
-1367|cerebrito, entusiasta, nerd||||||
-1368|cutre , paleto , pueblerino , pasado de moda|IES|||||
-1369|caca, popó|IES|||||
-1370|ruidoso, molesto, impertinente||||||
-1371|susceptible||||||
-1372|irritante, inquietante, tedioso||||||
-1373|mandón||||||
-1374|bestia (cualquier animal excepto el hombre)||||||
-1375|(Buddh) persona que renace en el reino animal||||||
-1376|animal (persona despreciable), bruto||||||
-1377|hijo de puta, por el amor de Dios, maldita sea||||||
-1378|bestia (cualquier animal excepto el hombre)||||||
-1379|(Buddh) persona que renace en el reino animal||||||
-1380|animal (persona despreciable), bruto||||||
-1381|hijo de puta, por el amor de Dios, maldita sea||||||
-1382|feo, poco agraciado, feucho|IES|||||
-1383|tú (usado por lo chicos)|IES|||||
-1384|uno mismo|IES|||||
-1385|tú, vos|IES|||||
-1386|lo más mínimo, nivel más bajo||||||
-1387|grabación (de audio), grabar (sonidos, música, etc.)|N;Ac|||||
-1388|comercio||||||
-1389|investigación (histórica)|N;Ac|||||
-1390|grabación (de vídeo)|N;Ac|||||
-1391|faltar, no asistir, no presentarse, no personarse, ausencia|N;Ac|||||
-1392|concentimiento, aceptación, aceptar, asentir, acceder, prestar el consentimiento, mostrar conformidad, estar de acuerdo, saber bien, conocer bien|N;Abs|||||
-1393|movimientos, gestos, comportamiento|N;Ac|||||
-1394|avance||||||
-1395|comprobar, confirmar, corroborar, reafirmar, ratificar, certificar, afirmación, confirmación, validación|N;Abs|||||
-1396|apoyo|N;Ac|||||
-1397|ambición, aspiración, intención, traición|N;Ac|||||
-1398|publicar, declarar, hacer público, decir en público, anuncio, publicación, presentación|N;Ac|||||
-1399|aparición, llegada, advenimiento|N;Ac|||||
-1400|aplausos|N;Ac|||||
-1401|aprobación, visto bueno|N;Ac|||||
-1402|preparativos, arreglos, trámites|N;Ac|||||
-1403|aserción, aseveración, afirmación|N;Ac|||||
-1404|auxiliar||||||
-1405|ataque, ofensiva, crítica, censura||||||
-1406|automatización|N;Ac|||||
-1407|béisbol|N;Ac|||||
-1408|baloncesto (eng: basketball)|N;Ac|||||
-1409|parpadeo, pestañeo, guiño|N;Ac|||||
-1410|deuda, compromiso, obligación|N;Ac|||||
-1411|inclinación, reverencia|N;Ac|||||
-1412|penetración|N;Abs|||||
-1413|emitir, transmitir, retransmitir, difundir, emisión, retransmisión|N;Ac|||||
-1414|hacer un viaje de negocios, hacer un viaje de trabajo, visita oficial, viaje de negocios|N;Ac|||||
-1415|comerciar, hacer negocios, comercio, negocios, trabajo, operación (comercial), dedicarse a los negocios, hacer negocios, llevar a cabo un negocio|N;Ac|||||
-1416|cuenta, cálculo|N;Abs|||||
-1417|cancelar, cancelar (eng: cancel)|N;Ac|||||
-1418|cambio, cambios, novedades||||||
-1419|dirección, mando, control|N;Ac|||||
-1420|negocios, comercio|N;Ac|||||
-1421|el camino a la escuela|N;Ac|||||
-1422|competir, rivalizar, competencia||||||
-1423|completo, terminación||||||
-1424|perfección, realización, logro||||||
-1425|entendimiento, comprensión|N;Abs|||||
-1426|concentrarse, agruparse, aglomerarse, enfoque, concentración|N;Abs|||||
-1427|embarazo (gestación materna)|N;Ac|||||
-1428|congreso, encuentro, convención|N;Abs|||||
-1429|conquista, subyugación|N;Ac|||||
-1430|consultar, consejo|N;Ac|||||
-1431|gasto, consumo|N;Ac|||||
-1432|contrato, acuerdo|N;Ac|||||
-1433|conversación, plática, conversar, charlar, departir, dialogar, hablar|N;Ac|||||
-1434|colaborar, cooperar, ayudar, cooperación, colaboración|N;Ac|||||
-1435|crítica, censura|N;Ac|||||
-1436|cruce, confluencia, encrucijada||||||
-1437|cocina, arte culinario|N;Abs|||||
-1438|daño (eng: damage)|N;Ac|||||
-1439|daño, estrago|N;Ac|||||
-1440|muerte por inanición, muerte de hambre|N;Ac|||||
-1441|decapitación, verdugo, ejecutor, decapitador, despido, cese, destitución, expulsión|N;Ac|||||
-1442|dictaminar, fijar, determinar, decidir, decretar, establecer, decisión, determinación|N;Ac|||||
-1443|guardia, vigilante|N;Ac|||||
-1444|partida (de irse)|N;Ac|||||
-1445|descripción (retrato)|N;Ac|||||
-1446|abandono, desasistencia, abandono de familia|N;Ac|||||
-1447|deseo|N;Abs|||||
-1448|desesperanza|N;Ac|||||
-1449|digestión|N|||||
-1450|descubrir, descubrimiento, detección, búsqueda|N;Ac|||||
-1451|caos, desorden|N;Ac|||||
-1452|envío de una señal|N;Ac|||||
-1453|pelea, disputa|N;Abs|||||
-1454|juicio, discernimiento, distinguir, diferenciar, discernir|N;Ac|||||
-1455|énfasis, destacar, enfatizar, poner énfasis, remarcar, acentuar|N;Ac|||||
-1456|gozo, alegría||||||
-1457|avance a una escuela superior|N;Ac|||||
-1458|ingreso (a un lugar), acceder a un recinto, entrar en un lugar|N;Ac|||||
-1459|estar encantado, contentísimo|N;Ac|||||
-1460|ingresar en una escuela, ingresar en un centro de estudios, entrada a la escuela o la universidad, matriculación|N;Ac|||||
-1461|equilibrio|N;Ac|||||
-1462|instalación, infraestructura|N;Ac|||||
-1463|erradicación, exterminación, exterminio|N;Ac|||||
-1464|suprimido, borrado|N;Abs|||||
-1465|encargo, mandado, mensajero||||||
-1466|erupción|N;Ac|||||
-1467|instalar, establecer, constituir, fundar, crear, plantear, establecimiento, creación||||||
-1468|aislamiento||||||
-1469|evacuación|N;Abs|||||
-1470|testimonio|N;Abs|||||
-1471|cuenta, pago, saldo|N;Ac|||||
-1472|excitarse, exaltarse, agitarse, entusiasmarse, excitación, estimulación, agitación|N;Ac|||||
-1473|exclusión, eliminación||||||
-1474|abierto al público|N;Ac|||||
-1475|exhibición, exposición|N;Ac|||||
-1476|muestra, exhibición|N;Ac|||||
-1477|existir, existencia, existir|N;Ac|||||
-1478|experimentar, probar, ensayar, someter a prueba, experimento|N;Ac|||||
-1479|explosión, detonación, erupción, explotar, explosionar, hacer explosión||||||
-1480|expresión, gesto||||||
-1481|(matemáticas) representación, expresar, manifestar||||||
-1482|exterminio|N;Abs|||||
-1483|caída, declive, deterioro, degradación|N;Ac|||||
-1484|sentir terror, aterrarse, aterrorizarse, sentir pánico, sentir pavor, tener miedo, miedo, pavor, consternación, terror|N;Ac|||||
-1485|extinguir o apagar un fuego, extinción del fuego, extinción de incendios|N;Ac|||||
-1486|primera menstruación|N;Ac|||||
-1487|pesca|N;Ac|||||
-1488|cambio (e.g. para una compra)|N;Ac|||||
-1489|fuga, huida|N;Ac|||||
-1490|pronóstico, predicción|N;Ac|||||
-1491|graduación||||||
-1492|saludo||||||
-1493|discurso (de felicitación o aprecio)||||||
-1494|respuesta||||||
-1495|venganza||||||
-1496|algo bueno que decir (usado como parte de una respuesta sarcástica o un un comentario grosero)||||||
-1497|(sig. original) dialogar (con otro practicante Zen para determinar su grado de iluminación), saludar||||||
-1498|dar un apretón de manos, dar la mano, estrechar la mano, apretón de manos|N;Ac|||||
-1499|mal, daño, mala influencia|N;Ac|||||
-1500|calefacción|N;Ac|||||
-1501|cuidado (de alguien), ayuda, auxilio, asistencia|N;Ac|||||
-1502|salvación, auxilio, socorro|N|||||
-1503|imaginar, imaginación, conjetura|N;Ac|||||
-1504|importación, artículo importado, introducción|N;Abs|||||
-1505|inyección|N;Ac|||||
-1506|inspección (examinación, chequeo), examinación de ~|N;Ac|||||
-1507|leer, consultar|N;Ac|||||
-1508|traducción, traducir oralmente||||||
-1509|entrevista|N;Ac|||||
-1510|presentación, presentar a alguien|N;Ac|||||
-1511|antes y despúes, contenido, en medio||||||
-1512|irrigación|N;Ac|||||
+1361|con mucho gusto, de mil amores, encantado|CE|||||
+1362|tacaño, mezquino|IES|||||
+1363|vagina|IES|||||
+1364|(echar un) polvo|IES|||||
+1365|matar|IES|||||
+1366|cerebrito, entusiasta, nerd||||||
+1367|cutre , paleto , pueblerino , pasado de moda|IES|||||
+1368|caca, popó|IES|||||
+1369|ruidoso, molesto, impertinente||||||
+1370|susceptible||||||
+1371|irritante, inquietante, tedioso||||||
+1372|mandón||||||
+1373|bestia (cualquier animal excepto el hombre)||||||
+1374|(Buddh) persona que renace en el reino animal||||||
+1375|animal (persona despreciable), bruto||||||
+1376|hijo de puta, por el amor de Dios, maldita sea||||||
+1377|bestia (cualquier animal excepto el hombre)||||||
+1378|(Buddh) persona que renace en el reino animal||||||
+1379|animal (persona despreciable), bruto||||||
+1380|hijo de puta, por el amor de Dios, maldita sea||||||
+1381|feo, poco agraciado, feucho|IES|||||
+1382|tú (usado por lo chicos)|IES|||||
+1383|uno mismo|IES|||||
+1384|tú, vos|IES|||||
+1385|lo más mínimo, nivel más bajo||||||
+1386|grabación (de audio), grabar (sonidos, música, etc.)|N;Ac|||||
+1387|comercio||||||
+1388|investigación (histórica)|N;Ac|||||
+1389|grabación (de vídeo)|N;Ac|||||
+1390|faltar, no asistir, no presentarse, no personarse, ausencia|N;Ac|||||
+1391|concentimiento, aceptación, aceptar, asentir, acceder, prestar el consentimiento, mostrar conformidad, estar de acuerdo, saber bien, conocer bien|N;Abs|||||
+1392|movimientos, gestos, comportamiento|N;Ac|||||
+1393|avance||||||
+1394|comprobar, confirmar, corroborar, reafirmar, ratificar, certificar, afirmación, confirmación, validación|N;Abs|||||
+1395|apoyo|N;Ac|||||
+1396|ambición, aspiración, intención, traición|N;Ac|||||
+1397|publicar, declarar, hacer público, decir en público, anuncio, publicación, presentación|N;Ac|||||
+1398|aparición, llegada, advenimiento|N;Ac|||||
+1399|aplausos|N;Ac|||||
+1400|aprobación, visto bueno|N;Ac|||||
+1401|preparativos, arreglos, trámites|N;Ac|||||
+1402|aserción, aseveración, afirmación|N;Ac|||||
+1403|auxiliar||||||
+1404|ataque, ofensiva, crítica, censura||||||
+1405|automatización|N;Ac|||||
+1406|béisbol|N;Ac|||||
+1407|baloncesto (eng: basketball)|N;Ac|||||
+1408|parpadeo, pestañeo, guiño|N;Ac|||||
+1409|deuda, compromiso, obligación|N;Ac|||||
+1410|inclinación, reverencia|N;Ac|||||
+1411|penetración|N;Abs|||||
+1412|emitir, transmitir, retransmitir, difundir, emisión, retransmisión|N;Ac|||||
+1413|hacer un viaje de negocios, hacer un viaje de trabajo, visita oficial, viaje de negocios|N;Ac|||||
+1414|comerciar, hacer negocios, comercio, negocios, trabajo, operación (comercial), dedicarse a los negocios, hacer negocios, llevar a cabo un negocio|N;Ac|||||
+1415|cuenta, cálculo|N;Abs|||||
+1416|cancelar, cancelar (eng: cancel)|N;Ac|||||
+1417|cambio, cambios, novedades||||||
+1418|dirección, mando, control|N;Ac|||||
+1419|negocios, comercio|N;Ac|||||
+1420|el camino a la escuela|N;Ac|||||
+1421|competir, rivalizar, competencia||||||
+1422|completo, terminación||||||
+1423|perfección, realización, logro||||||
+1424|entendimiento, comprensión|N;Abs|||||
+1425|concentrarse, agruparse, aglomerarse, enfoque, concentración|N;Abs|||||
+1426|embarazo (gestación materna)|N;Ac|||||
+1427|congreso, encuentro, convención|N;Abs|||||
+1428|conquista, subyugación|N;Ac|||||
+1429|consultar, consejo|N;Ac|||||
+1430|gasto, consumo|N;Ac|||||
+1431|contrato, acuerdo|N;Ac|||||
+1432|conversación, plática, conversar, charlar, departir, dialogar, hablar|N;Ac|||||
+1433|colaborar, cooperar, ayudar, cooperación, colaboración|N;Ac|||||
+1434|crítica, censura|N;Ac|||||
+1435|cruce, confluencia, encrucijada||||||
+1436|cocina, arte culinario|N;Abs|||||
+1437|daño (eng: damage)|N;Ac|||||
+1438|daño, estrago|N;Ac|||||
+1439|muerte por inanición, muerte de hambre|N;Ac|||||
+1440|decapitación, verdugo, ejecutor, decapitador, despido, cese, destitución, expulsión|N;Ac|||||
+1441|dictaminar, fijar, determinar, decidir, decretar, establecer, decisión, determinación|N;Ac|||||
+1442|guardia, vigilante|N;Ac|||||
+1443|partida (de irse)|N;Ac|||||
+1444|descripción (retrato)|N;Ac|||||
+1445|abandono, desasistencia, abandono de familia|N;Ac|||||
+1446|deseo|N;Abs|||||
+1447|desesperanza|N;Ac|||||
+1448|digestión|N|||||
+1449|descubrir, descubrimiento, detección, búsqueda|N;Ac|||||
+1450|caos, desorden|N;Ac|||||
+1451|envío de una señal|N;Ac|||||
+1452|pelea, disputa|N;Abs|||||
+1453|juicio, discernimiento, distinguir, diferenciar, discernir|N;Ac|||||
+1454|énfasis, destacar, enfatizar, poner énfasis, remarcar, acentuar|N;Ac|||||
+1455|gozo, alegría||||||
+1456|avance a una escuela superior|N;Ac|||||
+1457|ingreso (a un lugar), acceder a un recinto, entrar en un lugar|N;Ac|||||
+1458|estar encantado, contentísimo|N;Ac|||||
+1459|ingresar en una escuela, ingresar en un centro de estudios, entrada a la escuela o la universidad, matriculación|N;Ac|||||
+1460|equilibrio|N;Ac|||||
+1461|instalación, infraestructura|N;Ac|||||
+1462|erradicación, exterminación, exterminio|N;Ac|||||
+1463|suprimido, borrado|N;Abs|||||
+1464|encargo, mandado, mensajero||||||
+1465|erupción|N;Ac|||||
+1466|instalar, establecer, constituir, fundar, crear, plantear, establecimiento, creación||||||
+1467|aislamiento||||||
+1468|evacuación|N;Abs|||||
+1469|testimonio|N;Abs|||||
+1470|cuenta, pago, saldo|N;Ac|||||
+1471|excitarse, exaltarse, agitarse, entusiasmarse, excitación, estimulación, agitación|N;Ac|||||
+1472|exclusión, eliminación||||||
+1473|abierto al público|N;Ac|||||
+1474|exhibición, exposición|N;Ac|||||
+1475|muestra, exhibición|N;Ac|||||
+1476|existir, existencia, existir|N;Ac|||||
+1477|experimentar, probar, ensayar, someter a prueba, experimento|N;Ac|||||
+1478|explosión, detonación, erupción, explotar, explosionar, hacer explosión||||||
+1479|expresión, gesto||||||
+1480|(matemáticas) representación, expresar, manifestar||||||
+1481|exterminio|N;Abs|||||
+1482|caída, declive, deterioro, degradación|N;Ac|||||
+1483|sentir terror, aterrarse, aterrorizarse, sentir pánico, sentir pavor, tener miedo, miedo, pavor, consternación, terror|N;Ac|||||
+1484|extinguir o apagar un fuego, extinción del fuego, extinción de incendios|N;Ac|||||
+1485|primera menstruación|N;Ac|||||
+1486|pesca|N;Ac|||||
+1487|cambio (e.g. para una compra)|N;Ac|||||
+1488|fuga, huida|N;Ac|||||
+1489|pronóstico, predicción|N;Ac|||||
+1490|graduación||||||
+1491|saludo||||||
+1492|discurso (de felicitación o aprecio)||||||
+1493|respuesta||||||
+1494|venganza||||||
+1495|algo bueno que decir (usado como parte de una respuesta sarcástica o un un comentario grosero)||||||
+1496|(sig. original) dialogar (con otro practicante Zen para determinar su grado de iluminación), saludar||||||
+1497|dar un apretón de manos, dar la mano, estrechar la mano, apretón de manos|N;Ac|||||
+1498|mal, daño, mala influencia|N;Ac|||||
+1499|calefacción|N;Ac|||||
+1500|cuidado (de alguien), ayuda, auxilio, asistencia|N;Ac|||||
+1501|salvación, auxilio, socorro|N|||||
+1502|imaginar, imaginación, conjetura|N;Ac|||||
+1503|importación, artículo importado, introducción|N;Abs|||||
+1504|inyección|N;Ac|||||
+1505|inspección (examinación, chequeo), examinación de ~|N;Ac|||||
+1506|leer, consultar|N;Ac|||||
+1507|traducción, traducir oralmente||||||
+1508|entrevista|N;Ac|||||
+1509|presentación, presentar a alguien|N;Ac|||||
+1510|antes y despúes, contenido, en medio||||||
+1511|irrigación|N;Ac|||||
+1512|búsqueda de empleo, búsqueda de trabajo|N;Ac|||||
 1513|búsqueda de empleo, búsqueda de trabajo|N;Ac|||||
-1514|búsqueda de empleo, búsqueda de trabajo|N;Ac|||||
-1515|transferencia, transmisión||||||
-1516|decisión, juicio|N;Ac|||||
-1517|judo, yudo|N;Ac|||||
-1518|karate, karate||||||
-1519|manos vacías||||||
-1520|asesinato|N;Ac|||||
-1521|extinción, desaparición, apagamiento||||||
-1522|llegar tarde, retrasarse, llegar tarde, llegar con retraso|N;Ac|||||
-1523|guía, dirección, enseñanza, orientación|N;Abs|||||
-1524|límite, restricción|N;Ac|||||
-1525|consulta (resultado de una búsqueda hecha en un diccionario o computadora, o la búsqueda en sí), búscar, consultar|N;Ac|||||
-1526|amplificación, aumento, incremento, acrecentamiento|N;Ac|||||
-1527|maniobra|N;Abs|||||
-1528|matrimonio|N;Ac|||||
-1529|terapia, tratamiento|N;Ac|||||
-1530|junta, reunión, mitin|N;Ac|||||
-1531|reunión, asamblea|N;Ac|||||
-1532|encuentro, reunión, encuentro||||||
-1533|memoria, recolección, recuerdo||||||
-1534|almacenaje, recordar, rememorar, retener en la memoria||||||
-1535|tomar el pelo, jugarreta, travesura, truco, broma pesada, malicia||||||
-1536|equivocación|N;Ac|||||
-1537|hacer dinero|N;Ac|||||
-1538|alpinismo (de montaña)|N;Ac|||||
-1539|movimiento, actividad|N;Ac|||||
-1540|(un) asesinato|N;Ac|||||
-1541|negar, negación, negativa, repudiación||||||
-1542|negociar, tratar, negociación||||||
-1543|noticia, notificación|N;Ac|||||
-1544|profesión, oficio, ocupación|N;Abs|||||
-1545|operación, manejo||||||
-1546|operación, movimiento, conducir||||||
-1547|ordenes, instrucciones|N;Ac|||||
-1548|viaje de negocios al extranjero|N;Ac|||||
-1549|perdón, discúlpeme, rechazar (algo), declinar (algo), rechazo, permiso||||||
-1550|disculpa, excusa, dispensa|N;Ac|||||
-1551|indulgencia, perdón, misericordia, piedad||||||
-1552|participación|N;Ac|||||
-1553|separación, despedida, adiós|N;Ac|||||
-1554|trabajo provisional, pluriempleo, trabajo a tiempo parcial||||||
-1555|paciencia, tolerancia|N;Ac|||||
-1556|planificación, proyecto, plan, diseño|N;Ac|||||
-1557|juego, visita||||||
-1558|polución, contaminación|N;Ac|||||
-1559|ejecutar, llevar a cabo, llevar a la práctica, realizar, materializar, realización, ejecutar (un plan, un programa de computadora)||||||
-1560|oración, súplica|N;Ac|||||
-1561|oración|N;Ac|||||
-1562|preparar la lección con antelación, estudio de preparación|N;Ac|||||
-1563|preparar, hacer los preparativos, disponer, preparación|N;Ac|||||
-1564|preparación, preparativo, provisión, reserva||||||
-1565|prevención||||||
-1566|ir a la capital, ir a Tokio||||||
-1567|producción|N;Ac|||||
-1568|avanzar, progresar, progreso, desarrollo|N;Ac|||||
-1569|pago, abono, suministro|N;Ac|||||
-1570|publicación, edición, impresión, revista, periódico|N;Ac|||||
-1571|purificación|N;Ac|||||
-1572|riña, disputa|N;Ac|||||
-1573|pregunta, cuestión|N;Ac|||||
-1574|la lectura (el leer), lectura||||||
-1575|reconsideración|N;Ac|||||
-1576|arrepentirse, sentir remordimientos, remordimiento, arrepentimiento|N;Ac|||||
-1577|envío (monetario)|N;Ac|||||
-1578|cuidado, mantenimiento||||||
-1579|respuesta, contestación|N;Ac|||||
-1580|reservar, hacer una reserva, reserva|N|||||
-1581|reposar, descansar, descanso, receso, reposo, descanso||||||
-1582|restauración, recuperación, reparación, rehabilitación|N;Abs|||||
-1583|restricción, sanciones, castigo|N;Ac|||||
-1584|regalo devuelto, favor devuelto|N;Ac|||||
-1585|venganza|N;Ac|||||
-1586|cambio (en una transacción en metálico)|N;Ac|||||
-1587|regresar al hogar|N;Ac|||||
-1588|venganza|N;Ac|||||
-1589|repaso (en el estudio)|N;Ac|||||
-1590|navegación, náutica, crucero|N;Ac|||||
-1591|erudición, estudio||||||
-1592|búsqueda, investigación|N;Ac|||||
-1593|investigación|N;Ac|||||
-1594|envío, despedida, funeral|N;Ac|||||
-1595|ver|N;Ac|||||
-1596|autoconciencia, conciencia de uno mismo|N;Ac|||||
-1597|autopresentación, presentarse a uno mismo ante otra persona, presentación personal|N;Ac|||||
-1598|sensación, sentido, sensibilidad|N;Ac|||||
-1599|servicio, función, trabajo|N;Ac|||||
+1514|transferencia, transmisión||||||
+1515|decisión, juicio|N;Ac|||||
+1516|judo, yudo|N;Ac|||||
+1517|karate, karate||||||
+1518|manos vacías||||||
+1519|asesinato|N;Ac|||||
+1520|extinción, desaparición, apagamiento||||||
+1521|llegar tarde, retrasarse, llegar tarde, llegar con retraso|N;Ac|||||
+1522|guía, dirección, enseñanza, orientación|N;Abs|||||
+1523|límite, restricción|N;Ac|||||
+1524|consulta (resultado de una búsqueda hecha en un diccionario o computadora, o la búsqueda en sí), búscar, consultar|N;Ac|||||
+1525|amplificación, aumento, incremento, acrecentamiento|N;Ac|||||
+1526|maniobra|N;Abs|||||
+1527|matrimonio|N;Ac|||||
+1528|terapia, tratamiento|N;Ac|||||
+1529|junta, reunión, mitin|N;Ac|||||
+1530|reunión, asamblea|N;Ac|||||
+1531|encuentro, reunión, encuentro||||||
+1532|memoria, recolección, recuerdo||||||
+1533|almacenaje, recordar, rememorar, retener en la memoria||||||
+1534|tomar el pelo, jugarreta, travesura, truco, broma pesada, malicia||||||
+1535|equivocación|N;Ac|||||
+1536|hacer dinero|N;Ac|||||
+1537|alpinismo (de montaña)|N;Ac|||||
+1538|movimiento, actividad|N;Ac|||||
+1539|(un) asesinato|N;Ac|||||
+1540|negar, negación, negativa, repudiación||||||
+1541|negociar, tratar, negociación||||||
+1542|noticia, notificación|N;Ac|||||
+1543|profesión, oficio, ocupación|N;Abs|||||
+1544|operación, manejo||||||
+1545|operación, movimiento, conducir||||||
+1546|ordenes, instrucciones|N;Ac|||||
+1547|viaje de negocios al extranjero|N;Ac|||||
+1548|perdón, discúlpeme, rechazar (algo), declinar (algo), rechazo, permiso||||||
+1549|disculpa, excusa, dispensa|N;Ac|||||
+1550|indulgencia, perdón, misericordia, piedad||||||
+1551|participación|N;Ac|||||
+1552|separación, despedida, adiós|N;Ac|||||
+1553|trabajo provisional, pluriempleo, trabajo a tiempo parcial||||||
+1554|paciencia, tolerancia|N;Ac|||||
+1555|planificación, proyecto, plan, diseño|N;Ac|||||
+1556|juego, visita||||||
+1557|polución, contaminación|N;Ac|||||
+1558|ejecutar, llevar a cabo, llevar a la práctica, realizar, materializar, realización, ejecutar (un plan, un programa de computadora)||||||
+1559|oración, súplica|N;Ac|||||
+1560|oración|N;Ac|||||
+1561|preparar la lección con antelación, estudio de preparación|N;Ac|||||
+1562|preparar, hacer los preparativos, disponer, preparación|N;Ac|||||
+1563|preparación, preparativo, provisión, reserva||||||
+1564|prevención||||||
+1565|ir a la capital, ir a Tokio||||||
+1566|producción|N;Ac|||||
+1567|avanzar, progresar, progreso, desarrollo|N;Ac|||||
+1568|pago, abono, suministro|N;Ac|||||
+1569|publicación, edición, impresión, revista, periódico|N;Ac|||||
+1570|purificación|N;Ac|||||
+1571|riña, disputa|N;Ac|||||
+1572|pregunta, cuestión|N;Ac|||||
+1573|la lectura (el leer), lectura||||||
+1574|reconsideración|N;Ac|||||
+1575|arrepentirse, sentir remordimientos, remordimiento, arrepentimiento|N;Ac|||||
+1576|envío (monetario)|N;Ac|||||
+1577|cuidado, mantenimiento||||||
+1578|respuesta, contestación|N;Ac|||||
+1579|reservar, hacer una reserva, reserva|N|||||
+1580|reposar, descansar, descanso, receso, reposo, descanso||||||
+1581|restauración, recuperación, reparación, rehabilitación|N;Abs|||||
+1582|restricción, sanciones, castigo|N;Ac|||||
+1583|regalo devuelto, favor devuelto|N;Ac|||||
+1584|venganza|N;Ac|||||
+1585|cambio (en una transacción en metálico)|N;Ac|||||
+1586|regresar al hogar|N;Ac|||||
+1587|venganza|N;Ac|||||
+1588|repaso (en el estudio)|N;Ac|||||
+1589|navegación, náutica, crucero|N;Ac|||||
+1590|erudición, estudio||||||
+1591|búsqueda, investigación|N;Ac|||||
+1592|investigación|N;Ac|||||
+1593|envío, despedida, funeral|N;Ac|||||
+1594|ver|N;Ac|||||
+1595|autoconciencia, conciencia de uno mismo|N;Ac|||||
+1596|autopresentación, presentarse a uno mismo ante otra persona, presentación personal|N;Ac|||||
+1597|sensación, sentido, sensibilidad|N;Ac|||||
+1598|servicio, función, trabajo|N;Ac|||||
+1599|liquidación, saldo|N;Ac|||||
 1600|celebrar|VsuruI|||||
 1601|pelearse, discutir|VsuruI|||||
 1602|quebrar, fallar|VsuruI|||||
 1603|calentar|VsuruT|||||
-1604|liquidación, saldo|N;Ac|||||
+1604|suspiro|N;Ac|||||
 1605|ser claro, ser definido, estar seguro, ser exacto, aclarar|VsuruI|||||
 1606|sentirse decepcionado, sentirse abatido, desanimarse, sentirse emocionalmente agotado, sentirse desilusionado|VsuruI|||||
 1607|preparar, organizar, proporcionar, diseñar (p.ej. una comida)|VsuruT|||||
@@ -1639,7 +1639,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1639|entrar al Nirvana, convertirse en un Buda, ir al cielo, descansar en paz, morir en paz|VsuruI|||||
 1640|volver a casa|VsuruI|||||
 1641|despedir|VsuruT|||||
-1642|suspiro|N;Ac|||||
+1642|turismo|N;Ac|||||
 1643|tirotear, extinguir un incendio|VsuruT|||||
 1644|planificar, proyectar, diseñar|VsuruT|||||
 1645|afirmar, declarar|VsuruT|||||
@@ -1649,7 +1649,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1649|apartarse, descuidar, alienar, echar fuera|VsuruT|||||
 1650|decidir decidir determinar|VsuruT|||||
 1651|saludarse mutuamente, actuar en concierto, acordar, concordar|VsuruI|||||
-1652|turismo|N;Ac|||||
+1652|recurrido turístico||||||
 1653|proporcionar, suministrar, pagar, dar una provisión, dar una subvención|VsuruT|||||
 1654|debilitar|VsuruI|||||
 1655|aparecer, llegar|VsuruI|||||
@@ -1966,7 +1966,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1966|controlar (un oponente, para las emociones de uno, etc.), gobernar, administrar, suprimir, mantener bajo control|VsuruT|||||
 1967|concluir, decidir, terminar, resolver|VsuruT|||||
 1968|armarse, estar armado|VsuruI|||||
-1969|recurrido turístico||||||
+1969|(eng: sign) firma, autógrafo, (eng: lit señal)|N;Ac|||||
 1970|ser victorioso, ser campeón|VsuruI|||||
 1971|estar despierto hasta tarde, quedarse hasta tarde, sentarse hasta tarde en la noche|VsuruI|||||
 1972|practicar sexo extramarital, tener una aventura|VsuruI|||||
@@ -2263,8 +2263,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2263|completar espacios, completar espacios en blanco (en un formulario, etc.)|VsuruI|||||
 2264|cubrir un déficit, compensar algo (p.ej. el error de uno)|VsuruI|||||
 2265|proteger, cuidar|VsuruT|||||
-2266|(eng: sign) firma, autógrafo, (eng: lit señal)|N;Ac|||||
-2267|fumar|N;Abs|||||
+2266|fumar|N;Abs|||||
+2267|estornudo||||||
 2268|culpar, censurar, reprender|VsuruT|||||
 2269|brindar preguntas y respuestas, dialogar|VsuruI|||||
 2270|robar|VsuruI|||||
@@ -2382,9 +2382,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2382|exceder, ser más que|VsuruT|||||
 2383|firmar, sellar|VsuruT|||||
 2384|trascender, elevarse por encima|VsuruT|||||
-2385|estornudo||||||
+2385|fútbol (eng: soccer)||||||
 2386|expresar|VsuruT|||||
-2387|fútbol (eng: soccer)||||||
+2387|arreglar, ordenar, regular, orden, arreglo, ajuste, regulación||||||
 2388|invertir, desordenar|VsuruT|||||
 2389|ocurrir en el mismo tiempo|VsuruI|||||
 2390|ser dejado en la base|VsuruI|||||
@@ -2638,9 +2638,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2638|debutar|VsuruI|||||
 2639|unir|VsuruI|||||
 2640|valorar altamente, premiar|VsuruT|||||
-2641|arreglar, ordenar, regular, orden, arreglo, ajuste, regulación||||||
-2642|entrenamiento especial, entrenamiento intensivo, curso intensivo|N;Ac|||||
-2643|estimular, incentivar, excitar, estimulo, ímpetu, incentivo, irritación, ánimo, aliento, motivación, estímulo, acicate, incentivo, aliciente|N;Ac|||||
+2641|entrenamiento especial, entrenamiento intensivo, curso intensivo|N;Ac|||||
+2642|estimular, incentivar, excitar, estimulo, ímpetu, incentivo, irritación, ánimo, aliento, motivación, estímulo, acicate, incentivo, aliciente|N;Ac|||||
+2643|prohibición estricta, prohibición rigurosa|N;Ac|||||
 |||||||
 2645|transportar|VsuruT|||||
 2646|girar a la derecha|VsuruI|||||
@@ -2670,10 +2670,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2670|recoger dinero|VsuruI|||||
 2671|totalizar, sumar, sumar (p.ej. votos)|VsuruT|||||
 2672|adquirir, obtener, ganar posesión, comprar|VsuruT|||||
-2673|prohibición estricta, prohibición rigurosa|N;Ac|||||
-2674|estudio|N;Ac|||||
-2675|diligencia|N;Ac|||||
-2676|descuento, reducción|N;Ac|||||
+2673|estudio|N;Ac|||||
+2674|diligencia|N;Ac|||||
+2675|descuento, reducción|N;Ac|||||
+2676|encargar, confiar (trabajar)|VsuruT|||||
 2677|fingir ignorancia, pretender no reconocer (alguien)|VsuruI|||||
 2678|tener un aire despreocupado, ser indiferente|VsuruI|||||
 2679|avanzar (en un nuevo mercado o etapa de progreso), lanzar (una nueva carrera o empresa), expandirse (en un nuevo mercado), avanzar, emerger|VsuruI|||||
@@ -7644,8 +7644,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 7644|despertador||||||
 7645|notable, espléndido, deslumbrante, deslumbrador|Ai|||||
 7646|erizo (cualquier mamífero de la familia Erinaceidae)|N;Fa|||||
-7647|ratón, rata|N;Col|||||
-7648|gris oscuro, gris obscuro|N;Col|||||
+7647|ratón, rata||||||
+7648|gris oscuro, gris obscuro||||||
 7649|aspiradora||||||
 7650|florista|N;Pl|||||
 7651|recomendación|N;Ac|||||
@@ -12956,7 +12956,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 12956|obtener, heredar la posesión de|CE|||||
 12957|ver||||||
 12958|agradar, gustar|CE|||||
-12959|servir de ayuda, ser útil||||||
+12959|servir de ayuda, ser útil|CE|||||
 12960|estar a tiempo para|CE|||||
 12961|servir de algo (reunión), bastar|CE|||||
 12962|obtener, conseguir|CE|||||

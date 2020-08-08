@@ -264,12 +264,14 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String terminations_ugodan_romaji = "(tta|tteiru|tteita|tte|imasu|imashita|wanai|wanakatta|imasen *deshita|imasen)";
         String terminations_arugodan_romaji = "(tta|tteiru|tteita|tte|imasu|imashita|ranai|ranakatta|imasen *deshita|imasen)";
         String terminations_kugodan_romaji = "(ita|iteiru|iteita|ite|kimasu|kimashita|kanai|kanakatta|kimasen *deshita|kimasen)";
+        String terminations_rugodan_romaji = "(tta|tteiru|tteita|tte|rimasu|rimashita|ranai|ranakatta|rimasen *deshita|rimasen)";
         String terminations_iku_romaji = "(itta|itteiru|itteita|itte|ikimasu|ikimashita|ikanai|ikanakatta|ikimasen *deshita|ikimasen)";
         String terminations_sugodan_romaji = "(shita|shitteiru|shitteita|shitte|shimasu|shimashita|sanai|sanakatta|shimasen *deshita|shimasen)";
         String terminations_ichidan_kana = "(た|ている|ていた|て|ます|ました|ない|なかった|あせんでした|ません)";
         String terminations_ugodan_kana = "(った|っている|っていた|って|います|いました|わない|わなかった|いませんでした|いません)";
         String terminations_arugodan_kana = "(った|っている|っていた|って|います|いました|らない|らなかった|いませんでした|いません)";
         String terminations_kugodan_kana = "(いた|いている|いていた|いて|きます|きました|かない|かなかった|きませんでした|きません)";
+        String terminations_rugodan_kana = "(った|っている|っていた|って|ります|りました|らない|らなかった|りませんでした|りません)";
         String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません)";
         String terminations_sugodan_kana = "(した|している|していた|して|します|しました|さない|さなかった|しませんでした|しません)";
         mInputQuery = new InputQuery(mInputQuery.getOriginal()
@@ -280,6 +282,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("(te|de) *kudasa" + terminations_arugodan_romaji + "(| *ka)$", "$1 kudasaru")
                 .replaceAll("(te|de) *" + terminations_iku_romaji + "(| *ka)$", "$1 iku")
                 .replaceAll("(te|de) *o" + terminations_kugodan_romaji + "(| *ka)$", "$1 oku")
+                .replaceAll("(te|de) *o" + terminations_rugodan_romaji + "(| *ka)$", "$1 oru")
                 .replaceAll("([td])o" + terminations_kugodan_romaji + "(| *ka)$", "$1oku")
                 .replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "(| *ka)$", "$1 shimau")
                 .replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)(| *ka)$", "$1u")
@@ -296,6 +299,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "(|か)$", "$1くださる")
                 .replaceAll("([てで])" + terminations_iku_kana + "(|か)$", "$1いく")
                 .replaceAll("([てで])お" + terminations_kugodan_kana + "(|か)$", "$1おく")
+                .replaceAll("([てで])お" + terminations_rugodan_kana + "(|か)$", "$1おる")
                 .replaceAll("([とど])" + terminations_kugodan_kana + "(|か)$", "$1おく")
                 .replaceAll("([てで])しま" + terminations_ugodan_kana + "(|か)$", "$1しまう")
                 .replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)(|か)$", "$1う")

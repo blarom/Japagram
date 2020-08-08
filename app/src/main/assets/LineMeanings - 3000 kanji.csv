@@ -626,8 +626,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 626|fortunate, splendid, promising|Ai|||||
 627|friendly, tender, kind, gentle, graceful, affectionate, amiable, suave, sweet|Ai||||shinsetsu|fushinsetsu
 628|-al, -ial, -ic, -ical, -ish, -y|Sx|Suffix forming adjectives or adverbs, after an indeclinable word.||||
-629||-|||||
-630||-|||||
+629|please do/be|VC|Please [do/be] X. Politer than "te kudasai".|X moratte mo ii desu ka @ X = verb te form|1392;1394||
+630|please do/be|VC|Please [do/be] X. Used when speaking with superiors or non-intimate people.|X itadakitai n desu ka @ X = verb te form|1391||
 631|good, ok, all right, fine|Ai|||||
 632|good-for-nothing, stupid, trivial, worthless|Ai|||||
 633|grateful, thankful, welcome, appreciated, evoking gratitude|Ai|||||
@@ -643,13 +643,13 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 643|am/is not X|PC|na-adjective conjugation.|X dewa nai @ X = phrase|1497||
 644|impious, profane, sacrilegious|Ai|||||
 645|insistent, obstinate, persistent, tenacious, too rich (e.g. in taste)|Ai|||||
-646||-|||||
+646|study room|N|||||
 647|about to do|VC|To be about to [do/be] X.|X to suru @ X = verb ou (volitional) form|||
 648|intolerable, unbearable, unendurable, irresistible, tremendous, out of this world|Ai|||||
 649|invisible, unseen, vague, mysterious, imaginary|Ai||||miyasui|
 650|itchy, itching|Ai|||||
 651|light, faint, pale, fleeting|Ai|||||
-652||-||||omoi|
+652|before|CO||X uchi ni @ verb nai form|950||
 653|lonely, lonesome, solitary, desolate|Ai|||||
 654|long (distance)|Ai||||mijikai|
 655|loose, lenient, lax, gentle (e.g. curve, slope), slow, weak, soft|Ai||||tsuyoi, joubu|yowai, hiyowai, hiyowa, yowacchii, yurui, usui, yawai, nayocchii, kasuka, hijaku, yawa
@@ -660,7 +660,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 660|narrow, confined, not spacious|Ai||||hiroi|
 661|nasty, disgusting, disagreeable, creepy|Ai|||||
 662|nearby|Ai||||tooi|
-663||-|||||
+663|give to me as a favor to me|VC|Give X to me as a favor. Polite form of "te kureru".|Y ga Z wo X kudasaru @ X = verb te form, Y = person doing the favor, Z = object of the favor|||te itadaku
 664|nice, likeable, desirable|Ai|||||
 665|no match for|Ai|||||
 666|noisy, boisterous, strict, fault-finding, carping, fussy|Ai|||||
@@ -1268,8 +1268,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1268|on any date|A;T|||||
 1269|on some date|A;T|||||
 1270|one time|A;T|||||
-1271|presently, right away, right now|A;T|||||
-1272|(I have returned) just now, I'm back|CE|||1183||
+1271||-|||||
+1272||-|||1183||
 1273|quick|A;T|Usually means "quick-ish", a bit less quick than hayaku.||||
 1274|quickly|A;T|Used colloquially.||||
 1275|steadily in time, one after another, all at once|A;T|||||one after the other
@@ -1461,7 +1461,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1461||-|||||
 1462|it is me, not you|CE|||||
 1463|it is not possible, there is no such thing as|CE|||||
-1464|it is very important (to someone)|CE|||||
+1464|to mind (negative nuance), to care about, to worry, to pay undue (amount of) attention (to something)|CE|||||
 1465|it serves you right|CE|Colloquial||||
 1466|it will be ok soon|CE|||||
 1467|I've enjoyed my meal very much|CE|||||
@@ -1535,7 +1535,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1535|there's nothing one can do|CE|||1353||nothing to do, nothing I can do, nothing you can do
 1536|to be famous, to be on everyone's lips, to be well-known|CE|||||
 1537|to be interested in something|CE|||||
-1538|to be on one's mind, to worry one, to care about, to be bothered by, to feel uneasy, to be anxious, to feel inclined|CE|||||
+1538||-|||||
 1539|to brush (one's teeth)|CE|||||
 1540|to cash a cheque|CE|||||
 1541|to clap hands|CE|||||
@@ -4662,7 +4662,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 4662|strike (as send flying), beat, knock, jump with force, leap|VsuI|||||
 4663|kick about, kick around|VsuT|||||
 4664|send back, return|VsuT|||||
-4665|begin rain, start rain|VsuI|||||
+4665|begin to rain, start to rain|VsuI|||||
 4666|shake and give, start shaking, shake out, write (draw) on a check (cheque)|VsuT|||||
 4667|pollute, contaminate, soil, make dirty, stain, disgrace, dishonour, dishonor, defile|VsuT|||||
 4668|go, move (in a direction or towards a specific location), head (towards), be transported (towards), reach|VikuI|||||
@@ -6096,10 +6096,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 6096|alarm clock|N;GO|||||
 6097|alarm (clock)|N;GO|||||
 6098|opening one's eyes, keeping one's eyes open|N;Ac|||||
-6099||-|||||
+6099|mouse, rat|N;Fa|||||
 6100|someone does/is X as a personal favor for someone else (polite)|VC|Politer than "te morau".|X morau @ X = verb te form|1431||te morau
 6101|hedgehog|N;Fa|||||
-6102|dark gray, dark grey, slate|N;Col|||||
+6102|dark gray, dark grey, slate (color, colour)|N;Col|||||
 6103|I have a problem|CE|||||
 6104|hope that|PC|ME#0245;0246||||
 6105|(it's) well made|CE|||||
@@ -8638,8 +8638,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 8638|duty, role, function|N;Abs|||||
 8639|government official|N;Abs|||||
 8640|Yakunin|N;Pl|||||
-8641|of no avail, useless|CE|||||
-8642|of no avail, useless|Ai|||||
+8641|of no avail, useless|CE;Ai|||||
+8642||-|||||
 8643|actor, actress|N;Abs|||||
 8644|man of wits, clever person, cunning fellow|N;Abs|||||
 8645|government office, public office|N;Abs|||||
@@ -18285,7 +18285,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 18285|good feeling, feeling good|CE;Ai|||||
 18286||-|||||
 18287|bad feeling, feeling bad, disagreeable, unpleasant, revolting, gross, disgusting|Ai|||||
-18288|like, be pleased with, be delighted with, take a liking to, suit one's fancy|CE|||||
+18288|to like, to be pleased with, to be delighted with, to take a liking to, to suit one's fancy|CE|||||
 18289|pitiful, unfortunate, poor, miserable, wretched|Ana|||||
 18290|pitifulness, unfortunateness, poverty, miserableness, wretchedness|N;Abs|||||
 18291|unpardonable, regrettable|Ana|||||
@@ -19320,7 +19320,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19320|straddle, sit astride, mount|VrugI|||||
 19321|blink (one's eyes), wink, bat|VkuI|||||
 19322|await, look forward to, anticipate|VtsuI|||||
-19323|await, look forward to, anticipate|VtsuI|||||
+19323||-|||||
 19324|depend on, need|VtsuI|||||
 19325|pine tree (Pinus spp.)|N;Abs|||||
 19326|highest (of a three-tier ranking system)|N;Abs|||||
@@ -19740,7 +19740,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19740|north-to-south|N;Abs|||||
 19741|vertical (relationship), hierarchy|N;Abs|||||
 19742|(weaving) warp|N;Abs|||||
-19743|stand, rise, stand up|VtsuI|||||
+19743|-|-|||||
 19744|pass (of time), elapse|VtsuI|||||
 19745|news, tidings, information, correspondence, letter|N;Sx|||||
 19746||-|||||
@@ -36517,7 +36517,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36517|Troy, Treu|Pl|||||
 36518|hard to understand, incomprehensible, unintelligible|Ai|||||
 36519|wild Japanese apricot|N|||||
-36520|be helpful, be useful|VsuI|||||
+36520||-|||||
 36521|too, also, likewise, either|A|||||
 36522|still, as before|A|||||
 36523|even so, either way, after all, nonetheless, in any event, all the same, in spite of this|A|||||
@@ -36780,3 +36780,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 36780|be distant|VrugI|||||
 36781|send away, drive off, divorce|VrugT|||||
 36782|(do) completely|VrugT|||||
+36783|I get permission to do|VC|I get permission to do/be X||||
+36784|Can I get permission to do?|VC|Can I get permission to do/be X?||||
+36785|I get permission to do|VC|I get permission to do/be X (Humble)||||
+36786|Can I get permission to do?|VC|Can I get permission to do/be X (Humble)?||||
+36787|He gives permission to do|VC|He gives permission to do/be X||||
+36788|Can you give permission to do?|VC|Can you give permission to do/be X?||||
+36789|He gives permission to do|VC|He gives permission to do/be X (Humble)||||
+36790|Can you give permission to do?|VC|Can you give permission to do/be X (Humble)?||||

@@ -221,7 +221,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 221|pas ... et à sa place|CO|Pas X mais Y à la place|X ja nakute Y @ X/Y = phrase|958;337||
 222|ou, autrement|CO|X ou Y, X sinon Y.|X mata wa Y @ X/Y = phrase|||
 223|ensemble avec|CO|X avec Y.|X to issho ni Y @ X/Y = phrase|||
-224|passe pendant|CO|ME#0169;0170;0171||||
+224|pendant, durant|CO|ME#0169;0170;0171||||
 225|passe au milieu de|CO|L'action Y se passe au beau milieu de l'événement X.|X no tochuu de Y|978||
 226|existe durant un mouvement|CO|Y existe sur le chemin pendant le mouvement X.|X tochuu ni Y|979||
 227|passe durant un mouvement|CO|Action Y qui se passe pendant le mouvement X.|X tochuu de Y @ X = mouvement|980;981||
@@ -318,7 +318,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 318|comme ça l'est, comme on l'aime, parce que, tant que|VC|Comme il l'est, comme on le veut, parce que, tant que.|X mama @ X = verbe en passé simple|1394||
 319|refaire|VC|[Faire/être] X à nouveau. Parfois avec la connotation de répéter une action, comme réparation.|X naosu @ X = racine de la forme "masu" du verbe|1403||
 320|vouloir fair ..., aimerait faire ...|VC|[Je/tu/il/elle] veux/t faire ...|X @ X = verbe en forme "tai"|||
-321||-|||||
+321|avant|CO||X uchi ni @ verbe en forme "nai"|950||
 322|voulait ...|VC|[Je/tu/il/elle] voulais/t [faire/être] X|X @ X = verbe en forme "tai"|||
 323|je ne veux pas ...|VC|[Je/tu/il/elle] ne veux/t pas [faire/être] X|X @ X = verbe en forme "tai"|||
 324|je ne voulais pas ...|VC|[Je/tu/il/elle] ne voulais/t pas [faire/être] X|X @ X = verbe en forme "tai"|||
@@ -510,94 +510,94 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 510|... sont différents|PC||X to Y wa chigau @ X/Y = phrase|977||
 511|marché noir|CE|||||
 512|marché noir|CE|||||
-513|proportion, rapport, ratio||||||
-514|comparativement||||||
-515|contrairement aux attentes||||||
-516|chaque||||||
-517|tous, tout le monde|A|||||
-518|tout|A|||||
-519|par ici (direction proche du locuteur ou vers lui), cette direction||||||
-520|ici (endroit où le locuteur se trouve, ou proche de lui)||||||
-521|celui-ci (quelque chose de physiquement proche de l'orateur)||||||
-522|je, moi, nous||||||
-523|cette personne (quelqu'un physiquement proche de l'orateur et d'un statut égal ou supérieur)||||||
-524|ceci (indiquant un élément près du locuteur, de l'action du locuteur, ou le sujet en cours)||||||
-525|maintenant||||||
-526|ici||||||
-527|je (moi)||||||
-528|certainement||||||
-529|çà (indique quelque chose de distant du locuteur et de l'auditeur, (dans le temps, l'espace ou psychologiquement), ou quelque chose de compréhensible implicitement), celui-là||||||
-530|cette personne (utilisé pour faire référence à ses égaux ou inférieurs)||||||
-531|là-bas||||||
-532|en bas (par ex. les organes génitaux)||||||
-533|règles, menstruations||||||
-534|hé (expression de surprise, de suspicion, etc.), hein ?, quoi ?||||||
-535|ça (quelque chose de mentionné précédemment qui est éloigné psychologiquement ou en termes de temps)||||||
-536|par là (direction distante à la fois du locuteur et de l'auditeur), là bas, là||||||
-537|celui-là (quelque chose physiquement éloigné du locuteur et de l'auditeur, ou quelque chose non visible mais connu à la fois par le locuteur et l'auditeur), ça, cela||||||
-538|cette personne là (quelqu'un physiquement éloigné du locuteur et de l'auditeur, ou quelqu'un non présent mais connu à la fois par le locuteur et l'auditeur)||||||
-539|là (endroit distant à la fois du locuteur et de l'auditeur), là-bas, pays étranger (en part. un pays occidental)||||||
-540|par là (direction distance du locuteur, proche de l'auditeur)||||||
-541|là (endroit éloigné du locuteur, proche de l'auditeur)||||||
-542|celui-là (quelque chose proche de l'auditeur)||||||
-543|vous, votre famille, votre entreprise||||||
-544|cette personne (proche, physiquement ou mentalement, de son interlocuteur)||||||
-545|ça (indique quelque chose ou quelqu'un de proche de l'auditeur, l'action de l'auditeur, ou l'objet de leur pensée) , cela||||||
-546|ce moment-là, ce temps-là, cette époque-là||||||
-547|là (indiquant un endroit près de l'auditeur)||||||
-548|vous||||||
-549|c'est moi qui m'excuse|A|||||
-550|encore, plus, plus longtemps, plus loin|A|||||
-551|maintenant, bientôt, rapidement, prochainement, d'ici peu, tout à l'heure, tout de suite, actuellement|A|||||
-552|déjà, encore, maintenant, (ne) plus|A|||||
-553|plus, plus loin, et aussi, encore, un autre, l'autre|A|||||
-554|interjection utilisé pour renforcer l'expression d'une émotion (souvent l'exaspération)|A|||||
-555|rien (avec les verbes négatifs) , aucun||||||
-556|et tout le reste (avec un nom plus « mo »), tout||||||
-557|particulièrement, spécialement|A|||||
-558|quelque chose|A|||||
-559|sûrement, sans aucun doute, presque certainement, le plus probable (par ex. 90%)||||||
-560|fermement, sévèrement||||||
-561|n'ayant pas de mou, rigide, raide, serré||||||
-562|tout à coup, soudainement, brusquement, immédiatement||||||
-563|ça (quelque chose ou quelqu'un éloigné de l'orateur, proche de l'auditeur ; actions de l'auditeur, ou les idées exprimées ou comprises par l'auditeur)||||||
-564|hum..., euh...||||||
-565|tel (telle, tels, telles ; à propos des actions de l'auditeur, ou des idées exprimées ou comprises par l'auditeur), pareil, semblable, cette sorte de||||||
-566|tel (à propos de quelqu'un ou quelque chose de distant à la fois du locuteur et de l'auditeur, ou d'une situation inconnue à la fois du locuteur et de l'auditeur), un tel, ça, cette sorte de, comme ça, de cette façon|A|||||
-567|ça (quelqu'un ou quelque chose de distant à la fois du locuteur et de l'auditeur, ou situation inconnue à la fois du locuteur et de l'auditeur)|P|||||
-568|ce (quelque chose ou quelqu'un proche du locuteur (incluant le locuteur), ou des idées exprimés par le locuteur), celui-ci, celui-là|A|||||
-569|cette sorte de (utilisé à propos de quelque chose ou quelqu'un de proche du locuteur (y-compris le locuteur lui-même), ou à propos d'idées exprimées par le locuteur), comme ceci|A|||||
-570|de toute façon, de toute manière, dans tous les cas, à tout prix, après tout, du tout, quel que soit, peu importe|A|||||
-571|au mieux, au plus|A|||||
-572|d'abord, pour le moment|A|||||
-573|bien sûr, certainement, naturellement|A|||||
-574|évidemment, bien sur|A|||||
-575|circonstances, condition, occasion, opportunité||||||
-576|organiser, gérer||||||
-577|prêter de l'argent, récolter de l'argent||||||
-578|en tout, au total||||||
-579|c'est-à-dire, à savoir, en d'autres termes, autrement dit, je veux dire||||||
-580|en bref, en résumé, pour résumer, en fin de compte, à la fin, à long terme, en définitive, tout compte fait, quand tout se résume à, quand on arrive au fond des choses, fondamentalement||||||
-581|colmatage, obstruction, bouchage, rembourrage, (un certain degré de) blocage||||||
-582|rétrécissement||||||
-583|fin, conclusion||||||
-584|impasse, coin||||||
-585|détresse, être à bout de souffle||||||
-586|bon sang (expression d'exaspération)||||||
-587|peut-être, probablement||||||
-588|généreux, beaucoup, nombreux, grand||||||
-589|non|A|||||
-590|euh, hmm, pourquoi|A|||||
-591|de rien, je vous en prie, pas du tout|A|||||
-592|plus ou moins, mais pas tout à fait satisfaisant, d'une certaine manière, plutôt, grossièrement|A|||||
-593|provisoirement, pour le moment|A|||||
-594|au cas où|A|||||
-595|une fois|A|||||
-596|en grande partie, peut-être, presque entièrement||||||
-597|s'il vous plait, je vous en prie|A|||||
-598|allez-y, n'hésitez pas|A|||||
-599|voilà, tenez|A|||||
-600|déménager|VsuruI|||||
+513|faire en tant que faveur|VC|[tu/il/elle] [fais/fait/es/est] X en tant que faveur pour moi. Forme polite de "te kureru".|Y ga Z wo X kudasaru @ X = verbe en forme "te", Y = personne faisant la faveur, Z = objet de la faveur|||te itadaku
+514|proportion, rapport, ratio||||||
+515|comparativement||||||
+516|contrairement aux attentes||||||
+517|chaque||||||
+518|tous, tout le monde|A|||||
+519|tout|A|||||
+520|par ici (direction proche du locuteur ou vers lui), cette direction||||||
+521|ici (endroit où le locuteur se trouve, ou proche de lui)||||||
+522|celui-ci (quelque chose de physiquement proche de l'orateur)||||||
+523|je, moi, nous||||||
+524|cette personne (quelqu'un physiquement proche de l'orateur et d'un statut égal ou supérieur)||||||
+525|ceci (indiquant un élément près du locuteur, de l'action du locuteur, ou le sujet en cours)||||||
+526|maintenant||||||
+527|ici||||||
+528|je (moi)||||||
+529|certainement||||||
+530|çà (indique quelque chose de distant du locuteur et de l'auditeur, (dans le temps, l'espace ou psychologiquement), ou quelque chose de compréhensible implicitement), celui-là||||||
+531|cette personne (utilisé pour faire référence à ses égaux ou inférieurs)||||||
+532|là-bas||||||
+533|en bas (par ex. les organes génitaux)||||||
+534|règles, menstruations||||||
+535|hé (expression de surprise, de suspicion, etc.), hein ?, quoi ?||||||
+536|ça (quelque chose de mentionné précédemment qui est éloigné psychologiquement ou en termes de temps)||||||
+537|par là (direction distante à la fois du locuteur et de l'auditeur), là bas, là||||||
+538|celui-là (quelque chose physiquement éloigné du locuteur et de l'auditeur, ou quelque chose non visible mais connu à la fois par le locuteur et l'auditeur), ça, cela||||||
+539|cette personne là (quelqu'un physiquement éloigné du locuteur et de l'auditeur, ou quelqu'un non présent mais connu à la fois par le locuteur et l'auditeur)||||||
+540|là (endroit distant à la fois du locuteur et de l'auditeur), là-bas, pays étranger (en part. un pays occidental)||||||
+541|par là (direction distance du locuteur, proche de l'auditeur)||||||
+542|là (endroit éloigné du locuteur, proche de l'auditeur)||||||
+543|celui-là (quelque chose proche de l'auditeur)||||||
+544|vous, votre famille, votre entreprise||||||
+545|cette personne (proche, physiquement ou mentalement, de son interlocuteur)||||||
+546|ça (indique quelque chose ou quelqu'un de proche de l'auditeur, l'action de l'auditeur, ou l'objet de leur pensée) , cela||||||
+547|ce moment-là, ce temps-là, cette époque-là||||||
+548|là (indiquant un endroit près de l'auditeur)||||||
+549|vous||||||
+550|c'est moi qui m'excuse|A|||||
+551|encore, plus, plus longtemps, plus loin|A|||||
+552|maintenant, bientôt, rapidement, prochainement, d'ici peu, tout à l'heure, tout de suite, actuellement|A|||||
+553|déjà, encore, maintenant, (ne) plus|A|||||
+554|plus, plus loin, et aussi, encore, un autre, l'autre|A|||||
+555|interjection utilisé pour renforcer l'expression d'une émotion (souvent l'exaspération)|A|||||
+556|rien (avec les verbes négatifs) , aucun||||||
+557|et tout le reste (avec un nom plus « mo »), tout||||||
+558|particulièrement, spécialement|A|||||
+559|quelque chose|A|||||
+560|sûrement, sans aucun doute, presque certainement, le plus probable (par ex. 90%)||||||
+561|fermement, sévèrement||||||
+562|n'ayant pas de mou, rigide, raide, serré||||||
+563|tout à coup, soudainement, brusquement, immédiatement||||||
+564|ça (quelque chose ou quelqu'un éloigné de l'orateur, proche de l'auditeur ; actions de l'auditeur, ou les idées exprimées ou comprises par l'auditeur)||||||
+565|hum..., euh...||||||
+566|tel (telle, tels, telles ; à propos des actions de l'auditeur, ou des idées exprimées ou comprises par l'auditeur), pareil, semblable, cette sorte de||||||
+567|tel (à propos de quelqu'un ou quelque chose de distant à la fois du locuteur et de l'auditeur, ou d'une situation inconnue à la fois du locuteur et de l'auditeur), un tel, ça, cette sorte de, comme ça, de cette façon|A|||||
+568|ça (quelqu'un ou quelque chose de distant à la fois du locuteur et de l'auditeur, ou situation inconnue à la fois du locuteur et de l'auditeur)|P|||||
+569|ce (quelque chose ou quelqu'un proche du locuteur (incluant le locuteur), ou des idées exprimés par le locuteur), celui-ci, celui-là|A|||||
+570|cette sorte de (utilisé à propos de quelque chose ou quelqu'un de proche du locuteur (y-compris le locuteur lui-même), ou à propos d'idées exprimées par le locuteur), comme ceci|A|||||
+571|de toute façon, de toute manière, dans tous les cas, à tout prix, après tout, du tout, quel que soit, peu importe|A|||||
+572|au mieux, au plus|A|||||
+573|d'abord, pour le moment|A|||||
+574|bien sûr, certainement, naturellement|A|||||
+575|évidemment, bien sur|A|||||
+576|circonstances, condition, occasion, opportunité||||||
+577|organiser, gérer||||||
+578|prêter de l'argent, récolter de l'argent||||||
+579|en tout, au total||||||
+580|c'est-à-dire, à savoir, en d'autres termes, autrement dit, je veux dire||||||
+581|en bref, en résumé, pour résumer, en fin de compte, à la fin, à long terme, en définitive, tout compte fait, quand tout se résume à, quand on arrive au fond des choses, fondamentalement||||||
+582|colmatage, obstruction, bouchage, rembourrage, (un certain degré de) blocage||||||
+583|rétrécissement||||||
+584|fin, conclusion||||||
+585|impasse, coin||||||
+586|détresse, être à bout de souffle||||||
+587|bon sang (expression d'exaspération)||||||
+588|peut-être, probablement||||||
+589|généreux, beaucoup, nombreux, grand||||||
+590|non|A|||||
+591|euh, hmm, pourquoi|A|||||
+592|de rien, je vous en prie, pas du tout|A|||||
+593|plus ou moins, mais pas tout à fait satisfaisant, d'une certaine manière, plutôt, grossièrement|A|||||
+594|provisoirement, pour le moment|A|||||
+595|au cas où|A|||||
+596|une fois|A|||||
+597|en grande partie, peut-être, presque entièrement||||||
+598|s'il vous plait, je vous en prie|A|||||
+599|allez-y, n'hésitez pas|A|||||
+600|voilà, tenez|A|||||
 601|grandir|VsuruI|||||
 602|se marier|VsuruI|||||
 603||VsuruT|||||
@@ -8490,8 +8490,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 8490|ouvrir les yeux, garder les yeux ouverts||||||
 8491|type de bonbon donné à un enfant après qu'il se soit réveillé d'une sieste||||||
 8492|brillant, remarquable, splendide|Ai|||||
-8493|souris, rat|N;Col|||||
-8494|gris foncé, (couleur) ardoise|N;Col|||||
+8493|souris, rat||||||
+8494|gris foncé, (couleur) ardoise||||||
 8495|aspirateur||||||
 8496|fleuriste|N;Pl|||||
 8497|lettre de recommandation|N;GO|||||
@@ -13317,7 +13317,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 13317|venir|CE|||||
 13318|aller|CE|||||
 13319|être satisfait de, convenir|CE|||||
-13320|être utile||||||
+13320|être utile|CE|||||
 13321|arriver à temps, être à l'heure|CE|||||
 13322|convenir, remplir (atteindre) l'objectif, suffir|CE|||||
 13323|faire (avec), s'arranger (de)|CE|||||
