@@ -623,6 +623,12 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         boolean preparedIsLatin = mPreparedQueryTextType == Globals.TYPE_LATIN;
         boolean preparedIsKana = mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA;
         boolean preparedIsKanji = mPreparedQueryTextType == Globals.TYPE_KANJI;
+        boolean inputQueryFirstKanaIsVowel = preparedTranslHiraganaChar0 == 'あ'
+                || preparedTranslHiraganaChar0 == 'え'
+                || preparedTranslHiraganaChar0 == 'い'
+                || preparedTranslHiraganaChar0 == 'お'
+                || preparedTranslHiraganaChar0 == 'う'
+                || preparedTranslHiraganaChar0 == 'よ';
         currentFamilyConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get("su"));
 
         //There's no point in checking again if the input query is part of the family conjugation,
@@ -719,8 +725,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                             || romaji.contains("kuru")
                             || romaji.equals("suru")
                             || romaji.equals("da") )
-                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && !romaji.contains(mPreparedCleaned))
-                        || ( preparedIsKana && mPreparedCleanedLength < 3 && !romaji.contains(mPreparedTranslRomaji))
+                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedCleaned))
+                        || ( preparedIsKana && mPreparedCleanedLength < 3 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedTranslRomaji))
                         || ( preparedIsKanji && mPreparedCleanedLength < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
                         || (onlyRetrieveShortRomajiVerbs && romaji.length() > 4)     ) {
                     continue;
