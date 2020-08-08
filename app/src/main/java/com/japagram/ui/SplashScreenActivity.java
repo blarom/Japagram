@@ -93,6 +93,12 @@ public class SplashScreenActivity extends BaseActivity {
             Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
         }
 
+        if (UtilitiesPrefs.getAppPreferenceDbVersionCentral(this) != Globals.CENTRAL_DB_VERSION) {
+            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(this, false);
+        }
+        if (UtilitiesPrefs.getAppPreferenceDbVersionKanji(this) != Globals.KANJI_DB_VERSION) {
+            UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(this, false);
+        }
         mTicks = 0;
         countDownTimer = new CountDownTimer(3600000, 500) {
 
@@ -100,7 +106,7 @@ public class SplashScreenActivity extends BaseActivity {
             public void onTick(long l) {
 
                 //Delaying the start of db loading if the app uses too much memory
-                boolean finishedLoadingCentralDatabase = UtilitiesPrefs.getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
+                boolean finishedLoadingCentralDatabase = UtilitiesPrefs.getAppPreferenceCentralDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
                 boolean finishedLoadingKanjiDatabase = UtilitiesPrefs.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
 
                 if (mTicks >= 2) {

@@ -151,7 +151,7 @@ public final class UtilitiesPrefs {
         return sharedPref.getBoolean(context.getString(R.string.database_finished_loading_flag), false);
     }
 
-    public static void setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(Context context, boolean flag) {
+    public static void setAppPreferenceCentralDatabasesFinishedLoadingFlag(Context context, boolean flag) {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -160,7 +160,7 @@ public final class UtilitiesPrefs {
         }
     }
 
-    public static boolean getAppPreferenceWordVerbDatabasesFinishedLoadingFlag(@NotNull Context context) {
+    public static boolean getAppPreferenceCentralDatabasesFinishedLoadingFlag(@NotNull Context context) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
         return sharedPref.getBoolean(context.getString(R.string.word_and_verb_database_finished_loading_flag), false);
     }

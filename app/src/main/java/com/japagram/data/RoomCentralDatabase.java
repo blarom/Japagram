@@ -88,7 +88,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
 
         if (word().count() == 0) {
             word().nukeTable();
-            UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadCentralDatabaseIntoRoomDb(context);
@@ -96,7 +96,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             });
         }
         if (this.indexEnglish().count() == 0) {
-            UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, false);
+            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
@@ -108,7 +108,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                 UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
             });
-            UtilitiesPrefs.setAppPreferenceWordVerbDatabasesFinishedLoadingFlag(context, true);
+            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, true);
         }
 
     }
