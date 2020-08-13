@@ -1031,7 +1031,7 @@ public class UtilitiesDb {
 
         } else if (searchType == Globals.TYPE_KANJI) {
 
-            for (String word : query.getSearchQueriesRomaji()) {
+            for (String word : query.getSearchQueriesKanji()) {
                 length = word.length();
                 if (length > 5) {
                     adjectiveConjugation = word.substring(length - 5);
