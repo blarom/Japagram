@@ -45,21 +45,21 @@ Index|Explanation|Rules|Example
 45|What is it called?||705
 46|What is X's name?||706;698
 47|Literally means "cannot be known".|X kamo shirenai @ X = verb plain form (incl. plain neg. or past)|1215;751;1216
-48||X kamo shirenai da @ X = i-adj.|842
-49||X kamo shirenai da @ X = na-adj.|
-50||X kamo shirenai da @ X = noun|316;507
+48||X kamo shirenai da @ X = i-adj./na-adj./noun|842;316;507
+49|||
+50|||
 51|Used at the end of a sentence to provide emphasis when giving information. Use "yo" for male and "da yo"/"wa yo"  for female colloquial speech.|X yo / X n da yo / X wa yo @ X = verb|805
 52||X yo / X da yo / X wa yo @ X = noun/na-adj./i-adj.|
 53||X ka @ X = verb|808;1266
 54||Raise tone and omit "ka" when question is in plain form.|809
 55||"kai" or "kae" also used in familiar language.|
 56|Used similarly to the interrogative "ka" after a verb, "ka naa" is used by males and "ka shira" by females.|X ka naa/ka shira|1348
-57|"no" is sometimes used to stress the uncertaintyl/doubt.|X no ka naa/ka shira @ X = verb, i-adj.|
-58||X na no ka naa/ka shira @ X = noun, na-adj.|
-59||X ga Y @ X = object, Y = normal verb in tai form|813
-60||X ga Y @ X = object, Y = normal verb in eru form (all tenses)|335
-61||X ga Y @ X = object, Y = normal verb in passive form|
-62||X ga Y @ X = object, Y = normal verb in other special tenses|
+57|"no" is sometimes used to stress the uncertaintyl/doubt.|X no ka naa/ka shira @ X = verb, i-adj.%X na no ka naa/ka shira @ X = noun, na-adj.|
+58|Y like X.|X mitai na Y @ X = noun%X mitai ni Y @ Y = verb/i-adj/na-adj|107
+59||X ga Y @ X = object, Y = normal verb in tai form / eru form (all tenses) / passive form / other special tenses|813;335
+60|||
+61|||
+62|||
 63||X ga Y @ X = object, Y = ii, warui, suki, kirai|
 64||X ga @ X = unknown subject|814
 65||X ga @ X = response to question about subject|815
@@ -75,8 +75,8 @@ Index|Explanation|Rules|Example
 75||X (no) toori/doori (ni) @ X = noun|864;1501
 76|It would be best if X. Used to emphasize an action or state of being.|X hou ga ii da @ X = verb ta form for affirmative phrase|865;423
 77||X hou ga ii da @ X = verb nai form for negative phrase|866;1395
-78|It seems that [I/you/he/she] does/is X.|X mitai da @ X = verb plain form|868
-79||X mitai da @ X = noun|869
+78|It seems that [I/you/he/she] does/is X.|X mitai da @ X = verb plain form/noun|868;869
+79|It looks like X / Y looks like X.|X mitai da @ X = noun%X mitai na Y @ X = noun%X mitai ni Y @ Y = verb/i-adj/na-adj|105
 80|(He) seems to [do/be] X / (I've) heard that X (from what I can see). Note that there are two verb constructions involving "sou", with different meanings.|X sou @ X = verb root (for plain present), verb plain form (for other tenses)|871;1082;1327;1328
 81||X sou ni / sou mo nai @ X = verb masu stem|877;878
 82||X sou @ X = i-adj. root (exceptions: ii >> yosasou)|872;873;874;879
@@ -180,9 +180,9 @@ Index|Explanation|Rules|Example
 180|I don't Y if X is ... or not|X ka dou ka Y @ X = plain verb, Y = know/think/believe/etc..|1018;1019
 181||X ka dou ka Y @ X = i-adj, Y = know/think/believe/etc..|1020;1021
 182||X ka dou ka Y @ X = na-adj/noun, Y = know/think/believe/etc..|1022;1023
-183|Is supposed to [do/be] X.|X hazu da @ X = verb dict. form, i-adj.|1024;1025;1026
-184||X na hazu da @ X = na-adj.|1027
-185||X no hazu da @ X = noun|1028
+183|Is supposed to [do/be] X.|X hazu da @ X = verb dict. form, i-adj.%X na hazu da @ X = na-adj.%X no hazu da @ X = noun|1024;1025;1026;1027;1028
+184|||
+185|||
 186||X hazu ga/wa nai @ X = verb nai form (double negative sentence)|1029
 187||X hazu da @ X = i-adj. negative (double negative sentence)|1030
 188||X na hazu da @ X = na-adj. negative (double negative sentence)|
@@ -219,12 +219,12 @@ Index|Explanation|Rules|Example
 219||Y X na yori @ X/Y = na-adj. present|
 220|Between/of X and Y.|X noto Y noto/nanoto @ X = noun, verb, i-adj.|1055;1056
 221||X nanoto Y noto/nanoto @ X = na-adj.|1054
-222|X seems to be like Y, X looks like Y.|X you na Y @ X = action, Y = noun|996;997;1423
-223||X you ni Y @ X = action, Y = verb|998;999
-224||X no you ni Y @ X = noun, Y = noun|1002;1003
-225||X no you na Y @ X = noun, Y = verb|1000;1001
-226||X sou na Y @ X = i-adj., Y = noun|1422
-227||X sou na Y @ X = na-adj., Y = noun|
+222|Presumption: it looks like X, it might be X.|X you da @ X = verb plain form, i-adj.%X na you da @ X = na-adj.%X no you da @ X = noun|108
+223|Simile (comparison): X seems to be like Y, X looks like Y.|X you da @ X = verb plain form%X no you da @ X = noun%X you na Y @ X = verb plain form, Y = noun%X no you na Y @ X/Y = noun%X you ni Y @ X/Y = verb plain form|996;997;998;999;1423
+224|As an example of something: X is like Y.|X you na Y @ X = verb plain form, Y = noun%X no you ni Y @ X = noun, Y = verb/na-adj/i-adj%X no you na Y @ X/Y = noun|1000;1001;1002;1003
+225|||
+226|||
+227|||
 228|After X.|X no ato (de) @ X = noun|1057;1058;464
 229||X ato @ X = noun (higher form)|1059
 230||X ato de @ X = action verb plain past|1060;1456
@@ -256,3 +256,7 @@ Index|Explanation|Rules|Example
 256||X na no yara Y (na) no yara @ X = na-adj.|
 257|Say/tell that X.|X da to tsutaeru @ X = noun/na-adj.|
 258||X to tsutaeru @ X = verb plain form/i-adj.|
+259|Isn't it X|X na njanai @ X = noun/na-adj.|
+260||X njanai @ X = verb plain form/i-adj.|
+261|Isn't it X. Politer form of "njanai".|X na no dewa nai @ X = noun/na-adj.|
+262||X no dewa nai @ X = verb plain form/i-adj.|

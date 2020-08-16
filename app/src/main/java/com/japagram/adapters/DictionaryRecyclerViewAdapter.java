@@ -621,19 +621,23 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     TextView rulesHeaderTV = addHeaderField(meaningExplanationsLL, SpannableString.valueOf(mContext.getString(R.string.how_it_s_used_)));
                     rulesHeaderTV.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
 
-                    String[] parsedRule = rules.split(RULE_DELIMITER);
+                    String[] ruleLines = rules.split("%");
                     Spanned spanned_rule;
-                    if (parsedRule.length == 1) { // If the rule doesn't have a "where" clause
-                        typeAndMeaningHtml = rules;
-                        spanned_rule = Utilities.fromHtml(typeAndMeaningHtml);
-                    } else {
-                        typeAndMeaningHtml = parsedRule[0] +
-                                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
-                                mContext.getString(R.string._where_) +
-                                "</font>" +
-                                parsedRule[1];
-                        spanned_rule = Utilities.fromHtml(typeAndMeaningHtml);
+                    List<String> typeAndMeaningHtml_list = new ArrayList<>();
+                    for (String ruleLine : ruleLines) {
+                        if (ruleLine.contains(RULE_DELIMITER)) {
+                            String[] parsedRule = ruleLine.split(RULE_DELIMITER);
+                            typeAndMeaningHtml = parsedRule[0] +
+                                    "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
+                                    mContext.getString(R.string._where_) +
+                                    "</font>" +
+                                    parsedRule[1];
+                        } else {
+                            typeAndMeaningHtml = ruleLine;
+                        }
+                        typeAndMeaningHtml_list.add(typeAndMeaningHtml);
                     }
+                    spanned_rule = Utilities.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
                     addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(spanned_rule));
                 }
                 //endregion

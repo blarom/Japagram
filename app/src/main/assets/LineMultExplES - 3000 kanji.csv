@@ -45,21 +45,21 @@ Index|Explanation|Rules|Example
 45|¿Cómo se llama eso?||705
 46|¿Cuál es el sustantivo de X?||706;698
 47|Literalmente significa "no puede ser conocido".|X kamo shirenai @ X = verbo forma simple (incl. plain neg. o past)|1215;751;1216
-48||X kamo shirenai da @ X = adj. "i"|842
-49||X kamo shirenai da @ X = adj. "na"|
-50||X kamo shirenai da @ X = sustantivo|316;507
+48||X kamo shirenai da @ X = adj. "i"/adj. "na"/sustantivo|842;316;507
+49|||
+50|||
 51|Se usa al final de una frase para dar énfasis al dar información. Use "yo" para el habla coloquial masculino y "da yo"/"wa yo" para el habla coloquial femenina.|X yo / X n da yo / X wa yo @ X = verbo|805
 52||X yo / X da yo / X wa yo @ X = sustantivo/adj. "na"/adj. "i"|
 53||X ka @ X = verbo|808;1266
 54||Aumente el tono y omita "ka" cuando la pregunta esté en forma simple.|809
 55||"kai" o "kae" también usado en lenguaje familiar|
 56|Utilizado de manera similar al "ka" interrogativo después de un verbo, "ka naa" es usado por los hombres y "ka shira" por las mujeres.|X ka naa/ka shira|1348
-57|"no" se usa a veces para enfatizar la incertidumbre/duda.|X no ka naa/ka shira @ X = verbo, adj. "i"|
-58||X na no ka naa/ka shira @ X = sustantivo, adj. "na"|
-59||X ga Y @ X = object, Y = verbo normal en forma "tai"|813
-60||X ga Y @ X = object, Y = verbo normal en forma "eru" (todos los tiempos)|335
-61||X ga Y @ X = object, Y = verbo normal en forma pasiva|
-62||X ga Y @ X = object, Y = verbo normal en otros tiempos especiales|
+57|"no" se usa a veces para enfatizar la incertidumbre/duda.|X no ka naa/ka shira @ X = verbo, adj. "i"%X na no ka naa/ka shira @ X = sustantivo, adj. "na"|
+58|Y como X.|X mitai na Y @ X = sustantivo%X mitai ni Y @ Y = verbo/adj. "i"/adj. "na"|107
+59||X ga Y @ X = object, Y = verbo normal en forma "tai" / "eru" (todos los tiempos) / pasiva / otra|813;335
+60|||
+61|||
+62|||
 63||X ga Y @ X = object, Y = ii, warui, suki, kirai|
 64||X ga @ X = sujeto desconocido|814
 65||X ga @ X = respuesta a una pregunta sobre el sujeto|815
@@ -75,8 +75,8 @@ Index|Explanation|Rules|Example
 75||X (no) toori/doori (ni) @ X = sustantivo|864;1501
 76|Sería mejor si X. Se utiliza para enfatizar una acción o estado de ser.|X hou ga ii da @ X = verbo en forma "ta" para frases afirmativas|865;423
 77||X hou ga ii da @ X = verbo en forma "nai" para frases negativas|866;1395
-78|Parece que [yo/tu/él/ella] [hago/haces/hace/soy/eres/es] X.|X mitai da @ X = verbo forma simple|868
-79||X mitai da @ X = sustantivo|869
+78|Parece que [yo/tu/él/ella] [hago/haces/hace/soy/eres/es] X.|X mitai da @ X = verbo forma simple/sustantivo|868;869
+79|Eso parece X / Y parece X.|X mitai da @ X = sustantivo%X mitai na Y @ X = sustantivo%X mitai ni Y @ Y = verbo/adj. "i"/adj. "na"|105
 80|(Él) parece [hacer/ser] X/(He) escuchado que X (por lo que puedo ver). Tenga en cuenta que hay dos construcciones verbales que implican "sou", con diferentes significados.|X sou @ X = raíz de verbo (para presente simple), verbo forma simple (para otros tiempos)|871;1082;1327;1328
 81||X sou ni / sou mo nai @ X = verbo en forma "masu"|877;878
 82||X sou @ X = raíz de adj. "i" (excepción: ii >> yosasou)|872;873;874;879
@@ -180,9 +180,9 @@ Index|Explanation|Rules|Example
 180|Yo no Y si X es ... o no|X ka dou ka Y @ X = verbo en forma simple, Y = saber/pensar/creer/etc..|1018;1019
 181||X ka dou ka Y @ X = i-adj, Y = saber/pensar/creer/etc..|1020;1021
 182||X ka dou ka Y @ X = adj. "na"/sustantivo, Y = saber/pensar/creer/etc..|1022;1023
-183|Se supone que debe [hacer/ser] X.|X hazu da @ X = verbo en forma dicc., adj. "i"|1024;1025;1026
-184||X na hazu da @ X = adj. "na"|1027
-185||X no hazu da @ X = sustantivo|1028
+183|Se supone que debe [hacer/ser] X.|X hazu da @ X = verbo en forma dicc., adj. "i"%X na hazu da @ X = adj. "na"%X no hazu da @ X = sustantivo|1024;1025;1026;1027;1028
+184|||
+185|||
 186||X hazu ga/wa nai @ X = verbo en forma "nai" (frase doble negativa)|1029
 187||X hazu da @ X = adj. "i" negativo (frase doble negativa)|1030
 188||X na hazu da @ X = adj. "na" negativo (frase doble negativa)|
@@ -219,12 +219,12 @@ Index|Explanation|Rules|Example
 219||Y X na yori @ X/Y = adj. "na" presento|
 220|Entre X y Y.|X noto Y noto/nanoto @ X = sustantivo, verbo, adj. "i"|1055;1056
 221||X nanoto Y noto/nanoto @ X = adj. "na"|1054
-222|X parece ser Y, X se parece a Y.|X you na Y @ X = action, Y = sustantivo|996;997;1423
-223||X you ni Y @ X = action, Y = verbo|998;999
-224||X no you ni Y @ X = sustantivo, Y = sustantivo|1002;1003
-225||X no you na Y @ X = sustantivo, Y = verbo|1000;1001
-226||X sou na Y @ X = adj. "i", Y = sustantivo|1422
-227||X sou na Y @ X = adj. "na", Y = sustantivo|
+222|Presunción: parece X, es posible que X.|X you da @ X = verbo forma simple, adj. "i"%X na you da @ X = adj. "na"%X no you da @ X = sustantivo|108
+223|Símil (comparación): X parece ser Y, X se parece a Y.|X you da @ X = verbo forma simple%X no you da @ X = sustantivo%X you na Y @ X = verbo forma simple, Y = sustantivo%X no you na Y @ X/Y = sustantivo%X you ni Y @ X/Y = verbo forma simple|996;997;998;999;1423
+224|Ejemplo de algo: X es como Y.|X you na Y @ X = verbo forma simple, Y = sustantivo%X no you ni Y @ X = sustantivo, Y = verbo/na-adj/i-adj%X no you na Y @ X/Y = sustantivo|1000;1001;1002;1003
+225|||
+226|||
+227|||
 228|Despues de X.|X no ato (de) @ X = sustantivo|1057;1058;464
 229||X ato @ X = sustantivo (forma más limpia)|1059
 230||X ato de @ X = verbo de acción en pasado simple|1060;1456
@@ -256,3 +256,7 @@ Index|Explanation|Rules|Example
 256||X na no yara Y (na) no yara @ X = adj. "na"|
 257|Decir que X.|X da to tsutaeru @ X = sustantivo/adj. "na"|
 258||X to tsutaeru @ X = verbo forma simple/adj. "i"|
+259|no es X|X na njanai @ X = sustantivo/adj. "na"|
+260||X njanai @ X = verbo forma simple/adj. "i"|
+261|no es X. Forma cortés de "njanai".|X na no dewa nai @ X = sustantivo/adj. "na"|
+262||X no dewa nai @ X = verbo forma simple/adj. "i"|

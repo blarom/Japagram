@@ -45,20 +45,20 @@ Index|Explanation|Rules|Example
 45|Comment est-ce que ça s'appelle?||705
 46|Quel est le nom de X?||706;698
 47|Littéralement signifie "ne peut pas être connu".|X kamo shirenai @ X = verbe forme simple (incl. plain neg. ou past)|1215;751;1216
-48||X kamo shirenai da @ X = adj. "i"|842
-49||X kamo shirenai da @ X = adj. "na"|
-50||X kamo shirenai da @ X = nom|316;507
+48||X kamo shirenai da @ X = adj. "i"/adj. "na"/nom|842;316;507
+49|||
+50|||
 51|Utilisé à la fin d'une phrase informative pour l'accentuer. Utilisez "yo" pour le discours masculin et "da yo"/"wa yo" pour le discours féminin.|X yo/X n da yo/X wa yo @ X = verbe|805
 52||X yo/X da yo/X wa yo @ X = nom/adj. "na"/adj. "i"|
 53||X ka @ X = verbe|808;1266
 54||Élevez le ton et omettez le "ka" lorsque la question est en forme simple.|809
 55||"kai" ou "kae" également utilisé dans un langage familier.|
 56|Utilisé de manière similaire à l'interrogatif "ka" après un verbe, "ka naa" est utilisé par les hommes et "ka shira" par les femmes.|X ka naa/ka shira|1348
-57|"no" est parfois utilisé pour souligner l'incertitude/le doute.|X no ka naa/ka shira @ X = verbe, adj. "i"|
-58||X na no ka naa/ka shira @ X = nom, adj. "na"|
-59||X ga Y @ X = object, Y = verbe normal en forme "tai"|813
-60||X ga Y @ X = object, Y = verbe normal en forme "eru" (tous les temps)|335
-61||X ga Y @ X = object, Y = verbe normal en forme passive|
+57|"no" est parfois utilisé pour souligner l'incertitude/le doute.|X no ka naa/ka shira @ X = verbe, adj. "i"%X na no ka naa/ka shira @ X = nom, adj. "na"|
+58|Y comme X.|X mitai na Y @ X = nom%X mitai ni Y @ Y = verbe/adj. "i"/adj. "na"|107
+59||X ga Y @ X = object, Y = verbe normal en forme "tai" / "eru" (tous les temps) / passive / autre|813;335
+60|||
+61|||
 62||X ga Y @ X = object, Y = verbe normal dans d'autres temps spéciaux|
 63||X ga Y @ X = object, Y = ii, warui, suki, kirai|
 64||X ga @ X = sujet inconnu|814
@@ -75,8 +75,8 @@ Index|Explanation|Rules|Example
 75||X (no) toori/doori (ni) @ X = nom|864;1501
 76|Ce serait mieux si X. Utilisé pour souligner une action ou un état d'être.|X hou ga ii da @ X = verbe en forme "ta" pour phrases affirmatives|865;423
 77||X hou ga ii da @ X = verbe en forme "nai" pour phrases négatives|866;1395
-78|Il semble que [je/tu/il/elle] fasse/soit X.|X mitai da @ X = verbe forme simple|868
-79||X mitai da @ X = nom|869
+78|Il semble que [je/tu/il/elle] fasse/soit X.|X mitai da @ X = verbe forme simple/nom|868;869
+79|Ça resemble à X / Y resemble à X.|X mitai da @ X = nom%X mitai na Y @ X = nom%X mitai ni Y @ Y = verbe/adj. "i"/adj. "na"|105
 80|(Il) semble [faire/être] X/(j'ai) entendu dire que X (d'après ce que je peux voir). Notez qu'il existe deux constructions de verbe utilisant "sou", avec des significations différentes.|X sou @ X = racine de verbe (pour présent simple), verbe forme simple (pour autres temps)|871;1082;1327;1328
 81||X sou ni/sou mo nai @ X = verbe en forme "masu"|877;878
 82||X sou @ X = racine d'adj. "i" (exception: ii >> yosasou)|872;873;874;879
@@ -180,9 +180,9 @@ Index|Explanation|Rules|Example
 180|Je ne Y pas si X est ... ou non.|X ka dou ka Y @ X = verbe en forme simple, Y = savoir/penser/croire/etc..|1018;1019
 181||X ka dou ka Y @ X = i-adj, Y = savoir/penser/croire/etc..|1020;1021
 182||X ka dou ka Y @ X = adj. "na"/nom, Y = savoir/penser/croire/etc..|1022;1023
-183|Est censé [faire/être] X.|X hazu da @ X = verbe en forme dict., adj. "i"|1024;1025;1026
-184||X na hazu da @ X = adj. "na"|1027
-185||X no hazu da @ X = nom|1028
+183|Est censé [faire/être] X.|X hazu da @ X = verbe en forme dict., adj. "i"%X na hazu da @ X = adj. "na"%X no hazu da @ X = nom|1024;1025;1026;1027;1028
+184|||
+185|||
 186||X hazu ga/wa nai @ X = verbe en forme "nai" (phrase double-négative)|1029
 187||X hazu da @ X = adj. "i" négatif (phrase double-négative)|1030
 188||X na hazu da @ X = adj. "na" négatif (phrase double-négative)|
@@ -219,12 +219,12 @@ Index|Explanation|Rules|Example
 219||Y X na yori @ X/Y = adj. "na" présent|
 220|Entre X et Y.|X noto Y noto/nanoto @ X = nom, verbe, adj. "i"|1055;1056
 221||X nanoto Y noto/nanoto @ X = adj. "na"|1054
-222|X semble être comme Y, X ressemble à Y.|X you na Y @ X = action, Y = nom|996;997;1423
-223||X you ni Y @ X = action, Y = verbe|998;999
-224||X no you ni Y @ X = nom, Y = nom|1002;1003
-225||X no you na Y @ X = nom, Y = verbe|1000;1001
-226||X sou na Y @ X = adj. "i", Y = nom|1422
-227||X sou na Y @ X = adj. "na", Y = nom|
+222|Présomption: il a l'air que X, il est possible que X, il semble que X.|X you da @ X = verbe forme simple, adj. "i"%X na you da @ X = adj. "na"%X no you da @ X = nom|108
+223|Comparaison: X semble être comme Y, X ressemble à Y.|X you da @ X = verbe forme simple%X no you da @ X = nom%X you na Y @ X = verbe forme simple, Y = nom%X no you na Y @ X/Y = nom%X you ni Y @ X/Y = verbe forme simple|996;997;998;999;1423
+224|Exemple de quelque chose: X est comme Y.|X you na Y @ X = verbe forme simple, Y = nom%X no you ni Y @ X = nom, Y = verbe/adj. "na"/adj. "i"%X no you na Y @ X/Y = nom|1000;1001;1002;1003
+225|||
+226|||
+227|||
 228|Après X.|X no ato (de) @ X = nom|1057;1058;464
 229||X ato @ X = nom (forme plus polie)|1059
 230||X ato de @ X = verbe d'action au passé simple|1060;1456
@@ -256,3 +256,7 @@ Index|Explanation|Rules|Example
 256||X na no yara Y (na) no yara @ X = adj. "na"|
 257|Dis/raconte que X.|X da to tsutaeru @ X = nom/adj. "na"|
 258||X to tsutaeru @ X = verb forme simple/adj. "i"|
+259|N'est ce pas X.|X na njanai @ X = nom/adj. na|
+260||X njanai @ X = verbe forme simple/adj. "i"|
+261|N'est ce pas X. Forme polie de "njanai".|X na no dewa nai @ X = nom/adj. na|
+262||X no dewa nai @ X = verbe forme simple/adj. "i"|

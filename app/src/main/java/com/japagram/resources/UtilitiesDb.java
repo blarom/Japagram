@@ -602,11 +602,17 @@ public class UtilitiesDb {
             if (mInputQuery.equals(element.trim())) {
                 ranking -= 40;
                 break;
+            } else if (mInputQuery.equals(element.replace(" ","").trim())) {
+                ranking -= 30;
+                break;
             }
         }
 
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
         if (romaji_value.equals(mInputQuery) || kanji_value.equals(mInputQuery)) ranking = 0;
+        else if (romaji_value.replace(" ", "").equals(mInputQuery)) {
+            ranking -= 2000;
+        }
 
         //Penalizing for missing languages
         ranking += missingLanguagePenalty;

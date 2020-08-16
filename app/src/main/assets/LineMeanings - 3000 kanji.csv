@@ -52,12 +52,12 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 52|na-adjective marker|PP|Equivalent to "no" used to describe nouns.|X na @ X = na-adj.|807||
 53|don't|VC|Don't X. You are ordered not to [do/be] X.|X na @ X = verb plain form|||
 54|question marker, yes?, no?, isn't it?, is it?|PP|ME#0053;0054;0055||||
-55|don't know if yes or no, whether or not|PP|ME#0056;0057;0058||||
+55|don't know if yes or no, whether or not|PP|ME#0056;0057||||
 56|or|PP|X or Y.|X ka Y @ X/Y = noun|810||
 57|indicates doubt about the object|PC|I don't Y if X is ...|X ka Y @ X = question, Y = know/think/believe/etc..|1015||
 58|either … or|PP|either X or Y. "ka" is stated after each option.|X ka Y ka @ X = phrase|811||
 59|emphasis|PP|Used at the end of a sentence to emphasize it.|X ga|812||
-60|indicates sentence object|PP|ME#0059;0060;0061;0062;0063||||
+60|indicates sentence object|PP|ME#0059;0063||||
 61|indicates sentence subject (occasionally object)|PP|ME#0064;0065;0066;0067;0068||||
 62|but, however, still|CO|ME#0144;0145||||
 63|and|CO|ME#0146;0147;0148||||
@@ -111,7 +111,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 111|just the way it is|PC|ME#0071;0072;0073||||
 112|the way it is meant to be, as planned|PC|ME#0074;0075||||
 113|it would be best if|PC|ME#0076;0077||||
-114|seems that|PC|ME#0078;0079||||
+114|seems that, like|PC|ME#0078||||you da
 115|seems|PC|(He) seems to [do/be] X.|X rashii da @ X = verb plain form, noun|870||
 116|seems, heard that|PC|ME#0080;0081;0082;0083;0084||||
 117|heard that (negative)|PC|(I've) heard that (he's/it's) not X (from what I can see).|X ja/dewa nasasou @ X = noun|880||
@@ -202,7 +202,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 202|know/think/believe/see if is not|PC|Do you Y if X is ... or not?|X ka dou ka Y ka? @ X = question, Y = know/think/believe/see/etc..|1016;1017||
 203|I don't know/think/believe if is or not|PC|ME#0180;0181;0182||||
 204|In order to see if is or not|PC|In order to see if X is … or not.|X ka dou ka Y miru @ X = phrase, Y = verb in te-form|1349;1350||
-205|supposed to be/do, expected to be/do, should be/do, must be/do|PC|ME#0183;0184;0185;0186;0187;0188;0189||||
+205|supposed to be/do, expected to be/do, should be/do, must be/do|PC|ME#0183;0186;0187;0188;0189||||
 206|not supposed to be/do, expected not to be/do, should not be/do, must not be/do|PC|ME#0190;0191;0192;0193;0194;0195;0196||||
 207|certainly supposed to be/do|PC|ME#0197;0198;0199||||
 208|regrettably supposed to be/do|PC|ME#0200;0201;0202||||
@@ -220,7 +220,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 220|less than|PC|ME#0218;0219||||
 221|between|PC|ME#0220;0221||||
 222|less and a bit more|PC|Less X and a bit more Y.|X yori mou sukoshi Y @ Y = adj.|1057||
-223|looks like, appears to be|PC|ME#0222;0223;0224;0225;0226;0227||||
+223|looks like, appears to be|PC|ME#0222;0223;0224||||mitai da
 224|after|CO|ME#0228;0229;0230||||
 225|before|CO|ME#0231;0232||||
 226|and then, and so, and, so then, indicates continuing action|CO|ME#0233;0234||||
@@ -327,7 +327,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 327|may do?|VC|May [I/you/he/she] [do/be] X?|X mashou ka? @ X mashou = verb mashou form|||
 328|only do|VC|To only do X.|X dake da @ X = verb plain form|||
 329|has (just) recently done|VC|To have (just) recently done X.|X bakari @ X = verb ta form|1076;1419||
-330|ready to do|VC|To be ready to [do/be] X.|X bakari da @ X = verb dict. form|1078||
+330|ready to do|VC|To be ready to [do/be] X.|X bakari da @ X = verb dict. form|||
 331|have done just now|VC|To have [done/been] X just now.|X tokoro da @ X = verb ta form|||
 332|just about to do|VC|To be just about to [do/be] X.|X tokoro da @ X = verb dict. form|||
 333|be just in the middle of|VC|To be just in the middle of X-ing.|X tokoro da @ X = verb teiru form|||
@@ -468,9 +468,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 468|all, entire, whole, altogether|A;Dg|||653;1258;1355|subete, zenbu|
 469|in general, overall|A;Dg||||minna, zenbu|
 470|altogether, entirely|A;Dg|||||尽く
-471|usually|A;Dg|||649;650||
-472|approximately, about (quantity, time)|A;Dg|||633||
-473|just, only|A;Dg|||648||
+471|looks like, appears to be|PC|X seems to be like Y, X looks like Y.|X sou na Y @ X = i-adj., Y = noun|1422||
+472||-|||||
+473||-|||||
 474|always, without exception, necessarily, certainly, without fail, positively, invariably|A;Dg|||||
 475|approximately, about (quantity, time)|A;Dg|||632;141||
 476|approximately, about, at most|A;Dg|||1468;1469;1470||
@@ -694,13 +694,13 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 694|short|Ai||||nagai|
 695|short & simple|Ai|||||
 696|short (person)|Ai||||se ga takai|
-697||-|||||
+697|think that (but was mistaken)|PC|Think that X (but was mistaken).|X ka to omou @ X = noun, verb, na/i-adj.|||
 698|sleepy, drowsy, somnolent|Ai|||||
-699||-|||||
+699|speaking of|CE|||||
 700|small, little, tiny|Ai|||||
 701|small, fine, minute, minor, trivial, sensitive, attentive|Ai|||||
-702||-|||||
-703||-|||||
+702|speaking of|CE|Politer version of "toiuto".||||toiuto
+703|isn't it|CE|ME#0259;0260||||nodewanai
 704|soft, weak|Ai||||tsuyoi, joubu|yowai, hiyowai, hiyowa, yowacchii, yurui, usui, nayocchii, kasuka, hijaku, yawa
 705|sour, acid|Ai|||||
 706|spicy, hot|Ai|||||
@@ -708,7 +708,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 708|stinky, suspicious, fishy|Ai|||||
 709|strong, potent, competent, domineering, tough|Ai||||yowai, hiyowai, hiyowa, yowacchii, yurui, usui, yawai, nayocchii, kasuka, hijaku, yawa|joubu, kyouryoku
 710|strong, firm, tough|Ai||||yawarakai|
-711||-|||||
+711|isn't it|CE|ME#0261;0262||||njanai
 712|sweet-tasting, sweet, sugary, sugared|Ai|||||
 713|tall (person)|Ai||||se ga hikui|
 714|tasteless, nasty, tasting bad, disgusting|Ai||||oishii|
@@ -1075,7 +1075,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1075|sufficiency|N;MSE|||||
 1076|serious|Ana|||||
 1077|serious, important, significant, grave, weighty|Ana|||||
-1078|-like, sort of, similar to, resembling|Ana|Used colloquially.||||
+1078|-like, sort of, similar to, resembling|Ana|ME#0079;0058||||
 1079|simple, convenient, easy|Ana|||||
 1080|simplicity, convenience, easiness, quasi-|N;Abs|||||
 1081|simple, easy, straightforward, uncomplicated|Ana||||fukuzatsu, taihen|
@@ -1477,7 +1477,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1477|long time, eh?|CE|||1151||
 1478|may I come in|CE|||||
 1479|maybe not, possibly not|CE|||||
-1480|maybe, possibly, perhaps, seems to do/be|CE|ME#0047;0048;0049;0050||||
+1480|maybe, possibly, perhaps, seems to do/be|CE|ME#0047;0048||||
 1481|my favorite ...|CE|Literally means "enters my spirit".||1207||
 1482|my/their name is (polite)|CE|||||
 1483|near here|CE|||1222||
@@ -4672,7 +4672,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 4672|commit a crime|VkuI|||||
 4673||-|||||
 4674|come with|VkuI|||||
-4675|sit at (e.g. table)|VkuI|||||
+4675||-|||||
 4676|bloom|VkuI|||||
 4677||-|||||
 4678|reach, arrive, get through, get at|VkuI|||||
@@ -6874,9 +6874,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 6874|only, merely, nothing but, no more than|PP|||||
 6875|approximately, about|PP|||||
 6876|just (finished, etc.)|PP|||||
-6877|as if to, (as though) about to|PP|||||
+6877|as if to, (as though) about to, ready to do|PP|To be ready to [do/be] X.|X bakari da @ X = verb dict. form|||
 6878|indicates emphasis|PP|||||
-6879|always, constantly|PP|||||
+6879|always, constantly|PP|||649;650||
 6880|after (period of time) again (e.g. meeting again after a year), for the first time in (period of time)|Sx|||||
 6881|switchboard number, main number|N;Abs|||||
 6882|side (of something, or taking someone's side), part|N;Sx|||||
