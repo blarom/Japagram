@@ -1592,8 +1592,8 @@ public class UtilitiesDb {
 
                     int lenWithoutOpeningParenthesis = meaningElements.get(k).replace("(", "").length();
                     int lenWithoutClosingParenthesis = meaningElements.get(k).replace(")", "").length();
-                    if (lenWithoutOpeningParenthesis > lenWithoutClosingParenthesis) valueIsInParentheses = true;
-                    else if (lenWithoutOpeningParenthesis < lenWithoutClosingParenthesis) valueIsInParentheses = false;
+                    if (lenWithoutOpeningParenthesis < lenWithoutClosingParenthesis) valueIsInParentheses = true;
+                    else if (lenWithoutOpeningParenthesis > lenWithoutClosingParenthesis) valueIsInParentheses = false;
                 }
                 matchingWordMeaning = meaningFixed.toString();
             }
