@@ -1590,8 +1590,10 @@ public class UtilitiesDb {
 
                     if (k < meaningElements.size() - 1) meaningFixed.append(", ");
 
-                    if (meaningElements.get(k).contains("(") && !meaningElements.get(k).contains(")")) valueIsInParentheses = true;
-                    else if (!meaningElements.get(k).contains("(") && meaningElements.get(k).contains(")")) valueIsInParentheses = false;
+                    int lenWithoutOpeningParenthesis = meaningElements.get(k).replace("(", "").length();
+                    int lenWithoutClosingParenthesis = meaningElements.get(k).replace(")", "").length();
+                    if (lenWithoutOpeningParenthesis > lenWithoutClosingParenthesis) valueIsInParentheses = true;
+                    else if (lenWithoutOpeningParenthesis < lenWithoutClosingParenthesis) valueIsInParentheses = false;
                 }
                 matchingWordMeaning = meaningFixed.toString();
             }
