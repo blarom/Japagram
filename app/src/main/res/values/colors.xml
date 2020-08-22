@@ -31,18 +31,39 @@
     <color name="Black">#FF000000</color>
     <color name="White">#FFffffff</color>
     <color name="Blue">#FF0000ff</color>
+    <color name="LightBlue">#FFb3e5fc</color>
     <color name="Purple">#FF800080</color>
     <color name="peacefulBlue">#edf8ff</color>
     <color name="nightBlue">#1a1a1a</color>
+    <color name="yellow">#FFFFFF00</color>
+    <color name="LightYellow">#FFfff9c4</color>
+    <color name="DarkYellow">#FF333300</color>
     <color name="transparentWhite">#80ffffff</color>
     <color name="transparentBlack">#cc000000</color>
-    
-    <color name="colorPrimary">@color/appThemeRedBlack_colorPrimary</color>
-    <color name="colorPrimaryDark">@color/appThemeRedBlack_colorPrimaryDark</color>
-    <color name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</color>
-    <color name="colorAccent">@color/appThemeRedBlack_colorAccent</color>
-    <color name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</color>
-    <color name="colorAccentLight">@color/appThemeRedBlack_colorAccentLight</color>
+
+    <color name="appThemeBlueGreen_colorPrimary">#2e7d32</color>
+    <color name="appThemeBlueGreen_colorPrimaryDark">#005005</color>
+    <color name="appThemeBlueGreen_colorPrimaryLight">#60ad5e</color>
+    <color name="appThemeBlueGreen_colorAccent">#303f9f</color>
+    <color name="appThemeBlueGreen_colorAccentDark">#001970</color>
+    <color name="appThemeBlueGreen_colorAccentLight">#666ad1</color>
+    <color name="appThemeBlueGreen_colorSelectedOption">#1a2e7d32</color>
+
+    <color name="appThemeRedBlack_colorPrimary">#cf2e2e</color>
+    <color name="appThemeRedBlack_colorPrimaryDark">#960006</color>
+    <color name="appThemeRedBlack_colorPrimaryLight">#ff6458</color>
+    <color name="appThemeRedBlack_colorAccent">#424242</color>
+    <color name="appThemeRedBlack_colorAccentDark">#1b1b1b</color>
+    <color name="appThemeRedBlack_colorAccentLight">#6d6d6d</color>
+    <color name="appThemeRedBlack_colorSelectedOption">#1acf2e2e</color>
+
+    <color name="appThemeNightPurpleBlack_colorPrimary">#ba68c8</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryDark">#883997</color>
+    <color name="appThemeNightPurpleBlack_colorPrimaryLight">#ee98fb</color>
+    <color name="appThemeNightPurpleBlack_colorAccent">#e0e0e0</color>
+    <color name="appThemeNightPurpleBlack_colorAccentDark">#aeaeae</color>
+    <color name="appThemeNightPurpleBlack_colorAccentLight">#ffffff</color>
+    <color name="appThemeNightPurpleBlack_colorSelectedOption">#5c007a</color>
 
     <color name="color_arrowDay">@color/Black</color>
     <color name="color_arrowNight">@color/White</color>
@@ -59,15 +80,9 @@
     <!-- ****************************************************************************** -->
 
     <!-- ****************************************************************************** -->
-    <!-- **************************** Theme Colors - Start **************************** -->
+    <!-- **************************** Theme-depdendent colors - Start ***************** -->
     <!-- ****************************************************************************** -->
-    <color name="appThemeBlueGreen_colorPrimary">#2e7d32</color>
-    <color name="appThemeBlueGreen_colorPrimaryDark">#005005</color>
-    <color name="appThemeBlueGreen_colorPrimaryLight">#60ad5e</color>
-    <color name="appThemeBlueGreen_colorAccent">#303f9f</color>
-    <color name="appThemeBlueGreen_colorAccentDark">#001970</color>
-    <color name="appThemeBlueGreen_colorAccentLight">#666ad1</color>
-    <color name="appThemeBlueGreen_colorSelectedOption">#1a2e7d32</color>
+    <color name="appThemeBlueGreen_colorHighlight">@color/LightBlue</color>
     <color name="appThemeBlueGreen_colorMonochromeContrast">@color/Black</color>
     <color name="appThemeBlueGreen_colorMonochromeBlend">@color/White</color>
     <color name="appThemeBlueGreen_colorMonochromeContrastTransparent">@color/transparentBlack</color>
@@ -79,13 +94,7 @@
     <color name="appThemeBlueGreen_colorSecondaryNormal">@color/appThemeBlueGreen_colorAccent</color>
     <color name="appThemeBlueGreen_colorSecondaryLessPronounced">@color/appThemeBlueGreen_colorAccentLight</color>
 
-    <color name="appThemeRedBlack_colorPrimary">#cf2e2e</color>
-    <color name="appThemeRedBlack_colorPrimaryDark">#960006</color>
-    <color name="appThemeRedBlack_colorPrimaryLight">#ff6458</color>
-    <color name="appThemeRedBlack_colorAccent">#424242</color>
-    <color name="appThemeRedBlack_colorAccentDark">#1b1b1b</color>
-    <color name="appThemeRedBlack_colorAccentLight">#6d6d6d</color>
-    <color name="appThemeRedBlack_colorSelectedOption">#1acf2e2e</color>
+    <color name="appThemeRedBlack_colorHighlight">@color/LightBlue</color>
     <color name="appThemeRedBlack_colorMonochromeContrast">@color/Black</color>
     <color name="appThemeRedBlack_colorMonochromeBlend">@color/White</color>
     <color name="appThemeRedBlack_colorMonochromeContrastTransparent">@color/transparentBlack</color>
@@ -97,13 +106,7 @@
     <color name="appThemeRedBlack_colorSecondaryNormal">@color/appThemeRedBlack_colorAccent</color>
     <color name="appThemeRedBlack_colorSecondaryLessPronounced">@color/appThemeRedBlack_colorAccentLight</color>
 
-    <color name="appThemeNightPurpleBlack_colorPrimary">#ba68c8</color>
-    <color name="appThemeNightPurpleBlack_colorPrimaryDark">#883997</color>
-    <color name="appThemeNightPurpleBlack_colorPrimaryLight">#ee98fb</color>
-    <color name="appThemeNightPurpleBlack_colorAccent">#e0e0e0</color>
-    <color name="appThemeNightPurpleBlack_colorAccentDark">#aeaeae</color>
-    <color name="appThemeNightPurpleBlack_colorAccentLight">#ffffff</color>
-    <color name="appThemeNightPurpleBlack_colorSelectedOption">#5c007a</color>
+    <color name="appThemeNightPurpleBlack_colorHighlight">@color/DarkYellow</color>
     <color name="appThemeNightPurpleBlack_colorMonochromeContrast">@color/White</color>
     <color name="appThemeNightPurpleBlack_colorMonochromeBlend">@color/Black</color>
     <color name="appThemeNightPurpleBlack_colorMonochromeContrastTransparent">@color/transparentWhite</color>
@@ -115,7 +118,7 @@
     <color name="appThemeNightPurpleBlack_colorSecondaryNormal">@color/appThemeNightPurpleBlack_colorAccent</color>
     <color name="appThemeNightPurpleBlack_colorSecondaryLessPronounced">@color/appThemeNightPurpleBlack_colorAccentDark</color>
     <!-- ****************************************************************************** -->
-    <!-- **************************** Theme Colors - End   **************************** -->
+    <!-- **************************** Theme-depdendent colors - End   ***************** -->
     <!-- ****************************************************************************** -->
 
     <!-- ****************************************************************************** -->

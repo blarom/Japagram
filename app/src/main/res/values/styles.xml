@@ -11,18 +11,18 @@
         <item name="alertDialogTheme">@style/CustomAlertDialogTheme</item>
         <item name="alertDialogStyle">@style/CustomAlertDialogStyle</item>
         <item name="android:dialogPreferenceStyle">@style/CustomAlertDialogStyle</item>
+        <item name="actionOverflowMenuStyle">@style/CustomOverflowMenuStyle</item>
         <item name="popupMenuStyle">@style/CustomPopupMenuStyle</item>
         <item name="android:popupMenuStyle">@style/CustomPopupMenuStyle</item>
-        <item name="actionOverflowMenuStyle">@style/CustomOverflowMenuStyle</item>
-        <item name="textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
-        <item name="android:editTextColor">?attr/colorSecondaryNormal</item>
         <item name="android:textAppearanceLargePopupMenu">@style/CustomPopupMenuTextAppearanceLarge</item>
         <item name="android:textAppearanceSmallPopupMenu">@style/CustomPopupMenuTextAppearanceSmall</item>
-        <item name="android:textColorHighlight">?attr/colorPrimaryNormal</item>
         <item name="android:textAppearanceLarge">@style/CustomTextAppearanceLarge</item>
         <item name="android:textAppearanceMedium">@style/CustomTextAppearanceMedium</item>
         <item name="android:textAppearanceSmall">@style/CustomTextAppearanceSmall</item>
         <item name="preferenceTheme">@style/CustomPreferenceTheme</item>
+
+        <item name="textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
+        <item name="android:editTextColor">?attr/colorSecondaryNormal</item>
 
         <item name="colorPrimaryLight">@color/appThemeRedBlack_colorPrimaryLight</item>
         <item name="colorPrimary">@color/appThemeRedBlack_colorPrimary</item>
@@ -31,6 +31,7 @@
         <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
         <item name="android:textColorSecondary">@color/appThemeRedBlack_colorAccent</item>
+        <item name="android:textColorHighlight">@color/appThemeRedBlack_colorHighlight</item>
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
@@ -98,6 +99,7 @@
         <item name="colorAccent">@color/appThemeBlueGreen_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeBlueGreen_colorAccentDark</item>
         <item name="android:textColorSecondary">@color/appThemeBlueGreen_colorAccent</item>
+        <item name="android:textColorHighlight">@color/appThemeBlueGreen_colorHighlight</item>
         <item name="colorMonochromeContrast">@color/appThemeBlueGreen_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeBlueGreen_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeBlueGreen_colorTransparent</item>
@@ -166,6 +168,7 @@
         <item name="colorAccent">@color/appThemeRedBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeRedBlack_colorAccentDark</item>
         <item name="android:textColorSecondary">@color/appThemeRedBlack_colorAccent</item>
+        <item name="android:textColorHighlight">@color/appThemeRedBlack_colorHighlight</item>
         <item name="colorMonochromeContrast">@color/appThemeRedBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeRedBlack_colorMonochromeBlend</item>
         <item name="colorTransparent">@color/appThemeRedBlack_colorTransparent</item>
@@ -235,6 +238,7 @@
         <item name="colorAccent">@color/appThemeNightPurpleBlack_colorAccent</item>
         <item name="colorAccentDark">@color/appThemeNightPurpleBlack_colorAccentDark</item>
         <item name="android:textColorSecondary">@color/appThemeNightPurpleBlack_colorAccent</item>
+        <item name="android:textColorHighlight">@color/appThemeNightPurpleBlack_colorHighlight</item>
         <item name="colorTransparent">@color/appThemeNightPurpleBlack_colorTransparent</item>
         <item name="colorMonochromeContrast">@color/appThemeNightPurpleBlack_colorMonochromeContrast</item>
         <item name="colorMonochromeBlend">@color/appThemeNightPurpleBlack_colorMonochromeBlend</item>

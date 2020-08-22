@@ -13,6 +13,7 @@
     <attr name="colorSecondaryLessPronounced" format="reference"/>
     <attr name="colorSecondaryNormal" format="reference"/>
     <attr name="colorSecondaryMorePronounced" format="reference"/>
+    <attr name="colorHighlight" format="reference"/>
     <attr name="colorMonochromeContrast" format="reference"/>
     <attr name="colorMonochromeBlend" format="reference"/>
     <attr name="colorMonochromeContrastTransparent" format="reference"/>
