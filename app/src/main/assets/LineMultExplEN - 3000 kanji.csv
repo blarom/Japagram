@@ -181,8 +181,8 @@ Index|Explanation|Rules|Example
 181||X ka dou ka Y @ X = i-adj, Y = know/think/believe/etc..|1020;1021
 182||X ka dou ka Y @ X = na-adj/noun, Y = know/think/believe/etc..|1022;1023
 183|Is supposed to [do/be] X.|X hazu da @ X = verb dict. form, i-adj.%X na hazu da @ X = na-adj.%X no hazu da @ X = noun|1024;1025;1026;1027;1028
-184|||
-185|||
+184|Y thanks to X.|X okage de Y @ X = verb plain form/i-adj., Y = phrase%X okage na de @ X = na-adj., Y = phrase%X okage no de @ X = noun, Y = phrase|
+185|It is thanks to X.|X okage da @ X = verb plain form/i-adj.%X okage na da @ X = na-adj.%X okage no da @ X = noun|
 186||X hazu ga/wa nai @ X = verb nai form (double negative sentence)|1029
 187||X hazu da @ X = i-adj. negative (double negative sentence)|1030
 188||X na hazu da @ X = na-adj. negative (double negative sentence)|
@@ -222,8 +222,8 @@ Index|Explanation|Rules|Example
 222|Presumption: it looks like X, it might be X.|X you da @ X = verb plain form, i-adj.%X na you da @ X = na-adj.%X no you da @ X = noun|108
 223|Simile (comparison): X seems to be like Y, X looks like Y.|X you da @ X = verb plain form%X no you da @ X = noun%X you na Y @ X = verb plain form, Y = noun%X no you na Y @ X/Y = noun%X you ni Y @ X/Y = verb plain form|996;997;998;999;1423
 224|As an example of something: X is like Y.|X you na Y @ X = verb plain form, Y = noun%X no you ni Y @ X = noun, Y = verb/na-adj/i-adj%X no you na Y @ X/Y = noun|1000;1001;1002;1003
-225|||
-226|||
+225|Y thanks to X.|X okagesama de Y @ X = verb plain form/i-adj., Y = phrase%X okagesama na de @ X = na-adj., Y = phrase%X okagesama no de @ X = noun, Y = phrase|
+226|It is thanks to X.|X okagesama da @ X = verb plain form/i-adj.%X okagesama na da @ X = na-adj.%X okagesama no da @ X = noun|
 227|||
 228|After X.|X no ato (de) @ X = noun|1057;1058;464
 229||X ato @ X = noun (higher form)|1059

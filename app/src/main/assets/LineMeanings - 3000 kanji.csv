@@ -469,8 +469,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 469|in general, overall|A;Dg||||minna, zenbu|
 470|altogether, entirely|A;Dg|||||尽く
 471|looks like, appears to be|PC|X seems to be like Y, X looks like Y.|X sou na Y @ X = i-adj., Y = noun|1422||
-472||-|||||
-473||-|||||
+472|while moving along, as it goes forward, while progressing, as it advances|PC|||||
+473|while moving along, as it goes forward, while progressing, as it advances|PC|||||
 474|always, without exception, necessarily, certainly, without fail, positively, invariably|A;Dg|||||
 475|approximately, about (quantity, time)|A;Dg|||632;141||
 476|approximately, about, at most|A;Dg|||1468;1469;1470||
@@ -712,10 +712,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 712|sweet-tasting, sweet, sugary, sugared|Ai|||||
 713|tall (person)|Ai||||se ga hikui|
 714|tasteless, nasty, tasting bad, disgusting|Ai||||oishii|
-715||-|||||
+715|respond to, reply to|PC|Respond to X, reply to X. Equivalent to "X ni oujiru".|ou X @ X = noun|||
 716|terrible, dreadful, terrifying, frightening, frightened, surprising, startling, tremendous, amazing|Ai|||||
 717|abundant|Ai|||||
-718||-|||||
+718|extol, give praise|VruiT|||||
 719|thickheaded, obtuse, stupid, indulgent (esp. to the opposite sex), doting|Ai|||||
 720|thin, pale light, dilute, weak (e.g. taste)|Ai||||tsuyoi, koi, joubu, futoi|hosoi, yowai, hiyowai, hiyowa, yowacchii, yurui, usui, yawai, nayocchii, kasuka, hijaku, yawa
 721|thin, slender, fine|Ai|Used to describe road widths, people, etc.||||usui
@@ -725,9 +725,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 725|completely finished doing|VC|[I/you/he/she] [have/has] completely finished [doing/being] X. Used colloquially (casual speech) only.|X jau @ X = verb masu form or root (depending on verb type)|||
 726|did and regret doing it|VC|[I/you/he/she] [did/was] X and regret doing it. Used colloquially (casual speech) only.|X jatta @ X = verb masu form or root (depending on verb type)|||
 727|unusual, rare, curious, weird|Ai|||||
-728||-|||||
+728|fill (with), be filled with|VruiT|||||
 729|vexing, annoying, frustrating, regrettable, mortifying|Ai|||||
-730||-|||||
+730|express (an emotion), project (sadness, joy, etc.), wear (e.g. a smile)​|VruiT|||||
 731|visible, understandable, easy on the eyes, easy to see, beautiful, pretty|Ai||||imoshinai|
 732|wanted (to want)|Ai|Verb-based, linked to object by "ga" when used with desu verb.||||
 733|warm|Ai||||suzushii, samui, tsumetai|atsui
@@ -751,7 +751,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 751|was|PC|Was X.|X deatta @ X = phrase|||
 752|arbitrarily, of its own accord, involuntarily, willfully, willfully, as one pleases|A;M|||||
 753|arduously, diligently, industriously|A;M|||||
-754||-|||||
+754|assume the name of|VruiT|||||
 755|badness, evilness|N;Abs|||||
 756|both|A;M||||hitori de|issho ni, minna de
 757|by all means, at any cost, no matter what, at any rate, surely|A;M|||||
@@ -841,7 +841,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 841|tightly, closely|A;M|||||
 842|time and time again, many times, a number of times|A;M|||||
 843|turning round and round, going around in circles, wrapped around|A;M|||||
-844|unexpectedly, surprisingly|A;M|||||
+844|unexpectedly, surprisingly|A;M|"igai ni" is used more in written Japanese, while "igai to" is more colloquial.||||
 845|unintentionally, reflexively, spontaneously, involuntarily, instinctively|A;M|||||
 846|against one's better judgment|A;M|||||
 847|quite (near)|A;loc|||||
@@ -1519,14 +1519,14 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1519|take care (of yourself)|CE|||1190||
 1520|take care of yourself|CE|||||
 1521|take your time|CE|||1169||
-1522|taking a shower|CE|||1230||
-1523|(I'm fine) thank you, thanks to you, fortunately, under the gods' shadow|CE|||1204||
+1522|taking a shower|CE|||||
+1523|(I'm fine) thank you, thanks to you, fortunately, under the gods' shadow|CE|ME#0225;0226||||
 1524|thank you (very much)|CE|||1162||
 1525|thank you for the hard work|CE|||1180||
 1526|thank you very much for your time|CE|||1168||
 1527|thanks a lot|CE|||||
 1528|that is not necessarily so|CE|||||
-1529|that is so|CE|Colloquial form of "no desu", used in speech only.||1231||
+1529|that is so|CE|Colloquial form of "no desu", used in speech only.||||
 1530|that'll be fine|CE|||1172||
 1531|that's not it at all|CE|"deshou" or "darou" replaces "desu yo" in common speech.||||
 1532|that's wrong|CE|||1177||
@@ -2703,7 +2703,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2703|taste, flavor, flavour|N;Abs|||||
 2704|tax, duty|N;Abs|||||
 2705|taxi fare|N;Abs|||||
-2706||-|||||
+2706|as a response|PC|Added to form a compund noun.||109||
 2707|technique, method|N;Abs|||||
 2708|technique|N;Abs|||||
 2709|technique, art, skill|N;Abs|||||
@@ -4603,7 +4603,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 4603|to return something (that has been moved), to reconstitute|CE|||||
 4604|pull out, take out, draw out, withdraw|VsuT|||||
 4605|overlook, command a view of, look down on, despise|VsuI|||||
-4606|stick through, force through, lead (someone) in(a house, room, etc.), force accept, do the entirety of, do from beginning end without a break, convey (one's ideas, etc.) the other party, do the end|VsuT|||||
+4606|stick through, force through|VsuT|||||
 4607||-|||||
 4608|jump out, rush out, fly out|VsuI|||||
 4609||-|||||
@@ -19796,7 +19796,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 19796|tap, rap-tap, tapping|A|||||
 19797|without delay, smoothly, without a hitch|A|||||
 19798|even, equal, with no advantage or disadvantage|Ana|||||
-19799|spread throughout, thoroughly diffuse|VsuT|||||
+19799||-|||||
 19800|breaking through, breakthrough, penetration|N;Abs|||||
 19801|truck, lorry|N;Abs|||||
 19802|track (running, CD, etc.)|N;Abs|||||
@@ -35373,7 +35373,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35373|Nyuukai|Pl|||||
 35374|You'll regret this!, I'll get you for this, Just you wait|CE|||||
 35375|effects, influence|N|||||
-35376|thanks to ..., owing to ..., because of ...|CE|||||
+35376|thanks to ..., owing to ..., because of ...|CE|ME#0184;0185||||
 35377|Austria|N;Px;Sx|||||
 35378||-|||||
 35379||-|||||

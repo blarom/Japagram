@@ -598,6 +598,7 @@
     <string name="verb_APg">Aff. Progressive</string>
     <string name="verb_NPg">Neg. Progressive</string>
     <string name="verb_PvPg">Passive Progressive</string>
+    <string name="verb_PvCond">Passive Conditional</string>
     <string name="verb_PsPg">Past Progressive</string>
     <string name="verb_teform">te-form</string>
 

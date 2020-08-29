@@ -432,7 +432,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 432|pittari|ぴったり||0||||||841;839;834;851||1160;1161;1162;1163||968|
 433|nankaimo|何回も||0||||||842||||969|
 434|guruguru to|ぐるぐると||1||||||843|||||
-435|igai to|意外と||1||||||844|||||
+435|igai to|意外と|igai ni;意外に|1||||||844|||||
 436|omowazu|思わず||1||||||845||1164||970|
 437|tsui|つい||0||||||846;847;848;21370||1165||971|
 438|isshoukenmei|一生懸命|一生けん命|1||||||849;850||1166||972|
@@ -943,7 +943,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 943|ogenki de|お元気で||1||||||1520|||||
 944|douzo goyukkuri|どうぞごゆっくり||1||||||1521|||||
 945|shaawaa wo ofurimasu.|シャーわーをお降る||1||||||1522|||||
-946|okagesamade|お陰様で|お陰さまで;御陰様で;御蔭様で;お蔭様で|1||||||1523||5640||1357|
+946|okagesamade|お陰様で|お陰さまで;御陰様で;御蔭様で;お蔭様で;お陰様だ;お陰さまだ;御陰様だ;御蔭様だ;お蔭様だ|1||||||1523||5640||1357|
 947|doumo arigatou gozaimasu|どうも有難うございます||1||||||1524||5641|||
 948|otsukaresama deshita|お疲れ様でした||1||||||1525|||||
 949|oisogashii tokoro arigatou gozaimasu|お忙しい所有難うございます||1||||||1526|||||
@@ -5565,7 +5565,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 5565|rakkan|楽観||1||||||11825||||9076|
 5566|rakkanteki|楽観的||1||||||11826||9904||9077|
 5567|riido|リード||0||||||11827;11828;11829;11830;11831;11832;11833;11834||9905||9078|
-5568|rosen|路線||1||||||11835;20673;20674||||9079|
+5568|rosen|路線||1||||||20673;20674||||9079|
 5569|sadaka|定か||1||||||11836;11837||9906|||
 5570|saiki|再起||1||||||11840||9907||9080|
 5571|sate|偖||1||||||11843||9908||9081|
@@ -17039,7 +17039,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 17039|nyo|如||0||||||35371|||||
 17040|nyuukai|入会||0||||||35372;35373||||16999|
 17041|oboetero|覚えてろ||0||||||35374|||||
-17042|okagede|お陰で|お蔭で;御蔭で;御陰で|0||||||35376|||||
+17042|okagede|お陰で|お蔭で;御蔭で;御陰で;お陰だ;お蔭だ;御蔭だ;御陰だ|0|お蔭ので;御蔭ので;御陰ので;お陰のだ;お蔭のだ;御蔭のだ;御陰のだ;お蔭なで;御蔭なで;御陰なで;お陰なだ;お蔭なだ;御蔭なだ;御陰なだ|||||35376|||||
 17043|ou|墺||0||||||35377;35380|||||
 17044|ou|応||0||||||35381;35382|||||
 17045|oubosha|応募者||0||||||35384||16830||17000|
@@ -17708,3 +17708,5 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 17708|gakushuushitsu|学習室||1||||||646|||||
 17709|toittara|と言ったら||0||||||699|||||
 17710|toiimasuto|と言いますと||0||||||702|||||
+17711|nitsure|に連れ||0||||||472|||||
+17712|nitsurete|に連れて||0||||||473||||17219|
