@@ -606,7 +606,7 @@
     <string name="verb_teformCmp1">He does/is X while giving (1)</string>
     <string name="verb_teformCmp2">He does/is X while giving (2)</string>
     <string name="verb_teformCmp3">He does/is X while receiving (as a favor)</string>
-    <string name="verb_teformCmp4">He does/is X in passing</string>
+    <string name="verb_teformCmp4">He does/is X while leaving/and then leaves</string>
     <string name="verb_teformCmp5">He\'s doing/being X in advance</string>
     <string name="verb_teformCmp6">He\'s prepared to do/be X (Colloquial)</string>
     <string name="verb_teformCmp7">He\'s done doing/being X</string>

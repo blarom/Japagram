@@ -266,14 +266,15 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         String terminations_arugodan_romaji = "(tta|tteiru|tteita|tte|imasu|imashita|ranai|ranakatta|imasen *deshita|imasen)";
         String terminations_kugodan_romaji = "(ita|iteiru|iteita|ite|kimasu|kimashita|kanai|kanakatta|kimasen *deshita|kimasen)";
         String terminations_rugodan_romaji = "(tta|tteiru|tteita|tte|rimasu|rimashita|ranai|ranakatta|rimasen *deshita|rimasen)";
-        String terminations_iku_romaji = "(itta|itteiru|itteita|itte|ikimasu|ikimashita|ikanai|ikanakatta|ikimasen *deshita|ikimasen)";
+        String terminations_iku_romaji = "(itta|itteiru|itteita|itte|ikimasu|ikimashita|ikanai|ikanakatta|ikimasen *deshita|ikimasen|ikeru|ikeba|ittara)";
         String terminations_sugodan_romaji = "(shita|shitteiru|shitteita|shitte|shimasu|shimashita|sanai|sanakatta|shimasen *deshita|shimasen)";
         String terminations_ichidan_kana = "(た|ている|ていた|て|ます|ました|ない|なかった|あせんでした|ません)";
         String terminations_ugodan_kana = "(った|っている|っていた|って|います|いました|わない|わなかった|いませんでした|いません)";
         String terminations_arugodan_kana = "(った|っている|っていた|って|います|いました|らない|らなかった|いませんでした|いません)";
         String terminations_kugodan_kana = "(いた|いている|いていた|いて|きます|きました|かない|かなかった|きませんでした|きません)";
         String terminations_rugodan_kana = "(った|っている|っていた|って|ります|りました|らない|らなかった|りませんでした|りません)";
-        String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません)";
+        String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません|いける|いけば|いったら)";
+        String terminations_iku_kanji = "(行った|行っている|行っていた|行って|行きます|行きました|行かない|行かなかった|行きませんでした|行きません|行ける|いけば|行ったら)";
         String terminations_sugodan_kana = "(した|している|していた|して|します|しました|さない|さなかった|しませんでした|しません)";
         mInputQuery = new InputQuery(mInputQuery.getOriginal()
                 .replaceAll("(te|de) *age" + terminations_ichidan_romaji + "(| *ka)$", "$1 ageru")
@@ -299,6 +300,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("(te|de) *いただ" + terminations_kugodan_kana + "(|か)$", "$1いただく")
                 .replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "(|か)$", "$1くださる")
                 .replaceAll("([てで])" + terminations_iku_kana + "(|か)$", "$1いく")
+                .replaceAll("([てで])" + terminations_iku_kanji + "(|か)$", "$1いく")
                 .replaceAll("([てで])お" + terminations_kugodan_kana + "(|か)$", "$1おく")
                 .replaceAll("([てで])お" + terminations_rugodan_kana + "(|か)$", "$1おる")
                 .replaceAll("([とど])" + terminations_kugodan_kana + "(|か)$", "$1おく")

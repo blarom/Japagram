@@ -467,7 +467,7 @@
     <string name="verb_teformCmp1">Il fait/est X en donnant (1)</string>
     <string name="verb_teformCmp2">Il fait/est X en donnan (2)</string>
     <string name="verb_teformCmp3">Il fait/est X en recevant (en tant que faveur)</string>
-    <string name="verb_teformCmp4">Il fait/est X en passant</string>
+    <string name="verb_teformCmp4">Il fait/est X en partant/puis il part</string>
     <string name="verb_teformCmp5">Il est en train de faire/être X en avance</string>
     <string name="verb_teformCmp6">Il est prêt à faire/être X (familier)</string>
     <string name="verb_teformCmp7">Il a fini de faire/être X</string>

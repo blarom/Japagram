@@ -477,7 +477,7 @@
     <string name="verb_teformCmp1">Él hace/es X mientras da (1)</string>
     <string name="verb_teformCmp2">Él hace/es X mientras da (2)</string>
     <string name="verb_teformCmp3">Él hace/es X mientras recibe (como un favor)</string>
-    <string name="verb_teformCmp4">Él hace/es X de pasada</string>
+    <string name="verb_teformCmp4">Él hace/es X mientras se va / y luego se va</string>
     <string name="verb_teformCmp5">Él esta (haciendo) X (por) adelantado</string>
     <string name="verb_teformCmp6">Él esta preparado a hacer/ser X (coloquial)</string>
     <string name="verb_teformCmp7">Él ha terminado de hacer/ser X</string>
