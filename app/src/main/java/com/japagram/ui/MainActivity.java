@@ -526,11 +526,16 @@ public class MainActivity extends BaseActivity implements
         //Adding the prepared query history value to the history and removing old identical entries
         boolean alreadyExistsInHistory = false;
         for (int i = 0; i< queryHistory_QueryRomajiMeaning.size(); i++) {
-            String queryHistoryWord = queryHistory_QueryRomajiMeaning.get(i).split(Globals.QUERY_HISTORY_MEANINGS_DELIMITER)[0].trim();
+            String[] elements = queryHistory_QueryRomajiMeaning.get(i).split(Globals.QUERY_HISTORY_MEANINGS_DELIMITER);
+            String queryHistoryWord = elements[0].trim();
+            String queryRomajiMeaningNew = queryRomajiMeaning;
+            if (elements.length > 1 && meaning.equals("")) {
+                queryRomajiMeaningNew += " @ " + elements[1].trim();
+            }
             if (inputQuery.trim().equalsIgnoreCase(queryHistoryWord)) {
                 queryHistory_QueryRomajiMeaning.remove(i);
-                if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
-                else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaning);
+                if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaningNew);
+                else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaningNew);
                 alreadyExistsInHistory = true;
                 break;
             }
