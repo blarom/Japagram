@@ -27,6 +27,8 @@ import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -119,16 +121,14 @@ public class MainActivity extends BaseActivity implements
         setFragments();
 
     }
-    @Override protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    @Override protected void onRestoreInstanceState(@NotNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
         // Set the Requested Fragment if it was saved from a previous instance
-        if (savedInstanceState != null) {
 
-            String savedRequestedFragment = savedInstanceState.getString(getString(R.string.requested_second_fragment));
-            if (savedRequestedFragment != null) {
-                mSecondFragmentFlag = savedRequestedFragment;
-            }
+        String savedRequestedFragment = savedInstanceState.getString(getString(R.string.requested_second_fragment));
+        if (savedRequestedFragment != null) {
+            mSecondFragmentFlag = savedRequestedFragment;
         }
         mAllowButtonOperations = true;
     }
@@ -142,7 +142,7 @@ public class MainActivity extends BaseActivity implements
         mAllowButtonOperations = true;
     }
 
-    @Override public void onSaveInstanceState(Bundle outState) {
+    @Override public void onSaveInstanceState(@NotNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
         outState.putString(getString(R.string.requested_second_fragment), mSecondFragmentFlag);
@@ -512,7 +512,7 @@ public class MainActivity extends BaseActivity implements
             updateQueryHistoryWithQueryRomajiMeaning(context, inputQuery, romaji, meaning);
         }
     }
-    public static List<String> updateQueryHistoryWithQueryRomajiMeaning(Context context, String inputQuery, String romaji, String meaning) {
+    @NotNull public static List<String> updateQueryHistoryWithQueryRomajiMeaning(Context context, String inputQuery, String romaji, String meaning) {
 
         if (TextUtils.isEmpty(inputQuery) || context==null) return new ArrayList<>();
         List<String> queryHistory_QueryRomajiMeaning = getQueryHistoryFromPreferences(context);
@@ -551,7 +551,7 @@ public class MainActivity extends BaseActivity implements
 
         return queryHistory_QueryRomajiMeaning;
     }
-    public static List<String> getQueryHistoryFromPreferences(Context context) {
+    @NotNull public static List<String> getQueryHistoryFromPreferences(@NotNull Context context) {
 
         //Getting the history
         List<String> queryHistory_QueryRomajiMeaning;

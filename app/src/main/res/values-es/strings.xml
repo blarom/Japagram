@@ -520,7 +520,7 @@
     <string name="verb_masuCmp10">Él hace/es X (vulgar - denota odio/desprecio)</string>
     <string name="verb_masuCmp11">Él es incapaz/le resulta difícil de hacer/ser X</string>
     <string name="verb_masuCmp12">Él completa haciendo/siendo X</string>
-    <string name="verb_masuCmp13">Haz/se X (imperativo)</string>
+    <string name="verb_masuCmp13">El sigue haciendo/siendo X</string>
 
     <string name="verb_TitleStemMisc">Radical + Misc. Atributos</string>
     <string name="verb_StemMisc1">Él hace [acción] con él find de hacer/ser X</string>

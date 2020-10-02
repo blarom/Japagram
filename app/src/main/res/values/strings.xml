@@ -649,7 +649,7 @@
     <string name="verb_masuCmp10">He does/is X (vulgar - denotes hatred/contempt)</string>
     <string name="verb_masuCmp11">He is unable/finds it difficult to do/be X</string>
     <string name="verb_masuCmp12">He completes doing/being X</string>
-    <string name="verb_masuCmp13">Do/be X (imperative)</string>
+    <string name="verb_masuCmp13">He keeps on doing/being X</string>
 
     <string name="verb_TitleStemMisc">Stem + Misc. Attributes</string>
     <string name="verb_StemMisc1">He does [action] in order to do/be X</string>

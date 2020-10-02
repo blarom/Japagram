@@ -510,7 +510,7 @@
     <string name="verb_masuCmp10">Il fait/est X (vulgaire - dénote la haine/le mépris)</string>
     <string name="verb_masuCmp11">Il est incapable/trouve difficile à faire/être X</string>
     <string name="verb_masuCmp12">Il achève à faire/être X</string>
-    <string name="verb_masuCmp13">Fais/sois X (impératif)</string>
+    <string name="verb_masuCmp13">Il continue à faire/être X</string>
 
     <string name="verb_TitleStemMisc">Radical + Divers Attributs</string>
     <string name="verb_StemMisc1">Il fait [action] afin de faire/être X</string>

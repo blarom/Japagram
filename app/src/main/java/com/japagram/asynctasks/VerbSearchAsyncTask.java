@@ -296,6 +296,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "(| *ka)$", "$1 kuru")
                 .replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "(| *ka)$", "$1 sugiru")
                 .replaceAll("(are)"+ terminations_ichidan_romaji_subset, "$1masu")
+                .replaceAll("du", "zu")
 
                 .replaceAll("([てで])あげ" + terminations_ichidan_kana + "(|か)$", "$1あげる")
                 .replaceAll("([てで])くれ" + terminations_ichidan_kana + "(|か)$", "$1くれる")
@@ -315,6 +316,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("([てで])くる" + terminations_ichidan_kana + "(|か)$", "$1くる")
                 .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "(|か)$", "$1すぎる")
                 .replaceAll("(あれ)"+ terminations_ichidan_kana_subset, "$1ます")
+                .replaceAll("づ", "ず")
         );
 
         mPreparedQuery = mInputQuery.getOriginal();
