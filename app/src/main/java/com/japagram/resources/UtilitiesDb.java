@@ -1413,7 +1413,9 @@ public class UtilitiesDb {
         word.setMeaningsEN(getMeanings(centralDatabase, meaningsENDatabase, Globals.COLUMN_MEANING_EN_INDEXES,
                 multExplENDatabase, examplesDatabase, centralDbRowIndex, "en"));
         if (word.getMeaningsEN().size() == 0) {
-            Log.i(Globals.DEBUG_TAG, "************ ERROR ************ Word with id " + matchingWordId + " has invalid english meanings");
+            Log.i(Globals.DEBUG_TAG, "************ ERROR ************ Word with id "
+                    + matchingWordId + " (" + word.getRomaji() + " - " + word.getKanji()
+                    + ") has invalid english meanings");
             return new Word();
         }
 

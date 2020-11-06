@@ -316,7 +316,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 .replaceAll("([てで])くる" + terminations_ichidan_kana + "(|か)$", "$1くる")
                 .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "(|か)$", "$1すぎる")
                 .replaceAll("(あれ)"+ terminations_ichidan_kana_subset, "$1ます")
-                .replaceAll("づ", "ず")
         );
 
         mPreparedQuery = mInputQuery.getOriginal();

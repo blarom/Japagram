@@ -154,6 +154,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", Utilities.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
 
         List<Word> wordList = new ArrayList<>();
+        HashMap<Long, String> inserted_words = new HashMap<>();
         for (int i=0; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
             Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
@@ -161,6 +162,11 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, frequenciesHash, i);
             wordList.add(word);
+            if (inserted_words.containsKey(word.getWordId())) {
+                Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getWordId()));
+            } else {
+                inserted_words.put(word.getWordId(), word.getRomaji() + "___" + word.getKanji());
+            }
             if (wordList.size() % 2000 == 0) {
                 word().insertAll(wordList);
                 wordList = new ArrayList<>();

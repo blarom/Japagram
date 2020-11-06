@@ -73,7 +73,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 73|like, similar to|PS||X you de|||
 74|like, similar to, same as|PP||X goto|||
 75|between|PS|between X and Y|X to Y no made|||
-76|according to, by (means of), due to, because of|CE||X ni yotte|1309;1310;1311||
+76|according to, by (means of), due to, because of|CE|"ni yori", "no yoru" and "ni yotte" have similar meanings, but "ni yori" is used in more formal occasions.|X ni yotte @ X = noun|1309;1310;1311||
 77|at (place, time), during, performing a continuous action at a location|PP|Is differentiated from the use of "de" for an action taking place at a location by the long-term continuity of the action, e.g. sleeping at a location.|X ni @ X = noun|823;827||
 78|to (direction, state), toward, into|PP||X ni @ X = noun|824;825||
 79|and, in addition to|PP||X ni|||
@@ -281,7 +281,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 281|decided to do|VC|(He) has decided to [do/be] X. More formal form of "koto ni suru".|X koto ni kimeru @ X = verb dict. form|||
 282|should, must, ought to|VC|[I/you/he/she] should [do/be] X, must [do/be] X, ought to [do/be] X.|X beki @ X = verb dict. form|||
 283|to go into, to put into, to remain (seated), to be plunged into (silence), to do thoroughly, to do intently, to continue in the same state|VC|To go into, to put into, to remain (seated), to be plunged into (silence), to do thoroughly, to do intently, to continue in the same state.|X komu @ X = verb masu stem|||
-284|to start to do/be|VC|To start to [do/be].|X hajimeru @ X = verb masu stem|||
+284|to start doing/being, to start gradually|VC|To start to [do/be] X.|X hajimeru @ X = verb masu stem|||
 285|completely finished doing|VC|[I/you/he/she] [have/has] completely finished [doing/being] X. Used colloquially (casual speech) only.|X chau @ X = verb masu form or root (depending on verb type)|||
 286|did and regret doing it|VC|[I/you/he/she] [did/was] X and regret doing it. Used colloquially (casual speech) only.|X chatta @ X = verb masu form or root (depending on verb type)|||
 287|do (honorific)|VC|To [do/be] X (honorific).|(o) X ni naru @ X = verb masu stem|1460;1461||
@@ -537,8 +537,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 537|nothing except for|A;Dg|Only used in a negative phrase. Usually used to emphasize that there should be more. Colloquial form: shikia, shikkia.|X shika|651;652;1100;1101||tatta, dake
 538|only|A;Dg|||||shika,dake
 539|only, nothing but|A;Dg||X nomi|||
-540|only, simply, merely, just|A;Dg|||||
-541|ordinary, common, usual|N;Abs|Adjoined to nouns using "no".||||
+540||-|||||
+541||-|||||
 542|perfectly, thoroughly, fully, in full|A;Dg|||||
 543|plenty, enough, sufficient, adequate, satisfactory|Ana|||||
 544|division into ten|N;MSE|||||
@@ -757,7 +757,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 757|by all means, at any cost, no matter what, at any rate, surely|A;M|||||
 758|by oneself|A;M|||||
 759|leisurely|A;M|||||
-760||-|||||
+760|because of, due to|PC|Because of X. Used when conveying that X was someone/something's fault, with a negative connotation.|X sei de/da @ X = verb/i-adj.%X na sei de/da @ X = na-adj.%X no sei de/da @ X = noun|||
 761|carelessly, thoughtlessly, inadvertently|A;M|||||
 762|clearly, plainly, distinctly|A;M|||||
 763|completely, entirely|A;M|||||
@@ -777,7 +777,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 777|thanks, thank you|CE|||||
 778|everyone together|A;M|||635|hitori de|futari de, issho ni
 779|fairly, impartially, justly|A;M|||||
-780||-|||||
+780|maybe because of, maybe due to|PC|Because of X. Used when conveying that X was someone/something's fault, with a negative connotation.|X sei ka @ X = verb/i-adj.%X na sei ka @ X = na-adj.%X no sei ka @ X = noun|||
 781|reliable, steady|Ana|||||
 782|firmness, tightness, reliability, level-headedness, steadiness|N;Abs|||||
 783|foolishly, stupidly, idiotically, absurdly, ridiculously|A;M|||||
@@ -821,7 +821,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 821|stretchily, with tension|A;M|||||
 822|quietly, calmly, gently, peacefully|A;M|||||
 823|really, truly|A;M|||||
-824||-|||||
+824|to finish doing/being, to completely finish|VC|To finish [doing/being] X.|X owaru @ X = verb masu stem|||
 825|in a scattered or dipersed fashion, loosely, disconnectedly, rustlingly|A;M|||||
 826|scattered, disperse, loose, disconnected, in pieces, in drops, rustling|Ana|||||
 827|separately, individually|A;M|||||
@@ -855,17 +855,17 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 855|much|A;T|||662||
 856|willingly|A;M|||||
 857|with trouble, at great pains|A;M|||1386||
-858||-|||||
+858|very unlikely to ..., showing no signs of ...|CE;Ai|Very unlikely to X. "soumonai" and "souninai" can be used interchangeably.|X sou mo nai @ X = verb masu stem|||souninai
 859|being (too) late, belated treatment|N;Abs|||||
-860||-|||||
+860|showing no signs of (verb), extremely unlikely to (verb)|CE;Ai|Very unlikely to X. "soumonai" and "souninai" can be used interchangeably.|X sou ni nai @ X = verb masu stem|||soumonai
 861|rash|Ana|||||
 862|absurdity, nonsense|N;Abs|||||
 863|punctual, authentic, veracious|Ana|||||
-864||-|||||
+864|bury something in the ground|VruiI|||||
 865|anxious, insecure, uneasy, in suspense|Ana|||||
 866|anxiety, uneasiness, insecurity, suspense|N;Abs|||||
 867|appearing like, seeming to be, being pregnant with|Ana|||||
-868||-||||futekisetsu|
+868|cover coals with ash, bank a fire|VruiI||||futekisetsu|
 869|at one's own convenience, in one's own way|Ana|||||
 870|automatic|Ana|||||
 871|failing, defective|Ana|||||
@@ -880,7 +880,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 880|careless, stupid, thoughtless, heedless, unobservant, inadvertent, incautious|Ana|||||
 881|reliable|Ana|||||
 882|certainty, reliability, soundness|N;Abs|||||
-883||-|||||
+883|to think it may..., to be afraid that...|PC|To think it may do/be X.|X darou to omou @ X = verb/adj./noun|||
 884|I'm quite sure that, if I'm not mistaken, if I remember correctly|CE|||||
 885|certainty, sure fact|N;Abs|||||
 886|pure, virtuous, immaculate|Ana|||||
@@ -898,16 +898,16 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 898|desperate, hopeless|Ana|||||
 899|diligent, serious, honest, sober, grave, earnest, steady|Ana|||||
 900|least favorite|Ana|Verb-based, linked to object by "ga" when used with desu verb.|||suki, daisuki|daikirai
-901||-|||||
+901|to wonder about ...|PC|To wonder about X.|X no/n darou to omou @ X = verb plain form%X na no/n darou to omou @ X = na-adj./noun|||
 902|earnestness, eagerness, risking one's life|N;Abs|||||
-903||-||||taihen, muzukashii, nukui|yasashii
+903|is pretty sure that ...|PC|I'm pretty sure that X.|X ni chigai nai @ X = verb/adj./noun|||
 904|comfort, ease, relief, (at) peace, relaxation|N;Abs|||||
-905||-|||||
+905|centered on, centred on, focused on|PC|Centered on X.|X wo chuushin ni @ X = phrase|||
 906|equality, evenness, good match|N;Abs|||||
-907||-|||||
+907|to continue doing/being|VC|To continue [doing/being] X.|X tsudukeru @ X = verb masu stem|||
 908|equality, impartiality, evenness|N;Abs|||||
 909|exactly, just, right|Ana|||||
-910||-|||||
+910|to suddenly happen, become visible or come out|VC|X suddenly happens, becomes visible or comes out.|X dasu @ X = verb masu stem|||
 911|exquisiteness, perfection, miraculousness|N;Abs|||||
 912||-|||||
 913||-|||||
@@ -1426,9 +1426,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1426|good night|CE|||1160||
 1427|got stuck and there is no way back|CE|||1205||
 1428|Greetings / Sorry for disturbing you|CE|ME#0241;0242||||
-1429|have no choice|CE|||||
+1429|have no choice|CE||X shikanai @ X = verb plain form/noun|||
 1430|hello, good day, good afternoon|CE|||1158||
-1431||-|||||
+1431|there is nothing but|CE||X shikanai @ X = verb plain form/noun|||
 1432|hold it carefully because it is important|CE|||||
 1433|how|CE|||||
 1434|how hungry are you|CE|||||
@@ -1436,7 +1436,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1436|how was it?|CE|||||
 1437|how was it?|CE|||||
 1438|how, in what way, by what means|CE|Lieterally "dou" (how) + "yatte" (do).||1457||
-1439||-|||||
+1439|no more than|CE||X shikanai @ X = verb plain form/noun|||
 1440||-|||||
 1441|I agree|CE|||1165||
 1442|I am sorry to have been rude|CE|||||
@@ -1465,7 +1465,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1465|it serves you right|CE|Colloquial||||
 1466|it will be ok soon|CE|||||
 1467|I've enjoyed my meal very much|CE|||||
-1468|I've heard that, rumor has it that, it appears as if|CE|||||
+1468|I've heard that, rumor has it that, it appears as if|PC|I've heard that X.|X toiukoto da @ X=noun/verb/adj.|||
 1469|ladies and gentlemen|CE|||||
 1470|let me introduce you (to a person)|CE|||||
 1471|let me see, well|CE|||1171||
@@ -1579,11 +1579,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1579|what will you do?|CE|||||
 1580|what's wrong?|CE|||1424||
 1581|when I was a child|CE|||||
-1582|when you say …, means, is, because, that is to say|CE|Use "tte" instead of "toiu no wa" in colloquial speech.||152||
+1582|as for ..., when it comes to ..., regarding ..., how about ..., when you say …, meaning ..., that is to say ...|CE|Use "toha"or "tte" instead of "toiu no wa" in colloquial speech.||152||toha
 1583|with pleasure|CE|||1210||
 1584|with regards to, regarding, concerning|CE|||||
 1585|would you like to see it? (polite)|CE|||1154||
-1586||-|||||
+1586|because ..., for ..., the reason being ...|CE|||||
 1587|yours sincerely, respectfully yours|CE|||||
 1588|an disliked person|IES|||||
 1589|ass|IES|||||
@@ -1592,7 +1592,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1592|direct insult and dismissal|IES|||||
 1593|don't fuck with me|IES|||||
 1594|fuck off, disappear|IES|||||
-1595|fat|IES|||||
+1595||IES|||||
 1596|female genetalia, pussy|IES|Very vulgar, usually censored.||||
 1597|fuck, shithead, bastard|IES|||||
 1598|get out of my way|IES|||||
@@ -7412,9 +7412,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 7412|Ka|N;Pl|||||
 7413|passable, acceptable, tolerable, fair|Ana|||||
 7414|passable, acceptable, tolerable, fair|Sx|||||
-7415||-|||||
+7415|be upset, lose one's composure, lose self-control, go to pieces, be shaken up, break down, be flustered, blow one's cool|VsuI|||||
 7416|department, section, faculty, school, arm|N;Sx|||||
-7417||-|||||
+7417|put in disorder, mess up, disturb, scatter about|VsuT|||||
 7418|course (of study), branch of study, specialization|N;Sx|||||
 7419|imperfectly, incompletely, faultily|A;M|||||
 7420|(taxonomical) family|N;Sx|||||
@@ -7559,11 +7559,11 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 7559|per|Sx|||||
 7560|band|N;Abs|||||
 7561|The Bund (Shanghai, China)|N;Abs|||||
-7562||-|||||
+7562|crawl out, creep out|VsuI|||||
 7563|bodhisattva, one who has reached enlightenment but vows to save all beings before becoming a buddha|N;Sx|||||
-7564||-|||||
+7564|begin to crawl|VsuI|||||
 7565|High Monk (title bestowed by the imperial court)|N;Sx|||||
-7566||-|||||
+7566|leave nothing undone, do all in one's might, do everything possible|VsuI|||||
 7567|title bestowed to Shinto kami in manifestation theory|N;Sx|||||
 7568|beginning, start, outset|A|||||
 7569|beginning, start, outset|N;Abs|||||
@@ -11835,7 +11835,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 11835|route, line, alignment|N;Abs|||||
 11836|definite, sure|Ana|||||
 11837|definiteness, sureness|N;Abs|||||
-11838|become settled, be fixed|VrugI|||||
+11838||-|||||
 11839|interrupt, obstruct (a view, someone's way, etc.), block (light, wind, etc.), intercept, cut off|VrugT|||||
 11840|comeback, recovery, restoration, rally, reflexive (in grammar)|N;Abs|||||
 11841|make (someone) do|VruiT|||||
@@ -13357,8 +13357,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 13357||-|||||
 13358|place, location|N;Sx|||||
 13359||-|||||
-13360|ordinary, common, usual|N;Abs|||||
-13361|unaffected, as is, safe|N;Abs|||||
+13360|ordinary, common, usual|N;Abs|Adjoined to nouns using "no".||||
+13361|unaffected, as is, safe|N;Abs|Adjoined to nouns using "no".||||
 13362|only, merely, just, simply|A|||||
 13363|but, however, nevertheless|PP|||||
 13364|sitting tailor fashion|Ana|||||
@@ -22786,7 +22786,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 22786|destroy, break, ruin|VsuruT|||||
 22787|crash (application)|VsuruI|||||
 22788|publish, issue, bring out|VsuruT|||||
-22789|judge, conclude, decide, adjudicate|VsuruT|||||
+22789|judge, conclude, decide, adjudicate, decipher, divine|VsuruT|||||
 22790||VsuruT|||||
 22791||-|||||
 22792|prosper, flourish, thrive|VsuruI|||||
@@ -35466,7 +35466,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35466|butt in|VsuI|||||
 35467|jump, leap, spring, bound, hop|VbuI|||||
 35468|vanish, disappear, be consumed in a flash|VbuI|||||
-35469|indicates word or phrase being defined|PP|||||
+35469|indicates word or phrase being defined|PP|Use "toha"or "tte" instead of "toiu no wa" in colloquial speech.||||toiunoha
 35470|having said that, be that as it may|CE|||||
 35471|in the capital, in Tokyo|N|||||
 35472|dissolve|VsuT|||||
@@ -35477,7 +35477,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35477|Tou|Pl|||||
 35478|pitching ability|N|||||
 35479|counter for pitches|C;Sx|||||
-35480||-|||||
+35480|used for quoting (thoughts, speech, etc.)|PP|Indicates contrast or adds emphasis to a negative statement.||||
 35481|Shangri-La, paradise on earth|N|||||
 35482|mailing, posting|N|||||
 35483|registration fee|N|||||
@@ -35496,8 +35496,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35496|repel (e.g. the enemy), drive back, drive away|VsuruT|||||
 35497|repeat, reiterate, do repeatedly|VsuruT|||||
 35498|transform, transition|VsuruI|||||
-35499||-|||||
-35500||-|||||
+35499|with|PP|||||
+35500|(not) as much as, (not) so much as|PP|Used with negative verb.||||
 35501|metamorphose|VsuruI|||||
 35502|consider, think about|VsuruT|||||
 35503|make a direct appeal|VsuruI|||||
@@ -35636,7 +35636,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35636|perfect crime|N|||||
 35637|to turn up, to make an appearance, to put in an appearance, to drop by|CE|||||
 35638|China (sometimes also used in ref. to Korea or other foreign countries)|N;Px|||||
-35639||-|||||
+35639|the fact that, to think that, such a thing as|PP|Indicates surprise, disbelief, anger, etc., sometimes at sentence end.||||
 35640|be highhanded, be arrogant, be overbearing|VrugI|||||
 35641|wear the mantle of (borrowed) authority and misuse it|VruiI|||||
 35642|kitchen garden|N|||||
