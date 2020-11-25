@@ -27,7 +27,7 @@ import java.util.List;
 public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
     //region Parameters
-    private WeakReference<Context> contextRef;
+    private final WeakReference<Context> contextRef;
     public VerbSearchAsyncResponseHandler listener;
     private static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
     public static final int MATCHING_ID = 0;
@@ -393,7 +393,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return characteristics;
     }
     @NotNull
-    @SuppressWarnings({"unchecked", "ConstantConditions"})
+    @SuppressWarnings({"unchecked"})
     private List<long[]> getMatchingVerbIdsAndCols(String language) {
 
         if (mPreparedQueryTextType == Globals.TYPE_INVALID || mCompleteVerbsList==null) return new ArrayList<>();
@@ -419,7 +419,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         char hiraganaFirstChar;
         String latinRoot;
         String kanjiRoot;
-        String conjugationValue = "";
+        String conjugationValue;
         boolean foundMatch;
         boolean allowExpandedConjugationsComparison;
         int matchColumn = 0;
@@ -570,7 +570,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
 
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Initialized");
 
-        //region Getting the matching words from the Words database and filtering for verbs.
+        //region Getting the matching words from the Words database and filtering for verbs
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
@@ -585,7 +585,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         boolean typeIsVerb;
         for (Word word : mMatchingWords) {
             type = word.getMeaningsEN().get(0).getType();
-            typeIsVerb = type.length() > 0 && type.substring(0,1).equals("V") && !type.contains("VC");
+            typeIsVerb = type.length() > 0 && type.startsWith("V") && !type.contains("VC");
             if (!typeIsVerb) continue;
 
             //Preventing the input query being a suru verb conjugation from overloading the results
@@ -630,6 +630,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         boolean verbAlreadyFound;
         boolean hasConjExceptions;
         String lastFamily = "";
+        String firstKanji = mInputQuery.getKanjiChars().size() > 0? mInputQuery.getKanjiChars().get(0) : "";
         String[] characteristics;
         char preparedTranslHiraganaChar0 = mPreparedTranslHiragana.charAt(0);
         String preparedCleanedChar0String = mPreparedCleaned.substring(0,1);
@@ -684,6 +685,12 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 }
             }
             if (verbAlreadyFound) continue;
+            //endregion
+
+            //region Skipping verbs that don't include the first kanji seen in the input query
+            if (preparedIsKanji && !(verb.getKanji().contains(firstKanji) || verb.getAltSpellings().contains(firstKanji))) {
+                continue;
+            }
             //endregion
 
             //region Loop starting parameters initialization
@@ -958,7 +965,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         return matchingVerbIdColListSorted;
 
     }
-    @NotNull @SuppressWarnings("ConstantConditions")  private List<Verb> getVerbsWithConjugations(@NotNull List<long[]> matchingVerbIdAndColList, List<Word> matchingWords) {
+    @NotNull private List<Verb> getVerbsWithConjugations(@NotNull List<long[]> matchingVerbIdAndColList, List<Word> matchingWords) {
 
         if (matchingVerbIdAndColList.size() == 0) return new ArrayList<>();
 
@@ -1002,9 +1009,6 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             }
         }
         //endregion
-
-        ////////////////////////////////////TODO : fix shagamu verb not found
-        /// ids: 18455
 
         //region Updating the verbs with their conjugations
         for (int t = 0; t < matchingVerbIdAndColList.size(); t++) {
@@ -1086,7 +1090,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 if (!currentConjugationExceptionsRowLatin[col].equals("")) currentConjugationsRowLatin[col] = currentConjugationExceptionsRowLatin[col];
                 else {
                     conjLength = currentConjugationsRowLatin[col].length();
-                    if (conjLength > 3 && currentConjugationsRowLatin[col].substring(0, 3).equals("(o)")) {
+                    if (conjLength > 3 && currentConjugationsRowLatin[col].startsWith("(o)")) {
                         currentConjugationsRowLatin[col] = "(o)" + currentVerb.getActiveLatinRoot() + currentConjugationsRowLatin[col].substring(3, conjLength);
                     } else {
                         currentConjugationsRowLatin[col] = currentVerb.getActiveLatinRoot() + currentConjugationsRowLatin[col];
@@ -1096,7 +1100,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
                 if (!currentConjugationExceptionsRowKanji[col].equals("")) currentConjugationsRowKanji[col] = currentConjugationExceptionsRowKanji[col];
                 else {
                     conjLength = currentConjugationsRowKanji[col].length();
-                    if (conjLength > 3 && currentConjugationsRowKanji[col].substring(0, 3).equals("(お)")) {
+                    if (conjLength > 3 && currentConjugationsRowKanji[col].startsWith("(お)")) {
                         currentConjugationsRowKanji[col] = "(お)" + currentVerb.getActiveKanjiRoot() + currentConjugationsRowKanji[col].substring(3, conjLength);
                     } else {
                         currentConjugationsRowKanji[col] = currentVerb.getActiveKanjiRoot() + currentConjugationsRowKanji[col];

@@ -30,6 +30,8 @@ import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -99,7 +101,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         super.onDetach();
         if (mKanjiCharacterDecompositionAsyncTask != null) mKanjiCharacterDecompositionAsyncTask.cancel(true);
     }
-    @Override public void onConfigurationChanged(Configuration newConfig) {
+    @Override public void onConfigurationChanged(@NotNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
     }
 

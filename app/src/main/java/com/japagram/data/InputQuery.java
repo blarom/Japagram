@@ -25,11 +25,12 @@ public class InputQuery implements Parcelable {
     private String katakanaSingleElement;
     private String hiraganaSingleElement;
     private String romajiSingleElement;
-    private String original;
+    private final String original;
     private String originalNoIng;
-    private List<String> searchQueriesRomaji = new ArrayList<>();
-    private List<String> searchQueriesNonJapanese = new ArrayList<>();
-    private List<String> searchQueriesKanji = new ArrayList<>();
+    private List<String> kanjiChars = new ArrayList<>();
+    private final List<String> searchQueriesRomaji = new ArrayList<>();
+    private final List<String> searchQueriesNonJapanese = new ArrayList<>();
+    private final List<String> searchQueriesKanji = new ArrayList<>();
     private String originalCleaned = "";
     private String ingless = "";
     private List<String> hiraganaConversions = new ArrayList<>();
@@ -49,12 +50,13 @@ public class InputQuery implements Parcelable {
         this.original = input.toLowerCase(Locale.ENGLISH); //Converting the word to lowercase (the search algorithm is not efficient if needing to search both lower and upper case)
         if (isEmpty()) return;
         originalType = getTextType(this.original);
+        kanjiChars = extractKanjiChars(this.original);
         originalCleaned = Utilities.removeNonSpaceSpecialCharacters(original);
         ingless = getInglessVerb(this.originalCleaned.replace("'",""));
         originalNoIng = hasIngEnding()? "to " + ingless : original;
         String originalCleanedNoSpaces = originalCleaned.replace("\\s","");
 
-        if (originalCleaned.length() > 3 && originalCleaned.substring(0, 3).equals("to ")) {
+        if (originalCleaned.length() > 3 && originalCleaned.startsWith("to ")) {
             isVerbWithTo = true;
             withoutTo = originalCleaned.substring(3);
         }
@@ -82,11 +84,11 @@ public class InputQuery implements Parcelable {
             searchType = Globals.TYPE_LATIN;
             boolean isEnglishWord = false;
             this.searchQueriesNonJapanese.add(originalCleaned);
-            if (originalCleaned.length() > 3 && originalCleaned.substring(originalCleaned.length()-3).equals("ing")) {
+            if (originalCleaned.length() > 3 && originalCleaned.endsWith("ing")) {
                 //this.searchQueriesNonJapanese.add(ingless);
                 isEnglishWord = true;
             }
-            if (originalCleaned.length() > 3 && originalCleaned.substring(0, 3).equals("to ")) {
+            if (originalCleaned.length() > 3 && originalCleaned.startsWith("to ")) {
                 searchQueriesNonJapanese.add(withoutTo);
                 isEnglishWord = true;
             }
@@ -360,7 +362,7 @@ public class InputQuery implements Parcelable {
                     newPhonemes = new String[]{"duu", "zuu"};
                     break;
                 case "N":
-                    newPhonemes = new String[]{"n\'"};
+                    newPhonemes = new String[]{"n'"};
                     break;
                 case "ā":
                 case "â":
@@ -457,6 +459,22 @@ public class InputQuery implements Parcelable {
         }
 
         return text_type;
+    }
+
+    public static List<String> extractKanjiChars(@NotNull String input) {
+
+        List<String> mInputQueryKanjis = new ArrayList<>();
+        for (int i=0; i<input.length(); i++) {
+            String currentChar = input.substring(i,i+1);
+            if (getTextType(currentChar) == Globals.TYPE_KANJI) {
+                mInputQueryKanjis.add(currentChar);
+            }
+        }
+        return mInputQueryKanjis;
+    }
+
+    public List<String> getKanjiChars() {
+        return kanjiChars;
     }
 
     @NotNull
@@ -677,6 +695,11 @@ public class InputQuery implements Parcelable {
         parcel.writeInt(originalType);
         parcel.writeString(originalCleaned);
         parcel.writeString(ingless);
+        parcel.writeStringList(kanjiChars);
+        parcel.writeStringList(searchQueriesRomaji);
+        parcel.writeStringList(searchQueriesNonJapanese);
+        parcel.writeStringList(searchQueriesKanji);
+        parcel.writeStringList(hiraganaConversions);
         parcel.writeStringList(hiraganaConversions);
         parcel.writeStringList(katakanaConversions);
         parcel.writeStringList(waapuroConversions);

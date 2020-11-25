@@ -34,7 +34,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -72,7 +71,6 @@ public class DictionaryFragment extends Fragment implements
     private boolean mAlreadyLoadedRoomResults;
     private boolean mAlreadyLoadedJishoResults;
     private boolean mAlreadyLoadedConjResults;
-    private List<ConjugationTitle> mConjugationTitles;
     private DictionaryRecyclerViewAdapter mDictionaryRecyclerViewAdapter;
     private List<Word> mJishoMatchingWordsList;
     private List<Word> mDifferentJishoWords;
@@ -151,8 +149,6 @@ public class DictionaryFragment extends Fragment implements
 
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
-
-        mConjugationTitles = UtilitiesDb.getConjugationTitles(Globals.VerbLatinConjDatabase, getContext());
     }
     private void initializeViews(View rootView) {
         mBinding = ButterKnife.bind(this, rootView);
@@ -234,7 +230,6 @@ public class DictionaryFragment extends Fragment implements
     private void displayMergedWordsToUser(String sourceType) {
 
         if (getContext()==null || getActivity()==null) return;
-        Utilities.hideSoftKeyboard(getActivity());
 
         boolean showOnlineResults = UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
         boolean showConjResults = UtilitiesPrefs.getPreferenceShowConjResults(getActivity());
@@ -286,6 +281,7 @@ public class DictionaryFragment extends Fragment implements
                 mDictionaryRecyclerView.setVisibility(View.VISIBLE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
+                Utilities.hideSoftKeyboard(getActivity());
                 hideLoadingIndicator();
             }
             else {
