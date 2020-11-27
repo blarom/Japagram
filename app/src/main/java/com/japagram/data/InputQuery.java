@@ -175,6 +175,14 @@ public class InputQuery implements Parcelable {
         String transliteratedToKatakana = input;
         String[] currentRow;
         String currentChar;
+        int[] romajiTypes = new int[]{
+                Globals.ROM_COL_WAAPURO,
+                Globals.ROM_COL_MOD_HEPBURN,
+                Globals.ROM_COL_NIHON_SHIKI,
+                Globals.ROM_COL_KUNREI_SHIKI
+        };
+
+        //Translating from Katakana to Hiragana
         for (int i = 1; i < Globals.Romanizations.size(); i++) {
             currentRow = Globals.Romanizations.get(i);
             if (currentRow.length < 6) break;
@@ -182,23 +190,19 @@ public class InputQuery implements Parcelable {
             if (currentChar.equals("")) continue;
             transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
         }
+
+        //Translating from from Hiragana to Katakana
         for (int i = 1; i < Globals.Romanizations.size(); i++) {
             currentRow = Globals.Romanizations.get(i);
             if (currentRow.length < 6) break;
             currentChar = currentRow[Globals.ROM_COL_HIRAGANA];
             if (currentChar.equals("")) continue;
             transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
-            if (transliteratedToKatakana.length() > 4) {
-                transliteratedToKatakana = transliteratedToKatakana.replace("a", "");
-            }
         }
-        int[] romajiTypes = new int[]{
-                Globals.ROM_COL_WAAPURO,
-                Globals.ROM_COL_MOD_HEPBURN,
-                Globals.ROM_COL_NIHON_SHIKI,
-                Globals.ROM_COL_KUNREI_SHIKI
-        };
+
+        //Translating from Romaji to Kana
         for (int type : romajiTypes) {
+
             for (int i = 1; i < Globals.Romanizations.size(); i++) {
                 currentRow = Globals.Romanizations.get(i);
                 if (currentRow.length < 6) break;
@@ -227,6 +231,29 @@ public class InputQuery implements Parcelable {
                         || currentChar.equals("uu")
                         || currentChar.equals("ee")
                         || currentChar.equals("oo")))
+                    continue;
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
+            }
+        }
+
+        //If there are leftover consonants, replace them by a japanized version
+        String oldTransliteration = transliteratedToHiragana;
+        transliteratedToHiragana = transliteratedToHiragana.replaceAll("([bdfghjkmnprstvz])","$1u").replace("l","ru").replace("q","ku");
+        transliteratedToKatakana = transliteratedToKatakana.replaceAll("([bdfghjkmnprstvz])","$1u").replace("l","ru").replace("q","ku");
+
+        if (!oldTransliteration.equals(transliteratedToHiragana)) {
+            for (int i = 1; i < Globals.Romanizations.size(); i++) {
+                currentRow = Globals.Romanizations.get(i);
+                if (currentRow.length < 6) break;
+
+                currentChar = currentRow[Globals.ROM_COL_WAAPURO];
+                if (currentChar.equals("")
+                        || currentChar.equals("aa")
+                        || currentChar.equals("ii")
+                        || currentChar.equals("uu")
+                        || currentChar.equals("ee")
+                        || currentChar.equals("oo"))
                     continue;
                 transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, currentRow[Globals.ROM_COL_HIRAGANA]);
                 transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, currentRow[Globals.ROM_COL_KATAKANA]);
@@ -300,17 +327,17 @@ public class InputQuery implements Parcelable {
                 .replace("zy","B")
                 .replace("ts","C")
                 .replace("zu","D")
+                .replace("du","O")
                 .replace("wê","E")
                 .replace("dû","F")
                 .replace("si","G")
-                .replace("ti","H")
-                .replaceAll("([^sc])hu","\1I")
-                .replaceAll("([^sc])hû","\1J")
+                //.replace("ti","H")
+                .replaceAll("([^sc])hu","$1I")
+                .replaceAll("([^sc])hû","$1J")
                 .replace("tû","K")
-                .replace("tu","L")
+                //.replace("tu","L")
                 .replace("zû","M")
-                .replace("n\'","N")
-                .replace("du","O");
+                .replace("n\'","N");
 
         //Replacing relevant phonemes with the Waapuro equivalent
         List<List<String>> possibleInterpretations = new ArrayList<>();
@@ -343,11 +370,11 @@ public class InputQuery implements Parcelable {
                 case "G":
                     newPhonemes = new String[]{"shi"};
                     break;
-                case "H":
-                    newPhonemes = new String[]{"chi"};
-                    break;
+//                case "H":
+//                    newPhonemes = new String[]{"chi"};
+//                    break;
                 case "I":
-                    newPhonemes = new String[]{"fu"};
+                    newPhonemes = new String[]{"hu", "fu"};
                     break;
                 case "J":
                     newPhonemes = new String[]{"fuu"};
@@ -355,9 +382,9 @@ public class InputQuery implements Parcelable {
                 case "K":
                     newPhonemes = new String[]{"tsuu"};
                     break;
-                case "L":
-                    newPhonemes = new String[]{"tsu"};
-                    break;
+//                case "L":
+//                    newPhonemes = new String[]{"tsu"};
+//                    break;
                 case "M":
                     newPhonemes = new String[]{"duu", "zuu"};
                     break;
