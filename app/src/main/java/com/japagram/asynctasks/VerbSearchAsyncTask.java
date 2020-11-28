@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
+import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
 
 import java.lang.ref.WeakReference;
@@ -41,7 +42,8 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
         }
 
-        return UtilitiesVerbSearchAsyncTask.getSortedVerbsWordAndConjParams(contextRef, mInputQuery.getOriginal(),  mWordsFromDictFragment);
+        String language = LocaleHelper.getLanguage(contextRef.get());
+        return UtilitiesVerbSearchAsyncTask.getSortedVerbsWordsAndConjParams(contextRef, mInputQuery.getOriginal(),  mWordsFromDictFragment, language);
     }
 
     @Override protected void onPostExecute(Object[] objectArray) {

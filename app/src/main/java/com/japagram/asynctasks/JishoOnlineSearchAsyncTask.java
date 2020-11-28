@@ -15,13 +15,13 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JishoSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
+public class JishoOnlineSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
 
     private WeakReference<Context> contextRef;
     private final String mQuery;
     public JishoSearchAsyncResponseHandler listener;
 
-    public JishoSearchAsyncTask(Context context, String query, JishoSearchAsyncResponseHandler listener) {
+    public JishoOnlineSearchAsyncTask(Context context, String query, JishoSearchAsyncResponseHandler listener) {
         contextRef = new WeakReference<>(context);
         this.mQuery = query;
         this.listener = listener;

@@ -10,6 +10,7 @@ import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.ref.WeakReference;
@@ -1056,7 +1057,7 @@ public final class UtilitiesVerbSearchAsyncTask {
     }
 
     @NotNull
-    public static List<Word> updateWordsWithConjMatchStatus(List<Word> matchingWords, List<Verb> matchingVerbs, InputQuery preparedQuery) {
+    public static List<Word> updateWordsWithConjMatchStatus(List<Word> matchingWords, List<Verb> matchingVerbs, @NotNull InputQuery preparedQuery) {
 
         String mPreparedQuery = preparedQuery.getOriginal();
         String mPreparedCleaned = preparedQuery.getOriginalCleaned().replaceAll("\\s", "");
@@ -1103,7 +1104,8 @@ public final class UtilitiesVerbSearchAsyncTask {
         return matchingWords;
     }
 
-    public static Object[] getSortedVerbsWordAndConjParams(WeakReference<Context> contextRef, String inputQuery, List<Word> mWordsFromDictFragment) {
+    @Contract("_, _, _, _ -> new")
+    public static Object @NotNull [] getSortedVerbsWordsAndConjParams(@NotNull WeakReference<Context> contextRef, String inputQuery, List<Word> mWordsFromDictFragment, String language) {
         List<Verb> matchingVerbs;
         List<Word> matchingWords;
         List<Object[]> matchingConjugationParameters = new ArrayList<>();
@@ -1121,7 +1123,6 @@ public final class UtilitiesVerbSearchAsyncTask {
         InputQuery preparedQuery = setInputQueryParameters(inputQuery);
 
         HashMap<String, Integer> mFamilyConjugationIndexes = getFamilyConjugationIndexes();
-        String language = LocaleHelper.getLanguage(contextRef.get());
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
 
         mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(language,

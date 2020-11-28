@@ -16,8 +16,8 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.adapters.DictionaryRecyclerViewAdapter;
-import com.japagram.asynctasks.JishoSearchAsyncTask;
-import com.japagram.asynctasks.LocalSearchAsyncTask;
+import com.japagram.asynctasks.JishoOnlineSearchAsyncTask;
+import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.VerbSearchAsyncTask;
 import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
@@ -48,8 +48,8 @@ import butterknife.Unbinder;
 public class DictionaryFragment extends Fragment implements
         FirebaseDao.FirebaseOperationsHandler,
         DictionaryRecyclerViewAdapter.DictionaryItemClickHandler,
-        JishoSearchAsyncTask.JishoSearchAsyncResponseHandler,
-        LocalSearchAsyncTask.LocalDictSearchAsyncResponseHandler, VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
+        JishoOnlineSearchAsyncTask.JishoSearchAsyncResponseHandler,
+        DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler, VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
 
 
     public static final String LOCAL = "local";
@@ -77,8 +77,8 @@ public class DictionaryFragment extends Fragment implements
     private List<Word> mMatchingWordsFromVerbs;
     private boolean mSuccessfullyDisplayedResultsBeforeTimeout;
     private boolean mOverrideDisplayConditions;
-    private JishoSearchAsyncTask mJishoSearchAsyncTask;
-    private LocalSearchAsyncTask mLocalDictSearchAsyncTask;
+    private JishoOnlineSearchAsyncTask mJishoOnlineSearchAsyncTask;
+    private DictSearchAsyncTask mLocalDictSearchAsyncTask;
     private VerbSearchAsyncTask mVerbSearchAsyncTask;
     private boolean mShowNames;
     //endregion
@@ -202,7 +202,7 @@ public class DictionaryFragment extends Fragment implements
     private void startSearchingForWordsInRoomDb() {
         if (getActivity()!=null) {
             Log.i(Globals.DEBUG_TAG, "Starting search for Room words");
-            mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
+            mLocalDictSearchAsyncTask = new DictSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
             mLocalDictSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
@@ -210,8 +210,8 @@ public class DictionaryFragment extends Fragment implements
 
         if (mInputQuery != null && !mInputQuery.isEmpty() && getActivity() != null && getContext() != null) {
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for Jisho words");
-            mJishoSearchAsyncTask = new JishoSearchAsyncTask(getContext(), mInputQuery.getOriginal(), this);
-            mJishoSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            mJishoOnlineSearchAsyncTask = new JishoOnlineSearchAsyncTask(getContext(), mInputQuery.getOriginal(), this);
+            mJishoOnlineSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
     }
@@ -406,7 +406,7 @@ public class DictionaryFragment extends Fragment implements
     }
     private void cancelAsyncOperations() {
         if (mLocalDictSearchAsyncTask != null) mLocalDictSearchAsyncTask.cancel(true);
-        if (mJishoSearchAsyncTask != null) mJishoSearchAsyncTask.cancel(true);
+        if (mJishoOnlineSearchAsyncTask != null) mJishoOnlineSearchAsyncTask.cancel(true);
         if (mVerbSearchAsyncTask != null) mVerbSearchAsyncTask.cancel(true);
     }
     private void showLoadingIndicator() {

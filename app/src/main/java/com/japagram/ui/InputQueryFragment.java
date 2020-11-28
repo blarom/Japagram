@@ -46,7 +46,7 @@ import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
 import com.japagram.R;
-import com.japagram.asynctasks.LocalSearchAsyncTask;
+import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.TesseractOCRAsyncTask;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
@@ -84,7 +84,7 @@ import static android.content.Context.DOWNLOAD_SERVICE;
 
 public class InputQueryFragment extends Fragment implements
         TesseractOCRAsyncTask.TesseractOCRAsyncResponseHandler,
-        TextToSpeech.OnInitListener, LocalSearchAsyncTask.LocalDictSearchAsyncResponseHandler {
+        TextToSpeech.OnInitListener, DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler {
 
     //region Parameters
     @BindView(R.id.query) AutoCompleteTextView mInputQueryAutoCompleteTextView;
@@ -970,7 +970,7 @@ public class InputQueryFragment extends Fragment implements
 
         if (getActivity() != null && getContext() != null) {
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for Romaji values of words recognized by speech");
-            LocalSearchAsyncTask mLocalDictSearchAsyncTask = new LocalSearchAsyncTask(getContext(), new InputQuery(mInputQuery), this, false);
+            DictSearchAsyncTask mLocalDictSearchAsyncTask = new DictSearchAsyncTask(getContext(), new InputQuery(mInputQuery), this, false);
             mLocalDictSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
