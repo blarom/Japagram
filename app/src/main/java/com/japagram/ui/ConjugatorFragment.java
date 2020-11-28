@@ -28,6 +28,7 @@ import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
 import com.japagram.resources.UtilitiesPrefs;
 
 import java.util.ArrayList;
@@ -233,7 +234,7 @@ public class ConjugatorFragment extends Fragment implements
         }
 
         //Setting the conjugation spinner to the position of the first item matching the user query
-        int index = (int) mMatchingConjugationParameters.get(verbIndex)[VerbSearchAsyncTask.MATCHING_CATEGORY_INDEX];
+        int index = (int) mMatchingConjugationParameters.get(verbIndex)[UtilitiesVerbSearchAsyncTask.MATCHING_CATEGORY_INDEX];
         mConjugationChooserSpinner.setSelection(index, false);
 
     }

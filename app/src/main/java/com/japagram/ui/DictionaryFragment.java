@@ -19,7 +19,6 @@ import com.japagram.adapters.DictionaryRecyclerViewAdapter;
 import com.japagram.asynctasks.JishoSearchAsyncTask;
 import com.japagram.asynctasks.LocalSearchAsyncTask;
 import com.japagram.asynctasks.VerbSearchAsyncTask;
-import com.japagram.data.ConjugationTitle;
 import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
@@ -27,6 +26,7 @@ import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
 import com.japagram.resources.UtilitiesDb;
 import com.japagram.resources.UtilitiesPrefs;
 
@@ -511,8 +511,8 @@ public class DictionaryFragment extends Fragment implements
             Word word = mMatchingWordsFromVerbs.get(i);
             word.setIsLocal(true);
             for (Object[] matchingConjugationParameters : mMatchingConjugationParametersList) {
-                if ((long) matchingConjugationParameters[VerbSearchAsyncTask.MATCHING_ID] == word.getWordId()) {
-                    String matchingConjugation = (String) matchingConjugationParameters[VerbSearchAsyncTask.MATCHING_CONJUGATION];
+                if ((long) matchingConjugationParameters[UtilitiesVerbSearchAsyncTask.MATCHING_ID] == word.getWordId()) {
+                    String matchingConjugation = (String) matchingConjugationParameters[UtilitiesVerbSearchAsyncTask.MATCHING_CONJUGATION];
                     word.setMatchingConj(matchingConjugation);
                     break;
                 }
