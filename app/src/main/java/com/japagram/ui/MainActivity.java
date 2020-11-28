@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.japagram.R;
-import com.japagram.data.InputQuery;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
@@ -25,6 +24,7 @@ import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesQuery;
 import com.japagram.resources.UtilitiesPrefs;
 
 import org.jetbrains.annotations.NotNull;
@@ -470,7 +470,7 @@ public class MainActivity extends BaseActivity implements
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                        .equals(InputQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
+                        .equals(UtilitiesQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
                     meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;

@@ -14,6 +14,7 @@ import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesDb;
+import com.japagram.resources.UtilitiesQuery;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -384,7 +385,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             characteristics[INDEX_HIRAGANA_FIRST_CHAR] = altSpelling.substring(0,1);
         } else {
             String startOfWord = characteristics[INDEX_ROMAJI].length() > 5? characteristics[INDEX_ROMAJI].substring(0,5) : characteristics[INDEX_ROMAJI];
-            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = InputQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
+            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = UtilitiesQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
         }
         characteristics[INDEX_LATIN_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
         characteristics[INDEX_KANJI_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);

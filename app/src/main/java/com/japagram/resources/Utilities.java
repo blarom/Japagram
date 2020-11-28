@@ -983,7 +983,7 @@ public final class Utilities {
             int textType = InputQuery.getTextType(kanji.toString());
             if (romaji.length() != 0 && (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                 //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                romaji = new StringBuilder(InputQuery.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
+                romaji = new StringBuilder(UtilitiesQuery.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
             }
 
             List<Object> conceptLightStatusData = (List<Object>) getElementAtHeader(conceptLightWrapperData, "concept_light-status");
@@ -1004,13 +1004,13 @@ public final class Utilities {
                         if (currentValue.length() != 0 &&
                                 (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                             //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
-                            romaji = new StringBuilder(InputQuery.getWaapuroHiraganaKatakana(currentValue).get(0));
+                            romaji = new StringBuilder(UtilitiesQuery.getWaapuroHiraganaKatakana(currentValue).get(0));
                             break;
                         }
                     }
                 }
             }
-            currentWord.setRomaji(InputQuery.getWaapuroHiraganaKatakana(romaji.toString()).get(0));
+            currentWord.setRomaji(UtilitiesQuery.getWaapuroHiraganaKatakana(romaji.toString()).get(0));
             //endregion
 
             currentWord.setUniqueIdentifier(currentWord.getRomaji() + "-" + kanji);
@@ -1074,7 +1074,7 @@ public final class Utilities {
                         Matcher m = Pattern.compile("\\b(\\w+)\\s【(\\w+)】").matcher(altSpellingsContainer.toString());
                         while (m.find()) {
                             if (!m.group(1).equals(currentWord.getKanji())) altSpellings.add(m.group(1).trim());
-                            String convertedMatch = InputQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
+                            String convertedMatch = UtilitiesQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = removeDuplicatesFromStringList(altSpellings);

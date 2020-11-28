@@ -1167,7 +1167,7 @@ public class UtilitiesDb {
                 }
             } else {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = InputQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
                 IndexRomaji indexRomaji = namesRoomDatabase.getRomajiIndexForExactWord(concatenated_word);
                 if (indexRomaji != null) {
@@ -1185,7 +1185,7 @@ public class UtilitiesDb {
                 }
             } else {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = InputQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
                 List<IndexRomaji> indexesRomaji = namesRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) {
@@ -1390,7 +1390,7 @@ public class UtilitiesDb {
             String key = matchingWordKanji.replace("～", "").replaceAll("する$", "");
             if (frequenciesHash.containsKey(key)) word.setFrequency(frequenciesHash.get(key));
             else {
-                String katakana = InputQuery.getWaapuroHiraganaKatakana(matchingWordRomaji).get(Globals.TYPE_KATAKANA);
+                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(matchingWordRomaji).get(Globals.TYPE_KATAKANA);
                 if (frequenciesHash.containsKey(katakana)) word.setFrequency(frequenciesHash.get(katakana));
             }
         }
@@ -1711,7 +1711,7 @@ public class UtilitiesDb {
         verb.setRomaji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ROMAJI]);
         verb.setKanji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI]);
         verb.setAltSpellings(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ALT_SPELLINGS]);
-        verb.setHiraganaFirstChar(InputQuery.getWaapuroHiraganaKatakana(verb.getRomaji()).get(Globals.TYPE_HIRAGANA).substring(0, 1));
+        verb.setHiraganaFirstChar(UtilitiesQuery.getWaapuroHiraganaKatakana(verb.getRomaji()).get(Globals.TYPE_HIRAGANA).substring(0, 1));
 
         //Setting the family
         String MM_index = verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_MEANING_EN_INDEXES];

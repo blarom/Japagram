@@ -22,6 +22,7 @@ import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
+import com.japagram.resources.UtilitiesQuery;
 import com.japagram.resources.UtilitiesPrefs;
 
 import org.jetbrains.annotations.NotNull;
@@ -341,7 +342,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (kanji.equals("")) romajiAndKanji = romaji;
             else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
             String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = InputQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
+            String inputQueryLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
             String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
@@ -354,9 +355,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
                     && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
 
-                String latin = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
-                String hiragana = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
-                String katakana = InputQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
+                String latin = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
+                String hiragana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
+                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
 
                 if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
                     String[] altSpellingElements = alternatespellings.split(",");
