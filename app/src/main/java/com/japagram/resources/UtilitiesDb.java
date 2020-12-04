@@ -12,16 +12,12 @@ import com.japagram.data.IndexKanji;
 import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexSpanish;
 import com.japagram.data.InputQuery;
-import com.japagram.data.RoomCentralDatabase;
-import com.japagram.data.RoomExtendedDatabase;
-import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -614,8 +610,13 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    @Contract("_, _, _, _ -> new")
-    public static Object[] getMatchingWordIdsAndDoBasicFiltering(@NotNull InputQuery query, String language, boolean showNames, Context context) {
+    public static Object[] getMatchingWordIdsAndDoBasicFiltering(boolean roomExtendedDbIsAvailable,
+                                                                 boolean roomNamesDatabaseIsAvailable,
+                                                                 boolean roomNamesDatabasesFinishedLoading,
+                                                                 @NotNull InputQuery query,
+                                                                 String language,
+                                                                 boolean showNames,
+                                                                 Context context) {
 
         //region Initializations
         List<Long> matchingWordIdsCentral;
@@ -631,10 +632,10 @@ public class UtilitiesDb {
         matchingWordIdsCentral.addAll(addCountersToMatchesList(query, context));
         matchingWordIdsCentral = Utilities.removeDuplicatesFromLongList(matchingWordIdsCentral);
 
-        if (RoomExtendedDatabase.getInstance(context) != null)
+        if (roomExtendedDbIsAvailable)
             matchingWordIdsExtended = getNormalMatches(query, language, true, context);
 
-        if (showNames && UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context) && RoomNamesDatabase.getInstance(context) != null) {
+        if (showNames && roomNamesDatabasesFinishedLoading && roomNamesDatabaseIsAvailable) {
             matchingWordIdsNames = addNamesToMatchesList(query, context);
         }
         //endregion
@@ -777,8 +778,8 @@ public class UtilitiesDb {
 
         //region Getting the words
         List<Long> matchingWordIdsFromIndex = getMatchingWordIdsWithLimits(query, language, use_extended_db, context);
-        List<Word> matchingWordList = use_extended_db ? RoomExtendedDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex)
-                : RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
+        List<Word> matchingWordList = use_extended_db ? UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, Globals.DB_EXTENDED)
+                : UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, Globals.DB_CENTRAL);
         //endregion
 
         //region Filtering the matches
@@ -901,7 +902,7 @@ public class UtilitiesDb {
         List<Long> matchingWordIdsFromIndex = getMatchingAdjectiveIdsWithLimits(query, context);
         if (matchingWordIdsFromIndex.size() == 0) return new ArrayList<>();
 
-        List<Word> matchingPotentialAdjectives = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIdsFromIndex);
+        List<Word> matchingPotentialAdjectives = UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, Globals.DB_CENTRAL);
         List<String> typesList;
         for (Word word : matchingPotentialAdjectives) {
             typesList = new ArrayList<>();
@@ -934,7 +935,7 @@ public class UtilitiesDb {
         if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
             Log.i(Globals.DEBUG_TAG, "WARNING: exceeded MAX_SQL_VARIABLES_FOR_QUERY in counter search, but prevented crash.");
         } else {
-            List<Word> matchingPotentialCounters = RoomCentralDatabase.getInstance(context).getWordListByWordIds(matchingWordIds);
+            List<Word> matchingPotentialCounters = UtilitiesDbAccess.getWordListByWordIds(matchingWordIds, context, Globals.DB_CENTRAL);
             for (Word word : matchingPotentialCounters) {
                 List<String> typesList = new ArrayList<>();
                 for (Word.Meaning meaning : word.getMeaningsEN()) {
@@ -1145,12 +1146,11 @@ public class UtilitiesDb {
     private static List<Long> findQueryInNameIndices(String concatenated_word, boolean exactSearch, int inputTextType, Context context) {
 
         List<String> matchingIndices = new ArrayList<>();
-        RoomNamesDatabase namesRoomDatabase = RoomNamesDatabase.getInstance(context);
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
 
             if (inputTextType == Globals.TYPE_KANJI) {
-                IndexKanji indexKanji = namesRoomDatabase.getKanjiIndexForExactWord(concatenated_word);
+                IndexKanji indexKanji = UtilitiesDbAccess.getKanjiIndexForExactWord(concatenated_word, context);
                 if (indexKanji != null) {
                     matchingIndices.addAll(Arrays.asList(indexKanji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
                 }
@@ -1158,7 +1158,7 @@ public class UtilitiesDb {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
                     concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
-                IndexRomaji indexRomaji = namesRoomDatabase.getRomajiIndexForExactWord(concatenated_word);
+                IndexRomaji indexRomaji = UtilitiesDbAccess.getRomajiIndexForExactWord(concatenated_word, context);
                 if (indexRomaji != null) {
                     matchingIndices.addAll(Arrays.asList(indexRomaji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
                 }
@@ -1166,7 +1166,7 @@ public class UtilitiesDb {
 
         } else {
             if (inputTextType == Globals.TYPE_KANJI) {
-                List<IndexKanji> indexesKanji = namesRoomDatabase.getKanjiIndexesListForStartingWord(concatenated_word);
+                List<IndexKanji> indexesKanji = UtilitiesDbAccess.getKanjiIndexesListForStartingWord(concatenated_word, context);
                 if (indexesKanji != null && indexesKanji.size() > 0) {
                     for (IndexKanji indexKanji : indexesKanji) {
                         matchingIndices.addAll(Arrays.asList(indexKanji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
@@ -1176,7 +1176,7 @@ public class UtilitiesDb {
                 if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
                     concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
                 }
-                List<IndexRomaji> indexesRomaji = namesRoomDatabase.getRomajiIndexesListForStartingWord(concatenated_word);
+                List<IndexRomaji> indexesRomaji = UtilitiesDbAccess.getRomajiIndexesListForStartingWord(concatenated_word, context);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) {
                     for (IndexRomaji indexRomaji : indexesRomaji) {
                         matchingIndices.addAll(Arrays.asList(indexRomaji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
@@ -1197,17 +1197,15 @@ public class UtilitiesDb {
     private static List<Object> findQueryInRomajiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
-        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
-        RoomExtendedDatabase extendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
-            List<IndexRomaji> indexes = use_extended_db ? extendedRoomDatabase.getRomajiIndexForExactWordsList(searchQueries)
-                    : roomCentralDatabase.getRomajiIndexForExactWordsList(searchQueries);
+            List<IndexRomaji> indexes = use_extended_db ? UtilitiesDbAccess.getRomajiIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                    : UtilitiesDbAccess.getRomajiIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
             if (indexes != null && indexes.size() > 0) matchingIndices.addAll(indexes);
 
         } else {
-            List<IndexRomaji> indexesRomaji = use_extended_db ? extendedRoomDatabase.getRomajiIndexesListForStartingWordsList(searchQueries)
-                    : roomCentralDatabase.getRomajiIndexesListForStartingWordsList(searchQueries);
+            List<IndexRomaji> indexesRomaji = use_extended_db ? UtilitiesDbAccess.getRomajiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                    : UtilitiesDbAccess.getRomajiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED);
             if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
         }
         return matchingIndices;
@@ -1217,32 +1215,30 @@ public class UtilitiesDb {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
 
-        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
-        RoomExtendedDatabase extendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
             switch (language) {
                 case Globals.LANG_STR_EN: {
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
                 case Globals.LANG_STR_FR: {
-                    List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexForExactWordsList(searchQueries)
-                            : roomCentralDatabase.getFrenchIndexForExactWordsList(searchQueries);
+                    List<IndexFrench> indexesFrench = use_extended_db ? UtilitiesDbAccess.getFrenchIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getFrenchIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench); //Only add the index if the word was found in the index
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
                 case Globals.LANG_STR_ES: {
-                    List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexForExactWordsList(searchQueries)
-                            : roomCentralDatabase.getSpanishIndexForExactWordsList(searchQueries);
+                    List<IndexSpanish> indexesSpanish = use_extended_db ? UtilitiesDbAccess.getSpanishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getSpanishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish); //Only add the index if the word was found in the index
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexForExactWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexForExactWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
@@ -1251,26 +1247,26 @@ public class UtilitiesDb {
         } else {
             switch (language) {
                 case Globals.LANG_STR_EN: {
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
                 case Globals.LANG_STR_FR: {
-                    List<IndexFrench> indexesFrench = use_extended_db ? extendedRoomDatabase.getFrenchIndexesListForStartingWordsList(searchQueries)
-                            : roomCentralDatabase.getFrenchIndexesListForStartingWordsList(searchQueries);
+                    List<IndexFrench> indexesFrench = use_extended_db ? UtilitiesDbAccess.getFrenchIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getFrenchIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench);
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
                 case Globals.LANG_STR_ES: {
-                    List<IndexSpanish> indexesSpanish = use_extended_db ? extendedRoomDatabase.getSpanishIndexesListForStartingWordsList(searchQueries)
-                            : roomCentralDatabase.getSpanishIndexesListForStartingWordsList(searchQueries);
+                    List<IndexSpanish> indexesSpanish = use_extended_db ? UtilitiesDbAccess.getSpanishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getSpanishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish);
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? extendedRoomDatabase.getEnglishIndexesListForStartingWordsList(searchQueries)
-                            : roomCentralDatabase.getEnglishIndexesListForStartingWordsList(searchQueries);
+                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
@@ -1280,21 +1276,18 @@ public class UtilitiesDb {
     }
 
     private static List<IndexKanji> findQueryInKanjiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
-        RoomCentralDatabase roomCentralDatabase = RoomCentralDatabase.getInstance(context);
-        RoomExtendedDatabase japaneseToolboxExtendedRoomDatabase = RoomExtendedDatabase.getInstance(context);
         List<IndexKanji> matchingIndexKanjis;
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
             matchingIndexKanjis = new ArrayList<>();
-            List<IndexKanji> indexes = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexForExactWordsList(searchQueries)
-                    : roomCentralDatabase.getKanjiIndexForExactWordsList(searchQueries);
+            List<IndexKanji> indexes = use_extended_db ? UtilitiesDbAccess.getKanjiIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                    : UtilitiesDbAccess.getKanjiIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
             if (indexes != null && indexes.size() > 0) matchingIndexKanjis.addAll(indexes); //Only add the index if the word was found in the index
-            return matchingIndexKanjis;
         } else {
-            matchingIndexKanjis = use_extended_db ? japaneseToolboxExtendedRoomDatabase.getKanjiIndexesListForStartingWordsList(searchQueries)
-                    : roomCentralDatabase.getKanjiIndexesListForStartingWordsList(searchQueries);
-            return matchingIndexKanjis;
+            matchingIndexKanjis = use_extended_db ? UtilitiesDbAccess.getKanjiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
+                    : UtilitiesDbAccess.getKanjiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
         }
+        return matchingIndexKanjis;
     }
 
     @NotNull

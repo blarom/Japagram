@@ -42,16 +42,26 @@ public class DictSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
             return new ArrayList<>();
         }
 
+        Context context = contextRef.get();
+
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Starting");
         String language = LocaleHelper.getLanguage(contextRef.get());
 
-        boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get());
-        boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get());
+        boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(context);
+        boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
 
-        boolean roomExtendedDbIsAvailable = finishedLoadingExtendedDb && RoomExtendedDatabase.getInstance(contextRef.get()) != null;
-        boolean roomNamesDbIsAvailable = (finishedLoadingNamesDb && mShowNames) && RoomNamesDatabase.getInstance(contextRef.get()) != null;
+        boolean roomExtendedDbIsAvailable = finishedLoadingExtendedDb && RoomExtendedDatabase.getInstance(context) != null;
+        boolean roomNamesDbIsAvailable = (finishedLoadingNamesDb && mShowNames) && RoomNamesDatabase.getInstance(context) != null;
+        boolean roomNamesDatabasesFinishedLoading = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
 
-        return UtilitiesDictSearchAsyncTask.getMatchingWords(roomExtendedDbIsAvailable, roomNamesDbIsAvailable, mQuery, language, contextRef.get(), mShowNames);
+        return UtilitiesDictSearchAsyncTask.getMatchingWords(
+                roomExtendedDbIsAvailable,
+                roomNamesDbIsAvailable,
+                roomNamesDatabasesFinishedLoading,
+                mQuery,
+                language,
+                context,
+                mShowNames);
     }
 
     @Override

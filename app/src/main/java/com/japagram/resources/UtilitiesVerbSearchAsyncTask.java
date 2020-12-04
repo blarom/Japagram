@@ -356,8 +356,15 @@ public final class UtilitiesVerbSearchAsyncTask {
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(preparedQuery, language, false, context)[0];
-            mMatchingWords = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(mMatchingWordIds, context);
+            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(
+                    false,
+                    false,
+                    false,
+                    preparedQuery,
+                    language,
+                    false,
+                    context)[0];
+            mMatchingWords = UtilitiesDbAccess.getWordListByWordIds(mMatchingWordIds, context, Globals.DB_CENTRAL);
         } else {
             mMatchingWords = mWordsFromDictFragment;
         }
@@ -1126,7 +1133,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        matchingWords = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(ids, context);
+        matchingWords = UtilitiesDbAccess.getWordListByWordIds(ids, context, Globals.DB_CENTRAL);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
 
         matchingVerbs = getVerbsWithConjugations(
