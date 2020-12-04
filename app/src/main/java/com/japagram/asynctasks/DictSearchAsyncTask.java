@@ -5,10 +5,14 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.japagram.data.InputQuery;
+import com.japagram.data.RoomCentralDatabase;
+import com.japagram.data.RoomExtendedDatabase;
+import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
 import com.japagram.resources.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.resources.UtilitiesDictSearchAsyncTask;
+import com.japagram.resources.UtilitiesPrefs;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -41,7 +45,14 @@ public class DictSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Starting");
         String language = LocaleHelper.getLanguage(contextRef.get());
 
-        return UtilitiesDictSearchAsyncTask.getMatchingWords(mQuery, language, contextRef, mShowNames);
+        boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get());
+        boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get());
+
+        RoomCentralDatabase mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
+        RoomExtendedDatabase roomExtendedDatabase = finishedLoadingExtendedDb? RoomExtendedDatabase.getInstance(contextRef.get()) : null;
+        RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && mShowNames)? RoomNamesDatabase.getInstance(contextRef.get()) : null;
+
+        return UtilitiesDictSearchAsyncTask.getMatchingWords(mRoomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, mQuery, language, contextRef.get(), mShowNames);
     }
 
     @Override

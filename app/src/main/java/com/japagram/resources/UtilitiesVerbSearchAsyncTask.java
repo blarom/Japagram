@@ -359,7 +359,7 @@ public final class UtilitiesVerbSearchAsyncTask {
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
             List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(preparedQuery, language, false, context)[0];
-            mMatchingWords = UtilitiesDbAccess.getWordListByWordIds(mRoomCentralDatabase, mMatchingWordIds);
+            mMatchingWords = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(mRoomCentralDatabase, mMatchingWordIds);
         } else {
             mMatchingWords = mWordsFromDictFragment;
         }
@@ -1131,7 +1131,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        matchingWords = UtilitiesDbAccess.getWordListByWordIds(mRoomCentralDatabase, ids);
+        matchingWords = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(mRoomCentralDatabase, ids);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
 
         matchingVerbs = getVerbsWithConjugations(

@@ -11,32 +11,33 @@ import com.japagram.data.Word;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UtilitiesDictSearchAsyncTask {
-    public static List<Word> getMatchingWords(InputQuery mQuery, String language, @NotNull WeakReference<Context> contextRef, boolean mShowNames) {
+    public static List<Word> getMatchingWords(RoomCentralDatabase mRoomCentralDatabase,
+                                              RoomExtendedDatabase roomExtendedDatabase,
+                                              RoomNamesDatabase roomNamesDatabase,
+                                              InputQuery mQuery,
+                                              String language,
+                                              @NotNull Context context,
+                                              boolean mShowNames) {
         List<Word> localMatchingWordsList;
-        boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get());
-        boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get());
 
-        Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery, language, mShowNames, contextRef.get());
+        Object[] matchingWordIds = UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(mQuery, language, mShowNames, context);
         List<Long> matchingWordIdsCentral = (List<Long>) matchingWordIds[0];
         List<Long> matchingWordIdsExtended = (List<Long>) matchingWordIds[1];
         List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching word ids");
 
-        localMatchingWordsList = RoomCentralDatabase.getInstance(contextRef.get()).getWordListByWordIds(matchingWordIdsCentral);
+        localMatchingWordsList = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(mRoomCentralDatabase, matchingWordIdsCentral);
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching words");
 
-        RoomExtendedDatabase roomExtendedDatabase = finishedLoadingExtendedDb? RoomExtendedDatabase.getInstance(contextRef.get()) : null;
-        if (roomExtendedDatabase != null) localMatchingWordsList.addAll(roomExtendedDatabase.getWordListByWordIds(matchingWordIdsExtended));
+        if (roomExtendedDatabase != null) localMatchingWordsList.addAll(UtilitiesDbAccess.getWordListByWordIdsFromExtendedDb(roomExtendedDatabase,matchingWordIdsExtended));
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
-        RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && mShowNames)? RoomNamesDatabase.getInstance(contextRef.get()) : null;
         if (roomNamesDatabase != null) {
-            List<Word> originalNames = roomNamesDatabase.getWordListByWordIds(matchingWordIdsNames);
+            List<Word> originalNames = UtilitiesDbAccess.getWordListByWordIdsFromNamesDb(roomNamesDatabase, matchingWordIdsNames);
             Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
             List<Word> condensedNames = new ArrayList<>();
             boolean foundName;
