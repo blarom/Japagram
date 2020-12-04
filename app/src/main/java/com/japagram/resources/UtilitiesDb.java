@@ -38,20 +38,9 @@ public class UtilitiesDb {
     public static String getHexId(@NotNull String word) {
         byte[] bytes;
         StringBuilder sb = new StringBuilder();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            bytes = word.getBytes(StandardCharsets.UTF_8);
-            for (byte b : bytes) {
-                sb.append(String.format("%02X", b));
-            }
-        } else {
-            try {
-                bytes = word.getBytes("UTF-8");
-                for (byte b : bytes) {
-                    sb.append(String.format("%02X", b));
-                }
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+        bytes = word.getBytes(StandardCharsets.UTF_8);
+        for (byte b : bytes) {
+            sb.append(String.format("%02X", b));
         }
         return "1." + sb.toString().toUpperCase();
     }
@@ -1771,23 +1760,26 @@ public class UtilitiesDb {
         List<ConjugationTitle> conjugationTitles = new ArrayList<>();
         List<ConjugationTitle.Subtitle> subtitles = new ArrayList<>();
         ConjugationTitle conjugationTitle = new ConjugationTitle();
+        String titleRef;
+        String subtitleRef;
+        ConjugationTitle.Subtitle subtitle;
 
         for (int col = 0; col < sheetLength; col++) {
 
             if (col == 0) {
-                int titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
-                conjugationTitle.setTitle(context.getString(titleRef));
+                titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
+                conjugationTitle.setTitle(UtilitiesResourceAccess.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
                 conjugationTitle.setTitleIndex(col);
 
-                ConjugationTitle.Subtitle subtitle = new ConjugationTitle.Subtitle();
-                int subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(context.getString(subtitleRef));
+                subtitle = new ConjugationTitle.Subtitle();
+                subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
+                subtitle.setSubtitle(UtilitiesResourceAccess.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);
             } else if (col == sheetLength - 1) {
-                ConjugationTitle.Subtitle subtitle = new ConjugationTitle.Subtitle();
-                int subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(context.getString(subtitleRef));
+               subtitle = new ConjugationTitle.Subtitle();
+                subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
+                subtitle.setSubtitle(UtilitiesResourceAccess.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);
 
@@ -1802,15 +1794,15 @@ public class UtilitiesDb {
                     conjugationTitle = new ConjugationTitle();
                     subtitles = new ArrayList<>();
 
-                    int titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
-                    conjugationTitle.setTitle(context.getString(titleRef));
+                    titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
+                    conjugationTitle.setTitle(UtilitiesResourceAccess.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
                     conjugationTitle.setTitleIndex(col);
 
                 }
 
-                ConjugationTitle.Subtitle subtitle = new ConjugationTitle.Subtitle();
-                int subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(context.getString(subtitleRef));
+                subtitle = new ConjugationTitle.Subtitle();
+                subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
+                subtitle.setSubtitle(UtilitiesResourceAccess.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
                 subtitle.setEnding((col <= Globals.COLUMN_VERB_MASUSTEM) ? "" : endingsRow[col]);
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);

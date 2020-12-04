@@ -24,6 +24,7 @@ import com.japagram.resources.Globals;
 import com.japagram.resources.Utilities;
 import com.japagram.resources.UtilitiesQuery;
 import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.resources.UtilitiesResourceAccess;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -268,17 +269,17 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             String extract = "";
             if (meanings == null || meanings.size() == 0) {
                 meanings = word.getMeaningsEN();
-                extract += mContext.getString(R.string.meanings_in)
+                extract += UtilitiesResourceAccess.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL)
                         + " "
                         + language.toLowerCase()
                         + " "
-                        + mContext.getString(R.string.unavailable_select_word_to_see_meanings);
+                        + UtilitiesResourceAccess.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL);
             }
             else if (meanings.get(0).getMeaning().equals("*")) {
                 type = meanings.get(0).getType();
                 if (Globals.TYPES.containsKey(type)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    extract = mContext.getString(Globals.TYPES.get(type));
+                    extract = UtilitiesResourceAccess.getString(Globals.TYPES.get(type), mContext, Globals.RESOURCE_MAP_TYPES);
                 }
                 else {
                     extract = "*";
@@ -457,7 +458,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
                 if (Globals.TYPES.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = mContext.getString(Globals.TYPES.get(element));
+                    String currentType = UtilitiesResourceAccess.getString(Globals.TYPES.get(element), mContext, Globals.RESOURCE_MAP_TYPES);
                     if (language != Globals.LANG_EN) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }

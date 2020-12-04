@@ -3,7 +3,6 @@ package com.japagram.resources;
 import android.content.Context;
 import android.util.Log;
 
-import com.japagram.R;
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.InputQuery;
 import com.japagram.data.RoomCentralDatabase;
@@ -13,7 +12,6 @@ import com.japagram.data.Word;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,7 +30,7 @@ public final class UtilitiesVerbSearchAsyncTask {
     public final static int INDEX_KANJI_ROOT = 5;
     public final static int INDEX_ACTIVE_ALTSPELLING = 6;
 
-    public static InputQuery setInputQueryParameters(String inputQueryOriginal) {
+    public static @NotNull InputQuery setInputQueryParameters(@NotNull String inputQueryOriginal) {
         String terminations_ichidan_romaji = "(ta|teiru|teita|te|masu|mashita|nai|nakatta|masen *deshita|masen)";
         String terminations_ichidan_romaji_subset = "(mashita|nakatta|masen *deshita)";
         String terminations_ugodan_romaji = "(tta|tteiru|tteita|tte|imasu|imashita|wanai|wanakatta|imasen *deshita|imasen)";
@@ -93,7 +91,7 @@ public final class UtilitiesVerbSearchAsyncTask {
         return preparedInputQuery;
     }
 
-    public static HashMap<String, Integer> getFamilyConjugationIndexes() {
+    public static @NotNull HashMap<String, Integer> getFamilyConjugationIndexes() {
         HashMap<String, Integer> mFamilyConjugationIndexes = new HashMap<>();
         for (int rowIndex = 3; rowIndex < Globals.VerbLatinConjDatabase.size(); rowIndex++) {
 
@@ -166,12 +164,12 @@ public final class UtilitiesVerbSearchAsyncTask {
     @NotNull
     @SuppressWarnings({"unchecked"})
     public static List<long[]> getMatchingVerbIdsAndCols(String language,
-                                                         InputQuery preparedQuery,
+                                                         @NotNull InputQuery preparedQuery,
                                                          List<Verb> mCompleteVerbsList,
                                                          List<Word> mWordsFromDictFragment,
                                                          RoomCentralDatabase mRoomCentralDatabase,
                                                          HashMap<String, Integer> mFamilyConjugationIndexes,
-                                                         WeakReference<Context> contextRef) {
+                                                         Context context) {
 
         String mPreparedQuery = preparedQuery.getOriginal();
         int mPreparedQueryLength = preparedQuery.getOriginal().length();
@@ -327,15 +325,15 @@ public final class UtilitiesVerbSearchAsyncTask {
         List<String[]> verbConjugationMaxLengths = new ArrayList<>();
         int conjugationMaxLength;
         if (mPreparedQueryTextType == Globals.TYPE_LATIN) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", contextRef.get());
+            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedCleanedLength;
         }
         else if (mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", contextRef.get());
+            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedTranslRomajiLength;
         }
         else if (mPreparedQueryTextType == Globals.TYPE_KANJI) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", contextRef.get());
+            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedCleanedLength;
         }
 
@@ -360,8 +358,8 @@ public final class UtilitiesVerbSearchAsyncTask {
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(preparedQuery, language, false, contextRef.get())[0];
-            mMatchingWords = mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
+            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(preparedQuery, language, false, context)[0];
+            mMatchingWords = UtilitiesDbAccess.getWordListByWordIds(mRoomCentralDatabase, mMatchingWordIds);
         } else {
             mMatchingWords = mWordsFromDictFragment;
         }
@@ -396,7 +394,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
         //region Adding the suru verb if the query is contained in the suru conjugations, and limiting total results
         if (queryIsContainedInASuruConjugation) {
-            Word suruVerb = mRoomCentralDatabase.getWordsByExactRomajiAndKanjiMatch("suru", "為る").get(0);
+            Word suruVerb = UtilitiesDbAccess.getWordsByExactRomajiAndKanjiMatch(mRoomCentralDatabase ,"suru", "為る").get(0);
             boolean alreadyInList = false;
             for (long[] idAndCol : matchingVerbIdsAndColsFromBasicCharacteristics) {
                 if (idAndCol[0] == suruVerb.getWordId()) {
@@ -462,7 +460,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                         verb.setActiveKanjiRoot(verb.getKanjiRoot());
                         verb.setActiveAltSpelling(verb.getRomaji());
                     }
-                    mRoomCentralDatabase.updateVerb(verb);
+                    UtilitiesDbAccess.updateVerb(mRoomCentralDatabase, verb);
 
                     //Remove the verb from the candidates list since it is already in the final list
                     copyOfMatchingVerbIdsAndColsFromBasicCharacteristics.remove(idAndCol);
@@ -519,7 +517,7 @@ public final class UtilitiesVerbSearchAsyncTask {
             for (String[] verbSearchCandidate : verbSearchCandidates) {
 
                 //region Getting the verb characteristics
-                familyForDilution = contextRef.get().getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[INDEX_FAMILY]));
+                familyForDilution = UtilitiesResourceAccess.getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[INDEX_FAMILY]), context, Globals.RESOURCE_MAP_VERB_FAMILIES);
                 romaji = verbSearchCandidate[INDEX_ROMAJI];
                 hiraganaFirstChar = verbSearchCandidate[INDEX_HIRAGANA_FIRST_CHAR].charAt(0);
                 latinRoot = verbSearchCandidate[INDEX_LATIN_ROOT].replace(" ","");
@@ -686,7 +684,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                     verb.setActiveLatinRoot(latinRoot);
                     verb.setActiveKanjiRoot(kanjiRoot);
                     verb.setActiveAltSpelling(verbSearchCandidate[INDEX_ACTIVE_ALTSPELLING]);
-                    mRoomCentralDatabase.updateVerb(verb);
+                    UtilitiesDbAccess.updateVerb(mRoomCentralDatabase, verb);
 
                     //Update the list of match ids
                     matchingVerbIdsAndColsFromExpandedConjugations.add(new long[]{verb.getVerbId(), matchColumn});
@@ -713,7 +711,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                                                       List<Word> matchingWords,
                                                       RoomCentralDatabase mRoomCentralDatabase,
                                                       HashMap<String, Integer> mFamilyConjugationIndexes,
-                                                      WeakReference<Context> contextRef) {
+                                                      Context context, String language) {
 
         if (matchingVerbIdAndColList.size() == 0) return new ArrayList<>();
 
@@ -739,7 +737,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : matchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        List<Verb> matchingVerbsBeforeOrderingByWordId = mRoomCentralDatabase.getVerbListByVerbIds(ids);
+        List<Verb> matchingVerbsBeforeOrderingByWordId = UtilitiesDbAccess.getVerbListByVerbIds(mRoomCentralDatabase, ids);
         List<Verb> matchingVerbs = new ArrayList<>();
         boolean found;
         for (Word word : matchingWords) {
@@ -777,18 +775,15 @@ public final class UtilitiesVerbSearchAsyncTask {
 
             //region Setting the verb's basic characteristics for display
             List<Word.Meaning> meanings;
-            String language = "";
-            switch (LocaleHelper.getLanguage(contextRef.get())) {
+            String languageText = UtilitiesResourceAccess.getLanguageText(language, context);
+            switch (languageText) {
                 case Globals.LANG_STR_EN:
-                    language = contextRef.get().getResources().getString(R.string.language_label_english).toLowerCase();
                     meanings = currentWord.getMeaningsEN();
                     break;
                 case Globals.LANG_STR_FR:
-                    language = contextRef.get().getResources().getString(R.string.language_label_french).toLowerCase();
                     meanings = currentWord.getMeaningsFR();
                     break;
                 case Globals.LANG_STR_ES:
-                    language = contextRef.get().getResources().getString(R.string.language_label_spanish).toLowerCase();
                     meanings = currentWord.getMeaningsES();
                     break;
                 default: meanings = currentWord.getMeaningsEN();
@@ -797,25 +792,25 @@ public final class UtilitiesVerbSearchAsyncTask {
             if (meanings == null || meanings.size() == 0) {
                 meanings = currentWord.getMeaningsEN();
                 extract += "["
-                        + contextRef.get().getString(R.string.meanings_in)
+                        + UtilitiesResourceAccess.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL)
                         + " "
-                        + language.toLowerCase()
+                        + languageText.toLowerCase()
                         + " "
-                        + contextRef.get().getString(R.string.unavailable)
+                        + UtilitiesResourceAccess.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL)
                         + "] ";
             }
             extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             currentVerb.setMeaning(extract);
 
             switch (currentVerb.getTrans()) {
-                case "T": currentVerb.setTrans(contextRef.get().getString(R.string.trans_)); break;
-                case "I": currentVerb.setTrans(contextRef.get().getString(R.string.intrans_)); break;
-                case "T/I": currentVerb.setTrans(contextRef.get().getString(R.string.trans_intrans_)); break;
+                case "T": currentVerb.setTrans(UtilitiesResourceAccess.getString("trans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
+                case "I": currentVerb.setTrans(UtilitiesResourceAccess.getString("intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
+                case "T/I": currentVerb.setTrans(UtilitiesResourceAccess.getString("trans_intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
             }
 
             if (Globals.VERB_FAMILIES_FULL_NAME_MAP.containsKey(currentVerb.getFamily())) {
-                int value = Globals.VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily());
-                currentVerb.setFamily(contextRef.get().getString(value));
+                String value = Globals.VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily());
+                currentVerb.setFamily(UtilitiesResourceAccess.getString(value, context, Globals.RESOURCE_MAP_VERB_FAMILIES));
             }
             //endregion
 
@@ -859,7 +854,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
             //region Getting the verb conjugations and putting each conjugation of the conjugations row into its appropriate category
             conjugationCategories = new ArrayList<>();
-            String verbClause = "[" + contextRef.get().getString(R.string.verb) + "]";
+            String verbClause = "[" + UtilitiesResourceAccess.getString("verb", context, Globals.RESOURCE_MAP_GENERAL) + "]";
             for (int categoryIndex = 1; categoryIndex < Globals.ConjugationTitles.size(); categoryIndex++) {
 
                 //region Getting the set of Latin and Kanji conjugations according to the current category's subtitle column indexes
@@ -913,12 +908,7 @@ public final class UtilitiesVerbSearchAsyncTask {
             verbs.add(currentVerb);
 
             //Clearing the active fields since they're not needed anymore
-            mRoomCentralDatabase.updateVerbByVerbIdWithParams(
-                    matchingVerbId,
-                    "",
-                    "",
-                    ""
-            );
+            UtilitiesDbAccess.updateVerbByVerbIdWithParams(mRoomCentralDatabase, matchingVerbId, "", "", "");
         }
         //endregion
 
@@ -926,7 +916,7 @@ public final class UtilitiesVerbSearchAsyncTask {
     }
 
     @NotNull
-    public static List<long[]> sortMatchingVerbIdAndColList(InputQuery mInputQuery, List<long[]> matchingVerbIdsAndCols, List<Word> matchingWords, WeakReference<Context> contextRef) {
+    public static List<long[]> sortMatchingVerbIdAndColList(@NotNull InputQuery mInputQuery, List<long[]> matchingVerbIdsAndCols, List<Word> matchingWords, String language) {
 
         List<long[]> matchingVerbIdLengthColList = new ArrayList<>();
 
@@ -946,7 +936,6 @@ public final class UtilitiesVerbSearchAsyncTask {
             }
             if (currentWord == null) continue;
 
-            String language = LocaleHelper.getLanguage(contextRef.get());
             int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
 
             long[] currentMatchingVerbIdLengthCol = new long[3];
@@ -972,7 +961,7 @@ public final class UtilitiesVerbSearchAsyncTask {
     }
 
     @NotNull
-    public static Object[] getConjugationParameters(@NotNull Verb verb, InputQuery preparedQuery) {
+    public static Object @NotNull [] getConjugationParameters(@NotNull Verb verb, @NotNull InputQuery preparedQuery) {
 
         String inputQuery = preparedQuery.getOriginal();
         int mPreparedQueryTextType = preparedQuery.getOriginalType();
@@ -1104,8 +1093,14 @@ public final class UtilitiesVerbSearchAsyncTask {
         return matchingWords;
     }
 
-    @Contract("_, _, _, _ -> new")
-    public static Object @NotNull [] getSortedVerbsWordsAndConjParams(@NotNull WeakReference<Context> contextRef, String inputQuery, List<Word> mWordsFromDictFragment, String language) {
+    @Contract("_, _, _, _, _ -> new")
+    public static Object @NotNull [] getSortedVerbsWordsAndConjParams(
+            RoomCentralDatabase mRoomCentralDatabase,
+            @NotNull Context context,
+            String inputQuery,
+            List<Word> mWordsFromDictFragment,
+            String language) {
+
         List<Verb> matchingVerbs;
         List<Word> matchingWords;
         List<Object[]> matchingConjugationParameters = new ArrayList<>();
@@ -1114,10 +1109,9 @@ public final class UtilitiesVerbSearchAsyncTask {
         List<long[]> mMatchingVerbIdAndColList;
 
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
-        RoomCentralDatabase mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
 
-        List<Verb> mCompleteVerbsList = mRoomCentralDatabase.getAllVerbs();
+        List<Verb> mCompleteVerbsList = UtilitiesDbAccess.getAllVerbs(mRoomCentralDatabase);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
         InputQuery preparedQuery = setInputQueryParameters(inputQuery);
@@ -1125,20 +1119,33 @@ public final class UtilitiesVerbSearchAsyncTask {
         HashMap<String, Integer> mFamilyConjugationIndexes = getFamilyConjugationIndexes();
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
 
-        mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(language,
-                preparedQuery, mCompleteVerbsList, mWordsFromDictFragment, mRoomCentralDatabase, mFamilyConjugationIndexes, contextRef);
+        mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(
+                language,
+                preparedQuery,
+                mCompleteVerbsList,
+                mWordsFromDictFragment,
+                mRoomCentralDatabase,
+                mFamilyConjugationIndexes,
+                context);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        matchingWords = mRoomCentralDatabase.getWordListByWordIds(ids);
+        matchingWords = UtilitiesDbAccess.getWordListByWordIds(mRoomCentralDatabase, ids);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
 
-        matchingVerbs = getVerbsWithConjugations(mMatchingVerbIdAndColList, matchingWords, mRoomCentralDatabase, mFamilyConjugationIndexes, contextRef);
+        matchingVerbs = getVerbsWithConjugations(
+                mMatchingVerbIdAndColList,
+                matchingWords,
+                mRoomCentralDatabase,
+                mFamilyConjugationIndexes,
+                context,
+                language);
+
         matchingWords = updateWordsWithConjMatchStatus(matchingWords, matchingVerbs, preparedQuery);
         Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
 
-        List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(preparedQuery, mMatchingVerbIdAndColList, matchingWords, contextRef);
+        List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(preparedQuery, mMatchingVerbIdAndColList, matchingWords, language);
         for (int i = 0; i < matchingVerbIdColListSortedByLength.size(); i++) {
             for (int j = 0; j < matchingWords.size(); j++) {
                 Word word = matchingWords.get(j);
