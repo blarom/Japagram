@@ -48,11 +48,10 @@ public class DictSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
         boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(contextRef.get());
         boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(contextRef.get());
 
-        RoomCentralDatabase mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
-        RoomExtendedDatabase roomExtendedDatabase = finishedLoadingExtendedDb? RoomExtendedDatabase.getInstance(contextRef.get()) : null;
-        RoomNamesDatabase roomNamesDatabase = (finishedLoadingNamesDb && mShowNames)? RoomNamesDatabase.getInstance(contextRef.get()) : null;
+        boolean roomExtendedDbIsAvailable = finishedLoadingExtendedDb && RoomExtendedDatabase.getInstance(contextRef.get()) != null;
+        boolean roomNamesDbIsAvailable = (finishedLoadingNamesDb && mShowNames) && RoomNamesDatabase.getInstance(contextRef.get()) != null;
 
-        return UtilitiesDictSearchAsyncTask.getMatchingWords(mRoomCentralDatabase, roomExtendedDatabase, roomNamesDatabase, mQuery, language, contextRef.get(), mShowNames);
+        return UtilitiesDictSearchAsyncTask.getMatchingWords(roomExtendedDbIsAvailable, roomNamesDbIsAvailable, mQuery, language, contextRef.get(), mShowNames);
     }
 
     @Override

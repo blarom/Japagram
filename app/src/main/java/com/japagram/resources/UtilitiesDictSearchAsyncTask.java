@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UtilitiesDictSearchAsyncTask {
-    public static List<Word> getMatchingWords(RoomCentralDatabase mRoomCentralDatabase,
-                                              RoomExtendedDatabase roomExtendedDatabase,
-                                              RoomNamesDatabase roomNamesDatabase,
+    public static List<Word> getMatchingWords(boolean roomExtendedDbIsAvailable,
+                                              boolean roomNamesDatabaseIsAvailable,
                                               InputQuery mQuery,
                                               String language,
                                               @NotNull Context context,
@@ -30,14 +29,14 @@ public class UtilitiesDictSearchAsyncTask {
         List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching word ids");
 
-        localMatchingWordsList = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(mRoomCentralDatabase, matchingWordIdsCentral);
+        localMatchingWordsList = UtilitiesDbAccess.getWordListByWordIdsFromCentralDb(matchingWordIdsCentral, context);
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching words");
 
-        if (roomExtendedDatabase != null) localMatchingWordsList.addAll(UtilitiesDbAccess.getWordListByWordIdsFromExtendedDb(roomExtendedDatabase,matchingWordIdsExtended));
+        if (roomExtendedDbIsAvailable) localMatchingWordsList.addAll(UtilitiesDbAccess.getWordListByWordIdsFromExtendedDb(matchingWordIdsExtended, context));
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
-        if (roomNamesDatabase != null) {
-            List<Word> originalNames = UtilitiesDbAccess.getWordListByWordIdsFromNamesDb(roomNamesDatabase, matchingWordIdsNames);
+        if (roomNamesDatabaseIsAvailable) {
+            List<Word> originalNames = UtilitiesDbAccess.getWordListByWordIdsFromNamesDb(matchingWordIdsNames, context);
             Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
             List<Word> condensedNames = new ArrayList<>();
             boolean foundName;

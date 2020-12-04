@@ -13,29 +13,37 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public final class UtilitiesDbAccess {
-    public static List<Word> getWordListByWordIdsFromCentralDb(@NotNull RoomCentralDatabase mRoomCentralDatabase, List<Long> mMatchingWordIds) {
-        return mRoomCentralDatabase.getWordListByWordIds(mMatchingWordIds);
+    public static List<Word> getWordListByWordIdsFromCentralDb(List<Long> mMatchingWordIds, Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getWordListByWordIds(mMatchingWordIds);
     }
-    public static List<Word> getWordListByWordIdsFromExtendedDb(@NotNull RoomExtendedDatabase roomExtendedDatabase, List<Long> matchingWordIdsExtended) {
-        return roomExtendedDatabase.getWordListByWordIds(matchingWordIdsExtended);
+    public static List<Word> getWordListByWordIdsFromExtendedDb(List<Long> matchingWordIdsExtended, Context context) {
+        RoomExtendedDatabase roomExtendedDatabaseLocal = RoomExtendedDatabase.getInstance(context);
+        return roomExtendedDatabaseLocal.getWordListByWordIds(matchingWordIdsExtended);
     }
-    public static List<Word> getWordListByWordIdsFromNamesDb(@NotNull RoomNamesDatabase roomNamesDatabase, List<Long> matchingWordIdsNames) {
-        return roomNamesDatabase.getWordListByWordIds(matchingWordIdsNames);
+    public static List<Word> getWordListByWordIdsFromNamesDb(List<Long> matchingWordIdsNames, Context context) {
+        RoomNamesDatabase roomNamesDatabaseLocal = RoomNamesDatabase.getInstance(context);
+        return roomNamesDatabaseLocal.getWordListByWordIds(matchingWordIdsNames);
     }
-    public static List<Word> getWordsByExactRomajiAndKanjiMatch(@NotNull RoomCentralDatabase mRoomCentralDatabase, String romaji, String kanji) {
-        return mRoomCentralDatabase.getWordsByExactRomajiAndKanjiMatch(romaji, kanji);
+    public static List<Word> getWordsByExactRomajiAndKanjiMatch(String romaji, String kanji, Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getWordsByExactRomajiAndKanjiMatch(romaji, kanji);
     }
-    public static void updateVerb(@NotNull RoomCentralDatabase mRoomCentralDatabase, Verb verb) {
-        mRoomCentralDatabase.updateVerb(verb);
+    public static void updateVerb(Verb verb, Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        roomCentralDatabaseLocal.updateVerb(verb);
     }
-    public static List<Verb> getVerbListByVerbIds(@NotNull RoomCentralDatabase mRoomCentralDatabase, List<Long> ids) {
-        return mRoomCentralDatabase.getVerbListByVerbIds(ids);
+    public static List<Verb> getVerbListByVerbIds(List<Long> ids, Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getVerbListByVerbIds(ids);
     }
-    public static List<Verb> getAllVerbs(@NotNull RoomCentralDatabase mRoomCentralDatabase) {
-        return mRoomCentralDatabase.getAllVerbs();
+    public static List<Verb> getAllVerbs(Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getAllVerbs();
     }
-    public static void updateVerbByVerbIdWithParams(@NotNull RoomCentralDatabase mRoomCentralDatabase, long matchingVerbId, String activeLatinRoot, String activeKanjiRoot, String activeAltSpelling) {
-        mRoomCentralDatabase.updateVerbByVerbIdWithParams(
+    public static void updateVerbByVerbIdWithParams(long matchingVerbId, String activeLatinRoot, String activeKanjiRoot, String activeAltSpelling, Context context) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        roomCentralDatabaseLocal.updateVerbByVerbIdWithParams(
                 matchingVerbId,
                 activeLatinRoot,
                 activeKanjiRoot,

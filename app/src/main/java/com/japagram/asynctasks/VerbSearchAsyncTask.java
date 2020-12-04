@@ -44,8 +44,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         }
 
         String language = LocaleHelper.getLanguage(contextRef.get());
-        RoomCentralDatabase mRoomCentralDatabase = RoomCentralDatabase.getInstance(contextRef.get());
-        return UtilitiesVerbSearchAsyncTask.getSortedVerbsWordsAndConjParams(mRoomCentralDatabase, contextRef.get(), mInputQuery.getOriginal(),  mWordsFromDictFragment, language);
+        return UtilitiesVerbSearchAsyncTask.getSortedVerbsWordsAndConjParams(contextRef.get(), mInputQuery.getOriginal(),  mWordsFromDictFragment, language);
     }
 
     @Override protected void onPostExecute(Object[] objectArray) {

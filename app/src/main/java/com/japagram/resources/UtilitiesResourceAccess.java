@@ -18,22 +18,16 @@ public final class UtilitiesResourceAccess {
         }
     }
     public static String getString(String requestedString, @NotNull Context context, int resourceMap) {
-        String a = "a".toUpperCase();
-        try {
-            switch (resourceMap) {
-                case Globals.RESOURCE_MAP_VERB_CONJ_TITLES:
-                    return context.getString(stringResourceMapVerbConjTitles.get(requestedString));
-                case Globals.RESOURCE_MAP_VERB_FAMILIES:
-                    return context.getString(stringResourceMapVerbFamilies.get(requestedString));
-                case Globals.RESOURCE_MAP_TYPES:
-                    return context.getString(stringResourceMapTypes.get(requestedString));
-                default:
-                    return context.getString(stringResourceMapGeneral.get(requestedString));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        switch (resourceMap) {
+            case Globals.RESOURCE_MAP_VERB_CONJ_TITLES:
+                return context.getString(stringResourceMapVerbConjTitles.get(requestedString));
+            case Globals.RESOURCE_MAP_VERB_FAMILIES:
+                return context.getString(stringResourceMapVerbFamilies.get(requestedString));
+            case Globals.RESOURCE_MAP_TYPES:
+                return context.getString(stringResourceMapTypes.get(requestedString));
+            default:
+                return context.getString(stringResourceMapGeneral.get(requestedString));
         }
-        return "";
     }
     private static final HashMap<String, Integer> stringResourceMapVerbFamilies = createResourceMap(Globals.RESOURCE_MAP_VERB_FAMILIES);
     private static final HashMap<String, Integer> stringResourceMapVerbConjTitles = createResourceMap(Globals.RESOURCE_MAP_VERB_CONJ_TITLES);
@@ -158,6 +152,11 @@ public final class UtilitiesResourceAccess {
                 map.put("verb_PvCond", R.string.verb_PvCond);
                 map.put("verb_PsPg", R.string.verb_PsPg);
                 map.put("verb_teform", R.string.verb_teform);
+                map.put("verb_PPr1", R.string.verb_PPr1);
+                map.put("verb_PPr2", R.string.verb_PPr2);
+                map.put("verb_PPrN1", R.string.verb_PPrN1);
+                map.put("verb_PPrN2", R.string.verb_PPrN2);
+                map.put("verb_PPrN3", R.string.verb_PPrN3);
                 map.put("verb_PlPr1", R.string.verb_PlPr1);
                 map.put("verb_PlPr2", R.string.verb_PlPr2);
                 map.put("verb_PlPrN1", R.string.verb_PlPrN1);
