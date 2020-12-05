@@ -627,13 +627,13 @@ public class UtilitiesDb {
         //endregion
 
         //region Getting the matches
-        matchingWordIdsCentral = getNormalMatches(query, language, false, context);
+        matchingWordIdsCentral = getNormalMatches(query, language, Globals.DB_CENTRAL, context);
         matchingWordIdsCentral.addAll(getAdjectivesFromConjugation(query, context));
         matchingWordIdsCentral.addAll(addCountersToMatchesList(query, context));
         matchingWordIdsCentral = Utilities.removeDuplicatesFromLongList(matchingWordIdsCentral);
 
         if (roomExtendedDbIsAvailable)
-            matchingWordIdsExtended = getNormalMatches(query, language, true, context);
+            matchingWordIdsExtended = getNormalMatches(query, language, Globals.DB_EXTENDED, context);
 
         if (showNames && roomNamesDatabasesFinishedLoading && roomNamesDatabaseIsAvailable) {
             matchingWordIdsNames = addNamesToMatchesList(query, context);
@@ -644,7 +644,7 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    private static List<Long> getMatchingWordIds(boolean forceExactSearch, @NotNull InputQuery query, String language, boolean use_extended_db, Context context) {
+    private static List<Long> getMatchingWordIds(boolean forceExactSearch, @NotNull InputQuery query, String language, int db, Context context) {
 
         List<Long> matchingWordIds = new ArrayList<>();
         List<String> searchResultIndexesArray = new ArrayList<>();
@@ -655,8 +655,8 @@ public class UtilitiesDb {
 
             boolean exactSearch = query.isTooShort() || forceExactSearch;
 
-            List<Object> indexes = findQueryInRomajiIndex(query.getSearchQueriesRomaji(), exactSearch, use_extended_db, context);
-            indexes.addAll(findQueryInNonJapIndices(query.getSearchQueriesNonJapanese(), exactSearch, language, use_extended_db, context));
+            List<Object> indexes = findQueryInRomajiIndex(query.getSearchQueriesRomaji(), exactSearch, db, context);
+            indexes.addAll(findQueryInNonJapIndices(query.getSearchQueriesNonJapanese(), exactSearch, language, db, context));
 
             if (indexes.size() == 0) return matchingWordIds;
 
@@ -686,7 +686,7 @@ public class UtilitiesDb {
                 }
             }
         } else if (query.getSearchType() == Globals.TYPE_KANJI) {
-            kanjiIndices = findQueryInKanjiIndex(query.getSearchQueriesKanji(), forceExactSearch, use_extended_db, context);
+            kanjiIndices = findQueryInKanjiIndex(query.getSearchQueriesKanji(), forceExactSearch, db, context);
             if (kanjiIndices.size() == 0) return matchingWordIds;
             for (IndexKanji indexKanji : kanjiIndices) {
                 searchResultIndexesArray.add(indexKanji.getWordIds());
@@ -710,13 +710,13 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    private static List<Long> getMatchingWordIdsWithLimits(InputQuery query, String language, boolean use_extended_db, Context context) {
+    private static List<Long> getMatchingWordIdsWithLimits(InputQuery query, String language, int db, Context context) {
 
-        List<Long> matchingWordIds = getMatchingWordIds(false, query, language, use_extended_db, context);
+        List<Long> matchingWordIds = getMatchingWordIds(false, query, language, db, context);
 
         //If the number of matching ids is larger than MAX_SQL_VARIABLES_FOR_QUERY, perform an exact search
         if (matchingWordIds.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-            matchingWordIds = getMatchingWordIds(true, query, language, use_extended_db, context);
+            matchingWordIds = getMatchingWordIds(true, query, language, db, context);
         }
 
         //If the number of matching ids is still larger than MAX_SQL_VARIABLES_FOR_QUERY, limit the list length to MAX_SQL_VARIABLES_FOR_QUERY
@@ -761,7 +761,7 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    private static List<Long> getNormalMatches(@NotNull InputQuery query, String language, boolean use_extended_db, Context context) {
+    private static List<Long> getNormalMatches(@NotNull InputQuery query, String language, int db, Context context) {
 
         //region Initializations
         List<Long> matchingWordIds = new ArrayList<>();
@@ -777,9 +777,8 @@ public class UtilitiesDb {
         //endregion
 
         //region Getting the words
-        List<Long> matchingWordIdsFromIndex = getMatchingWordIdsWithLimits(query, language, use_extended_db, context);
-        List<Word> matchingWordList = use_extended_db ? UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, Globals.DB_EXTENDED)
-                : UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, Globals.DB_CENTRAL);
+        List<Long> matchingWordIdsFromIndex = getMatchingWordIdsWithLimits(query, language, db, context);
+        List<Word> matchingWordList = UtilitiesDbAccess.getWordListByWordIds(matchingWordIdsFromIndex, context, db);
         //endregion
 
         //region Filtering the matches
@@ -928,7 +927,7 @@ public class UtilitiesDb {
 
         List<Long> matchingWordIds;
 
-        List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(potentialCounters, true, false, context);
+        List<IndexKanji> kanjiIndicesForCounter = findQueryInKanjiIndex(potentialCounters, true, Globals.DB_CENTRAL, context);
         matchingWordIds = getWordIdsFromSearchResults(kanjiIndicesForCounter);
         if (matchingWordIds.size() == 0) return new ArrayList<>();
 
@@ -1013,10 +1012,10 @@ public class UtilitiesDb {
                 }
             }
 
-            List<Object> latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, exactSearch, false, context);
+            List<Object> latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, exactSearch, Globals.DB_CENTRAL, context);
             matchingWordIdsFromIndex = getWordIdsFromSearchResults(latinIndicesForAdjective);
             if (!exactSearch && matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, true, false, context);
+                latinIndicesForAdjective = findQueryInRomajiIndex(baseAdjectives, true, Globals.DB_CENTRAL, context);
             }
             matchingWordIdsFromIndex = getWordIdsFromSearchResults(latinIndicesForAdjective);
             if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
@@ -1061,10 +1060,10 @@ public class UtilitiesDb {
                 if (isPotentialAdjective) baseAdjectives.add(baseAdjective);
             }
 
-            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, false, false, context);
+            List<IndexKanji> kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, false, Globals.DB_CENTRAL, context);
             matchingWordIdsFromIndex = getWordIdsFromSearchResults(kanjiIndicesForAdjective);
             if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
-                kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, true, false, context);
+                kanjiIndicesForAdjective = findQueryInKanjiIndex(baseAdjectives, true, Globals.DB_CENTRAL, context);
                 matchingWordIdsFromIndex = getWordIdsFromSearchResults(kanjiIndicesForAdjective);
             }
             if (matchingWordIdsFromIndex.size() > Globals.MAX_SQL_VARIABLES_FOR_QUERY) {
@@ -1194,24 +1193,22 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    private static List<Object> findQueryInRomajiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
+    private static List<Object> findQueryInRomajiIndex(List<String> searchQueries, boolean exactSearch, int db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
         List<Object> matchingIndices = new ArrayList<>();
         if (exactSearch) {
-            List<IndexRomaji> indexes = use_extended_db ? UtilitiesDbAccess.getRomajiIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                    : UtilitiesDbAccess.getRomajiIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+            List<IndexRomaji> indexes = UtilitiesDbAccess.getRomajiIndexForExactWordsList(searchQueries, context, db);
             if (indexes != null && indexes.size() > 0) matchingIndices.addAll(indexes);
 
         } else {
-            List<IndexRomaji> indexesRomaji = use_extended_db ? UtilitiesDbAccess.getRomajiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                    : UtilitiesDbAccess.getRomajiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED);
+            List<IndexRomaji> indexesRomaji = UtilitiesDbAccess.getRomajiIndexesListForStartingWordsList(searchQueries, context, db);
             if (indexesRomaji != null && indexesRomaji.size() > 0) matchingIndices.addAll(indexesRomaji);
         }
         return matchingIndices;
     }
     @NotNull
-    private static List<Object> findQueryInNonJapIndices(List<String> searchQueries, boolean exactSearch, String language, boolean use_extended_db, Context context) {
+    private static List<Object> findQueryInNonJapIndices(List<String> searchQueries, boolean exactSearch, String language, int db, Context context) {
 
         //Exact search Prevents the index search from returning too many results and crashing the app
 
@@ -1219,26 +1216,21 @@ public class UtilitiesDb {
         if (exactSearch) {
             switch (language) {
                 case Globals.LANG_STR_EN: {
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
                 case Globals.LANG_STR_FR: {
-                    List<IndexFrench> indexesFrench = use_extended_db ? UtilitiesDbAccess.getFrenchIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getFrenchIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexFrench> indexesFrench = UtilitiesDbAccess.getFrenchIndexForExactWordsList(searchQueries, context, db);
                     if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench); //Only add the index if the word was found in the index
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
                 case Globals.LANG_STR_ES: {
-                    List<IndexSpanish> indexesSpanish = use_extended_db ? UtilitiesDbAccess.getSpanishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getSpanishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexSpanish> indexesSpanish = UtilitiesDbAccess.getSpanishIndexForExactWordsList(searchQueries, context, db);
                     if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish); //Only add the index if the word was found in the index
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexForExactWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish); //Only add the index if the word was found in the index
                     break;
                 }
@@ -1247,26 +1239,21 @@ public class UtilitiesDb {
         } else {
             switch (language) {
                 case Globals.LANG_STR_EN: {
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
                 case Globals.LANG_STR_FR: {
-                    List<IndexFrench> indexesFrench = use_extended_db ? UtilitiesDbAccess.getFrenchIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getFrenchIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexFrench> indexesFrench = UtilitiesDbAccess.getFrenchIndexesListForStartingWordsList(searchQueries, context, db);
                     if (indexesFrench != null && indexesFrench.size() > 0) matchingIndices.addAll(indexesFrench);
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
                 case Globals.LANG_STR_ES: {
-                    List<IndexSpanish> indexesSpanish = use_extended_db ? UtilitiesDbAccess.getSpanishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getSpanishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexSpanish> indexesSpanish = UtilitiesDbAccess.getSpanishIndexesListForStartingWordsList(searchQueries, context, db);
                     if (indexesSpanish != null && indexesSpanish.size() > 0) matchingIndices.addAll(indexesSpanish);
-                    List<IndexEnglish> indexesEnglish = use_extended_db ? UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                            : UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+                    List<IndexEnglish> indexesEnglish = UtilitiesDbAccess.getEnglishIndexesListForStartingWordsList(searchQueries, context, db);
                     if (indexesEnglish != null && indexesEnglish.size() > 0) matchingIndices.addAll(indexesEnglish);
                     break;
                 }
@@ -1275,17 +1262,15 @@ public class UtilitiesDb {
         return matchingIndices;
     }
 
-    private static List<IndexKanji> findQueryInKanjiIndex(List<String> searchQueries, boolean exactSearch, boolean use_extended_db, Context context) {
+    private static List<IndexKanji> findQueryInKanjiIndex(List<String> searchQueries, boolean exactSearch, int db, Context context) {
         List<IndexKanji> matchingIndexKanjis;
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
             matchingIndexKanjis = new ArrayList<>();
-            List<IndexKanji> indexes = use_extended_db ? UtilitiesDbAccess.getKanjiIndexForExactWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                    : UtilitiesDbAccess.getKanjiIndexForExactWordsList(searchQueries, context, Globals.DB_CENTRAL);
+            List<IndexKanji> indexes = UtilitiesDbAccess.getKanjiIndexForExactWordsList(searchQueries, context, db);
             if (indexes != null && indexes.size() > 0) matchingIndexKanjis.addAll(indexes); //Only add the index if the word was found in the index
         } else {
-            matchingIndexKanjis = use_extended_db ? UtilitiesDbAccess.getKanjiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_EXTENDED)
-                    : UtilitiesDbAccess.getKanjiIndexesListForStartingWordsList(searchQueries, context, Globals.DB_CENTRAL);
+            matchingIndexKanjis = UtilitiesDbAccess.getKanjiIndexesListForStartingWordsList(searchQueries, context, db);
         }
         return matchingIndexKanjis;
     }
