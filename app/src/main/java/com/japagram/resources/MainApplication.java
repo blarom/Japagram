@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.japagram.utilitiesAndroid.UtilitiesDb;
+import com.japagram.utilitiesCrossPlatform.Globals;
 
 public class MainApplication extends Application {
 

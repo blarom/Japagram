@@ -1,11 +1,13 @@
-package com.japagram.resources;
+package com.japagram.utilitiesCrossPlatform;
 
 import android.content.res.Resources;
-import android.text.TextUtils;
 
 import com.japagram.R;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.data.RoomKanjiDatabase;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -18,11 +20,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UtilitiesKanjiDecompositionAsyncTask {
+public class UtilitiesKanjiDecomposition {
     public static @NotNull List<List<String>> Decomposition(String word, @NotNull RoomKanjiDatabase mRoomKanjiDatabase) {
         KanjiCharacter mCurrentKanjiCharacter;
-        String concatenated_input = Utilities.removeSpecialCharacters(word);
-        String inputHexIdentifier = Utilities.convertToUTF8Index(concatenated_input).toUpperCase();
+        String concatenated_input = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeSpecialCharacters(word);
+        String inputHexIdentifier = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
         mCurrentKanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(inputHexIdentifier);
 
         List<List<String>> decomposedKanji = new ArrayList<>();
@@ -89,9 +91,9 @@ public class UtilitiesKanjiDecompositionAsyncTask {
         buff.rewind();
         Charset cs = StandardCharsets.UTF_8;
         CharBuffer cb = cs.decode(buff);
-        String string_value_of_hex = cb.toString();
+        String stringValueOfHex = cb.toString();
 
-        return string_value_of_hex;
+        return stringValueOfHex;
     }
 
     private static String getFormattedReadings(String readings) {
@@ -107,10 +109,10 @@ public class UtilitiesKanjiDecompositionAsyncTask {
                         "(" + UtilitiesQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TYPE_LATIN) + ")";
                 readingsList.add(readingLatin);
             }
-            readingsList = Utilities.removeDuplicatesFromStringList(readingsList);
+            readingsList = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromStringList(readingsList);
         }
 
-        return (readingsList.size()>0 && !readingsList.get(0).equals(""))? TextUtils.join(", ", readingsList) : "-";
+        return (readingsList.size()>0 && !readingsList.get(0).equals(""))? UtilitiesGeneral.joinList(", ", readingsList) : "-";
     }
 
     public static @NotNull List<String> getKanjiDetailedCharacteristics(KanjiCharacter kanjiCharacter, String language, Resources mLocalizedResources) {
@@ -122,17 +124,17 @@ public class UtilitiesKanjiDecompositionAsyncTask {
         characteristics.set(Globals.KANJI_KUN_READING, getFormattedReadings(kanjiCharacter.getKunReadings()));
         characteristics.set(Globals.KANJI_NAME_READING, getFormattedReadings(kanjiCharacter.getNameReadings()));
 
-        boolean meaningsENisEmpty = TextUtils.isEmpty(kanjiCharacter.getMeaningsEN());
+        boolean meaningsENisEmpty = UtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsEN());
         switch (language) {
             case "en":
                 characteristics.set(Globals.KANJI_MEANING, meaningsENisEmpty? "-" : kanjiCharacter.getMeaningsEN());
                 break;
             case "fr":
-                characteristics.set(Globals.KANJI_MEANING, TextUtils.isEmpty(kanjiCharacter.getMeaningsFR())?
+                characteristics.set(Globals.KANJI_MEANING, UtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsFR())?
                         (meaningsENisEmpty? "-" : mLocalizedResources.getString(R.string.english_meanings_available_only) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsFR());
                 break;
             case "es":
-                characteristics.set(Globals.KANJI_MEANING, TextUtils.isEmpty(kanjiCharacter.getMeaningsES())?
+                characteristics.set(Globals.KANJI_MEANING, UtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsES())?
                         (meaningsENisEmpty? "-" : mLocalizedResources.getString(R.string.english_meanings_available_only) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsES());
                 break;
         }
@@ -212,7 +214,7 @@ public class UtilitiesKanjiDecompositionAsyncTask {
 
             //Get the remaining radical characteristics (readings, meanings) from the KanjiDictDatabase
             String mainRadical = mRadicalsOnlyDatabase.get(mainRadicalIndex)[Globals.RADICAL_KANA];
-            String radicalHexIdentifier = Utilities.convertToUTF8Index(mainRadical).toUpperCase();
+            String radicalHexIdentifier = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.convertToUTF8Index(mainRadical).toUpperCase();
             KanjiCharacter kanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(radicalHexIdentifier);
             currentMainRadicalDetailedCharacteristics = getKanjiDetailedCharacteristics(kanjiCharacter, language, mLocalizedResources);
 

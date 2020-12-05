@@ -1,4 +1,4 @@
-package com.japagram.resources;
+package com.japagram.utilitiesPlatformOverridable;
 
 import android.content.Context;
 
@@ -12,8 +12,7 @@ import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-
-import org.jetbrains.annotations.NotNull;
+import com.japagram.utilitiesCrossPlatform.Globals;
 
 import java.util.ArrayList;
 import java.util.List;

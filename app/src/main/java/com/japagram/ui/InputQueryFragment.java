@@ -50,9 +50,10 @@ import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.TesseractOCRAsyncTask;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.jetbrains.annotations.NotNull;
@@ -185,7 +186,7 @@ public class InputQueryFragment extends Fragment implements
         super.onResume();
 
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
 
         getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary();
     }
@@ -241,7 +242,7 @@ public class InputQueryFragment extends Fragment implements
             startRomajiFromKanjiThread();
         }
         else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            Utilities.unmuteSpeaker(getActivity());
+            UtilitiesAndroidIO.unmuteSpeaker(getActivity());
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mCropImageResult = result;
@@ -260,7 +261,7 @@ public class InputQueryFragment extends Fragment implements
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     Uri adjustedImageUri = Uri.parse(extras.getString("returnImageUri"));
-                    mImageToBeDecoded = Utilities.getBitmapFromUri(getActivity(), adjustedImageUri);
+                    mImageToBeDecoded = UtilitiesAndroidIO.getBitmapFromUri(getActivity(), adjustedImageUri);
                     getOcrTextWithTesseractAndDisplayDialog(mImageToBeDecoded);
                 }
             }
@@ -349,7 +350,7 @@ public class InputQueryFragment extends Fragment implements
     }
     private void sendImageToImageAdjuster(@NotNull CropImage.ActivityResult result) {
         Uri mPhotoURI = result.getUri();
-        mImageToBeDecoded = Utilities.getBitmapFromUri(getActivity(), mPhotoURI);
+        mImageToBeDecoded = UtilitiesAndroidIO.getBitmapFromUri(getActivity(), mPhotoURI);
 
         //Send the image Uri to the AdjustImageActivity
         Intent intent = new Intent(getActivity(), AdjustImageActivity.class);
@@ -361,7 +362,7 @@ public class InputQueryFragment extends Fragment implements
         // start source picker (camera, gallery, etc..) to get image for cropping and then use the image in cropping activity
         //CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(getActivity());
 
-        Utilities.muteSpeaker(getActivity());
+        UtilitiesAndroidIO.muteSpeaker(getActivity());
         if (getContext() != null) CropImage.activity().start(getContext(), this); //For FragmentActivity use
 
     }
@@ -444,7 +445,7 @@ public class InputQueryFragment extends Fragment implements
         mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         drawBorderAroundThisButton(mSearchByRadicalButton);
-        mInputQueryOperationsHandler.onSearchByRadicalRequested(Utilities.removeSpecialCharacters(mInputQuery));
+        mInputQueryOperationsHandler.onSearchByRadicalRequested(UtilitiesGeneral.removeSpecialCharacters(mInputQuery));
     }
     @OnClick(R.id.button_decompose) public void onDecomposeButtonClick() {
         if (getActivity()==null || getContext()==null) return;
@@ -454,7 +455,7 @@ public class InputQueryFragment extends Fragment implements
         mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         drawBorderAroundThisButton(mDecomposeButton);
-        mInputQueryOperationsHandler.onDecomposeRequested(Utilities.removeSpecialCharacters(mInputQuery));
+        mInputQueryOperationsHandler.onDecomposeRequested(UtilitiesGeneral.removeSpecialCharacters(mInputQuery));
     }
     @OnClick(R.id.button_clear_query) public void onClearQueryButtonClick() {
         if (getActivity()==null || getContext()==null) return;
@@ -463,7 +464,7 @@ public class InputQueryFragment extends Fragment implements
     }
     @OnClick(R.id.button_show_history) public void onShowHistoryButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        Utilities.hideSoftKeyboard(getActivity());
+        UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
 
         List<String> queryHistory = MainActivity.getQueryHistoryFromPreferences(getContext());
         boolean queryHistoryIsEmpty = true;
@@ -787,10 +788,10 @@ public class InputQueryFragment extends Fragment implements
         if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals("jpn")) return;
 
         String filename = language + ".traineddata";
-        Boolean fileExistsInAppFolder = Utilities.checkIfFileExistsInSpecificFolder(new File(mPhoneAppFolderTesseractDataFilepath), filename);
+        Boolean fileExistsInAppFolder = UtilitiesAndroidIO.checkIfFileExistsInSpecificFolder(new File(mPhoneAppFolderTesseractDataFilepath), filename);
         mInitializedOcrApiJpn = false;
         if (!fileExistsInAppFolder) {
-            hasStoragePermissions = Utilities.checkStoragePermission(getActivity());
+            hasStoragePermissions = UtilitiesAndroidIO.checkStoragePermission(getActivity());
             makeOcrDataAvailableInAppFolder(language);
         }
         else {
@@ -816,7 +817,7 @@ public class InputQueryFragment extends Fragment implements
 
         mLanguageBeingDownloadedLabel = getLanguageLabel(language);
         String filename = language + ".traineddata";
-        Boolean fileExistsInPhoneDownloadsFolder = Utilities.checkIfFileExistsInSpecificFolder(new File(mDownloadsFolder), filename);
+        Boolean fileExistsInPhoneDownloadsFolder = UtilitiesAndroidIO.checkIfFileExistsInSpecificFolder(new File(mDownloadsFolder), filename);
         if (hasStoragePermissions) {
             if (fileExistsInPhoneDownloadsFolder) {
                 Log.e(TAG_TESSERACT, filename + " file successfully found in Downloads folder.");
@@ -937,7 +938,7 @@ public class InputQueryFragment extends Fragment implements
         long availableBlocks = stat.getAvailableBlocks();
         long availableMemory = availableBlocks * blockSize;
         if (availableMemory<70000000) {
-            String toastMessage = getString(R.string.sorry_only_have_first_part) + Utilities.formatSize(availableMemory)
+            String toastMessage = getString(R.string.sorry_only_have_first_part) + UtilitiesAndroidIO.formatSize(availableMemory)
                     + getString(R.string.sorry_only_have_second_part);
             Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
             return false;

@@ -25,11 +25,11 @@ import com.japagram.data.ConjugationTitle;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesVerbSearch;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +43,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.japagram.resources.Globals.TYPE_KANJI;
+import static com.japagram.utilitiesCrossPlatform.Globals.TYPE_KANJI;
 
 public class ConjugatorFragment extends Fragment implements
         VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
@@ -203,7 +203,7 @@ public class ConjugatorFragment extends Fragment implements
     }
     private void showSelectedVerbConjugations(final int verbIndex) {
 
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
         if (mMatchingVerbs.size() == 0) return;
 
         //Showing the verb conjugations
@@ -234,7 +234,7 @@ public class ConjugatorFragment extends Fragment implements
         }
 
         //Setting the conjugation spinner to the position of the first item matching the user query
-        int index = (int) mMatchingConjugationParameters.get(verbIndex)[UtilitiesVerbSearchAsyncTask.MATCHING_CATEGORY_INDEX];
+        int index = (int) mMatchingConjugationParameters.get(verbIndex)[UtilitiesVerbSearch.MATCHING_CATEGORY_INDEX];
         mConjugationChooserSpinner.setSelection(index, false);
 
     }

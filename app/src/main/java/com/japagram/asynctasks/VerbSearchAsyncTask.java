@@ -7,7 +7,7 @@ import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
+import com.japagram.utilitiesCrossPlatform.UtilitiesVerbSearch;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         }
 
         String language = LocaleHelper.getLanguage(contextRef.get());
-        return UtilitiesVerbSearchAsyncTask.getSortedVerbsWordsAndConjParams(contextRef.get(), mInputQuery.getOriginal(),  mWordsFromDictFragment, language);
+        return UtilitiesVerbSearch.getSortedVerbsWordsAndConjParams(contextRef.get(), mInputQuery.getOriginal(),  mWordsFromDictFragment, language);
     }
 
     @Override protected void onPostExecute(Object[] objectArray) {

@@ -6,10 +6,10 @@ import android.text.TextUtils;
 
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesQuery;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
                 }
             }
 
-            intersectionWithMatchingDescriptors = Utilities.getIntersectionOfLists(displayableComponentSelections, matchingRadicals);
+            intersectionWithMatchingDescriptors = UtilitiesGeneral.getIntersectionOfLists(displayableComponentSelections, matchingRadicals);
         }
         else {
             List<KanjiCharacter> matchingKanjiCharactersByDescriptor = mRoomKanjiDatabase.getKanjiCharactersByDescriptor(mKanjiCharacterNameForFilter);
@@ -130,10 +130,10 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
 
             List<String> matchingCharacters = new ArrayList<>();
             for (KanjiCharacter kanjiCharacter : matchingKanjiCharactersByDescriptor) {
-                matchingCharacters.add(Utilities.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                matchingCharacters.add(UtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
             }
 
-            intersectionWithMatchingDescriptors = Utilities.getIntersectionOfLists(displayableComponentSelections, matchingCharacters);
+            intersectionWithMatchingDescriptors = UtilitiesGeneral.getIntersectionOfLists(displayableComponentSelections, matchingCharacters);
         }
 
         return intersectionWithMatchingDescriptors;

@@ -1,12 +1,10 @@
 package com.japagram.ui;
 
-import android.app.ActionBar;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 
 import com.japagram.R;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 public class SettingsActivity extends BaseActivity {
 

@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesDb;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesDb;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -99,11 +99,11 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
-                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
-                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
-                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
-                Utilities.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Indexes Database.");
                 UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
@@ -116,17 +116,17 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
 
         // Import the excel sheets (csv format)
         List<String[]> centralDatabase 		    = new ArrayList<>();
-        List<String[]> typesDatabase            = Utilities.readCSVFile("LineTypes - 3000 kanji.csv", context);
-        List<String[]> grammarDatabase          = Utilities.readCSVFile("LineGrammar - 3000 kanji.csv", context);
-        List<String[]> verbsDatabase     	    = Utilities.readCSVFile("LineVerbsForGrammar - 3000 kanji.csv", context);
-        List<String[]> meaningsENDatabase       = Utilities.readCSVFile("LineMeanings - 3000 kanji.csv", context);
-        List<String[]> meaningsFRDatabase       = Utilities.readCSVFile("LineMeaningsFR - 3000 kanji.csv", context);
-        List<String[]> meaningsESDatabase       = Utilities.readCSVFile("LineMeaningsES - 3000 kanji.csv", context);
-        List<String[]> multExplENDatabase       = Utilities.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
-        List<String[]> multExplFRDatabase       = Utilities.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
-        List<String[]> multExplESDatabase       = Utilities.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
-        List<String[]> examplesDatabase         = Utilities.readCSVFile("LineExamples - 3000 kanji.csv", context);
-        List<String> frequencies                = Utilities.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
+        List<String[]> typesDatabase            = UtilitiesAndroidIO.readCSVFile("LineTypes - 3000 kanji.csv", context);
+        List<String[]> grammarDatabase          = UtilitiesAndroidIO.readCSVFile("LineGrammar - 3000 kanji.csv", context);
+        List<String[]> verbsDatabase     	    = UtilitiesAndroidIO.readCSVFile("LineVerbsForGrammar - 3000 kanji.csv", context);
+        List<String[]> meaningsENDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeanings - 3000 kanji.csv", context);
+        List<String[]> meaningsFRDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeaningsFR - 3000 kanji.csv", context);
+        List<String[]> meaningsESDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeaningsES - 3000 kanji.csv", context);
+        List<String[]> multExplENDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
+        List<String[]> multExplFRDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
+        List<String[]> multExplESDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
+        List<String[]> examplesDatabase         = UtilitiesAndroidIO.readCSVFile("LineExamples - 3000 kanji.csv", context);
+        List<String> frequencies                = UtilitiesAndroidIO.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
         HashMap<String, Integer> frequenciesHash = new HashMap<>();
         for (int i=0; i<frequencies.size(); i++){
             if (!frequenciesHash.containsKey(frequencies.get(i))) frequenciesHash.put(frequencies.get(i),i+1);
@@ -143,15 +143,15 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         centralDatabase.addAll(verbsDatabase);
 
         //Checking that there were no accidental line breaks when building the database
-        UtilitiesDb.checkDatabaseStructure(verbsDatabase, "Verbs Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(centralDatabase, "Central Database", Utilities.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", Utilities.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", Utilities.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", Utilities.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplENDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", Utilities.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", Utilities.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(verbsDatabase, "Verbs Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(centralDatabase, "Central Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplENDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
 
         List<Word> wordList = new ArrayList<>();
         HashMap<Long, String> inserted_words = new HashMap<>();

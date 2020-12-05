@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.List;
 
@@ -72,15 +72,15 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
             UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Words Database.");
             });
         }
         if (this.indexRomaji().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-                Utilities.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Indexes Database.");
                 UtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
             });

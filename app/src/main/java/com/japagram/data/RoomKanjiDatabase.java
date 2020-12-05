@@ -5,9 +5,9 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.List;
 
@@ -83,7 +83,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
         if (kanjiComponent().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
                 Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
             });
             UtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
@@ -92,10 +92,10 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     }
     private void loadKanjiCharactersIntoRoomDb(Context context) {
 
-        Utilities.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
+        UtilitiesAndroidIO.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
 
-        List<String[]> KanjiDict_Database = Utilities.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
-        List<String[]> RadicalsDatabase = Utilities.readCSVFile("LineRadicals - 3000 kanji.csv", context);
+        List<String[]> KanjiDict_Database = UtilitiesAndroidIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
+        List<String[]> RadicalsDatabase = UtilitiesAndroidIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
 
         for (int i=0; i<KanjiDict_Database.size(); i++) {
             if (TextUtils.isEmpty(KanjiDict_Database.get(i)[0])) break;

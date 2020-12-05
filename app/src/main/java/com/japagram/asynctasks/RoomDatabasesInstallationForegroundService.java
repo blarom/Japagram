@@ -17,7 +17,7 @@ import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 import com.japagram.ui.MainActivity;
 
 import java.util.Locale;

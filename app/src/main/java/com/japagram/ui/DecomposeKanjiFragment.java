@@ -25,10 +25,11 @@ import android.widget.TextView;
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
 import com.japagram.data.InputQuery;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -88,7 +89,7 @@ public class DecomposeKanjiFragment extends Fragment implements
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
         getDecomposition();
-        mLocalizedResources = Utilities.getLocalizedResources(getContext(), Locale.getDefault());
+        mLocalizedResources = UtilitiesAndroidIO.getLocalizedResources(getContext(), Locale.getDefault());
 
         return rootView;
     }
@@ -146,7 +147,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (text instanceof SpannableString) {
                 SpannableString span = (SpannableString) text;
-                if (Utilities.isPrintable(span.toString())) {
+                if (UtilitiesAndroidIO.isPrintable(span.toString())) {
                     tv.setText(span);
                 }
                 else {
@@ -155,7 +156,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             }
             else {
                 String string = (String) text;
-                if (Utilities.isPrintable(string)) {
+                if (UtilitiesAndroidIO.isPrintable(string)) {
                     tv.setText(string);
                 }
                 else {
@@ -208,7 +209,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         String[] structure_info;
         String mainKanji = decomposedKanji.get(0).get(0);
 
-        if (getActivity()!=null) Utilities.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
 
         boolean character_not_found_in_KanjiDictDatabase = true;
         for (String characteristic : currentKanjiDetailedCharacteristics) {
@@ -250,7 +251,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             final TextView tv = new TextView(getContext());
             tv.setLayoutParams(radical_gallery_layoutParams);
             display_text = decomposedKanji.get(i).get(0);
-            text = Utilities.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
+            text = UtilitiesGeneral.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
             clickable_text = new SpannableString(text);
 
             tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -294,7 +295,7 @@ public class DecomposeKanjiFragment extends Fragment implements
                 //Getting the decomposition
                 startGettingDecompositionAsynchronously(tv.getHint().toString(), radicalIteration1 + 1, kanjiListIndex1);
 
-                Utilities.showAndFadeOutAndHideImage(mDownArrowImageView, 1000);
+                UtilitiesAndroidIO.showAndFadeOutAndHideImage(mDownArrowImageView, 1000);
 
             });
             tv.setTag(kanjiListIndex +";"+ radicalIteration +";"+mainKanji);

@@ -20,12 +20,12 @@ import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesDb;
-import com.japagram.resources.UtilitiesQuery;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements
     @Override protected void onDestroy() {
         super.onDestroy();
         try {
-            Utilities.trimCache(this);
+            UtilitiesAndroidIO.trimCache(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,13 +246,13 @@ public class MainActivity extends BaseActivity implements
             setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
         }
         else if (key.equals(getString(R.string.pref_OCR_image_saturation_key))) {
-            mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultSaturation = UtilitiesAndroidIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_contrast_key))) {
-            mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultContrast = UtilitiesAndroidIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_brightness_key))) {
-            mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultBrightness = UtilitiesAndroidIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         }
     }
     private void setupSharedPreferences() {
@@ -270,9 +270,9 @@ public class MainActivity extends BaseActivity implements
         setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
         setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
         setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
-        mOcrImageDefaultContrast = Utilities.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultSaturation = Utilities.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultBrightness = Utilities.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultContrast = UtilitiesAndroidIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultSaturation = UtilitiesAndroidIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultBrightness = UtilitiesAndroidIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
     private void setShowNames(boolean state) {
@@ -355,7 +355,7 @@ public class MainActivity extends BaseActivity implements
 
         // Remove the software keyboard if the EditText is not in focus
         findViewById(android.R.id.content).setOnTouchListener((v, event) -> {
-            Utilities.hideSoftKeyboard(MainActivity.this);
+            UtilitiesAndroidIO.hideSoftKeyboard(MainActivity.this);
             v.performClick();
             return false;
         });
@@ -453,7 +453,7 @@ public class MainActivity extends BaseActivity implements
                 String type = word.getMeaningsEN().get(0).getType();
                 if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(0) == 'I' || type.charAt(0) == 'T') ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
             }
@@ -465,14 +465,14 @@ public class MainActivity extends BaseActivity implements
                 String type = word.getMeaningsEN().get(0).getType();
                 if (type.length() > 2 && type.charAt(0) == 'V' && (type.charAt(type.length()-1) == 'I' || type.charAt(type.length()-1) == 'T') ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
-                        || UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
+                        || com.japagram.utilitiesCrossPlatform.UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
                         .equals(UtilitiesQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
-                    meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
+                    meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
                 }
             }
@@ -482,7 +482,7 @@ public class MainActivity extends BaseActivity implements
                     List<String> altSpellings = (word.getAltSpellings() != null) ? Arrays.asList(word.getAltSpellings().split(",")) : new ArrayList<>();
                     if (altSpellings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }
@@ -504,7 +504,7 @@ public class MainActivity extends BaseActivity implements
                     }
                     if (wordsInMeanings.contains(inputQuery)) {
                         romaji = word.getRomaji();
-                        meaning = Utilities.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
+                        meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                         break;
                     }
                 }

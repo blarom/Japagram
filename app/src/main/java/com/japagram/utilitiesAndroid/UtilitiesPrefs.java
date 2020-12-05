@@ -1,4 +1,4 @@
-package com.japagram.resources;
+package com.japagram.utilitiesAndroid;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 
 import com.japagram.R;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -130,7 +131,7 @@ public final class UtilitiesPrefs {
         } catch (Exception e) {
             queryHistorySize = Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_default_value));
         } finally {
-            queryHistorySize = Utilities.truncateIntToRange(queryHistorySize,
+            queryHistorySize = UtilitiesAndroidIO.truncateIntToRange(queryHistorySize,
                     Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_min_value)),
                     Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_max_value)));
         }

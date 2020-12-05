@@ -4,10 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesDb;
-import com.japagram.resources.UtilitiesQuery;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
+import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +51,7 @@ public class InputQuery implements Parcelable {
         if (isEmpty()) return;
         originalType = getTextType(this.original);
         kanjiChars = UtilitiesQuery.extractKanjiChars(this.original);
-        originalCleaned = Utilities.removeNonSpaceSpecialCharacters(original);
+        originalCleaned = UtilitiesGeneral.removeNonSpaceSpecialCharacters(original);
         Object[] results = UtilitiesQuery.getInglessVerb(this.originalCleaned.replace("'",""), getOriginalType());
         ingless = (String) results[0];
         hasIngEnding = (boolean) results[1];
@@ -71,12 +71,12 @@ public class InputQuery implements Parcelable {
         NSConversions = (List<String>)conversions[Globals.ROM_COL_NIHON_SHIKI];
         KSConversions = (List<String>)conversions[Globals.ROM_COL_KUNREI_SHIKI];
 
-        hiraganaUniqueConversions = Utilities.removeDuplicatesFromStringList(hiraganaConversions);
-        katakanaUniqueConversions = Utilities.removeDuplicatesFromStringList(katakanaConversions);
-        waapuroUniqueConversions = Utilities.removeDuplicatesFromStringList(waapuroConversions);
-        MHUniqueConversions = Utilities.removeDuplicatesFromStringList(MHConversions);
-        NSUniqueConversions = Utilities.removeDuplicatesFromStringList(NSConversions);
-        KSUniqueConversions = Utilities.removeDuplicatesFromStringList(KSConversions);
+        hiraganaUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(hiraganaConversions);
+        katakanaUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(katakanaConversions);
+        waapuroUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(waapuroConversions);
+        MHUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(MHConversions);
+        NSUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(NSConversions);
+        KSUniqueConversions = UtilitiesGeneral.removeDuplicatesFromStringList(KSConversions);
 
         this.romajiSingleElement = waapuroConversions.get(0);
         this.hiraganaSingleElement = hiraganaConversions.get(0);
@@ -163,7 +163,7 @@ public class InputQuery implements Parcelable {
 
         if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return Globals.TYPE_INVALID;}
 
-        input_value = Utilities.removeSpecialCharacters(input_value);
+        input_value = UtilitiesGeneral.removeSpecialCharacters(input_value);
         String character;
         int text_type = Globals.TYPE_INVALID;
 

@@ -1,8 +1,9 @@
-package com.japagram.resources;
+package com.japagram.utilitiesPlatformOverridable;
 
 import android.content.Context;
 
 import com.japagram.R;
+import com.japagram.utilitiesCrossPlatform.Globals;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -389,5 +390,4 @@ public final class UtilitiesResourceAccess {
         }
         return map;
     }
-
 }

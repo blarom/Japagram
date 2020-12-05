@@ -20,11 +20,12 @@ import android.widget.TextView;
 import com.japagram.R;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesQuery;
-import com.japagram.resources.UtilitiesPrefs;
-import com.japagram.resources.UtilitiesResourceAccess;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
+import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesResourceAccess;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -195,7 +196,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String type = mWordsList.get(position).getMeaningsEN().get(0).getType();
         if (!type.equals("CE")) {
             String freqHtmlText = mContext.getString(R.string.frequency) + ": " + ((frequency == 0) ? "20001+ (uncommon)" : frequency);
-            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(freqHtmlText));
+            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(freqHtmlText));
             freqTtv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -204,7 +205,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
             String altSHtmlText = mContext.getString(R.string.alternate_forms) + ": " + altSpellings;
-            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, Utilities.fromHtml(altSHtmlText));
+            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(altSHtmlText));
             altSTv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -286,9 +287,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 }
             }
             else {
-                extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
+                extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             }
-            mWordsMeaningExtract.add(Utilities.fromHtml(extract));
+            mWordsMeaningExtract.add(com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(extract));
 
 
             StringBuilder cumulative_meaning_value = new StringBuilder();
@@ -491,7 +492,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 typeAndMeaningHtml = meaning;
             }
 
-            Spanned type_and_meaning = Utilities.fromHtml(typeAndMeaningHtml);
+            Spanned type_and_meaning = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(typeAndMeaningHtml);
             TextView typeAndMeaningTv = new TextView(mContext);
             setMeaningsTvProperties(typeAndMeaningTv, type_and_meaning);
             holder.childElementsLinearLayout.addView(typeAndMeaningTv);
@@ -639,7 +640,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         }
                         typeAndMeaningHtml_list.add(typeAndMeaningHtml);
                     }
-                    spanned_rule = Utilities.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
+                    spanned_rule = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
                     addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(spanned_rule));
                 }
                 //endregion
@@ -795,7 +796,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = Utilities.fromHtml(totalText);
+        Spanned spanned_totalText = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new KanjiClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);
@@ -813,7 +814,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = Utilities.fromHtml(totalText);
+        Spanned spanned_totalText = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new VerbClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);

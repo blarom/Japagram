@@ -23,12 +23,14 @@ import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.UtilitiesWeb;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesVerbSearchAsyncTask;
-import com.japagram.resources.UtilitiesDb;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
+import com.japagram.utilitiesCrossPlatform.UtilitiesVerbSearch;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -223,7 +225,7 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }
@@ -256,14 +258,14 @@ public class DictionaryFragment extends Fragment implements
             //Getting the merged results
             int oldSize = mMergedMatchingWordsList.size();
             if (sourceType.equals(LOCAL) && mLocalMatchingWordsList.size() > 0) {
-                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList, "");
+                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList, "");
             }
             if (sourceType.equals(ONLINE) && mJishoMatchingWordsList.size() > 0) {
-                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList, "");
+                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList, "");
                 gotNewResultsFromOnline = true;
             }
             if (sourceType.equals(CONJ) && mMatchingWordsFromVerbs.size() > 0) {
-                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
+                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
                 if (mMergedMatchingWordsList.size() > oldSize) gotNewResultsFromConj = true;
             }
             mMergedMatchingWordsList = sortWordsAccordingToRanking(mMergedMatchingWordsList);
@@ -281,23 +283,23 @@ public class DictionaryFragment extends Fragment implements
                 mDictionaryRecyclerView.setVisibility(View.VISIBLE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
-                Utilities.hideSoftKeyboard(getActivity());
+                UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
                 hideLoadingIndicator();
             }
             else {
                 if (waitForConjResults) {
-                    mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+                    mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
                     Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                     mSuccessfullyDisplayedResultsBeforeTimeout = true;
                     hideLoadingIndicator();
                 } else {
                     if (mAlreadyLoadedConjResults) {
-                        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_results_found)));
+                        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                         mSuccessfullyDisplayedResultsBeforeTimeout = true;
                         hideLoadingIndicator();
                     } else {
-                        mHintTextView.setText(Utilities.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local without Conj Search");
                     }
                 }
@@ -378,7 +380,7 @@ public class DictionaryFragment extends Fragment implements
             if (currentWord==null) continue;
 
             String language = LocaleHelper.getLanguage(getContext());
-            int ranking = UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
+            int ranking = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
 
             long[] currentMatchingWordIndexAndLength = new long[3];
             currentMatchingWordIndexAndLength[0] = i;
@@ -389,7 +391,7 @@ public class DictionaryFragment extends Fragment implements
 
         //Sort the results according to total length
         if (matchingWordIndexesAndLengths.size() != 0) {
-            matchingWordIndexesAndLengths = UtilitiesDb.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
+            matchingWordIndexesAndLengths = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
         }
 
         //Return the sorted list
@@ -477,16 +479,16 @@ public class DictionaryFragment extends Fragment implements
         if (getContext()==null) return;
 
         mAlreadyLoadedJishoResults = true;
-        mJishoMatchingWordsList = Utilities.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
-        mJishoMatchingWordsList = Utilities.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
+        mJishoMatchingWordsList = UtilitiesWeb.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
+        mJishoMatchingWordsList = UtilitiesWeb.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
         for (Word word : mJishoMatchingWordsList) word.setIsLocal(false);
 
         if (!UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
 
         if (mJishoMatchingWordsList.size() != 0) {
-            mDifferentJishoWords = UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
+            mDifferentJishoWords = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
             if (mDifferentJishoWords.size()>0) {
-                updateFirebaseDbWithJishoWords(UtilitiesDb.getCommonWords(mDifferentJishoWords));
+                updateFirebaseDbWithJishoWords(com.japagram.utilitiesCrossPlatform.UtilitiesDb.getCommonWords(mDifferentJishoWords));
                 if (UtilitiesDb.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery.getOriginal())) {
                     updateFirebaseDbWithJishoWords(mDifferentJishoWords.subList(0, 1)); //If the word was searched for then it is useful even if it's not defined as common
                 }
@@ -511,8 +513,8 @@ public class DictionaryFragment extends Fragment implements
             Word word = mMatchingWordsFromVerbs.get(i);
             word.setIsLocal(true);
             for (Object[] matchingConjugationParameters : mMatchingConjugationParametersList) {
-                if ((long) matchingConjugationParameters[UtilitiesVerbSearchAsyncTask.MATCHING_ID] == word.getWordId()) {
-                    String matchingConjugation = (String) matchingConjugationParameters[UtilitiesVerbSearchAsyncTask.MATCHING_CONJUGATION];
+                if ((long) matchingConjugationParameters[UtilitiesVerbSearch.MATCHING_ID] == word.getWordId()) {
+                    String matchingConjugation = (String) matchingConjugationParameters[UtilitiesVerbSearch.MATCHING_CONJUGATION];
                     word.setMatchingConj(matchingConjugation);
                     break;
                 }

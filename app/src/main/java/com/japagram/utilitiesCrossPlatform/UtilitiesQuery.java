@@ -1,8 +1,8 @@
-package com.japagram.resources;
+package com.japagram.utilitiesCrossPlatform;
 
-import android.text.TextUtils;
-
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.InputQuery;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -264,7 +264,7 @@ public final class UtilitiesQuery {
             possibleInterpretations = addPhonemesToInterpretations(possibleInterpretations, newPhonemes);
         }
         for (int i=0; i<possibleInterpretations.size(); i++) {
-            finalStrings.add(TextUtils.join("", possibleInterpretations.get(i)));
+            finalStrings.add(UtilitiesGeneral.joinList("", possibleInterpretations.get(i)));
         }
         return finalStrings;
     }
@@ -357,7 +357,7 @@ public final class UtilitiesQuery {
 
         List<String> conversionsFirstElement = new ArrayList<>();
 
-        if (TextUtils.isEmpty(text)) {
+        if (UtilitiesGeneral.isEmptyString(text)) {
             conversionsFirstElement.add("");
             conversionsFirstElement.add("");
             conversionsFirstElement.add("");

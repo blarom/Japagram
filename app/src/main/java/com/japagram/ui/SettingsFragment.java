@@ -7,10 +7,10 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
@@ -81,11 +81,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setSummaryForPreference(currentPreference, sharedPreferences);
                 if (currentPreference.getKey().equals(getString(R.string.pref_app_language_key))) {
                     setLanguage(currentPreference);
-                    if (getActivity() != null) Utilities.restartApplication(getActivity());
+                    if (getActivity() != null) UtilitiesAndroidIO.restartApplication(getActivity());
                 }
                 else if (currentPreference.getKey().equals(getString(R.string.pref_app_theme_color_key))) {
                     setThemeColor(currentPreference);
-                    if (getActivity() != null) Utilities.restartApplication(getActivity());
+                    if (getActivity() != null) UtilitiesAndroidIO.restartApplication(getActivity());
                 }
             }
             else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {

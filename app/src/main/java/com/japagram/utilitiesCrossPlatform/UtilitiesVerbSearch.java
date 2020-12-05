@@ -1,12 +1,15 @@
-package com.japagram.resources;
+package com.japagram.utilitiesCrossPlatform;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesDbAccess;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesResourceAccess;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +19,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public final class UtilitiesVerbSearchAsyncTask {
+public final class UtilitiesVerbSearch {
     public static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
     public static final int MATCHING_ID = 0;
     public static final int MATCHING_CATEGORY_INDEX = 1;
@@ -153,8 +156,8 @@ public final class UtilitiesVerbSearchAsyncTask {
             String startOfWord = characteristics[INDEX_ROMAJI].length() > 5? characteristics[INDEX_ROMAJI].substring(0,5) : characteristics[INDEX_ROMAJI];
             characteristics[INDEX_HIRAGANA_FIRST_CHAR] = UtilitiesQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
         }
-        characteristics[INDEX_LATIN_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
-        characteristics[INDEX_KANJI_ROOT] = Utilities.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);
+        characteristics[INDEX_LATIN_ROOT] = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
+        characteristics[INDEX_KANJI_ROOT] = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);
         characteristics[INDEX_ACTIVE_ALTSPELLING] = altSpelling;
 
         return characteristics;
@@ -179,7 +182,7 @@ public final class UtilitiesVerbSearchAsyncTask {
         String mPreparedTranslHiragana = preparedQuery.getHiraganaSingleElement();
 
         if (mPreparedQueryTextType == Globals.TYPE_INVALID || mCompleteVerbsList==null) return new ArrayList<>();
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
 
         //region Initializations
         int NumberOfSheetCols = Globals.VerbLatinConjDatabase.get(0).length;
@@ -323,15 +326,15 @@ public final class UtilitiesVerbSearchAsyncTask {
         List<String[]> verbConjugationMaxLengths = new ArrayList<>();
         int conjugationMaxLength;
         if (mPreparedQueryTextType == Globals.TYPE_LATIN) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = UtilitiesAndroidIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedCleanedLength;
         }
         else if (mPreparedQueryTextType == Globals.TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TYPE_KATAKANA) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = UtilitiesAndroidIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedTranslRomajiLength;
         }
         else if (mPreparedQueryTextType == Globals.TYPE_KANJI) {
-            verbConjugationMaxLengths = Utilities.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = UtilitiesAndroidIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", context);
             queryLengthForDilution = mPreparedCleanedLength;
         }
 
@@ -350,13 +353,13 @@ public final class UtilitiesVerbSearchAsyncTask {
         }
         //endregion
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Initialized");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Initialized");
 
         //region Getting the matching words from the Words database and filtering for verbs
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(
+            List<Long> mMatchingWordIds = (List<Long>) com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(
                     false,
                     false,
                     false,
@@ -411,7 +414,7 @@ public final class UtilitiesVerbSearchAsyncTask {
         }
         //endregion
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching words");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching words");
 
         //region Getting the matching verbs according to the expanded conjugations and updating the conjugation roots if an altSpelling is used
         List<long[]> matchingVerbIdsAndColsFromExpandedConjugations = new ArrayList<>();
@@ -701,13 +704,13 @@ public final class UtilitiesVerbSearchAsyncTask {
         }
         //endregion
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching verbs");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching verbs");
 
         List<long[]> matchingVerbIdsAndCols = new ArrayList<>();
         matchingVerbIdsAndCols.addAll(matchingVerbIdsAndColsFromBasicCharacteristics);
         matchingVerbIdsAndCols.addAll(matchingVerbIdsAndColsFromExpandedConjugations);
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Finished");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Finished");
         return matchingVerbIdsAndCols;
     }
 
@@ -755,7 +758,7 @@ public final class UtilitiesVerbSearchAsyncTask {
             }
             if (!found) {
                 word.setWordId(word.getWordId());
-                Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
             }
         }
         //endregion
@@ -803,7 +806,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                         + UtilitiesResourceAccess.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL)
                         + "] ";
             }
-            extract += Utilities.removeDuplicatesFromCommaList(Utilities.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
+            extract += com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromCommaList(com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             currentVerb.setMeaning(extract);
 
             switch (currentVerb.getTrans()) {
@@ -952,7 +955,7 @@ public final class UtilitiesVerbSearchAsyncTask {
 
         //Sort the results according to total length
         if (matchingVerbIdLengthColList.size() != 0) {
-            matchingVerbIdLengthColList = UtilitiesDb.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
+            matchingVerbIdLengthColList = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
         }
 
         List<long[]> matchingVerbIdColListSorted = new ArrayList<>();
@@ -1111,16 +1114,16 @@ public final class UtilitiesVerbSearchAsyncTask {
         List<Word> matchingWordsSorted = new ArrayList<>();
         List<long[]> mMatchingVerbIdAndColList;
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
 
         List<Verb> mCompleteVerbsList = UtilitiesDbAccess.getAllVerbs(context);
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
         InputQuery preparedQuery = setInputQueryParameters(inputQuery);
 
         HashMap<String, Integer> mFamilyConjugationIndexes = getFamilyConjugationIndexes();
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
 
         mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(
                 language,
@@ -1129,12 +1132,12 @@ public final class UtilitiesVerbSearchAsyncTask {
                 mWordsFromDictFragment,
                 mFamilyConjugationIndexes,
                 context);
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
         matchingWords = UtilitiesDbAccess.getWordListByWordIds(ids, context, Globals.DB_CENTRAL);
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
 
         matchingVerbs = getVerbsWithConjugations(
                 mMatchingVerbIdAndColList,
@@ -1144,7 +1147,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                 language);
 
         matchingWords = updateWordsWithConjMatchStatus(matchingWords, matchingVerbs, preparedQuery);
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
 
         List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(preparedQuery, mMatchingVerbIdAndColList, matchingWords, language);
         for (int i = 0; i < matchingVerbIdColListSortedByLength.size(); i++) {
@@ -1158,7 +1161,7 @@ public final class UtilitiesVerbSearchAsyncTask {
                     }
                 }
                 if (verb == null) {
-                    Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                    UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
                     continue;
                 }
 
@@ -1169,14 +1172,15 @@ public final class UtilitiesVerbSearchAsyncTask {
                 }
             }
         }
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Sorted verbs list");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Sorted verbs list");
 
         for (Verb verb : matchingVerbsSorted) {
             Object[] parameters = getConjugationParameters(verb, preparedQuery);
             matchingConjugationParameters.add(parameters);
         }
 
-        Log.i(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Returning objects");
+        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Returning objects");
         return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
     }
+
 }

@@ -5,14 +5,13 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.japagram.data.InputQuery;
-import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
-import com.japagram.resources.Globals;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.resources.UtilitiesDictSearchAsyncTask;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDictSearch;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class DictSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
         boolean roomNamesDbIsAvailable = (finishedLoadingNamesDb && mShowNames) && RoomNamesDatabase.getInstance(context) != null;
         boolean roomNamesDatabasesFinishedLoading = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
 
-        return UtilitiesDictSearchAsyncTask.getMatchingWords(
+        return UtilitiesDictSearch.getMatchingWords(
                 roomExtendedDbIsAvailable,
                 roomNamesDbIsAvailable,
                 roomNamesDatabasesFinishedLoading,

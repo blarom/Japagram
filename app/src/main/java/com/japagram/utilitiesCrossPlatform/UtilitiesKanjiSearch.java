@@ -1,11 +1,14 @@
-package com.japagram.resources;
+package com.japagram.utilitiesCrossPlatform;
 
 import android.os.Build;
-import android.text.TextUtils;
 
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.data.KanjiComponent;
 import com.japagram.data.RoomKanjiDatabase;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
+import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UtilitiesKanjiSearchAsyncTask {
+public class UtilitiesKanjiSearch {
     private static @NotNull List<String> getSimilarComponents(String component, @NotNull List<String[]> mSimilarsDatabase) {
         List<String> similarComponents = new ArrayList<>();
         similarComponents.add(component);
@@ -68,10 +71,10 @@ public class UtilitiesKanjiSearchAsyncTask {
         }
         if (associatedComponents == null) return new Object[]{new ArrayList<>(), mSearchInfoMessage};
 
-        elementA = Utilities.removeSpecialCharacters(elementA);
-        elementB = Utilities.removeSpecialCharacters(elementB);
-        elementC = Utilities.removeSpecialCharacters(elementC);
-        elementD = Utilities.removeSpecialCharacters(elementD);
+        elementA = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeSpecialCharacters(elementA);
+        elementB = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeSpecialCharacters(elementB);
+        elementC = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeSpecialCharacters(elementC);
+        elementD = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeSpecialCharacters(elementD);
         boolean elementAisEmpty = elementA.equals("");
         boolean elementBisEmpty = elementB.equals("");
         boolean elementCisEmpty = elementC.equals("");
@@ -139,49 +142,49 @@ public class UtilitiesKanjiSearchAsyncTask {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementC);
         }
         else if ( elementAisEmpty &&  elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementC, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementC, listOfMatchingResultsElementD);
         }
         else if ( elementAisEmpty && !elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementB);
         }
         else if ( elementAisEmpty && !elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementD);
         }
         else if ( elementAisEmpty && !elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
         }
         else if ( elementAisEmpty && !elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementB, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
         else if (!elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
             listOfIntersectingResults.addAll(listOfMatchingResultsElementA);
         }
         else if (!elementAisEmpty &&  elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementD);
         }
         else if (!elementAisEmpty &&  elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
         }
         else if (!elementAisEmpty &&  elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
         else if (!elementAisEmpty && !elementBisEmpty &&  elementCisEmpty &&  elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
         }
         else if (!elementAisEmpty && !elementBisEmpty &&  elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
         else if (!elementAisEmpty && !elementBisEmpty && !elementCisEmpty &&  elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
         }
         else if (!elementAisEmpty && !elementBisEmpty && !elementCisEmpty && !elementDisEmpty) {
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
-            listOfIntersectingResults = Utilities.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfMatchingResultsElementA, listOfMatchingResultsElementB);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementC);
+            listOfIntersectingResults = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, listOfMatchingResultsElementD);
         }
         //endregion
 
@@ -192,7 +195,7 @@ public class UtilitiesKanjiSearchAsyncTask {
             //Getting the components list relevant to the requested structure
             KanjiComponent kanjiComponentForRequestedStructure = null;
             String componentStructure = Globals.COMPONENT_STRUCTURES_MAP.get(mSelectedStructure);
-            if (!TextUtils.isEmpty(componentStructure)) {
+            if (!UtilitiesGeneral.isEmptyString(componentStructure)) {
                 List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
                 if (kanjiComponents != null && kanjiComponents.size() > 0) {
                     kanjiComponentForRequestedStructure = kanjiComponents.get(0);
@@ -206,10 +209,10 @@ public class UtilitiesKanjiSearchAsyncTask {
             List<String> currentIntersections;
             for (KanjiComponent.AssociatedComponent associatedComponent : associatedComponents) {
                 structureComponents = Arrays.asList(associatedComponent.getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER));
-                currentIntersections = Utilities.getIntersectionOfLists(listOfIntersectingResults, structureComponents);
+                currentIntersections = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.getIntersectionOfLists(listOfIntersectingResults, structureComponents);
                 listOfResultsRelevantToRequestedStructure.addAll(currentIntersections);
             }
-            listOfResultsRelevantToRequestedStructure = Utilities.removeDuplicatesFromStringList(listOfResultsRelevantToRequestedStructure);
+            listOfResultsRelevantToRequestedStructure = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromStringList(listOfResultsRelevantToRequestedStructure);
 
         }
         else {
@@ -252,7 +255,7 @@ public class UtilitiesKanjiSearchAsyncTask {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     for (int i = 0; i < nonJapChars.size(); i++) {
                         value = nonJapChars.get(i);
-                        if (value.length()>0 && Utilities.isPrintable(value.substring(0, 1))) {
+                        if (value.length()>0 && UtilitiesAndroidIO.isPrintable(value.substring(0, 1))) {
                             nonJapCharsPrintable.add(nonJapChars.get(i));
                         }
                     }

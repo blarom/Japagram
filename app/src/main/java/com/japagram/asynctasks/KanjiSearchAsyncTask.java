@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.japagram.data.RoomKanjiDatabase;
-import com.japagram.resources.UtilitiesKanjiSearchAsyncTask;
+import com.japagram.utilitiesCrossPlatform.UtilitiesKanjiSearch;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -37,7 +37,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
     protected Object[] doInBackground(Void... voids) {
 
         RoomKanjiDatabase mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
-        Object[] findKanjisResult = UtilitiesKanjiSearchAsyncTask.findKanjis(elements_list, mSimilarsDatabase, mSelectedStructure, mRoomKanjiDatabase, showOnlyJapCharacters);
+        Object[] findKanjisResult = UtilitiesKanjiSearch.findKanjis(elements_list, mSimilarsDatabase, mSelectedStructure, mRoomKanjiDatabase, showOnlyJapCharacters);
         List<String> result = (List<String>) findKanjisResult[0];
         String mSearchInfoMessage = (String) findKanjisResult[1];
 

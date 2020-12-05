@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.resources.Globals;
-import com.japagram.resources.Utilities;
-import com.japagram.resources.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,18 +88,18 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
             UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
                 Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
             });
         }
         if (indexEnglish().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
-                Utilities.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
+                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
                 UtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
             });

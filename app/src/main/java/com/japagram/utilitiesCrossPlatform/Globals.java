@@ -1,4 +1,4 @@
-package com.japagram.resources;
+package com.japagram.utilitiesCrossPlatform;
 
 
 import com.japagram.BuildConfig;
@@ -312,7 +312,7 @@ public final class Globals {
         return map;
     }
 
-    static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
+    public static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
     public static final int BALANCE_POINT_REGULAR_DISPLAY = 4;
     public static final int BALANCE_POINT_HISTORY_DISPLAY = 2;
 
