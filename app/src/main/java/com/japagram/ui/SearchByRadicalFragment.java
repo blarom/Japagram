@@ -366,7 +366,7 @@ public class SearchByRadicalFragment extends Fragment implements
         for (int i=0; i<inputQuery.length(); i++) {
             currentChar = mInputQuery.substring(i,i+1);
             text_type = UtilitiesQuery.getTextType(currentChar);
-            if (text_type == Globals.TYPE_KANJI) {
+            if (text_type == Globals.TEXT_TYPE_KANJI) {
                 user_selections[userSelectionIndex] = currentChar;
                 userSelectionIndex++;
             }

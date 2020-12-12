@@ -214,13 +214,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //region Setting the wordMeaning elements
         switch (mUILanguage) {
             case Globals.LANG_STR_EN:
-                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_EN);
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_STR_EN);
                 break;
             case Globals.LANG_STR_FR:
-                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_FR);
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_STR_FR);
                 break;
             case Globals.LANG_STR_ES:
-                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_ES);
+                if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_STR_ES);
                 break;
         }
         //endregion
@@ -271,17 +271,17 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             String extract = "";
             if (meanings == null || meanings.size() == 0) {
                 meanings = word.getMeaningsEN();
-                extract += OverridableUtilitiesResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL)
+                extract += OverridableUtilitiesResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL, mUILanguage)
                         + " "
                         + language.toLowerCase()
                         + " "
-                        + OverridableUtilitiesResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL);
+                        + OverridableUtilitiesResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL, mUILanguage);
             }
             else if (meanings.get(0).getMeaning().equals("*")) {
                 type = meanings.get(0).getType();
                 if (Globals.PARTS_OF_SPEECH.containsKey(type)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    extract = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES);
+                    extract = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES, mUILanguage);
                 }
                 else {
                     extract = "*";
@@ -345,7 +345,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (kanji.equals("")) romajiAndKanji = romaji;
             else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
             String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TYPE_LATIN);
+            String inputQueryLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TEXT_TYPE_LATIN);
             String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
@@ -358,9 +358,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
                     && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
 
-                String latin = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_LATIN);
-                String hiragana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_HIRAGANA);
-                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TYPE_KATAKANA);
+                String latin = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_LATIN);
+                String hiragana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_HIRAGANA);
+                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_KATAKANA);
 
                 if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
                     String[] altSpellingElements = alternatespellings.split(",");
@@ -396,13 +396,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                             || matchingConj.contains(inputQueryLatin)) {
                     sourceInfo.add((typeIsVerb)? mContext.getString(R.string.from_conjugated_form)+" \"" + matchingConj + "\"." : mContext.getString(R.string.from_associated_word)+" \"" + matchingConj + "\".");
                 }
-                else if ((mInputQueryTextType == Globals.TYPE_KANJI
+                else if ((mInputQueryTextType == Globals.TEXT_TYPE_KANJI
                         && kanji.length() > 0 && !kanji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TYPE_LATIN
+                        || (mInputQueryTextType == Globals.TEXT_TYPE_LATIN
                         && romaji.length() > 0 && !romaji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TYPE_HIRAGANA
+                        || (mInputQueryTextType == Globals.TEXT_TYPE_HIRAGANA
                         && hiragana.length() > 0 && !hiragana.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TYPE_KATAKANA
+                        || (mInputQueryTextType == Globals.TEXT_TYPE_KATAKANA
                         && katakana.length() > 0 && !katakana.substring(0, 1).equals(mInputQueryFirstLetter))
                 ) {
                     sourceInfo.add(mContext.getString(R.string.derived_from) + " \"" + mInputQuery + "\".");
@@ -419,7 +419,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         }
     }
-    private void setMeaningsLayout(final int position, final DictItemViewHolder holder, int language) {
+    private void setMeaningsLayout(final int position, final DictItemViewHolder holder, String language) {
 
         String type;
         String fullType;
@@ -430,13 +430,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         int endIndex = 0;
         List<Word.Meaning> meanings = new ArrayList<>();
         switch (language) {
-            case Globals.LANG_EN:
+            case Globals.LANG_STR_EN:
                 meanings = mWordsList.get(position).getMeaningsEN();
                 break;
-            case Globals.LANG_FR:
+            case Globals.LANG_STR_FR:
                 meanings = mWordsList.get(position).getMeaningsFR();
                 break;
-            case Globals.LANG_ES:
+            case Globals.LANG_STR_ES:
                 meanings = mWordsList.get(position).getMeaningsES();
                 break;
         }
@@ -460,8 +460,8 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
                 if (Globals.PARTS_OF_SPEECH.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES);
-                    if (language != Globals.LANG_EN) {
+                    String currentType = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES, language);
+                    if (!language.equals(Globals.LANG_STR_EN)) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }
                     types.add(currentType);

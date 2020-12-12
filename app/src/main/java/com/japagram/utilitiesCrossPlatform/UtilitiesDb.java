@@ -65,7 +65,7 @@ public class UtilitiesDb {
             return "";
         }
 
-        if (type == Globals.TYPE_LATIN) {
+        if (type == Globals.TEXT_TYPE_LATIN) {
             switch (family) {
                 case Globals.VERB_FAMILY_BU_GODAN:
                 case Globals.VERB_FAMILY_GU_GODAN:
@@ -285,7 +285,7 @@ public class UtilitiesDb {
 
     @NotNull
     public static List<Long> addCountersToMatchesList(@NotNull InputQuery query, Context context) {
-        if (query.getSearchType() != Globals.TYPE_KANJI) return new ArrayList<>();
+        if (query.getSearchType() != Globals.TEXT_TYPE_KANJI) return new ArrayList<>();
         List<String> potentialCounters = new ArrayList<>();
         String firstChar;
         for (String word : query.getSearchQueriesKanji()) {
@@ -329,7 +329,7 @@ public class UtilitiesDb {
         int searchType = query.getSearchType();
         boolean isPotentialAdjective = false;
 
-        if (searchType == Globals.TYPE_LATIN) {
+        if (searchType == Globals.TEXT_TYPE_LATIN) {
 
             //regon Getting the base adjectives
             for (String word : query.getSearchQueriesRomaji()) {
@@ -392,7 +392,7 @@ public class UtilitiesDb {
             }
             //endregion
 
-        } else if (searchType == Globals.TYPE_KANJI) {
+        } else if (searchType == Globals.TEXT_TYPE_KANJI) {
 
             for (String word : query.getSearchQueriesKanji()) {
                 length = word.length();
@@ -473,14 +473,14 @@ public class UtilitiesDb {
         if (exactSearch) {
             //Preventing the index search from returning too many results and crashing the app
 
-            if (inputTextType == Globals.TYPE_KANJI) {
+            if (inputTextType == Globals.TEXT_TYPE_KANJI) {
                 IndexKanji indexKanji = OverridableUtilitiesDb.getKanjiIndexForExactWord(concatenated_word, context);
                 if (indexKanji != null) {
                     matchingIndices.addAll(Arrays.asList(indexKanji.getWordIds().split(Globals.DB_ELEMENTS_DELIMITER)));
                 }
             } else {
-                if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                if (inputTextType == Globals.TEXT_TYPE_HIRAGANA || inputTextType == Globals.TEXT_TYPE_KATAKANA) {
+                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TEXT_TYPE_LATIN);
                 }
                 IndexRomaji indexRomaji = OverridableUtilitiesDb.getRomajiIndexForExactWord(concatenated_word, context);
                 if (indexRomaji != null) {
@@ -489,7 +489,7 @@ public class UtilitiesDb {
             }
 
         } else {
-            if (inputTextType == Globals.TYPE_KANJI) {
+            if (inputTextType == Globals.TEXT_TYPE_KANJI) {
                 List<IndexKanji> indexesKanji = OverridableUtilitiesDb.getKanjiIndexesListForStartingWord(concatenated_word, context);
                 if (indexesKanji != null && indexesKanji.size() > 0) {
                     for (IndexKanji indexKanji : indexesKanji) {
@@ -497,8 +497,8 @@ public class UtilitiesDb {
                     }
                 }
             } else {
-                if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TYPE_LATIN);
+                if (inputTextType == Globals.TEXT_TYPE_HIRAGANA || inputTextType == Globals.TEXT_TYPE_KATAKANA) {
+                    concatenated_word = UtilitiesQuery.getWaapuroHiraganaKatakana(concatenated_word).get(Globals.TEXT_TYPE_LATIN);
                 }
                 List<IndexRomaji> indexesRomaji = OverridableUtilitiesDb.getRomajiIndexesListForStartingWord(concatenated_word, context);
                 if (indexesRomaji != null && indexesRomaji.size() > 0) {
@@ -575,7 +575,7 @@ public class UtilitiesDb {
         List<IndexKanji> kanjiIndices;
 
         //region Search for the matches in the indexed keywords
-        if (query.getSearchType() == Globals.TYPE_LATIN) {
+        if (query.getSearchType() == Globals.TEXT_TYPE_LATIN) {
 
             boolean exactSearch = query.isTooShort() || forceExactSearch;
 
@@ -598,7 +598,7 @@ public class UtilitiesDb {
                     searchResultIndexesArray.add(genericIndex.getWordIds());
                 }
             }
-        } else if (query.getSearchType() == Globals.TYPE_KANJI) {
+        } else if (query.getSearchType() == Globals.TEXT_TYPE_KANJI) {
             kanjiIndices = findQueryInKanjiIndex(query.getSearchQueriesKanji(), forceExactSearch, db, context);
             if (kanjiIndices.size() == 0) return matchingWordIds;
             for (IndexKanji indexKanji : kanjiIndices) {
@@ -721,7 +721,7 @@ public class UtilitiesDb {
         List<Long> matchingWordIdsExtended = new ArrayList<>();
         List<Long> matchingWordIdsNames = new ArrayList<>();
         int queryType = query.getOriginalType();
-        if (queryType == Globals.TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
+        if (queryType == Globals.TEXT_TYPE_INVALID) return new Object[]{new ArrayList<>(), new ArrayList<>()};
         //endregion
 
         //region Getting the matches
@@ -741,7 +741,7 @@ public class UtilitiesDb {
     }
 
     @NotNull
-    public static List<Word> getMergedWordsList(@NotNull List<Word> localWords, List<Word> asyncWords, String languageCode) {
+    public static List<Word> getMergedWordsList(@NotNull List<Word> localWords, List<Word> asyncWords) {
 
         List<Word> finalWordsList = new ArrayList<>();
         List<Word> finalAsyncWords = new ArrayList<>(asyncWords);
@@ -1300,7 +1300,7 @@ public class UtilitiesDb {
 
     //Conjugator Module utilities
     @NotNull
-    public static List<ConjugationTitle> getConjugationTitles(@NotNull List<String[]> verbLatinConjDatabase, Context context) {
+    public static List<ConjugationTitle> getConjugationTitles(@NotNull List<String[]> verbLatinConjDatabase, Context context, String language) {
 
         String[] titlesRow = verbLatinConjDatabase.get(0);
         String[] subtitlesRow = verbLatinConjDatabase.get(1);
@@ -1317,18 +1317,18 @@ public class UtilitiesDb {
 
             if (col == 0) {
                 titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
-                conjugationTitle.setTitle(OverridableUtilitiesResources.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
+                conjugationTitle.setTitle(OverridableUtilitiesResources.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES, language));
                 conjugationTitle.setTitleIndex(col);
 
                 subtitle = new ConjugationTitle.Subtitle();
                 subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
+                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES, language));
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);
             } else if (col == sheetLength - 1) {
                subtitle = new ConjugationTitle.Subtitle();
                 subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
+                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES, language));
                 subtitle.setSubtitleIndex(col);
                 subtitles.add(subtitle);
 
@@ -1344,14 +1344,14 @@ public class UtilitiesDb {
                     subtitles = new ArrayList<>();
 
                     titleRef = Globals.VERB_CONJUGATION_TITLES.get(titlesRow[col]);
-                    conjugationTitle.setTitle(OverridableUtilitiesResources.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
+                    conjugationTitle.setTitle(OverridableUtilitiesResources.getString(titleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES, language));
                     conjugationTitle.setTitleIndex(col);
 
                 }
 
                 subtitle = new ConjugationTitle.Subtitle();
                 subtitleRef = Globals.VERB_CONJUGATION_TITLES.get(subtitlesRow[col]);
-                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES));
+                subtitle.setSubtitle(OverridableUtilitiesResources.getString(subtitleRef, context, Globals.RESOURCE_MAP_VERB_CONJ_TITLES, language));
                 String ending = (col <= Globals.COLUMN_VERB_MASUSTEM) ? "" : endingsRow[col];
                 subtitle.setEnding(ending);
                 subtitle.setSubtitleIndex(col);
@@ -1382,5 +1382,50 @@ public class UtilitiesDb {
             if (!found) output.add(currentChar);
         }
         return OverridableUtilitiesGeneral.joinList(" ", output);
+    }
+
+    @NotNull
+    public static List<Word> sortWordsAccordingToRanking(List<Word> wordsList, InputQuery mInputQuery, String language) {
+
+        if (wordsList == null || wordsList.size()==0) return new ArrayList<>();
+
+        List<long[]> matchingWordIndexesAndLengths = new ArrayList<>();
+        boolean queryIsVerbWithTo = mInputQuery.isVerbWithTo();
+
+        //region Replacing the Kana input word by its romaji equivalent
+        String inputQuery = mInputQuery.getOriginal();
+        int inputTextType = mInputQuery.getOriginalType();
+        if (inputTextType == Globals.TEXT_TYPE_HIRAGANA || inputTextType == Globals.TEXT_TYPE_KATAKANA) {
+            inputQuery = mInputQuery.getRomajiSingleElement();
+        }
+        //endregion
+
+        for (int i = 0; i < wordsList.size(); i++) {
+
+            Word currentWord = wordsList.get(i);
+            if (currentWord==null) continue;
+
+            int ranking = getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
+
+            long[] currentMatchingWordIndexAndLength = new long[3];
+            currentMatchingWordIndexAndLength[0] = i;
+            currentMatchingWordIndexAndLength[1] = ranking;
+
+            matchingWordIndexesAndLengths.add(currentMatchingWordIndexAndLength);
+        }
+
+        //Sort the results according to total length
+        if (matchingWordIndexesAndLengths.size() != 0) {
+            matchingWordIndexesAndLengths = UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
+        }
+
+        //Return the sorted list
+        List<Word> sortedWordsList = new ArrayList<>();
+        for (int i = 0; i < matchingWordIndexesAndLengths.size(); i++) {
+            long sortedIndex = matchingWordIndexesAndLengths.get(i)[0];
+            sortedWordsList.add(wordsList.get((int) sortedIndex));
+        }
+
+        return sortedWordsList;
     }
 }

@@ -123,10 +123,10 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
             }
             matchingKanjiCharactersByDescriptor.addAll(matchingKanjiCharactersByMeaning);
 
-            String hiraganaDescriptor = UtilitiesQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_HIRAGANA);
+            String hiraganaDescriptor = UtilitiesQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TEXT_TYPE_HIRAGANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(hiraganaDescriptor));
 
-            String katakanaDescriptor = UtilitiesQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TYPE_KATAKANA);
+            String katakanaDescriptor = UtilitiesQuery.getWaapuroHiraganaKatakana(mKanjiCharacterNameForFilter).get(Globals.TEXT_TYPE_KATAKANA);
             matchingKanjiCharactersByDescriptor.addAll(mRoomKanjiDatabase.getKanjiCharactersByKanaDescriptor(katakanaDescriptor));
 
             List<String> matchingCharacters = new ArrayList<>();

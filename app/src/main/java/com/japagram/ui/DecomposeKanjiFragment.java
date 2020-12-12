@@ -120,7 +120,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         mInputQueryKanjis = new ArrayList<>();
         for (int i=0; i<mInputQuery.length(); i++) {
             String currentChar = mInputQuery.substring(i,i+1);
-            if (UtilitiesQuery.getTextType(currentChar) == Globals.TYPE_KANJI) {
+            if (UtilitiesQuery.getTextType(currentChar) == Globals.TEXT_TYPE_KANJI) {
                 Object[] elements = new Object[4];
                 elements[Globals.DECOMP_KANJI_LIST_INDEX] = currentChar;
                 elements[Globals.DECOMP_RADICAL_ITERATION] = 0;

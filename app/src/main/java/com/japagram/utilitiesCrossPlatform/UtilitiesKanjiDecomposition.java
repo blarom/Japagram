@@ -83,9 +83,9 @@ public class UtilitiesKanjiDecomposition {
         if (readings != null) {
             for (String reading : readings.split(";")) {
                 components = reading.split("\\.");
-                readingLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(components[0]).get(Globals.TYPE_LATIN);
+                readingLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(components[0]).get(Globals.TEXT_TYPE_LATIN);
                 if (components.length > 1) readingLatin +=
-                        "(" + UtilitiesQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TYPE_LATIN) + ")";
+                        "(" + UtilitiesQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TEXT_TYPE_LATIN) + ")";
                 readingsList.add(readingLatin);
             }
             readingsList = UtilitiesGeneral.removeDuplicatesFromStringList(readingsList);

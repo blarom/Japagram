@@ -42,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.japagram.utilitiesCrossPlatform.Globals.TYPE_KANJI;
+import static com.japagram.utilitiesCrossPlatform.Globals.TEXT_TYPE_KANJI;
 
 public class ConjugatorFragment extends Fragment implements
         VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
@@ -265,7 +265,7 @@ public class ConjugatorFragment extends Fragment implements
         });
 
         mChosenRomajiOrKanji = "Romaji";
-        if (mInputQuery.getOriginalType() == TYPE_KANJI) {
+        if (mInputQuery.getOriginalType() == TEXT_TYPE_KANJI) {
             mChosenRomajiOrKanji = "Kanji";
             mRomajiRadioButton.setChecked(false);
             mKanjiRadioButton.setChecked(true);

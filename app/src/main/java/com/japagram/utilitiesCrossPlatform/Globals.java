@@ -276,12 +276,12 @@ public final class Globals {
     public final static int INDEX_BOTTOMLEFTOUT = 16;
     public final static int INDEX_BOTTOMOUT = 17;
 
-    public static final int TYPE_LATIN = 0;
-    public static final int TYPE_HIRAGANA = 1;
-    public static final int TYPE_KATAKANA = 2;
-    public static final int TYPE_KANJI = 3;
-    public static final int TYPE_NUMBER = 4;
-    public static final int TYPE_INVALID = 5;
+    public static final int TEXT_TYPE_LATIN = 0;
+    public static final int TEXT_TYPE_HIRAGANA = 1;
+    public static final int TEXT_TYPE_KATAKANA = 2;
+    public static final int TEXT_TYPE_KANJI = 3;
+    public static final int TEXT_TYPE_NUMBER = 4;
+    public static final int TEXT_TYPE_INVALID = 5;
 
     public static final int RADICAL_KANA = 0;
     public static final int RADICAL_UTF8 = 1;

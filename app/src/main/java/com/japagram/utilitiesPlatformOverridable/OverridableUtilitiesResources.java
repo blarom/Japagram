@@ -18,7 +18,7 @@ public final class OverridableUtilitiesResources {
             default: return context.getResources().getString(R.string.language_label_english).toLowerCase();
         }
     }
-    public static String getString(String requestedString, @NotNull Context context, int resourceMap) {
+    public static String getString(String requestedString, @NotNull Context context, int resourceMap, String language) {
         switch (resourceMap) {
             case Globals.RESOURCE_MAP_VERB_CONJ_TITLES:
                 return context.getString(stringResourceMapVerbConjTitles.get(requestedString));

@@ -15,6 +15,7 @@ import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.R;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomKanjiDatabase;
+import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.UtilitiesDb;
@@ -43,6 +44,7 @@ public class SplashScreenActivity extends BaseActivity {
     boolean mLastUIUpdateWasCentral;
     boolean mLastUIUpdateWasKanji;
     private int mTicks;
+    private String mLanguage;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
 
@@ -59,6 +61,7 @@ public class SplashScreenActivity extends BaseActivity {
 
         mCentralDbBeingLoaded = true;
         mKanjiDbBeingLoaded = true;
+        mLanguage = LocaleHelper.getLanguage(getBaseContext());
 
         startDbInstallationForegroundService();
 
@@ -67,7 +70,7 @@ public class SplashScreenActivity extends BaseActivity {
             mCentralDbBeingLoaded = true;
             Globals.SIMILARS_DATABASE = UtilitiesAndroidIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
             Globals.VERB_LATIN_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
-            Globals.CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.VERB_LATIN_CONJ_DATABASE, this);
+            Globals.CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.VERB_LATIN_CONJ_DATABASE, this, mLanguage);
             Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.VERB_LATIN_CONJ_DATABASE);
             Globals.VERB_KANJI_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.RADICALS_ONLY_DATABASE = UtilitiesAndroidIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());

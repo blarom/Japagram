@@ -171,30 +171,30 @@ public final class UtilitiesQuery {
         List<String> finalStrings = new ArrayList<>();
 
         //Reverting directly from Nihon/Kunrei-Shiki special forms to Waapuro
-        text = text.replace("sy","sh")
-                .replace("ty","ch");
+        text = text.replace("sy","sh");
+        text = text.replace("ty","ch");
 
         //Phonemes that can have multiple Waapuro equivalents are prepared here
         //Note that wi we wo (ゐ ゑ を - i e o in MH/NH/KH romanizations) are not handled here since they could lead to too many false positives
-        text = text.replace("j","A")
-                .replace("zy","B")
-                .replace("ts","C")
-                .replace("zu","D")
-                .replace("du","O")
-                .replace("wê","E")
-                .replace("dû","F")
-                .replace("si","G")
+        text = text.replace("j","A");
+        text = text.replace("zy","B");
+        text = text.replace("ts","C");
+        text = text.replace("zu","D");
+        text = text.replace("du","O");
+        text = text.replace("wê","E");
+        text = text.replace("dû","F");
+        text = text.replace("si","G");
                 //.replace("ti","H")
-                .replaceAll("([^sc])hu","$1I")
-                .replaceAll("([^sc])hû","$1J")
-                .replace("tû","K")
+        text = text.replaceAll("([^sc])hu","$1I");
+        text = text.replaceAll("([^sc])hû","$1J");
+        text = text.replace("tû","K");
                 //.replace("tu","L")
-                .replace("zû","M")
-                .replace("n\'","N")
-                .replaceAll("t$","to")
-                .replaceAll("c([aeiou])","k$1")
-                .replaceAll("l([aeiou])","r$1")
-                .replaceAll("q([aeiou])","k$1");
+        text = text.replace("zû","M");
+        text = text.replace("n'","N");
+        text = text.replaceAll("t$","to");
+        text = text.replaceAll("c([aeiou])","k$1");
+        text = text.replaceAll("l([aeiou])","r$1");
+        text = text.replaceAll("q([aeiou])","k$1");
 
         //Replacing relevant phonemes with the Waapuro equivalent
         List<List<String>> possibleInterpretations = new ArrayList<>();
@@ -310,7 +310,7 @@ public final class UtilitiesQuery {
         List<String> mInputQueryKanjis = new ArrayList<>();
         for (int i=0; i<input.length(); i++) {
             String currentChar = input.substring(i,i+1);
-            if (getTextType(currentChar) == Globals.TYPE_KANJI) {
+            if (getTextType(currentChar) == Globals.TEXT_TYPE_KANJI) {
                 mInputQueryKanjis.add(currentChar);
             }
         }
@@ -325,9 +325,9 @@ public final class UtilitiesQuery {
         List<String> hiraganaConversions = new ArrayList<>();
         List<String> katakanaConversions = new ArrayList<>();
         List<String> waapuroConversions = new ArrayList<>();
-        List<String> MHConversions = new ArrayList<>();
-        List<String> NSConversions = new ArrayList<>();
-        List<String> KSConversions = new ArrayList<>();
+        List<String> conversionsMH = new ArrayList<>();
+        List<String> conversionsNS = new ArrayList<>();
+        List<String> conversionsKS = new ArrayList<>();
         for (String conversion : waapuroRomanizations) {
             String[] HK = getOfficialKana(conversion);
             String hiragana = HK[Globals.ROM_COL_HIRAGANA];
@@ -336,18 +336,18 @@ public final class UtilitiesQuery {
             hiraganaConversions.add(hiragana);
             katakanaConversions.add(katakana);
             waapuroConversions.add(romanizations[Globals.ROM_WAAPURO]);
-            MHConversions.add(romanizations[Globals.ROM_MOD_HEPBURN]);
-            NSConversions.add(romanizations[Globals.ROM_NIHON_SHIKI]);
-            KSConversions.add(romanizations[Globals.ROM_KUNREI_SHIKI]);
+            conversionsMH.add(romanizations[Globals.ROM_MOD_HEPBURN]);
+            conversionsNS.add(romanizations[Globals.ROM_NIHON_SHIKI]);
+            conversionsKS.add(romanizations[Globals.ROM_KUNREI_SHIKI]);
         }
 
         return new Object[]{
                 hiraganaConversions,
                 katakanaConversions,
                 waapuroConversions,
-                MHConversions,
-                NSConversions,
-                KSConversions
+                conversionsMH,
+                conversionsNS,
+                conversionsKS
         };
     }
 
@@ -409,7 +409,7 @@ public final class UtilitiesQuery {
                 returnVerb = inputWithoutIng;
             }
 
-            hasIngEndingLocal = originalType == Globals.TYPE_LATIN;
+            hasIngEndingLocal = originalType == Globals.TEXT_TYPE_LATIN;
         }
 
         return new Object[]{returnVerb, hasIngEndingLocal};
@@ -418,11 +418,11 @@ public final class UtilitiesQuery {
 
     public static int getTextType(@NotNull String input_value) {
 
-        if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return Globals.TYPE_INVALID;}
+        if (input_value.contains("*") || input_value.contains("＊") || input_value.equals("") || input_value.equals("-") ) { return Globals.TEXT_TYPE_INVALID;}
 
         input_value = UtilitiesGeneral.removeSpecialCharacters(input_value);
         String character;
-        int text_type = Globals.TYPE_INVALID;
+        int text_type = Globals.TEXT_TYPE_INVALID;
 
         String hiraganaAlphabet = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたてとだでどちつづなぬねのんにはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをゔっゐゑぢぁゃゅぅょぉぇぃ";
         String katakanaAlphabet = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタテトダデドチツヅナニヌネノンハヒフヘホバビブベボパピプポペマミムメモヤユヨラリルレロワヲヴーッヰヱァャュゥォョェィ";
@@ -433,20 +433,20 @@ public final class UtilitiesQuery {
         if (!input_value.equals("")) {
             for (int i=0; i<input_value.length();i++) {
 
-                if (text_type == Globals.TYPE_KANJI) { break;}
+                if (text_type == Globals.TEXT_TYPE_KANJI) { break;}
 
                 character = Character.toString(input_value.charAt(i));
 
                 if (hiraganaAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_HIRAGANA;
+                    text_type = Globals.TEXT_TYPE_HIRAGANA;
                 } else if (katakanaAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_KATAKANA;
+                    text_type = Globals.TEXT_TYPE_KATAKANA;
                 } else if (latinAlphabet.contains(character) || latinAlphabetCap.contains(character)) {
-                    text_type = Globals.TYPE_LATIN;
+                    text_type = Globals.TEXT_TYPE_LATIN;
                 } else if (numberAlphabet.contains(character)) {
-                    text_type = Globals.TYPE_NUMBER;
+                    text_type = Globals.TEXT_TYPE_NUMBER;
                 } else {
-                    text_type = Globals.TYPE_KANJI;
+                    text_type = Globals.TEXT_TYPE_KANJI;
                 }
             }
         } else {
@@ -470,7 +470,7 @@ public final class UtilitiesQuery {
         boolean isVerbWithTo = false;
         boolean isTooShort = false;
         String originalWithoutTo = "";
-        int searchType = Globals.TYPE_LATIN;
+        int searchType = Globals.TEXT_TYPE_LATIN;
         List<String> searchQueriesNonJapanese = new ArrayList<>();
         List<String> searchQueriesRomaji = new ArrayList<>();
         List<String> searchQueriesKanji = new ArrayList<>();
@@ -499,7 +499,7 @@ public final class UtilitiesQuery {
         String hiraganaSingleElement = hiraganaConversions.get(0);
         String katakanaSingleElement = katakanaConversions.get(0);
 
-        if (originalType == Globals.TYPE_LATIN) {
+        if (originalType == Globals.TEXT_TYPE_LATIN) {
             boolean isEnglishWord = false;
             searchQueriesNonJapanese.add(originalCleaned);
             if (originalCleaned.length() > 3 && originalCleaned.endsWith("ing")) {
@@ -518,16 +518,16 @@ public final class UtilitiesQuery {
             }
             isTooShort = originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH;
         }
-        else if (originalType == Globals.TYPE_HIRAGANA || originalType == Globals.TYPE_KATAKANA) {
+        else if (originalType == Globals.TEXT_TYPE_HIRAGANA || originalType == Globals.TEXT_TYPE_KATAKANA) {
             searchQueriesRomaji.addAll(waapuroUniqueConversions);
             isTooShort = searchQueriesRomaji.get(0).length() < Globals.SMALL_WORD_LENGTH;
         }
-        else if (originalType == Globals.TYPE_NUMBER) {
+        else if (originalType == Globals.TEXT_TYPE_NUMBER) {
             searchQueriesNonJapanese.add(originalCleaned);
             isTooShort = originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH - 1;
         }
-        else if (originalType == Globals.TYPE_KANJI) {
-            searchType = Globals.TYPE_KANJI;
+        else if (originalType == Globals.TEXT_TYPE_KANJI) {
+            searchType = Globals.TEXT_TYPE_KANJI;
             searchQueriesKanji.add(UtilitiesDb.replaceInvalidKanjisWithValidOnes(originalCleaned));
             isTooShort = false;
         }

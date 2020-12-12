@@ -31,7 +31,6 @@ import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -82,6 +81,7 @@ public class DictionaryFragment extends Fragment implements
     private DictSearchAsyncTask mLocalDictSearchAsyncTask;
     private VerbSearchAsyncTask mVerbSearchAsyncTask;
     private boolean mShowNames;
+    private String mLanguage;
     //endregion
 
 
@@ -150,6 +150,7 @@ public class DictionaryFragment extends Fragment implements
 
         mAlreadyLoadedRoomResults = false;
         mAlreadyLoadedJishoResults = false;
+        mLanguage = LocaleHelper.getLanguage(getContext());
     }
     private void initializeViews(View rootView) {
         mBinding = ButterKnife.bind(this, rootView);
@@ -257,17 +258,17 @@ public class DictionaryFragment extends Fragment implements
             //Getting the merged results
             int oldSize = mMergedMatchingWordsList.size();
             if (sourceType.equals(LOCAL) && mLocalMatchingWordsList.size() > 0) {
-                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList, "");
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList);
             }
             if (sourceType.equals(ONLINE) && mJishoMatchingWordsList.size() > 0) {
-                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList, "");
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList);
                 gotNewResultsFromOnline = true;
             }
             if (sourceType.equals(CONJ) && mMatchingWordsFromVerbs.size() > 0) {
-                mMergedMatchingWordsList = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs, "");
+                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs);
                 if (mMergedMatchingWordsList.size() > oldSize) gotNewResultsFromConj = true;
             }
-            mMergedMatchingWordsList = sortWordsAccordingToRanking(mMergedMatchingWordsList);
+            mMergedMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mMergedMatchingWordsList, mInputQuery, mLanguage);
 
             if (mMergedMatchingWordsList.size() > 0) {
                 List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ?
@@ -358,50 +359,7 @@ public class DictionaryFragment extends Fragment implements
         }
 
     }
-    @NotNull @Contract("null -> new") private List<Word> sortWordsAccordingToRanking(List<Word> wordsList) {
 
-        if (wordsList == null || wordsList.size()==0) return new ArrayList<>();
-
-        List<long[]> matchingWordIndexesAndLengths = new ArrayList<>();
-        boolean queryIsVerbWithTo = mInputQuery.isVerbWithTo();
-
-        //region Replacing the Kana input word by its romaji equivalent
-        String inputQuery = mInputQuery.getOriginal();
-        int inputTextType = mInputQuery.getOriginalType();
-        if (inputTextType == Globals.TYPE_HIRAGANA || inputTextType == Globals.TYPE_KATAKANA) {
-            inputQuery = mInputQuery.getRomajiSingleElement();
-        }
-        //endregion
-
-        for (int i = 0; i < wordsList.size(); i++) {
-
-            Word currentWord = wordsList.get(i);
-            if (currentWord==null) continue;
-
-            String language = LocaleHelper.getLanguage(getContext());
-            int ranking = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getRankingFromWordAttributes(currentWord, inputQuery, queryIsVerbWithTo, language);
-
-            long[] currentMatchingWordIndexAndLength = new long[3];
-            currentMatchingWordIndexAndLength[0] = i;
-            currentMatchingWordIndexAndLength[1] = ranking;
-
-            matchingWordIndexesAndLengths.add(currentMatchingWordIndexAndLength);
-        }
-
-        //Sort the results according to total length
-        if (matchingWordIndexesAndLengths.size() != 0) {
-            matchingWordIndexesAndLengths = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingWordIndexesAndLengths);
-        }
-
-        //Return the sorted list
-        List<Word> sortedWordsList = new ArrayList<>();
-        for (int i = 0; i < matchingWordIndexesAndLengths.size(); i++) {
-            long sortedIndex = matchingWordIndexesAndLengths.get(i)[0];
-            sortedWordsList.add(wordsList.get((int) sortedIndex));
-        }
-
-        return sortedWordsList;
-    }
     private void updateFirebaseDbWithJishoWords(List<Word> wordsList) {
         mFirebaseDao.updateObjectsOrCreateThemInFirebaseDb(wordsList);
     }
@@ -465,7 +423,7 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedRoomResults = true;
 
         mLocalMatchingWordsList = words;
-        mLocalMatchingWordsList = sortWordsAccordingToRanking(mLocalMatchingWordsList);
+        mLocalMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mLocalMatchingWordsList, mInputQuery, mLanguage);
 
         int maxIndex = Math.min(mLocalMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
         dictionaryFragmentOperationsHandler.onLocalMatchingWordsFound(mLocalMatchingWordsList.subList(0,maxIndex));

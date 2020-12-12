@@ -41,7 +41,7 @@ public class UtilitiesWeb {
 
         //region Preparing the word to be included in the url
         StringBuilder prepared_word;
-        if (UtilitiesQuery.getTextType(word) == Globals.TYPE_KANJI) {
+        if (UtilitiesQuery.getTextType(word) == Globals.TEXT_TYPE_KANJI) {
             String converted_word = OverridableUtilitiesGeneral.convertToUTF8Index(word);
             converted_word = converted_word.substring(2);
             prepared_word = new StringBuilder();
@@ -339,7 +339,7 @@ public class UtilitiesWeb {
             }
 
             int textType = UtilitiesQuery.getTextType(kanji.toString());
-            if (romaji.length() != 0 && (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
+            if (romaji.length() != 0 && (textType == Globals.TEXT_TYPE_HIRAGANA || textType == Globals.TEXT_TYPE_KATAKANA)) {
                 //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
                 romaji = new StringBuilder(UtilitiesQuery.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
             }
@@ -360,7 +360,7 @@ public class UtilitiesWeb {
 
                         textType = UtilitiesQuery.getTextType(currentValue);
                         if (currentValue.length() != 0 &&
-                                (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
+                                (textType == Globals.TEXT_TYPE_HIRAGANA || textType == Globals.TEXT_TYPE_KATAKANA)) {
                             //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
                             romaji = new StringBuilder(UtilitiesQuery.getWaapuroHiraganaKatakana(currentValue).get(0));
                             break;
@@ -432,7 +432,7 @@ public class UtilitiesWeb {
                         Matcher m = Pattern.compile("\\b(\\w+)\\s【(\\w+)】").matcher(altSpellingsContainer.toString());
                         while (m.find()) {
                             if (!m.group(1).equals(currentWord.getKanji())) altSpellings.add(m.group(1).trim());
-                            String convertedMatch = UtilitiesQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TYPE_LATIN);
+                            String convertedMatch = UtilitiesQuery.getWaapuroHiraganaKatakana(m.group(2)).get(Globals.TEXT_TYPE_LATIN);
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromStringList(altSpellings);

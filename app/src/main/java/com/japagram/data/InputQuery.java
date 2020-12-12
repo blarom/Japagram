@@ -13,17 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InputQuery implements Parcelable {
-    private int searchType;
-    private int originalType;
-    private String withoutTo;
-    private boolean isVerbWithTo;
-    private boolean hasIngEnding;
-    private boolean isTooShort;
-    private String katakanaSingleElement;
-    private String hiraganaSingleElement;
-    private String romajiSingleElement;
-    private String original;
-    private String originalNoIng;
+    private int searchType = 0;
+    private int originalType = 0;
+    private String withoutTo = "";
+    private boolean isVerbWithTo = false;
+    private boolean hasIngEnding = false;
+    private boolean isTooShort = false;
+    private String katakanaSingleElement = "";
+    private String hiraganaSingleElement = "";
+    private String romajiSingleElement = "";
+    private String original = "";
+    private String originalNoIng = "";
     private List<String> kanjiChars = new ArrayList<>();
     private List<String> searchQueriesRomaji = new ArrayList<>();
     private List<String> searchQueriesNonJapanese = new ArrayList<>();

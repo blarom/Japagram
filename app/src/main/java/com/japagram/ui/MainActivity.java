@@ -470,7 +470,7 @@ public class MainActivity extends BaseActivity implements
                 }
                 if (word.getRomaji().equals(inputQuery) || word.getKanji().equals(inputQuery)
                         || com.japagram.utilitiesCrossPlatform.UtilitiesDb.getRomajiNoSpacesForSpecialPartsOfSpeech(word.getRomaji())
-                        .equals(UtilitiesQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TYPE_LATIN)) ) {
+                        .equals(UtilitiesQuery.getWaapuroHiraganaKatakana(inputQuery).get(Globals.TEXT_TYPE_LATIN)) ) {
                     romaji = word.getRomaji();
                     meaning = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(word.getMeaningsByLanguage(language), Globals.BALANCE_POINT_HISTORY_DISPLAY);
                     break;
