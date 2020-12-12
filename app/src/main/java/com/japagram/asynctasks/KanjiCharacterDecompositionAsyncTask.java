@@ -10,6 +10,7 @@ import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesKanjiDecomposition;
 import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -53,7 +54,7 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
 
         String language = LocaleHelper.getLanguage(contextRef.get());
         String concatenated_input = UtilitiesGeneral.removeSpecialCharacters(inputQuery);
-        String inputHexIdentifier = UtilitiesGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
+        String inputHexIdentifier = OverridableUtilitiesGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
         KanjiCharacter mCurrentKanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(inputHexIdentifier);
         List<String> currentKanjiDetailedCharacteristics = UtilitiesKanjiDecomposition.getKanjiDetailedCharacteristics(mCurrentKanjiCharacter, language, mLocalizedResources);
         List<String> currentKanjiMainRadicalInfo = UtilitiesKanjiDecomposition.getKanjiRadicalCharacteristics(mCurrentKanjiCharacter, mRadicalsOnlyDatabase, mLocalizedResources);

@@ -10,6 +10,7 @@ import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -130,7 +131,7 @@ public class ComponentsGridFilterAsyncTask extends AsyncTask<Void, Void, List<St
 
             List<String> matchingCharacters = new ArrayList<>();
             for (KanjiCharacter kanjiCharacter : matchingKanjiCharactersByDescriptor) {
-                matchingCharacters.add(UtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                matchingCharacters.add(OverridableUtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
             }
 
             intersectionWithMatchingDescriptors = UtilitiesGeneral.getIntersectionOfLists(displayableComponentSelections, matchingCharacters);

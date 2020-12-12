@@ -17,7 +17,7 @@ import com.japagram.utilitiesCrossPlatform.Globals;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class UtilitiesDbAccess {
+public final class OverridableUtilitiesDb {
     public static List<Word> getWordListByWordIds(List<Long> wordIds, Context context, int db) {
         switch (db) {
             case Globals.DB_CENTRAL:

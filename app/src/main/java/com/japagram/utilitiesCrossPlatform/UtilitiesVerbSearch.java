@@ -7,9 +7,9 @@ import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
 import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesDbAccess;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesResourceAccess;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesDb;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesResources;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -20,17 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public final class UtilitiesVerbSearch {
-    public static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
-    public static final int MATCHING_ID = 0;
-    public static final int MATCHING_CATEGORY_INDEX = 1;
-    public static final int MATCHING_CONJUGATION = 2;
-    public final static int INDEX_FAMILY = 0;
-    public final static int INDEX_ROMAJI = 1;
-    public final static int INDEX_KANJI = 2;
-    public final static int INDEX_HIRAGANA_FIRST_CHAR = 3;
-    public final static int INDEX_LATIN_ROOT = 4;
-    public final static int INDEX_KANJI_ROOT = 5;
-    public final static int INDEX_ACTIVE_ALTSPELLING = 6;
 
     public static @NotNull InputQuery setInputQueryParameters(@NotNull String inputQueryOriginal) {
         String terminations_ichidan_romaji = "(ta|teiru|teita|te|masu|mashita|nai|nakatta|masen *deshita|masen)";
@@ -50,88 +39,91 @@ public final class UtilitiesVerbSearch {
         String terminations_iku_kana = "(いった|いっている|いっていた|いって|いきます|いきました|いかない|いかなかった|いきませんでした|いきません|いける|いけば|いったら)";
         String terminations_iku_kanji = "(行った|行っている|行っていた|行って|行きます|行きました|行かない|行かなかった|行きませんでした|行きません|行ける|いけば|行ったら)";
         String terminations_sugodan_kana = "(した|している|していた|して|します|しました|さない|さなかった|しませんでした|しません)";
-        InputQuery preparedInputQuery = new InputQuery(inputQueryOriginal
-                .replaceAll("(te|de) *age" + terminations_ichidan_romaji + "(| *ka)$", "$1 ageru")
-                .replaceAll("(te|de) *kure" + terminations_ichidan_romaji + "(| *ka)$", "$1 kureru")
-                .replaceAll("(te|de) *mora" + terminations_ugodan_romaji + "(| *ka)$", "$1 morau")
-                .replaceAll("(te|de) *itada" + terminations_kugodan_romaji + "(| *ka)$", "$1 itadaku")
-                .replaceAll("(te|de) *kudasa" + terminations_arugodan_romaji + "(| *ka)$", "$1 kudasaru")
-                .replaceAll("(te|de) *" + terminations_iku_romaji + "(| *ka)$", "$1 iku")
-                .replaceAll("(te|de) *o" + terminations_kugodan_romaji + "(| *ka)$", "$1 oku")
-                .replaceAll("(te|de) *o" + terminations_rugodan_romaji + "(| *ka)$", "$1 oru")
-                .replaceAll("([td])o" + terminations_kugodan_romaji + "(| *ka)$", "$1oku")
-                .replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "(| *ka)$", "$1 shimau")
-                .replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)(| *ka)$", "$1u")
-                .replaceAll("(te|de) *mi" + terminations_ichidan_romaji + "(| *ka)$", "$1 miru")
-                .replaceAll("(te|de) *shi" + terminations_ichidan_romaji + "(| *ka)$", "$1 suru")
-                .replaceAll("(te|de) *aru" + terminations_ichidan_romaji + "(| *ka)$", "$1 aru")
-                .replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "(| *ka)$", "$1 kuru")
-                .replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "(| *ka)$", "$1 sugiru")
-                .replaceAll("(are)"+ terminations_ichidan_romaji_subset, "$1masu")
-                .replaceAll("du", "zu")
 
-                .replaceAll("([てで])あげ" + terminations_ichidan_kana + "(|か)$", "$1あげる")
-                .replaceAll("([てで])くれ" + terminations_ichidan_kana + "(|か)$", "$1くれる")
-                .replaceAll("([てで])もら" + terminations_ugodan_kana + "(|か)$", "$1もらう")
-                .replaceAll("(te|de) *いただ" + terminations_kugodan_kana + "(|か)$", "$1いただく")
-                .replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "(|か)$", "$1くださる")
-                .replaceAll("([てで])" + terminations_iku_kana + "(|か)$", "$1いく")
-                .replaceAll("([てで])" + terminations_iku_kanji + "(|か)$", "$1いく")
-                .replaceAll("([てで])お" + terminations_kugodan_kana + "(|か)$", "$1おく")
-                .replaceAll("([てで])お" + terminations_rugodan_kana + "(|か)$", "$1おる")
-                .replaceAll("([とど])" + terminations_kugodan_kana + "(|か)$", "$1おく")
-                .replaceAll("([てで])しま" + terminations_ugodan_kana + "(|か)$", "$1しまう")
-                .replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)(|か)$", "$1う")
-                .replaceAll("([てで])み" + terminations_ichidan_kana + "(|か)$", "$1みる")
-                .replaceAll("([てで])し" + terminations_ichidan_kana + "(|か)$", "$1する")
-                .replaceAll("([てで])ある" + terminations_ichidan_kana + "(|か)$", "$1ある")
-                .replaceAll("([てで])くる" + terminations_ichidan_kana + "(|か)$", "$1くる")
-                .replaceAll("([てで])すぎ" + terminations_ichidan_kana + "(|か)$", "$1すぎる")
-                .replaceAll("(あれ)"+ terminations_ichidan_kana_subset, "$1ます")
-        );
+        String preparedInputQueryString = inputQueryOriginal;
+
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *age" + terminations_ichidan_romaji + "(| *ka)$", "$1 ageru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *kure" + terminations_ichidan_romaji + "(| *ka)$", "$1 kureru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *mora" + terminations_ugodan_romaji + "(| *ka)$", "$1 morau");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *itada" + terminations_kugodan_romaji + "(| *ka)$", "$1 itadaku");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *kudasa" + terminations_arugodan_romaji + "(| *ka)$", "$1 kudasaru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *" + terminations_iku_romaji + "(| *ka)$", "$1 iku");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *o" + terminations_kugodan_romaji + "(| *ka)$", "$1 oku");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *o" + terminations_rugodan_romaji + "(| *ka)$", "$1 oru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([td])o" + terminations_kugodan_romaji + "(| *ka)$", "$1oku");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *shima" + terminations_ugodan_romaji + "(| *ka)$", "$1 shimau");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(ccha|cha|ja)" + terminations_ugodan_romaji + "(ikenai|ikemasen|)(| *ka)$", "$1u");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *mi" + terminations_ichidan_romaji + "(| *ka)$", "$1 miru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *shi" + terminations_ichidan_romaji + "(| *ka)$", "$1 suru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *aru" + terminations_ichidan_romaji + "(| *ka)$", "$1 aru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *kuru" + terminations_ichidan_romaji + "(| *ka)$", "$1 kuru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *sugi" + terminations_ichidan_romaji + "(| *ka)$", "$1 sugiru");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(are)"+ terminations_ichidan_romaji_subset, "$1masu");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("du", "zu");
+
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])あげ" + terminations_ichidan_kana + "(|か)$", "$1あげる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])くれ" + terminations_ichidan_kana + "(|か)$", "$1くれる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])もら" + terminations_ugodan_kana + "(|か)$", "$1もらう");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *いただ" + terminations_kugodan_kana + "(|か)$", "$1いただく");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(te|de) *くださ" + terminations_arugodan_kana + "(|か)$", "$1くださる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])" + terminations_iku_kana + "(|か)$", "$1いく");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])" + terminations_iku_kanji + "(|か)$", "$1いく");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])お" + terminations_kugodan_kana + "(|か)$", "$1おく");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])お" + terminations_rugodan_kana + "(|か)$", "$1おる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([とど])" + terminations_kugodan_kana + "(|か)$", "$1おく");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])しま" + terminations_ugodan_kana + "(|か)$", "$1しまう");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(っちゃ|ちゃ|じゃ)" + terminations_ugodan_kana + "(いけない|いけません|)(|か)$", "$1う");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])み" + terminations_ichidan_kana + "(|か)$", "$1みる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])し" + terminations_ichidan_kana + "(|か)$", "$1する");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])ある" + terminations_ichidan_kana + "(|か)$", "$1ある");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])くる" + terminations_ichidan_kana + "(|か)$", "$1くる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("([てで])すぎ" + terminations_ichidan_kana + "(|か)$", "$1すぎる");
+        preparedInputQueryString = preparedInputQueryString.replaceAll("(あれ)"+ terminations_ichidan_kana_subset, "$1ます");
+
+        InputQuery preparedInputQuery = new InputQuery(preparedInputQueryString);
 
         return preparedInputQuery;
     }
 
     public static @NotNull HashMap<String, Integer> getFamilyConjugationIndexes() {
         HashMap<String, Integer> mFamilyConjugationIndexes = new HashMap<>();
-        for (int rowIndex = 3; rowIndex < Globals.VerbLatinConjDatabase.size(); rowIndex++) {
+        for (int rowIndex = 3; rowIndex < Globals.VERB_LATIN_CONJ_DATABASE.size(); rowIndex++) {
 
-            if (Globals.VerbLatinConjDatabase.get(rowIndex)[0].equals("") || !Globals.VerbLatinConjDatabase.get(rowIndex)[1].equals("")) continue;
+            if (Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0].equals("") || !Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[1].equals("")) continue;
 
-            if ("su godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SU_GODAN)) {
+            if ("su godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_SU_GODAN, rowIndex);
-            } else if ("ku godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KU_GODAN)) {
+            } else if ("ku godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_KU_GODAN, rowIndex);
-            } else if ("iku special class".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_IKU_SPECIAL)) {
+            } else if ("iku special class".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_IKU_SPECIAL)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_IKU_SPECIAL, rowIndex);
-            } else if ("yuku special class".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_YUKU_SPECIAL)) {
+            } else if ("yuku special class".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_YUKU_SPECIAL)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_YUKU_SPECIAL, rowIndex);
-            } else if ("gu godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_GU_GODAN)) {
+            } else if ("gu godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_GU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_GU_GODAN, rowIndex);
-            } else if ("bu godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_BU_GODAN)) {
+            } else if ("bu godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_BU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_BU_GODAN, rowIndex);
-            } else if ("mu godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_MU_GODAN)) {
+            } else if ("mu godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_MU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_MU_GODAN, rowIndex);
-            } else if ("nu godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_NU_GODAN)) {
+            } else if ("nu godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_NU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_NU_GODAN, rowIndex);
-            } else if ("ru godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_GODAN)) {
+            } else if ("ru godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_RU_GODAN, rowIndex);
-            } else if ("aru special class".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_ARU_SPECIAL)) {
+            } else if ("aru special class".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_ARU_SPECIAL)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_ARU_SPECIAL, rowIndex);
-            } else if ("tsu godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_TSU_GODAN)) {
+            } else if ("tsu godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_TSU_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_TSU_GODAN, rowIndex);
-            } else if ("u godan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_GODAN)) {
+            } else if ("u godan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_GODAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_U_GODAN, rowIndex);
-            } else if ("u special class".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_SPECIAL)) {
+            } else if ("u special class".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_U_SPECIAL)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_U_SPECIAL, rowIndex);
-            } else if ("ru ichidan".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_ICHIDAN)) {
+            } else if ("ru ichidan".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_RU_ICHIDAN)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_RU_ICHIDAN, rowIndex);
-            } else if ("desu copula".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_DA)) {
+            } else if ("desu copula".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_DA)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_DA, rowIndex);
-            } else if ("kuru verb".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KURU)) {
+            } else if ("kuru verb".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_KURU)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_KURU, rowIndex);
-            } else if ("suru verb".equals(Globals.VerbLatinConjDatabase.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SURU)) {
+            } else if ("suru verb".equals(Globals.VERB_LATIN_CONJ_DATABASE.get(rowIndex)[0]) && !mFamilyConjugationIndexes.containsKey(Globals.VERB_FAMILY_SURU)) {
                 mFamilyConjugationIndexes.put(Globals.VERB_FAMILY_SURU, rowIndex);
             }
         }
@@ -143,22 +135,22 @@ public final class UtilitiesVerbSearch {
 
         String[] characteristics = new String[7];
 
-        int altSpellingType = InputQuery.getTextType(altSpelling);
+        int altSpellingType = UtilitiesQuery.getTextType(altSpelling);
 
         if (altSpellingType != mPreparedQueryTextType) return new String[]{};
 
-        characteristics[INDEX_FAMILY] = verb.getFamily();
-        characteristics[INDEX_ROMAJI] = (altSpellingType == Globals.TYPE_LATIN)? altSpelling : verb.getRomaji();
-        characteristics[INDEX_KANJI] = (altSpellingType == Globals.TYPE_KANJI)? altSpelling : verb.getKanji();
+        characteristics[Globals.INDEX_FAMILY] = verb.getFamily();
+        characteristics[Globals.INDEX_ROMAJI] = (altSpellingType == Globals.TYPE_LATIN)? altSpelling : verb.getRomaji();
+        characteristics[Globals.INDEX_KANJI] = (altSpellingType == Globals.TYPE_KANJI)? altSpelling : verb.getKanji();
         if (altSpellingType == Globals.TYPE_HIRAGANA) {
-            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = altSpelling.substring(0,1);
+            characteristics[Globals.INDEX_HIRAGANA_FIRST_CHAR] = altSpelling.substring(0,1);
         } else {
-            String startOfWord = characteristics[INDEX_ROMAJI].length() > 5? characteristics[INDEX_ROMAJI].substring(0,5) : characteristics[INDEX_ROMAJI];
-            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = UtilitiesQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
+            String startOfWord = characteristics[Globals.INDEX_ROMAJI].length() > 5? characteristics[Globals.INDEX_ROMAJI].substring(0,5) : characteristics[Globals.INDEX_ROMAJI];
+            characteristics[Globals.INDEX_HIRAGANA_FIRST_CHAR] = UtilitiesQuery.getWaapuroHiraganaKatakana(startOfWord).get(Globals.TYPE_HIRAGANA).substring(0,1);
         }
-        characteristics[INDEX_LATIN_ROOT] = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getVerbRoot(characteristics[INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
-        characteristics[INDEX_KANJI_ROOT] = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getVerbRoot(characteristics[INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);
-        characteristics[INDEX_ACTIVE_ALTSPELLING] = altSpelling;
+        characteristics[Globals.INDEX_LATIN_ROOT] = UtilitiesDb.getVerbRoot(characteristics[Globals.INDEX_ROMAJI], verb.getFamily(), Globals.TYPE_LATIN);
+        characteristics[Globals.INDEX_KANJI_ROOT] = UtilitiesDb.getVerbRoot(characteristics[Globals.INDEX_KANJI], verb.getFamily(), Globals.TYPE_KANJI);
+        characteristics[Globals.INDEX_ACTIVE_ALTSPELLING] = altSpelling;
 
         return characteristics;
     }
@@ -182,10 +174,10 @@ public final class UtilitiesVerbSearch {
         String mPreparedTranslHiragana = preparedQuery.getHiraganaSingleElement();
 
         if (mPreparedQueryTextType == Globals.TYPE_INVALID || mCompleteVerbsList==null) return new ArrayList<>();
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
 
         //region Initializations
-        int NumberOfSheetCols = Globals.VerbLatinConjDatabase.get(0).length;
+        int numberOfSheetCols = Globals.VERB_LATIN_CONJ_DATABASE.get(0).length;
         boolean queryIsContainedInNormalFamilyConjugation;
         boolean queryIsContainedInAKuruConjugation;
         boolean queryIsContainedInASuruConjugation;
@@ -222,8 +214,8 @@ public final class UtilitiesVerbSearch {
             familyIndex = mFamilyConjugationIndexes.get(key);
             switch (key) {
                 case Globals.VERB_FAMILY_DA:
-                    currentFamilyConjugations = Globals.VerbLatinConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned) || currentFamilyConj.equals(mPreparedTranslHiragana)) {
                             queryIsContainedInADesuConjugation = true;
@@ -231,8 +223,8 @@ public final class UtilitiesVerbSearch {
                         }
                     }
                     if (queryIsContainedInADesuConjugation) break;
-                    currentFamilyConjugations = Globals.VerbKanjiConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_KANJI_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned)) {
                             queryIsContainedInADesuConjugation = true;
@@ -241,8 +233,8 @@ public final class UtilitiesVerbSearch {
                     }
                     break;
                 case Globals.VERB_FAMILY_KURU:
-                    currentFamilyConjugations = Globals.VerbLatinConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned) || currentFamilyConj.equals(mPreparedTranslHiragana)) {
                             queryIsContainedInAKuruConjugation = true;
@@ -250,8 +242,8 @@ public final class UtilitiesVerbSearch {
                         }
                     }
                     if (queryIsContainedInAKuruConjugation) break;
-                    currentFamilyConjugations = Globals.VerbKanjiConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_KANJI_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned)) {
                             queryIsContainedInAKuruConjugation = true;
@@ -260,8 +252,8 @@ public final class UtilitiesVerbSearch {
                     }
                     break;
                 case Globals.VERB_FAMILY_SURU:
-                    currentFamilyConjugations = Globals.VerbLatinConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned) || currentFamilyConj.equals(mPreparedTranslHiragana)) {
                             queryIsContainedInASuruConjugation = true;
@@ -269,8 +261,8 @@ public final class UtilitiesVerbSearch {
                         }
                     }
                     if (queryIsContainedInASuruConjugation) break;
-                    currentFamilyConjugations = Globals.VerbKanjiConjDatabase.get(familyIndex);
-                    for (int column = 1; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_KANJI_CONJ_DATABASE.get(familyIndex);
+                    for (int column = 1; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.equals(mPreparedCleaned)) {
                             queryIsContainedInASuruConjugation = true;
@@ -279,9 +271,9 @@ public final class UtilitiesVerbSearch {
                     }
                     break;
                 case Globals.VERB_FAMILY_RU_ICHIDAN:
-                    currentFamilyConjugations = Globals.VerbLatinConjDatabase.get(familyIndex);
+                    currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE.get(familyIndex);
                     String currentConjugation;
-                    for (int column = Globals.COLUMN_VERB_ISTEM; column < NumberOfSheetCols; column++) {
+                    for (int column = Globals.COLUMN_VERB_ISTEM; column < numberOfSheetCols; column++) {
                         currentConjugation = "i" + currentFamilyConjugations[column];
                         if (currentConjugation.contains(mPreparedCleaned) || currentConjugation.contains(mPreparedTranslHiragana)) {
                             queryIsContainedInIruVerbConjugation = true;
@@ -290,8 +282,8 @@ public final class UtilitiesVerbSearch {
                     }
                     break;
                 default:
-                    currentFamilyConjugations = Globals.VerbLatinConjDatabase.get(familyIndex);
-                    for (int column = Globals.COLUMN_VERB_ISTEM; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE.get(familyIndex);
+                    for (int column = Globals.COLUMN_VERB_ISTEM; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.contains(mPreparedCleaned) || currentFamilyConj.contains(mPreparedTranslHiragana)) {
                             queryIsContainedInNormalFamilyConjugation = true;
@@ -299,8 +291,8 @@ public final class UtilitiesVerbSearch {
                         }
                     }
                     if (queryIsContainedInNormalFamilyConjugation) break;
-                    currentFamilyConjugations = Globals.VerbKanjiConjDatabase.get(familyIndex);
-                    for (int column = Globals.COLUMN_VERB_ISTEM; column < NumberOfSheetCols; column++) {
+                    currentFamilyConjugations = Globals.VERB_KANJI_CONJ_DATABASE.get(familyIndex);
+                    for (int column = Globals.COLUMN_VERB_ISTEM; column < numberOfSheetCols; column++) {
                         currentFamilyConj = currentFamilyConjugations[column];
                         if (currentFamilyConj.contains(mPreparedCleaned)) {
                             queryIsContainedInNormalFamilyConjugation = true;
@@ -343,7 +335,7 @@ public final class UtilitiesVerbSearch {
             String family_name = verbConjugationMaxLengths.get(row)[0];
             if (family_name.equals("")) continue;
             List<Integer> dilutedConjugationColIndexesTemp = new ArrayList<>();
-            for (int col = Globals.COLUMN_VERB_ISTEM; col < NumberOfSheetCols; col++) {
+            for (int col = Globals.COLUMN_VERB_ISTEM; col < numberOfSheetCols; col++) {
                 if (!verbConjugationMaxLengths.get(row)[col].equals(""))
                     conjugationMaxLength = Integer.parseInt(verbConjugationMaxLengths.get(row)[col]);
                 else conjugationMaxLength = 0;
@@ -353,13 +345,13 @@ public final class UtilitiesVerbSearch {
         }
         //endregion
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Initialized");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Initialized");
 
         //region Getting the matching words from the Words database and filtering for verbs
         //For words of length>=4, The matches are determined by the word's keywords list.
         List<Word> mMatchingWords;
         if (mWordsFromDictFragment == null) {
-            List<Long> mMatchingWordIds = (List<Long>) com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(
+            List<Long> mMatchingWordIds = (List<Long>) UtilitiesDb.getMatchingWordIdsAndDoBasicFiltering(
                     false,
                     false,
                     false,
@@ -367,7 +359,7 @@ public final class UtilitiesVerbSearch {
                     language,
                     false,
                     context)[0];
-            mMatchingWords = UtilitiesDbAccess.getWordListByWordIds(mMatchingWordIds, context, Globals.DB_CENTRAL);
+            mMatchingWords = OverridableUtilitiesDb.getWordListByWordIds(mMatchingWordIds, context, Globals.DB_CENTRAL);
         } else {
             mMatchingWords = mWordsFromDictFragment;
         }
@@ -382,7 +374,7 @@ public final class UtilitiesVerbSearch {
 
             //Preventing the input query being a suru verb conjugation from overloading the results
             if (queryIsContainedInASuruConjugation && word.getRomaji().contains(" suru")) {
-                if (counter > MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH) continue;
+                if (counter > Globals.MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH) continue;
                 counter++;
             }
 
@@ -402,7 +394,7 @@ public final class UtilitiesVerbSearch {
 
         //region Adding the suru verb if the query is contained in the suru conjugations, and limiting total results
         if (queryIsContainedInASuruConjugation) {
-            Word suruVerb = UtilitiesDbAccess.getWordsByExactRomajiAndKanjiMatch("suru", "為る", context).get(0);
+            Word suruVerb = OverridableUtilitiesDb.getWordsByExactRomajiAndKanjiMatch("suru", "為る", context).get(0);
             boolean alreadyInList = false;
             for (long[] idAndCol : matchingVerbIdsAndColsFromBasicCharacteristics) {
                 if (idAndCol[0] == suruVerb.getWordId()) {
@@ -414,7 +406,7 @@ public final class UtilitiesVerbSearch {
         }
         //endregion
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching words");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching words");
 
         //region Getting the matching verbs according to the expanded conjugations and updating the conjugation roots if an altSpelling is used
         List<long[]> matchingVerbIdsAndColsFromExpandedConjugations = new ArrayList<>();
@@ -435,7 +427,7 @@ public final class UtilitiesVerbSearch {
                 || preparedTranslHiraganaChar0 == 'い'
                 || preparedTranslHiraganaChar0 == 'お'
                 || preparedTranslHiraganaChar0 == 'う';
-        currentFamilyConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get("su"));
+        currentFamilyConjugations = Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(mFamilyConjugationIndexes.get("su"));
 
         //There's no point in checking again if the input query is part of the family conjugation,
         // so we only check up to the substring that could contain all but the first char of the input query
@@ -456,8 +448,8 @@ public final class UtilitiesVerbSearch {
                         if (altSpelling.equals(mPreparedTranslRomaji) || altSpelling.equals(mPreparedTranslHiragana)) {
                             characteristics = getVerbCharacteristicsFromAltSpelling(altSpelling, verb, mPreparedQueryTextType);
                             if (characteristics.length == 0) continue;
-                            verb.setActiveLatinRoot(characteristics[INDEX_LATIN_ROOT]);
-                            verb.setActiveKanjiRoot(characteristics[INDEX_KANJI_ROOT]);
+                            verb.setActiveLatinRoot(characteristics[Globals.INDEX_LATIN_ROOT]);
+                            verb.setActiveKanjiRoot(characteristics[Globals.INDEX_KANJI_ROOT]);
                             verb.setActiveAltSpelling(altSpelling);
                             foundAltSpelling = true;
                             break;
@@ -468,7 +460,7 @@ public final class UtilitiesVerbSearch {
                         verb.setActiveKanjiRoot(verb.getKanjiRoot());
                         verb.setActiveAltSpelling(verb.getRomaji());
                     }
-                    UtilitiesDbAccess.updateVerb(verb, context);
+                    OverridableUtilitiesDb.updateVerb(verb, context);
 
                     //Remove the verb from the candidates list since it is already in the final list
                     copyOfMatchingVerbIdsAndColsFromBasicCharacteristics.remove(idAndCol);
@@ -498,20 +490,20 @@ public final class UtilitiesVerbSearch {
             if (!family.equals(lastFamily)) {
                 //Updating the family conjugations only when a new family is seen
                 currentFamilyConjugations = preparedIsKanji?
-                        Globals.VerbKanjiConjDatabase.get(mFamilyConjugationIndexes.get(family)) : Globals.VerbLatinConjDatabaseNoSpaces.get(mFamilyConjugationIndexes.get(family));
+                        Globals.VERB_KANJI_CONJ_DATABASE.get(mFamilyConjugationIndexes.get(family)) : Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(mFamilyConjugationIndexes.get(family));
                 lastFamily = family;
             }
             exceptionIndex = (verb.getExceptionIndex().equals(""))? 0 : Integer.parseInt(verb.getExceptionIndex());
 
             verbSearchCandidates = new ArrayList<>();
             characteristics = new String[7];
-            characteristics[INDEX_FAMILY] = verb.getFamily();
-            characteristics[INDEX_ROMAJI] = verb.getRomaji();
-            characteristics[INDEX_KANJI] = verb.getKanji();
-            characteristics[INDEX_HIRAGANA_FIRST_CHAR] = verb.getHiraganaFirstChar();
-            characteristics[INDEX_LATIN_ROOT] = verb.getLatinRoot();
-            characteristics[INDEX_KANJI_ROOT] = verb.getKanjiRoot();
-            characteristics[INDEX_ACTIVE_ALTSPELLING] = verb.getRomaji();
+            characteristics[Globals.INDEX_FAMILY] = verb.getFamily();
+            characteristics[Globals.INDEX_ROMAJI] = verb.getRomaji();
+            characteristics[Globals.INDEX_KANJI] = verb.getKanji();
+            characteristics[Globals.INDEX_HIRAGANA_FIRST_CHAR] = verb.getHiraganaFirstChar();
+            characteristics[Globals.INDEX_LATIN_ROOT] = verb.getLatinRoot();
+            characteristics[Globals.INDEX_KANJI_ROOT] = verb.getKanjiRoot();
+            characteristics[Globals.INDEX_ACTIVE_ALTSPELLING] = verb.getRomaji();
             verbSearchCandidates.add(characteristics);
 
             for (String altSpelling : altSpellingsAsString.split(Globals.DB_ELEMENTS_DELIMITER)) {
@@ -525,11 +517,11 @@ public final class UtilitiesVerbSearch {
             for (String[] verbSearchCandidate : verbSearchCandidates) {
 
                 //region Getting the verb characteristics
-                familyForDilution = UtilitiesResourceAccess.getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[INDEX_FAMILY]), context, Globals.RESOURCE_MAP_VERB_FAMILIES);
-                romaji = verbSearchCandidate[INDEX_ROMAJI];
-                hiraganaFirstChar = verbSearchCandidate[INDEX_HIRAGANA_FIRST_CHAR].charAt(0);
-                latinRoot = verbSearchCandidate[INDEX_LATIN_ROOT].replace(" ","");
-                kanjiRoot = verbSearchCandidate[INDEX_KANJI_ROOT];
+                familyForDilution = OverridableUtilitiesResources.getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[Globals.INDEX_FAMILY]), context, Globals.RESOURCE_MAP_VERB_FAMILIES);
+                romaji = verbSearchCandidate[Globals.INDEX_ROMAJI];
+                hiraganaFirstChar = verbSearchCandidate[Globals.INDEX_HIRAGANA_FIRST_CHAR].charAt(0);
+                latinRoot = verbSearchCandidate[Globals.INDEX_LATIN_ROOT].replace(" ","");
+                kanjiRoot = verbSearchCandidate[Globals.INDEX_KANJI_ROOT];
                 //endregion
 
                 //region Only allowing searches on verbs that satisfy the following conditions (including identical 1st char, kuru/suru/da, query length)
@@ -574,7 +566,7 @@ public final class UtilitiesVerbSearch {
                     if (preparedIsLatin) {
 
                         if (hasConjExceptions) {
-                            currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
+                            currentConjugations = Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
@@ -613,7 +605,7 @@ public final class UtilitiesVerbSearch {
                         // so we only check up to the substring that could contain all but the first char of the input query
                         // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
                         if (hasConjExceptions) {
-                            currentConjugations = Globals.VerbLatinConjDatabaseNoSpaces.get(exceptionIndex);
+                            currentConjugations = Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
@@ -653,7 +645,7 @@ public final class UtilitiesVerbSearch {
                         // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
                         maxCharIndexWhereMatchIsExpected = mPreparedQueryLength - 1;
                         if (hasConjExceptions) {
-                            currentConjugations = Globals.VerbKanjiConjDatabase.get(exceptionIndex);
+                            currentConjugations = Globals.VERB_KANJI_CONJ_DATABASE.get(exceptionIndex);
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
@@ -691,8 +683,8 @@ public final class UtilitiesVerbSearch {
                     //If a match was found for an altSpelling, update the relevant fields
                     verb.setActiveLatinRoot(latinRoot);
                     verb.setActiveKanjiRoot(kanjiRoot);
-                    verb.setActiveAltSpelling(verbSearchCandidate[INDEX_ACTIVE_ALTSPELLING]);
-                    UtilitiesDbAccess.updateVerb(verb, context);
+                    verb.setActiveAltSpelling(verbSearchCandidate[Globals.INDEX_ACTIVE_ALTSPELLING]);
+                    OverridableUtilitiesDb.updateVerb(verb, context);
 
                     //Update the list of match ids
                     matchingVerbIdsAndColsFromExpandedConjugations.add(new long[]{verb.getVerbId(), matchColumn});
@@ -704,13 +696,13 @@ public final class UtilitiesVerbSearch {
         }
         //endregion
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching verbs");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - got matching verbs");
 
         List<long[]> matchingVerbIdsAndCols = new ArrayList<>();
         matchingVerbIdsAndCols.addAll(matchingVerbIdsAndColsFromBasicCharacteristics);
         matchingVerbIdsAndCols.addAll(matchingVerbIdsAndColsFromExpandedConjugations);
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Finished");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Finished");
         return matchingVerbIdsAndCols;
     }
 
@@ -728,7 +720,7 @@ public final class UtilitiesVerbSearch {
         Verb currentVerb;
         long matchingVerbId;
         int conjLength;
-        int NumberOfSheetCols = Globals.VerbLatinConjDatabase.get(0).length;
+        int numberOfSheetCols = Globals.VERB_LATIN_CONJ_DATABASE.get(0).length;
         String[] currentConjugationsRowLatin;
         String[] currentConjugationsRowKanji;
         List<Verb.ConjugationCategory> conjugationCategories;
@@ -744,7 +736,7 @@ public final class UtilitiesVerbSearch {
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : matchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        List<Verb> matchingVerbsBeforeOrderingByWordId = UtilitiesDbAccess.getVerbListByVerbIds(ids, context);
+        List<Verb> matchingVerbsBeforeOrderingByWordId = OverridableUtilitiesDb.getVerbListByVerbIds(ids, context);
         List<Verb> matchingVerbs = new ArrayList<>();
         boolean found;
         for (Word word : matchingWords) {
@@ -758,7 +750,7 @@ public final class UtilitiesVerbSearch {
             }
             if (!found) {
                 word.setWordId(word.getWordId());
-                UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
             }
         }
         //endregion
@@ -777,12 +769,12 @@ public final class UtilitiesVerbSearch {
                 continue;
             }
             currentFamilyConjugationsIndex = mFamilyConjugationIndexes.get(currentVerb.getFamily());
-            currentConjugationsRowLatin = Arrays.copyOf(Globals.VerbLatinConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);
-            currentConjugationsRowKanji = Arrays.copyOf(Globals.VerbKanjiConjDatabase.get(currentFamilyConjugationsIndex), NumberOfSheetCols);
+            currentConjugationsRowLatin = Arrays.copyOf(Globals.VERB_LATIN_CONJ_DATABASE.get(currentFamilyConjugationsIndex), numberOfSheetCols);
+            currentConjugationsRowKanji = Arrays.copyOf(Globals.VERB_KANJI_CONJ_DATABASE.get(currentFamilyConjugationsIndex), numberOfSheetCols);
 
             //region Setting the verb's basic characteristics for display
             List<Word.Meaning> meanings;
-            String languageText = UtilitiesResourceAccess.getLanguageText(language, context);
+            String languageText = OverridableUtilitiesResources.getLanguageText(language, context);
             switch (languageText) {
                 case Globals.LANG_STR_EN:
                     meanings = currentWord.getMeaningsEN();
@@ -799,43 +791,43 @@ public final class UtilitiesVerbSearch {
             if (meanings == null || meanings.size() == 0) {
                 meanings = currentWord.getMeaningsEN();
                 extract += "["
-                        + UtilitiesResourceAccess.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL)
+                        + OverridableUtilitiesResources.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL)
                         + " "
                         + languageText.toLowerCase()
                         + " "
-                        + UtilitiesResourceAccess.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL)
+                        + OverridableUtilitiesResources.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL)
                         + "] ";
             }
-            extract += com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromCommaList(com.japagram.utilitiesCrossPlatform.UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
+            extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             currentVerb.setMeaning(extract);
 
             switch (currentVerb.getTrans()) {
-                case "T": currentVerb.setTrans(UtilitiesResourceAccess.getString("trans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
-                case "I": currentVerb.setTrans(UtilitiesResourceAccess.getString("intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
-                case "T/I": currentVerb.setTrans(UtilitiesResourceAccess.getString("trans_intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
+                case "T": currentVerb.setTrans(OverridableUtilitiesResources.getString("trans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
+                case "I": currentVerb.setTrans(OverridableUtilitiesResources.getString("intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
+                case "T/I": currentVerb.setTrans(OverridableUtilitiesResources.getString("trans_intrans_", context, Globals.RESOURCE_MAP_GENERAL)); break;
             }
 
             if (Globals.VERB_FAMILIES_FULL_NAME_MAP.containsKey(currentVerb.getFamily())) {
                 String value = Globals.VERB_FAMILIES_FULL_NAME_MAP.get(currentVerb.getFamily());
-                currentVerb.setFamily(UtilitiesResourceAccess.getString(value, context, Globals.RESOURCE_MAP_VERB_FAMILIES));
+                currentVerb.setFamily(OverridableUtilitiesResources.getString(value, context, Globals.RESOURCE_MAP_VERB_FAMILIES));
             }
             //endregion
 
             //region Getting the conjugations row
-            currentConjugationExceptionsRowLatin = new String[NumberOfSheetCols];
-            currentConjugationExceptionsRowKanji = new String[NumberOfSheetCols];
+            currentConjugationExceptionsRowLatin = new String[numberOfSheetCols];
+            currentConjugationExceptionsRowKanji = new String[numberOfSheetCols];
             int indexOfExceptionConjugations = Integer.parseInt(currentVerb.getExceptionIndex());
 
             if (indexOfExceptionConjugations != currentFamilyConjugationsIndex) {
-                currentConjugationExceptionsRowLatin = Arrays.copyOf(Globals.VerbLatinConjDatabaseNoSpaces.get(indexOfExceptionConjugations), NumberOfSheetCols);
-                currentConjugationExceptionsRowKanji = Arrays.copyOf(Globals.VerbKanjiConjDatabase.get(indexOfExceptionConjugations), NumberOfSheetCols);
+                currentConjugationExceptionsRowLatin = Arrays.copyOf(Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(indexOfExceptionConjugations), numberOfSheetCols);
+                currentConjugationExceptionsRowKanji = Arrays.copyOf(Globals.VERB_KANJI_CONJ_DATABASE.get(indexOfExceptionConjugations), numberOfSheetCols);
             }
             else {
                 Arrays.fill(currentConjugationExceptionsRowLatin, "");
                 Arrays.fill(currentConjugationExceptionsRowKanji, "");
             }
 
-            for (int col = Globals.COLUMN_VERB_ISTEM; col < NumberOfSheetCols; col++) {
+            for (int col = Globals.COLUMN_VERB_ISTEM; col < numberOfSheetCols; col++) {
 
                 if (!currentConjugationExceptionsRowLatin[col].equals("")) currentConjugationsRowLatin[col] = currentConjugationExceptionsRowLatin[col];
                 else {
@@ -861,11 +853,11 @@ public final class UtilitiesVerbSearch {
 
             //region Getting the verb conjugations and putting each conjugation of the conjugations row into its appropriate category
             conjugationCategories = new ArrayList<>();
-            String verbClause = "[" + UtilitiesResourceAccess.getString("verb", context, Globals.RESOURCE_MAP_GENERAL) + "]";
-            for (int categoryIndex = 1; categoryIndex < Globals.ConjugationTitles.size(); categoryIndex++) {
+            String verbClause = "[" + OverridableUtilitiesResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL) + "]";
+            for (int categoryIndex = 1; categoryIndex < Globals.CONJUGATION_TITLES.size(); categoryIndex++) {
 
                 //region Getting the set of Latin and Kanji conjugations according to the current category's subtitle column indexes
-                subtitles = Globals.ConjugationTitles.get(categoryIndex).getSubtitles();
+                subtitles = Globals.CONJUGATION_TITLES.get(categoryIndex).getSubtitles();
                 int subtitleColIndex;
                 conjugationSetLatin = new ArrayList<>();
                 conjugationSetKanji = new ArrayList<>();
@@ -915,7 +907,7 @@ public final class UtilitiesVerbSearch {
             verbs.add(currentVerb);
 
             //Clearing the active fields since they're not needed anymore
-            UtilitiesDbAccess.updateVerbByVerbIdWithParams(matchingVerbId, "", "", "", context);
+            OverridableUtilitiesDb.updateVerbByVerbIdWithParams(matchingVerbId, "", "", "", context);
         }
         //endregion
 
@@ -955,7 +947,7 @@ public final class UtilitiesVerbSearch {
 
         //Sort the results according to total length
         if (matchingVerbIdLengthColList.size() != 0) {
-            matchingVerbIdLengthColList = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
+            matchingVerbIdLengthColList = UtilitiesGeneral.bubbleSortForThreeIntegerList(matchingVerbIdLengthColList);
         }
 
         List<long[]> matchingVerbIdColListSorted = new ArrayList<>();
@@ -1045,9 +1037,9 @@ public final class UtilitiesVerbSearch {
         }
 
         Object[] parameters = new Object[3];
-        parameters[MATCHING_ID] = verb.getVerbId();
-        parameters[MATCHING_CATEGORY_INDEX] = matchingConjugationCategoryIndex;
-        parameters[MATCHING_CONJUGATION] = matchingConjugation;
+        parameters[Globals.MATCHING_ID] = verb.getVerbId();
+        parameters[Globals.MATCHING_CATEGORY_INDEX] = matchingConjugationCategoryIndex;
+        parameters[Globals.MATCHING_CONJUGATION] = matchingConjugation;
 
         return parameters;
     }
@@ -1114,16 +1106,16 @@ public final class UtilitiesVerbSearch {
         List<Word> matchingWordsSorted = new ArrayList<>();
         List<long[]> mMatchingVerbIdAndColList;
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
 
-        List<Verb> mCompleteVerbsList = UtilitiesDbAccess.getAllVerbs(context);
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
+        List<Verb> mCompleteVerbsList = OverridableUtilitiesDb.getAllVerbs(context);
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
         InputQuery preparedQuery = setInputQueryParameters(inputQuery);
 
         HashMap<String, Integer> mFamilyConjugationIndexes = getFamilyConjugationIndexes();
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
 
         mMatchingVerbIdAndColList = getMatchingVerbIdsAndCols(
                 language,
@@ -1132,12 +1124,12 @@ public final class UtilitiesVerbSearch {
                 mWordsFromDictFragment,
                 mFamilyConjugationIndexes,
                 context);
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingVerbIdsAndCols");
 
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : mMatchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
-        matchingWords = UtilitiesDbAccess.getWordListByWordIds(ids, context, Globals.DB_CENTRAL);
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
+        matchingWords = OverridableUtilitiesDb.getWordListByWordIds(ids, context, Globals.DB_CENTRAL);
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Got matchingWords");
 
         matchingVerbs = getVerbsWithConjugations(
                 mMatchingVerbIdAndColList,
@@ -1147,7 +1139,7 @@ public final class UtilitiesVerbSearch {
                 language);
 
         matchingWords = updateWordsWithConjMatchStatus(matchingWords, matchingVerbs, preparedQuery);
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Updated verbs with conjugations");
 
         List<long[]> matchingVerbIdColListSortedByLength = sortMatchingVerbIdAndColList(preparedQuery, mMatchingVerbIdAndColList, matchingWords, language);
         for (int i = 0; i < matchingVerbIdColListSortedByLength.size(); i++) {
@@ -1161,7 +1153,7 @@ public final class UtilitiesVerbSearch {
                     }
                 }
                 if (verb == null) {
-                    UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                    OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
                     continue;
                 }
 
@@ -1172,14 +1164,14 @@ public final class UtilitiesVerbSearch {
                 }
             }
         }
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Sorted verbs list");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Sorted verbs list");
 
         for (Verb verb : matchingVerbsSorted) {
             Object[] parameters = getConjugationParameters(verb, preparedQuery);
             matchingConjugationParameters.add(parameters);
         }
 
-        UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Returning objects");
+        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Returning objects");
         return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
     }
 

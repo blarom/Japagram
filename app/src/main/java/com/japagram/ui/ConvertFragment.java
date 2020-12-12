@@ -81,9 +81,9 @@ public class ConvertFragment extends Fragment {
             ResultHiragana.setText(TextUtils.join(",\n", inputQuery.getHiraganaUniqueConversions()));
             ResultKatakana.setText(TextUtils.join(",\n", inputQuery.getKatakanaUniqueConversions()));
             transliterationWaapuro.setText(TextUtils.join(",\n", inputQuery.getWaapuroUniqueConversions()));
-            transliterationModHepburn.setText(TextUtils.join(",\n", inputQuery.getMHUniqueConversions()));
-            transliterationNihonShiki.setText(TextUtils.join(",\n", inputQuery.getNSUniqueConversions()));
-            transliterationKunreiShiki.setText(TextUtils.join(",\n", inputQuery.getKSUniqueConversions()));
+            transliterationModHepburn.setText(TextUtils.join(",\n", inputQuery.getUniqueConversionsMH()));
+            transliterationNihonShiki.setText(TextUtils.join(",\n", inputQuery.getUniqueConversionsNS()));
+            transliterationKunreiShiki.setText(TextUtils.join(",\n", inputQuery.getUniqueConversionsKS()));
         }
     }
 

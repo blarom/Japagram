@@ -68,7 +68,7 @@ public class MainApplication extends Application {
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
         FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseAuth.signInWithEmailAndPassword(Globals.firebaseEmail, Globals.firebasePass);
+        mFirebaseAuth.signInWithEmailAndPassword(Globals.FIREBASE_EMAIL, Globals.FIREBASE_PASS);
 
         /*Note: two ways are demonstrated here to set the persistence of Firebase without problems: as a singleton (Utilities) or using an activity that loads before all others*/
     }

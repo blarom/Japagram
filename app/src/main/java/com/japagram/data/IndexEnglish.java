@@ -9,13 +9,13 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = IndexEnglish.TABLE_NAME)
-public class IndexEnglish {
+public class IndexEnglish extends GenericIndex {
 
     static final String TABLE_NAME = "english_index_table";
-    static final String COLUMN_VALUE = "value";
-    private static final String WORD_IDS = "word_ids";
+    static final String COLUMN_VALUE = "english_value";
+    private static final String WORD_IDS = "english_word_ids";
 
-    IndexEnglish() { }
+    IndexEnglish() {}
 
     @Ignore
     public IndexEnglish(@NonNull String value, String wordIds) {
@@ -25,8 +25,12 @@ public class IndexEnglish {
 
     @PrimaryKey()
     @ColumnInfo(index = true, name = COLUMN_VALUE)
-    @NonNull
-    private String value = ".";
+    @NonNull private String value = ".";
+
+    public IndexEnglish(@NonNull String value, String wordIds, String kanaIds, String kana) {
+        super(value, wordIds, kanaIds, kana);
+    }
+
     public void setValue(@NonNull String value) {
         this.value = value;
     }

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public final class UtilitiesResourceAccess {
+public final class OverridableUtilitiesResources {
     public static String getLanguageText(@NotNull String language, Context context) {
         switch (language) {
             case Globals.LANG_STR_EN: return context.getResources().getString(R.string.language_label_english).toLowerCase();

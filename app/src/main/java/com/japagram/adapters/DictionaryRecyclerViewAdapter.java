@@ -25,7 +25,8 @@ import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesResourceAccess;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesResources;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -77,7 +78,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         this.mUILanguage = language;
         createVisibilityArray();
 
-        mInputQueryTextType = InputQuery.getTextType(mInputQuery);
+        mInputQueryTextType = UtilitiesQuery.getTextType(mInputQuery);
         mInputQueryFirstLetter = (mInputQuery.length()>0) ? mInputQuery.substring(0,1) : "";
 
         mDroidSansJapaneseTypeface = typeface;
@@ -196,7 +197,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String type = mWordsList.get(position).getMeaningsEN().get(0).getType();
         if (!type.equals("CE")) {
             String freqHtmlText = mContext.getString(R.string.frequency) + ": " + ((frequency == 0) ? "20001+ (uncommon)" : frequency);
-            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(freqHtmlText));
+            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, OverridableUtilitiesGeneral.fromHtml(freqHtmlText));
             freqTtv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -205,7 +206,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
             String altSHtmlText = mContext.getString(R.string.alternate_forms) + ": " + altSpellings;
-            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(altSHtmlText));
+            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, OverridableUtilitiesGeneral.fromHtml(altSHtmlText));
             altSTv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -270,17 +271,17 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             String extract = "";
             if (meanings == null || meanings.size() == 0) {
                 meanings = word.getMeaningsEN();
-                extract += UtilitiesResourceAccess.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL)
+                extract += OverridableUtilitiesResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL)
                         + " "
                         + language.toLowerCase()
                         + " "
-                        + UtilitiesResourceAccess.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL);
+                        + OverridableUtilitiesResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL);
             }
             else if (meanings.get(0).getMeaning().equals("*")) {
                 type = meanings.get(0).getType();
-                if (Globals.TYPES.containsKey(type)) {
+                if (Globals.PARTS_OF_SPEECH.containsKey(type)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    extract = UtilitiesResourceAccess.getString(Globals.TYPES.get(type), mContext, Globals.RESOURCE_MAP_TYPES);
+                    extract = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES);
                 }
                 else {
                     extract = "*";
@@ -289,7 +290,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else {
                 extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             }
-            mWordsMeaningExtract.add(com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(extract));
+            mWordsMeaningExtract.add(OverridableUtilitiesGeneral.fromHtml(extract));
 
 
             StringBuilder cumulative_meaning_value = new StringBuilder();
@@ -457,9 +458,9 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             List<String> types = new ArrayList<>();
 
             for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
-                if (Globals.TYPES.containsKey(element)) {
+                if (Globals.PARTS_OF_SPEECH.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = UtilitiesResourceAccess.getString(Globals.TYPES.get(element), mContext, Globals.RESOURCE_MAP_TYPES);
+                    String currentType = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES);
                     if (language != Globals.LANG_EN) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }
@@ -492,7 +493,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 typeAndMeaningHtml = meaning;
             }
 
-            Spanned type_and_meaning = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(typeAndMeaningHtml);
+            Spanned type_and_meaning = OverridableUtilitiesGeneral.fromHtml(typeAndMeaningHtml);
             TextView typeAndMeaningTv = new TextView(mContext);
             setMeaningsTvProperties(typeAndMeaningTv, type_and_meaning);
             holder.childElementsLinearLayout.addView(typeAndMeaningTv);
@@ -640,7 +641,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         }
                         typeAndMeaningHtml_list.add(typeAndMeaningHtml);
                     }
-                    spanned_rule = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
+                    spanned_rule = OverridableUtilitiesGeneral.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
                     addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(spanned_rule));
                 }
                 //endregion
@@ -796,7 +797,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(totalText);
+        Spanned spanned_totalText = OverridableUtilitiesGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new KanjiClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);
@@ -814,7 +815,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.fromHtml(totalText);
+        Spanned spanned_totalText = OverridableUtilitiesGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new VerbClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);

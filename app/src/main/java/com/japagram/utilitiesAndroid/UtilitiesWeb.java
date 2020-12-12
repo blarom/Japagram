@@ -4,11 +4,10 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.japagram.R;
-import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -42,8 +41,8 @@ public class UtilitiesWeb {
 
         //region Preparing the word to be included in the url
         StringBuilder prepared_word;
-        if (InputQuery.getTextType(word) == Globals.TYPE_KANJI) {
-            String converted_word = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.convertToUTF8Index(word);
+        if (UtilitiesQuery.getTextType(word) == Globals.TYPE_KANJI) {
+            String converted_word = OverridableUtilitiesGeneral.convertToUTF8Index(word);
             converted_word = converted_word.substring(2);
             prepared_word = new StringBuilder();
             for (int i = 0; i < converted_word.length() - 1; i = i + 2) {
@@ -130,7 +129,7 @@ public class UtilitiesWeb {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UtilitiesGeneral.printLog("Diagnosis Time", "Failed to access online resources.");
+            OverridableUtilitiesGeneral.printLog("Diagnosis Time", "Failed to access online resources.");
             return null;
         } finally {
             try {
@@ -339,7 +338,7 @@ public class UtilitiesWeb {
                 if (kanji1UpData.size() > 0) romaji.append((String) kanji1UpData.get(0));
             }
 
-            int textType = InputQuery.getTextType(kanji.toString());
+            int textType = UtilitiesQuery.getTextType(kanji.toString());
             if (romaji.length() != 0 && (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                 //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
                 romaji = new StringBuilder(UtilitiesQuery.getWaapuroHiraganaKatakana(kanji.toString()).get(0));
@@ -359,7 +358,7 @@ public class UtilitiesWeb {
                             currentValue = sentenceSearchFor.substring(20);
                         }
 
-                        textType = InputQuery.getTextType(currentValue);
+                        textType = UtilitiesQuery.getTextType(currentValue);
                         if (currentValue.length() != 0 &&
                                 (textType == Globals.TYPE_HIRAGANA || textType == Globals.TYPE_KATAKANA)) {
                             //When the word is originally katakana only, the website does not display hiragana. This is corrected here.
@@ -437,7 +436,7 @@ public class UtilitiesWeb {
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromStringList(altSpellings);
-                        currentWord.setAltSpellings(UtilitiesGeneral.joinList(", ", altSpellings));
+                        currentWord.setAltSpellings(OverridableUtilitiesGeneral.joinList(", ", altSpellings));
                         break;
                     } else {
                         List<Object> meaningWrapperData = (List<Object>) meaningsWrapperData.get(j);
@@ -560,7 +559,7 @@ public class UtilitiesWeb {
                             else typesAsLegend.add("Vkuru");
                         }
                     }
-                    matchingWordType = UtilitiesGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesAsLegend);
+                    matchingWordType = OverridableUtilitiesGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesAsLegend);
                 }
                 wordMeaning.setType(matchingWordType);
 
@@ -615,7 +614,7 @@ public class UtilitiesWeb {
     private static String reformatMeanings(@NotNull String meaningsOriginal) {
 
         String meanings_commas = meaningsOriginal.replace(Globals.DB_ELEMENTS_DELIMITER, ",");
-        meanings_commas = UtilitiesGeneral.fromHtml(meanings_commas).toString();
+        meanings_commas = OverridableUtilitiesGeneral.fromHtml(meanings_commas).toString();
         meanings_commas = meanings_commas.replaceAll("',", "'");
         meanings_commas = meanings_commas.replaceAll("\",", "\"");
         meanings_commas = meanings_commas.replaceAll(",0", "'0"); //Fixes number display problems

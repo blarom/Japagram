@@ -606,7 +606,7 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (Globals.SimilarsDatabase==null) {
+        if (Globals.SIMILARS_DATABASE ==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -621,7 +621,7 @@ public class MainActivity extends BaseActivity implements
         mDecomposeKanjiFragment = new DecomposeKanjiFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RadicalsOnlyDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RADICALS_ONLY_DATABASE));
 
         mDecomposeKanjiFragment.setArguments(bundle);
 
@@ -641,7 +641,7 @@ public class MainActivity extends BaseActivity implements
         mInputQuery = query;
 
         if (!mAllowButtonOperations) return;
-        if (Globals.SimilarsDatabase==null) {
+        if (Globals.SIMILARS_DATABASE ==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -676,7 +676,7 @@ public class MainActivity extends BaseActivity implements
         if (!mAllowButtonOperations) return;
         cleanSavedData();
         //clearBackstack();
-        if (Globals.SimilarsDatabase==null) {
+        if (Globals.SIMILARS_DATABASE ==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -728,7 +728,7 @@ public class MainActivity extends BaseActivity implements
 
         cleanSavedData();
 
-        if (Globals.SimilarsDatabase==null) {
+        if (Globals.SIMILARS_DATABASE ==null) {
             Toast.makeText(this, getString(R.string.please_wait_for_db_to_finish_loading), Toast.LENGTH_SHORT).show();
             return;
         }
@@ -741,8 +741,8 @@ public class MainActivity extends BaseActivity implements
         mSearchByRadicalFragment = new SearchByRadicalFragment();
         Bundle bundle = new Bundle();
         bundle.putString(getString(R.string.user_query_word), query);
-        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RadicalsOnlyDatabase));
-        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(Globals.SimilarsDatabase));
+        bundle.putSerializable(getString(R.string.rad_only_database), new ArrayList<>(Globals.RADICALS_ONLY_DATABASE));
+        bundle.putSerializable(getString(R.string.similars_database), new ArrayList<>(Globals.SIMILARS_DATABASE));
         mSearchByRadicalFragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();

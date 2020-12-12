@@ -1,5 +1,7 @@
 package com.japagram.data;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -8,12 +10,12 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = IndexKanji.TABLE_NAME)
-public class IndexKanji {
+public class IndexKanji extends GenericIndex {
 
     static final String TABLE_NAME = "kanji_index_table";
-    static final String COLUMN_KANA = "kana";
-    private static final String WORD_IDS = "word_ids";
-    static final String COLUMN_KANA_IDS = "kana_ids";
+    static final String COLUMN_KANA = "kanji_kana";
+    private static final String WORD_IDS = "kanji_word_ids";
+    static final String COLUMN_KANA_IDS = "kanji_kana_ids";
 
     IndexKanji() { }
 
@@ -26,11 +28,11 @@ public class IndexKanji {
 
     @PrimaryKey()
     @ColumnInfo(name = COLUMN_KANA)
-    @NonNull private String kana;
-    public void setKana(String kana) {
+    @NonNull  private String kana = "";
+    public void setKana(@NotNull String kana) {
         this.kana = kana;
     }
-    public String getKana() {
+    @NotNull public String getKana() {
         return kana;
     }
 

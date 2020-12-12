@@ -7,7 +7,7 @@ import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +32,7 @@ public class UtilitiesDb {
 
     @NotNull
     public static String cleanIdentifierForFirebase(String string) {
-        if (UtilitiesGeneral.isEmptyString(string)) return "";
+        if (OverridableUtilitiesGeneral.isEmptyString(string)) return "";
         string = string.replaceAll("\\.", "*");
         string = string.replaceAll("#", "*");
         string = string.replaceAll("\\$", "*");
@@ -108,7 +108,7 @@ public class UtilitiesDb {
         word.setMeaningsEN(getMeanings(centralDatabase, meaningsENDatabase, Globals.COLUMN_MEANING_EN_INDEXES,
                 multExplENDatabase, examplesDatabase, centralDbRowIndex, "en"));
         if (word.getMeaningsEN().size() == 0) {
-            UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "************ ERROR ************ Word with id "
+            OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "************ ERROR ************ Word with id "
                     + matchingWordId + " (" + word.getRomaji() + " - " + word.getKanji()
                     + ") has invalid english meanings");
             return new Word();
@@ -437,7 +437,7 @@ public class UtilitiesDb {
             }
 
             if (!foundVerbType) {
-                UtilitiesGeneral.printLog(Globals.DEBUG_TAG, "Warning! No VxxxT/I type found for verb " + verb.getRomaji() + " (Meaning index:" + current_MM_index + ")");
+                OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "Warning! No VxxxT/I type found for verb " + verb.getRomaji() + " (Meaning index:" + current_MM_index + ")");
                 //No exception catching is made here, in order to make sure that database errors are caught before production
             }
         }

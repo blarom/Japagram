@@ -48,7 +48,7 @@ import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
 import com.japagram.data.WordDao;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -391,7 +391,7 @@ public class UtilitiesAndroidIO {
                     WordDao extendedDbWordDao = (WordDao) dao;
                     currentProgress = 0;
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
-                    increment = (((float) blocksize / Globals.extendedDbLinesWords) * Globals.extendedDbSizeWords * 100.f / Globals.extendedDbSizeTotal);
+                    increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_WORDS) * Globals.EXTENDED_DB_SIZE_WORDS * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
@@ -415,7 +415,7 @@ public class UtilitiesAndroidIO {
                     WordDao namesDbWordDao = (WordDao) dao;
                     currentProgress = 0;
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK * 2;
-                    increment = ((float) blocksize / Globals.namesDbLinesWords * (Globals.namesDbSizeWords * 100.f / Globals.namesDbSizeTotal));
+                    increment = ((float) blocksize / Globals.NAMES_DB_LINES_WORDS * (Globals.NAMES_DB_SIZE_WORDS * 100.f / Globals.NAMES_DB_SIZE_TOTAL));
                     while ((line = fileReader.readLine()) != null) {
                         String[] tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
@@ -439,10 +439,10 @@ public class UtilitiesAndroidIO {
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
                     if (isExtendedDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.extendedDbLinesRomajiIndex) * Globals.extendedDbSizeRomajiIndex * 100.f / Globals.extendedDbSizeTotal);
+                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ROMAJI_INDEX) * Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     } else if (isNamesDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueNamesDb(context);
-                        increment = (((float) blocksize / Globals.namesDbLinesRomajiIndex) * Globals.namesDbSizeRomajiIndex * 100.f / Globals.namesDbSizeTotal);
+                        increment = (((float) blocksize / Globals.NAMES_DB_LINES_ROMAJI_INDEX) * Globals.NAMES_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
                     }
                     IndexRomajiDao indexRomajiDao = (IndexRomajiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
@@ -473,7 +473,7 @@ public class UtilitiesAndroidIO {
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 10;
                     if (isExtendedDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.extendedDbLinesEnglishIndex) * Globals.extendedDbSizeEnglishIndex * 100.f / Globals.extendedDbSizeTotal);
+                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ENGLISH_INDEX) * Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     }
                     IndexEnglishDao indexEnglishDao = (IndexEnglishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
@@ -500,7 +500,7 @@ public class UtilitiesAndroidIO {
                 case "indexFrench":
                     if (isExtendedDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = Globals.extendedDbSizeFrenchIndex * 100.f / Globals.extendedDbSizeTotal;
+                        increment = Globals.EXTENDED_DB_SIZE_FRENCH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
                     }
                     IndexFrenchDao indexFrenchDao = (IndexFrenchDao) dao;
                     while ((line = fileReader.readLine()) != null) {
@@ -525,7 +525,7 @@ public class UtilitiesAndroidIO {
                 case "indexSpanish":
                     if (isExtendedDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = Globals.extendedDbSizeSpanishIndex * 100.f / Globals.extendedDbSizeTotal;
+                        increment = Globals.EXTENDED_DB_SIZE_SPANISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
                     }
                     IndexSpanishDao indexSpanishDao = (IndexSpanishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
@@ -551,10 +551,10 @@ public class UtilitiesAndroidIO {
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK;
                     if (isExtendedDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.extendedDbLinesKanjiIndex) * Globals.extendedDbSizeKanjiIndex * 100.f / Globals.extendedDbSizeTotal);
+                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_KANJI_INDEX) * Globals.EXTENDED_DB_SIZE_KANJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     } else if (isNamesDb) {
                         currentProgress = UtilitiesPrefs.getProgressValueNamesDb(context);
-                        increment = (((float) blocksize / Globals.namesDbLinesKanjiIndex) * Globals.namesDbSizeKanjiIndex * 100.f / Globals.namesDbSizeTotal);
+                        increment = (((float) blocksize / Globals.NAMES_DB_LINES_KANJI_INDEX) * Globals.NAMES_DB_SIZE_KANJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
                     }
                     IndexKanjiDao indexKanjiDao = (IndexKanjiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
@@ -588,7 +588,7 @@ public class UtilitiesAndroidIO {
                         if (tokens.length > 0) {
                             if (TextUtils.isEmpty(tokens[0])) break;
                             KanjiCharacter kanjiCharacter = new KanjiCharacter(tokens[0], tokens[1], tokens[2]);
-                            kanjiCharacter.setKanji(com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                            kanjiCharacter.setKanji(OverridableUtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
                             kanjiCharacterList.add(kanjiCharacter);
                         }
                         lineNum++;
@@ -830,7 +830,7 @@ public class UtilitiesAndroidIO {
         final long usedMemInMB = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L;
         final long maxHeapSizeInMB = runtime.maxMemory() / 1048576L;
         final long availHeapSizeInMB = maxHeapSizeInMB - usedMemInMB;
-        UtilitiesGeneral.printLog("Diagnosis Time", "Available heap size: " + availHeapSizeInMB);
+        OverridableUtilitiesGeneral.printLog("Diagnosis Time", "Available heap size: " + availHeapSizeInMB);
         return availHeapSizeInMB;
     }
 

@@ -2,6 +2,8 @@ package com.japagram.utilitiesCrossPlatform;
 
 import android.os.Build;
 
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,43 +20,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class UtilitiesGeneral {
-    //String manipulation utilities
-    @NotNull
-    public static String convertToUTF8Index(String input_string) {
-
-        byte[] byteArray;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            byteArray = input_string.getBytes(StandardCharsets.UTF_8);
-            StringBuilder prepared_word = new StringBuilder("1.");
-            for (byte b : byteArray) {
-                prepared_word.append(Integer.toHexString(b & 0xFF));
-            }
-            return prepared_word.toString();
-        }
-        return "";
-    }
-
-    @NotNull
-    public static String convertFromUTF8Index(@NotNull String inputHex) {
-
-        //inspired by: https://stackoverflow.com/questions/15749475/java-string-hex-to-string-ascii-with-accentuation
-        if (inputHex.length() < 4) return "";
-        inputHex = inputHex.toLowerCase().substring(2, inputHex.length());
-
-        ByteBuffer buff = ByteBuffer.allocate(inputHex.length() / 2);
-        for (int i = 0; i < inputHex.length(); i += 2) {
-            buff.put((byte) Integer.parseInt(inputHex.substring(i, i + 2), 16));
-        }
-        buff.rewind();
-        Charset cs;
-        CharBuffer cb;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            cs = StandardCharsets.UTF_8;
-            cb = cs.decode(buff);
-            return cb.toString();
-        }
-        return "";
-    }
 
     @NotNull
     public static String removeNonSpaceSpecialCharacters(@NotNull String sentence) {
@@ -83,7 +48,7 @@ public class UtilitiesGeneral {
             }
             if (!is_repeated) final_cumulative_meaning_value_array.add(current_value);
         }
-        return com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral.joinList(", ", final_cumulative_meaning_value_array);
+        return OverridableUtilitiesGeneral.joinList(", ", final_cumulative_meaning_value_array);
     }
 
     @NotNull
@@ -94,11 +59,11 @@ public class UtilitiesGeneral {
     }
 
     @NotNull
-    public static List<String> getIntersectionOfLists(@NotNull List<String> A, List<String> B) {
+    public static List<String> getIntersectionOfLists(@NotNull List<String> listA, List<String> listB) {
         //https://stackoverflow.com/questions/2400838/efficient-intersection-of-component_substructures[2]-liststring-in-java
         List<String> rtnList = new LinkedList<>();
-        for (String dto : A) {
-            if (B.contains(dto)) {
+        for (String dto : listA) {
+            if (listB.contains(dto)) {
                 rtnList.add(dto);
             }
         }
@@ -111,25 +76,18 @@ public class UtilitiesGeneral {
 
         //https://stackoverflow.com/questions/14040331/remove-duplicate-strings-in-a-list-in-java
 
-        Set<String> set = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-        Iterator<String> i = list.iterator();
-        while (i.hasNext()) {
-            String s = i.next();
-            if (set.contains(s)) {
-                i.remove();
-            } else {
-                set.add(s);
-            }
+        List<String> newList = new ArrayList<>();
+        for (String item : list) {
+            if (!newList.contains(item)) newList.add(item);
         }
-
-        return new ArrayList<>(set);
+        return newList;
     }
 
     public static List<Long> removeDuplicatesFromLongList(@NotNull List<Long> list) {
 
         List<Long> newList = new ArrayList<>();
-        for (Long id : list) {
-            if (!newList.contains(id)) newList.add(id);
+        for (Long item : list) {
+            if (!newList.contains(item)) newList.add(item);
         }
         return newList;
     }
@@ -149,17 +107,17 @@ public class UtilitiesGeneral {
     }
 
     @NotNull
-    public static List<long[]> bubbleSortForThreeIntegerList(@NotNull List<long[]> MatchList) {
+    public static List<long[]> bubbleSortForThreeIntegerList(@NotNull List<long[]> originalList) {
 
         // Sorting the results according to the shortest keyword as found in the above search
 
         // Computing the value length
-        int list_size = MatchList.size();
+        int list_size = originalList.size();
         long[][] matches = new long[list_size][3];
         for (int i = 0; i < list_size; i++) {
-            matches[i][0] = MatchList.get(i)[0];
-            matches[i][1] = MatchList.get(i)[1];
-            matches[i][2] = MatchList.get(i)[2];
+            matches[i][0] = originalList.get(i)[0];
+            matches[i][1] = originalList.get(i)[1];
+            matches[i][2] = originalList.get(i)[2];
         }
 
         // Sorting
@@ -182,17 +140,17 @@ public class UtilitiesGeneral {
             }
         }
 
-        List<long[]> sortedMatchList = new ArrayList<>();
+        List<long[]> sortedList = new ArrayList<>();
         long[] element;
         for (int i = 0; i < list_size; i++) {
             element = new long[3];
             element[0] = matches[i][0];
             element[1] = matches[i][1];
             element[2] = matches[i][2];
-            sortedMatchList.add(element);
+            sortedList.add(element);
         }
 
-        return sortedMatchList;
+        return sortedList;
     }
 
 }

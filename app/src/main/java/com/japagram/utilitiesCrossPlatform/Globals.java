@@ -13,17 +13,22 @@ import java.util.List;
 
 public final class Globals {
 
+    public static final int CENTRAL_DB_VERSION = 139;
+    public static final int KANJI_DB_VERSION = 27;
+    public static final int EXTENDED_DB_VERSION = 36;
+    public static final int NAMES_DB_VERSION = 13;
+
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
     public static final int SMALL_WORD_LENGTH = 3;
-    public static final String firebaseEmail = BuildConfig.firebaseEmail;
-    public static final String firebasePass = BuildConfig.firebasePass;
-    public static List<String[]> SimilarsDatabase;
-    public static List<String[]> VerbLatinConjDatabase;
-    public static List<ConjugationTitle> ConjugationTitles;
-    public static List<String[]> VerbKanjiConjDatabase;
-    public static List<String[]> VerbLatinConjDatabaseNoSpaces;
-    public static List<String[]> RadicalsOnlyDatabase;
-    public static List<String[]> Romanizations;
+    public static final String FIREBASE_EMAIL = BuildConfig.firebaseEmail;
+    public static final String FIREBASE_PASS = BuildConfig.firebasePass;
+    public static List<String[]> SIMILARS_DATABASE;
+    public static List<String[]> VERB_LATIN_CONJ_DATABASE;
+    public static List<ConjugationTitle> CONJUGATION_TITLES;
+    public static List<String[]> VERB_KANJI_CONJ_DATABASE;
+    public static List<String[]> VERB_LATIN_CONJ_DATABASE_NO_SPACES;
+    public static List<String[]> RADICALS_ONLY_DATABASE;
+    public static List<String[]> ROMANIZATIONS;
 
     public static final int RESOURCE_MAP_GENERAL = 0;
     public static final int RESOURCE_MAP_VERB_FAMILIES = 1;
@@ -34,10 +39,19 @@ public final class Globals {
     public static final int DB_EXTENDED = 1;
     public static final int DB_NAMES = 2;
 
-    public static final int CENTRAL_DB_VERSION = 138;
-    public static final int KANJI_DB_VERSION = 26;
-    public static final int EXTENDED_DB_VERSION = 35;
-    public static final int NAMES_DB_VERSION = 13;
+    //Verb Search globals
+    public static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
+    public static final int MAX_NUM_RESULTS_FOR_VERB_SEARCH = 50;
+    public static final int MATCHING_ID = 0;
+    public static final int MATCHING_CATEGORY_INDEX = 1;
+    public static final int MATCHING_CONJUGATION = 2;
+    public final static int INDEX_FAMILY = 0;
+    public final static int INDEX_ROMAJI = 1;
+    public final static int INDEX_KANJI = 2;
+    public final static int INDEX_HIRAGANA_FIRST_CHAR = 3;
+    public final static int INDEX_LATIN_ROOT = 4;
+    public final static int INDEX_KANJI_ROOT = 5;
+    public final static int INDEX_ACTIVE_ALTSPELLING = 6;
 
     public static final int KANJI_SEARCH_RESULT_DEFAULT = 0;
     public static final int KANJI_SEARCH_RESULT_SEARCH_TOO_BROAD = 1;
@@ -45,25 +59,25 @@ public final class Globals {
     public static final int KANJI_SEARCH_RESULT_NO_JAP_RESULTS = 3;
     public static final int KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS = 4;
 
-    public static final float extendedDbLinesWords = 162314.f;
-    public static final float extendedDbSizeWords = 12917.f;
-    public static final float extendedDbLinesKanjiIndex = 190374.f;
-    public static final float extendedDbSizeKanjiIndex = 4063.f;
-    public static final float extendedDbLinesEnglishIndex = 64639.f;
-    public static final float extendedDbSizeEnglishIndex = 4436.f;
-    public static final float extendedDbLinesRomajiIndex = 157921.f;
-    public static final float extendedDbSizeRomajiIndex = 3169.f;
-    public static final float extendedDbSizeFrenchIndex = 143.f;
-    public static final float extendedDbSizeSpanishIndex = 624.f;
-    public static final float extendedDbSizeTotal = extendedDbSizeWords + extendedDbSizeKanjiIndex + extendedDbSizeEnglishIndex + extendedDbSizeRomajiIndex + extendedDbSizeFrenchIndex + extendedDbSizeSpanishIndex;
+    public static final float EXTENDED_DB_LINES_WORDS = 162314.f;
+    public static final float EXTENDED_DB_SIZE_WORDS = 12917.f;
+    public static final float EXTENDED_DB_LINES_KANJI_INDEX = 190374.f;
+    public static final float EXTENDED_DB_SIZE_KANJI_INDEX = 4063.f;
+    public static final float EXTENDED_DB_LINES_ENGLISH_INDEX = 64639.f;
+    public static final float EXTENDED_DB_SIZE_ENGLISH_INDEX = 4436.f;
+    public static final float EXTENDED_DB_LINES_ROMAJI_INDEX = 157921.f;
+    public static final float EXTENDED_DB_SIZE_ROMAJI_INDEX = 3169.f;
+    public static final float EXTENDED_DB_SIZE_FRENCH_INDEX = 143.f;
+    public static final float EXTENDED_DB_SIZE_SPANISH_INDEX = 624.f;
+    public static final float EXTENDED_DB_SIZE_TOTAL = EXTENDED_DB_SIZE_WORDS + EXTENDED_DB_SIZE_KANJI_INDEX + EXTENDED_DB_SIZE_ENGLISH_INDEX + EXTENDED_DB_SIZE_ROMAJI_INDEX + EXTENDED_DB_SIZE_FRENCH_INDEX + EXTENDED_DB_SIZE_SPANISH_INDEX;
 
-    public static final float namesDbLinesWords = 737309.f;
-    public static final float namesDbSizeWords = 22597.f;
-    public static final float namesDbLinesKanjiIndex = 607507.f;
-    public static final float namesDbSizeKanjiIndex = 12761.f;
-    public static final float namesDbLinesRomajiIndex = 413295.f;
-    public static final float namesDbSizeRomajiIndex = 10545.f;
-    public static final float namesDbSizeTotal = namesDbSizeWords + namesDbSizeWords + namesDbSizeKanjiIndex + namesDbSizeRomajiIndex;
+    public static final float NAMES_DB_LINES_WORDS = 737309.f;
+    public static final float NAMES_DB_SIZE_WORDS = 22597.f;
+    public static final float NAMES_DB_LINES_KANJI_INDEX = 607507.f;
+    public static final float NAMES_DB_SIZE_KANJI_INDEX = 12761.f;
+    public static final float NAMES_DB_LINES_ROMAJI_INDEX = 413295.f;
+    public static final float NAMES_DB_SIZE_ROMAJI_INDEX = 10545.f;
+    public static final float NAMES_DB_SIZE_TOTAL = NAMES_DB_SIZE_WORDS + NAMES_DB_SIZE_WORDS + NAMES_DB_SIZE_KANJI_INDEX + NAMES_DB_SIZE_ROMAJI_INDEX;
 
 
     public static final String DB_ELEMENTS_DELIMITER = ";";
@@ -163,7 +177,21 @@ public final class Globals {
     };
 
     // Defining the column title (and index) of each column in the excel files
-
+    public static int ColIndexConverter(@NotNull String colIndexLetter) {
+        int colIndexNumber = 0;
+        int value = 0;
+        if (colIndexLetter.length() == 1) {
+            value = (int)colIndexLetter.charAt(0) - (int)'a';
+        }
+        else if (colIndexLetter.length() == 2) {
+            value = ((int)colIndexLetter.charAt(0) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(1) - (int)'a' + 1;
+        }
+        else if (colIndexLetter.length() == 3) {
+            value = (((int)colIndexLetter.charAt(0) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(1) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(2) - (int)'a' + 1;
+        }
+        colIndexNumber = value;
+        return colIndexNumber;
+    }
     public static final int COLUMN_WORD_ID                      = ColIndexConverter("a");
     public static final int COLUMN_ROMAJI                       = ColIndexConverter("b");
     public static final int COLUMN_KANJI                        = ColIndexConverter("c");
@@ -229,24 +257,24 @@ public final class Globals {
     public final static int ROM_NIHON_SHIKI                    = 2;
     public final static int ROM_KUNREI_SHIKI                   = 3;
 
-    public final static int Index_full = 0;
-    public final static int Index_across2 = 1;
-    public final static int Index_across3 = 2;
-    public final static int Index_across4 = 3;
-    public final static int Index_down2 = 4;
-    public final static int Index_down3 = 5;
-    public final static int Index_down4 = 6;
-    public final static int Index_three_repeat = 7;
-    public final static int Index_four_repeat = 8;
-    public final static int Index_foursquare = 9;
-    public final static int Index_five_repeat = 10;
-    public final static int Index_topleftout = 11;
-    public final static int Index_topout = 12;
-    public final static int Index_toprightout = 13;
-    public final static int Index_leftout = 14;
-    public final static int Index_fullout = 15;
-    public final static int Index_bottomleftout = 16;
-    public final static int Index_bottomout = 17;
+    public final static int INDEX_FULL = 0;
+    public final static int INDEX_ACROSS_2 = 1;
+    public final static int INDEX_ACROSS_3 = 2;
+    public final static int INDEX_ACROSS_4 = 3;
+    public final static int INDEX_DOWN_2 = 4;
+    public final static int INDEX_DOWN_3 = 5;
+    public final static int INDEX_DOWN_4 = 6;
+    public final static int INDEX_THREE_REPEAT = 7;
+    public final static int INDEX_FOUR_REPEAT = 8;
+    public final static int INDEX_FOURSQUARE = 9;
+    public final static int INDEX_FIVE_REPEAT = 10;
+    public final static int INDEX_TOPLEFTOUT = 11;
+    public final static int INDEX_TOPOUT = 12;
+    public final static int INDEX_TOPRIGHTOUT = 13;
+    public final static int INDEX_LEFTOUT = 14;
+    public final static int INDEX_FULLOUT = 15;
+    public final static int INDEX_BOTTOMLEFTOUT = 16;
+    public final static int INDEX_BOTTOMOUT = 17;
 
     public static final int TYPE_LATIN = 0;
     public static final int TYPE_HIRAGANA = 1;
@@ -289,7 +317,6 @@ public final class Globals {
     public static final String VERB_FAMILY_U_GODAN = "u";
     public static final String VERB_FAMILY_U_SPECIAL = "us";
 
-    public final static HashMap<String, String> VERB_FAMILIES_FULL_NAME_MAP = createVerbFamiliesMap();
     static @NotNull HashMap<String, String> createVerbFamiliesMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put(VERB_FAMILY_SU_GODAN, "verb_family_su");
@@ -311,34 +338,35 @@ public final class Globals {
         map.put(VERB_FAMILY_SURU, "verb_family_suru");
         return map;
     }
+    public final static HashMap<String, String> VERB_FAMILIES_FULL_NAME_MAP = createVerbFamiliesMap();
 
     public static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
     public static final int BALANCE_POINT_REGULAR_DISPLAY = 4;
     public static final int BALANCE_POINT_HISTORY_DISPLAY = 2;
 
-    public final static HashMap<Integer, String> COMPONENT_STRUCTURES_MAP = createStructureMap();
     private static @NotNull HashMap<Integer, String> createStructureMap() {
         HashMap<Integer, String> map = new HashMap<>();
-        map.put(Index_full, "full");
-        map.put(Index_across2, "across2");
-        map.put(Index_across3, "across3");
-        map.put(Index_across4, "across4");
-        map.put(Index_down2, "down2");
-        map.put(Index_down3, "down3");
-        map.put(Index_down4, "down4");
-        map.put(Index_three_repeat, "repeat3special");
-        map.put(Index_four_repeat, "repeat4special");
-        map.put(Index_foursquare, "foursquare");
-        map.put(Index_five_repeat, "repeat5special");
-        map.put(Index_topleftout, "topleftout");
-        map.put(Index_topout, "topout");
-        map.put(Index_toprightout, "toprightout");
-        map.put(Index_leftout, "leftout");
-        map.put(Index_fullout, "fullout");
-        map.put(Index_bottomleftout, "bottomleftout");
-        map.put(Index_bottomout, "bottomout");
+        map.put(INDEX_FULL, "full");
+        map.put(INDEX_ACROSS_2, "across2");
+        map.put(INDEX_ACROSS_3, "across3");
+        map.put(INDEX_ACROSS_4, "across4");
+        map.put(INDEX_DOWN_2, "down2");
+        map.put(INDEX_DOWN_3, "down3");
+        map.put(INDEX_DOWN_4, "down4");
+        map.put(INDEX_THREE_REPEAT, "repeat3special");
+        map.put(INDEX_FOUR_REPEAT, "repeat4special");
+        map.put(INDEX_FOURSQUARE, "foursquare");
+        map.put(INDEX_FIVE_REPEAT, "repeat5special");
+        map.put(INDEX_TOPLEFTOUT, "topleftout");
+        map.put(INDEX_TOPOUT, "topout");
+        map.put(INDEX_TOPRIGHTOUT, "toprightout");
+        map.put(INDEX_LEFTOUT, "leftout");
+        map.put(INDEX_FULLOUT, "fullout");
+        map.put(INDEX_BOTTOMLEFTOUT, "bottomleftout");
+        map.put(INDEX_BOTTOMOUT, "bottomout");
         return map;
     }
+    public final static HashMap<Integer, String> COMPONENT_STRUCTURES_MAP = createStructureMap();
     @Contract(pure = true)
     public static @NotNull String getKanjiStructureEquivalent(@NotNull String componentDecompositionStructure) {
         switch (componentDecompositionStructure) {
@@ -409,22 +437,6 @@ public final class Globals {
         return "";
     }
 
-	private static int ColIndexConverter(@NotNull String colIndexLetter) {
-        int colIndexNumber = 0;
-        int value = 0;
-        if (colIndexLetter.length() == 1) {
-            value = (int)colIndexLetter.charAt(0) - (int)'a';
-        }
-        else if (colIndexLetter.length() == 2) {
-            value = ((int)colIndexLetter.charAt(0) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(1) - (int)'a' + 1;
-        }
-        else if (colIndexLetter.length() == 3) {
-            value = (((int)colIndexLetter.charAt(0) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(1) - (int)'a' + 1)*26 + (int)colIndexLetter.charAt(2) - (int)'a' + 1;
-        }
-        colIndexNumber = value;
-        return colIndexNumber;
-	}
-
     public static final String QUERY_HISTORY_ELEMENTS_DELIMITER = ";";
     public static final String QUERY_HISTORY_MEANINGS_DELIMITER = "@";
     public static final String QUERY_HISTORY_MEANINGS_DISPLAYED_DELIMITER = "~";
@@ -437,7 +449,6 @@ public final class Globals {
     public static final String LANG_STR_FR = "fr";
     public static final String LANG_STR_ES = "es";
 
-    public final static HashMap<String, String> LANGUAGE_CODE_MAP = createLanguageMap();
     private static @NotNull HashMap<String, String> createLanguageMap() {
         HashMap<String, String> map = new HashMap<>();
         map.put("english", "en");
@@ -445,8 +456,8 @@ public final class Globals {
         map.put("spanish", "es");
         return map;
     }
+    public final static HashMap<String, String> LANGUAGE_CODE_MAP = createLanguageMap();
 
-    public final static HashMap<String, String> VERB_CONJUGATION_TITLES = createVerbConjugationsMap();
     private static @NotNull HashMap<String, String> createVerbConjugationsMap() {
         HashMap<String, String> map = new HashMap<>();
 
@@ -617,11 +628,11 @@ public final class Globals {
 
         return map;
     }
+    public final static HashMap<String, String> VERB_CONJUGATION_TITLES = createVerbConjugationsMap();
 
     public final static List<String> NAMES_LIST = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Ne");
 
-    public final static HashMap<String, String> TYPES = createTypesMap();
-    private static @NotNull HashMap<String, String> createTypesMap() {
+    private static @NotNull HashMap<String, String> createPartsOfSpeechMap() {
         HashMap<String, String> map = new HashMap<>();
 
         map.put("A", "legend_A");
@@ -763,7 +774,7 @@ public final class Globals {
         map.put("ZSp", "legend_ZSp");
         map.put("ZSt", "legend_ZSt");
         map.put("ZZ", "legend_ZZ");
-        
+
         map.put("0", "legend_NmSu");
         map.put("1", "legend_NmPl");
         map.put("2", "legend_NmU");
@@ -779,4 +790,6 @@ public final class Globals {
         map.put("12", "legend_NmI");
         return map;
     }
+    public final static HashMap<String, String> PARTS_OF_SPEECH = createPartsOfSpeechMap();
+
 }

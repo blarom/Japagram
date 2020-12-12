@@ -24,12 +24,12 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
-import com.japagram.data.InputQuery;
 import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -120,7 +120,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         mInputQueryKanjis = new ArrayList<>();
         for (int i=0; i<mInputQuery.length(); i++) {
             String currentChar = mInputQuery.substring(i,i+1);
-            if (InputQuery.getTextType(currentChar) == Globals.TYPE_KANJI) {
+            if (UtilitiesQuery.getTextType(currentChar) == Globals.TYPE_KANJI) {
                 Object[] elements = new Object[4];
                 elements[Globals.DECOMP_KANJI_LIST_INDEX] = currentChar;
                 elements[Globals.DECOMP_RADICAL_ITERATION] = 0;
@@ -251,7 +251,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             final TextView tv = new TextView(getContext());
             tv.setLayoutParams(radical_gallery_layoutParams);
             display_text = decomposedKanji.get(i).get(0);
-            text = UtilitiesGeneral.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
+            text = OverridableUtilitiesGeneral.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
             clickable_text = new SpannableString(text);
 
             tv.setTypeface(mDroidSansJapaneseTypeface);

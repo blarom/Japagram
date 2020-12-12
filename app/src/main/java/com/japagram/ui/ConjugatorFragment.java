@@ -28,7 +28,6 @@ import com.japagram.data.Word;
 import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesCrossPlatform.UtilitiesVerbSearch;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
 
 import java.util.ArrayList;
@@ -209,7 +208,7 @@ public class ConjugatorFragment extends Fragment implements
         //Showing the verb conjugations
         Verb verb = mMatchingVerbs.get(verbIndex);
         List<Verb.ConjugationCategory> conjugationCategories = verb.getConjugationCategories();
-        List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.ConjugationTitles);
+        List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.CONJUGATION_TITLES);
         conjugationTitles.remove(0);
         mConjugationChooserSpinner.setAdapter(new ConjugationsSpinnerAdapter(
                 getContext(),
@@ -234,7 +233,7 @@ public class ConjugatorFragment extends Fragment implements
         }
 
         //Setting the conjugation spinner to the position of the first item matching the user query
-        int index = (int) mMatchingConjugationParameters.get(verbIndex)[UtilitiesVerbSearch.MATCHING_CATEGORY_INDEX];
+        int index = (int) mMatchingConjugationParameters.get(verbIndex)[Globals.MATCHING_CATEGORY_INDEX];
         mConjugationChooserSpinner.setSelection(index, false);
 
     }
@@ -346,7 +345,7 @@ public class ConjugatorFragment extends Fragment implements
 
         for (int i = 0; i < conjugations.size(); i++) {
 
-            Tense.get(i).setText(Globals.ConjugationTitles.get(conjugationIndex+1).getSubtitles().get(i).getTense());
+            Tense.get(i).setText(Globals.CONJUGATION_TITLES.get(conjugationIndex+1).getSubtitles().get(i).getTense());
 
             if (mChosenRomajiOrKanji.equals("Romaji")) Tense_Result.get(i).setText(conjugations.get(i).getConjugationLatin());
             else Tense_Result.get(i).setText(conjugations.get(i).getConjugationKanji());

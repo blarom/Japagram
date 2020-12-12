@@ -28,9 +28,8 @@ import com.japagram.utilitiesAndroid.UtilitiesWeb;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
-import com.japagram.utilitiesCrossPlatform.UtilitiesVerbSearch;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
-import com.japagram.utilitiesPlatformOverridable.UtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -225,7 +224,7 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }
@@ -288,18 +287,18 @@ public class DictionaryFragment extends Fragment implements
             }
             else {
                 if (waitForConjResults) {
-                    mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+                    mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
                     Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                     mSuccessfullyDisplayedResultsBeforeTimeout = true;
                     hideLoadingIndicator();
                 } else {
                     if (mAlreadyLoadedConjResults) {
-                        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
+                        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                         mSuccessfullyDisplayedResultsBeforeTimeout = true;
                         hideLoadingIndicator();
                     } else {
-                        mHintTextView.setText(UtilitiesGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local without Conj Search");
                     }
                 }
@@ -513,8 +512,8 @@ public class DictionaryFragment extends Fragment implements
             Word word = mMatchingWordsFromVerbs.get(i);
             word.setIsLocal(true);
             for (Object[] matchingConjugationParameters : mMatchingConjugationParametersList) {
-                if ((long) matchingConjugationParameters[UtilitiesVerbSearch.MATCHING_ID] == word.getWordId()) {
-                    String matchingConjugation = (String) matchingConjugationParameters[UtilitiesVerbSearch.MATCHING_CONJUGATION];
+                if ((long) matchingConjugationParameters[Globals.MATCHING_ID] == word.getWordId()) {
+                    String matchingConjugation = (String) matchingConjugationParameters[Globals.MATCHING_CONJUGATION];
                     word.setMatchingConj(matchingConjugation);
                     break;
                 }

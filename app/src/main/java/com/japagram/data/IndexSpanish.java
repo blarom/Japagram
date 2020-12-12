@@ -8,11 +8,11 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = IndexSpanish.TABLE_NAME)
-public class IndexSpanish {
+public class IndexSpanish extends GenericIndex {
 
     static final String TABLE_NAME = "spanish_index_table";
-    static final String COLUMN_VALUE = "value";
-    private static final String WORD_IDS = "word_ids";
+    static final String COLUMN_VALUE = "spanish_value";
+    private static final String WORD_IDS = "spanish_word_ids";
 
     IndexSpanish() { }
 
