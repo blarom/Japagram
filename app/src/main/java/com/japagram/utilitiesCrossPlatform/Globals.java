@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 139;
-    public static final int KANJI_DB_VERSION = 27;
-    public static final int EXTENDED_DB_VERSION = 36;
+    public static final int CENTRAL_DB_VERSION = 140;
+    public static final int KANJI_DB_VERSION = 28;
+    public static final int EXTENDED_DB_VERSION = 37;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -28,7 +28,7 @@ public final class Globals {
     public static List<String[]> VERB_KANJI_CONJ_DATABASE;
     public static List<String[]> VERB_LATIN_CONJ_DATABASE_NO_SPACES;
     public static List<String[]> RADICALS_ONLY_DATABASE;
-    public static List<String[]> ROMANIZATIONS;
+    public static String[][] ROMANIZATIONS;
 
     public static final int RESOURCE_MAP_GENERAL = 0;
     public static final int RESOURCE_MAP_VERB_FAMILIES = 1;
@@ -208,6 +208,7 @@ public final class Globals {
     public static final int COLUMN_EXTRA_KEYWORDS_FR            = ColIndexConverter("n");
     public static final int COLUMN_MEANING_ES_INDEXES           = ColIndexConverter("o");
     public static final int COLUMN_EXTRA_KEYWORDS_ES            = ColIndexConverter("p");
+    public static final int COLUMN_HIRAGANA_FIRST_CHAR          = ColIndexConverter("q");
 
     public static final int COLUMN_MEANINGS_MEANING             = ColIndexConverter("b");
     public static final int COLUMN_MEANINGS_TYPE                = ColIndexConverter("c");

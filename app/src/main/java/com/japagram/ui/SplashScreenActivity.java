@@ -20,6 +20,7 @@ import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.UtilitiesDb;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,7 +75,7 @@ public class SplashScreenActivity extends BaseActivity {
             Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.VERB_LATIN_CONJ_DATABASE);
             Globals.VERB_KANJI_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.RADICALS_ONLY_DATABASE = UtilitiesAndroidIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            Globals.ROMANIZATIONS = UtilitiesAndroidIO.readCSVFile("LineRomanizations.csv", getBaseContext());
+            Globals.ROMANIZATIONS = UtilitiesGeneral.getTranspose(UtilitiesAndroidIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");

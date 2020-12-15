@@ -27,7 +27,9 @@ public class OverridableUtilitiesGeneral {
     public static boolean isEmptyString(String text) {
         return TextUtils.isEmpty(text);
     }
-
+    public static String[] splitToChars(String text) {
+        return text.split("(?!^)");
+    }
     @SuppressWarnings("deprecation")
     public static Spanned fromHtml(String source) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

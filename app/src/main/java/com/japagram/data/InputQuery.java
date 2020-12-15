@@ -62,22 +62,22 @@ public class InputQuery implements Parcelable {
         isVerbWithTo = (boolean) preparedElements[10];
         isTooShort = (boolean) preparedElements[11];
 
-        searchQueriesNonJapanese = (List<String>) preparedElements[11];
-        searchQueriesRomaji = (List<String>) preparedElements[12];
-        searchQueriesKanji = (List<String>) preparedElements[13];
-        kanjiChars = (List<String>) preparedElements[14];
-        hiraganaConversions = (List<String>) preparedElements[15];
-        katakanaConversions = (List<String>) preparedElements[16];
-        waapuroConversions = (List<String>) preparedElements[17];
-        conversionsMH = (List<String>) preparedElements[18];
-        conversionsNS = (List<String>) preparedElements[19];
-        conversionsKS = (List<String>) preparedElements[20];
-        hiraganaUniqueConversions = (List<String>) preparedElements[21];
-        katakanaUniqueConversions = (List<String>) preparedElements[22];
-        waapuroUniqueConversions = (List<String>) preparedElements[123];
-        uniqueConversionsMH = (List<String>) preparedElements[24];
-        uniqueConversionsNS = (List<String>) preparedElements[25];
-        uniqueConversionsKS = (List<String>) preparedElements[26];
+        searchQueriesNonJapanese = (List<String>) preparedElements[12];
+        searchQueriesRomaji = (List<String>) preparedElements[13];
+        searchQueriesKanji = (List<String>) preparedElements[14];
+        kanjiChars = (List<String>) preparedElements[15];
+        hiraganaConversions = (List<String>) preparedElements[16];
+        katakanaConversions = (List<String>) preparedElements[17];
+        waapuroConversions = (List<String>) preparedElements[18];
+        conversionsMH = (List<String>) preparedElements[19];
+        conversionsNS = (List<String>) preparedElements[20];
+        conversionsKS = (List<String>) preparedElements[21];
+        hiraganaUniqueConversions = (List<String>) preparedElements[22];
+        katakanaUniqueConversions = (List<String>) preparedElements[23];
+        waapuroUniqueConversions = (List<String>) preparedElements[24];
+        uniqueConversionsMH = (List<String>) preparedElements[25];
+        uniqueConversionsNS = (List<String>) preparedElements[26];
+        uniqueConversionsKS = (List<String>) preparedElements[27];
     }
 
     protected InputQuery(@NotNull Parcel in) {

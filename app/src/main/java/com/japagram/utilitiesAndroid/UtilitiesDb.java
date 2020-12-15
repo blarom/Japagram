@@ -406,7 +406,7 @@ public class UtilitiesDb {
         verb.setRomaji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ROMAJI]);
         verb.setKanji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI]);
         verb.setAltSpellings(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ALT_SPELLINGS]);
-        verb.setHiraganaFirstChar(UtilitiesQuery.getWaapuroHiraganaKatakana(verb.getRomaji()).get(Globals.TEXT_TYPE_HIRAGANA).substring(0, 1));
+        verb.setHiraganaFirstChar(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_HIRAGANA_FIRST_CHAR]);
 
         //Setting the family
         String MM_index = verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_MEANING_EN_INDEXES];

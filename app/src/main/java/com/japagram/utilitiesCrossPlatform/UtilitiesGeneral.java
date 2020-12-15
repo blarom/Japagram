@@ -51,12 +51,25 @@ public class UtilitiesGeneral {
         return OverridableUtilitiesGeneral.joinList(", ", final_cumulative_meaning_value_array);
     }
 
+    public static String[] @NotNull [] getTranspose(@NotNull List<String[]> db) {
+        if (db == null || db.size() == 0) return null;
+        String[][] transpose = new String[db.get(0).length][db.size()];
+        String[] line;
+        for (int i=0; i<db.size(); i++) {
+            line = db.get(i);
+            for (int j=0; j<line.length; j++) {
+                transpose[j][i] = line[j];
+            }
+        }
+        return transpose;
+    }
     @NotNull
     public static List<String> combineLists(List<String> list1, List<String> list2) {
         List<String> total = new ArrayList<>(list1);
         total.addAll(list2);
         return removeDuplicatesFromStringList(total);
     }
+
 
     @NotNull
     public static List<String> getIntersectionOfLists(@NotNull List<String> listA, List<String> listB) {
@@ -83,7 +96,7 @@ public class UtilitiesGeneral {
         return newList;
     }
 
-    public static List<Long> removeDuplicatesFromLongList(@NotNull List<Long> list) {
+    public static @NotNull List<Long> removeDuplicatesFromLongList(@NotNull List<Long> list) {
 
         List<Long> newList = new ArrayList<>();
         for (Long item : list) {
