@@ -208,7 +208,7 @@ public class ConjugatorFragment extends Fragment implements
         //Showing the verb conjugations
         Verb verb = mMatchingVerbs.get(verbIndex);
         List<Verb.ConjugationCategory> conjugationCategories = verb.getConjugationCategories();
-        List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.CONJUGATION_TITLES);
+        List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.GLOBAL_CONJUGATION_TITLES);
         conjugationTitles.remove(0);
         mConjugationChooserSpinner.setAdapter(new ConjugationsSpinnerAdapter(
                 getContext(),
@@ -345,7 +345,7 @@ public class ConjugatorFragment extends Fragment implements
 
         for (int i = 0; i < conjugations.size(); i++) {
 
-            Tense.get(i).setText(Globals.CONJUGATION_TITLES.get(conjugationIndex+1).getSubtitles().get(i).getTense());
+            Tense.get(i).setText(Globals.GLOBAL_CONJUGATION_TITLES.get(conjugationIndex+1).getSubtitles().get(i).getTense());
 
             if (mChosenRomajiOrKanji.equals("Romaji")) Tense_Result.get(i).setText(conjugations.get(i).getConjugationLatin());
             else Tense_Result.get(i).setText(conjugations.get(i).getConjugationKanji());

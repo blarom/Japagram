@@ -6,7 +6,6 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -14,7 +13,7 @@ public final class UtilitiesQuery {
     @NotNull
     @Contract("_ -> new")
     public static String[] getOfficialKana(String input) {
-        if (Globals.ROMANIZATIONS == null) {
+        if (Globals.GLOBAL_ROMANIZATIONS == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -33,27 +32,27 @@ public final class UtilitiesQuery {
                 Globals.ROM_COL_NIHON_SHIKI,
                 Globals.ROM_COL_KUNREI_SHIKI
         };
-        int romanizationsLength = Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA].length;
+        int romanizationsLength = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA].length;
 
         //Translating from Katakana to Hiragana
         for (int i = 1; i < romanizationsLength; i++) {
-            currentChar = Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i];
+            currentChar = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i];
             if (currentChar.equals("")) continue;
-            transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
+            transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
         }
 
         //Translating from from Hiragana to Katakana
         for (int i = 1; i < romanizationsLength; i++) {
-            currentChar = Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i];
+            currentChar = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i];
             if (currentChar.equals("")) continue;
-            transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
+            transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
         }
 
         //Translating from Romaji to Kana
         for (int type : romajiTypes) {
 
             for (int i = 1; i < romanizationsLength; i++) {
-                currentChar = Globals.ROMANIZATIONS[type][i];
+                currentChar = Globals.GLOBAL_ROMANIZATIONS[type][i];
                 if (currentChar.equals("")
                         || currentChar.equals("aa")
                         || currentChar.equals("ii")
@@ -61,13 +60,13 @@ public final class UtilitiesQuery {
                         || currentChar.equals("ee")
                         || currentChar.equals("oo"))
                     continue;
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
             }
 
             //If there are leftover double-vowels, only then should they be replaced
             for (int i = 1; i < romanizationsLength; i++) {
-                currentChar = Globals.ROMANIZATIONS[type][i];
+                currentChar = Globals.GLOBAL_ROMANIZATIONS[type][i];
                 if (currentChar.equals("")
                         || !(currentChar.equals("aa")
                         || currentChar.equals("ii")
@@ -75,8 +74,8 @@ public final class UtilitiesQuery {
                         || currentChar.equals("ee")
                         || currentChar.equals("oo")))
                     continue;
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
             }
         }
 
@@ -87,7 +86,7 @@ public final class UtilitiesQuery {
 
         if (!oldTransliteration.equals(transliteratedToHiragana)) {
             for (int i = 1; i < romanizationsLength; i++) {
-                currentChar = Globals.ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i];
+                currentChar = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i];
                 if (currentChar.equals("")
                         || currentChar.equals("aa")
                         || currentChar.equals("ii")
@@ -95,8 +94,8 @@ public final class UtilitiesQuery {
                         || currentChar.equals("ee")
                         || currentChar.equals("oo"))
                     continue;
-                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
-                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
+                transliteratedToHiragana = transliteratedToHiragana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i]);
+                transliteratedToKatakana = transliteratedToKatakana.replace(currentChar, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i]);
             }
         }
 
@@ -112,7 +111,7 @@ public final class UtilitiesQuery {
     @NotNull
     @Contract("_ -> new")
     public static String[] getOfficialRomanizations(String kana) {
-        if (Globals.ROMANIZATIONS == null) {
+        if (Globals.GLOBAL_ROMANIZATIONS == null) {
             return new String[]{"", "", "", ""};
         }
         //Transliterations performed according to https://en.wikipedia.org/wiki/Romanization_of_Japanese
@@ -126,22 +125,22 @@ public final class UtilitiesQuery {
         String romanizedKanaNihonShiki = kana;
         String romanizedKanaKunreiShiki = kana;
         String currentKana;
-        int romanizationsLength = Globals.ROMANIZATIONS[0].length;
+        int romanizationsLength = Globals.GLOBAL_ROMANIZATIONS[0].length;
         for (int i = 1; i < romanizationsLength; i++) {
-            currentKana = Globals.ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i];
+            currentKana = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_HIRAGANA][i];
             if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_MOD_HEPBURN][i]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_NIHON_SHIKI][i]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_KUNREI_SHIKI][i]);
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_MOD_HEPBURN][i]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_NIHON_SHIKI][i]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KUNREI_SHIKI][i]);
             }
 
-            currentKana = Globals.ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i];
+            currentKana = Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KATAKANA][i];
             if (!currentKana.equals("")) {
-                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i]);
-                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_MOD_HEPBURN][i]);
-                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_NIHON_SHIKI][i]);
-                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, Globals.ROMANIZATIONS[Globals.ROM_COL_KUNREI_SHIKI][i]);
+                romanizedKanaWaapuro = romanizedKanaWaapuro.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_WAAPURO][i]);
+                romanizedKanaModHepburn = romanizedKanaModHepburn.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_MOD_HEPBURN][i]);
+                romanizedKanaNihonShiki = romanizedKanaNihonShiki.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_NIHON_SHIKI][i]);
+                romanizedKanaKunreiShiki = romanizedKanaKunreiShiki.replace(currentKana, Globals.GLOBAL_ROMANIZATIONS[Globals.ROM_COL_KUNREI_SHIKI][i]);
             }
         }
 

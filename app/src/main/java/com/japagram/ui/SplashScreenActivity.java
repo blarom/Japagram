@@ -69,13 +69,13 @@ public class SplashScreenActivity extends BaseActivity {
         //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
         dbLoadRunnableCentral = () -> {
             mCentralDbBeingLoaded = true;
-            Globals.SIMILARS_DATABASE = UtilitiesAndroidIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
-            Globals.VERB_LATIN_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
-            Globals.CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.VERB_LATIN_CONJ_DATABASE, this, mLanguage);
-            Globals.VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.VERB_LATIN_CONJ_DATABASE);
-            Globals.VERB_KANJI_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
-            Globals.RADICALS_ONLY_DATABASE = UtilitiesAndroidIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            Globals.ROMANIZATIONS = UtilitiesGeneral.getTranspose(UtilitiesAndroidIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
+            Globals.GLOBAL_SIMILARS_DATABASE = UtilitiesAndroidIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, this, mLanguage);
+            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
+            Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = UtilitiesAndroidIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_RADICALS_ONLY_DATABASE = UtilitiesAndroidIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_ROMANIZATIONS = UtilitiesGeneral.getTranspose(UtilitiesAndroidIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");

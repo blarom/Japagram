@@ -1370,10 +1370,10 @@ public class UtilitiesDb {
         for (int i = 0; i < input.length(); i++) {
             currentChar = input.substring(i, i+1);
             found = false;
-            for (int j = 0; j < Globals.SIMILARS_DATABASE.size(); j++) {
-                String char0 = Globals.SIMILARS_DATABASE.get(j)[0].substring(0, 1);
-                if (Globals.SIMILARS_DATABASE.get(j).length > 0 && char0.equals(currentChar)) {
-                    String char1 = Globals.SIMILARS_DATABASE.get(j)[1].substring(0, 1);
+            for (int j = 0; j < Globals.GLOBAL_SIMILARS_DATABASE.size(); j++) {
+                String char0 = Globals.GLOBAL_SIMILARS_DATABASE.get(j)[0].substring(0, 1);
+                if (Globals.GLOBAL_SIMILARS_DATABASE.get(j).length > 0 && char0.equals(currentChar)) {
+                    String char1 = Globals.GLOBAL_SIMILARS_DATABASE.get(j)[1].substring(0, 1);
                     output.add(char1);
                     found = true;
                     break;

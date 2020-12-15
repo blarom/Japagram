@@ -22,13 +22,13 @@ public final class Globals {
     public static final int SMALL_WORD_LENGTH = 3;
     public static final String FIREBASE_EMAIL = BuildConfig.firebaseEmail;
     public static final String FIREBASE_PASS = BuildConfig.firebasePass;
-    public static List<String[]> SIMILARS_DATABASE;
-    public static List<String[]> VERB_LATIN_CONJ_DATABASE;
-    public static List<ConjugationTitle> CONJUGATION_TITLES;
-    public static List<String[]> VERB_KANJI_CONJ_DATABASE;
-    public static List<String[]> VERB_LATIN_CONJ_DATABASE_NO_SPACES;
-    public static List<String[]> RADICALS_ONLY_DATABASE;
-    public static String[][] ROMANIZATIONS;
+    public static List<String[]> GLOBAL_SIMILARS_DATABASE;
+    public static List<String[]> GLOBAL_VERB_LATIN_CONJ_DATABASE;
+    public static List<ConjugationTitle> GLOBAL_CONJUGATION_TITLES;
+    public static List<String[]> GLOBAL_VERB_KANJI_CONJ_DATABASE;
+    public static List<String[]> GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES;
+    public static List<String[]> GLOBAL_RADICALS_ONLY_DATABASE;
+    public static String[][] GLOBAL_ROMANIZATIONS;
 
     public static final int RESOURCE_MAP_GENERAL = 0;
     public static final int RESOURCE_MAP_VERB_FAMILIES = 1;
