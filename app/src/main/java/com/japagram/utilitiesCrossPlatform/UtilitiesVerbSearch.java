@@ -382,12 +382,12 @@ public final class UtilitiesVerbSearch {
             if (preparedQuery.isVerbWithTo()) {
                 for (Word.Meaning meaning : word.getMeaningsEN()) {
                     if (meaning.getMeaning().contains(preparedQuery.getOriginalCleaned())) {
-                        matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{word.getWordId(), 0});
+                        matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{word.getId(), 0});
                         break;
                     }
                 }
             } else {
-                matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{word.getWordId(), 0});
+                matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{word.getId(), 0});
             }
         }
         //endregion
@@ -397,12 +397,12 @@ public final class UtilitiesVerbSearch {
             Word suruVerb = OverridableUtilitiesDb.getWordsByExactRomajiAndKanjiMatch("suru", "為る", context).get(0);
             boolean alreadyInList = false;
             for (long[] idAndCol : matchingVerbIdsAndColsFromBasicCharacteristics) {
-                if (idAndCol[0] == suruVerb.getWordId()) {
+                if (idAndCol[0] == suruVerb.getId()) {
                     alreadyInList = true;
                     break;
                 }
             }
-            if (!alreadyInList) matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{suruVerb.getWordId(), 0});
+            if (!alreadyInList) matchingVerbIdsAndColsFromBasicCharacteristics.add(new long[]{suruVerb.getId(), 0});
         }
         //endregion
 
@@ -440,7 +440,7 @@ public final class UtilitiesVerbSearch {
             //region Skipping verbs that were already found
             verbAlreadyFound = false;
             for (long[] idAndCol : copyOfMatchingVerbIdsAndColsFromBasicCharacteristics) {
-                if (idAndCol[0] == verb.getVerbId()) {
+                if (idAndCol[0] == verb.getId()) {
 
                     //Update the active fields for the current verb according to the altSpelling
                     boolean foundAltSpelling = false;
@@ -687,7 +687,7 @@ public final class UtilitiesVerbSearch {
                     OverridableUtilitiesDb.updateVerb(verb, context);
 
                     //Update the list of match ids
-                    matchingVerbIdsAndColsFromExpandedConjugations.add(new long[]{verb.getVerbId(), matchColumn});
+                    matchingVerbIdsAndColsFromExpandedConjugations.add(new long[]{verb.getId(), matchColumn});
 
                     break;
                 }
@@ -742,15 +742,15 @@ public final class UtilitiesVerbSearch {
         for (Word word : matchingWords) {
             found = false;
             for (Verb verb : matchingVerbsBeforeOrderingByWordId) {
-                if (verb.getVerbId() == word.getWordId()) {
+                if (verb.getId() == word.getId()) {
                     matchingVerbs.add(verb);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                word.setWordId(word.getWordId());
-                OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                word.setId(word.getId());
+                OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getId());
             }
         }
         //endregion
@@ -928,7 +928,7 @@ public final class UtilitiesVerbSearch {
 
             Word currentWord = null;
             for (Word word : matchingWords) {
-                if (word.getWordId() == matchingVerbIdsAndCols.get(i)[0]) {
+                if (word.getId() == matchingVerbIdsAndCols.get(i)[0]) {
                     currentWord = word;
                     break;
                 }
@@ -1037,7 +1037,7 @@ public final class UtilitiesVerbSearch {
         }
 
         Object[] parameters = new Object[3];
-        parameters[Globals.MATCHING_ID] = verb.getVerbId();
+        parameters[Globals.MATCHING_ID] = verb.getId();
         parameters[Globals.MATCHING_CATEGORY_INDEX] = matchingConjugationCategoryIndex;
         parameters[Globals.MATCHING_CONJUGATION] = matchingConjugation;
 
@@ -1054,7 +1054,7 @@ public final class UtilitiesVerbSearch {
         if (matchingWords == null || matchingVerbs == null) return new ArrayList<>();
         for (Word word : matchingWords) {
             for (Verb verb : matchingVerbs) {
-                if (verb.getVerbId() == word.getWordId()) {
+                if (verb.getId() == word.getId()) {
                     foundExactMatch = false;
                     for (Verb.ConjugationCategory category : verb.getConjugationCategories()) {
                         for (Verb.ConjugationCategory.Conjugation conjugation : category.getConjugations()) {
@@ -1147,17 +1147,17 @@ public final class UtilitiesVerbSearch {
                 Word word = matchingWords.get(j);
                 Verb verb = null;
                 for (Verb currentVerb : matchingVerbs) {
-                    if (currentVerb.getVerbId() == word.getWordId()){
+                    if (currentVerb.getId() == word.getId()){
                         verb = currentVerb;
                         break;
                     }
                 }
                 if (verb == null) {
-                    OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getWordId());
+                    OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - ERROR! Missing verb for word with id" + word.getId());
                     continue;
                 }
 
-                if (word.getWordId() == matchingVerbIdColListSortedByLength.get(i)[0]) {
+                if (word.getId() == matchingVerbIdColListSortedByLength.get(i)[0]) {
                     matchingWordsSorted.add(word);
                     matchingVerbsSorted.add(verb);
                     break;

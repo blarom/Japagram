@@ -470,7 +470,7 @@ public class DictionaryFragment extends Fragment implements
             Word word = mMatchingWordsFromVerbs.get(i);
             word.setIsLocal(true);
             for (Object[] matchingConjugationParameters : mMatchingConjugationParametersList) {
-                if ((long) matchingConjugationParameters[Globals.MATCHING_ID] == word.getWordId()) {
+                if ((long) matchingConjugationParameters[Globals.MATCHING_ID] == word.getId()) {
                     String matchingConjugation = (String) matchingConjugationParameters[Globals.MATCHING_CONJUGATION];
                     word.setMatchingConj(matchingConjugation);
                     break;

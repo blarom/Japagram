@@ -30,19 +30,6 @@ public class UtilitiesDb {
         return mDatabase;
     }
 
-    @NotNull
-    public static String cleanIdentifierForFirebase(String string) {
-        if (OverridableUtilitiesGeneral.isEmptyString(string)) return "";
-        string = string.replaceAll("\\.", "*");
-        string = string.replaceAll("#", "*");
-        string = string.replaceAll("\\$", "*");
-        string = string.replaceAll("\\[", "*");
-        string = string.replaceAll("]", "*");
-        //string = string.replaceAll("\\{","*");
-        //string = string.replaceAll("}","*");
-        return string;
-    }
-
     public static void checkDatabaseStructure(@NotNull List<String[]> databaseFromCsv, String databaseName, int numColumns) {
         for (String[] line : databaseFromCsv) {
             if (line.length < numColumns) {
@@ -68,7 +55,7 @@ public class UtilitiesDb {
 
         //Getting the index value
         int matchingWordId = Integer.parseInt(centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_WORD_ID]);
-        word.setWordId(matchingWordId);
+        word.setId(matchingWordId);
 
         //Getting the Romaji value
         String matchingWordRomaji = centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_ROMAJI];
@@ -131,7 +118,7 @@ public class UtilitiesDb {
     public static Word createWordFromExtendedDatabase(@NotNull String[] extendedDatabaseRow) {
 
         Word word = new Word();
-        word.setWordId(Long.parseLong(extendedDatabaseRow[Globals.XDB_COL_INDEX]));
+        word.setId(Long.parseLong(extendedDatabaseRow[Globals.XDB_COL_INDEX]));
         word.setRomaji(extendedDatabaseRow[Globals.XDB_COL_ROMAJI]);
         word.setKanji(extendedDatabaseRow[Globals.XDB_COL_KANJI]);
         word.setAltSpellings(extendedDatabaseRow[Globals.XDB_COL_ALTS].replace("#", ", "));
@@ -185,7 +172,7 @@ public class UtilitiesDb {
     public static Word createWordFromNamesDatabase(@NotNull String[] namesDatabaseRow) {
 
         Word word = new Word();
-        word.setWordId(Long.parseLong(namesDatabaseRow[Globals.NDB_COL_INDEX]));
+        word.setId(Long.parseLong(namesDatabaseRow[Globals.NDB_COL_INDEX]));
         word.setRomaji(namesDatabaseRow[Globals.NDB_COL_ROMAJI]);
         word.setKanji(namesDatabaseRow[Globals.NDB_COL_KANJI]);
         word.setAltSpellings("");
@@ -398,7 +385,7 @@ public class UtilitiesDb {
         int lastCharIndex;
         String[] currentMeaningCharacteristics;
 
-        verb.setVerbId(Integer.parseInt(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_WORD_ID]));
+        verb.setId(Integer.parseInt(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_WORD_ID]));
         verb.setPreposition(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_PREPOSITION]);
         verb.setKanjiRoot(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI_ROOT]);
         verb.setLatinRoot(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_LATIN_ROOT]);

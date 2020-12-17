@@ -29,10 +29,10 @@ public class KanjiComponent {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = COLUMN_ID)
     public long id;
-    public long getComponentId() {
+    public long getId() {
         return id;
     }
-    public void setComponentId(long component_id) {
+    public void setId(long component_id) {
         this.id = component_id;
     }
 

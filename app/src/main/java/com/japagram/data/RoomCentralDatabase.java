@@ -162,10 +162,10 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, frequenciesHash, i);
             wordList.add(word);
-            if (inserted_words.containsKey(word.getWordId())) {
-                Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getWordId()));
+            if (inserted_words.containsKey(word.getId())) {
+                Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getId()));
             } else {
-                inserted_words.put(word.getWordId(), word.getRomaji() + "___" + word.getKanji());
+                inserted_words.put(word.getId(), word.getRomaji() + "___" + word.getKanji());
             }
             if (wordList.size() % 2000 == 0) {
                 word().insertAll(wordList);

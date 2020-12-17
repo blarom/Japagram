@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.provider.BaseColumns;
 
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesDb;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 
 import java.util.List;
 
@@ -42,6 +42,11 @@ public class Word implements Parcelable {
 
     public Word() {
     }
+    public Word(String romaji, String kanji) {
+        this.romaji = romaji;
+        this.kanji = kanji;
+        setUniqueIdentifierFromDetails();
+    }
 
 
     Word(Parcel in) {
@@ -76,10 +81,10 @@ public class Word implements Parcelable {
     @PrimaryKey()
     @ColumnInfo(index = true, name = COLUMN_ID)
     public long id;
-    public long getWordId() {
+    public long getId() {
         return id;
     }
-    public void setWordId(long new_id) {
+    public void setId(long new_id) {
         id = new_id;
     }
 
@@ -89,7 +94,7 @@ public class Word implements Parcelable {
         this.uniqueIdentifier = uniqueIdentifier;
     }
     public void setUniqueIdentifierFromDetails() {
-        this.uniqueIdentifier = UtilitiesDb.cleanIdentifierForFirebase(romaji + "-" + kanji);
+        this.uniqueIdentifier = UtilitiesDb.cleanIdentifier(romaji + "-" + kanji);
     }
     public String getUniqueIdentifier() {
         return uniqueIdentifier;

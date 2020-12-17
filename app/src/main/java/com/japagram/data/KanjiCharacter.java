@@ -46,10 +46,10 @@ public class KanjiCharacter  {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(index = true, name = COLUMN_ID)
     public long id;
-    public long getKanjiCharacterId() {
+    public long getId() {
         return id;
     }
-    public void setKanjiCharacterId(long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

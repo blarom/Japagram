@@ -180,7 +180,7 @@ public class UtilitiesDb {
             }
 
             if (foundMatch) {
-                matchingWordIds.add(word.getWordId());
+                matchingWordIds.add(word.getId());
             }
         }
         //endregion
@@ -276,7 +276,7 @@ public class UtilitiesDb {
             }
             typesList = Arrays.asList(OverridableUtilitiesGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
             if (typesList.contains("Ai") || typesList.contains("Ana")) {
-                if (!matchingWordIds.contains(word.getWordId())) matchingWordIds.add(word.getWordId());
+                if (!matchingWordIds.contains(word.getId())) matchingWordIds.add(word.getId());
             }
         }
 
@@ -310,7 +310,7 @@ public class UtilitiesDb {
                 }
                 typesList = Arrays.asList(OverridableUtilitiesGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
                 if (typesList.contains("C")) {
-                    if (!matchingWordIds.contains(word.getWordId())) matchingWordIds.add(word.getWordId());
+                    if (!matchingWordIds.contains(word.getId())) matchingWordIds.add(word.getId());
                 }
             }
         }
@@ -749,11 +749,9 @@ public class UtilitiesDb {
 
         for (int j = 0; j < localWords.size(); j++) {
             Word currentLocalWord = localWords.get(j);
-            Word finalWord = new Word();
+            Word finalWord = new Word(currentLocalWord.getRomaji(), currentLocalWord.getKanji());
 
             //Copying basic properties
-            finalWord.setRomaji(currentLocalWord.getRomaji());
-            finalWord.setKanji(currentLocalWord.getKanji());
             finalWord.setFrequency(currentLocalWord.getFrequency());
             finalWord.setExtraKeywordsEN(currentLocalWord.getExtraKeywordsEN());
             finalWord.setExtraKeywordsFR(currentLocalWord.getExtraKeywordsFR());
@@ -1427,5 +1425,18 @@ public class UtilitiesDb {
         }
 
         return sortedWordsList;
+    }
+
+    @NotNull
+    public static String cleanIdentifier(String string) {
+        if (OverridableUtilitiesGeneral.isEmptyString(string)) return "";
+        string = string.replaceAll("\\.", "*");
+        string = string.replaceAll("#", "*");
+        string = string.replaceAll("\\$", "*");
+        string = string.replaceAll("\\[", "*");
+        string = string.replaceAll("]", "*");
+        //string = string.replaceAll("\\{","*");
+        //string = string.replaceAll("}","*");
+        return string;
     }
 }

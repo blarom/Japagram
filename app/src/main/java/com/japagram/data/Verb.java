@@ -52,7 +52,7 @@ public class Verb implements Parcelable {
 
 
     Verb(Parcel in) {
-        verb_id = in.readLong();
+        id = in.readLong();
         family = in.readString();
         meaning = in.readString();
         trans = in.readString();
@@ -64,6 +64,9 @@ public class Verb implements Parcelable {
         latinRoot = in.readString();
         exceptionIndex = in.readString();
         altSpellings = in.readString();
+        activeLatinRoot = in.readString();
+        activeKanjiRoot = in.readString();
+        activeAltSpelling = in.readString();
     }
 
     public static final Creator<Verb> CREATOR = new Creator<Verb>() {
@@ -80,12 +83,12 @@ public class Verb implements Parcelable {
 
     @PrimaryKey()
     @ColumnInfo(index = true, name = COLUMN_ID)
-    public long verb_id;
-    public long getVerbId() {
-        return verb_id;
+    public long id;
+    public long getId() {
+        return id;
     }
-    public void setVerbId(long verb_id) {
-        this.verb_id = verb_id;
+    public void setId(long verb_id) {
+        this.id = verb_id;
     }
 
     @ColumnInfo(name = COLUMN_VERB_FAMILY)
@@ -231,7 +234,7 @@ public class Verb implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(verb_id);
+        parcel.writeLong(id);
         parcel.writeString(family);
         parcel.writeString(meaning);
         parcel.writeString(trans);
@@ -243,6 +246,9 @@ public class Verb implements Parcelable {
         parcel.writeString(latinRoot);
         parcel.writeString(exceptionIndex);
         parcel.writeString(altSpellings);
+        parcel.writeString(activeLatinRoot);
+        parcel.writeString(activeKanjiRoot);
+        parcel.writeString(activeAltSpelling);
     }
 
     public static class ConjugationCategory {
