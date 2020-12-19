@@ -111,17 +111,26 @@ public class UtilitiesKanjiDecomposition {
                 characteristics.set(Globals.KANJI_MEANING, meaningsENisEmpty? "-" : kanjiCharacter.getMeaningsEN());
                 break;
             case Globals.LANG_STR_FR:
-                characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsFR())?
-                        (meaningsENisEmpty? "-" : OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsFR());
+                if (OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsFR())) {
+                    if (meaningsENisEmpty) characteristics.set(Globals.KANJI_MEANING, "-");
+                    else {
+                        String text = OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language);
+                        characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.concat(new String[]{text, " ", kanjiCharacter.getMeaningsEN()}));
+                    }
+                } else {
+                    characteristics.set(Globals.KANJI_MEANING, kanjiCharacter.getMeaningsFR());
+                }
                 break;
             case Globals.LANG_STR_ES:
-                characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsES())?
-                        (meaningsENisEmpty? "-" :
-                                OvUtilsGeneral.concat(new String[]{
-                                        OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language),
-                                                " ",
-                                                kanjiCharacter.getMeaningsEN()})
-                                ) : kanjiCharacter.getMeaningsES());
+                if (OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsES())) {
+                    if (meaningsENisEmpty) characteristics.set(Globals.KANJI_MEANING, "-");
+                    else {
+                        String text = OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language);
+                        characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.concat(new String[]{text, " ", kanjiCharacter.getMeaningsEN()}));
+                    }
+                } else {
+                    characteristics.set(Globals.KANJI_MEANING, kanjiCharacter.getMeaningsES());
+                }
                 break;
         }
 
