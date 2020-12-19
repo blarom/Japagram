@@ -255,7 +255,7 @@ public final class Globals {
     public final static int XDB_COL_MEANINGS_EN                = 5;
     public final static int XDB_COL_MEANINGS_FR                = 6;
     public final static int XDB_COL_MEANINGS_ES                = 7;
-    public final static int XDB_COL_FREQUENCy                  = 8;
+    public final static int XDB_COL_FREQUENCY                  = 8;
 
     public final static int NDB_COL_INDEX                      = 0;
     public final static int NDB_COL_ROMAJI                     = 1;
