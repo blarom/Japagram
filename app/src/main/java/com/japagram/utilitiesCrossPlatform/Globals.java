@@ -53,6 +53,13 @@ public final class Globals {
     public final static int INDEX_KANJI_ROOT = 5;
     public final static int INDEX_ACTIVE_ALTSPELLING = 6;
 
+    public static final int WORD_TYPE_VERB_CONJ = 0;
+    public static final int WORD_TYPE_I_ADJ_CONJ = 1;
+    public static final int WORD_TYPE_NA_ADJ_CONJ = 2;
+    public static final int WORD_TYPE_ADVERB = 3;
+    public static final int WORD_TYPE_NOUN = 4;
+    public static final int WORD_TYPE_VERB = 5;
+
     public static final int KANJI_SEARCH_RESULT_DEFAULT = 0;
     public static final int KANJI_SEARCH_RESULT_SEARCH_TOO_BROAD = 1;
     public static final int KANJI_SEARCH_RESULT_NO_RESULTS = 2;

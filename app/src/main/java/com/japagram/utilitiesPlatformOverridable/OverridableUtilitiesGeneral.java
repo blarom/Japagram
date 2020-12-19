@@ -21,13 +21,19 @@ public class OverridableUtilitiesGeneral {
     public static String joinList(String separator, List<String> list) {
         return TextUtils.join(separator, list);
     }
+    public static String joinArray(String separator, String[] array) {
+        return TextUtils.join(separator, array);
+    }
+    public static String concatenate(String[] array) {
+        return TextUtils.join("", array);
+    }
     public static boolean arraysIntersect(List<String> list1, List<String> list2) {
         return false;
     }
     public static boolean isEmptyString(String text) {
         return TextUtils.isEmpty(text);
     }
-    public static String[] splitToChars(String text) {
+    public static String[] splitToChars(@NotNull String text) {
         return text.split("(?!^)");
     }
     @SuppressWarnings("deprecation")
@@ -40,8 +46,9 @@ public class OverridableUtilitiesGeneral {
     }
 
     //String manipulation utilities
+
     @NotNull
-    public static String convertToUTF8Index(String input_string) {
+    public static String convertToUTF8Index(@NotNull String input_string) {
         byte[] byteArray;
         byteArray = input_string.getBytes(StandardCharsets.UTF_8);
         StringBuilder prepared_word = new StringBuilder("1.");
@@ -96,4 +103,9 @@ public class OverridableUtilitiesGeneral {
         return stringValueOfHex;
     }
 
+    @NotNull
+    public static String[] splitAtCommasOutsideParentheses(@NotNull String text) {
+        // https://stackoverflow.com/questions/9030036/regex-to-match-only-commas-not-in-parentheses
+        return text.split(",(?![^(]*\\))(?![^\"']*[\"'](?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)");
+    }
 }

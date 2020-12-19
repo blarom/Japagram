@@ -1,23 +1,14 @@
 package com.japagram.utilitiesCrossPlatform;
 
-import android.os.Build;
-
 import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class UtilitiesGeneral {
 
@@ -34,7 +25,7 @@ public class UtilitiesGeneral {
     public static String removeDuplicatesFromCommaList(String input_list) {
 
         boolean is_repeated;
-        List<String> parsed_cumulative_meaning_value = Arrays.asList(splitAtCommasOutsideParentheses(input_list));
+        List<String> parsed_cumulative_meaning_value = Arrays.asList(OverridableUtilitiesGeneral.splitAtCommasOutsideParentheses(input_list));
         List<String> final_cumulative_meaning_value_array = new ArrayList<>();
         String current_value;
         for (int j = 0; j < parsed_cumulative_meaning_value.size(); j++) {
@@ -111,12 +102,6 @@ public class UtilitiesGeneral {
             return original;
         }
         return original.substring(0, 1).toUpperCase() + original.substring(1);
-    }
-
-    @NotNull
-    public static String[] splitAtCommasOutsideParentheses(@NotNull String text) {
-        // https://stackoverflow.com/questions/9030036/regex-to-match-only-commas-not-in-parentheses
-        return text.split(",(?![^(]*\\))(?![^\"']*[\"'](?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)");
     }
 
     @NotNull

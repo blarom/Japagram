@@ -1,6 +1,7 @@
 package com.japagram.utilitiesPlatformOverridable;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.japagram.R;
 import com.japagram.utilitiesCrossPlatform.Globals;
@@ -17,6 +18,9 @@ public final class OverridableUtilitiesResources {
             case Globals.LANG_STR_ES: return context.getResources().getString(R.string.language_label_spanish).toLowerCase();
             default: return context.getResources().getString(R.string.language_label_english).toLowerCase();
         }
+    }
+    public static String concatenate(String[] strings) {
+        return TextUtils.join("", strings);
     }
     public static String getString(String requestedString, @NotNull Context context, int resourceMap, String language) {
         switch (resourceMap) {
@@ -44,7 +48,14 @@ public final class OverridableUtilitiesResources {
                 map.put("intrans_", R.string.intrans_);
                 map.put("trans_intrans_", R.string.trans_intrans_);
                 map.put("verb", R.string.verb);
+                map.put("i_adj", R.string.i_adj);
+                map.put("na_adj", R.string.na_adj);
                 map.put("unavailable_select_word_to_see_meanings", R.string.unavailable_select_word_to_see_meanings);
+                map.put("from_conjugated_form", R.string.from_conjugated_form);
+                map.put("from_associated_word", R.string.from_associated_word);
+                map.put("derived_from", R.string.derived_from);
+                map.put("from_alt_form", R.string.from_alt_form);
+                map.put("from_alt_form_containing", R.string.from_alt_form_containing);
                 break;
             case Globals.RESOURCE_MAP_VERB_FAMILIES:
                 map.put("verb_family_su", R.string.verb_family_su);

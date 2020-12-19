@@ -21,10 +21,9 @@ import com.japagram.R;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
 import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDictSearch;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesAndroid.UtilitiesPrefs;
-import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
-import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
 import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesResources;
 
@@ -51,7 +50,10 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     private final String mInputQuery;
     private final int mInputQueryTextType;
     private final String mInputQueryFirstLetter;
-    private boolean[] mActiveMeaningLanguages;
+    private final String mInputQueryNoSpaces;
+    private final String mInputQueryLatin;
+    private final String mLanguageFromResource;
+    private final boolean[] mActiveMeaningLanguages;
     private Object[][] mVisibilitiesRegister;
     private List<Word> mWordsList;
     final private DictionaryItemClickHandler mOnItemClickHandler;
@@ -63,7 +65,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     private final LinearLayout.LayoutParams mChildLineParams;
     private final LinearLayout.LayoutParams mubChildLineParams;
     private boolean mShowSources = false;
-    private String mUILanguage;
+    private final String mLanguage;
 
     public DictionaryRecyclerViewAdapter(Context context,
                                          DictionaryItemClickHandler listener,
@@ -75,12 +77,26 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         this.mWordsList = wordsList;
         this.mOnItemClickHandler = listener;
         this.mInputQuery = inputQuery.getOriginal();
-        this.mUILanguage = language;
+        this.mLanguage = language;
         createVisibilityArray();
 
-        mInputQueryTextType = UtilitiesQuery.getTextType(mInputQuery);
-        mInputQueryFirstLetter = (mInputQuery.length()>0) ? mInputQuery.substring(0,1) : "";
+        mInputQueryTextType = inputQuery.getOriginalType();
+        mInputQueryFirstLetter = (OverridableUtilitiesGeneral.isEmptyString(inputQuery.getOriginal())) ? "" : inputQuery.getOriginal().substring(0,1);
+        mInputQueryNoSpaces = inputQuery.getOriginal().replace(" ","");
+        mInputQueryLatin = inputQuery.getWaapuroConversions().get(0);
 
+        switch (mLanguage) {
+            case Globals.LANG_STR_EN:
+                mLanguageFromResource = mContext.getResources().getString(R.string.language_label_english);
+                break;
+            case Globals.LANG_STR_FR:
+                mLanguageFromResource = mContext.getResources().getString(R.string.language_label_french);
+                break;
+            case Globals.LANG_STR_ES:
+                mLanguageFromResource = mContext.getResources().getString(R.string.language_label_spanish);
+                break;
+            default: mLanguageFromResource = mContext.getResources().getString(R.string.language_label_english);
+        }
         mDroidSansJapaneseTypeface = typeface;
 
         mChildLineParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, 2 );
@@ -212,7 +228,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //endregion
 
         //region Setting the wordMeaning elements
-        switch (mUILanguage) {
+        switch (mLanguage) {
             case Globals.LANG_STR_EN:
                 if (mActiveMeaningLanguages[Globals.LANG_EN]) setMeaningsLayout(position, holder, Globals.LANG_STR_EN);
                 break;
@@ -235,179 +251,43 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         mWordsSourceInfo = new ArrayList<>();
         mWordsMeaningExtract = new ArrayList<>();
         mWordsTypeIsVerb = new ArrayList<>();
+        List<Word.Meaning> meanings;
+        boolean onlyEnglishMeaningsAvailable;
 
         if (mWordsList == null) return;
 
         for (Word word : mWordsList) {
 
             //region Getting the word characteristics
-            String romaji = word.getRomaji();
-            String kanji = word.getKanji();
-            String alternatespellings = word.getAltSpellings();
-            String keywords = word.getExtraKeywordsEN();
-            String matchingConj = word.getMatchingConj() == null? "" : word.getMatchingConj();
-            String type = "";
-            List<Word.Meaning> meanings = new ArrayList<>();
+            Object[] results =  UtilitiesDictSearch.getDisplayableMeanings(word, mLanguage);
+            meanings = (List<Word.Meaning>) results[0];
+            onlyEnglishMeaningsAvailable = (boolean) results[1];
 
-            String language = "";
-            switch (mUILanguage) {
-                case Globals.LANG_STR_EN:
-                    language = mContext.getResources().getString(R.string.language_label_english);
-                    meanings = word.getMeaningsEN();
-                    keywords = word.getExtraKeywordsEN();
-                    break;
-                case Globals.LANG_STR_FR:
-                    language = mContext.getResources().getString(R.string.language_label_french);
-                    meanings = word.getMeaningsFR();
-                    keywords = word.getExtraKeywordsFR();
-                    break;
-                case Globals.LANG_STR_ES:
-                    language = mContext.getResources().getString(R.string.language_label_spanish);
-                    meanings = word.getMeaningsES();
-                    keywords = word.getExtraKeywordsES();
-                    break;
-            }
-
-            String extract = "";
-            if (meanings == null || meanings.size() == 0) {
-                meanings = word.getMeaningsEN();
-                extract += OverridableUtilitiesResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL, mUILanguage)
-                        + " "
-                        + language.toLowerCase()
-                        + " "
-                        + OverridableUtilitiesResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL, mUILanguage);
-            }
-            else if (meanings.get(0).getMeaning().equals("*")) {
-                type = meanings.get(0).getType();
-                if (Globals.PARTS_OF_SPEECH.containsKey(type)) {
-                    //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    extract = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES, mUILanguage);
-                }
-                else {
-                    extract = "*";
-                }
-            }
-            else {
-                extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
-            }
+            String extract = UtilitiesDictSearch.getFinalWordMeaningsExtract(onlyEnglishMeaningsAvailable, meanings, mContext, mLanguage, mLanguageFromResource);
             mWordsMeaningExtract.add(OverridableUtilitiesGeneral.fromHtml(extract));
 
-
-            StringBuilder cumulative_meaning_value = new StringBuilder();
-            boolean wordHasPhraseConstruction = false;
-            boolean typeIsVerbConjugation = false;
-            boolean typeIsiAdjectiveConjugation = false;
-            boolean typeIsnaAdjectiveConjugation = false;
-            boolean typeIsVerb = false;
-            boolean typeIsAdverb = false;
-            boolean typeIsNoun = false;
-            for (int j = 0; j< meanings.size(); j++) {
-                cumulative_meaning_value.append(meanings.get(j).getMeaning());
-                if (j< meanings.size()-1) { cumulative_meaning_value.append(", "); }
-                if (j==0) {
-                    type = meanings.get(j).getType();
-                    typeIsVerbConjugation = type.equals("VC");
-                    typeIsiAdjectiveConjugation = type.equals("iAC");
-                    typeIsnaAdjectiveConjugation = type.equals("naAC");
-                    String[] typeElements = type.split(";");
-                    typeIsVerb = type.contains("V") && !type.equals("VC") && !Arrays.asList(typeElements).contains("V");
-                    typeIsAdverb = type.contains("A");
-                    typeIsNoun = type.contains("N");
-                }
-                if (!wordHasPhraseConstruction) wordHasPhraseConstruction = type.equals("PC");
-            }
-            mWordsTypeIsVerb.add(typeIsVerb);
+            boolean[] types = UtilitiesDictSearch.getTypesFromWordMeanings(meanings);
+            mWordsTypeIsVerb.add(types[Globals.WORD_TYPE_VERB]);
             //endregion
 
             //region Updating the parent Romaji and Kanji values
-            String parentRomaji;
-            if (typeIsVerbConjugation && romaji.length()>3 && romaji.substring(0,3).equals("(o)")) {
-                parentRomaji = "(o)["
-                        + mContext.getString(R.string.verb)
-                        + "] + "
-                        + romaji.substring(3);
-            }
-            else if (typeIsVerbConjugation && romaji.length()>3 && !romaji.substring(0,3).equals("(o)")) {
-                parentRomaji = "["
-                        + mContext.getString(R.string.verb)
-                        + "] + "
-                        + romaji;
-            }
-            else if (typeIsiAdjectiveConjugation) parentRomaji = "["+mContext.getString(R.string.i_adj)+"] + " + romaji;
-            else if (typeIsnaAdjectiveConjugation) parentRomaji = "["+mContext.getString(R.string.na_adj)+"] + " + romaji;
-            else if (typeIsAdverb && !typeIsNoun && romaji.length()>2
-                    && romaji.substring(romaji.length()-2).equals("ni")
-                    && !romaji.substring(romaji.length()-3).equals(" ni")) parentRomaji = romaji.substring(0,romaji.length()-2) + " ni";
-            else parentRomaji = romaji;
-
-            String romajiAndKanji;
-            if (romaji.equals("")) romajiAndKanji = kanji;
-            else if (kanji.equals("")) romajiAndKanji = romaji;
-            else romajiAndKanji = parentRomaji.toUpperCase() + " (" + kanji + ")";
-            String inputQueryNoSpaces = mInputQuery.replace(" ","");
-            String inputQueryLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(mInputQuery).get(Globals.TEXT_TYPE_LATIN);
-            String romajiAndKanjiNoSpaces = romajiAndKanji.replace(" ","");
+            String romajiAndKanji = UtilitiesDictSearch.getRomajiAndKanji(types, word, mContext, mLanguage);
             mWordsRomajiAndKanji.add(romajiAndKanji);
             //endregion
 
             //region Updating the parent Source Info
-            List<String> sourceInfo = new ArrayList<>();
-            if (!romajiAndKanji.contains(mInputQuery)
-                    && !romajiAndKanji.contains(inputQueryNoSpaces)
-                    && !romajiAndKanjiNoSpaces.contains(mInputQuery)
-                    && !romajiAndKanjiNoSpaces.contains(inputQueryNoSpaces)
-                    && !romajiAndKanjiNoSpaces.contains(inputQueryLatin)) {
-
-                String latin = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_LATIN);
-                String hiragana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_HIRAGANA);
-                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_KATAKANA);
-
-                if (!TextUtils.isEmpty(alternatespellings) && alternatespellings.contains(mInputQuery)) {
-                    String[] altSpellingElements = alternatespellings.split(",");
-                    boolean isExactMatch = false;
-                    for (String element : altSpellingElements) {
-                        if (mInputQuery.equals(element.trim())) {
-                            isExactMatch = true;
-                            break;
-                        }
-                    }
-                    if (isExactMatch) sourceInfo.add(mContext.getString(R.string.from_alt_form)+" \"" + mInputQuery + "\".");
-                    else sourceInfo.add(mContext.getString(R.string.from_alt_form_containing)+" \"" + mInputQuery + "\".");
-                }
-                else if (cumulative_meaning_value.toString().contains(mInputQuery) || cumulative_meaning_value.toString().contains(latin)) {
-                    //Ignore words where the input query is included in the meaning
-                }
-                else if (keywords != null && (keywords.contains(mInputQuery) || keywords.contains(inputQueryLatin))) {
-                    String[] keywordList = keywords.split(",");
-                    for (String element : keywordList) {
-                        String keyword = element.trim();
-                        if (!romaji.contains(keyword) && !kanji.contains(keyword) && !alternatespellings.contains(keyword)
-                                && !cumulative_meaning_value.toString().contains(keyword)) {
-                            sourceInfo.add(mContext.getString(R.string.from_associated_word)+" \"" + keyword + "\".");
-                            break;
-                        }
-                    }
-                }
-                else if (!TextUtils.isEmpty(matchingConj)
-                        && word.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT
-                            || word.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED
-                        && matchingConj.contains(mInputQuery)
-                            || matchingConj.contains(inputQueryNoSpaces)
-                            || matchingConj.contains(inputQueryLatin)) {
-                    sourceInfo.add((typeIsVerb)? mContext.getString(R.string.from_conjugated_form)+" \"" + matchingConj + "\"." : mContext.getString(R.string.from_associated_word)+" \"" + matchingConj + "\".");
-                }
-                else if ((mInputQueryTextType == Globals.TEXT_TYPE_KANJI
-                        && kanji.length() > 0 && !kanji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TEXT_TYPE_LATIN
-                        && romaji.length() > 0 && !romaji.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TEXT_TYPE_HIRAGANA
-                        && hiragana.length() > 0 && !hiragana.substring(0, 1).equals(mInputQueryFirstLetter))
-                        || (mInputQueryTextType == Globals.TEXT_TYPE_KATAKANA
-                        && katakana.length() > 0 && !katakana.substring(0, 1).equals(mInputQueryFirstLetter))
-                ) {
-                    sourceInfo.add(mContext.getString(R.string.derived_from) + " \"" + mInputQuery + "\".");
-                }
-            }
+            List<String> sourceInfo = UtilitiesDictSearch.prepareSource(
+                    mInputQuery,
+                    mInputQueryTextType,
+                    mInputQueryFirstLetter,
+                    mInputQueryLatin,
+                    mInputQueryNoSpaces,
+                    romajiAndKanji,
+                    word,
+                    meanings,
+                    types[Globals.WORD_TYPE_VERB],
+                    mLanguage,
+                    mContext);
 
             if (mShowSources) {
                 sourceInfo.add((word.getIsCommon())? mContext.getString(R.string.common_word) : mContext.getString(R.string.less_common_word));
@@ -416,10 +296,10 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
             mWordsSourceInfo.add(TextUtils.join(" ", sourceInfo));
             //endregion
-
         }
     }
-    private void setMeaningsLayout(final int position, final DictItemViewHolder holder, String language) {
+
+    private void setMeaningsLayout(final int position, final DictItemViewHolder holder, @NotNull String language) {
 
         String type;
         String fullType;
@@ -776,7 +656,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 mVisibilitiesRegister[i][PARENT_VISIBILITY] = false;
 
                 List<Word.Meaning> meanings = new ArrayList<>();
-                switch (mUILanguage) {
+                switch (mLanguage) {
                     case Globals.LANG_STR_EN: meanings = mWordsList.get(i).getMeaningsEN(); break;
                     case Globals.LANG_STR_FR: meanings = mWordsList.get(i).getMeaningsFR(); break;
                     case Globals.LANG_STR_ES: meanings = mWordsList.get(i).getMeaningsES(); break;

@@ -48,7 +48,7 @@ public class UtilitiesDb {
     @NotNull
     @Contract("_, _, _ -> param1")
     private static List<String> addMeaningElementsToListUpToMaxNumber(List<String> totalList, String meaning, int maxNumber) {
-        String[] meaningElements = UtilitiesGeneral.splitAtCommasOutsideParentheses(meaning);
+        String[] meaningElements = OverridableUtilitiesGeneral.splitAtCommasOutsideParentheses(meaning);
         if (meaningElements.length <= maxNumber) totalList.addAll(Arrays.asList(meaningElements));
         else totalList.addAll(Arrays.asList(meaningElements).subList(0, maxNumber));
         return totalList;
@@ -1030,7 +1030,7 @@ public class UtilitiesDb {
                 inputQuery = mInputQuery;
 
                 //If meaning has the exact word, get the length as follows
-                String[] currentMeaningIndividualElements = UtilitiesGeneral.splitAtCommasOutsideParentheses(currentMeaning);
+                String[] currentMeaningIndividualElements = OverridableUtilitiesGeneral.splitAtCommasOutsideParentheses(currentMeaning);
                 lateHitInMeaningPenalty = 0;
                 cumulativeMeaningLength = 0;
                 if (currentMeaning.equals(inputQuery)) {
@@ -1091,7 +1091,7 @@ public class UtilitiesDb {
             //region If the current word is a verb
             else {
 
-                String[] currentMeaningIndividualElements = UtilitiesGeneral.splitAtCommasOutsideParentheses(currentMeaning);
+                String[] currentMeaningIndividualElements = OverridableUtilitiesGeneral.splitAtCommasOutsideParentheses(currentMeaning);
                 if (!queryIsVerbWithTo) {
 
                     //Calculate the length first by adding "to " to the input query. If it leads to a hit, that means that this verb is relevant
