@@ -4,18 +4,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.japagram.R;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        UtilitiesPrefs.changeThemeColor(this);
+        AndroidUtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         View view = findViewById(R.id.activity_settings);
 
-        view.setBackgroundColor(UtilitiesPrefs.getResColorValue(this, R.attr.colorMonochromeBlend));
+        view.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(this, R.attr.colorMonochromeBlend));
     }
 }

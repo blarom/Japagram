@@ -8,9 +8,9 @@ import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesKanjiDecomposition;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -22,7 +22,7 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
     private final List<String[]> mRadicalsOnlyDatabase;
     private final int radicalIteration;
     private final int kanjiListIndex;
-    private final WeakReference<Context> contextRef;
+    private final Context mContext;
     public KanjiCharacterDecompositionAsyncResponseHandler listener;
     //endregion
 
@@ -32,7 +32,7 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
                                                 List<String[]> mRadicalsOnlyDatabase,
                                                 int kanjiListIndex,
                                                 KanjiCharacterDecompositionAsyncResponseHandler listener) {
-        contextRef = new WeakReference<>(context);
+        this.mContext = (new WeakReference<>(context)).get();
         this.inputQuery = inputQuery;
         this.radicalIteration = radicalIteration;
         this.mRadicalsOnlyDatabase = mRadicalsOnlyDatabase;
@@ -47,20 +47,19 @@ public class KanjiCharacterDecompositionAsyncTask extends AsyncTask<Void, Void, 
     protected Object doInBackground(Void... voids) {
 
         //region Parameters
-        RoomKanjiDatabase mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
-        Resources mLocalizedResources = UtilitiesAndroidIO.getLocalizedResources(contextRef.get(), Locale.getDefault());
+        RoomKanjiDatabase mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(mContext);
 
         // Search for the input in the database and retrieve the result's characteristics
 
-        String language = LocaleHelper.getLanguage(contextRef.get());
+        String language = LocaleHelper.getLanguage(mContext);
         String concatenated_input = UtilitiesGeneral.removeSpecialCharacters(inputQuery);
-        String inputHexIdentifier = OverridableUtilitiesGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
+        String inputHexIdentifier = OvUtilsGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
         KanjiCharacter mCurrentKanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(inputHexIdentifier);
-        List<String> currentKanjiDetailedCharacteristics = UtilitiesKanjiDecomposition.getKanjiDetailedCharacteristics(mCurrentKanjiCharacter, language, mLocalizedResources);
-        List<String> currentKanjiMainRadicalInfo = UtilitiesKanjiDecomposition.getKanjiRadicalCharacteristics(mCurrentKanjiCharacter, mRadicalsOnlyDatabase, mLocalizedResources);
+        List<String> currentKanjiDetailedCharacteristics = UtilitiesKanjiDecomposition.getKanjiDetailedCharacteristics(mCurrentKanjiCharacter, language, mContext);
+        List<String> currentKanjiMainRadicalInfo = UtilitiesKanjiDecomposition.getKanjiRadicalCharacteristics(mCurrentKanjiCharacter, mRadicalsOnlyDatabase, mContext, language);
 
         List<List<String>> decomposedKanji = UtilitiesKanjiDecomposition.Decomposition(inputQuery, mRoomKanjiDatabase);
-        Object[] radicalInfo = UtilitiesKanjiDecomposition.getRadicalInfo(inputQuery, mRadicalsOnlyDatabase, mRoomKanjiDatabase, language, mLocalizedResources);
+        Object[] radicalInfo = UtilitiesKanjiDecomposition.getRadicalInfo(inputQuery, mRadicalsOnlyDatabase, mRoomKanjiDatabase, language, mContext);
 
         return new Object[] {
                 decomposedKanji,

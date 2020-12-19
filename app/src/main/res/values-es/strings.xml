@@ -747,7 +747,7 @@
     <string name="use_default_font_for_asian_characters">Use la fuente predeterminada para los caracteres asiáticos (los caracteres chinos se mostrarán en la fuente predeterminada de mandarín)</string>
     <string name="use_japanese_font_in_texts">Usar Fuente Japonesa En Textos</string>
     <string name="characters_main_radical_is">El principal radical del carácter es</string>
-    <string name="aditional_strokes">pinceladas adicionales</string>
+    <string name="additional_strokes">pinceladas adicionales</string>
     <string name="additional_stroke">pincelada adicional</string>
     <string name="number_abbrev_">No.</string>
     <string name="with">con</string>

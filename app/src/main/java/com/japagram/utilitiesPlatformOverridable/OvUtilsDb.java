@@ -17,8 +17,8 @@ import com.japagram.utilitiesCrossPlatform.Globals;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class OverridableUtilitiesDb {
-    public static List<Word> getWordListByWordIds(List<Long> wordIds, Context context, int db) {
+public final class OvUtilsDb {
+    public static List<Word> getWordListByWordIds(List<Long> wordIds, Context context, int db, String language) {
         switch (db) {
             case Globals.DB_CENTRAL:
                 RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);

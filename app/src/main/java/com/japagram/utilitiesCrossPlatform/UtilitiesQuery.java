@@ -1,6 +1,6 @@
 package com.japagram.utilitiesCrossPlatform;
 
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -182,7 +182,7 @@ public final class UtilitiesQuery {
         //Replacing relevant phonemes with the Waapuro equivalent
         List<List<String>> possibleInterpretations = new ArrayList<>();
         String[] newPhonemes;
-        for (String character : OverridableUtilitiesGeneral.splitToChars(text)) {
+        for (String character : OvUtilsGeneral.splitToChars(text)) {
             switch (character) {
                 case "ō":
                 case "ô":
@@ -246,7 +246,7 @@ public final class UtilitiesQuery {
             possibleInterpretations = addPhonemesToInterpretations(possibleInterpretations, newPhonemes);
         }
         for (int i=0; i<possibleInterpretations.size(); i++) {
-            finalStrings.add(OverridableUtilitiesGeneral.joinList("", possibleInterpretations.get(i)));
+            finalStrings.add(OvUtilsGeneral.joinList("", possibleInterpretations.get(i)));
         }
         return finalStrings;
     }
@@ -318,10 +318,10 @@ public final class UtilitiesQuery {
             String[] romanizations = getOfficialRomanizations(hiragana);
             hiraganaConversions.add(hiragana);
             katakanaConversions.add(katakana);
-            waapuroConversions.add(romanizations[Globals.ROM_WAAPURO]);
-            conversionsMH.add(romanizations[Globals.ROM_MOD_HEPBURN]);
-            conversionsNS.add(romanizations[Globals.ROM_NIHON_SHIKI]);
-            conversionsKS.add(romanizations[Globals.ROM_KUNREI_SHIKI]);
+            waapuroConversions.add(romanizations[0]);
+            conversionsMH.add(romanizations[1]);
+            conversionsNS.add(romanizations[2]);
+            conversionsKS.add(romanizations[3]);
         }
 
         return new Object[]{
@@ -339,7 +339,7 @@ public final class UtilitiesQuery {
 
         List<String> conversionsFirstElement = new ArrayList<>();
 
-        if (OverridableUtilitiesGeneral.isEmptyString(text)) {
+        if (OvUtilsGeneral.isEmptyString(text)) {
             conversionsFirstElement.add("");
             conversionsFirstElement.add("");
             conversionsFirstElement.add("");
@@ -448,7 +448,7 @@ public final class UtilitiesQuery {
         Object[] results = getInglessVerb(originalCleaned.replace("'",""), originalType);
         String ingless = (String) results[0];
         boolean hasIngEnding = (boolean) results[1];
-        String originalNoIng = hasIngEnding? "to " + ingless : original;
+        String originalNoIng = hasIngEnding? OvUtilsGeneral.concat(new String[]{"to ", ingless}) : original;
         String originalCleanedNoSpaces = originalCleaned.replace("\\s","");
         boolean isVerbWithTo = false;
         boolean isTooShort = false;

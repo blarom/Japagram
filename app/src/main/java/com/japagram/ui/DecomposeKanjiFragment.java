@@ -24,12 +24,12 @@ import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -85,11 +85,11 @@ public class DecomposeKanjiFragment extends Fragment implements
 
         //Setting the Typeface
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
         getDecomposition();
-        mLocalizedResources = UtilitiesAndroidIO.getLocalizedResources(getContext(), Locale.getDefault());
+        mLocalizedResources = AndroidUtilitiesIO.getLocalizedResources(getContext(), Locale.getDefault());
 
         return rootView;
     }
@@ -147,7 +147,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (text instanceof SpannableString) {
                 SpannableString span = (SpannableString) text;
-                if (UtilitiesAndroidIO.isPrintable(span.toString())) {
+                if (AndroidUtilitiesIO.isPrintable(span.toString())) {
                     tv.setText(span);
                 }
                 else {
@@ -156,7 +156,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             }
             else {
                 String string = (String) text;
-                if (UtilitiesAndroidIO.isPrintable(string)) {
+                if (AndroidUtilitiesIO.isPrintable(string)) {
                     tv.setText(string);
                 }
                 else {
@@ -193,7 +193,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         final TextView nameReadingTV = decompositionContainer.findViewById(R.id.decomposition_element_name_readings_value);
         final TextView meaningTV = decompositionContainer.findViewById(R.id.decomposition_element_meanings_value);
 
-        if (UtilitiesPrefs.getPreferenceShowDecompKanjiStructureInfo(getActivity())) {
+        if (AndroidUtilitiesPrefs.getPreferenceShowDecompKanjiStructureInfo(getActivity())) {
             structureTitleTV.setVisibility(View.VISIBLE);
             structureTV.setVisibility(View.VISIBLE);
         } else {
@@ -209,7 +209,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         String[] structure_info;
         String mainKanji = decomposedKanji.get(0).get(0);
 
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         boolean character_not_found_in_KanjiDictDatabase = true;
         for (String characteristic : currentKanjiDetailedCharacteristics) {
@@ -232,7 +232,7 @@ public class DecomposeKanjiFragment extends Fragment implements
         //region Setting the main Kanji
         kanjiTV.setTypeface(mDroidSansJapaneseTypeface);
         kanjiTV.setTextLocale(Locale.JAPAN);
-        kanjiTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
+        kanjiTV.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
         setPrintableKanji(kanjiTV, mainKanji);
         kanjiTV.setHint(mainKanji);
         structure_info = getStructureInfo(decomposedKanji.get(0).get(1));
@@ -251,7 +251,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             final TextView tv = new TextView(getContext());
             tv.setLayoutParams(radical_gallery_layoutParams);
             display_text = decomposedKanji.get(i).get(0);
-            text = OverridableUtilitiesGeneral.fromHtml("<font color='"+ UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
+            text = OvUtilsGeneral.fromHtml("<font color='"+ AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced)+"'>" + display_text + "</font>");
             clickable_text = new SpannableString(text);
 
             tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -295,12 +295,12 @@ public class DecomposeKanjiFragment extends Fragment implements
                 //Getting the decomposition
                 startGettingDecompositionAsynchronously(tv.getHint().toString(), radicalIteration1 + 1, kanjiListIndex1);
 
-                UtilitiesAndroidIO.showAndFadeOutAndHideImage(mDownArrowImageView, 1000);
+                AndroidUtilitiesIO.showAndFadeOutAndHideImage(mDownArrowImageView, 1000);
 
             });
             tv.setTag(kanjiListIndex +";"+ radicalIteration +";"+mainKanji);
             tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.DecompKanjiSize));
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
+            tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryMorePronounced));
             tv.setPadding(10,0,10,0);
             tv.setMovementMethod(LinkMovementMethod.getInstance());
             radicalGalleryLL.addView(tv);
@@ -308,7 +308,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             if (i < decomposedKanji.size()-1) {
                 TextView separatorTV = new TextView(getContext());
                 separatorTV.setText("\u00B7");
-                separatorTV.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeContrast));
+                separatorTV.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeContrast));
                 separatorTV.setPadding(10,0,10,0);
                 separatorTV.setTextSize(30);
                 separatorTV.setTypeface(null, Typeface.BOLD);

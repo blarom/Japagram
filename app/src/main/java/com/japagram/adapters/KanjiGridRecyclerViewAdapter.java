@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.japagram.R;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,18 +67,18 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
                 || kanji.contains("7") || kanji.contains("8") || kanji.contains("9")) {
             tv.setTextSize(26);
             tv.setTypeface(null, Typeface.BOLD);
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal));
+            tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal));
         }
         else if (kanji.contains("variant")) {
             tv.setTextSize(28);
             tv.setText(kanji.substring(0,1));
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLessPronounced));
+            tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLessPronounced));
         }
         else {
             tv.setTextSize(isResultsGrid? 32 : 28);
             tv.setText(kanji);
             tv.setTypeface(null, Typeface.NORMAL);
-            tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryMorePronounced));
+            tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryMorePronounced));
         }
 
         tv.setOnClickListener(v -> {

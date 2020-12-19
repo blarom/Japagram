@@ -17,7 +17,7 @@ import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.ui.MainActivity;
 
 import java.util.Locale;
@@ -69,7 +69,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
         final boolean showNames = intent.getBooleanExtra(getString(R.string.show_names), false);
         boolean installExtendedDb = intent.getBooleanExtra(getString(R.string.install_extended_db), false);
         boolean installNamesDb = intent.getBooleanExtra(getString(R.string.install_names_db), true);
-        boolean firstTimeRunningApp = UtilitiesPrefs.getAppPreferenceFirstTimeRunningApp(this);
+        boolean firstTimeRunningApp = AndroidUtilitiesPrefs.getAppPreferenceFirstTimeRunningApp(this);
 
         Intent appIntent = new Intent(this, MainActivity.class);
         appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -165,10 +165,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                 String content;
                 int currentProgress = 100;
                 if (mExtendedDbBeingLoaded) {
-                    currentProgress = (int) UtilitiesPrefs.getProgressValueExtendedDb(getBaseContext());
+                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueExtendedDb(getBaseContext());
                     content = getBaseContext().getString(R.string.installing_EDICT) + " (" + currentProgress + "%)";
                 } else if (mNamesDbBeingLoaded) {
-                    currentProgress = (int) UtilitiesPrefs.getProgressValueNamesDb(getBaseContext());
+                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueNamesDb(getBaseContext());
                     content = getBaseContext().getString(R.string.installing_names) + " (" + currentProgress + "%)";
                 } else {
                     content = getBaseContext().getString(R.string.finished);

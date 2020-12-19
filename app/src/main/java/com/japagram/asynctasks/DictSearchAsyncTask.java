@@ -11,7 +11,7 @@ import com.japagram.data.Word;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDictSearch;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -46,12 +46,12 @@ public class DictSearchAsyncTask extends AsyncTask<Void, Void, List<Word>> {
         Log.i(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Starting");
         String language = LocaleHelper.getLanguage(contextRef.get());
 
-        boolean finishedLoadingExtendedDb = UtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(context);
-        boolean finishedLoadingNamesDb = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
+        boolean finishedLoadingExtendedDb = AndroidUtilitiesPrefs.getAppPreferenceExtendedDatabasesFinishedLoadingFlag(context);
+        boolean finishedLoadingNamesDb = AndroidUtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
 
         boolean roomExtendedDbIsAvailable = finishedLoadingExtendedDb && RoomExtendedDatabase.getInstance(context) != null;
         boolean roomNamesDbIsAvailable = (finishedLoadingNamesDb && mShowNames) && RoomNamesDatabase.getInstance(context) != null;
-        boolean roomNamesDatabasesFinishedLoading = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
+        boolean roomNamesDatabasesFinishedLoading = AndroidUtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(context);
 
         return UtilitiesDictSearch.getMatchingWords(
                 roomExtendedDbIsAvailable,

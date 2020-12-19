@@ -875,7 +875,7 @@
     <string name="alt_form">alt. form</string>
     <string name="use_default_font_for_asian_characters">Use default font for Asian characters (Chinese characters will be displayed in the default Mandarin font)</string>
     <string name="characters_main_radical_is">Character\'s main radical is</string>
-    <string name="aditional_strokes">additional strokes</string>
+    <string name="additional_strokes">additional strokes</string>
     <string name="additional_stroke">additional stroke</string>
     <string name="number_abbrev_">No.</string>
     <string name="with">with</string>

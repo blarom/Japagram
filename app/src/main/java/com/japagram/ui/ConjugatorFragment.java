@@ -25,10 +25,10 @@ import com.japagram.data.ConjugationTitle;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -134,7 +134,7 @@ public class ConjugatorFragment extends Fragment implements
 
         if (getContext()!=null) {
             AssetManager am = getContext().getApplicationContext().getAssets();
-            mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+            mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                     Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
         }
 
@@ -202,7 +202,7 @@ public class ConjugatorFragment extends Fragment implements
     }
     private void showSelectedVerbConjugations(final int verbIndex) {
 
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
         if (mMatchingVerbs.size() == 0) return;
 
         //Showing the verb conjugations
@@ -403,14 +403,14 @@ public class ConjugatorFragment extends Fragment implements
             else SpinnerText = "[" + verb.getPreposition() + "] ";
             TextView verbchooser_Prep = mySpinner.findViewById(R.id.verbchooser_Prep);
             verbchooser_Prep.setText(SpinnerText);
-            verbchooser_Prep.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserPrepositionColor));
+            verbchooser_Prep.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserPrepositionColor));
 
 
             //Setting the Kanji and Romaji
             SpinnerText = verb.getKanji() + " (" + verb.getRomaji() + ")";
             TextView verbchooser_Kanji_and_ustem = mySpinner.findViewById(R.id.verbchooser_Kanji_and_ustem);
             verbchooser_Kanji_and_ustem.setText(SpinnerText);
-            verbchooser_Kanji_and_ustem.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserKanjiRomajiColor));
+            verbchooser_Kanji_and_ustem.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserKanjiRomajiColor));
 
             //If the verb was found by an altSpelling, update the Romaji/Kanji title
             if (!verb.getActiveAltSpelling().equals("")
@@ -432,13 +432,13 @@ public class ConjugatorFragment extends Fragment implements
             }
             TextView verbchooser_Characteristics = mySpinner.findViewById(R.id.verbchooser_Characteristics);
             verbchooser_Characteristics.setText(SpinnerText);
-            verbchooser_Characteristics.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserCharacteristicsColor));
+            verbchooser_Characteristics.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserCharacteristicsColor));
 
             //Setting the meaning
             SpinnerText = verb.getMeaning();
             TextView verbchooser_LatinMeaning = mySpinner.findViewById(R.id.verbchooser_LatinMeaning);
             verbchooser_LatinMeaning.setText(SpinnerText);
-            verbchooser_LatinMeaning.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserMeaningColor));
+            verbchooser_LatinMeaning.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorVerbChooserMeaningColor));
 
             return mySpinner;
         }
@@ -479,13 +479,13 @@ public class ConjugatorFragment extends Fragment implements
             TextView Upper_text = mySpinner.findViewById(R.id.UpperPart);
             Upper_text.setText(SpinnerText);
             Upper_text.setTypeface(mDroidSansJapaneseTypeface, Typeface.BOLD);
-            Upper_text.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorConjugationChooserUpperColor));
+            Upper_text.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorConjugationChooserUpperColor));
 
             //Displaying the first element in the Conjugation, e.g. PrPlA in Simple Form
             SpinnerText = conjugationCategory.getConjugations().get(0).getConjugationLatin();
             TextView Lower_text = mySpinner.findViewById(R.id.LowerPart);
             Lower_text.setText(SpinnerText);
-            Lower_text.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorConjugationChooserLowerColor));
+            Lower_text.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.textConjugatorConjugationChooserLowerColor));
 
             return mySpinner;
         }

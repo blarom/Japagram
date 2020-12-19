@@ -9,15 +9,14 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 
 import com.japagram.R;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
 
 import org.jetbrains.annotations.NotNull;
 
 import androidx.annotation.ColorInt;
 import androidx.preference.PreferenceManager;
 
-public final class UtilitiesPrefs {
-    private UtilitiesPrefs() {
+public final class AndroidUtilitiesPrefs {
+    private AndroidUtilitiesPrefs() {
     }
 
     //Preference utilities
@@ -131,7 +130,7 @@ public final class UtilitiesPrefs {
         } catch (Exception e) {
             queryHistorySize = Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_default_value));
         } finally {
-            queryHistorySize = UtilitiesAndroidIO.truncateIntToRange(queryHistorySize,
+            queryHistorySize = AndroidUtilitiesIO.truncateIntToRange(queryHistorySize,
                     Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_min_value)),
                     Integer.parseInt(context.getResources().getString(R.string.pref_query_history_size_max_value)));
         }

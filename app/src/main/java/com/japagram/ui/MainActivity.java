@@ -20,11 +20,11 @@ import com.japagram.R;
 import com.japagram.data.RoomExtendedDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 
 import org.jetbrains.annotations.NotNull;
@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity implements
     //Lifecycle methods
     @Override protected void onCreate(Bundle savedInstanceState) {
 
-        UtilitiesPrefs.changeThemeColor(this);
+        AndroidUtilitiesPrefs.changeThemeColor(this);
         //super.onCreate(null);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -158,7 +158,7 @@ public class MainActivity extends BaseActivity implements
     @Override protected void onDestroy() {
         super.onDestroy();
         try {
-            UtilitiesAndroidIO.trimCache(this);
+            AndroidUtilitiesIO.trimCache(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -246,13 +246,13 @@ public class MainActivity extends BaseActivity implements
             setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
         }
         else if (key.equals(getString(R.string.pref_OCR_image_saturation_key))) {
-            mOcrImageDefaultSaturation = UtilitiesAndroidIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultSaturation = AndroidUtilitiesIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_contrast_key))) {
-            mOcrImageDefaultContrast = UtilitiesAndroidIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultContrast = AndroidUtilitiesIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
         }
         else if (key.equals(getString(R.string.pref_OCR_image_brightness_key))) {
-            mOcrImageDefaultBrightness = UtilitiesAndroidIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultBrightness = AndroidUtilitiesIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         }
     }
     private void setupSharedPreferences() {
@@ -270,9 +270,9 @@ public class MainActivity extends BaseActivity implements
         setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
         setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
         setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
-        mOcrImageDefaultContrast = UtilitiesAndroidIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultSaturation = UtilitiesAndroidIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultBrightness = UtilitiesAndroidIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultContrast = AndroidUtilitiesIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultSaturation = AndroidUtilitiesIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+        mOcrImageDefaultBrightness = AndroidUtilitiesIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
     private void setShowNames(boolean state) {
@@ -343,11 +343,11 @@ public class MainActivity extends BaseActivity implements
     private void initializeParameters() {
 
         mBinding =  ButterKnife.bind(this);
-        mBackground.setBackgroundResource(UtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
+        mBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
 
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
-        mQueryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
+        mQueryHistorySize = AndroidUtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
 
         //Code allowing to bypass strict mode
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -355,7 +355,7 @@ public class MainActivity extends BaseActivity implements
 
         // Remove the software keyboard if the EditText is not in focus
         findViewById(android.R.id.content).setOnTouchListener((v, event) -> {
-            UtilitiesAndroidIO.hideSoftKeyboard(MainActivity.this);
+            AndroidUtilitiesIO.hideSoftKeyboard(MainActivity.this);
             v.performClick();
             return false;
         });
@@ -543,7 +543,7 @@ public class MainActivity extends BaseActivity implements
         if (!alreadyExistsInHistory) {
             if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaning);
             else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaning);
-            int queryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(context);
+            int queryHistorySize = AndroidUtilitiesPrefs.getPreferenceQueryHistorySize(context);
             if (queryHistory_QueryRomajiMeaning.size() > queryHistorySize) queryHistory_QueryRomajiMeaning.remove(queryHistorySize);
         }
 
@@ -594,7 +594,7 @@ public class MainActivity extends BaseActivity implements
         mQueryHistory = getQueryHistoryFromPreferences(getBaseContext());
 
         //Updating its size
-        mQueryHistorySize = UtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
+        mQueryHistorySize = AndroidUtilitiesPrefs.getPreferenceQueryHistorySize(getBaseContext());
         if (mQueryHistory.size() > mQueryHistorySize) mQueryHistory = mQueryHistory.subList(0, mQueryHistorySize);
 
         //Saving the history
@@ -653,7 +653,7 @@ public class MainActivity extends BaseActivity implements
         mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
         mSecondFragmentPlaceholder.bringToFront();
 
-        mShowNames = UtilitiesPrefs.getPreferenceShowNames(this);
+        mShowNames = AndroidUtilitiesPrefs.getPreferenceShowNames(this);
 
         mDictionaryFragment = new DictionaryFragment();
         Bundle bundle = new Bundle();

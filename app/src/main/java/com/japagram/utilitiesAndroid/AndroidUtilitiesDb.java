@@ -7,7 +7,7 @@ import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class UtilitiesDb {
+public class AndroidUtilitiesDb {
     private static FirebaseDatabase mDatabase;
 
 
@@ -95,7 +95,7 @@ public class UtilitiesDb {
         word.setMeaningsEN(getMeanings(centralDatabase, meaningsENDatabase, Globals.COLUMN_MEANING_EN_INDEXES,
                 multExplENDatabase, examplesDatabase, centralDbRowIndex, "en"));
         if (word.getMeaningsEN().size() == 0) {
-            OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "************ ERROR ************ Word with id "
+            OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "************ ERROR ************ Word with id "
                     + matchingWordId + " (" + word.getRomaji() + " - " + word.getKanji()
                     + ") has invalid english meanings");
             return new Word();
@@ -110,6 +110,9 @@ public class UtilitiesDb {
         word.setExtraKeywordsEN(centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_EXTRA_KEYWORDS_EN]);
         word.setExtraKeywordsFR(centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_EXTRA_KEYWORDS_FR]);
         word.setExtraKeywordsES(centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_EXTRA_KEYWORDS_ES]);
+
+        //Setting the frequency
+        word.setFrequency(Integer.parseInt(centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_FREQUENCY]));
 
         return word;
     }
@@ -424,7 +427,7 @@ public class UtilitiesDb {
             }
 
             if (!foundVerbType) {
-                OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "Warning! No VxxxT/I type found for verb " + verb.getRomaji() + " (Meaning index:" + current_MM_index + ")");
+                OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "Warning! No VxxxT/I type found for verb " + verb.getRomaji() + " (Meaning index:" + current_MM_index + ")");
                 //No exception catching is made here, in order to make sure that database errors are caught before production
             }
         }

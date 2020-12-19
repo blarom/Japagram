@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
     public static synchronized RoomNamesDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
-                if (UtilitiesPrefs.getAppPreferenceDbVersionNames(context) != Globals.NAMES_DB_VERSION) {
+                if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionNames(context) != Globals.NAMES_DB_VERSION) {
                     throw new Exception();
                 }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
@@ -66,27 +66,27 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        UtilitiesPrefs.setProgressValueNamesDb(context, 0);
+        AndroidUtilitiesPrefs.setProgressValueNamesDb(context, 0);
         if (word().count() == 0 || indexRomaji().count() == 0) {
             word().nukeTable();
-            UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
+            AndroidUtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Words Database.");
             });
         }
         if (this.indexRomaji().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Indexes Database.");
-                UtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
+                AndroidUtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
             });
         }
-        UtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, true);
-        UtilitiesPrefs.setProgressValueNamesDb(context, 100);
+        AndroidUtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, true);
+        AndroidUtilitiesPrefs.setProgressValueNamesDb(context, 100);
 
     }
 

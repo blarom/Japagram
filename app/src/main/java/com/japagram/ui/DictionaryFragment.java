@@ -23,13 +23,13 @@ import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
-import com.japagram.utilitiesAndroid.UtilitiesWeb;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesWeb;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -158,7 +158,7 @@ public class DictionaryFragment extends Fragment implements
         if (getContext() == null) return;
 
         AssetManager am = getContext().getApplicationContext().getAssets();
-        Typeface typeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+        Typeface typeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
         mDictionaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
@@ -181,13 +181,13 @@ public class DictionaryFragment extends Fragment implements
 
             showLoadingIndicator();
 
-            mDictionaryRecyclerViewAdapter.setShowSources(UtilitiesPrefs.getPreferenceShowSources(getActivity()));
+            mDictionaryRecyclerViewAdapter.setShowSources(AndroidUtilitiesPrefs.getPreferenceShowSources(getActivity()));
 
             startSearchingForWordsInRoomDb();
-            if (UtilitiesPrefs.getPreferenceShowConjResults(getActivity())) {
+            if (AndroidUtilitiesPrefs.getPreferenceShowConjResults(getActivity())) {
                 startReverseConjSearchForMatchingVerbs();
             }
-            if (UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) {
+            if (AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) {
                 startSearchingForWordsInJisho();
             }
 
@@ -225,7 +225,7 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }
@@ -233,10 +233,10 @@ public class DictionaryFragment extends Fragment implements
 
         if (getContext()==null || getActivity()==null) return;
 
-        boolean showOnlineResults = UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
-        boolean showConjResults = UtilitiesPrefs.getPreferenceShowConjResults(getActivity());
-        boolean waitForOnlineResults = UtilitiesPrefs.getPreferenceWaitForOnlineResults(getActivity());
-        boolean waitForConjResults = UtilitiesPrefs.getPreferenceWaitForConjResults(getActivity());
+        boolean showOnlineResults = AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
+        boolean showConjResults = AndroidUtilitiesPrefs.getPreferenceShowConjResults(getActivity());
+        boolean waitForOnlineResults = AndroidUtilitiesPrefs.getPreferenceWaitForOnlineResults(getActivity());
+        boolean waitForConjResults = AndroidUtilitiesPrefs.getPreferenceWaitForConjResults(getActivity());
         boolean gotNewResultsFromOnline = false; //Prevents refreshing the words list when there are no new results
         boolean gotNewResultsFromConj = false; //Prevents refreshing the words list when there are no new results
         boolean gotNewResultsOnTimerDelay = false; //Prevents refreshing the words list when there are no new results
@@ -283,23 +283,23 @@ public class DictionaryFragment extends Fragment implements
                 mDictionaryRecyclerView.setVisibility(View.VISIBLE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
-                UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+                AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
                 hideLoadingIndicator();
             }
             else {
                 if (waitForConjResults) {
-                    mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+                    mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
                     Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                     mSuccessfullyDisplayedResultsBeforeTimeout = true;
                     hideLoadingIndicator();
                 } else {
                     if (mAlreadyLoadedConjResults) {
-                        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
+                        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                         mSuccessfullyDisplayedResultsBeforeTimeout = true;
                         hideLoadingIndicator();
                     } else {
-                        mHintTextView.setText(OverridableUtilitiesGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
                         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local without Conj Search");
                     }
                 }
@@ -310,7 +310,7 @@ public class DictionaryFragment extends Fragment implements
             int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
             dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
 
-            if (UtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) {
+            if (AndroidUtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) {
                 String text = getString(R.string.found) + " "
                         + mLocalMatchingWordsList.size()
                         + " "
@@ -436,11 +436,11 @@ public class DictionaryFragment extends Fragment implements
         if (getContext()==null) return;
 
         mAlreadyLoadedJishoResults = true;
-        mJishoMatchingWordsList = UtilitiesWeb.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
-        mJishoMatchingWordsList = UtilitiesWeb.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
+        mJishoMatchingWordsList = AndroidUtilitiesWeb.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
+        mJishoMatchingWordsList = AndroidUtilitiesWeb.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
         for (Word word : mJishoMatchingWordsList) word.setIsLocal(false);
 
-        if (!UtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
+        if (!AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
 
         if (mJishoMatchingWordsList.size() != 0) {
             mDifferentJishoWords = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);

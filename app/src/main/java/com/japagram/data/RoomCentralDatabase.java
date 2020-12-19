@@ -4,10 +4,10 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesDb;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesDb;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +49,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public static synchronized RoomCentralDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
-                if (UtilitiesPrefs.getAppPreferenceDbVersionCentral(context) != Globals.CENTRAL_DB_VERSION) {
+                if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionCentral(context) != Globals.CENTRAL_DB_VERSION) {
                     throw new Exception();
                 }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
@@ -88,7 +88,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
 
         if (word().count() == 0) {
             word().nukeTable();
-            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
+            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadCentralDatabaseIntoRoomDb(context);
@@ -96,19 +96,19 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             });
         }
         if (this.indexEnglish().count() == 0) {
-            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
+            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Indexes Database.");
-                UtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
+                AndroidUtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
             });
-            UtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, true);
+            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, true);
         }
 
     }
@@ -116,17 +116,17 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
 
         // Import the excel sheets (csv format)
         List<String[]> centralDatabase 		    = new ArrayList<>();
-        List<String[]> typesDatabase            = UtilitiesAndroidIO.readCSVFile("LineTypes - 3000 kanji.csv", context);
-        List<String[]> grammarDatabase          = UtilitiesAndroidIO.readCSVFile("LineGrammar - 3000 kanji.csv", context);
-        List<String[]> verbsDatabase     	    = UtilitiesAndroidIO.readCSVFile("LineVerbsForGrammar - 3000 kanji.csv", context);
-        List<String[]> meaningsENDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeanings - 3000 kanji.csv", context);
-        List<String[]> meaningsFRDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeaningsFR - 3000 kanji.csv", context);
-        List<String[]> meaningsESDatabase       = UtilitiesAndroidIO.readCSVFile("LineMeaningsES - 3000 kanji.csv", context);
-        List<String[]> multExplENDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
-        List<String[]> multExplFRDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
-        List<String[]> multExplESDatabase       = UtilitiesAndroidIO.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
-        List<String[]> examplesDatabase         = UtilitiesAndroidIO.readCSVFile("LineExamples - 3000 kanji.csv", context);
-        List<String> frequencies                = UtilitiesAndroidIO.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
+        List<String[]> typesDatabase            = AndroidUtilitiesIO.readCSVFile("LineTypes - 3000 kanji.csv", context);
+        List<String[]> grammarDatabase          = AndroidUtilitiesIO.readCSVFile("LineGrammar - 3000 kanji.csv", context);
+        List<String[]> verbsDatabase     	    = AndroidUtilitiesIO.readCSVFile("LineVerbsForGrammar - 3000 kanji.csv", context);
+        List<String[]> meaningsENDatabase       = AndroidUtilitiesIO.readCSVFile("LineMeanings - 3000 kanji.csv", context);
+        List<String[]> meaningsFRDatabase       = AndroidUtilitiesIO.readCSVFile("LineMeaningsFR - 3000 kanji.csv", context);
+        List<String[]> meaningsESDatabase       = AndroidUtilitiesIO.readCSVFile("LineMeaningsES - 3000 kanji.csv", context);
+        List<String[]> multExplENDatabase       = AndroidUtilitiesIO.readCSVFile("LineMultExplEN - 3000 kanji.csv", context);
+        List<String[]> multExplFRDatabase       = AndroidUtilitiesIO.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
+        List<String[]> multExplESDatabase       = AndroidUtilitiesIO.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
+        List<String[]> examplesDatabase         = AndroidUtilitiesIO.readCSVFile("LineExamples - 3000 kanji.csv", context);
+        List<String> frequencies                = AndroidUtilitiesIO.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
         HashMap<String, Integer> frequenciesHash = new HashMap<>();
         for (int i=0; i<frequencies.size(); i++){
             if (!frequenciesHash.containsKey(frequencies.get(i))) frequenciesHash.put(frequencies.get(i),i+1);
@@ -143,21 +143,21 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         centralDatabase.addAll(verbsDatabase);
 
         //Checking that there were no accidental line breaks when building the database
-        UtilitiesDb.checkDatabaseStructure(verbsDatabase, "Verbs Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(centralDatabase, "Central Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplENDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
-        UtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", UtilitiesAndroidIO.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(verbsDatabase, "Verbs Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(centralDatabase, "Central Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_WORDS_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(meaningsENDatabase, "Meanings Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(meaningsFRDatabase, "MeaningsFR Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(meaningsESDatabase, "MeaningsES Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(multExplENDatabase, "Explanations Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(multExplFRDatabase, "Explanations Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
+        AndroidUtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
 
         List<Word> wordList = new ArrayList<>();
         HashMap<Long, String> inserted_words = new HashMap<>();
         for (int i=0; i<centralDatabase.size(); i++) {
             if (centralDatabase.get(i)[0].equals("")) break;
-            Word word = UtilitiesDb.createWordFromCsvDatabases(centralDatabase,
+            Word word = AndroidUtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
                     examplesDatabase, frequenciesHash, i);
@@ -178,7 +178,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<Verb> verbList = new ArrayList<>();
         for (int i=0; i<verbsDatabase.size(); i++) {
             if (verbsDatabase.get(i)[0].equals("")) break;
-            Verb verb = UtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
+            Verb verb = AndroidUtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
             verbList.add(verb);
             if (verbList.size() % 2000 == 0) {
                 verb().insertAll(verbList);

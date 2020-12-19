@@ -50,9 +50,9 @@ import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.TesseractOCRAsyncTask;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -186,7 +186,7 @@ public class InputQueryFragment extends Fragment implements
         super.onResume();
 
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary();
     }
@@ -242,7 +242,7 @@ public class InputQueryFragment extends Fragment implements
             startRomajiFromKanjiThread();
         }
         else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            UtilitiesAndroidIO.unmuteSpeaker(getActivity());
+            AndroidUtilitiesIO.unmuteSpeaker(getActivity());
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 mCropImageResult = result;
@@ -261,7 +261,7 @@ public class InputQueryFragment extends Fragment implements
                 Bundle extras = data.getExtras();
                 if (extras != null) {
                     Uri adjustedImageUri = Uri.parse(extras.getString("returnImageUri"));
-                    mImageToBeDecoded = UtilitiesAndroidIO.getBitmapFromUri(getActivity(), adjustedImageUri);
+                    mImageToBeDecoded = AndroidUtilitiesIO.getBitmapFromUri(getActivity(), adjustedImageUri);
                     getOcrTextWithTesseractAndDisplayDialog(mImageToBeDecoded);
                 }
             }
@@ -309,7 +309,7 @@ public class InputQueryFragment extends Fragment implements
         if (getContext() == null) return;
         //Setting the Typeface
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
     }
     @SuppressLint("ClickableViewAccessibility") private void initializeViews(View rootView) {
@@ -320,7 +320,7 @@ public class InputQueryFragment extends Fragment implements
 
         mInputQueryAutoCompleteTextView.setText(mInputQuery);
         mInputQueryAutoCompleteTextView.setTypeface(mDroidSansJapaneseTypeface);
-        mInputQueryAutoCompleteTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
+        mInputQueryAutoCompleteTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
 
         mInputQueryAutoCompleteTextView.setOnEditorActionListener((exampleView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -350,7 +350,7 @@ public class InputQueryFragment extends Fragment implements
     }
     private void sendImageToImageAdjuster(@NotNull CropImage.ActivityResult result) {
         Uri mPhotoURI = result.getUri();
-        mImageToBeDecoded = UtilitiesAndroidIO.getBitmapFromUri(getActivity(), mPhotoURI);
+        mImageToBeDecoded = AndroidUtilitiesIO.getBitmapFromUri(getActivity(), mPhotoURI);
 
         //Send the image Uri to the AdjustImageActivity
         Intent intent = new Intent(getActivity(), AdjustImageActivity.class);
@@ -362,7 +362,7 @@ public class InputQueryFragment extends Fragment implements
         // start source picker (camera, gallery, etc..) to get image for cropping and then use the image in cropping activity
         //CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(getActivity());
 
-        UtilitiesAndroidIO.muteSpeaker(getActivity());
+        AndroidUtilitiesIO.muteSpeaker(getActivity());
         if (getContext() != null) CropImage.activity().start(getContext(), this); //For FragmentActivity use
 
     }
@@ -464,7 +464,7 @@ public class InputQueryFragment extends Fragment implements
     }
     @OnClick(R.id.button_show_history) public void onShowHistoryButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         List<String> queryHistory = MainActivity.getQueryHistoryFromPreferences(getContext());
         boolean queryHistoryIsEmpty = true;
@@ -788,10 +788,10 @@ public class InputQueryFragment extends Fragment implements
         if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals("jpn")) return;
 
         String filename = language + ".traineddata";
-        Boolean fileExistsInAppFolder = UtilitiesAndroidIO.checkIfFileExistsInSpecificFolder(new File(mPhoneAppFolderTesseractDataFilepath), filename);
+        Boolean fileExistsInAppFolder = AndroidUtilitiesIO.checkIfFileExistsInSpecificFolder(new File(mPhoneAppFolderTesseractDataFilepath), filename);
         mInitializedOcrApiJpn = false;
         if (!fileExistsInAppFolder) {
-            hasStoragePermissions = UtilitiesAndroidIO.checkStoragePermission(getActivity());
+            hasStoragePermissions = AndroidUtilitiesIO.checkStoragePermission(getActivity());
             makeOcrDataAvailableInAppFolder(language);
         }
         else {
@@ -817,7 +817,7 @@ public class InputQueryFragment extends Fragment implements
 
         mLanguageBeingDownloadedLabel = getLanguageLabel(language);
         String filename = language + ".traineddata";
-        Boolean fileExistsInPhoneDownloadsFolder = UtilitiesAndroidIO.checkIfFileExistsInSpecificFolder(new File(mDownloadsFolder), filename);
+        Boolean fileExistsInPhoneDownloadsFolder = AndroidUtilitiesIO.checkIfFileExistsInSpecificFolder(new File(mDownloadsFolder), filename);
         if (hasStoragePermissions) {
             if (fileExistsInPhoneDownloadsFolder) {
                 Log.e(TAG_TESSERACT, filename + " file successfully found in Downloads folder.");
@@ -928,7 +928,7 @@ public class InputQueryFragment extends Fragment implements
         AlertDialog dialog = builder.create();
         dialog.show();
         if (dialog.getWindow() == null) return;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
     }
     @NotNull private Boolean checkIfStorageSpaceEnoughForTesseractDataOrShowApology() {
         //https://inducesmile.com/android/how-to-get-android-ram-internal-and-external-memory-information/
@@ -938,7 +938,7 @@ public class InputQueryFragment extends Fragment implements
         long availableBlocks = stat.getAvailableBlocks();
         long availableMemory = availableBlocks * blockSize;
         if (availableMemory<70000000) {
-            String toastMessage = getString(R.string.sorry_only_have_first_part) + UtilitiesAndroidIO.formatSize(availableMemory)
+            String toastMessage = getString(R.string.sorry_only_have_first_part) + AndroidUtilitiesIO.formatSize(availableMemory)
                     + getString(R.string.sorry_only_have_second_part);
             Toast.makeText(getActivity(), toastMessage, Toast.LENGTH_SHORT).show();
             return false;
@@ -991,7 +991,7 @@ public class InputQueryFragment extends Fragment implements
                 dialog.dismiss();
             });
             mProgressDialog.show();
-            if (mProgressDialog.getWindow() != null) mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+            if (mProgressDialog.getWindow() != null) mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
 
 
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting Terresact OCR");
@@ -1027,8 +1027,8 @@ public class InputQueryFragment extends Fragment implements
             textDisplayedInDialog.set(i, "~ " + textDisplayedInDialog.get(i) + " ~");
         }
         ocrResultsTextView.setText(TextUtils.join("\n", textDisplayedInDialog));
-        ocrResultsTextView.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccent));
-        ocrResultsTextViewDialogInstructions.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccentDark));
+        ocrResultsTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccent));
+        ocrResultsTextViewDialogInstructions.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorAccentDark));
         ocrResultsScrollView.post(() -> {
             ViewGroup.LayoutParams params = ocrResultsScrollView.getLayoutParams();
             int totalTextHeight = ocrResultsTextView.getHeight();
@@ -1062,7 +1062,7 @@ public class InputQueryFragment extends Fragment implements
         dialog.show();
 
         if (dialog.getWindow() == null) return;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
 
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             if (getContext()!=null) {
@@ -1175,7 +1175,7 @@ public class InputQueryFragment extends Fragment implements
                 queryHistoryElement.setEllipsize(TextUtils.TruncateAt.END);
                 queryHistoryElement.setTypeface(mDroidSansJapaneseTypeface);
                 queryHistoryElement.setGravity(View.TEXT_ALIGNMENT_CENTER|View.TEXT_ALIGNMENT_TEXT_START);
-                queryHistoryElement.setTextColor(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
+                queryHistoryElement.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
                 return layout;
             }
             else return null;
@@ -1198,7 +1198,7 @@ public class InputQueryFragment extends Fragment implements
 
         if (mProgressDialog != null && mProgressDialog.isShowing()) mProgressDialog.dismiss();
         if (mProgressDialog != null && mProgressDialog.getWindow() != null) {
-            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(UtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+            mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
         }
 
         mOcrResultString = result;

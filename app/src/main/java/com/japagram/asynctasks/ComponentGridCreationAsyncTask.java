@@ -7,7 +7,7 @@ import android.text.TextUtils;
 
 import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.KanjiComponent;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 
 import java.lang.ref.WeakReference;
@@ -138,7 +138,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
                             printableResultsForCurrentElement = associatedComponents.get(i).getAssociatedComponents().split(Globals.KANJI_ASSOCIATED_COMPONENTS_DELIMITER);
                             for (String aPrintableResultsForCurrentElement : printableResultsForCurrentElement) {
                                 containsAtLeastOnePrintableGlyph = false;
-                                if (aPrintableResultsForCurrentElement.length() > 0 && UtilitiesAndroidIO.isPrintable(aPrintableResultsForCurrentElement.substring(0, 1))) {
+                                if (aPrintableResultsForCurrentElement.length() > 0 && AndroidUtilitiesIO.isPrintable(aPrintableResultsForCurrentElement.substring(0, 1))) {
                                     containsAtLeastOnePrintableGlyph = true;
                                     break;
                                 }
@@ -164,7 +164,7 @@ public class ComponentGridCreationAsyncTask extends AsyncTask<Void, Void, List<S
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (int i = 0; i < selections.size(); i++) {
-                if (selections.get(i).length() > 0 && UtilitiesAndroidIO.isPrintable(selections.get(i).substring(0, 1))) {
+                if (selections.get(i).length() > 0 && AndroidUtilitiesIO.isPrintable(selections.get(i).substring(0, 1))) {
                     displayableComponentSelections.add(selections.get(i));
                 }
             }

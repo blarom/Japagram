@@ -5,9 +5,9 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
     public static synchronized RoomKanjiDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
-                if (UtilitiesPrefs.getAppPreferenceDbVersionKanji(context) != Globals.KANJI_DB_VERSION) {
+                if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionKanji(context) != Globals.KANJI_DB_VERSION) {
                     throw new Exception();
                 }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
@@ -73,7 +73,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
 
         if (kanjiCharacter().count() == 0) {
-            UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
+            AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadKanjiCharactersIntoRoomDb(context);
@@ -83,19 +83,19 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
         if (kanjiComponent().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
                 Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
             });
-            UtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
+            AndroidUtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
         }
-        UtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
+        AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
     }
     private void loadKanjiCharactersIntoRoomDb(Context context) {
 
-        UtilitiesAndroidIO.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
+        AndroidUtilitiesIO.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
 
-        List<String[]> KanjiDict_Database = UtilitiesAndroidIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
-        List<String[]> RadicalsDatabase = UtilitiesAndroidIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
+        List<String[]> KanjiDict_Database = AndroidUtilitiesIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
+        List<String[]> RadicalsDatabase = AndroidUtilitiesIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
 
         for (int i=0; i<KanjiDict_Database.size(); i++) {
             if (TextUtils.isEmpty(KanjiDict_Database.get(i)[0])) break;

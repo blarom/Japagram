@@ -7,10 +7,10 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
@@ -81,15 +81,15 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 setSummaryForPreference(currentPreference, sharedPreferences);
                 if (currentPreference.getKey().equals(getString(R.string.pref_app_language_key))) {
                     setLanguage(currentPreference);
-                    if (getActivity() != null) UtilitiesAndroidIO.restartApplication(getActivity());
+                    if (getActivity() != null) AndroidUtilitiesIO.restartApplication(getActivity());
                 }
                 else if (currentPreference.getKey().equals(getString(R.string.pref_app_theme_color_key))) {
                     setThemeColor(currentPreference);
-                    if (getActivity() != null) UtilitiesAndroidIO.restartApplication(getActivity());
+                    if (getActivity() != null) AndroidUtilitiesIO.restartApplication(getActivity());
                 }
             }
             else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {
-                boolean finishedLoadingNamesDatabase = UtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
+                boolean finishedLoadingNamesDatabase = AndroidUtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
                 boolean showNames = sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_names_search_key), false);
                 if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog((CheckBoxPreference) currentPreference, sharedPreferences);
             }
@@ -106,7 +106,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     private void setThemeColor(Preference currentPreference) {
         String themeColor = ((ListPreference) currentPreference).getValue();
         if (getActivity() == null || getContext() == null) return;
-        UtilitiesPrefs.setAppPreferenceColorTheme(getContext(), themeColor);
+        AndroidUtilitiesPrefs.setAppPreferenceColorTheme(getContext(), themeColor);
     }
     private void checkIfValueIsInRangeOrWarnUser(Preference preference, SharedPreferences sharedPreferences) {
         String newValue = sharedPreferences.getString(preference.getKey(), "");

@@ -2,11 +2,11 @@ package com.japagram.utilitiesCrossPlatform;
 
 import android.os.Build;
 
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.data.KanjiComponent;
 import com.japagram.data.RoomKanjiDatabase;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -193,7 +193,7 @@ public class UtilitiesKanjiSearch {
             //Getting the components list relevant to the requested structure
             KanjiComponent kanjiComponentForRequestedStructure = null;
             String componentStructure = Globals.COMPONENT_STRUCTURES_MAP.get(mSelectedStructure);
-            if (!OverridableUtilitiesGeneral.isEmptyString(componentStructure)) {
+            if (!OvUtilsGeneral.isEmptyString(componentStructure)) {
                 List<KanjiComponent> kanjiComponents = mRoomKanjiDatabase.getKanjiComponentsByStructureName(componentStructure);
                 if (kanjiComponents != null && kanjiComponents.size() > 0) {
                     kanjiComponentForRequestedStructure = kanjiComponents.get(0);
@@ -234,7 +234,7 @@ public class UtilitiesKanjiSearch {
                 List<String> chunk = listOfResultsRelevantToRequestedStructure.subList(minIndex, maxIndex);
                 List<String> hexIds = new ArrayList<>();
                 for (String character : chunk) {
-                    if (!character.equals("")) hexIds.add(OverridableUtilitiesGeneral.getHexId(character));
+                    if (!character.equals("")) hexIds.add(OvUtilsGeneral.getHexId(character));
                 }
                 chunks.add(hexIds);
             }
@@ -253,7 +253,7 @@ public class UtilitiesKanjiSearch {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     for (int i = 0; i < nonJapChars.size(); i++) {
                         value = nonJapChars.get(i);
-                        if (value.length()>0 && UtilitiesAndroidIO.isPrintable(value.substring(0, 1))) {
+                        if (value.length()>0 && AndroidUtilitiesIO.isPrintable(value.substring(0, 1))) {
                             nonJapCharsPrintable.add(nonJapChars.get(i));
                         }
                     }

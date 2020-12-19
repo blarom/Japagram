@@ -22,10 +22,9 @@ import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDictSearch;
-import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesResources;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsResources;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -81,7 +80,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         createVisibilityArray();
 
         mInputQueryTextType = inputQuery.getOriginalType();
-        mInputQueryFirstLetter = (OverridableUtilitiesGeneral.isEmptyString(inputQuery.getOriginal())) ? "" : inputQuery.getOriginal().substring(0,1);
+        mInputQueryFirstLetter = (OvUtilsGeneral.isEmptyString(inputQuery.getOriginal())) ? "" : inputQuery.getOriginal().substring(0,1);
         mInputQueryNoSpaces = inputQuery.getOriginal().replace(" ","");
         mInputQueryLatin = inputQuery.getWaapuroConversions().get(0);
 
@@ -122,13 +121,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             holder.childLinearLayout.setVisibility(View.VISIBLE);
             holder.meaningsTextView.setVisibility(View.GONE);
             holder.sourceInfoTextView.setVisibility(View.GONE);
-            holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+            holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
         }
         else {
             holder.childLinearLayout.setVisibility(View.GONE);
             holder.meaningsTextView.setVisibility(View.VISIBLE);
             if (!TextUtils.isEmpty(mWordsSourceInfo.get(position))) holder.sourceInfoTextView.setVisibility(View.VISIBLE);
-            holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+            holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
         }
 
         holder.romajiAndKanjiTextView.setOnClickListener(view -> {
@@ -136,7 +135,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             if (holder.childLinearLayout.getVisibility() == View.VISIBLE) {
                 holder.childLinearLayout.setVisibility(View.GONE);
                 holder.meaningsTextView.setVisibility(View.VISIBLE);
-                holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+                holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
                 holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = false;
@@ -144,7 +143,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else {
                 holder.childLinearLayout.setVisibility(View.VISIBLE);
                 holder.meaningsTextView.setVisibility(View.GONE);
-                holder.dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+                holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
                 holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = true;
@@ -179,13 +178,13 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         //region Initialization
         holder.childElementsLinearLayout.removeAllViews();
         holder.childElementsLinearLayout.setFocusable(false);
-        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.romajiAndKanjiTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccentDark));
-        holder.sourceInfoTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.meaningsTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.meaningsTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.childLinearLayout.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
-        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
+        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.romajiAndKanjiTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccentDark));
+        holder.sourceInfoTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.meaningsTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.meaningsTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.childLinearLayout.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
         //endregion
 
         //region Handling the hyperlink values for user click
@@ -213,7 +212,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String type = mWordsList.get(position).getMeaningsEN().get(0).getType();
         if (!type.equals("CE")) {
             String freqHtmlText = mContext.getString(R.string.frequency) + ": " + ((frequency == 0) ? "20001+ (uncommon)" : frequency);
-            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, OverridableUtilitiesGeneral.fromHtml(freqHtmlText));
+            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, OvUtilsGeneral.fromHtml(freqHtmlText));
             freqTtv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -222,7 +221,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
             String altSHtmlText = mContext.getString(R.string.alternate_forms) + ": " + altSpellings;
-            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, OverridableUtilitiesGeneral.fromHtml(altSHtmlText));
+            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, OvUtilsGeneral.fromHtml(altSHtmlText));
             altSTv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -264,7 +263,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             onlyEnglishMeaningsAvailable = (boolean) results[1];
 
             String extract = UtilitiesDictSearch.getFinalWordMeaningsExtract(onlyEnglishMeaningsAvailable, meanings, mContext, mLanguage, mLanguageFromResource);
-            mWordsMeaningExtract.add(OverridableUtilitiesGeneral.fromHtml(extract));
+            mWordsMeaningExtract.add(OvUtilsGeneral.fromHtml(extract));
 
             boolean[] types = UtilitiesDictSearch.getTypesFromWordMeanings(meanings);
             mWordsTypeIsVerb.add(types[Globals.WORD_TYPE_VERB]);
@@ -340,7 +339,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
                 if (Globals.PARTS_OF_SPEECH.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES, language);
+                    String currentType = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES, language);
                     if (!language.equals(Globals.LANG_STR_EN)) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }
@@ -354,7 +353,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             if (!fullType.equals("") && !meaning.equals("*")) {
                 typeAndMeaningHtml =
                         "<i><b><font color='" +
-                        UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
+                        AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
                         "'>" +
                         fullType +
                         "<br>" + "</font></b></i>"  +
@@ -363,7 +362,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             else if (meaning.equals("*")) {
                 typeAndMeaningHtml =
                         "<i><b><font color='" +
-                        UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
+                        AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryPOSColor) +
                         "'>" +
                         "Proper noun" +
                         "<br>" + "</font></b></i>"  +
@@ -373,7 +372,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 typeAndMeaningHtml = meaning;
             }
 
-            Spanned type_and_meaning = OverridableUtilitiesGeneral.fromHtml(typeAndMeaningHtml);
+            Spanned type_and_meaning = OvUtilsGeneral.fromHtml(typeAndMeaningHtml);
             TextView typeAndMeaningTv = new TextView(mContext);
             setMeaningsTvProperties(typeAndMeaningTv, type_and_meaning);
             holder.childElementsLinearLayout.addView(typeAndMeaningTv);
@@ -512,7 +511,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         if (ruleLine.contains(RULE_DELIMITER)) {
                             String[] parsedRule = ruleLine.split(RULE_DELIMITER);
                             typeAndMeaningHtml = parsedRule[0] +
-                                    "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
+                                    "<font color='" + AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryRuleWhereClauseColor) + "'>" +
                                     mContext.getString(R.string._where_) +
                                     "</font>" +
                                     parsedRule[1];
@@ -521,7 +520,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         }
                         typeAndMeaningHtml_list.add(typeAndMeaningHtml);
                     }
-                    spanned_rule = OverridableUtilitiesGeneral.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
+                    spanned_rule = OvUtilsGeneral.fromHtml(TextUtils.join("<br>",typeAndMeaningHtml_list));
                     addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(spanned_rule));
                 }
                 //endregion
@@ -558,7 +557,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                         //Setting the English example characteristics
                         tv = addSubHeaderField(meaningExplanationsLL, SpannableString.valueOf(examplesList.get(j).getLatinSentence()));
                         tv.setPadding(EXAMPLES_LEFT_PADDING, 0, 0, 16);
-                        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccent));
+                        tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccent));
                         tv.setVisibility(View.GONE);
                         examplesTextViews.add(tv);
 
@@ -596,7 +595,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
     private void setMeaningsTvProperties(@NotNull TextView tv, Spanned spanned) {
         tv.setText(spanned);
-        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         tv.setTextIsSelectable(true);
         tv.setClickable(true);
@@ -612,7 +611,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     private void addExplanationsLineSeparator(@NotNull LinearLayout linearLayout) {
         View line = new View(mContext);
         line.setLayoutParams(mubChildLineParams);
-        line.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLessPronounced));
+        line.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryLessPronounced));
         linearLayout.addView(line);
     }
     @NotNull
@@ -621,7 +620,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         tv.setLayoutParams(layoutParams);
         tv.setText(type_and_meaning);
-        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryMorePronounced));
+        tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryMorePronounced));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         //tv.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         tv.setTypeface(mDroidSansJapaneseTypeface);
@@ -638,7 +637,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         tv.setLayoutParams(layoutParams);
         tv.setText(spannableString);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
-        tv.setTextColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
+        tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimaryDark));
         tv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimension(R.dimen.DictionarySubtextSize));
         tv.setTypeface(mDroidSansJapaneseTypeface);
         tv.setTextIsSelectable(true);
@@ -670,14 +669,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     }
     private void setHyperlinkInDecomposeLine(@NotNull TextView textView, @NotNull String before, String hyperlinkText, @NotNull String after) {
         String totalText = "<b>" +
-                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
+                "<font color='" + AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 before +
                 "</font>" +
                 hyperlinkText +
-                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
+                "<font color='" + AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = OverridableUtilitiesGeneral.fromHtml(totalText);
+        Spanned spanned_totalText = OvUtilsGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new KanjiClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);
@@ -688,14 +687,14 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
     }
     private void setHyperlinksInConjugateLine(@NotNull TextView textView, @NotNull String before, String hyperlinkText, @NotNull String after) {
         String totalText = "<b>" +
-                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
+                "<font color='" + AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 before +
                 "</font>" +
                 hyperlinkText +
-                "<font color='" + UtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
+                "<font color='" + AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal) + "'>" +
                 after +
                 "</font>";
-        Spanned spanned_totalText = OverridableUtilitiesGeneral.fromHtml(totalText);
+        Spanned spanned_totalText = OvUtilsGeneral.fromHtml(totalText);
         SpannableString spannable = new SpannableString(spanned_totalText);
         spannable.setSpan(new VerbClickableSpan(), before.length(), spanned_totalText.length() - after.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(spannable);
@@ -720,7 +719,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         }
         @Override
         public void updateDrawState(@NonNull TextPaint ds) {
-            ds.setColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
+            ds.setColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
             ds.setUnderlineText(false);
         }
     }
@@ -741,7 +740,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         @Override
         public void updateDrawState(@NonNull TextPaint ds) {
-            ds.setColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
+            ds.setColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionarySpanClickedColor));
             ds.setUnderlineText(false);
         }
     }
@@ -793,7 +792,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 childLinearLayout.setVisibility(View.GONE);
                 meaningsTextView.setVisibility(View.VISIBLE);
                 if (!TextUtils.isEmpty(mWordsSourceInfo.get(getAdapterPosition()))) sourceInfoTextView.setVisibility(View.VISIBLE);
-                dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+                dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
 
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = false;
@@ -802,7 +801,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                 childLinearLayout.setVisibility(View.VISIBLE);
                 meaningsTextView.setVisibility(View.GONE);
                 sourceInfoTextView.setVisibility(View.GONE);
-                dictItemContainer.setBackgroundColor(UtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+                dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = true;
             }

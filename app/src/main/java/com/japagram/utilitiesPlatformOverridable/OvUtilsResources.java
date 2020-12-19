@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public final class OverridableUtilitiesResources {
+public final class OvUtilsResources {
     public static String getLanguageText(@NotNull String language, Context context) {
         switch (language) {
             case Globals.LANG_STR_EN: return context.getResources().getString(R.string.language_label_english).toLowerCase();
@@ -18,9 +18,6 @@ public final class OverridableUtilitiesResources {
             case Globals.LANG_STR_ES: return context.getResources().getString(R.string.language_label_spanish).toLowerCase();
             default: return context.getResources().getString(R.string.language_label_english).toLowerCase();
         }
-    }
-    public static String concatenate(String[] strings) {
-        return TextUtils.join("", strings);
     }
     public static String getString(String requestedString, @NotNull Context context, int resourceMap, String language) {
         switch (resourceMap) {
@@ -56,6 +53,12 @@ public final class OverridableUtilitiesResources {
                 map.put("derived_from", R.string.derived_from);
                 map.put("from_alt_form", R.string.from_alt_form);
                 map.put("from_alt_form_containing", R.string.from_alt_form_containing);
+                map.put("characters_main_radical_is", R.string.characters_main_radical_is);
+                map.put("number_abbrev_", R.string.number_abbrev_);
+                map.put("with", R.string.with);
+                map.put("additional_strokes", R.string.additional_strokes);
+                map.put("additional_stroke", R.string.additional_stroke);
+                map.put("english_meanings_available_only", R.string.english_meanings_available_only);
                 break;
             case Globals.RESOURCE_MAP_VERB_FAMILIES:
                 map.put("verb_family_su", R.string.verb_family_su);

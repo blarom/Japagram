@@ -2,12 +2,11 @@ package com.japagram.utilitiesCrossPlatform;
 
 import android.content.Context;
 
-import com.japagram.R;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesDb;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesResources;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsDb;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsResources;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -38,17 +37,20 @@ public class UtilitiesDictSearch {
         List<Long> matchingWordIdsCentral = (List<Long>) matchingWordIds[0];
         List<Long> matchingWordIdsExtended = (List<Long>) matchingWordIds[1];
         List<Long> matchingWordIdsNames = (List<Long>) matchingWordIds[2];
-        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching word ids");
+        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching word ids");
 
-        localMatchingWordsList = OverridableUtilitiesDb.getWordListByWordIds(matchingWordIdsCentral, context, Globals.DB_CENTRAL);
-        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching words");
+        localMatchingWordsList = OvUtilsDb.getWordListByWordIds(matchingWordIdsCentral, context, Globals.DB_CENTRAL, language);
+        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Got matching words");
 
-        if (roomExtendedDbIsAvailable) localMatchingWordsList.addAll(OverridableUtilitiesDb.getWordListByWordIds(matchingWordIdsExtended, context, Globals.DB_EXTENDED));
-        OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
+        if (roomExtendedDbIsAvailable) {
+            List<Word> extendedWordsList = OvUtilsDb.getWordListByWordIds(matchingWordIdsExtended, context, Globals.DB_EXTENDED, language);
+            localMatchingWordsList.addAll(extendedWordsList);
+        }
+        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
         if (roomNamesDatabaseIsAvailable) {
-        List<Word> originalNames = OverridableUtilitiesDb.getWordListByWordIds(matchingWordIdsNames, context, Globals.DB_NAMES);
-            OverridableUtilitiesGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
+        List<Word> originalNames = OvUtilsDb.getWordListByWordIds(matchingWordIdsNames, context, Globals.DB_NAMES, language);
+            OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
             List<Word> condensedNames = new ArrayList<>();
             boolean foundName;
             for (Word name : originalNames) {
@@ -57,7 +59,7 @@ public class UtilitiesDictSearch {
                     if (name.getRomaji().equals(condensedName.getRomaji())
                             && name.getMeaningsEN().get(0).getType().equals(condensedName.getMeaningsEN().get(0).getType())) {
                         foundName = true;
-                        condensedName.setKanji(condensedName.getKanji() + "・" + name.getKanji());
+                        condensedName.setKanji(OvUtilsGeneral.concat(new String[]{condensedName.getKanji(), "・", name.getKanji()}));
                         break;
                     }
                 }
@@ -103,7 +105,7 @@ public class UtilitiesDictSearch {
         for (int j = 0; j< meanings.size(); j++) {
             meaningStrings.add(meanings.get(j).getMeaning());
         }
-        String combinedMeanings = OverridableUtilitiesGeneral.joinList(", ", meaningStrings);
+        String combinedMeanings = OvUtilsGeneral.joinList(", ", meaningStrings);
 
         List<String> sourceInfo = new ArrayList<>();
         String from;
@@ -118,7 +120,7 @@ public class UtilitiesDictSearch {
             String hiragana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_HIRAGANA);
             String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(romaji).get(Globals.TEXT_TYPE_KATAKANA);
 
-            if (!OverridableUtilitiesGeneral.isEmptyString(altSpellings) && altSpellings.contains(inputQuery)) {
+            if (!OvUtilsGeneral.isEmptyString(altSpellings) && altSpellings.contains(inputQuery)) {
                 String[] altSpellingElements = altSpellings.split(",");
                 boolean isExactMatch = false;
                 for (String element : altSpellingElements) {
@@ -127,8 +129,8 @@ public class UtilitiesDictSearch {
                         break;
                     }
                 }
-                from = OverridableUtilitiesResources.getString(isExactMatch ? "from_alt_form" : "from_alt_form_containing", context, Globals.RESOURCE_MAP_GENERAL, language);
-                text = OverridableUtilitiesResources.concatenate(new String[]{from, " \"", inputQuery, "\"."});
+                from = OvUtilsResources.getString(isExactMatch ? "from_alt_form" : "from_alt_form_containing", context, Globals.RESOURCE_MAP_GENERAL, language);
+                text = OvUtilsGeneral.concat(new String[]{from, " \"", inputQuery, "\"."});
                 sourceInfo.add(text);
             }
             else if (combinedMeanings.contains(inputQuery) || combinedMeanings.contains(latin)) {
@@ -140,21 +142,21 @@ public class UtilitiesDictSearch {
                     String keyword = element.trim();
                     if (!romaji.contains(keyword) && !kanji.contains(keyword) && !altSpellings.contains(keyword)
                             && !combinedMeanings.contains(keyword)) {
-                        from = OverridableUtilitiesResources.getString("from_associated_word", context, Globals.RESOURCE_MAP_GENERAL, language);
-                        text = OverridableUtilitiesResources.concatenate(new String[]{from, " \"", keyword, "\"."});
+                        from = OvUtilsResources.getString("from_associated_word", context, Globals.RESOURCE_MAP_GENERAL, language);
+                        text = OvUtilsGeneral.concat(new String[]{from, " \"", keyword, "\"."});
                         sourceInfo.add(text);
                         break;
                     }
                 }
             }
-            else if (!OverridableUtilitiesGeneral.isEmptyString(matchingConj)
+            else if (!OvUtilsGeneral.isEmptyString(matchingConj)
                     && word.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT
                     || word.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED
                     && matchingConj.contains(inputQuery)
                     || matchingConj.contains(inputQueryNoSpaces)
                     || matchingConj.contains(inputQueryLatin)) {
-                from = OverridableUtilitiesResources.getString(typeIsVerb? "from_conjugated_form" : "from_associated_word", context, Globals.RESOURCE_MAP_GENERAL, language);
-                text = OverridableUtilitiesResources.concatenate(new String[]{from, " \"", matchingConj, "\"."});
+                from = OvUtilsResources.getString(typeIsVerb? "from_conjugated_form" : "from_associated_word", context, Globals.RESOURCE_MAP_GENERAL, language);
+                text = OvUtilsGeneral.concat(new String[]{from, " \"", matchingConj, "\"."});
                 sourceInfo.add(text);
             }
             else if ((inputQueryTextType == Globals.TEXT_TYPE_KANJI
@@ -166,8 +168,8 @@ public class UtilitiesDictSearch {
                     || (inputQueryTextType == Globals.TEXT_TYPE_KATAKANA
                     && katakana.length() > 0 && !katakana.substring(0, 1).equals(inputQueryFirstLetter))
             ) {
-                from = OverridableUtilitiesResources.getString("derived_from", context, Globals.RESOURCE_MAP_GENERAL, language);
-                text = OverridableUtilitiesResources.concatenate(new String[]{from, " \"", inputQuery, "\"."});
+                from = OvUtilsResources.getString("derived_from", context, Globals.RESOURCE_MAP_GENERAL, language);
+                text = OvUtilsGeneral.concat(new String[]{from, " \"", inputQuery, "\"."});
                 sourceInfo.add(text);
             }
         }
@@ -180,32 +182,32 @@ public class UtilitiesDictSearch {
         String parentRomaji;
         String placeholder;
         if (types[Globals.WORD_TYPE_VERB_CONJ] && romaji.length()>3 && romaji.startsWith("(o)")) {
-            placeholder = OverridableUtilitiesResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language);
-            parentRomaji = OverridableUtilitiesResources.concatenate(new String[]{"(o)[", placeholder, "] + ", romaji.substring(3)});
+            placeholder = OvUtilsResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language);
+            parentRomaji = OvUtilsGeneral.concat(new String[]{"(o)[", placeholder, "] + ", romaji.substring(3)});
         }
         else if (types[Globals.WORD_TYPE_VERB_CONJ] && romaji.length()>3 && !romaji.startsWith("(o)")) {
-            placeholder = OverridableUtilitiesResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language);
-            parentRomaji = OverridableUtilitiesResources.concatenate(new String[]{"[", placeholder, "] + ", romaji});
+            placeholder = OvUtilsResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language);
+            parentRomaji = OvUtilsGeneral.concat(new String[]{"[", placeholder, "] + ", romaji});
         }
         else if (types[Globals.WORD_TYPE_I_ADJ_CONJ]) {
-            placeholder = OverridableUtilitiesResources.getString("i_adj", context, Globals.RESOURCE_MAP_GENERAL, language);
-            parentRomaji = OverridableUtilitiesResources.concatenate(new String[]{"[", placeholder, "] + ", romaji});
+            placeholder = OvUtilsResources.getString("i_adj", context, Globals.RESOURCE_MAP_GENERAL, language);
+            parentRomaji = OvUtilsGeneral.concat(new String[]{"[", placeholder, "] + ", romaji});
         }
         else if (types[Globals.WORD_TYPE_NA_ADJ_CONJ]) {
-            placeholder = OverridableUtilitiesResources.getString("na_adj", context, Globals.RESOURCE_MAP_GENERAL, language);
-            parentRomaji = OverridableUtilitiesResources.concatenate(new String[]{"[", placeholder, "] + ", romaji});
+            placeholder = OvUtilsResources.getString("na_adj", context, Globals.RESOURCE_MAP_GENERAL, language);
+            parentRomaji = OvUtilsGeneral.concat(new String[]{"[", placeholder, "] + ", romaji});
         }
         else if (types[Globals.WORD_TYPE_ADVERB] && !types[Globals.WORD_TYPE_NOUN] && romaji.length()>2
                 && romaji.endsWith("ni")
                 && !romaji.endsWith(" ni")) {
-            parentRomaji = OverridableUtilitiesResources.concatenate(new String[]{romaji.substring(0,romaji.length()-2), " ni"});
+            parentRomaji = OvUtilsGeneral.concat(new String[]{romaji.substring(0,romaji.length()-2), " ni"});
         }
         else parentRomaji = romaji;
 
         String romajiAndKanji;
         if (romaji.equals("")) romajiAndKanji = kanji;
         else if (kanji.equals("")) romajiAndKanji = romaji;
-        else romajiAndKanji = OverridableUtilitiesResources.concatenate(new String[]{parentRomaji.toUpperCase(), " (", kanji, ")"});
+        else romajiAndKanji = OvUtilsGeneral.concat(new String[]{parentRomaji.toUpperCase(), " (", kanji, ")"});
         return romajiAndKanji;
     }
 
@@ -233,19 +235,19 @@ public class UtilitiesDictSearch {
 
         String extract = "";
         if (onlyEnglishMeaningsAvailable) {
-            extract = OverridableUtilitiesGeneral.concatenate(new String[]{
-                    OverridableUtilitiesResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL, mLanguage),
+            extract = OvUtilsGeneral.concat(new String[]{
+                    OvUtilsResources.getString("meanings_in", mContext, Globals.RESOURCE_MAP_GENERAL, mLanguage),
                     " ",
                     mLanguageFromResource.toLowerCase(),
                     " ",
-                    OverridableUtilitiesResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL, mLanguage)
+                    OvUtilsResources.getString("unavailable_select_word_to_see_meanings", mContext, Globals.RESOURCE_MAP_GENERAL, mLanguage)
             });
         }
         else if (meanings.get(0).getMeaning().equals("*")) {
             String type = meanings.get(0).getType();
             if (Globals.PARTS_OF_SPEECH.containsKey(type)) {
                 //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                extract = OverridableUtilitiesResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES, mLanguage);
+                extract = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES, mLanguage);
             }
             else {
                 extract = "*";

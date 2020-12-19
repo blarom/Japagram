@@ -32,9 +32,9 @@ import com.japagram.adapters.StructuresGridViewAdapter;
 import com.japagram.asynctasks.ComponentGridCreationAsyncTask;
 import com.japagram.asynctasks.ComponentsGridFilterAsyncTask;
 import com.japagram.asynctasks.KanjiSearchAsyncTask;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 
@@ -137,7 +137,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     @Override public void onResume() {
         super.onResume();
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
     }
     @Override public void onDetach() {
         super.onDetach();
@@ -164,7 +164,7 @@ public class SearchByRadicalFragment extends Fragment implements
         //Setting the Typeface
         if (getContext()==null) return;
         AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = UtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+        mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
     }
     private int setCategoryBasedOnSelectedStructureId(int selectedStructureId) {
@@ -210,13 +210,13 @@ public class SearchByRadicalFragment extends Fragment implements
     private void startSearchingForKanjisAsynchronously(String[] elements_strings) {
         if (getActivity()!=null) {
             showLoadingIndicator();
-            boolean getOnlyCharsUsedInJapanese = UtilitiesPrefs.getAppPreferenceShowOnlyJapCharacters(getActivity());
+            boolean getOnlyCharsUsedInJapanese = AndroidUtilitiesPrefs.getAppPreferenceShowOnlyJapCharacters(getActivity());
             mKanjiSearchAsyncTask = new KanjiSearchAsyncTask(getContext(), elements_strings, mSelectedOverallStructure, mSimilarsDatabase, getOnlyCharsUsedInJapanese, this);
             mKanjiSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
     private void filterComponentKanjiGridElements() {
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
         mKanjiCharacterNameForFilter = mCharacterDescriptorEditText.getText().toString();
         startFilteringComponentKanjiGridElementsAsynchronously();
     }
@@ -234,7 +234,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
         //region Setting the Element listeners
         mElementAEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+            if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             if (hasFocus) mSelectedEditTextId = mElementAEditText.getId();
             drawBorderAroundThisEditText(mElementAEditText);
         });
@@ -244,13 +244,13 @@ public class SearchByRadicalFragment extends Fragment implements
         });
         mElementAEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+                if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
         mElementBEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+            if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             if (hasFocus) mSelectedEditTextId = mElementBEditText.getId();
             drawBorderAroundThisEditText(mElementBEditText);
         });
@@ -260,13 +260,13 @@ public class SearchByRadicalFragment extends Fragment implements
         });
         mElementBEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+                if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
         mElementCEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+            if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             if (hasFocus) mSelectedEditTextId = mElementCEditText.getId();
             drawBorderAroundThisEditText(mElementCEditText);
         });
@@ -276,13 +276,13 @@ public class SearchByRadicalFragment extends Fragment implements
         });
         mElementCEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+                if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
         mElementDEditText.setOnFocusChangeListener((v, hasFocus) -> {
-            if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+            if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             if (hasFocus) mSelectedEditTextId = mElementDEditText.getId();
             drawBorderAroundThisEditText(mElementDEditText);
         });
@@ -292,7 +292,7 @@ public class SearchByRadicalFragment extends Fragment implements
         });
         mElementDEditText.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+                if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
@@ -449,7 +449,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
         if (!enterPressed) {
             mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-            if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+            if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             mSelectionGridRecyclerView.setAdapter(null);
         }
 
@@ -562,7 +562,7 @@ public class SearchByRadicalFragment extends Fragment implements
         showStructuresDialog("overall");
     }
     @OnClick (R.id.search_by_radical_button_radical) void onRadicalButtonClick() {
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
         mComponentSelectionType = "radical";
@@ -572,7 +572,7 @@ public class SearchByRadicalFragment extends Fragment implements
         startCreatingComponentKanjiGridElementsAsynchronously();
     }
     @OnClick (R.id.search_by_radical_button_component) void onComponentButtonClick() {
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
         mComponentSelectionType = "component";
@@ -583,7 +583,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     @OnClick (R.id.search_by_radical_button_search) void onSearchButtonClick() {
 
-        if (getActivity()!=null) UtilitiesAndroidIO.hideSoftKeyboard(getActivity());
+        if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         showResultsSection();
 
@@ -651,7 +651,7 @@ public class SearchByRadicalFragment extends Fragment implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             for (int i = 0; i < searchResultsRaw.size(); i++) {
                 value = searchResultsRaw.get(i);
-                if (value.length()>0 && UtilitiesAndroidIO.isPrintable(value.substring(0, 1))) {
+                if (value.length()>0 && AndroidUtilitiesIO.isPrintable(value.substring(0, 1))) {
                     searchResultsPrintable.add(searchResultsRaw.get(i));
                 }
             }

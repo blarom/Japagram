@@ -14,17 +14,14 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-public class OverridableUtilitiesGeneral {
+public class OvUtilsGeneral {
     public static void printLog(String tag, String text) {
         Log.i(tag, text);
     }
     public static String joinList(String separator, List<String> list) {
         return TextUtils.join(separator, list);
     }
-    public static String joinArray(String separator, String[] array) {
-        return TextUtils.join(separator, array);
-    }
-    public static String concatenate(String[] array) {
+    public static String concat(String[] array) {
         return TextUtils.join("", array);
     }
     public static boolean arraysIntersect(List<String> list1, List<String> list2) {

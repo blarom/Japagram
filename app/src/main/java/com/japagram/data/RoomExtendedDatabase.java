@@ -4,9 +4,11 @@ import android.content.Context;
 import android.os.Looper;
 import android.util.Log;
 
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.UtilitiesPrefs;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     public static synchronized RoomExtendedDatabase getInstance(Context context) {
         if (sInstance == null) {
             try {
-                if (UtilitiesPrefs.getAppPreferenceDbVersionExtended(context) != Globals.EXTENDED_DB_VERSION) {
+                if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionExtended(context) != Globals.EXTENDED_DB_VERSION) {
                     throw new Exception();
                 }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
@@ -82,36 +84,36 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        UtilitiesPrefs.setProgressValueExtendedDb(context, 0);
+        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, 0);
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
-            UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
+            AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
                 Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
             });
         }
         if (indexEnglish().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
-                UtilitiesAndroidIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
-                UtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
+                AndroidUtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
             });
         }
-        UtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
-        UtilitiesPrefs.setProgressValueExtendedDb(context, 100);
+        AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
+        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, 100);
 
     }
 
     //Switches the internal implementation with an empty in-memory database
     @VisibleForTesting
-    public static void switchToInMemory(Context context) {
+    public static void switchToInMemory(@NotNull Context context) {
         sInstance = Room
                 .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomExtendedDatabase.class)
                 .build();
@@ -119,7 +121,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
     private static final Migration FROM_1_TO_2 = new Migration(1, 2) {
         @Override
-        public void migrate(final SupportSQLiteDatabase database) {
+        public void migrate(final @NotNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE Repo ADD COLUMN createdAt TEXT");
         }
     };
@@ -152,7 +154,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         return word().count();
     }
 
-    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexRomaji> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexRomaji().getIndexByStartingQuery(word));
@@ -174,7 +176,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     public IndexEnglish getEnglishIndexForExactWord(String query) {
         return this.indexEnglish().getIndexByExactQuery(query);
     }
-    public List<IndexEnglish> getEnglishIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexEnglish> getEnglishIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexEnglish> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexEnglish().getIndexByStartingQuery(word));
@@ -190,7 +192,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     public IndexFrench getFrenchIndexForExactWord(String query) {
         return this.indexFrench().getIndexByExactQuery(query);
     }
-    public List<IndexFrench> getFrenchIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexFrench> getFrenchIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexFrench> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexFrench().getIndexByStartingQuery(word));
@@ -206,7 +208,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     public IndexSpanish getSpanishIndexForExactWord(String query) {
         return this.indexSpanish().getIndexByExactQuery(query);
     }
-    public List<IndexSpanish> getSpanishIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexSpanish> getSpanishIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexSpanish> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexSpanish().getIndexByStartingQuery(word));
@@ -224,7 +226,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         //return indexKanji().getKanjiIndexByStartingUTF8Query(query);
         return indexKanji().getKanjiIndexByStartingQuery(query);
     }
-    public List<IndexKanji> getKanjiIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexKanji> getKanjiIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexKanji> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexKanji().getKanjiIndexByStartingQuery(word));

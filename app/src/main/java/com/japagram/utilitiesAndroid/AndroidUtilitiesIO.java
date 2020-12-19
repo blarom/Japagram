@@ -48,7 +48,7 @@ import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
 import com.japagram.data.WordDao;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -65,7 +65,7 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
-public class UtilitiesAndroidIO {
+public class AndroidUtilitiesIO {
     //Constants
     public static final int NUM_COLUMNS_IN_WORDS_CSV_SHEETS = 16;
     public static final int NUM_COLUMNS_IN_MEANINGS_CSV_SHEETS = 8;
@@ -396,7 +396,7 @@ public class UtilitiesAndroidIO {
                         String[] tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
-                            Word word = UtilitiesDb.createWordFromExtendedDatabase(tokens);
+                            Word word = AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens);
                             wordList.add(word);
                         }
                         lineNum++;
@@ -406,7 +406,7 @@ public class UtilitiesAndroidIO {
                         }
                         if (lineNum % blocksize == 0) {
                             currentProgress += increment;
-                            UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                            AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                         }
                     }
                     extendedDbWordDao.insertAll(wordList);
@@ -420,7 +420,7 @@ public class UtilitiesAndroidIO {
                         String[] tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
-                            Word word = UtilitiesDb.createWordFromNamesDatabase(tokens);
+                            Word word = AndroidUtilitiesDb.createWordFromNamesDatabase(tokens);
                             wordList.add(word);
                         }
                         lineNum++;
@@ -430,7 +430,7 @@ public class UtilitiesAndroidIO {
                         }
                         if (lineNum % blocksize == 0) {
                             currentProgress += increment;
-                            UtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
+                            AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
                         }
                     }
                     namesDbWordDao.insertAll(wordList);
@@ -438,10 +438,10 @@ public class UtilitiesAndroidIO {
                 case "indexRomaji":
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
                     if (isExtendedDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
                         increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ROMAJI_INDEX) * Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     } else if (isNamesDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueNamesDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueNamesDb(context);
                         increment = (((float) blocksize / Globals.NAMES_DB_LINES_ROMAJI_INDEX) * Globals.NAMES_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
                     }
                     IndexRomajiDao indexRomajiDao = (IndexRomajiDao) dao;
@@ -460,10 +460,10 @@ public class UtilitiesAndroidIO {
                         if (lineNum % blocksize == 0) {
                             if (isExtendedDb) {
                                 currentProgress += increment;
-                                UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                             } else if (isNamesDb) {
                                 currentProgress += increment;
-                                UtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
+                                AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
                             }
                         }
                     }
@@ -472,7 +472,7 @@ public class UtilitiesAndroidIO {
                 case "indexEnglish":
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 10;
                     if (isExtendedDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
                         increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ENGLISH_INDEX) * Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     }
                     IndexEnglishDao indexEnglishDao = (IndexEnglishDao) dao;
@@ -491,7 +491,7 @@ public class UtilitiesAndroidIO {
                         if (lineNum % blocksize == 0) {
                             if (isExtendedDb) {
                                 currentProgress += increment;
-                                UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                             }
                         }
                     }
@@ -499,7 +499,7 @@ public class UtilitiesAndroidIO {
                     break;
                 case "indexFrench":
                     if (isExtendedDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
                         increment = Globals.EXTENDED_DB_SIZE_FRENCH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
                     }
                     IndexFrenchDao indexFrenchDao = (IndexFrenchDao) dao;
@@ -519,12 +519,12 @@ public class UtilitiesAndroidIO {
                     indexFrenchDao.insertAll(indexFrenchList);
                     if (isExtendedDb) {
                         currentProgress += increment;
-                        UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                     }
                     break;
                 case "indexSpanish":
                     if (isExtendedDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
                         increment = Globals.EXTENDED_DB_SIZE_SPANISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
                     }
                     IndexSpanishDao indexSpanishDao = (IndexSpanishDao) dao;
@@ -544,16 +544,16 @@ public class UtilitiesAndroidIO {
                     indexSpanishDao.insertAll(indexSpanishList);
                     if (isExtendedDb) {
                         currentProgress += increment;
-                        UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                     }
                     break;
                 case "indexKanji":
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK;
                     if (isExtendedDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueExtendedDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
                         increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_KANJI_INDEX) * Globals.EXTENDED_DB_SIZE_KANJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     } else if (isNamesDb) {
-                        currentProgress = UtilitiesPrefs.getProgressValueNamesDb(context);
+                        currentProgress = AndroidUtilitiesPrefs.getProgressValueNamesDb(context);
                         increment = (((float) blocksize / Globals.NAMES_DB_LINES_KANJI_INDEX) * Globals.NAMES_DB_SIZE_KANJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
                     }
                     IndexKanjiDao indexKanjiDao = (IndexKanjiDao) dao;
@@ -572,10 +572,10 @@ public class UtilitiesAndroidIO {
                         if (lineNum % blocksize == 0) {
                             if (isExtendedDb) {
                                 currentProgress += increment;
-                                UtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
+                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
                             } else if (isNamesDb) {
                                 currentProgress += increment;
-                                UtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
+                                AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
                             }
                         }
                     }
@@ -588,7 +588,7 @@ public class UtilitiesAndroidIO {
                         if (tokens.length > 0) {
                             if (TextUtils.isEmpty(tokens[0])) break;
                             KanjiCharacter kanjiCharacter = new KanjiCharacter(tokens[0], tokens[1], tokens[2]);
-                            kanjiCharacter.setKanji(OverridableUtilitiesGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                            kanjiCharacter.setKanji(OvUtilsGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
                             kanjiCharacterList.add(kanjiCharacter);
                         }
                         lineNum++;
@@ -830,7 +830,7 @@ public class UtilitiesAndroidIO {
         final long usedMemInMB = (runtime.totalMemory() - runtime.freeMemory()) / 1048576L;
         final long maxHeapSizeInMB = runtime.maxMemory() / 1048576L;
         final long availHeapSizeInMB = maxHeapSizeInMB - usedMemInMB;
-        OverridableUtilitiesGeneral.printLog("Diagnosis Time", "Available heap size: " + availHeapSizeInMB);
+        OvUtilsGeneral.printLog("Diagnosis Time", "Available heap size: " + availHeapSizeInMB);
         return availHeapSizeInMB;
     }
 

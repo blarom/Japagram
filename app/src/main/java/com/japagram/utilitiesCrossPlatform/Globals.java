@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 140;
+    public static final int CENTRAL_DB_VERSION = 141;
     public static final int KANJI_DB_VERSION = 28;
-    public static final int EXTENDED_DB_VERSION = 37;
+    public static final int EXTENDED_DB_VERSION = 38;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -38,6 +38,14 @@ public final class Globals {
     public static final int DB_CENTRAL = 0;
     public static final int DB_EXTENDED = 1;
     public static final int DB_NAMES = 2;
+
+    public static final int RANKING_EXACT_MEANING_MATCH_BONUS = 1000;
+    public static final int RANKING_EXACT_WORD_MATCH_BONUS = 500;
+    public static final int RANKING_WORD_MATCH_IN_SENTENCE_BONUS = 300;
+    public static final int RANKING_WORD_MATCH_IN_PARENTHESES_BONUS = 50;
+    public static final int RANKING_LATE_HIT_IN_SENTENCE_PENALTY = 25;
+    public static final int RANKING_LATE_HIT_IN_MEANING_ELEMENTS_PENALTY = 50;
+    public static final int RANKING_LATE_MEANING_MATCH_PENALTY = 100;
 
     //Verb Search globals
     public static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
@@ -216,6 +224,7 @@ public final class Globals {
     public static final int COLUMN_MEANING_ES_INDEXES           = ColIndexConverter("o");
     public static final int COLUMN_EXTRA_KEYWORDS_ES            = ColIndexConverter("p");
     public static final int COLUMN_HIRAGANA_FIRST_CHAR          = ColIndexConverter("q");
+    public static final int COLUMN_FREQUENCY                    = ColIndexConverter("r");
 
     public static final int COLUMN_MEANINGS_MEANING             = ColIndexConverter("b");
     public static final int COLUMN_MEANINGS_TYPE                = ColIndexConverter("c");
@@ -246,6 +255,7 @@ public final class Globals {
     public final static int XDB_COL_MEANINGS_EN                = 5;
     public final static int XDB_COL_MEANINGS_FR                = 6;
     public final static int XDB_COL_MEANINGS_ES                = 7;
+    public final static int XDB_COL_FREQUENCy                  = 8;
 
     public final static int NDB_COL_INDEX                      = 0;
     public final static int NDB_COL_ROMAJI                     = 1;

@@ -1,6 +1,6 @@
 package com.japagram.utilitiesCrossPlatform;
 
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ public class UtilitiesGeneral {
     public static String removeDuplicatesFromCommaList(String input_list) {
 
         boolean is_repeated;
-        List<String> parsed_cumulative_meaning_value = Arrays.asList(OverridableUtilitiesGeneral.splitAtCommasOutsideParentheses(input_list));
+        List<String> parsed_cumulative_meaning_value = Arrays.asList(OvUtilsGeneral.splitAtCommasOutsideParentheses(input_list));
         List<String> final_cumulative_meaning_value_array = new ArrayList<>();
         String current_value;
         for (int j = 0; j < parsed_cumulative_meaning_value.size(); j++) {
@@ -39,7 +39,7 @@ public class UtilitiesGeneral {
             }
             if (!is_repeated) final_cumulative_meaning_value_array.add(current_value);
         }
-        return OverridableUtilitiesGeneral.joinList(", ", final_cumulative_meaning_value_array);
+        return OvUtilsGeneral.joinList(", ", final_cumulative_meaning_value_array);
     }
 
     public static String[] @NotNull [] getTranspose(@NotNull List<String[]> db) {

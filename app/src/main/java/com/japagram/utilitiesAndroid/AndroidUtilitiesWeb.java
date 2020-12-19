@@ -7,7 +7,7 @@ import com.japagram.R;
 import com.japagram.data.Word;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class UtilitiesWeb {
+public class AndroidUtilitiesWeb {
     private static int runningIndex = 0;
     private static String websiteCodeString = "";
 
@@ -42,7 +42,7 @@ public class UtilitiesWeb {
         //region Preparing the word to be included in the url
         StringBuilder prepared_word;
         if (UtilitiesQuery.getTextType(word) == Globals.TEXT_TYPE_KANJI) {
-            String converted_word = OverridableUtilitiesGeneral.convertToUTF8Index(word);
+            String converted_word = OvUtilsGeneral.convertToUTF8Index(word);
             converted_word = converted_word.substring(2);
             prepared_word = new StringBuilder();
             for (int i = 0; i < converted_word.length() - 1; i = i + 2) {
@@ -129,7 +129,7 @@ public class UtilitiesWeb {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            OverridableUtilitiesGeneral.printLog("Diagnosis Time", "Failed to access online resources.");
+            OvUtilsGeneral.printLog("Diagnosis Time", "Failed to access online resources.");
             return null;
         } finally {
             try {
@@ -436,7 +436,7 @@ public class UtilitiesWeb {
                             if (!convertedMatch.equals(currentWord.getRomaji())) altSpellings.add(convertedMatch.trim());
                         }
                         altSpellings = com.japagram.utilitiesCrossPlatform.UtilitiesGeneral.removeDuplicatesFromStringList(altSpellings);
-                        currentWord.setAltSpellings(OverridableUtilitiesGeneral.joinList(", ", altSpellings));
+                        currentWord.setAltSpellings(OvUtilsGeneral.joinList(", ", altSpellings));
                         break;
                     } else {
                         List<Object> meaningWrapperData = (List<Object>) meaningsWrapperData.get(j);
@@ -559,7 +559,7 @@ public class UtilitiesWeb {
                             else typesAsLegend.add("Vkuru");
                         }
                     }
-                    matchingWordType = OverridableUtilitiesGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesAsLegend);
+                    matchingWordType = OvUtilsGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesAsLegend);
                 }
                 wordMeaning.setType(matchingWordType);
 
@@ -614,7 +614,7 @@ public class UtilitiesWeb {
     private static String reformatMeanings(@NotNull String meaningsOriginal) {
 
         String meanings_commas = meaningsOriginal.replace(Globals.DB_ELEMENTS_DELIMITER, ",");
-        meanings_commas = OverridableUtilitiesGeneral.fromHtml(meanings_commas).toString();
+        meanings_commas = OvUtilsGeneral.fromHtml(meanings_commas).toString();
         meanings_commas = meanings_commas.replaceAll("',", "'");
         meanings_commas = meanings_commas.replaceAll("\",", "\"");
         meanings_commas = meanings_commas.replaceAll(",0", "'0"); //Fixes number display problems

@@ -737,7 +737,7 @@
     <string name="use_default_font_for_asian_characters">Utiliser la police de défaut pour les caractères asiatiques (les caractères chinois seront affichés dans la police mandarine de défaut)</string>
     <string name="use_japanese_font_in_texts">Util. Police Japonaise Dans Textes</string>
     <string name="characters_main_radical_is">Le radical principal du caractère est</string>
-    <string name="aditional_strokes">touches additionelles</string>
+    <string name="additional_strokes">touches additionelles</string>
     <string name="additional_stroke">touche additionelle</string>
     <string name="number_abbrev_">No.</string>
     <string name="with">avec</string>

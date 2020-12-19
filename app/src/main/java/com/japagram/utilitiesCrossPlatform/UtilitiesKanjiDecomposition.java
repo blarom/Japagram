@@ -1,11 +1,13 @@
 package com.japagram.utilitiesCrossPlatform;
 
+import android.content.Context;
 import android.content.res.Resources;
 
 import com.japagram.R;
 import com.japagram.data.KanjiCharacter;
 import com.japagram.data.RoomKanjiDatabase;
-import com.japagram.utilitiesPlatformOverridable.OverridableUtilitiesGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsResources;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +20,7 @@ public class UtilitiesKanjiDecomposition {
     public static @NotNull List<List<String>> Decomposition(String word, @NotNull RoomKanjiDatabase mRoomKanjiDatabase) {
         KanjiCharacter mCurrentKanjiCharacter;
         String concatenated_input = UtilitiesGeneral.removeSpecialCharacters(word);
-        String inputHexIdentifier = OverridableUtilitiesGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
+        String inputHexIdentifier = OvUtilsGeneral.convertToUTF8Index(concatenated_input).toUpperCase();
         mCurrentKanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(inputHexIdentifier);
 
         List<List<String>> decomposedKanji = new ArrayList<>();
@@ -35,7 +37,7 @@ public class UtilitiesKanjiDecomposition {
         //Otherwise, get the decompositions
         else {
 
-            kanji_and_its_structure.add(OverridableUtilitiesGeneral.getStringFromUTF8(mCurrentKanjiCharacter.getHexIdentifier()));
+            kanji_and_its_structure.add(OvUtilsGeneral.getStringFromUTF8(mCurrentKanjiCharacter.getHexIdentifier()));
             kanji_and_its_structure.add(mCurrentKanjiCharacter.getStructure());
             decomposedKanji.add(kanji_and_its_structure);
 
@@ -85,16 +87,16 @@ public class UtilitiesKanjiDecomposition {
                 components = reading.split("\\.");
                 readingLatin = UtilitiesQuery.getWaapuroHiraganaKatakana(components[0]).get(Globals.TEXT_TYPE_LATIN);
                 if (components.length > 1) readingLatin +=
-                        "(" + UtilitiesQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TEXT_TYPE_LATIN) + ")";
+                        OvUtilsGeneral.concat(new String[]{"(", UtilitiesQuery.getWaapuroHiraganaKatakana(components[1]).get(Globals.TEXT_TYPE_LATIN), ")"});
                 readingsList.add(readingLatin);
             }
             readingsList = UtilitiesGeneral.removeDuplicatesFromStringList(readingsList);
         }
 
-        return (readingsList.size()>0 && !readingsList.get(0).equals(""))? OverridableUtilitiesGeneral.joinList(", ", readingsList) : "-";
+        return (readingsList.size()>0 && !readingsList.get(0).equals(""))? OvUtilsGeneral.joinList(", ", readingsList) : "-";
     }
 
-    public static @NotNull List<String> getKanjiDetailedCharacteristics(KanjiCharacter kanjiCharacter, String language, Resources mLocalizedResources) {
+    public static @NotNull List<String> getKanjiDetailedCharacteristics(KanjiCharacter kanjiCharacter, String language, Context context) {
 
         List<String> characteristics = new ArrayList<>(Arrays.asList("", "", "", ""));
         if (kanjiCharacter == null) return characteristics;
@@ -103,25 +105,30 @@ public class UtilitiesKanjiDecomposition {
         characteristics.set(Globals.KANJI_KUN_READING, getFormattedReadings(kanjiCharacter.getKunReadings()));
         characteristics.set(Globals.KANJI_NAME_READING, getFormattedReadings(kanjiCharacter.getNameReadings()));
 
-        boolean meaningsENisEmpty = OverridableUtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsEN());
+        boolean meaningsENisEmpty = OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsEN());
         switch (language) {
             case Globals.LANG_STR_EN:
                 characteristics.set(Globals.KANJI_MEANING, meaningsENisEmpty? "-" : kanjiCharacter.getMeaningsEN());
                 break;
             case Globals.LANG_STR_FR:
-                characteristics.set(Globals.KANJI_MEANING, OverridableUtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsFR())?
-                        (meaningsENisEmpty? "-" : mLocalizedResources.getString(R.string.english_meanings_available_only) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsFR());
+                characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsFR())?
+                        (meaningsENisEmpty? "-" : OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsFR());
                 break;
             case Globals.LANG_STR_ES:
-                characteristics.set(Globals.KANJI_MEANING, OverridableUtilitiesGeneral.isEmptyString(kanjiCharacter.getMeaningsES())?
-                        (meaningsENisEmpty? "-" : mLocalizedResources.getString(R.string.english_meanings_available_only) + " " + kanjiCharacter.getMeaningsEN()) : kanjiCharacter.getMeaningsES());
+                characteristics.set(Globals.KANJI_MEANING, OvUtilsGeneral.isEmptyString(kanjiCharacter.getMeaningsES())?
+                        (meaningsENisEmpty? "-" :
+                                OvUtilsGeneral.concat(new String[]{
+                                        OvUtilsResources.getString("english_meanings_available_only", context, Globals.RESOURCE_MAP_GENERAL, language),
+                                                " ",
+                                                kanjiCharacter.getMeaningsEN()})
+                                ) : kanjiCharacter.getMeaningsES());
                 break;
         }
 
         return characteristics;
     }
 
-    public static @NotNull List<String> getKanjiRadicalCharacteristics(KanjiCharacter kanjiCharacter, List<String[]> mRadicalsOnlyDatabase, Resources mLocalizedResources) {
+    public static @NotNull List<String> getKanjiRadicalCharacteristics(KanjiCharacter kanjiCharacter, List<String[]> mRadicalsOnlyDatabase, Context context, String language) {
 
         List<String> radical_characteristics = new ArrayList<>();
 
@@ -142,14 +149,14 @@ public class UtilitiesKanjiDecomposition {
                     }
                     String text = "";
                     if (radical_index != -1) {
-                        text = mLocalizedResources.getString(R.string.characters_main_radical_is) + " " +
+                        text = OvUtilsResources.getString("characters_main_radical_is", context, Globals.RESOURCE_MAP_GENERAL, language) + " " +
                                 mRadicalsOnlyDatabase.get(radical_index)[Globals.RADICAL_KANA] + " " +
-                                "(" + mLocalizedResources.getString(R.string.number_abbrev_) + " " +
+                                "(" + OvUtilsResources.getString("number_abbrev_", context, Globals.RESOURCE_MAP_GENERAL, language) + " " +
                                 parsed_list.get(0) +
-                                ") "  + mLocalizedResources.getString(R.string.with) + " " +
+                                ") "  + OvUtilsResources.getString("with", context, Globals.RESOURCE_MAP_GENERAL, language) + " " +
                                 parsed_list.get(1) + " " +
-                                ((Integer.parseInt(parsed_list.get(1))>1)? mLocalizedResources.getString(R.string.aditional_strokes)
-                                        : mLocalizedResources.getString(R.string.additional_stroke))
+                                ((Integer.parseInt(parsed_list.get(1))>1)? OvUtilsResources.getString("additional_strokes", context, Globals.RESOURCE_MAP_GENERAL, language)
+                                        : OvUtilsResources.getString("additional_stroke", context, Globals.RESOURCE_MAP_GENERAL, language))
                                 + ".";
                     }
                     radical_characteristics.add(text);
@@ -163,7 +170,7 @@ public class UtilitiesKanjiDecomposition {
     }
 
     @Contract("_, _, _, _, _ -> new")
-    public static Object @NotNull [] getRadicalInfo(String inputQuery, @NotNull List<String[]> mRadicalsOnlyDatabase, RoomKanjiDatabase mRoomKanjiDatabase, String language, Resources mLocalizedResources) {
+    public static Object @NotNull [] getRadicalInfo(String inputQuery, @NotNull List<String[]> mRadicalsOnlyDatabase, RoomKanjiDatabase mRoomKanjiDatabase, String language, Context context) {
 
         int radicalIndex = -1;
         int mainRadicalIndex = 0;
@@ -193,9 +200,9 @@ public class UtilitiesKanjiDecomposition {
 
             //Get the remaining radical characteristics (readings, meanings) from the KanjiDictDatabase
             String mainRadical = mRadicalsOnlyDatabase.get(mainRadicalIndex)[Globals.RADICAL_KANA];
-            String radicalHexIdentifier = OverridableUtilitiesGeneral.convertToUTF8Index(mainRadical).toUpperCase();
+            String radicalHexIdentifier = OvUtilsGeneral.convertToUTF8Index(mainRadical).toUpperCase();
             KanjiCharacter kanjiCharacter = mRoomKanjiDatabase.getKanjiCharacterByHexId(radicalHexIdentifier);
-            currentMainRadicalDetailedCharacteristics = getKanjiDetailedCharacteristics(kanjiCharacter, language, mLocalizedResources);
+            currentMainRadicalDetailedCharacteristics = getKanjiDetailedCharacteristics(kanjiCharacter, language, context);
 
         }
         return new Object[]{

@@ -9,8 +9,8 @@ import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.UtilitiesAndroidIO;
-import com.japagram.utilitiesAndroid.UtilitiesWeb;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesWeb;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class JishoOnlineSearchAsyncTask extends AsyncTask<Void, Void, List<Word>
 
         List<Word> matchingWordsFromJisho = new ArrayList<>();
 
-        if (UtilitiesAndroidIO.internetIsAvailableCheck(contextRef.get()) && !TextUtils.isEmpty(mQuery)) {
-            matchingWordsFromJisho = UtilitiesWeb.getWordsFromJishoOnWeb(mQuery, contextRef.get());
+        if (AndroidUtilitiesIO.internetIsAvailableCheck(contextRef.get()) && !TextUtils.isEmpty(mQuery)) {
+            matchingWordsFromJisho = AndroidUtilitiesWeb.getWordsFromJishoOnWeb(mQuery, contextRef.get());
         } else {
             Log.i("Diagnosis Time", "Failed to access online resources.");
             if (Looper.myLooper()==null) Looper.prepare();
