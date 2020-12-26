@@ -126,11 +126,6 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         List<String[]> multExplFRDatabase       = AndroidUtilitiesIO.readCSVFile("LineMultExplFR - 3000 kanji.csv", context);
         List<String[]> multExplESDatabase       = AndroidUtilitiesIO.readCSVFile("LineMultExplES - 3000 kanji.csv", context);
         List<String[]> examplesDatabase         = AndroidUtilitiesIO.readCSVFile("LineExamples - 3000 kanji.csv", context);
-        List<String> frequencies                = AndroidUtilitiesIO.readSingleColumnFile("LineFrequencies - 3000 kanji.csv", context);
-        HashMap<String, Integer> frequenciesHash = new HashMap<>();
-        for (int i=0; i<frequencies.size(); i++){
-            if (!frequenciesHash.containsKey(frequencies.get(i))) frequenciesHash.put(frequencies.get(i),i+1);
-        }
 
         //Removing the titles row in each sheet
         typesDatabase.remove(0);
@@ -160,7 +155,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
             Word word = AndroidUtilitiesDb.createWordFromCsvDatabases(centralDatabase,
                     meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
                     multExplENDatabase, multExplFRDatabase, multExplESDatabase,
-                    examplesDatabase, frequenciesHash, i);
+                    examplesDatabase, i);
             wordList.add(word);
             if (inserted_words.containsKey(word.getId())) {
                 Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getId()));

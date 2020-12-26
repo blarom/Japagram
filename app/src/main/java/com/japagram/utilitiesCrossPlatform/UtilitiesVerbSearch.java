@@ -318,15 +318,15 @@ public final class UtilitiesVerbSearch {
         List<String[]> verbConjugationMaxLengths = new ArrayList<>();
         int conjugationMaxLength;
         if (mPreparedQueryTextType == Globals.TEXT_TYPE_LATIN) {
-            verbConjugationMaxLengths = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS;
             queryLengthForDilution = mPreparedCleanedLength;
         }
         else if (mPreparedQueryTextType == Globals.TEXT_TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TEXT_TYPE_KATAKANA) {
-            verbConjugationMaxLengths = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS;
             queryLengthForDilution = mPreparedTranslRomajiLength;
         }
         else if (mPreparedQueryTextType == Globals.TEXT_TYPE_KANJI) {
-            verbConjugationMaxLengths = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", context);
+            verbConjugationMaxLengths = Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS;
             queryLengthForDilution = mPreparedCleanedLength;
         }
 
@@ -775,7 +775,7 @@ public final class UtilitiesVerbSearch {
             //region Setting the verb's basic characteristics for display
             List<Word.Meaning> meanings;
             String languageText = OvUtilsResources.getLanguageText(language, context);
-            switch (languageText) {
+            switch (language) {
                 case Globals.LANG_STR_EN:
                     meanings = currentWord.getMeaningsEN();
                     break;
@@ -790,13 +790,10 @@ public final class UtilitiesVerbSearch {
             String extract = "";
             if (meanings == null || meanings.size() == 0) {
                 meanings = currentWord.getMeaningsEN();
-                extract += "["
-                        + OvUtilsResources.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL, language)
-                        + " "
-                        + languageText.toLowerCase()
-                        + " "
-                        + OvUtilsResources.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL, language)
-                        + "] ";
+                extract += OvUtilsGeneral.concat(new String[]{
+                        "[", OvUtilsResources.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL, language),
+                        " ", languageText.toLowerCase(), " ",
+                        OvUtilsResources.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL, language), "] "});
             }
             extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
             currentVerb.setMeaning(extract);
@@ -833,9 +830,9 @@ public final class UtilitiesVerbSearch {
                 else {
                     conjLength = currentConjugationsRowLatin[col].length();
                     if (conjLength > 3 && currentConjugationsRowLatin[col].startsWith("(o)")) {
-                        currentConjugationsRowLatin[col] = "(o)" + currentVerb.getActiveLatinRoot() + currentConjugationsRowLatin[col].substring(3, conjLength);
+                        currentConjugationsRowLatin[col] = OvUtilsGeneral.concat(new String[]{"(o)", currentVerb.getActiveLatinRoot(), currentConjugationsRowLatin[col].substring(3, conjLength)});
                     } else {
-                        currentConjugationsRowLatin[col] = currentVerb.getActiveLatinRoot() + currentConjugationsRowLatin[col];
+                        currentConjugationsRowLatin[col] = OvUtilsGeneral.concat(new String[]{currentVerb.getActiveLatinRoot(), currentConjugationsRowLatin[col]});
                     }
                 }
 
@@ -843,9 +840,9 @@ public final class UtilitiesVerbSearch {
                 else {
                     conjLength = currentConjugationsRowKanji[col].length();
                     if (conjLength > 3 && currentConjugationsRowKanji[col].startsWith("(お)")) {
-                        currentConjugationsRowKanji[col] = "(お)" + currentVerb.getActiveKanjiRoot() + currentConjugationsRowKanji[col].substring(3, conjLength);
+                        currentConjugationsRowKanji[col] = OvUtilsGeneral.concat(new String[]{"(お)", currentVerb.getActiveKanjiRoot(), currentConjugationsRowKanji[col].substring(3, conjLength)});
                     } else {
-                        currentConjugationsRowKanji[col] = currentVerb.getActiveKanjiRoot() + currentConjugationsRowKanji[col];
+                        currentConjugationsRowKanji[col] = OvUtilsGeneral.concat(new String[]{currentVerb.getActiveKanjiRoot(), currentConjugationsRowKanji[col]});
                     }
                 }
             }
@@ -853,7 +850,7 @@ public final class UtilitiesVerbSearch {
 
             //region Getting the verb conjugations and putting each conjugation of the conjugations row into its appropriate category
             conjugationCategories = new ArrayList<>();
-            String verbClause = "[" + OvUtilsResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language) + "]";
+            String verbClause = OvUtilsGeneral.concat(new String[]{"[", OvUtilsResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language), "]"});
             for (int categoryIndex = 1; categoryIndex < Globals.GLOBAL_CONJUGATION_TITLES.size(); categoryIndex++) {
 
                 //region Getting the set of Latin and Kanji conjugations according to the current category's subtitle column indexes

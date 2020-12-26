@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 141;
+    public static final int CENTRAL_DB_VERSION = 143;
     public static final int KANJI_DB_VERSION = 28;
-    public static final int EXTENDED_DB_VERSION = 38;
+    public static final int EXTENDED_DB_VERSION = 39;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -24,8 +24,10 @@ public final class Globals {
     public static final String FIREBASE_PASS = BuildConfig.firebasePass;
     public static List<String[]> GLOBAL_SIMILARS_DATABASE;
     public static List<String[]> GLOBAL_VERB_LATIN_CONJ_DATABASE;
-    public static List<ConjugationTitle> GLOBAL_CONJUGATION_TITLES;
     public static List<String[]> GLOBAL_VERB_KANJI_CONJ_DATABASE;
+    public static List<String[]> GLOBAL_VERB_LATIN_CONJ_LENGTHS;
+    public static List<String[]> GLOBAL_VERB_KANJI_CONJ_LENGTHS;
+    public static List<ConjugationTitle> GLOBAL_CONJUGATION_TITLES;
     public static List<String[]> GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES;
     public static List<String[]> GLOBAL_RADICALS_ONLY_DATABASE;
     public static String[][] GLOBAL_ROMANIZATIONS;

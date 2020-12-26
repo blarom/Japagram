@@ -5,7 +5,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 17716|de utteiru|～で売っています||1|de utteimasu|||||107||191||180|||0
 17717|ni suru|～にする||1|ni shimasu;nisuru|||||108|will take;will order|192|va prendre;va commander|181|tomará;ordenará||2
 17718|mo sou|～もそう||1|mosou|||||109||193||182|||0
-17719|[verb] [noun]|～||1|ga|||||110||194||183|||20001
+17719|[verb] [noun]|～||1|ga|||||110||194||183|||0
 17720|toori|～とおり||1|doori;toori ni;doori ni|||||112||195||184|||0
 17721|hou ga ii da|ほうがいいです||1|hou ga ii desu;hou ga;ta hou ga;hougaii|||||113||196||185|||0
 17722|ikura ...te mo|幾ら...ても||1|de mo;demo;temo|||||121||197||186|||0
@@ -128,7 +128,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 17839|jatta|～じゃった||1|te shimaimashita;de shimatta;de shimaimashita|||||726||307||296|||0
 17840|(o) ni naru|～になる||1|ni naru|||||287||308||297|||0
 17841|(o) nasaru|～なさる||1|nasaru|||||288||309||298|||0
-17842|(o) suru|～する||1|suru|||||289||310||299|||20001
+17842|(o) suru|～する||1|suru|||||289||310||299|||0
 17843|(o) itasu|～いたす||1|itasu|||||290||311||300|||0
 17844|(o) kudasai|～下さい||1|kudasai|||||291||312||301|||0
 17845|(o) naide kudasai|～ないで下さい||1|naide kudasai|||||292||313||302|||0
@@ -205,7 +205,7 @@ Index|Romaji construction|Kana construction|Alternate Spellings|Common|Extra key
 17916|kereba|～ければ||1|kereba desu;keiyoushi;i keiyoushi|||||361|i-adjective;conditional|387|conditionnel|376|condicional||0
 17917|karou|～かろう||1|keiyoushi;i keiyoushi|||||362|i-adjective;volitional;suggestive|388|volitif;suggestif|377|volitivo;sugerente.||0
 17918|sa|～さ||1|keiyoushi;i keiyoushi|||||6197|i-adjective|389||378|||1660
-17919|[root]|～||1|keiyoudoushi;na keiyoushi|||||363|na-adjective|390||379|||20001
+17919|[root]|～||1|keiyoudoushi;na keiyoushi|||||363|na-adjective|390||379|||0
 17920|desu|～です||1|keiyoudoushi;na keiyoushi|||||364|na-adjective|391||380|||13613
 17921|dewa arimasen|～ではありません||1|keiyoudoushi;na keiyoushi|||||365|na-adjective|392||381|||0
 17922|ja nai desu|～じゃないです||1|keiyoudoushi;na keiyoushi|||||366|na-adjective|393||382|||0

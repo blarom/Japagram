@@ -71,9 +71,11 @@ public class SplashScreenActivity extends BaseActivity {
             mCentralDbBeingLoaded = true;
             Globals.GLOBAL_SIMILARS_DATABASE = AndroidUtilitiesIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", getBaseContext());
+            Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, this, mLanguage);
             Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = AndroidUtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
-            Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_RADICALS_ONLY_DATABASE = AndroidUtilitiesIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_ROMANIZATIONS = UtilitiesGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");

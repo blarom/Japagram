@@ -48,7 +48,6 @@ public class AndroidUtilitiesDb {
                                                   List<String[]> multExplFRDatabase,
                                                   List<String[]> multExplESDatabase,
                                                   List<String[]> examplesDatabase,
-                                                  @NotNull HashMap<String, Integer> frequenciesHash,
                                                   int centralDbRowIndex) {
 
         Word word = new Word();
@@ -64,18 +63,6 @@ public class AndroidUtilitiesDb {
         //Getting the Kanji value
         String matchingWordKanji = centralDatabase.get(centralDbRowIndex)[Globals.COLUMN_KANJI];
         word.setKanji(matchingWordKanji);
-
-        //Setting the frequency
-        if (matchingWordKanji.equals("為る")) {
-            word.setFrequency(frequenciesHash.get("する"));
-        } else {
-            String key = matchingWordKanji.replace("～", "").replaceAll("する$", "");
-            if (frequenciesHash.containsKey(key)) word.setFrequency(frequenciesHash.get(key));
-            else {
-                String katakana = UtilitiesQuery.getWaapuroHiraganaKatakana(matchingWordRomaji).get(Globals.TEXT_TYPE_KATAKANA);
-                if (frequenciesHash.containsKey(katakana)) word.setFrequency(frequenciesHash.get(katakana));
-            }
-        }
 
         //Setting the unique identifier
         word.setUniqueIdentifier(matchingWordRomaji + "-" + matchingWordKanji);
@@ -167,6 +154,7 @@ public class AndroidUtilitiesDb {
         word.setMeaningsEN(meaningsEN);
         word.setMeaningsFR(meaningsFR);
         word.setMeaningsES(meaningsES);
+        word.setFrequency(Integer.parseInt(extendedDatabaseRow[Globals.XDB_COL_FREQUENCY]));
 
         return word;
     }
