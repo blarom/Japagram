@@ -568,10 +568,10 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 568|immense, enormous, great, serious, grave, stressful, terrible, dreadful, difficult, hard|Ana||||yasashii, raku|muzukashii, nukui
 569|very, much, greatly, a lot of|A;Dg|||||
 570|without omission, in full, fully|A;Dg|||||
-571|adorable|Ai|||||
-572|impressive, extensive|Ai|||||
+571||-|||||
+572||-|||||
 573|applauded (to applaud)|Ai|Verb-based, linked to object by "ga" when used with desu verb.||||
-574|appropriate, adequate, suitable, fitting, worthy|Ai|||||
+574||-|||||
 575|huh?, what?|OI|||||
 576|change, alter|VruiT|||||
 577|bad, poor, inferior|Ai||||ii, yoi, kekkou, yoroshii|
@@ -628,33 +628,33 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 628|-al, -ial, -ic, -ical, -ish, -y|Sx|Suffix forming adjectives or adverbs, after an indeclinable word.||||
 629|please do/be|VC|Please [do/be] X. Politer than "te kudasai".|X moratte mo ii desu ka @ X = verb te form|1392;1394||
 630|please do/be|VC|Please [do/be] X. Used when speaking with superiors or non-intimate people.|X itadakitai n desu ka @ X = verb te form|1391||
-631|good, ok, all right, fine|Ai|||||
-632|good-for-nothing, stupid, trivial, worthless|Ai|||||
-633|grateful, thankful, welcome, appreciated, evoking gratitude|Ai|||||
-634|happy, auspicious, propitious, joyous, naïve|Ai|||||
+631||-|||||
+632||-|||||
+633||-|||||
+634||-|||||
 635|pleased|Ai||||kanashii|
 636|hard, solid, tough|Ai|||||
 637|heavy, weighty, massive|Ai||||karui|
-638|heavy, gloomy, awkward, cumbrous, oppressive, leaden|Ai|||||
-639|heavy, massive, serious, important, severe, oppressed|Ai|||||
-640|hectic, bewildering, bustling, dizzy|Ai|||||
+638||-|||||
+639||-|||||
+640||-|||||
 641|hot (object)|Ai|Used for objects.||||
-642|hot and humid, sultry|Ai|||||
+642||-|||||
 643|am/is not X|PC|na-adjective conjugation.|X dewa nai @ X = phrase|1497||
 644|impious, profane, sacrilegious|Ai|||||
 645|insistent, obstinate, persistent, tenacious, too rich (e.g. in taste)|Ai|||||
 646|study room|N|||||
 647|about to do|VC|To be about to [do/be] X.|X to suru @ X = verb ou (volitional) form|||
-648|intolerable, unbearable, unendurable, irresistible, tremendous, out of this world|Ai|||||
-649|invisible, unseen, vague, mysterious, imaginary|Ai||||miyasui|
-650|itchy, itching|Ai|||||
-651|light, faint, pale, fleeting|Ai|||||
+648||-|||||
+649||-|||||
+650||-|||||
+651||-|||||
 652|before|CO||X uchi ni @ verb nai form|950||
-653|lonely, lonesome, solitary, desolate|Ai|||||
+653||-|||||
 654|long (distance)|Ai||||mijikai|
 655|loose, lenient, lax, gentle (e.g. curve, slope), slow, weak, soft|Ai||||tsuyoi, joubu|yowai, hiyowai, hiyowa, yowacchii, yurui, usui, yawai, nayocchii, kasuka, hijaku, yawa
 656|loud, noisy, annoying, troublesome|Ai||||shizuka|
-657|lovely, sweet|Ai|||||
+657||-|||||
 658|low (rank, degree, value, content, quality, etc.)|Ai||||takai|
 659|lukewarm, tepid|Ai|||||
 660|narrow, confined, not spacious|Ai||||hiroi|
@@ -6307,7 +6307,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 6307|nock (of an arrow)|N;Abs|||||
 6308|nock-shaped grip (between thumb and forefinger)|N;Abs|||||
 6309|wooden frame on the tip of the mast of a Japanese ship that prevents the hawser from falling out|N;GO|||||
-6310|disgraceful, shameful|Ai|||||
+6310||-|||||
 6311|awaken to (instinct, ability, perception, etc.), become aware of, become conscious of, realize|VruiI|||||
 6312|come to one's senses|VruiI|||||
 6313|Stellers sea lion, Northern sea lion|N;Fa|||||
@@ -12274,7 +12274,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 12274|reference, allusion|N;Abs|||||
 12275|feel when biting|N;Abs|||||
 12276|manner of enunciation|N;Abs|||||
-12277|embarrassing, embarrassed, ashamed, humiliated, shy|Ai|||||
+12277||-|||||
 12278|bounce, spring, rebound|N;Abs|||||
 12279|momentum, impetus, impulse, stimulus, inertia|N;Abs|||||
 12280|moment, instant, impulse, chance|N;Abs|||||
@@ -16237,7 +16237,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 16237|establishment, founding, incorporation (of a business)|N;Abs|||||
 16238|establishment, creation, posing (a problem), setting (movie, novel, etc.), scene|N;Abs|||||
 16239|options setting, preference settings, configuration, setup|N;Abs|||||
-16240|configurableness|N;Abs|||||
+16240|configurablility|N;Abs|||||
 16241|configurable|Ana|||||
 16242|rehabilitation (in society)|N;Abs|||||
 16243|working adult, full-fledged member of society|N;Abs|||||
@@ -35782,9 +35782,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 35782|(tube of) instant glue|N|||||
 35783|intensive care unit, ICU|N|||||
 35784|which reminds me ..., come to think of it ..., now that you mention it ..., on that subject ..., so, if you say ...|CE|||||
-35785|terrible, dreadful|Ai|||||
-35786|amazing (e.g. of strength), great (e.g. of skills), wonderful, terrific|Ai|||||
-35787|to a great extent, vast (in numbers)|Ai|||||
+35785||-|||||
+35786||-|||||
+35787||-|||||
 35788|striped dolphin (Stenella coeruleoalba)|N|||||
 35789|help, aid, relief, (religious) salvation, (Christian) grace, providence|N|||||
 35790|several days later|N;T|||||

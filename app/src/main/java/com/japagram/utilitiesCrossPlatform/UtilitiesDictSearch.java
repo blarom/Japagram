@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class UtilitiesDictSearch {
@@ -44,7 +45,8 @@ public class UtilitiesDictSearch {
 
         if (roomExtendedDbIsAvailable) {
             List<Word> extendedWordsList = OvUtilsDb.getWordListByWordIds(matchingWordIdsExtended, context, Globals.DB_EXTENDED, language);
-            localMatchingWordsList.addAll(extendedWordsList);
+            localMatchingWordsList = mergeLocalWordLists(localMatchingWordsList, extendedWordsList);
+            //localMatchingWordsList.addAll(extendedWordsList);
         }
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
@@ -70,6 +72,83 @@ public class UtilitiesDictSearch {
             localMatchingWordsList.addAll(condensedNames);
         }
         return localMatchingWordsList;
+    }
+
+    private static List<Word> mergeLocalWordLists(List<Word> localMatchingWordsList, @NotNull List<Word> extendedWordsList) {
+        List<Word> finalList = new ArrayList<>();
+        HashMap<String, Word> localWordIdList = new HashMap<>();
+        List<String> extendedWordIds = new ArrayList<>();
+        List<String> finalMeaningsTexts;
+        Word localWord;
+        Word finalWord;
+        List<Word.Meaning> extendedMeanings;
+        List<Word.Meaning> localMeanings;
+        List<Word.Meaning> finalMeanings;
+        List<String> combinedAltSpellings;
+        String combinedAltSpellingsString;
+        String extAltS;
+        String locAltS;
+        for (Word word : extendedWordsList) {
+            word.setUniqueIdentifierFromDetails();
+            extendedWordIds.add(word.getUniqueIdentifier());
+        }
+        for (Word word : localMatchingWordsList) {
+            localWordIdList.put(word.getUniqueIdentifier(), word);
+            if (!OvUtilsGeneral.listContains(extendedWordIds, word.getUniqueIdentifier())) {
+                finalList.add(word);
+            }
+        }
+        for (Word extendedWord : extendedWordsList) {
+            if (localWordIdList.containsKey(extendedWord.getUniqueIdentifier())) {
+                localWord = localWordIdList.get(extendedWord.getUniqueIdentifier());
+                finalWord = new Word(extendedWord.getRomaji(), extendedWord.getKanji());
+                extAltS = extendedWord.getAltSpellings();
+                locAltS = localWord.getAltSpellings();
+                if (extAltS.equals("") && locAltS.equals("")) { finalWord.setAltSpellings(""); }
+                else if (extAltS.equals("") && !locAltS.equals("")) { finalWord.setAltSpellings(locAltS); }
+                else if (!extAltS.equals("") && locAltS.equals("")) { finalWord.setAltSpellings(extAltS); }
+                else {
+                    combinedAltSpellingsString = OvUtilsGeneral.concat(new String[]{extAltS, Globals.DB_ELEMENTS_DELIMITER, locAltS});
+                    finalWord.setAltSpellings(UtilitiesGeneral.removeDuplicatesFromDelimitedString(Globals.DB_ELEMENTS_DELIMITER, combinedAltSpellingsString));
+                }
+                finalWord.setFrequency(extendedWord.getFrequency());
+                finalWord.setExtraKeywordsEN(localWord.getExtraKeywordsEN());
+                finalWord.setExtraKeywordsFR(localWord.getExtraKeywordsFR());
+                finalWord.setExtraKeywordsES(localWord.getExtraKeywordsES());
+                finalWord.setExtraKeywordsJAP(localWord.getExtraKeywordsJAP());
+                finalWord.setIsCommon(extendedWord.getIsCommon());
+                finalWord.setIsLocal(true);
+                finalWord.setVerbConjMatchStatus(localWord.getVerbConjMatchStatus());
+                finalWord.setMatchingConj(localWord.getMatchingConj());
+                for (int i=0; i<3; i++) {
+                    switch (i) {
+                        case 1: localMeanings = localWord.getMeaningsFR(); extendedMeanings = extendedWord.getMeaningsEN(); break;
+                        case 2: localMeanings = localWord.getMeaningsES(); extendedMeanings = extendedWord.getMeaningsES(); break;
+                        default: localMeanings = localWord.getMeaningsEN(); extendedMeanings = extendedWord.getMeaningsEN(); break;
+                    }
+                    finalMeaningsTexts = new ArrayList<>();
+                    finalMeanings = new ArrayList<>();
+                    for (Word.Meaning localMeaning : localMeanings) {
+                        finalMeaningsTexts.add(localMeaning.getMeaning());
+                        finalMeanings.add(localMeaning);
+                    }
+                    for (Word.Meaning extendedMeaning : extendedMeanings) {
+                        if (!OvUtilsGeneral.listContains(finalMeaningsTexts,extendedMeaning.getMeaning())) {
+                            finalMeanings.add(extendedMeaning);
+                        }
+                    }
+                    switch (i) {
+                        case 1: finalWord.setMeaningsFR(finalMeanings); break;
+                        case 2: finalWord.setMeaningsES(finalMeanings); break;
+                        default: finalWord.setMeaningsEN(finalMeanings); break;
+                    }
+                }
+                finalList.add(finalWord);
+            } else {
+                finalList.add(extendedWord);
+            }
+        }
+        return finalList;
     }
 
     public static @NotNull List<String> prepareSource(String inputQuery,

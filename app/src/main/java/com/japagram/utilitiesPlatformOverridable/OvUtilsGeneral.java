@@ -105,4 +105,8 @@ public class OvUtilsGeneral {
         // https://stackoverflow.com/questions/9030036/regex-to-match-only-commas-not-in-parentheses
         return text.split(",(?![^(]*\\))(?![^\"']*[\"'](?:[^\"']*[\"'][^\"']*[\"'])*[^\"']*$)");
     }
+
+    public static boolean listContains(Object list, Object item) {
+        return ((List<Object>) list).contains(item);
+    }
 }

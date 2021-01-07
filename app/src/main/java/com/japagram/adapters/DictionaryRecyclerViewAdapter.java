@@ -82,7 +82,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         mInputQueryTextType = inputQuery.getOriginalType();
         mInputQueryFirstLetter = (OvUtilsGeneral.isEmptyString(inputQuery.getOriginal())) ? "" : inputQuery.getOriginal().substring(0,1);
         mInputQueryNoSpaces = inputQuery.getOriginal().replace(" ","");
-        mInputQueryLatin = inputQuery.getWaapuroConversions().get(0);
+        mInputQueryLatin = inputQuery.getWaapuroConversions().size() > 0? inputQuery.getWaapuroConversions().get(0): "";
 
         switch (mLanguage) {
             case Globals.LANG_STR_EN:

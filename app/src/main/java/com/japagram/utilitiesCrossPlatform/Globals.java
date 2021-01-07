@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 143;
+    public static final int CENTRAL_DB_VERSION = 149;
     public static final int KANJI_DB_VERSION = 28;
-    public static final int EXTENDED_DB_VERSION = 39;
+    public static final int EXTENDED_DB_VERSION = 47;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -76,16 +76,16 @@ public final class Globals {
     public static final int KANJI_SEARCH_RESULT_NO_JAP_RESULTS = 3;
     public static final int KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS = 4;
 
-    public static final float EXTENDED_DB_LINES_WORDS = 162314.f;
-    public static final float EXTENDED_DB_SIZE_WORDS = 12917.f;
-    public static final float EXTENDED_DB_LINES_KANJI_INDEX = 190374.f;
-    public static final float EXTENDED_DB_SIZE_KANJI_INDEX = 4063.f;
-    public static final float EXTENDED_DB_LINES_ENGLISH_INDEX = 64639.f;
-    public static final float EXTENDED_DB_SIZE_ENGLISH_INDEX = 4436.f;
-    public static final float EXTENDED_DB_LINES_ROMAJI_INDEX = 157921.f;
-    public static final float EXTENDED_DB_SIZE_ROMAJI_INDEX = 3169.f;
-    public static final float EXTENDED_DB_SIZE_FRENCH_INDEX = 143.f;
-    public static final float EXTENDED_DB_SIZE_SPANISH_INDEX = 624.f;
+    public static final float EXTENDED_DB_LINES_WORDS = 186965.f;
+    public static final float EXTENDED_DB_SIZE_WORDS = 16627.f;
+    public static final float EXTENDED_DB_LINES_KANJI_INDEX = 220968.f;
+    public static final float EXTENDED_DB_SIZE_KANJI_INDEX = 4767.f;
+    public static final float EXTENDED_DB_LINES_ENGLISH_INDEX = 68127.f;
+    public static final float EXTENDED_DB_SIZE_ENGLISH_INDEX = 5457.f;
+    public static final float EXTENDED_DB_LINES_ROMAJI_INDEX = 177165.f;
+    public static final float EXTENDED_DB_SIZE_ROMAJI_INDEX = 3681.f;
+    public static final float EXTENDED_DB_SIZE_FRENCH_INDEX = 474.f;
+    public static final float EXTENDED_DB_SIZE_SPANISH_INDEX = 924.f;
     public static final float EXTENDED_DB_SIZE_TOTAL = EXTENDED_DB_SIZE_WORDS + EXTENDED_DB_SIZE_KANJI_INDEX + EXTENDED_DB_SIZE_ENGLISH_INDEX + EXTENDED_DB_SIZE_ROMAJI_INDEX + EXTENDED_DB_SIZE_FRENCH_INDEX + EXTENDED_DB_SIZE_SPANISH_INDEX;
 
     public static final float NAMES_DB_LINES_WORDS = 737309.f;

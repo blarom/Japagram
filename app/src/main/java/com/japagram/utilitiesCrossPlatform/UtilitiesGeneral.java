@@ -22,6 +22,12 @@ public class UtilitiesGeneral {
         return sentence.replaceAll("[.\\-():/\\s]", "");
     }
 
+    public static String removeDuplicatesFromDelimitedString(String delimiter, String delimitedString) {
+        List<String> delimitedList = Arrays.asList(delimitedString.split(delimiter));
+        delimitedList = UtilitiesGeneral.removeDuplicatesFromStringList(delimitedList);
+        delimitedString = OvUtilsGeneral.joinList(delimiter, delimitedList);
+        return delimitedString;
+    }
     public static String removeDuplicatesFromCommaList(String input_list) {
 
         boolean is_repeated;
@@ -61,13 +67,12 @@ public class UtilitiesGeneral {
         return removeDuplicatesFromStringList(total);
     }
 
-
     @NotNull
     public static List<String> getIntersectionOfLists(@NotNull List<String> listA, List<String> listB) {
         //https://stackoverflow.com/questions/2400838/efficient-intersection-of-component_substructures[2]-liststring-in-java
         List<String> rtnList = new LinkedList<>();
         for (String dto : listA) {
-            if (listB.contains(dto)) {
+            if (OvUtilsGeneral.listContains(listB, dto)) {
                 rtnList.add(dto);
             }
         }
@@ -82,7 +87,7 @@ public class UtilitiesGeneral {
 
         List<String> newList = new ArrayList<>();
         for (String item : list) {
-            if (!newList.contains(item)) newList.add(item);
+            if (!OvUtilsGeneral.listContains(newList, item)) newList.add(item);
         }
         return newList;
     }
@@ -91,7 +96,7 @@ public class UtilitiesGeneral {
 
         List<Long> newList = new ArrayList<>();
         for (Long item : list) {
-            if (!newList.contains(item)) newList.add(item);
+            if (!OvUtilsGeneral.listContains(newList, item)) newList.add(item);
         }
         return newList;
     }

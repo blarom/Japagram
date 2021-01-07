@@ -111,7 +111,7 @@ public class AndroidUtilitiesDb {
         word.setId(Long.parseLong(extendedDatabaseRow[Globals.XDB_COL_INDEX]));
         word.setRomaji(extendedDatabaseRow[Globals.XDB_COL_ROMAJI]);
         word.setKanji(extendedDatabaseRow[Globals.XDB_COL_KANJI]);
-        word.setAltSpellings(extendedDatabaseRow[Globals.XDB_COL_ALTS].replace("#", ", "));
+        word.setAltSpellings(extendedDatabaseRow[Globals.XDB_COL_ALTS].replace("#", Globals.DB_ELEMENTS_DELIMITER));
         word.setExtraKeywordsJAP("");
         word.setExtraKeywordsEN("");
         word.setExtraKeywordsFR("");

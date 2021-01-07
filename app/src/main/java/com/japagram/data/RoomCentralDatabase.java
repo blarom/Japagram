@@ -9,6 +9,8 @@ import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesDb;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -148,45 +150,49 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         AndroidUtilitiesDb.checkDatabaseStructure(multExplESDatabase, "Explanations Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXPL_CSV_SHEETS);
         AndroidUtilitiesDb.checkDatabaseStructure(examplesDatabase, "Examples Database", AndroidUtilitiesIO.NUM_COLUMNS_IN_EXAMPLES_CSV_SHEETS);
 
-        List<Word> wordList = new ArrayList<>();
-        HashMap<Long, String> inserted_words = new HashMap<>();
-        for (int i=0; i<centralDatabase.size(); i++) {
-            if (centralDatabase.get(i)[0].equals("")) break;
-            Word word = AndroidUtilitiesDb.createWordFromCsvDatabases(centralDatabase,
-                    meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
-                    multExplENDatabase, multExplFRDatabase, multExplESDatabase,
-                    examplesDatabase, i);
-            wordList.add(word);
-            if (inserted_words.containsKey(word.getId())) {
-                Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getId()));
-            } else {
-                inserted_words.put(word.getId(), word.getRomaji() + "___" + word.getKanji());
+        runInTransaction(() -> {
+            List<Word> wordList = new ArrayList<>();
+            HashMap<Long, String> inserted_words = new HashMap<>();
+            for (int i=0; i<centralDatabase.size(); i++) {
+                if (centralDatabase.get(i)[0].equals("")) break;
+                Word word = AndroidUtilitiesDb.createWordFromCsvDatabases(centralDatabase,
+                        meaningsENDatabase, meaningsFRDatabase, meaningsESDatabase,
+                        multExplENDatabase, multExplFRDatabase, multExplESDatabase,
+                        examplesDatabase, i);
+                wordList.add(word);
+                if (inserted_words.containsKey(word.getId())) {
+                    Log.i(Globals.DEBUG_TAG,"Error! Already added to database: " + inserted_words.get(word.getId()));
+                } else {
+                    inserted_words.put(word.getId(), word.getRomaji() + "___" + word.getKanji());
+                }
+                if (wordList.size() % 2000 == 0) {
+                    word().insertAll(wordList);
+                    wordList = new ArrayList<>();
+                }
             }
-            if (wordList.size() % 2000 == 0) {
-                word().insertAll(wordList);
-                wordList = new ArrayList<>();
-            }
-        }
-        word().insertAll(wordList);
-        Log.i(Globals.DEBUG_TAG,"Loaded Words Database.");
+            word().insertAll(wordList);
+            Log.i(Globals.DEBUG_TAG,"Loaded Words Database.");
+        });
 
-        List<Verb> verbList = new ArrayList<>();
-        for (int i=0; i<verbsDatabase.size(); i++) {
-            if (verbsDatabase.get(i)[0].equals("")) break;
-            Verb verb = AndroidUtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
-            verbList.add(verb);
-            if (verbList.size() % 2000 == 0) {
-                verb().insertAll(verbList);
-                verbList = new ArrayList<>();
+        runInTransaction(() -> {
+            List<Verb> verbList = new ArrayList<>();
+            for (int i=0; i<verbsDatabase.size(); i++) {
+                if (verbsDatabase.get(i)[0].equals("")) break;
+                Verb verb = AndroidUtilitiesDb.createVerbFromCsvDatabase(verbsDatabase, meaningsENDatabase, i);
+                verbList.add(verb);
+                if (verbList.size() % 2000 == 0) {
+                    verb().insertAll(verbList);
+                    verbList = new ArrayList<>();
+                }
             }
-        }
-        verb().insertAll(verbList);
-        Log.i(Globals.DEBUG_TAG,"Loaded Verbs Database.");
+            verb().insertAll(verbList);
+            Log.i(Globals.DEBUG_TAG,"Loaded Verbs Database.");
+        });
     }
 
     //Switches the internal implementation with an empty in-memory database
     @VisibleForTesting
-    public static void switchToInMemory(Context context) {
+    public static void switchToInMemory(@NotNull Context context) {
         sInstance = Room
                 .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomCentralDatabase.class)
                 .build();
@@ -194,7 +200,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
 
     private static final Migration FROM_1_TO_2 = new Migration(1, 2) {
         @Override
-        public void migrate(final SupportSQLiteDatabase database) {
+        public void migrate(final @NotNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE Repo ADD COLUMN createdAt TEXT");
         }
     };
@@ -227,7 +233,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         return word().count();
     }
 
-    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexRomaji> getRomajiIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexRomaji> preparedSqlElements = new ArrayList<>();
         for (String word : words) {
             preparedSqlElements.addAll(this.indexRomaji().getIndexByStartingQuery(word));
@@ -249,7 +255,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public IndexEnglish getEnglishIndexForExactWord(String query) {
         return this.indexEnglish().getIndexByExactQuery(query);
     }
-    public List<IndexEnglish> getEnglishIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexEnglish> getEnglishIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexEnglish> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexEnglish().getIndexByStartingQuery(word));
@@ -265,7 +271,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public IndexFrench getFrenchIndexForExactWord(String query) {
         return this.indexFrench().getIndexByExactQuery(query);
     }
-    public List<IndexFrench> getFrenchIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexFrench> getFrenchIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexFrench> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexFrench().getIndexByStartingQuery(word));

@@ -88,23 +88,21 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
             AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
-            runInTransaction(() -> {
-                if (Looper.myLooper() == null) Looper.prepare();
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word());
-                Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
-            });
+
+            if (Looper.myLooper() == null) Looper.prepare();
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word()));
+            Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
         }
         if (indexEnglish().count() == 0) {
-            runInTransaction(() -> {
-                if (Looper.myLooper() == null) Looper.prepare();
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
-                Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
-                AndroidUtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
-            });
+
+            if (Looper.myLooper() == null) Looper.prepare();
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji()));
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish()));
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench()));
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish()));
+            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji()));
+            Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
+            AndroidUtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
         }
         AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
         AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, 100);

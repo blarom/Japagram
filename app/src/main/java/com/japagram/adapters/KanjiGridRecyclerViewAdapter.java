@@ -16,6 +16,8 @@ import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -62,9 +64,7 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
         tv.setTextLocale(Locale.JAPAN);
         tv.setTypeface(mDroidSansJapaneseTypeface);
 
-        if (kanji.contains("0") || kanji.contains("1") || kanji.contains("2") || kanji.contains("3")
-                || kanji.contains("4") || kanji.contains("5") || kanji.contains("6")
-                || kanji.contains("7") || kanji.contains("8") || kanji.contains("9")) {
+        if (Pattern.compile("\\d").matcher(kanji).find()) {
             tv.setTextSize(26);
             tv.setTypeface(null, Typeface.BOLD);
             tv.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorSecondaryNormal));

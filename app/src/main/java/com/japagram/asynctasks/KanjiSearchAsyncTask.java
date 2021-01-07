@@ -39,7 +39,7 @@ public class KanjiSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
         RoomKanjiDatabase mRoomKanjiDatabase = RoomKanjiDatabase.getInstance(contextRef.get());
         Object[] findKanjisResult = UtilitiesKanjiSearch.findKanjis(elements_list, mSimilarsDatabase, mSelectedStructure, mRoomKanjiDatabase, showOnlyJapCharacters);
         List<String> result = (List<String>) findKanjisResult[0];
-        String mSearchInfoMessage = (String) findKanjisResult[1];
+        int mSearchInfoMessage = (int) findKanjisResult[1];
 
         return new Object[] {result, mSearchInfoMessage};
     }

@@ -310,7 +310,7 @@ public class UtilitiesDb {
                 }
                 typesList = Arrays.asList(OvUtilsGeneral.joinList(Globals.DB_ELEMENTS_DELIMITER, typesList).split(Globals.DB_ELEMENTS_DELIMITER));
                 if (typesList.contains("C")) {
-                    if (!matchingWordIds.contains(word.getId())) matchingWordIds.add(word.getId());
+                    if (!OvUtilsGeneral.listContains(matchingWordIds, word.getId())) matchingWordIds.add(word.getId());
                 }
             }
         }
@@ -1209,7 +1209,7 @@ public class UtilitiesDb {
 
         //If the word is a name, the ranking worsens
         Word.Meaning wordFirstMeaning = currentWord.getMeaningsEN().get(0);
-        if (Globals.NAMES_LIST.contains(wordFirstMeaning.getType())) ranking += 5000;
+        if (OvUtilsGeneral.listContains(Globals.NAMES_LIST, wordFirstMeaning.getType())) ranking += 5000;
 
         //If the word is common, the ranking improves
         if (currentWord.getIsCommon()) ranking -= 50;
