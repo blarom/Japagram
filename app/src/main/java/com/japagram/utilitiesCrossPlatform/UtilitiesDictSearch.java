@@ -104,10 +104,13 @@ public class UtilitiesDictSearch {
                 finalWord = new Word(extendedWord.getRomaji(), extendedWord.getKanji());
                 extAltS = extendedWord.getAltSpellings();
                 locAltS = localWord.getAltSpellings();
-                if (extAltS.equals("") && locAltS.equals("")) { finalWord.setAltSpellings(""); }
-                else if (extAltS.equals("") && !locAltS.equals("")) { finalWord.setAltSpellings(locAltS); }
-                else if (!extAltS.equals("") && locAltS.equals("")) { finalWord.setAltSpellings(extAltS); }
-                else {
+                if (extAltS.equals("") && locAltS.equals("")) {
+                    finalWord.setAltSpellings("");
+                } else if (extAltS.equals("") && !locAltS.equals("")) {
+                    finalWord.setAltSpellings(locAltS);
+                } else if (!extAltS.equals("") && locAltS.equals("")) {
+                    finalWord.setAltSpellings(extAltS);
+                } else {
                     combinedAltSpellingsString = OvUtilsGeneral.concat(new String[]{extAltS, Globals.DB_ELEMENTS_DELIMITER, locAltS});
                     finalWord.setAltSpellings(UtilitiesGeneral.removeDuplicatesFromDelimitedString(Globals.DB_ELEMENTS_DELIMITER, combinedAltSpellingsString));
                 }
