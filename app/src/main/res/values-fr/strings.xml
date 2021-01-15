@@ -479,7 +479,7 @@
     <string name="verb_teformCmp13">X a (déjà) été fait (p.ex. ouvert)</string>
     <string name="verb_teformCmp14">Il s\'est avéré qu\'il fait/est X</string>
 
-    <string name="verb_TitleteformRequestForPermission">te-form Obtenir l\'Autorisation</string>
+    <string name="verb_TitleteformRequestForPermission">Obtenir l\'Autorisation (forme te)</string>
     <string name="verb_teformReq1">Je reçois la permission de faire/être X</string>
     <string name="verb_teformReq2">Je reçois la permission de faire/être X (Humble)</string>
     <string name="verb_teformReq3">Il donne la permission de faire/être X</string>

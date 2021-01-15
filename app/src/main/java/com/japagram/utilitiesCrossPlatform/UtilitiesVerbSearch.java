@@ -710,6 +710,7 @@ public final class UtilitiesVerbSearch {
     public static List<Verb> getVerbsWithConjugations(@NotNull List<long[]> matchingVerbIdAndColList,
                                                       List<Word> matchingWords,
                                                       HashMap<String, Integer> mFamilyConjugationIndexes,
+                                                      List<ConjugationTitle> mConjugationTitles,
                                                       Context context, String language) {
 
         if (matchingVerbIdAndColList.size() == 0) return new ArrayList<>();
@@ -851,10 +852,10 @@ public final class UtilitiesVerbSearch {
             //region Getting the verb conjugations and putting each conjugation of the conjugations row into its appropriate category
             conjugationCategories = new ArrayList<>();
             String verbClause = OvUtilsGeneral.concat(new String[]{"[", OvUtilsResources.getString("verb", context, Globals.RESOURCE_MAP_GENERAL, language), "]"});
-            for (int categoryIndex = 1; categoryIndex < Globals.GLOBAL_CONJUGATION_TITLES.size(); categoryIndex++) {
+            for (int categoryIndex = 1; categoryIndex < mConjugationTitles.size(); categoryIndex++) {
 
                 //region Getting the set of Latin and Kanji conjugations according to the current category's subtitle column indexes
-                subtitles = Globals.GLOBAL_CONJUGATION_TITLES.get(categoryIndex).getSubtitles();
+                subtitles = mConjugationTitles.get(categoryIndex).getSubtitles();
                 int subtitleColIndex;
                 conjugationSetLatin = new ArrayList<>();
                 conjugationSetKanji = new ArrayList<>();
@@ -1089,11 +1090,13 @@ public final class UtilitiesVerbSearch {
         return matchingWords;
     }
 
-    @Contract("_, _, _, _ -> new")
+    @Contract("_, _, _, _, _ -> new")
     public static Object @NotNull [] getSortedVerbsWordsAndConjParams(
             @NotNull Context context,
             String inputQuery,
             List<Word> mWordsFromDictFragment,
+            List<Verb> mCompleteVerbsList,
+            List<ConjugationTitle> mConjugationTitles,
             String language) {
 
         List<Verb> matchingVerbs;
@@ -1105,9 +1108,6 @@ public final class UtilitiesVerbSearch {
 
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Room Verbs Instance");
-
-        List<Verb> mCompleteVerbsList = OvUtilsDb.getAllVerbs(context);
-        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
         InputQuery preparedQuery = setInputQueryParameters(inputQuery);
 
@@ -1132,6 +1132,7 @@ public final class UtilitiesVerbSearch {
                 mMatchingVerbIdAndColList,
                 matchingWords,
                 mFamilyConjugationIndexes,
+                mConjugationTitles,
                 context,
                 language);
 

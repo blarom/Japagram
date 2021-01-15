@@ -489,7 +489,7 @@
     <string name="verb_teformCmp13">Ya ha sido X (ej. abierto)</string>
     <string name="verb_teformCmp14">Ha llegado a ser que él hace/es X</string>
 
-    <string name="verb_TitleteformRequestForPermission">te-form Obtener Permiso</string>
+    <string name="verb_TitleteformRequestForPermission">Obtener Permiso (forma te)</string>
     <string name="verb_teformReq1">Obtengo permiso para hacer/ser X</string>
     <string name="verb_teformReq2">Obtengo permiso para hacer/ser X (Humilde)</string>
     <string name="verb_teformReq3">Él da permiso para hacer/ser X</string>

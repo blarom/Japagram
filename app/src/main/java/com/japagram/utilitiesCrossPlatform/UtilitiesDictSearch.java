@@ -74,7 +74,7 @@ public class UtilitiesDictSearch {
         return localMatchingWordsList;
     }
 
-    private static List<Word> mergeLocalWordLists(List<Word> localMatchingWordsList, @NotNull List<Word> extendedWordsList) {
+    private static @NotNull List<Word> mergeLocalWordLists(List<Word> localMatchingWordsList, @NotNull List<Word> extendedWordsList) {
         List<Word> finalList = new ArrayList<>();
         HashMap<String, Word> localWordIdList = new HashMap<>();
         List<String> extendedWordIds = new ArrayList<>();
@@ -84,7 +84,6 @@ public class UtilitiesDictSearch {
         List<Word.Meaning> extendedMeanings;
         List<Word.Meaning> localMeanings;
         List<Word.Meaning> finalMeanings;
-        List<String> combinedAltSpellings;
         String combinedAltSpellingsString;
         String extAltS;
         String locAltS;

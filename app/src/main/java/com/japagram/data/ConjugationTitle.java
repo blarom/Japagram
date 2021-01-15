@@ -32,7 +32,7 @@ public class ConjugationTitle {
     public static class Subtitle {
 
         private String subtitle;
-        public String getTense() {
+        public String getSubTitle() {
             return subtitle;
         }
         public void setSubtitle(String subtitle) {

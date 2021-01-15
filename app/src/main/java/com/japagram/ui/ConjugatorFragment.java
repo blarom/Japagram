@@ -345,7 +345,7 @@ public class ConjugatorFragment extends Fragment implements
 
         for (int i = 0; i < conjugations.size(); i++) {
 
-            Tense.get(i).setText(Globals.GLOBAL_CONJUGATION_TITLES.get(conjugationIndex+1).getSubtitles().get(i).getTense());
+            Tense.get(i).setText(Globals.GLOBAL_CONJUGATION_TITLES.get(conjugationIndex+1).getSubtitles().get(i).getSubTitle());
 
             if (mChosenRomajiOrKanji.equals("Romaji")) Tense_Result.get(i).setText(conjugations.get(i).getConjugationLatin());
             else Tense_Result.get(i).setText(conjugations.get(i).getConjugationKanji());
