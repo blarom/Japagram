@@ -4,6 +4,7 @@ import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,7 @@ public class UtilitiesGeneral {
         return sentence.replaceAll("[.\\-():/\\s]", "");
     }
 
-    public static String removeDuplicatesFromDelimitedString(String delimiter, String delimitedString) {
+    public static String removeDuplicatesFromDelimitedString(String delimiter, @NotNull String delimitedString) {
         List<String> delimitedList = Arrays.asList(delimitedString.split(delimiter));
         delimitedList = UtilitiesGeneral.removeDuplicatesFromStringList(delimitedList);
         delimitedString = OvUtilsGeneral.joinList(delimiter, delimitedList);
@@ -48,18 +49,6 @@ public class UtilitiesGeneral {
         return OvUtilsGeneral.joinList(", ", final_cumulative_meaning_value_array);
     }
 
-    public static String[] @NotNull [] getTranspose(@NotNull List<String[]> db) {
-        if (db == null || db.size() == 0) return null;
-        String[][] transpose = new String[db.get(0).length][db.size()];
-        String[] line;
-        for (int i=0; i<db.size(); i++) {
-            line = db.get(i);
-            for (int j=0; j<line.length; j++) {
-                transpose[j][i] = line[j];
-            }
-        }
-        return transpose;
-    }
     @NotNull
     public static List<String> combineLists(List<String> list1, List<String> list2) {
         List<String> total = new ArrayList<>(list1);

@@ -287,7 +287,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     public IndexSpanish getSpanishIndexForExactWord(String query) {
         return this.indexSpanish().getIndexByExactQuery(query);
     }
-    public List<IndexSpanish> getSpanishIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexSpanish> getSpanishIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexSpanish> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexSpanish().getIndexByStartingQuery(word));
@@ -305,7 +305,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         //return indexKanji().getKanjiIndexByStartingUTF8Query(query);
         return indexKanji().getKanjiIndexByStartingQuery(query);
     }
-    public List<IndexKanji> getKanjiIndexesListForStartingWordsList(List<String> words) {
+    public List<IndexKanji> getKanjiIndexesListForStartingWordsList(@NotNull List<String> words) {
         List<IndexKanji> indexes = new ArrayList<>();
         for (String word : words) {
             indexes.addAll(indexKanji().getKanjiIndexByStartingQuery(word));
@@ -336,6 +336,12 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     }
     public List<Verb> getAllVerbs() {
         return verb().getAllVerbs();
+    }
+    public List<Verb> getAllVerbsWithHiraganaFirstChar(String hiraganaFirstChar) {
+        return verb().getAllVerbsWithHiraganaFirstChar(hiraganaFirstChar);
+    }
+    public List<Verb> getAllVerbsWithKanjiFirstChars(String kanjiFirstChars) {
+        return verb().getAllVerbsWithKanjiFirstChars(kanjiFirstChars);
     }
 
 }

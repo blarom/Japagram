@@ -18,9 +18,9 @@ import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
-import com.japagram.utilitiesAndroid.AndroidUtilitiesDb;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
-import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
+import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,9 +75,9 @@ public class SplashScreenActivity extends BaseActivity {
             Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", getBaseContext());
             Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, this, mLanguage);
-            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = AndroidUtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
+            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
             Globals.GLOBAL_RADICALS_ONLY_DATABASE = AndroidUtilitiesIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_ROMANIZATIONS = UtilitiesGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
+            Globals.GLOBAL_ROMANIZATIONS = OvUtilsGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
             RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");

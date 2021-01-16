@@ -293,21 +293,17 @@ public class UtilitiesDictSearch {
     }
 
     public static boolean @NotNull [] getTypesFromWordMeanings(@NotNull List<Word.Meaning> meanings) {
-        String type = "";
-        boolean wordHasPhraseConstruction = false;
         boolean[] types = new boolean[]{false, false, false, false, false, false};
         for (int j = 0; j< meanings.size(); j++) {
-            if (j==0) {
-                type = meanings.get(j).getType();
-                types[Globals.WORD_TYPE_VERB_CONJ] = type.equals("VC");
-                types[Globals.WORD_TYPE_I_ADJ_CONJ] = type.equals("iAC");
-                types[Globals.WORD_TYPE_NA_ADJ_CONJ] = type.equals("naAC");
-                String[] typeElements = type.split(";");
-                types[Globals.WORD_TYPE_VERB] = type.contains("V") && !type.equals("VC") && !Arrays.asList(typeElements).contains("V");
-                types[Globals.WORD_TYPE_ADVERB] = type.contains("A");
-                types[Globals.WORD_TYPE_NOUN] = type.contains("N");
+            String[] typeElements = meanings.get(j).getType().split(Globals.DB_ELEMENTS_DELIMITER);
+            for (String type : typeElements) {
+                types[Globals.WORD_TYPE_VERB_CONJ] |= type.equals("VC");
+                types[Globals.WORD_TYPE_I_ADJ_CONJ] |= type.equals("iAC");
+                types[Globals.WORD_TYPE_NA_ADJ_CONJ] |= type.equals("naAC");
+                types[Globals.WORD_TYPE_VERB] |= type.contains("V") && !type.equals("VC");
+                types[Globals.WORD_TYPE_ADVERB] |= type.contains("A");
+                types[Globals.WORD_TYPE_NOUN] |= type.contains("N");
             }
-            if (!wordHasPhraseConstruction) wordHasPhraseConstruction = type.equals("PC");
         }
         return types;
     }
@@ -328,7 +324,7 @@ public class UtilitiesDictSearch {
             String type = meanings.get(0).getType();
             if (Globals.PARTS_OF_SPEECH.containsKey(type)) {
                 //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                extract = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_TYPES, mLanguage);
+                extract = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(type), mContext, Globals.RESOURCE_MAP_PARTS_OF_SPEECH, mLanguage);
             }
             else {
                 extract = "*";

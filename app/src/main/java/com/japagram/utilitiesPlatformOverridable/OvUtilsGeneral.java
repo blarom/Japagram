@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -108,5 +109,18 @@ public class OvUtilsGeneral {
 
     public static boolean listContains(Object list, Object item) {
         return ((List<Object>) list).contains(item);
+    }
+
+    public static String[] @Nullable [] getTranspose(@NotNull List<String[]> db) {
+        if (db.size() == 0) return null;
+        String[][] transpose = new String[db.get(0).length][db.size()];
+        String[] line;
+        for (int i=0; i<db.size(); i++) {
+            line = db.get(i);
+            for (int j=0; j<line.length; j++) {
+                transpose[j][i] = line[j];
+            }
+        }
+        return transpose;
     }
 }

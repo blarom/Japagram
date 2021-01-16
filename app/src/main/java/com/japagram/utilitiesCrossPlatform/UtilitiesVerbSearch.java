@@ -274,7 +274,7 @@ public final class UtilitiesVerbSearch {
                     currentFamilyConjugations = Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE.get(familyIndex);
                     String currentConjugation;
                     for (int column = Globals.COLUMN_VERB_ISTEM; column < numberOfSheetCols; column++) {
-                        currentConjugation = "i" + currentFamilyConjugations[column];
+                        currentConjugation = OvUtilsGeneral.concat(new String[]{ "i", currentFamilyConjugations[column]});
                         if (currentConjugation.contains(mPreparedCleaned) || currentConjugation.contains(mPreparedTranslHiragana)) {
                             queryIsContainedInIruVerbConjugation = true;
                             break;
@@ -410,7 +410,10 @@ public final class UtilitiesVerbSearch {
 
         //region Getting the matching verbs according to the expanded conjugations and updating the conjugation roots if an altSpelling is used
         List<long[]> matchingVerbIdsAndColsFromExpandedConjugations = new ArrayList<>();
-        List<long[]> copyOfMatchingVerbIdsAndColsFromBasicCharacteristics = new ArrayList<>(matchingVerbIdsAndColsFromBasicCharacteristics);
+        HashMap<Long, Long> matchingVerbIdsAndColsFromBasicCharacteristicsDict = new HashMap<>();
+        for (long[] item : matchingVerbIdsAndColsFromBasicCharacteristics) {
+            matchingVerbIdsAndColsFromBasicCharacteristicsDict.put(item[0], item[1]);
+        }
         boolean verbAlreadyFound;
         boolean hasConjExceptions;
         String lastFamily = "";
@@ -439,8 +442,8 @@ public final class UtilitiesVerbSearch {
 
             //region Skipping verbs that were already found
             verbAlreadyFound = false;
-            for (long[] idAndCol : copyOfMatchingVerbIdsAndColsFromBasicCharacteristics) {
-                if (idAndCol[0] == verb.getId()) {
+            for (long id : matchingVerbIdsAndColsFromBasicCharacteristicsDict.keySet()) {
+                if (id == verb.getId()) {
 
                     //Update the active fields for the current verb according to the altSpelling
                     boolean foundAltSpelling = false;
@@ -463,7 +466,7 @@ public final class UtilitiesVerbSearch {
                     OvUtilsDb.updateVerb(verb, context);
 
                     //Remove the verb from the candidates list since it is already in the final list
-                    copyOfMatchingVerbIdsAndColsFromBasicCharacteristics.remove(idAndCol);
+                    matchingVerbIdsAndColsFromBasicCharacteristicsDict.remove(id);
                     verbAlreadyFound = true;
                     break;
                 }
@@ -571,8 +574,10 @@ public final class UtilitiesVerbSearch {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                    conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                            latinRoot,
+                                            (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                    });
                                 } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedCleaned)) {
@@ -585,9 +590,10 @@ public final class UtilitiesVerbSearch {
                         else {
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
-                                conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
-
+                                conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                        latinRoot,
+                                        (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                });
                                 if (conjugationValue.contains(mPreparedCleaned)) {
                                     foundMatch = true;
                                     matchColumn = col;
@@ -610,8 +616,10 @@ public final class UtilitiesVerbSearch {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                    conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                            latinRoot,
+                                            (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                    });
                                 } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedTranslRomaji)) {
@@ -624,8 +632,10 @@ public final class UtilitiesVerbSearch {
                         else {
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
-                                conjugationValue = latinRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                        latinRoot,
+                                        (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                });
 
                                 if (conjugationValue.contains(mPreparedTranslRomaji)) {
                                     foundMatch = true;
@@ -650,8 +660,10 @@ public final class UtilitiesVerbSearch {
                                 currentFamilyConj = currentFamilyConjugations[col];
                                 currentConj = currentConjugations[col];
                                 if (currentConj.equals("")) {
-                                    conjugationValue = kanjiRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                            currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                    conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                            kanjiRoot,
+                                            (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                    });
                                 } else conjugationValue = currentConj;
 
                                 if (conjugationValue.contains(mPreparedQuery)) {
@@ -664,8 +676,10 @@ public final class UtilitiesVerbSearch {
                         else {
                             for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
                                 currentFamilyConj = currentFamilyConjugations[col];
-                                conjugationValue = kanjiRoot + ((currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)?
-                                        currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj);
+                                conjugationValue = OvUtilsGeneral.concat(new String[]{
+                                        kanjiRoot,
+                                        (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
+                                });
 
                                 if (conjugationValue.contains(mPreparedQuery)) {
                                     foundMatch = true;
@@ -791,12 +805,14 @@ public final class UtilitiesVerbSearch {
             String extract = "";
             if (meanings == null || meanings.size() == 0) {
                 meanings = currentWord.getMeaningsEN();
-                extract += OvUtilsGeneral.concat(new String[]{
+                extract = OvUtilsGeneral.concat(new String[]{
                         "[", OvUtilsResources.getString("meanings_in", context, Globals.RESOURCE_MAP_GENERAL, language),
                         " ", languageText.toLowerCase(), " ",
                         OvUtilsResources.getString("unavailable", context, Globals.RESOURCE_MAP_GENERAL, language), "] "});
             }
-            extract += UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY));
+            extract = OvUtilsGeneral.concat(new String[]{
+                    UtilitiesGeneral.removeDuplicatesFromCommaList(UtilitiesDb.getMeaningsExtract(meanings, Globals.BALANCE_POINT_REGULAR_DISPLAY)),
+                    extract});
             currentVerb.setMeaning(extract);
 
             switch (currentVerb.getTrans()) {
@@ -1090,7 +1106,7 @@ public final class UtilitiesVerbSearch {
         return matchingWords;
     }
 
-    @Contract("_, _, _, _, _ -> new")
+    @Contract("_, _, _, _, _, _ -> new")
     public static Object @NotNull [] getSortedVerbsWordsAndConjParams(
             @NotNull Context context,
             String inputQuery,
@@ -1171,6 +1187,26 @@ public final class UtilitiesVerbSearch {
 
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Returning objects");
         return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
+    }
+    public static List<Verb> getAllVerbsForInputQuery(Context context, @NotNull InputQuery inputQuery) {
+        List<Verb> mCompleteVerbsList;
+        if (inputQuery.getOriginalType() != Globals.TEXT_TYPE_KANJI) {
+            String hiraganaFirstChar = inputQuery.getHiraganaSingleElement().substring(0,1);
+            mCompleteVerbsList = OvUtilsDb.getAllVerbsWithHiraganaFirstChar(context, hiraganaFirstChar);
+        } else {
+            String[] chars = OvUtilsGeneral.splitToChars(inputQuery.getOriginal());
+            List<String> firstKanjiChars = new ArrayList<>();
+            for (String inputQueryChar : chars) {
+                if (UtilitiesQuery.getTextType(inputQueryChar) == Globals.TEXT_TYPE_KANJI) {
+                    firstKanjiChars.add(inputQueryChar);
+                } else {
+                    break;
+                }
+            }
+            String firstKanjiCharsString = OvUtilsGeneral.joinList("", firstKanjiChars);
+            mCompleteVerbsList = OvUtilsDb.getAllVerbsWithKanjiFirstChars(context, firstKanjiCharsString);
+        }
+        return mCompleteVerbsList;
     }
 
 }

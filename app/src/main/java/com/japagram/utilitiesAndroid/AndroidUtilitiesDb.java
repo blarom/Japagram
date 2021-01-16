@@ -433,19 +433,4 @@ public class AndroidUtilitiesDb {
         return verb;
     }
 
-    @NotNull public static List<String[]> removeSpacesFromConjDb(@NotNull List<String[]> db) {
-        List<String[]> newDb = new ArrayList<>();
-        String[] currentItems;
-        int length = db.get(0).length;
-        for (int i = 0; i< db.size(); i++) {
-            currentItems = new String[length];
-            if (Globals.COLUMN_VERB_ISTEM >= 0) System.arraycopy(db.get(i), 0, currentItems, 0, Globals.COLUMN_VERB_ISTEM);
-            for (int j=Globals.COLUMN_VERB_ISTEM; j<length; j++) {
-                currentItems[j] = db.get(i)[j].replace(" ", "");
-            }
-            newDb.add(currentItems);
-        }
-        return newDb;
-    }
-
 }

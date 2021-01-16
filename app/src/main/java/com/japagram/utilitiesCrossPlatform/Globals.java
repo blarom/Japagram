@@ -35,7 +35,7 @@ public final class Globals {
     public static final int RESOURCE_MAP_GENERAL = 0;
     public static final int RESOURCE_MAP_VERB_FAMILIES = 1;
     public static final int RESOURCE_MAP_VERB_CONJ_TITLES = 2;
-    public static final int RESOURCE_MAP_TYPES = 3;
+    public static final int RESOURCE_MAP_PARTS_OF_SPEECH = 3;
 
     public static final int DB_CENTRAL = 0;
     public static final int DB_EXTENDED = 1;

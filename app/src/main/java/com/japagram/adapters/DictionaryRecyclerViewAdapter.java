@@ -339,7 +339,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             for (String element : type.split(Globals.DB_ELEMENTS_DELIMITER)) {
                 if (Globals.PARTS_OF_SPEECH.containsKey(element)) {
                     //String  currentType = Utilities.capitalizeFirstLetter(mContext.getString(GlobalConstants.TYPES.get(element)));
-                    String currentType = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_TYPES, language);
+                    String currentType = OvUtilsResources.getString(Globals.PARTS_OF_SPEECH.get(element), mContext, Globals.RESOURCE_MAP_PARTS_OF_SPEECH, language);
                     if (!language.equals(Globals.LANG_STR_EN)) {
                         currentType = currentType.replace(", trans.", "").replace(", intrans.", "");
                     }

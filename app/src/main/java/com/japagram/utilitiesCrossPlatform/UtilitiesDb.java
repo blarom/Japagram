@@ -766,14 +766,9 @@ public class UtilitiesDb {
             List<String> finalAltSpellings;
             if (OvUtilsGeneral.isEmptyString(currentLocalWord.getAltSpellings())) finalAltSpellings = new ArrayList<>();
             else {
-                finalAltSpellings = new ArrayList<>(Arrays.asList(currentLocalWord.getAltSpellings().split(",")));
-                String element;
-                for (int i = 0; i < finalAltSpellings.size(); i++) {
-                    element = finalAltSpellings.get(i).trim();
-                    finalAltSpellings.set(i, element);
-                }
+                finalAltSpellings = Arrays.asList(currentLocalWord.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
             }
-            finalWord.setAltSpellings(OvUtilsGeneral.joinList(", ", finalAltSpellings));
+            finalWord.setAltSpellings(currentLocalWord.getAltSpellings());
 
             //Updating and copying meanings/alt spellings from the async word
             List<Word.Meaning> currentLocalMeanings = currentLocalWord.getMeaningsEN();
@@ -793,10 +788,10 @@ public class UtilitiesDb {
                         && currentAsyncWord.getKanji().equals(currentLocalWord.getKanji())) {
 
                     //Setting the altSpellings
-                    String finalAsyncWordAltSpellings = finalAsyncWords.get(currentIndex).getAltSpellings();
-                    if (!OvUtilsGeneral.isEmptyString(finalAsyncWordAltSpellings)) {
-                        for (String altSpelling : finalAsyncWordAltSpellings.split(",")) {
-                            if (!finalAltSpellings.contains(altSpelling.trim())) {
+                    List<String> finalAsyncWordAltSpellings = Arrays.asList(currentAsyncWord.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
+                    if (finalAsyncWordAltSpellings.size() != 0) {
+                        for (String altSpelling : finalAsyncWordAltSpellings) {
+                            if (!OvUtilsGeneral.listContains(finalAltSpellings,altSpelling.trim())) {
                                 finalAltSpellings.add(altSpelling.trim());
                             }
                         }
@@ -1430,5 +1425,19 @@ public class UtilitiesDb {
         //string = string.replaceAll("\\{","*");
         //string = string.replaceAll("}","*");
         return string;
+    }
+
+    @NotNull public static List<String[]> removeSpacesFromConjDb(@NotNull List<String[]> db) {
+        List<String[]> newDb = new ArrayList<>();
+        String[] currentItems;
+        int length = db.get(0).length;
+        for (int i = 0; i< db.size(); i++) {
+            currentItems = new String[length];
+            for (int j=0; j<length; j++) {
+                currentItems[j] = (j<Globals.COLUMN_VERB_ISTEM)? db.get(i)[j] : db.get(i)[j].replace(" ", "");
+            }
+            newDb.add(currentItems);
+        }
+        return newDb;
     }
 }

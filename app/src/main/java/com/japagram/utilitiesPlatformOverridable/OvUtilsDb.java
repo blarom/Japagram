@@ -45,6 +45,14 @@ public final class OvUtilsDb {
         RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
         return roomCentralDatabaseLocal.getAllVerbs();
     }
+    public static List<Verb> getAllVerbsWithHiraganaFirstChar(Context context, String hiraganaFirstChar) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getAllVerbsWithHiraganaFirstChar(hiraganaFirstChar);
+    }
+    public static List<Verb> getAllVerbsWithKanjiFirstChars(Context context, String kanjiFirstChars) {
+        RoomCentralDatabase roomCentralDatabaseLocal = RoomCentralDatabase.getInstance(context);
+        return roomCentralDatabaseLocal.getAllVerbsWithKanjiFirstChars(kanjiFirstChars);
+    }
 
     public static IndexRomaji getRomajiIndexForExactWord(String query, Context context) {
         RoomNamesDatabase roomNamesDatabaseLocal = RoomNamesDatabase.getInstance(context);

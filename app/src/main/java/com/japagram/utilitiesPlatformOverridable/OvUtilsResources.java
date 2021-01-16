@@ -1,7 +1,6 @@
 package com.japagram.utilitiesPlatformOverridable;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.japagram.R;
 import com.japagram.utilitiesCrossPlatform.Globals;
@@ -25,7 +24,7 @@ public final class OvUtilsResources {
                 return context.getString(stringResourceMapVerbConjTitles.get(requestedString));
             case Globals.RESOURCE_MAP_VERB_FAMILIES:
                 return context.getString(stringResourceMapVerbFamilies.get(requestedString));
-            case Globals.RESOURCE_MAP_TYPES:
+            case Globals.RESOURCE_MAP_PARTS_OF_SPEECH:
                 return context.getString(stringResourceMapTypes.get(requestedString));
             default:
                 return context.getString(stringResourceMapGeneral.get(requestedString));
@@ -33,7 +32,7 @@ public final class OvUtilsResources {
     }
     private static final HashMap<String, Integer> stringResourceMapVerbFamilies = createResourceMap(Globals.RESOURCE_MAP_VERB_FAMILIES);
     private static final HashMap<String, Integer> stringResourceMapVerbConjTitles = createResourceMap(Globals.RESOURCE_MAP_VERB_CONJ_TITLES);
-    private static final HashMap<String, Integer> stringResourceMapTypes = createResourceMap(Globals.RESOURCE_MAP_TYPES);
+    private static final HashMap<String, Integer> stringResourceMapTypes = createResourceMap(Globals.RESOURCE_MAP_PARTS_OF_SPEECH);
     private static final HashMap<String, Integer> stringResourceMapGeneral = createResourceMap(Globals.RESOURCE_MAP_GENERAL);
     private static @NotNull HashMap<String, Integer> createResourceMap(int resourceMap) {
         HashMap<String, Integer> map = new HashMap<>();
@@ -244,7 +243,7 @@ public final class OvUtilsResources {
                 map.put("verb_Arch3", R.string.verb_Arch3);
                 map.put("verb_Arch4", R.string.verb_Arch4);
                 break;
-            case Globals.RESOURCE_MAP_TYPES:
+            case Globals.RESOURCE_MAP_PARTS_OF_SPEECH:
                 map.put("legend_A", R.string.legend_A);
                 map.put("legend_Abr", R.string.legend_Abr);
                 map.put("legend_Abs", R.string.legend_Abs);

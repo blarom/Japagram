@@ -28,6 +28,12 @@ public interface VerbDao {
     @Query("SELECT * FROM " + Verb.TABLE_NAME)
     List<Verb> getAllVerbs();
 
+    @Query("SELECT * FROM " + Verb.TABLE_NAME + " WHERE " + Verb.COLUMN_VERB_HIRAGANA_FIRST_CHAR + " = :hiraganaFirstChar")
+    List<Verb> getAllVerbsWithHiraganaFirstChar(String hiraganaFirstChar);
+
+    @Query("SELECT * FROM " + Verb.TABLE_NAME + " WHERE " + Verb.COLUMN_VERB_KANJIROOT + " LIKE '%' || :kanjiFirstChars || '%' ")
+    List<Verb> getAllVerbsWithKanjiFirstChars(String kanjiFirstChars);
+
     //Get a Verb by Id
     @Query("SELECT * FROM " + Verb.TABLE_NAME + " WHERE " + Verb.COLUMN_ID + " = :id")
     Verb getVerbByVerbId(long id);
