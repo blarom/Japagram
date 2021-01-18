@@ -22,8 +22,8 @@
     <string name="wait_for_online_results_on">Wait for online results before showing the list</string>
     <string name="complete_with_conj_search_off">Don\'t check verb conjugations</string>
     <string name="complete_with_conj_search_on">Add matching verbs after checking conjugations</string>
-    <string name="wait_for_conj_results_off">Display the list immediately when finding results, and refresh it when finding matching verbs through the conjugation search</string>
-    <string name="wait_for_conj_results_on">Wait for matching verbs results before showing the list</string>
+    <string name="wait_for_all_results_off">Display the list immediately when finding results, and refresh it when finding more results</string>
+    <string name="wait_for_all_results_on">Wait for all results before showing the list</string>
     <string name="show_sources_off">Don\'t show extra information on each word</string>
     <string name="show_sources_on">Show extra information (source, common status)</string>
     <string name="show_meanings_EN_off">Don\'t show English meaningsEN in search results</string>
@@ -44,7 +44,7 @@
     <string name="pref_use_japanese_font_key" translatable="false">use_japanese_font</string>
     <string name="pref_wait_for_online_results_key" translatable="false">wait_for_online_results</string>
     <string name="pref_complete_with_conj_search_key" translatable="false">complete_with_search</string>
-    <string name="pref_wait_for_conj_results_key" translatable="false">wait_for_results</string>
+    <string name="pref_wait_for_all_results_key" translatable="false">wait_for_results</string>
     <string name="pref_show_sources_key" translatable="false">show_sources</string>
     <string name="pref_show_meanings_EN_key" translatable="false">show_meanings_EN</string>
     <string name="pref_show_meanings_FR_key" translatable="false">show_meanings_FR</string>
@@ -59,7 +59,7 @@
     <string name="use_japanese_font_in_texts">Use Japanese Font in Texts</string>
     <string name="wait_for_online_results">Wait for online results</string>
     <string name="complete_with_conj_search">Search verb conjugations</string>
-    <string name="pref_wait_for_conj_results">Wait for matching verbs</string>
+    <string name="pref_wait_for_all_results">Wait for all results</string>
     <string name="pref_show_sources">Show Word Info</string>
     <string name="pref_show_meanings_EN">Show English Meanings</string>
     <string name="pref_show_meanings_FR">Show French Meanings</string>

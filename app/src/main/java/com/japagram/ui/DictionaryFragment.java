@@ -52,10 +52,9 @@ public class DictionaryFragment extends Fragment implements
         DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler, VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
 
 
-    public static final String LOCAL = "local";
-    public static final String CONJ = "conj";
-    public static final String ONLINE = "online";
-    public static final String ALL = "all";
+    public static final int LOCAL = 0;
+    public static final int CONJ = 1;
+    public static final int ALL = 2;
     //region Parameters
     @BindView(R.id.dictionary_recyclerview) RecyclerView mDictionaryRecyclerView;
     @BindView(R.id.word_hint) TextView mHintTextView;
@@ -82,6 +81,8 @@ public class DictionaryFragment extends Fragment implements
     private VerbSearchAsyncTask mVerbSearchAsyncTask;
     private boolean mShowNames;
     private String mLanguage;
+    private boolean mWaitingForLocalResults = true;
+    private boolean mWaitingForConjResults = true;
     //endregion
 
 
@@ -229,133 +230,64 @@ public class DictionaryFragment extends Fragment implements
         mHintTextView.setVisibility(View.VISIBLE);
         mDictionaryRecyclerView.setVisibility(View.GONE);
     }
-    private void displayMergedWordsToUser(String sourceType) {
-
+    private void updateDisplayedList() {
+        if (getContext()==null || getActivity()==null) return;
+        mMergedMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mMergedMatchingWordsList, mInputQuery, mLanguage);
+        List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ?
+                mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
+        mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
+        mHintTextView.setVisibility(View.GONE);
+        mDictionaryRecyclerView.setVisibility(View.VISIBLE);
+        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
+        mSuccessfullyDisplayedResultsBeforeTimeout = true;
+        AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
+        hideLoadingIndicator();
+    }
+    private void displayMergedWordsToUser(@NotNull int sourceType) {
         if (getContext()==null || getActivity()==null) return;
 
-        boolean showOnlineResults = AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity());
         boolean showConjResults = AndroidUtilitiesPrefs.getPreferenceShowConjResults(getActivity());
-        boolean waitForOnlineResults = AndroidUtilitiesPrefs.getPreferenceWaitForOnlineResults(getActivity());
-        boolean waitForConjResults = AndroidUtilitiesPrefs.getPreferenceWaitForConjResults(getActivity());
-        boolean gotNewResultsFromOnline = false; //Prevents refreshing the words list when there are no new results
-        boolean gotNewResultsFromConj = false; //Prevents refreshing the words list when there are no new results
-        boolean gotNewResultsOnTimerDelay = false; //Prevents refreshing the words list when there are no new results
+        boolean waitForAllResults = AndroidUtilitiesPrefs.getPreferenceWaitForAllResults(getActivity());
+        boolean haveMoreWordsForDisplayedList;
+        int oldSize = mMergedMatchingWordsList.size();
 
-        if (!showOnlineResults) mJishoMatchingWordsList = new ArrayList<>();
-        if (!showConjResults) mMatchingWordsFromVerbs = new ArrayList<>();
-
-        if (mAlreadyLoadedRoomResults &&
-                (       showOnlineResults && showConjResults &&
-                                (!waitForOnlineResults && !waitForConjResults)
-                                || (!waitForOnlineResults && waitForConjResults && mAlreadyLoadedConjResults)
-                                || (waitForOnlineResults && !waitForConjResults && mAlreadyLoadedJishoResults)
-                                || (waitForOnlineResults && waitForConjResults && mAlreadyLoadedJishoResults && mAlreadyLoadedConjResults)
-                ) || (  showOnlineResults && !showConjResults && (!waitForOnlineResults || mAlreadyLoadedJishoResults)
-                ) || (  !showOnlineResults && showConjResults && (!waitForConjResults || mAlreadyLoadedConjResults)
-                ) || (  !showOnlineResults && !showConjResults)
-            || mOverrideDisplayConditions) {
-
-            //Getting the merged results
-            int oldSize = mMergedMatchingWordsList.size();
-            if (sourceType.equals(LOCAL) && mLocalMatchingWordsList.size() > 0) {
+        if (sourceType == LOCAL) {
+            if (mLocalMatchingWordsList.size() > 0) {
                 mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList);
             }
-            if (sourceType.equals(ONLINE) && mJishoMatchingWordsList.size() > 0) {
-                mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mJishoMatchingWordsList);
-                gotNewResultsFromOnline = true;
-            }
-            if (sourceType.equals(CONJ) && mMatchingWordsFromVerbs.size() > 0) {
+            mWaitingForLocalResults = false;
+        } else if (sourceType == CONJ) {
+            if (mMatchingWordsFromVerbs.size() > 0) {
                 mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs);
-                if (mMergedMatchingWordsList.size() > oldSize) gotNewResultsFromConj = true;
             }
-            mMergedMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mMergedMatchingWordsList, mInputQuery, mLanguage);
+            mWaitingForConjResults = false;
+        }
+        haveMoreWordsForDisplayedList = mMergedMatchingWordsList.size() > oldSize;
 
-            if (mMergedMatchingWordsList.size() > 0) {
-                List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ?
-                        mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
-                if (sourceType.equals(LOCAL)
-                        || sourceType.equals(ALL)
-                        || sourceType.equals(ONLINE) && gotNewResultsFromOnline
-                        || sourceType.equals(CONJ) && gotNewResultsFromConj) {
-                    mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
+        if (mWaitingForLocalResults && mWaitingForConjResults) {
+            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Still waiting for all sources - this line should not be printed!");
+        } else if (mWaitingForLocalResults) {
+            if (!waitForAllResults){
+                if (haveMoreWordsForDisplayedList) {
+                    updateDisplayedList();
                 }
-                mHintTextView.setVisibility(View.GONE);
-                mDictionaryRecyclerView.setVisibility(View.VISIBLE);
-                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
+            }
+        } else if (mWaitingForConjResults && showConjResults) {
+            if (waitForAllResults) {
+                mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Waiting for Local results");
+            } else {
+                updateDisplayedList();
+            }
+        } else if (!mWaitingForConjResults) {
+            if (waitForAllResults || haveMoreWordsForDisplayedList) {
+                updateDisplayedList();
+            } else {
+                mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
+                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
-                AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
                 hideLoadingIndicator();
             }
-            else {
-                if (waitForConjResults) {
-                    mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
-                    Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
-                    mSuccessfullyDisplayedResultsBeforeTimeout = true;
-                    hideLoadingIndicator();
-                } else {
-                    if (mAlreadyLoadedConjResults) {
-                        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
-                        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
-                        mSuccessfullyDisplayedResultsBeforeTimeout = true;
-                        hideLoadingIndicator();
-                    } else {
-                        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
-                        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local without Conj Search");
-                    }
-                }
-                mHintTextView.setVisibility(View.VISIBLE);
-                mDictionaryRecyclerView.setVisibility(View.GONE);
-            }
-
-            int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
-            dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
-
-            if (AndroidUtilitiesPrefs.getPreferenceShowInfoBoxesOnSearch(getActivity())) {
-                String text = getString(R.string.found) + " "
-                        + mLocalMatchingWordsList.size()
-                        + " "
-                        + ((mLocalMatchingWordsList.size()==1)? getString(R.string.local_result) : getString(R.string.local_results));
-
-                if (showOnlineResults && mAlreadyLoadedJishoResults) {
-                    if (showConjResults) text += ", ";
-                    else text += " " + getString(R.string.and) + " ";
-
-                    switch (mDifferentJishoWords.size()) {
-                        case 0:
-                            text += getString(R.string.no_new_online_results);
-                            break;
-                        case 1:
-                            text += getString(R.string.one_new_or_fuller_online_result);
-                            break;
-                        default:
-                            text += mDifferentJishoWords.size() + " " + getString(R.string.new_or_fuller_online_results);
-                            break;
-                    }
-                }
-                if (showConjResults && mAlreadyLoadedConjResults) {
-                    if (showOnlineResults && mAlreadyLoadedJishoResults) text += ", "+getString(R.string.and)+" ";
-                    else if (showOnlineResults) text += ", ";
-                    else text += " "+getString(R.string.and)+" ";
-
-                    text += getString(R.string.including)+" ";
-
-                    switch (mMatchingWordsFromVerbs.size()) {
-                        case 0:
-                            text += getString(R.string.no_verb);
-                            break;
-                        case 1:
-                            text += getString(R.string.one_verb);
-                            break;
-                        default:
-                            text += mMatchingWordsFromVerbs.size() + " " + getString(R.string.verbs);
-                            break;
-                    }
-                    text += " " + getString(R.string.with_conjugations_matching_the_search_word);
-                }
-                text += ".";
-                Toast.makeText(getContext(), text, Toast.LENGTH_LONG).show();
-            }
-
         }
 
     }
@@ -453,7 +385,7 @@ public class DictionaryFragment extends Fragment implements
         }
 
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Jisho merged words");
-        displayMergedWordsToUser(ONLINE);
+        //displayMergedWordsToUser(ONLINE);
     }
     @Override @SuppressWarnings("unchecked") public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
 

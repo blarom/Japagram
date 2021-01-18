@@ -16,8 +16,8 @@
     <string name="wait_for_online_results_on">Esperar a los resultados en línea antes de mostrar la lista</string>
     <string name="complete_with_conj_search_off">No verifiquar las conjugaciones verbales</string>
     <string name="complete_with_conj_search_on">Añadir verbos perinentes después de comprobar las conjugaciones</string>
-    <string name="wait_for_conj_results_off">Muestre la lista inmediatamente cuando encuentre resultados y actualícela cuando encuentre verbos coincidentes a través de la búsqueda de conjugaciónes</string>
-    <string name="wait_for_conj_results_on">Espere los resultados de verbos coincidentes antes de mostrar la lista</string>
+    <string name="wait_for_all_results_off">Muestre la lista inmediatamente cuando encuentre resultados y actualícela cuando encuentre más resultados</string>
+    <string name="wait_for_all_results_on">Espere a todoslos resultados antes de mostrar la lista</string>
     <string name="show_sources_off">No mostrar información extra sobre cada palabra</string>
     <string name="show_sources_on">Mostrar información extra (fuente, estado común)</string>
     <string name="show_meanings_EN_off">No mostrar los significados ingleses en los resultados de búsqueda</string>
@@ -37,7 +37,7 @@
     <string name="complete_local_with_online_search">Buscar palabras en línea</string>
     <string name="wait_for_online_results">Esperar los resultados en línea</string>
     <string name="complete_with_conj_search">Buscar conjugaciones verbales</string>
-    <string name="pref_wait_for_conj_results">Esperar a los verbos coincidentes</string>
+    <string name="pref_wait_for_all_results">Esperar a todos los resultados</string>
     <string name="pref_show_sources">Mostrar información sobre Palabras</string>
     <string name="pref_show_meanings_EN">Mostrar Significados Ingleses</string>
     <string name="pref_show_meanings_FR">Mostrar Significados Franceses</string>

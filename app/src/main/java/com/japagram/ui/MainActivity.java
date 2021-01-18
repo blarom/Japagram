@@ -221,8 +221,8 @@ public class MainActivity extends BaseActivity implements
         else if (key.equals(getString(R.string.pref_complete_with_conj_search_key))) {
             setShowConjResults(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_complete_with_conj_search_default)));
         }
-        else if (key.equals(getString(R.string.pref_wait_for_conj_results_key))) {
-            setWaitForConjResults(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_wait_for_conj_results_default)));
+        else if (key.equals(getString(R.string.pref_wait_for_all_results_key))) {
+            setWaitForConjResults(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_wait_for_all_results_default)));
         }
         else if (key.equals(getString(R.string.pref_show_sources_key))) {
             setShowSources(sharedPreferences.getBoolean(key, getResources().getBoolean(R.bool.pref_show_sources_default)));
@@ -263,8 +263,8 @@ public class MainActivity extends BaseActivity implements
                 getResources().getBoolean(R.bool.pref_wait_for_online_results_default)));
         setShowConjResults(sharedPreferences.getBoolean(getString(R.string.pref_complete_with_conj_search_key),
                 getResources().getBoolean(R.bool.pref_complete_with_conj_search_default)));
-        setWaitForConjResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_conj_results_key),
-                getResources().getBoolean(R.bool.pref_wait_for_conj_results_default)));
+        setWaitForConjResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_all_results_key),
+                getResources().getBoolean(R.bool.pref_wait_for_all_results_default)));
         setShowSources(sharedPreferences.getBoolean(getString(R.string.pref_show_sources_key),
                 getResources().getBoolean(R.bool.pref_show_sources_default)));
         setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));

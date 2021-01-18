@@ -17,8 +17,8 @@
     <string name="wait_for_online_results_on">Attendre les résultats en ligne avant d\'afficher la liste</string>
     <string name="complete_with_conj_search_off">Ne pas chercher dans les conjugaison de verbes</string>
     <string name="complete_with_conj_search_on">Ajouter les verbes correspondants après avoir verifié les conjugaisons</string>
-    <string name="wait_for_conj_results_off">Afficher la liste immédiatement avec la réception des résultats et l\'actualiser après avoir trouvé les verbes correspondants par recherche de conjugaisons</string>
-    <string name="wait_for_conj_results_on">Attendre les résultats de verbes correspondants avant d\'afficher la liste</string>
+    <string name="wait_for_all_results_off">Afficher la liste immédiatement avec la réception des résultats et l\'actualiser après avoir trouvé de nouveaux résultats</string>
+    <string name="wait_for_all_results_on">Attendre à tous les résultats avant d\'afficher la liste</string>
     <string name="show_sources_off">Ne pas montrer de l\'information supplémentaire sur chaque mot</string>
     <string name="show_sources_on">Afficher de l\'information supplémentaire (source, statut commun)</string>
     <string name="show_meanings_EN_off">Ne pas afficher les senses anglais dans les résultats de recherche</string>
@@ -37,7 +37,7 @@
     <string name="complete_local_with_online_search">Rechercher des mots en ligne</string>
     <string name="wait_for_online_results">Attendre les résultats en ligne</string>
     <string name="complete_with_conj_search">Rechercher les conjugaisons de verbe</string>
-    <string name="pref_wait_for_conj_results">Attendre aux verbes correspondants</string>
+    <string name="pref_wait_for_all_results">Attendre à tous les résultats</string>
     <string name="pref_show_sources">Afficher Informations sur Mots</string>
     <string name="pref_show_meanings_EN">Afficher Senses Anglais</string>
     <string name="pref_show_meanings_FR">Afficher Senses Français</string>

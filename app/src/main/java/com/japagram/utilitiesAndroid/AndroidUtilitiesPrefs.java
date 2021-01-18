@@ -60,12 +60,12 @@ public final class AndroidUtilitiesPrefs {
         return state;
     }
 
-    public static boolean getPreferenceWaitForConjResults(Activity activity) {
+    public static boolean getPreferenceWaitForAllResults(Activity activity) {
         boolean state = false;
         if (activity != null) {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-            state = sharedPreferences.getBoolean(activity.getString(R.string.pref_wait_for_conj_results_key),
-                    activity.getResources().getBoolean(R.bool.pref_wait_for_conj_results_default));
+            state = sharedPreferences.getBoolean(activity.getString(R.string.pref_wait_for_all_results_key),
+                    activity.getResources().getBoolean(R.bool.pref_wait_for_all_results_default));
         }
         return state;
     }
