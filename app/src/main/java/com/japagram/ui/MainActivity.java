@@ -42,10 +42,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-//TODO: database upgrade
 //// Test app ranking algorithm using the following words: eat, car, rat, reef
 
-//TODO: features
 ////TODO: add wildcard characters to local searches
 ////TODO: add kanji character zoom in
 ////TODO: allow user to enter verb in gerund form (ing) and still find its
@@ -53,8 +51,6 @@ import butterknife.Unbinder;
 ////TODO Add filtering functionality: if more than one word is entered, the results will be limited to those that include all words.
 ////TODO make the DICT return kanjis having the same romaji value as that of the entered kanji, similar to the way jisho.org works
 ////TODO when decomposing from radical, show all possible variants
-
-//TODO: bugs
 
 
 public class MainActivity extends BaseActivity implements
@@ -113,12 +109,13 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         mSavedInstanceState = savedInstanceState;
-        Log.i("Diagnosis Time", "Started MainActivity.");
+        Log.i(Globals.DEBUG_TAG, "MainActivity - onCreate - start");
         initializeParameters();
         instantiateExtraDatabases();
         setupSharedPreferences();
 
         setFragments();
+        Log.i(Globals.DEBUG_TAG, "MainActivity - onCreate - end");
 
     }
     @Override protected void onRestoreInstanceState(@NotNull Bundle savedInstanceState) {
@@ -256,24 +253,29 @@ public class MainActivity extends BaseActivity implements
         }
     }
     private void setupSharedPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        setShowOnlineResults(sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_online_search_key),
-                getResources().getBoolean(R.bool.pref_complete_local_with_online_search_default)));
-        setWaitForOnlineResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_online_results_key),
-                getResources().getBoolean(R.bool.pref_wait_for_online_results_default)));
-        setShowConjResults(sharedPreferences.getBoolean(getString(R.string.pref_complete_with_conj_search_key),
-                getResources().getBoolean(R.bool.pref_complete_with_conj_search_default)));
-        setWaitForConjResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_all_results_key),
-                getResources().getBoolean(R.bool.pref_wait_for_all_results_default)));
-        setShowSources(sharedPreferences.getBoolean(getString(R.string.pref_show_sources_key),
-                getResources().getBoolean(R.bool.pref_show_sources_default)));
-        setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
-        setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
-        setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
-        mOcrImageDefaultContrast = AndroidUtilitiesIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultSaturation = AndroidUtilitiesIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
-        mOcrImageDefaultBrightness = AndroidUtilitiesIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
-        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        Runnable instantiateRunnable = () -> {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            setShowOnlineResults(sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_online_search_key),
+                    getResources().getBoolean(R.bool.pref_complete_local_with_online_search_default)));
+            setWaitForOnlineResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_online_results_key),
+                    getResources().getBoolean(R.bool.pref_wait_for_online_results_default)));
+            setShowConjResults(sharedPreferences.getBoolean(getString(R.string.pref_complete_with_conj_search_key),
+                    getResources().getBoolean(R.bool.pref_complete_with_conj_search_default)));
+            setWaitForConjResults(sharedPreferences.getBoolean(getString(R.string.pref_wait_for_all_results_key),
+                    getResources().getBoolean(R.bool.pref_wait_for_all_results_default)));
+            setShowSources(sharedPreferences.getBoolean(getString(R.string.pref_show_sources_key),
+                    getResources().getBoolean(R.bool.pref_show_sources_default)));
+            setSpeechToTextLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_STT_language_key), getString(R.string.pref_language_value_japanese)));
+            setTextToSpeechLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_TTS_language_key), getString(R.string.pref_language_value_japanese)));
+            setOCRLanguage(sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese)));
+            mOcrImageDefaultContrast = AndroidUtilitiesIO.loadOCRImageContrastFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultSaturation = AndroidUtilitiesIO.loadOCRImageSaturationFromSharedPreferences(sharedPreferences, getBaseContext());
+            mOcrImageDefaultBrightness = AndroidUtilitiesIO.loadOCRImageBrightnessFromSharedPreferences(sharedPreferences, getBaseContext());
+            sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
     }
     private void setShowNames(boolean state) {
         mShowNames = state;
@@ -300,7 +302,7 @@ public class MainActivity extends BaseActivity implements
     private void setShowKanjiStructureInfo(boolean state) {
         mShowKanjiStructureInfo = state;
     }
-    private void setSpeechToTextLanguage(String language) {
+    private void setSpeechToTextLanguage(@NotNull String language) {
         if (language.equals(getResources().getString(R.string.pref_language_value_japanese))) {
             mChosenSpeechToTextLanguage = getResources().getString(R.string.languageLocaleJapanese);
         }
@@ -315,7 +317,7 @@ public class MainActivity extends BaseActivity implements
         }
         if (mInputQueryFragment!=null) mInputQueryFragment.setSTTLanguage(mChosenSpeechToTextLanguage);
     }
-    private void setTextToSpeechLanguage(String language) {
+    private void setTextToSpeechLanguage(@NotNull String language) {
         if (language.equals(getResources().getString(R.string.pref_language_value_japanese))) {
             mChosenTextToSpeechLanguage = getResources().getString(R.string.languageLocaleJapanese);
         }
@@ -329,7 +331,7 @@ public class MainActivity extends BaseActivity implements
             mChosenTextToSpeechLanguage = getResources().getString(R.string.languageLocaleSpanish);
         }
     }
-    private void setOCRLanguage(String language) {
+    private void setOCRLanguage(@NotNull String language) {
         if (language.equals(getResources().getString(R.string.pref_language_value_japanese))) {
             mChosenOCRLanguage = getResources().getString(R.string.languageLocaleJapanese);
         }
@@ -341,7 +343,6 @@ public class MainActivity extends BaseActivity implements
 
     //Functionality methods
     private void initializeParameters() {
-
         mBinding =  ButterKnife.bind(this);
         mBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
 
@@ -377,7 +378,6 @@ public class MainActivity extends BaseActivity implements
         instantiateThread.start();
     }
     private void setFragments() {
-
         // Get the fragment manager
         mFragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();

@@ -307,10 +307,14 @@ public class InputQueryFragment extends Fragment implements
         mAlreadyGotRomajiFromKanji = false;
 
         if (getContext() == null) return;
-        //Setting the Typeface
-        AssetManager am = getContext().getApplicationContext().getAssets();
-        mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
-                Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
+        Runnable instantiateRunnable = () -> {
+            //Setting the Typeface
+            AssetManager am = getContext().getApplicationContext().getAssets();
+            mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
+                    Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
     }
     @SuppressLint("ClickableViewAccessibility") private void initializeViews(View rootView) {
 
@@ -599,23 +603,30 @@ public class InputQueryFragment extends Fragment implements
     //Tesseract OCR methods
     private void setupOcr() {
 
-        mDownloadType = "WifiOnly";
+        Runnable instantiateRunnable = () -> {
+            Log.i(Globals.DEBUG_TAG, "InputQueryFragment - setupOcr - start");
+            mDownloadType = "WifiOnly";
 
-        getOcrDataDownloadingStatus();
-        getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary();
-        setupPaths();
-        setupBroadcastReceiverForDownloadedOCRData();
-        registerThatUserIsRequestingDictSearch(false);
-        tts = new TextToSpeech(getContext(), this);
-        mLanguageBeingDownloaded = "jpn";
-        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-        mLanguageBeingDownloaded = "eng";
-        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-        mLanguageBeingDownloaded = "fra";
-        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-        mLanguageBeingDownloaded = "spa";
-        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-        initializeOcrEngineForChosenLanguage();
+            getOcrDataDownloadingStatus();
+            getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary();
+            setupPaths();
+            setupBroadcastReceiverForDownloadedOCRData();
+            registerThatUserIsRequestingDictSearch(false);
+            tts = new TextToSpeech(getContext(), this);
+            mLanguageBeingDownloaded = "jpn";
+            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+            mLanguageBeingDownloaded = "eng";
+            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+            mLanguageBeingDownloaded = "fra";
+            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+            mLanguageBeingDownloaded = "spa";
+            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+            initializeOcrEngineForChosenLanguage();
+            Log.i(Globals.DEBUG_TAG, "InputQueryFragment - setupOcr - end");
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
+
     }
     private void initializeTesseractAPI(String language) {
         //mImageToBeDecoded = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
@@ -723,9 +734,13 @@ public class InputQueryFragment extends Fragment implements
         }
     }
     private void getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary() {
-        String newLanguage = getOCRLanguageFromSettings();
-        if (mOCRLanguage != null && !mOCRLanguage.equals(newLanguage)) initializeTesseractAPI(newLanguage);
-        mOCRLanguage = newLanguage;
+        Runnable instantiateRunnable = () -> {
+            String newLanguage = getOCRLanguageFromSettings();
+            if (mOCRLanguage != null && !mOCRLanguage.equals(newLanguage)) initializeTesseractAPI(newLanguage);
+            mOCRLanguage = newLanguage;
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
     }
     @NotNull private String getLanguageLabel(@NotNull String language) {
         switch (language) {

@@ -13,7 +13,7 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 150;
+    public static final int CENTRAL_DB_VERSION = 151;
     public static final int KANJI_DB_VERSION = 28;
     public static final int EXTENDED_DB_VERSION = 48;
     public static final int NAMES_DB_VERSION = 13;

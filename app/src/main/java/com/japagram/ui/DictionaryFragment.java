@@ -243,7 +243,7 @@ public class DictionaryFragment extends Fragment implements
         AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
         hideLoadingIndicator();
     }
-    private void displayMergedWordsToUser(@NotNull int sourceType) {
+    private void displayMergedWordsToUser(int sourceType) {
         if (getContext()==null || getActivity()==null) return;
 
         boolean showConjResults = AndroidUtilitiesPrefs.getPreferenceShowConjResults(getActivity());

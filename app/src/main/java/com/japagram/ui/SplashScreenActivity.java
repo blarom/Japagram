@@ -105,46 +105,47 @@ public class SplashScreenActivity extends BaseActivity {
         if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionKanji(this) != Globals.KANJI_DB_VERSION) {
             AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(this, false);
         }
+
         mTicks = 0;
-        countDownTimer = new CountDownTimer(3600000, 500) {
+        countDownTimer = new CountDownTimer(3600000, 200) {
 
             @Override
             public void onTick(long l) {
+
+                if (mTicks == 0 || (mTicks > 3 && mTicks % 3 == 0)) { //Reducing the amount of computations
+                    mTicks++;
+                    return;
+                }
 
                 //Delaying the start of db loading if the app uses too much memory
                 boolean finishedLoadingCentralDatabase = AndroidUtilitiesPrefs.getAppPreferenceCentralDatabasesFinishedLoadingFlag(SplashScreenActivity.this);
                 boolean finishedLoadingKanjiDatabase = AndroidUtilitiesPrefs.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
 
-                if (mTicks >= 2) {
-                    if (mCentralDbBeingLoaded) {
-                        if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
-                            if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
-                            mLastUIUpdateWasCentral = true;
-                            mLastUIUpdateWasKanji = false;
-                        }
-                    }
-                    else if (mKanjiDbBeingLoaded) {
-                        if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
-                            if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
-                            mLastUIUpdateWasCentral = false;
-                            mLastUIUpdateWasKanji = true;
-                        }
-                    }
-                    if (finishedLoadingCentralDatabase) {
-                        if (dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
-                    }
-                    if (finishedLoadingKanjiDatabase) {
-                        if (dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
-                    }
-                    if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
-                        hideLoadingIndicator();
-                        countDownTimer.onFinish();
-                        countDownTimer.cancel();
+                Log.i(Globals.DEBUG_TAG, "Splashscreen - Counter Tick - tick=" + mTicks +
+                        " mCentralDbBeingLoaded=" + mCentralDbBeingLoaded + " finishedLoadingCentralDatabase=" + finishedLoadingCentralDatabase +
+                        " mKanjiDbBeingLoaded=" + mKanjiDbBeingLoaded + " finishedLoadingKanjiDatabase=" + finishedLoadingKanjiDatabase);
+
+                if (mTicks == 3) showLoadingIndicator();
+                if (mCentralDbBeingLoaded) {
+                    if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
+                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
+                        mLastUIUpdateWasCentral = true;
+                        mLastUIUpdateWasKanji = false;
                     }
                 }
-
-                if (mTicks == 3) {
-                    showLoadingIndicator();
+                else if (mKanjiDbBeingLoaded) {
+                    if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
+                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
+                        mLastUIUpdateWasCentral = false;
+                        mLastUIUpdateWasKanji = true;
+                    }
+                }
+                if (finishedLoadingCentralDatabase && dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
+                if (finishedLoadingKanjiDatabase && dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
+                if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
+                    hideLoadingIndicator();
+                    countDownTimer.onFinish();
+                    countDownTimer.cancel();
                 }
 
                 mTicks++;
@@ -159,6 +160,7 @@ public class SplashScreenActivity extends BaseActivity {
                 startMainActivity();
             }
         };
+        Log.i(Globals.DEBUG_TAG, "SplashScreen - onCreate - starting counter");
         countDownTimer.start();
 
     }
@@ -187,16 +189,20 @@ public class SplashScreenActivity extends BaseActivity {
         if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
     }
     private void startDbInstallationForegroundService() {
-        Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
-        boolean showNames = AndroidUtilitiesPrefs.getPreferenceShowNames(this);
-        int currentExtendedDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionExtended(this);
-        int currentNamesDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionNames(this);
-        boolean installExtendedDb = currentExtendedDbVersion != Globals.EXTENDED_DB_VERSION;
-        boolean installNamesDb = currentNamesDbVersion != Globals.NAMES_DB_VERSION;
-        serviceIntent.putExtra(getString(R.string.show_names), showNames);
-        serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
-        serviceIntent.putExtra(getString(R.string.install_names_db), installNamesDb);
-        if (installExtendedDb || installNamesDb && showNames) startService(serviceIntent);
+        Runnable instantiateRunnable = () -> {
+            Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
+            boolean showNames = AndroidUtilitiesPrefs.getPreferenceShowNames(this);
+            int currentExtendedDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionExtended(this);
+            int currentNamesDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionNames(this);
+            boolean installExtendedDb = currentExtendedDbVersion != Globals.EXTENDED_DB_VERSION;
+            boolean installNamesDb = currentNamesDbVersion != Globals.NAMES_DB_VERSION;
+            serviceIntent.putExtra(getString(R.string.show_names), showNames);
+            serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
+            serviceIntent.putExtra(getString(R.string.install_names_db), installNamesDb);
+            if (installExtendedDb || installNamesDb && showNames) startService(serviceIntent);
+        };
+        Thread instantiateThread = new Thread(instantiateRunnable);
+        instantiateThread.start();
 
     }
     private void stopDbInstallationForegroundService() {
