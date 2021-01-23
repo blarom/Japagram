@@ -162,7 +162,6 @@ public class SplashScreenActivity extends BaseActivity {
         };
         Log.i(Globals.DEBUG_TAG, "SplashScreen - onCreate - starting counter");
         countDownTimer.start();
-
     }
 
 
@@ -174,8 +173,8 @@ public class SplashScreenActivity extends BaseActivity {
 
     private void startMainActivity() {
         Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
+        SplashScreenActivity.this.startActivity(mainIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));
         SplashScreenActivity.this.overridePendingTransition(0, 0);
-        SplashScreenActivity.this.startActivity(mainIntent);
         SplashScreenActivity.this.finish();
     }
     private void showLoadingIndicator() {

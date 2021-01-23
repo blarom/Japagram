@@ -7,7 +7,10 @@
 <!--        <item name="dialogPreferenceStyle">@style/AlertDialogStyle</item>-->
 <!--        <item name="dialogTheme">@style/AlertDialogStyle</item>-->
 <!--        <item name="alertDialogTheme">@style/AlertDialogStyle</item>-->
-        <item name="android:windowBackground">@color/Black</item>
+        <item name="android:windowBackground">@drawable/background1_night</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+        <item name="android:statusBarColor">@color/Black</item>
         <item name="dialogTheme">@style/CustomAlertDialogTheme</item>
         <item name="alertDialogTheme">@style/CustomAlertDialogTheme</item>
         <item name="alertDialogStyle">@style/CustomAlertDialogStyle</item>
@@ -107,6 +110,7 @@
         <item name="colorMonochromeContrastTransparent">@color/appThemeBlueGreen_colorMonochromeContrastTransparent</item>
         <item name="colorMonochromeBlendTransparent">@color/appThemeBlueGreen_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:statusBarColor">@color/appThemeBlueGreen_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeBlueGreen_widget</item>
 
@@ -176,6 +180,7 @@
         <item name="colorMonochromeContrastTransparent">@color/appThemeRedBlack_colorMonochromeContrastTransparent</item>
         <item name="colorMonochromeBlendTransparent">@color/appThemeRedBlack_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:statusBarColor">@color/appThemeRedBlack_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
 
@@ -246,6 +251,7 @@
         <item name="colorMonochromeContrastTransparent">@color/appThemeNightPurpleBlack_colorMonochromeContrastTransparent</item>
         <item name="colorMonochromeBlendTransparent">@color/appThemeNightPurpleBlack_colorMonochromeBlendTransparent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:statusBarColor">@color/appThemeNightPurpleBlack_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeNightPurpleBlack_widget</item>
 
@@ -464,6 +470,12 @@
         <item name="background">?attr/colorPrimaryNormal</item>
         <item name="android:background">?attr/colorPrimaryNormal</item>
         <item name="titleTextStyle">@style/CustomActionBarTitle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+    <style name="CustomActionBarTheme" parent="@android:style/Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
     </style>
     <style name="CustomActionBarTitle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
 <!--        <item name="android:textColor">?attr/colorMonochromeContrast</item>-->

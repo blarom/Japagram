@@ -1,87 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="com.japagram.ui.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/background"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/background_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@drawable/background1_day"
         android:gravity="center_vertical"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="-24dp"
+            android:background="@drawable/background1_day"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:fontFamily="sans-serif-medium"
+            android:gravity="center"
             android:text="@string/app_name"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?attr/colorMonochromeContrast"
-            android:textSize="26sp"/>
+            android:textSize="26sp"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_intro_sentence_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/splashscreen_intro_sentence_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/textTitle"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/splashscreen_intro_sentence"
-            android:layout_marginBottom="40dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?attr/colorMonochromeContrast"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_loading_database_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/splashscreen_loading_database_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/splashscreen_intro_sentence_textview"
             android:layout_gravity="center"
             android:text="@string/splashscreen_loading_database"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?attr/colorPrimaryNormal"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_loading_indicator"
+            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/splashscreen_time_to_load_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/splashscreen_loading_database_textview"
             android:gravity="center"
-            android:layout_marginBottom="16dp"
             android:text="@string/splashscreen_should_take_only_a_few_seconds"
-            android:textColor="?attr/colorPrimaryNormal"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="16sp"/>
+            android:textColor="?attr/colorPrimaryNormal"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/splashscreen_loading_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/splashscreen_time_to_load_textview"
             android:layout_gravity="center"
-            android:layout_marginBottom="16dp"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_time_to_load_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/splashscreen_current_loading_database"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_below="@+id/splashscreen_loading_indicator"
             android:layout_marginBottom="96dp"
+            android:gravity="center"
             android:text="@string/loading_central_database"
-            android:textColor="?attr/colorPrimaryNormal"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="16sp"/>
+            android:textColor="?attr/colorPrimaryNormal"
+            android:textSize="16sp"
+            android:visibility="gone" />
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
