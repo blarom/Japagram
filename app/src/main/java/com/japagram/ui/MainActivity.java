@@ -103,16 +103,6 @@ public class MainActivity extends BaseActivity implements
     private String mInputQuery;
     private List<String> mQueryHistory;
     private String mLanguage;
-    private boolean mCentralDbBeingLoaded;
-    private boolean mKanjiDbBeingLoaded;
-    private CountDownTimer countDownTimer;
-    private Runnable dbLoadRunnableCentral;
-    private Runnable dbLoadRunnableKanji;
-    private Thread dbLoadThreadCentral;
-    private Thread dbLoadThreadKanji;
-    boolean mLastUIUpdateWasCentral;
-    boolean mLastUIUpdateWasKanji;
-    private int mTicks;
     //endregion
 
 
@@ -127,7 +117,6 @@ public class MainActivity extends BaseActivity implements
         mSavedInstanceState = savedInstanceState;
         Log.i(Globals.DEBUG_TAG, "MainActivity - onCreate - start");
         initializeParameters();
-        //updateLocalDatabases();
         instantiateExtraDatabases();
         setupSharedPreferences();
 
@@ -650,140 +639,6 @@ public class MainActivity extends BaseActivity implements
 
         //fragmentTransaction.addToBackStack(getString(R.string.decompose_fragment_instance));
         fragmentTransaction.commit();
-    }
-    private void updateLocalDatabases() {
-
-        mCentralDbBeingLoaded = true;
-        mKanjiDbBeingLoaded = true;
-        startDbInstallationForegroundService();
-
-        //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
-        dbLoadRunnableCentral = () -> {
-            mCentralDbBeingLoaded = true;
-            Globals.GLOBAL_SIMILARS_DATABASE = AndroidUtilitiesIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, this, mLanguage);
-            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
-            Globals.GLOBAL_RADICALS_ONLY_DATABASE = AndroidUtilitiesIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_ROMANIZATIONS = OvUtilsGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
-            Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
-            RoomCentralDatabase.getInstance(MainActivity.this); //Required for Room
-            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");
-            mCentralDbBeingLoaded = false;
-        };
-        dbLoadRunnableKanji = () -> {
-            mKanjiDbBeingLoaded = true;
-            RoomKanjiDatabase.getInstance(MainActivity.this); //Required for Room
-            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomKanjiDatabase");
-            mKanjiDbBeingLoaded = false;
-        };
-        dbLoadThreadCentral = new Thread(dbLoadRunnableCentral);
-        dbLoadThreadCentral.start();
-        dbLoadThreadKanji = new Thread(dbLoadRunnableKanji);
-        dbLoadThreadKanji.start();
-
-        //showLoadingIndicator();
-        if (AndroidUtilitiesPrefs.getAppPreferenceFirstTimeRunningApp(MainActivity.this)) {
-            Toast.makeText(MainActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
-        }
-
-        if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionCentral(this) != Globals.CENTRAL_DB_VERSION) {
-            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(this, false);
-        }
-        if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionKanji(this) != Globals.KANJI_DB_VERSION) {
-            AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(this, false);
-        }
-
-        mTicks = 0;
-        countDownTimer = new CountDownTimer(3600000, 200) {
-
-            @Override
-            public void onTick(long l) {
-
-                if (mTicks == 0 || (mTicks > 3 && mTicks % 3 == 0)) { //Reducing the amount of computations
-                    mTicks++;
-                    return;
-                }
-
-                //Delaying the start of db loading if the app uses too much memory
-                boolean finishedLoadingCentralDatabase = AndroidUtilitiesPrefs.getAppPreferenceCentralDatabasesFinishedLoadingFlag(MainActivity.this);
-                boolean finishedLoadingKanjiDatabase = AndroidUtilitiesPrefs.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(MainActivity.this);
-
-                Log.i(Globals.DEBUG_TAG, "Splashscreen - Counter Tick - tick=" + mTicks +
-                        " mCentralDbBeingLoaded=" + mCentralDbBeingLoaded + " finishedLoadingCentralDatabase=" + finishedLoadingCentralDatabase +
-                        " mKanjiDbBeingLoaded=" + mKanjiDbBeingLoaded + " finishedLoadingKanjiDatabase=" + finishedLoadingKanjiDatabase);
-
-                if (mTicks == 3) showLoadingIndicator();
-                if (mCentralDbBeingLoaded) {
-                    if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
-                        //if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
-                        mLastUIUpdateWasCentral = true;
-                        mLastUIUpdateWasKanji = false;
-                    }
-                }
-                else if (mKanjiDbBeingLoaded) {
-                    if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
-                        //if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
-                        mLastUIUpdateWasCentral = false;
-                        mLastUIUpdateWasKanji = true;
-                    }
-                }
-                if (finishedLoadingCentralDatabase && dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
-                if (finishedLoadingKanjiDatabase && dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
-                if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
-                    hideLoadingIndicator();
-                    countDownTimer.onFinish();
-                    countDownTimer.cancel();
-                }
-
-                mTicks++;
-            }
-
-            @Override
-            public void onFinish() {
-                AndroidUtilitiesPrefs.setAppPreferenceFirstTimeRunningApp(MainActivity.this, false);
-                hideLoadingIndicator();
-                if (Looper.myLooper()==null) Looper.prepare();
-                //Toast.makeText(SplashScreenActivity.this, R.string.finished_loading_databases, Toast.LENGTH_SHORT).show();
-                //startMainActivity();
-            }
-        };
-        Log.i(Globals.DEBUG_TAG, "SplashScreen - onCreate - starting counter");
-        countDownTimer.start();
-    }
-    private void showLoadingIndicator() {
-        //if (mTimeToLoadTextView!=null) mTimeToLoadTextView.setText(R.string.database_being_installed);
-        //if (mLoadingDatabaseTextView!=null) mLoadingDatabaseTextView.setVisibility(View.VISIBLE);
-        //if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
-    }
-    private void hideLoadingIndicator() {
-        //if (mTimeToLoadTextView!=null) mTimeToLoadTextView.setText(R.string.splashscreen_should_take_only_a_few_seconds);
-        //if (mLoadingDatabaseTextView!=null) mLoadingDatabaseTextView.setVisibility(View.GONE);
-        //if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
-    }
-    private void startDbInstallationForegroundService() {
-        Runnable instantiateRunnable = () -> {
-            Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
-            boolean showNames = AndroidUtilitiesPrefs.getPreferenceShowNames(this);
-            int currentExtendedDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionExtended(this);
-            int currentNamesDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionNames(this);
-            boolean installExtendedDb = currentExtendedDbVersion != Globals.EXTENDED_DB_VERSION;
-            boolean installNamesDb = currentNamesDbVersion != Globals.NAMES_DB_VERSION;
-            serviceIntent.putExtra(getString(R.string.show_names), showNames);
-            serviceIntent.putExtra(getString(R.string.install_extended_db), installExtendedDb);
-            serviceIntent.putExtra(getString(R.string.install_names_db), installNamesDb);
-            if (installExtendedDb || installNamesDb && showNames) startService(serviceIntent);
-        };
-        Thread instantiateThread = new Thread(instantiateRunnable);
-        instantiateThread.start();
-
-    }
-    private void stopDbInstallationForegroundService() {
-        Intent serviceIntent = new Intent(this, RoomDatabasesInstallationForegroundService.class);
-        stopService(serviceIntent);
     }
 
     //Communication with other classes:
