@@ -25,10 +25,14 @@ public class TesseractOCRAsyncTask extends AsyncTask<Void, Void, String> {
     }
     @Override
     protected String doInBackground(Void... voids) {
-
-        String result = mTess.getUTF8Text();
-        //String result = mTess.getHOCRText(0);
-        return result;
+        try {
+            String result = mTess.getUTF8Text();
+            //String result = mTess.getHOCRText(0);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override

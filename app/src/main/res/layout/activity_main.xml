@@ -8,7 +8,7 @@
     tools:context="com.japagram.ui.MainActivity">
 
     <LinearLayout
-        android:id="@+id/background"
+        android:id="@+id/main_activity_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="-24dp"

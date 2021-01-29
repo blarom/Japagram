@@ -10,6 +10,7 @@
         <item name="android:windowBackground">@drawable/background1_night</item>
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
+        <item name="android:navigationBarColor">@color/Black</item>
         <item name="android:statusBarColor">@color/Black</item>
         <item name="dialogTheme">@style/CustomAlertDialogTheme</item>
         <item name="alertDialogTheme">@style/CustomAlertDialogTheme</item>
@@ -122,6 +123,7 @@
         <item name="colorSecondaryMorePronounced">@color/appThemeBlueGreen_colorSecondaryMorePronounced</item>
         <item name="inputQueryTextColor">@color/appThemeBlueGreen_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeBlueGreen_buttonBackground</item>
+        <item name="android:navigationBarColor">@color/White</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeBlueGreen_textDictionaryGroupItemMeanings</item>
         <item name="textDictionaryChildItemRomajiColor">@color/appThemeBlueGreen_textDictionaryChildItemRomaji</item>
@@ -183,6 +185,7 @@
         <item name="android:statusBarColor">@color/appThemeRedBlack_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
+        <item name="android:navigationBarColor">@color/White</item>
 
         <item name="colorPrimaryLessPronounced">@color/appThemeRedBlack_colorPrimaryLessPronounced</item>
         <item name="colorPrimaryNormal">@color/appThemeRedBlack_colorPrimaryNormal</item>
@@ -254,6 +257,7 @@
         <item name="android:statusBarColor">@color/appThemeNightPurpleBlack_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeNightPurpleBlack_widget</item>
+        <item name="android:navigationBarColor">@color/Black</item>
 
         <item name="colorPrimaryLessPronounced">@color/appThemeNightPurpleBlack_colorPrimaryLessPronounced</item>
         <item name="colorPrimaryNormal">@color/appThemeNightPurpleBlack_colorPrimaryNormal</item>

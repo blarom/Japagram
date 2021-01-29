@@ -7,10 +7,13 @@ import android.provider.BaseColumns;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -42,6 +45,8 @@ public class Word implements Parcelable {
 
     public Word() {
     }
+
+    @Ignore
     public Word(String romaji, String kanji) {
         this.romaji = romaji;
         this.kanji = kanji;
@@ -49,7 +54,7 @@ public class Word implements Parcelable {
     }
 
 
-    Word(Parcel in) {
+    Word(@NotNull Parcel in) {
         id = in.readLong();
         extraKeywordsEN = in.readString();
         extraKeywordsFR = in.readString();

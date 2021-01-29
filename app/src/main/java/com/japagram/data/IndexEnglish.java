@@ -27,6 +27,7 @@ public class IndexEnglish extends GenericIndex {
     @ColumnInfo(index = true, name = COLUMN_VALUE)
     @NonNull private String value = ".";
 
+    @Ignore
     public IndexEnglish(@NonNull String value, String wordIds, String kanaIds, String kana) {
         super(value, wordIds, kanaIds, kana);
     }

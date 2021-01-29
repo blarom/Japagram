@@ -10,9 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.japagram.R;
 import com.japagram.adapters.DictionaryRecyclerViewAdapter;
@@ -23,6 +20,7 @@ import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
+import com.japagram.databinding.FragmentDictionaryBodyBinding;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesWeb;
 import com.japagram.utilitiesCrossPlatform.Globals;
@@ -41,9 +39,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class DictionaryFragment extends Fragment implements
         FirebaseDao.FirebaseOperationsHandler,
@@ -56,9 +51,7 @@ public class DictionaryFragment extends Fragment implements
     public static final int CONJ = 1;
     public static final int ALL = 2;
     //region Parameters
-    @BindView(R.id.dictionary_recyclerview) RecyclerView mDictionaryRecyclerView;
-    @BindView(R.id.word_hint) TextView mHintTextView;
-    @BindView(R.id.dict_results_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
+    private FragmentDictionaryBodyBinding binding;
     private static final int WORD_RESULTS_MAX_RESPONSE_DELAY = 2000;
     private static final int MAX_NUMBER_RESULTS_SHOWN = 50;
     private static final int MAX_NUM_WORDS_TO_SHARE = 30;
@@ -66,7 +59,6 @@ public class DictionaryFragment extends Fragment implements
     private List<Word> mLocalMatchingWordsList;
     private List<Word> mMergedMatchingWordsList;
     private FirebaseDao mFirebaseDao;
-    private Unbinder mBinding;
     private boolean mAlreadyLoadedRoomResults;
     private boolean mAlreadyLoadedJishoResults;
     private boolean mAlreadyLoadedConjResults;
@@ -102,12 +94,13 @@ public class DictionaryFragment extends Fragment implements
 
         //setRetainInstance(true);
         final View rootView = inflater.inflate(R.layout.fragment_dictionary, container, false);
-
-        initializeViews(rootView);
-
-        getQuerySearchResults();
-
         return rootView;
+    }
+    @Override public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentDictionaryBodyBinding.bind(view);
+        initializeViews();
+        getQuerySearchResults();
     }
     @Override public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -127,7 +120,7 @@ public class DictionaryFragment extends Fragment implements
     }
     @Override public void onDestroyView() {
         super.onDestroyView();
-        mBinding.unbind();
+        binding = null;
     }
     @Override public void onDestroy() {
         super.onDestroy();
@@ -153,8 +146,7 @@ public class DictionaryFragment extends Fragment implements
         mAlreadyLoadedJishoResults = false;
         mLanguage = LocaleHelper.getLanguage(getContext());
     }
-    private void initializeViews(View rootView) {
-        mBinding = ButterKnife.bind(this, rootView);
+    private void initializeViews() {
 
         if (getContext() == null) return;
 
@@ -162,10 +154,10 @@ public class DictionaryFragment extends Fragment implements
         Typeface typeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
-        mDictionaryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        mDictionaryRecyclerView.setNestedScrollingEnabled(true);
+        binding.dictionaryResults.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        binding.dictionaryResults.setNestedScrollingEnabled(true);
         mDictionaryRecyclerViewAdapter = new DictionaryRecyclerViewAdapter(getContext(), this, null, mInputQuery, LocaleHelper.getLanguage(getContext()), typeface);
-        mDictionaryRecyclerView.setAdapter(mDictionaryRecyclerViewAdapter);
+        binding.dictionaryResults.setAdapter(mDictionaryRecyclerViewAdapter);
     }
     private void getQuerySearchResults() {
 
@@ -226,9 +218,9 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void showEmptySearchResults() {
-        mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
-        mHintTextView.setVisibility(View.VISIBLE);
-        mDictionaryRecyclerView.setVisibility(View.GONE);
+        binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.please_enter_valid_word)));
+        binding.dictionaryHint.setVisibility(View.VISIBLE);
+        binding.dictionaryResults.setVisibility(View.GONE);
     }
     private void updateDisplayedList() {
         if (getContext()==null || getActivity()==null) return;
@@ -236,8 +228,8 @@ public class DictionaryFragment extends Fragment implements
         List<Word> finalDisplayedWords = (mMergedMatchingWordsList.size()>MAX_NUMBER_RESULTS_SHOWN) ?
                 mMergedMatchingWordsList.subList(0,MAX_NUMBER_RESULTS_SHOWN) : mMergedMatchingWordsList;
         mDictionaryRecyclerViewAdapter.setContents(finalDisplayedWords);
-        mHintTextView.setVisibility(View.GONE);
-        mDictionaryRecyclerView.setVisibility(View.VISIBLE);
+        binding.dictionaryHint.setVisibility(View.GONE);
+        binding.dictionaryResults.setVisibility(View.VISIBLE);
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful");
         mSuccessfullyDisplayedResultsBeforeTimeout = true;
         AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
@@ -274,7 +266,7 @@ public class DictionaryFragment extends Fragment implements
             }
         } else if (mWaitingForConjResults && showConjResults) {
             if (waitForAllResults) {
-                mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Waiting for Local results");
             } else {
                 updateDisplayedList();
@@ -283,7 +275,7 @@ public class DictionaryFragment extends Fragment implements
             if (waitForAllResults || haveMoreWordsForDisplayedList) {
                 updateDisplayedList();
             } else {
-                mHintTextView.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
+                binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
                 hideLoadingIndicator();
@@ -301,11 +293,11 @@ public class DictionaryFragment extends Fragment implements
         if (mVerbSearchAsyncTask != null) mVerbSearchAsyncTask.cancel(true);
     }
     private void showLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
-        if (mHintTextView!=null) mHintTextView.setVisibility(View.GONE);
+        binding.dictionaryResultsLoadingIndicator.setVisibility(View.VISIBLE);
+        binding.dictionaryHint.setVisibility(View.GONE);
     }
     private void hideLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+        if (binding.dictionaryResultsLoadingIndicator!=null) binding.dictionaryResultsLoadingIndicator.setVisibility(View.INVISIBLE);
     }
 
 

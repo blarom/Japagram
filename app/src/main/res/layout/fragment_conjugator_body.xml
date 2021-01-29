@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Spinner
-        android:id="@+id/verb_chooser_spinner"
+        android:id="@+id/conjugator_verb_chooser"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:singleLine="false"/>
 
     <TextView
-        android:id="@+id/verb_hint"
+        android:id="@+id/conjugator_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -24,34 +28,35 @@
         android:text="@string/verbHint"/>
 
     <ProgressBar
-        android:id="@+id/verb_results_loading_indicator"
+        android:id="@+id/conjugator_results_loading_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_centerInParent="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_gravity="center"
         android:background="?attr/colorMonochromeBlendTransparent"
         android:visibility="invisible"/>
 
     <ScrollView
-        android:id="@+id/conjugations_container"
+        android:id="@+id/conjugator_conjugations_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:layout_alignParentTop="true"
+        app:layout_constraintTop_toTopOf="parent"
         android:fillViewport="true"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/conjugator_conjugations_linearlayout"
             android:background="?attr/colorMonochromeBlendTransparent"
             android:textColor="?attr/colorMonochromeContrast"
             android:orientation="vertical">
 
             <Spinner
-                android:id="@+id/conjugations_chooser_spinner"
+                android:id="@+id/conjugator_conjugations_chooser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -60,14 +65,14 @@
                 android:singleLine="false" />
 
             <RadioGroup
-                android:id="@+id/radio_romaji_or_kanji"
+                android:id="@+id/conjugator_romaji_or_kanji"
                 android:layout_width="200dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radio_Romaji"
+                    android:id="@+id/conjugator_radio_romaji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
@@ -75,7 +80,7 @@
                     android:text="@string/Romaji" />
 
                 <RadioButton
-                    android:id="@+id/radio_Kanji"
+                    android:id="@+id/conjugator_radio_kanji"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
@@ -84,188 +89,188 @@
             </RadioGroup>
 
             <LinearLayout
-                android:id="@+id/TenseLayout0"
+                android:id="@+id/conjugator_tense0_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense0"
+                    android:id="@+id/conjugator_tense0"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense0_Result"
+                    android:id="@+id/conjugator_tense0_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout1"
+                android:id="@+id/conjugator_tense1_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense1"
+                    android:id="@+id/conjugator_tense1"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense1_Result"
+                    android:id="@+id/conjugator_tense1_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout2"
+                android:id="@+id/conjugator_tense2_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense2"
+                    android:id="@+id/conjugator_tense2"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense2_Result"
+                    android:id="@+id/conjugator_tense2_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout3"
+                android:id="@+id/conjugator_tense3_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense3"
+                    android:id="@+id/conjugator_tense3"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense3_Result"
+                    android:id="@+id/conjugator_tense3_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout4"
+                android:id="@+id/conjugator_tense4_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense4"
+                    android:id="@+id/conjugator_tense4"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense4_Result"
+                    android:id="@+id/conjugator_tense4_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout5"
+                android:id="@+id/conjugator_tense5_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense5"
+                    android:id="@+id/conjugator_tense5"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense5_Result"
+                    android:id="@+id/conjugator_tense5_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout6"
+                android:id="@+id/conjugator_tense6_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense6"
+                    android:id="@+id/conjugator_tense6"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense6_Result"
+                    android:id="@+id/conjugator_tense6_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout7"
+                android:id="@+id/conjugator_tense7_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense7"
+                    android:id="@+id/conjugator_tense7"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense7_Result"
+                    android:id="@+id/conjugator_tense7_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout8"
+                android:id="@+id/conjugator_tense8_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense8"
+                    android:id="@+id/conjugator_tense8"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense8_Result"
+                    android:id="@+id/conjugator_tense8_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout9"
+                android:id="@+id/conjugator_tense9_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense9"
+                    android:id="@+id/conjugator_tense9"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense9_Result"
+                    android:id="@+id/conjugator_tense9_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout10"
+                android:id="@+id/conjugator_tense10_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense10"
+                    android:id="@+id/conjugator_tense10"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense10_Result"
+                    android:id="@+id/conjugator_tense10_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout11"
+                android:id="@+id/conjugator_tense11_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense11"
+                    android:id="@+id/conjugator_tense11"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense11_Result"
+                    android:id="@+id/conjugator_tense11_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout12"
+                android:id="@+id/conjugator_tense12_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense12"
+                    android:id="@+id/conjugator_tense12"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense12_Result"
+                    android:id="@+id/conjugator_tense12_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/TenseLayout13"
+                android:id="@+id/conjugator_tense13_layout"
                 style="@style/VerbCharacteristicsDisplayLinearLayout">
 
                 <TextView
-                    android:id="@+id/Tense13"
+                    android:id="@+id/conjugator_tense13"
                     style="@style/VerbCharacteristicsDisplayLabel" />
 
                 <TextView
-                    android:id="@+id/Tense13_Result"
+                    android:id="@+id/conjugator_tense13_result"
                     style="@style/VerbCharacteristicsDisplayResult" />
             </LinearLayout>
         </LinearLayout>
 
 
     </ScrollView>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.japagram.R;
+import com.japagram.databinding.ListItemDictonaryBinding;
+import com.japagram.databinding.ListItemKanjiGridBinding;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.util.Arrays;
@@ -21,8 +23,6 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGridRecyclerViewAdapter.ComponentViewHolder> {
 
@@ -53,7 +53,7 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
     @Override public void onBindViewHolder(@NonNull final ComponentViewHolder holder, int position) {
 
         String kanji = mKanjis.get(position);
-        final TextView tv = holder.kanjiTextView;
+        final TextView tv = holder.binding.listItemKanjiTextview;
 
         TypedValue typedValue = new TypedValue();
         mContext.getTheme().resolveAttribute(R.attr.searchByRadical_kanjiGrid_itemBackground, typedValue, true);
@@ -123,13 +123,12 @@ public class KanjiGridRecyclerViewAdapter extends RecyclerView.Adapter<KanjiGrid
 
     public class ComponentViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.list_item_kanji_textview) TextView kanjiTextView;
-        @BindView(R.id.list_item_kanji_container) LinearLayout container;
+        private final ListItemKanjiGridBinding binding;
 
         ComponentViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this, itemView);
+            binding = ListItemKanjiGridBinding.bind(itemView);
             itemView.setOnClickListener(this);
         }
 

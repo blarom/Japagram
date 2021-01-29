@@ -18,12 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.japagram.R;
@@ -32,11 +29,14 @@ import com.japagram.adapters.StructuresGridViewAdapter;
 import com.japagram.asynctasks.ComponentGridCreationAsyncTask;
 import com.japagram.asynctasks.ComponentsGridFilterAsyncTask;
 import com.japagram.asynctasks.KanjiSearchAsyncTask;
+import com.japagram.databinding.FragmentSearchByRadicalBodyBinding;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +44,8 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class SearchByRadicalFragment extends Fragment implements
         KanjiGridRecyclerViewAdapter.ComponentClickHandler,
@@ -61,28 +55,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
 
     //region Parameters
-    @BindView(R.id.search_by_radical_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
-    @BindView(R.id.search_by_radical_overall_structure_button) Button mOverallStructureButton;
-    @BindView(R.id.search_by_radical_container_scrollview) NestedScrollView mOverallContainerScrollView;
-    @BindView(R.id.search_by_radicals_overall_block_container) LinearLayout mOverallBlockContainerLinearLayout;
-    @BindView(R.id.search_by_radical_elementA) EditText mElementAEditText;
-    @BindView(R.id.search_by_radical_elementB) EditText mElementBEditText;
-    @BindView(R.id.search_by_radical_elementC) EditText mElementCEditText;
-    @BindView(R.id.search_by_radical_elementD) EditText mElementDEditText;
-    @BindView(R.id.search_by_radical_elementA_container) FrameLayout mElementAEditTextContainer;
-    @BindView(R.id.search_by_radical_elementB_container) FrameLayout mElementBEditTextContainer;
-    @BindView(R.id.search_by_radical_elementC_container) FrameLayout mElementCEditTextContainer;
-    @BindView(R.id.search_by_radical_elementD_container) FrameLayout mElementDEditTextContainer;
-    @BindView(R.id.search_by_radical_selection_grid_container) LinearLayout mSelectionGridContainerLinearLayout;
-    @BindView(R.id.search_by_radical_character_descriptor) EditText mCharacterDescriptorEditText;
-    @BindView(R.id.search_by_radical_requested_component_structure) Button mComponentStructureButton;
-    @BindView(R.id.search_by_radical_selection_grid_title) TextView mSelectionGridTitleTextView;
-    @BindView(R.id.search_by_radical_selection_grid) RecyclerView mSelectionGridRecyclerView;
-    @BindView(R.id.search_by_radical_selection_grid_no_elements_textview) TextView mNoSelectionElementsTextView;
-    @BindView(R.id.search_by_radical_results_grid_container) LinearLayout mResultsGridContainerLinearLayout;
-    @BindView(R.id.search_by_radical_results_grid) RecyclerView mResultsGridRecyclerView;
-    @BindView(R.id.search_by_radical_selection_grid_no_results_textview) TextView mNoResultsTextView;
-    private Unbinder mBinding;
+    private FragmentSearchByRadicalBodyBinding binding;
     private static final int MAX_RECYCLERVIEW_HEIGHT_DP = 320;
     private int mSelectedOverallStructure;
     private int mSelectedComponentStructure;
@@ -126,14 +99,15 @@ public class SearchByRadicalFragment extends Fragment implements
     @Override public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.fragment_search_by_radical, container, false);
-
         //setRetainInstance(true);
-
-        initializeViews(rootView);
-
+        return rootView;
+    }
+    @Override public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentSearchByRadicalBodyBinding.bind(view);
+        initializeViews();
         updateInputElements(mInputQuery);
         hideAllSections();
-        return rootView;
     }
     @Override public void onResume() {
         super.onResume();
@@ -145,7 +119,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     @Override public void onDestroyView() {
         super.onDestroyView();
-        mBinding.unbind();
+        binding = null;
         //if (getActivity()!=null && MainApplication.getRefWatcher(getActivity())!=null) MainApplication.getRefWatcher(getActivity()).watch(this);
     }
 
@@ -217,7 +191,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     private void filterComponentKanjiGridElements() {
         if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-        mKanjiCharacterNameForFilter = mCharacterDescriptorEditText.getText().toString();
+        mKanjiCharacterNameForFilter = binding.searchByRadicalCharacterDescriptor.getText().toString();
         startFilteringComponentKanjiGridElementsAsynchronously();
     }
     private void cancelAsyncOperations() {
@@ -227,78 +201,95 @@ public class SearchByRadicalFragment extends Fragment implements
     }
 
     //UI Functions
-    private void initializeViews(View rootView) {
+    private void initializeViews() {
 
         if (getContext()==null) return;
-        mBinding = ButterKnife.bind(this, rootView);
+
+        binding.searchByRadicalOverallStructureButton.setOnClickListener(view1 -> onRequestedStructureButtonClick());
+        binding.searchByRadicalButtonRadical.setOnClickListener(view1 -> onRadicalButtonClick());
+        binding.searchByRadicalButtonComponent.setOnClickListener(view1 -> onComponentButtonClick());
+        binding.searchByRadicalButtonSearch.setOnClickListener(view1 -> onSearchButtonClick());
+        binding.searchByRadicalRequestedComponentStructure.setOnClickListener(view1 -> onRequestedComponentStructureButtonClick());
+        binding.searchByRadicalButtonFilter.setOnClickListener(view1 -> onFilterButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridSendToElementTop.setOnClickListener(view1 -> onSendToElementTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridSendToInputTop.setOnClickListener(view1 -> onSendToInputTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelBottom.setOnClickListener(view1 -> onCancelBottomButtonClick());
+        binding.searchByRadicalButtonSelectionGridSendToElementBottom.setOnClickListener(view1 -> onSendToElementBottomButtonClick());
+        binding.searchByRadicalButtonSelectionGridSendToInputBottom.setOnClickListener(view1 -> onSendToInputBottomButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
+        binding.searchByRadicalButtonSelectionGridCancelTop.setOnClickListener(view1 -> onCancelTopButtonClick());
 
         //region Setting the Element listeners
-        mElementAEditText.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.searchByRadicalElementA.setOnFocusChangeListener((v, hasFocus) -> {
             if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-            if (hasFocus) mSelectedEditTextId = mElementAEditText.getId();
-            drawBorderAroundThisEditText(mElementAEditText);
+            if (hasFocus) mSelectedEditTextId = binding.searchByRadicalElementA.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementA);
         });
-        mElementAEditText.setOnClickListener(view -> {
-            mSelectedEditTextId = mElementAEditText.getId();
-            drawBorderAroundThisEditText(mElementAEditText);
+        binding.searchByRadicalElementA.setOnClickListener(view -> {
+            mSelectedEditTextId = binding.searchByRadicalElementA.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementA);
         });
-        mElementAEditText.setOnEditorActionListener((v, actionId, event) -> {
+        binding.searchByRadicalElementA.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
-        mElementBEditText.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.searchByRadicalElementB.setOnFocusChangeListener((v, hasFocus) -> {
             if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-            if (hasFocus) mSelectedEditTextId = mElementBEditText.getId();
-            drawBorderAroundThisEditText(mElementBEditText);
+            if (hasFocus) mSelectedEditTextId = binding.searchByRadicalElementB.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementB);
         });
-        mElementBEditText.setOnClickListener(view -> {
-            mSelectedEditTextId = mElementBEditText.getId();
-            drawBorderAroundThisEditText(mElementBEditText);
+        binding.searchByRadicalElementB.setOnClickListener(view -> {
+            mSelectedEditTextId = binding.searchByRadicalElementB.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementB);
         });
-        mElementBEditText.setOnEditorActionListener((v, actionId, event) -> {
+        binding.searchByRadicalElementB.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
-        mElementCEditText.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.searchByRadicalElementC.setOnFocusChangeListener((v, hasFocus) -> {
             if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-            if (hasFocus) mSelectedEditTextId = mElementCEditText.getId();
-            drawBorderAroundThisEditText(mElementCEditText);
+            if (hasFocus) mSelectedEditTextId = binding.searchByRadicalElementC.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementC);
         });
-        mElementCEditText.setOnClickListener(view -> {
-            mSelectedEditTextId = mElementCEditText.getId();
-            drawBorderAroundThisEditText(mElementCEditText);
+        binding.searchByRadicalElementC.setOnClickListener(view -> {
+            mSelectedEditTextId = binding.searchByRadicalElementC.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementC);
         });
-        mElementCEditText.setOnEditorActionListener((v, actionId, event) -> {
+        binding.searchByRadicalElementC.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
-        mElementDEditText.setOnFocusChangeListener((v, hasFocus) -> {
+        binding.searchByRadicalElementD.setOnFocusChangeListener((v, hasFocus) -> {
             if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-            if (hasFocus) mSelectedEditTextId = mElementDEditText.getId();
-            drawBorderAroundThisEditText(mElementDEditText);
+            if (hasFocus) mSelectedEditTextId = binding.searchByRadicalElementD.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementD);
         });
-        mElementDEditText.setOnClickListener(view -> {
-            mSelectedEditTextId = mElementDEditText.getId();
-            drawBorderAroundThisEditText(mElementDEditText);
+        binding.searchByRadicalElementD.setOnClickListener(view -> {
+            mSelectedEditTextId = binding.searchByRadicalElementD.getId();
+            drawBorderAroundThisEditText(binding.searchByRadicalElementD);
         });
-        mElementDEditText.setOnEditorActionListener((v, actionId, event) -> {
+        binding.searchByRadicalElementD.setOnEditorActionListener((v, actionId, event) -> {
             if (event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
             }
             return false;
         });
 
-        mSelectedEditTextId = mElementAEditText.getId();
-        drawBorderAroundThisEditText(mElementAEditText);
+        mSelectedEditTextId = binding.searchByRadicalElementA.getId();
+        drawBorderAroundThisEditText(binding.searchByRadicalElementA);
         //endregion
 
         //region Setting the number of grid columns
@@ -327,7 +318,7 @@ public class SearchByRadicalFragment extends Fragment implements
         //endregion
 
         //region Setting the filter roomInstancesAsyncResponseHandler
-        mCharacterDescriptorEditText.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+        binding.searchByRadicalCharacterDescriptor.setOnEditorActionListener((textView, actionId, keyEvent) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 filterComponentKanjiGridElements();
             }
@@ -339,19 +330,19 @@ public class SearchByRadicalFragment extends Fragment implements
         mMaxRecyclerViewHeightPixels = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, MAX_RECYCLERVIEW_HEIGHT_DP, getResources().getDisplayMetrics());
     }
     private void showLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
+        binding.searchByRadicalLoadingIndicator.setVisibility(View.VISIBLE);
     }
     private void hideLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+        binding.searchByRadicalLoadingIndicator.setVisibility(View.INVISIBLE);
     }
     private void showComponentsSelectionSection() {
-        mResultsGridRecyclerView.setAdapter(null);
-        if (mComponentSelectionType.equals("component")) mComponentStructureButton.setVisibility(View.VISIBLE);
-        else mComponentStructureButton.setVisibility(View.GONE);
-        mSelectionGridContainerLinearLayout.setVisibility(View.VISIBLE);
-        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
-        mSelectionGridRecyclerView.setVisibility(View.GONE);
-        mNoSelectionElementsTextView.setVisibility(View.GONE);
+        binding.searchByRadicalResultsGrid.setAdapter(null);
+        if (mComponentSelectionType.equals("component")) binding.searchByRadicalRequestedComponentStructure.setVisibility(View.VISIBLE);
+        else binding.searchByRadicalRequestedComponentStructure.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGridContainer.setVisibility(View.VISIBLE);
+        binding.searchByRadicalResultsGridContainer.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGrid.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGridNoElements.setVisibility(View.GONE);
     }
     private void updateInputElements(String inputQuery) {
 
@@ -373,91 +364,91 @@ public class SearchByRadicalFragment extends Fragment implements
             if (userSelectionIndex==4) break;
         }
 
-        if (!user_selections[0].equals("")) mElementAEditText.setText(user_selections[0]); else mElementAEditText.setText("");
-        if (!user_selections[1].equals("")) mElementBEditText.setText(user_selections[1]); else mElementBEditText.setText("");
-        if (!user_selections[2].equals("")) mElementCEditText.setText(user_selections[2]); else mElementCEditText.setText("");
-        if (!user_selections[3].equals("")) mElementDEditText.setText(user_selections[3]); else mElementDEditText.setText("");
+        if (!user_selections[0].equals("")) binding.searchByRadicalElementA.setText(user_selections[0]); else binding.searchByRadicalElementA.setText("");
+        if (!user_selections[1].equals("")) binding.searchByRadicalElementB.setText(user_selections[1]); else binding.searchByRadicalElementB.setText("");
+        if (!user_selections[2].equals("")) binding.searchByRadicalElementC.setText(user_selections[2]); else binding.searchByRadicalElementC.setText("");
+        if (!user_selections[3].equals("")) binding.searchByRadicalElementD.setText(user_selections[3]); else binding.searchByRadicalElementD.setText("");
         //endregion
     }
     private void showResultsSection() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-        mResultsGridContainerLinearLayout.setVisibility(View.VISIBLE);
-        mResultsGridRecyclerView.setVisibility(View.GONE);
-        mNoResultsTextView.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGrid.setAdapter(null);
+        binding.searchByRadicalSelectionGridContainer.setVisibility(View.GONE);
+        binding.searchByRadicalResultsGridContainer.setVisibility(View.VISIBLE);
+        binding.searchByRadicalResultsGrid.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGridNoResults.setVisibility(View.GONE);
     }
     private void hideAllSections() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mResultsGridRecyclerView.setAdapter(null);
-        mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
-        mResultsGridContainerLinearLayout.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGrid.setAdapter(null);
+        binding.searchByRadicalResultsGrid.setAdapter(null);
+        binding.searchByRadicalSelectionGridContainer.setVisibility(View.GONE);
+        binding.searchByRadicalResultsGridContainer.setVisibility(View.GONE);
     }
     private void createComponentsGrid() {
         //mNumberOfResultGridColumns = 7;
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfComponentGridColumns);
-        mSelectionGridRecyclerView.setLayoutManager(layoutManager);
+        binding.searchByRadicalSelectionGrid.setLayoutManager(layoutManager);
         if (mComponentsGridAdapter==null) mComponentsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mDisplayableComponentSelections, false, mDroidSansJapaneseTypeface);
         else mComponentsGridAdapter.setContents(mDisplayableComponentSelections);
-        mSelectionGridRecyclerView.setAdapter(mComponentsGridAdapter);
+        binding.searchByRadicalSelectionGrid.setAdapter(mComponentsGridAdapter);
 
-        ViewGroup.LayoutParams params = mSelectionGridRecyclerView.getLayoutParams();
+        ViewGroup.LayoutParams params = binding.searchByRadicalSelectionGrid.getLayoutParams();
         if (mDisplayableComponentSelections.size() <= 56) {
-            mSelectionGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            binding.searchByRadicalSelectionGrid.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
         else {
             params.height = mMaxRecyclerViewHeightPixels;
-            mSelectionGridRecyclerView.setLayoutParams(params);
+            binding.searchByRadicalSelectionGrid.setLayoutParams(params);
         }
 
-        mSelectionGridRecyclerView.setVisibility(View.VISIBLE);
-        mNoSelectionElementsTextView.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGrid.setVisibility(View.VISIBLE);
+        binding.searchByRadicalSelectionGridNoElements.setVisibility(View.GONE);
     }
     private void createResultsGrid() {
         //mNumberOfResultGridColumns = 7;
 
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), mNumberOfResultGridColumns);
-        mResultsGridRecyclerView.setLayoutManager(layoutManager);
+        binding.searchByRadicalResultsGrid.setLayoutManager(layoutManager);
         if (mResultsGridAdapter==null) mResultsGridAdapter = new KanjiGridRecyclerViewAdapter(getContext(), this, mSearchResultsFinal, true, mDroidSansJapaneseTypeface);
         else mResultsGridAdapter.setContents(mSearchResultsFinal);
-        mResultsGridRecyclerView.setAdapter(mResultsGridAdapter);
+        binding.searchByRadicalResultsGrid.setAdapter(mResultsGridAdapter);
 
-        ViewGroup.LayoutParams params = mResultsGridRecyclerView.getLayoutParams();
+        ViewGroup.LayoutParams params = binding.searchByRadicalResultsGrid.getLayoutParams();
         if (mSearchResultsFinal.size() <= 56) {
-            mResultsGridRecyclerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            binding.searchByRadicalResultsGrid.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         }
         else {
             params.height = mMaxRecyclerViewHeightPixels;
-            mResultsGridRecyclerView.setLayoutParams(params);
+            binding.searchByRadicalResultsGrid.setLayoutParams(params);
         }
 
-        mResultsGridRecyclerView.setVisibility(View.VISIBLE);
-        mNoResultsTextView.setVisibility(View.GONE);
+        binding.searchByRadicalResultsGrid.setVisibility(View.VISIBLE);
+        binding.searchByRadicalSelectionGridNoResults.setVisibility(View.GONE);
     }
     private void showNoComponentsTextInsteadOfComponentsGrid() {
-        mSelectionGridRecyclerView.setAdapter(null);
-        mSelectionGridRecyclerView.setVisibility(View.GONE);
-        mNoSelectionElementsTextView.setVisibility(View.VISIBLE);
+        binding.searchByRadicalSelectionGrid.setAdapter(null);
+        binding.searchByRadicalSelectionGrid.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGridNoElements.setVisibility(View.VISIBLE);
     }
     private void showNoResultsTextInsteadOfResultsGrid(String text) {
-        mResultsGridRecyclerView.setAdapter(null);
-        mResultsGridRecyclerView.setVisibility(View.GONE);
-        mNoResultsTextView.setVisibility(View.VISIBLE);
-        mNoResultsTextView.setText(text);
+        binding.searchByRadicalResultsGrid.setAdapter(null);
+        binding.searchByRadicalResultsGrid.setVisibility(View.GONE);
+        binding.searchByRadicalSelectionGridNoResults.setVisibility(View.VISIBLE);
+        binding.searchByRadicalSelectionGridNoResults.setText(text);
     }
     private void handleComponentSelection(boolean enterPressed) {
 
         if (!enterPressed) {
-            mSelectionGridContainerLinearLayout.setVisibility(View.GONE);
+            binding.searchByRadicalSelectionGridContainer.setVisibility(View.GONE);
             if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
-            mSelectionGridRecyclerView.setAdapter(null);
+            binding.searchByRadicalSelectionGrid.setAdapter(null);
         }
 
         if (!enterPressed || getView()==null) return;
         EditText edittext = getView().findViewById(mSelectedEditTextId);
         edittext.setText(mSelectedComponent);
 
-        mOverallContainerScrollView.scrollTo(0,0);
+        binding.searchByRadicalContainerScrollview.scrollTo(0,0);
     }
     private void showStructuresDialog(final String type) {
 
@@ -518,11 +509,11 @@ public class SearchByRadicalFragment extends Fragment implements
                 if (type.equals("overall")) {
                     mSelectedOverallStructureId = mTempSelectedStructureId;
                     mSelectedOverallStructure = setCategoryBasedOnSelectedStructureId(mSelectedOverallStructureId);
-                    mOverallStructureButton.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
+                    binding.searchByRadicalOverallStructureButton.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
                 }
                 else {
                     mSelectedComponentStructure = setCategoryBasedOnSelectedStructureId(mTempSelectedStructureId);
-                    mComponentStructureButton.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
+                    binding.searchByRadicalRequestedComponentStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
                     startCreatingComponentKanjiGridElementsAsynchronously();
                 }
                 dialog.dismiss();
@@ -543,80 +534,80 @@ public class SearchByRadicalFragment extends Fragment implements
     private void drawBorderAroundThisEditText(EditText editText) {
 
         if (getActivity() == null) return;
-        if (mElementAEditText==null || mElementBEditText==null || mElementCEditText==null || mElementDEditText==null) return;
+        if (binding.searchByRadicalElementA==null || binding.searchByRadicalElementB==null || binding.searchByRadicalElementC==null || binding.searchByRadicalElementD==null) return;
 
-        mElementAEditTextContainer.setBackgroundResource(0);
-        mElementBEditTextContainer.setBackgroundResource(0);
-        mElementCEditTextContainer.setBackgroundResource(0);
-        mElementDEditTextContainer.setBackgroundResource(0);
+        binding.searchByRadicalElementAContainer.setBackgroundResource(0);
+        binding.searchByRadicalElementBContainer.setBackgroundResource(0);
+        binding.searchByRadicalElementCContainer.setBackgroundResource(0);
+        binding.searchByRadicalElementDContainer.setBackgroundResource(0);
 
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.searchByRadical_three_sided_background, typedValue, true);
-        if (editText.getId() == mElementAEditText.getId()) mElementAEditTextContainer.setBackgroundResource(typedValue.resourceId);
-        else if (editText.getId() == mElementBEditText.getId()) mElementBEditTextContainer.setBackgroundResource(typedValue.resourceId);
-        else if (editText.getId() == mElementCEditText.getId()) mElementCEditTextContainer.setBackgroundResource(typedValue.resourceId);
-        else if (editText.getId() == mElementDEditText.getId()) mElementDEditTextContainer.setBackgroundResource(typedValue.resourceId);
+        if (editText.getId() == binding.searchByRadicalElementA.getId()) binding.searchByRadicalElementAContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == binding.searchByRadicalElementB.getId()) binding.searchByRadicalElementBContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == binding.searchByRadicalElementC.getId()) binding.searchByRadicalElementCContainer.setBackgroundResource(typedValue.resourceId);
+        else if (editText.getId() == binding.searchByRadicalElementD.getId()) binding.searchByRadicalElementDContainer.setBackgroundResource(typedValue.resourceId);
     }
 
-    @OnClick (R.id.search_by_radical_overall_structure_button) void onRequestedStructureButtonClick() {
+    void onRequestedStructureButtonClick() {
         showStructuresDialog("overall");
     }
-    @OnClick (R.id.search_by_radical_button_radical) void onRadicalButtonClick() {
+    void onRadicalButtonClick() {
         if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
         mComponentSelectionType = "radical";
-        mSelectionGridTitleTextView.setText(R.string.select_the_radical);
+        binding.searchByRadicalSelectionGridTitle.setText(R.string.select_the_radical);
         showComponentsSelectionSection();
 
         startCreatingComponentKanjiGridElementsAsynchronously();
     }
-    @OnClick (R.id.search_by_radical_button_component) void onComponentButtonClick() {
+    void onComponentButtonClick() {
         if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         mSelectedComponent = "";
         mComponentSelectionType = "component";
-        mSelectionGridTitleTextView.setText(R.string.select_the_component);
+        binding.searchByRadicalSelectionGridTitle.setText(R.string.select_the_component);
         showComponentsSelectionSection();
 
         startCreatingComponentKanjiGridElementsAsynchronously();
     }
-    @OnClick (R.id.search_by_radical_button_search) void onSearchButtonClick() {
+    void onSearchButtonClick() {
 
         if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         showResultsSection();
 
         String[] elements_strings = new String[4];
-        elements_strings[0] = mElementAEditText.getText().toString();
-        elements_strings[1] = mElementBEditText.getText().toString();
-        elements_strings[2] = mElementCEditText.getText().toString();
-        elements_strings[3] = mElementDEditText.getText().toString();
+        elements_strings[0] = binding.searchByRadicalElementA.getText().toString();
+        elements_strings[1] = binding.searchByRadicalElementB.getText().toString();
+        elements_strings[2] = binding.searchByRadicalElementC.getText().toString();
+        elements_strings[3] = binding.searchByRadicalElementD.getText().toString();
 
         startSearchingForKanjisAsynchronously(elements_strings);
     }
-    @OnClick (R.id.search_by_radical_requested_component_structure) void oRequestedComponentStructureButtonClick() {
+    void onRequestedComponentStructureButtonClick() {
         showStructuresDialog("component");
     }
-    @OnClick (R.id.search_by_radical_button_filter) void onFilterButtonClick() {
+    void onFilterButtonClick() {
         filterComponentKanjiGridElements();
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_top) void onCancelTopButtonClick() {
+    void onCancelTopButtonClick() {
         handleComponentSelection(false);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_top) void onSendToElementTopButtonClick() {
+    void onSendToElementTopButtonClick() {
         handleComponentSelection(true);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_top) void onSendToInputTopButtonClick() {
+    void onSendToInputTopButtonClick() {
         searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mSelectedComponent);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_cancel_bottom) void onCancelBottomButtonClick() {
+    void onCancelBottomButtonClick() {
         handleComponentSelection(false);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_element_bottom) void onSendToElementBottomButtonClick() {
+    void onSendToElementBottomButtonClick() {
         handleComponentSelection(true);
     }
-    @OnClick (R.id.search_by_radical_button_selection_grid_send_to_input_bottom) void onSendToInputBottomButtonClick() {
+    void onSendToInputBottomButtonClick() {
         searchByRadicalFragmentOperationsHandler.onQueryTextUpdateFromSearchByRadicalRequested(mSelectedComponent);
     }
 
@@ -686,7 +677,7 @@ public class SearchByRadicalFragment extends Fragment implements
         mUnfilteredDisplayableComponentSelections = data;
         mDisplayableComponentSelections = new ArrayList<>(mUnfilteredDisplayableComponentSelections);
         hideLoadingIndicator();
-        mKanjiCharacterNameForFilter = mCharacterDescriptorEditText.getText().toString();
+        mKanjiCharacterNameForFilter = binding.searchByRadicalCharacterDescriptor.getText().toString();
         if (TextUtils.isEmpty(mKanjiCharacterNameForFilter)) {
             if (mDisplayableComponentSelections.size() != 0) createComponentsGrid();
             else showNoComponentsTextInsteadOfComponentsGrid();

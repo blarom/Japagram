@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.japagram.R;
 import com.japagram.resources.ConvolutionMatrix;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,6 +45,8 @@ public class AdjustImageActivity extends BaseActivity {
 
     //Activity lifecylce methods
     @Override protected void onCreate(Bundle savedInstanceState) {
+
+        AndroidUtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_image);
 

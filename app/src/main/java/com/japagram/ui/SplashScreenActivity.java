@@ -6,35 +6,24 @@ import android.os.CountDownTimer;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.R;
+import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomKanjiDatabase;
+import com.japagram.databinding.ActivitySplashscreenBinding;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
 import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class SplashScreenActivity extends BaseActivity {
 
     private final int SPLASH_DISPLAY_LENGTH = 1000; //Miliseconds
-    private Unbinder mBinding;
-    @BindView(R.id.splashscreen_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
-    @BindView(R.id.splashscreen_time_to_load_textview) TextView mTimeToLoadTextView;
-    @BindView(R.id.splashscreen_current_loading_database) TextView mLoadingDatabaseTextView;
-    @BindView(R.id.splashscreen_loading_database_textview) TextView mLoadingDbTextView;
-    @BindView(R.id.background) LinearLayout mBackground;
+    private ActivitySplashscreenBinding binding;
     private boolean mCentralDbBeingLoaded;
     private boolean mKanjiDbBeingLoaded;
     private CountDownTimer countDownTimer;
@@ -54,11 +43,13 @@ public class SplashScreenActivity extends BaseActivity {
         AndroidUtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splashscreen);
+        binding = ActivitySplashscreenBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        //setContentView(R.layout.activity_splashscreen);
 
-        mBinding =  ButterKnife.bind(this);
-        mBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
-        mLoadingDbTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
+        binding.splashscreenBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
+        binding.splashscreenLoadingDatabase.setTextColor(AndroidUtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
 
         mCentralDbBeingLoaded = true;
         mKanjiDbBeingLoaded = true;
@@ -128,14 +119,14 @@ public class SplashScreenActivity extends BaseActivity {
                 if (mTicks == 3) showLoadingIndicator();
                 if (mCentralDbBeingLoaded) {
                     if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_central_database));
+                        binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_central_database));
                         mLastUIUpdateWasCentral = true;
                         mLastUIUpdateWasKanji = false;
                     }
                 }
                 else if (mKanjiDbBeingLoaded) {
                     if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
-                        if (mLoadingDatabaseTextView != null) mLoadingDatabaseTextView.setText(getString(R.string.loading_kanji_database));
+                        binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_kanji_database));
                         mLastUIUpdateWasCentral = false;
                         mLastUIUpdateWasKanji = true;
                     }
@@ -163,11 +154,9 @@ public class SplashScreenActivity extends BaseActivity {
         Log.i(Globals.DEBUG_TAG, "SplashScreen - onCreate - starting counter");
         countDownTimer.start();
     }
-
-
     @Override protected void onDestroy() {
         super.onDestroy();
-        mBinding.unbind();
+        binding = null;
         countDownTimer.cancel();
     }
 
@@ -178,14 +167,14 @@ public class SplashScreenActivity extends BaseActivity {
         SplashScreenActivity.this.finish();
     }
     private void showLoadingIndicator() {
-        if (mTimeToLoadTextView!=null) mTimeToLoadTextView.setText(R.string.database_being_installed);
-        if (mLoadingDatabaseTextView!=null) mLoadingDatabaseTextView.setVisibility(View.VISIBLE);
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
+        binding.splashscreenTimeToLoad.setText(R.string.database_being_installed);
+        binding.splashscreenCurrentLoadingDatabase.setVisibility(View.VISIBLE);
+        binding.splashscreenLoadingIndicator.setVisibility(View.VISIBLE);
     }
     private void hideLoadingIndicator() {
-        if (mTimeToLoadTextView!=null) mTimeToLoadTextView.setText(R.string.splashscreen_should_take_only_a_few_seconds);
-        if (mLoadingDatabaseTextView!=null) mLoadingDatabaseTextView.setVisibility(View.GONE);
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+        binding.splashscreenTimeToLoad.setText(R.string.splashscreen_should_take_only_a_few_seconds);
+        binding.splashscreenCurrentLoadingDatabase.setVisibility(View.GONE);
+        binding.splashscreenLoadingIndicator.setVisibility(View.INVISIBLE);
     }
     private void startDbInstallationForegroundService() {
         Runnable instantiateRunnable = () -> {

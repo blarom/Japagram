@@ -1,6 +1,5 @@
 package com.japagram.ui;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
@@ -35,7 +34,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,9 +48,10 @@ import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.TesseractOCRAsyncTask;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
+import com.japagram.databinding.FragmentInputqueryBodyBinding;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
 import com.theartofdev.edmodo.cropper.CropImage;
 
@@ -68,6 +67,7 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -76,10 +76,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 import static android.content.Context.DOWNLOAD_SERVICE;
 
@@ -88,15 +84,12 @@ public class InputQueryFragment extends Fragment implements
         TextToSpeech.OnInitListener, DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler {
 
     //region Parameters
-    @BindView(R.id.query) AutoCompleteTextView mInputQueryAutoCompleteTextView;
-    @BindView(R.id.button_dict) Button mDictButton;
-    @BindView(R.id.button_conj) Button mConjButton;
-    @BindView(R.id.button_convert) Button mConvertButton;
-    @BindView(R.id.button_search_by_radical) Button mSearchByRadicalButton;
-    @BindView(R.id.button_decompose) Button mDecomposeButton;
-    @BindView(R.id.button_show_history) Button mShowHistoryButton;
-    @BindView(R.id.button_clear_query) Button mClearQueryButton;
+    private FragmentInputqueryBodyBinding binding;
     private static final boolean ALLOW_OCR_FOR_LATIN_LANGUAGES = false;
+    public static final String OCR_LANG_JPN = "jpn";
+    public static final String OCR_LANG_ENG = "eng";
+    public static final String OCR_LANG_FRA = "fra";
+    public static final String OCR_LANG_SPA = "spa";
     private static final int MAX_OCR_DIALOG_RECYCLERVIEW_HEIGHT_DP = 150;
     private static final int RESULT_OK = -1;
     private static final int SPEECH_RECOGNIZER_REQUEST_CODE = 101;
@@ -112,16 +105,12 @@ public class InputQueryFragment extends Fragment implements
     private Bitmap mImageToBeDecoded;
     private TessBaseAPI mTess;
     private String mInternalStorageTesseractFolderPath = "";
-    private boolean mInitializedOcrApiJpn;
-    private boolean mInitializedOcrApiEng;
-    private boolean mInitializedOcrApiFra;
-    private boolean mInitializedOcrApiSpa;
+    private final HashMap<String, Boolean> mInitializedOcrApi = initializeTessLanguageFlags(false);
+    private final HashMap<String, Boolean> firstTimeInitialized = initializeTessLanguageFlags(true);
+    private final HashMap<String, Boolean> mOcrDataIsAvailable = initializeTessLanguageFlags(false);
+    private final HashMap<String, Boolean> mOcrFileIsDownloading = initializeTessLanguageFlags(false);
     private String mOCRLanguage;
     private String mOcrResultString;
-    private boolean firstTimeInitializedJpn;
-    private boolean firstTimeInitializedEng;
-    private boolean firstTimeInitializedFra;
-    private boolean firstTimeInitializedSpa;
     private TextToSpeech tts;
     private long enqueue;
     private DownloadManager downloadmanager;
@@ -129,30 +118,20 @@ public class InputQueryFragment extends Fragment implements
     private String mPhoneAppFolderTesseractDataFilepath;
     private String mDownloadsFolder;
     private int timesPressed;
-    private boolean jpnOcrDataIsAvailable;
-    private boolean engOcrDataIsAvailable;
-    private boolean fraOcrDataIsAvailable;
-    private boolean spaOcrDataIsAvailable;
     private String mLanguageBeingDownloadedLabel;
     private String mLanguageBeingDownloaded;
     private TesseractOCRAsyncTask mTesseractOCRAsyncTask;
     private String mChosenSpeechToTextLanguage;
     private String mDownloadType;
     private boolean jpnOcrFileISDownloading;
-    private boolean mJpnOcrFileIsDownloading;
-    private boolean mEngOcrFileIsDownloading;
-    private boolean mFraOcrFileIsDownloading;
-    private boolean mSpaOcrFileIsDownloading;
     private CropImage.ActivityResult mCropImageResult;
     private BroadcastReceiver mBroadcastReceiver;
     private ProgressDialog mProgressDialog;
-    private Unbinder mBinding;
     private boolean mAlreadyGotOcrResult;
     private boolean mAlreadyGotRomajiFromKanji;
     private Typeface mDroidSansJapaneseTypeface;
     private int mMaxOCRDialogResultHeightPixels;
     //endregion
-
 
     //Fragment Lifecycle methods
     @Override public void onAttach(@NotNull Context context) {
@@ -171,7 +150,6 @@ public class InputQueryFragment extends Fragment implements
         final View rootView = inflater.inflate(R.layout.fragment_inputquery, container, false);
 
         setRetainInstance(true);
-        initializeViews(rootView);
 
         if (savedInstanceState!=null) {
             mAlreadyGotOcrResult = savedInstanceState.getBoolean(getString(R.string.saved_ocr_result_state), false);
@@ -182,10 +160,16 @@ public class InputQueryFragment extends Fragment implements
 
         return rootView;
     }
+    @Override public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentInputqueryBodyBinding.bind(view);
+        initializeViews();
+    }
     @Override public void onResume() {
         super.onResume();
 
-        mInputQueryAutoCompleteTextView.setText(mInputQuery);
+        binding.query.setText(mInputQuery);
+        binding.query.setText(mInputQuery);
         if (getActivity()!=null) AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
         getLanguageParametersFromSettingsAndReinitializeOcrIfNecessary();
@@ -193,7 +177,7 @@ public class InputQueryFragment extends Fragment implements
 
     @Override public void onPause() {
         super.onPause();
-        mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQuery = binding.query.getText().toString();
 
     }
     @Override public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
@@ -209,7 +193,7 @@ public class InputQueryFragment extends Fragment implements
     }
     @Override public void onDestroyView() {
         super.onDestroyView();
-        mBinding.unbind();
+        binding = null;
     }
     @Override public void onDestroy() {
         super.onDestroy();
@@ -237,7 +221,7 @@ public class InputQueryFragment extends Fragment implements
             if (results == null || results.size()==0) return;
 
             mInputQuery = results.get(0);
-            mInputQueryAutoCompleteTextView.setText(mInputQuery);
+            binding.query.setText(mInputQuery);
 
             startRomajiFromKanjiThread();
         }
@@ -274,12 +258,27 @@ public class InputQueryFragment extends Fragment implements
 
             Log.e(TAG_PERMISSIONS,"Returned from permission request.");
             makeOcrDataAvailableInAppFolder(mLanguageBeingDownloaded);
-            if (!mInitializedOcrApiJpn) initializeOcrEngineForChosenLanguage();
+            if (!getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_JPN)) initializeOcrEngineForChosenLanguage();
         }
     }
 
 
     //Functionality methods
+    @SuppressWarnings("ConstantConditions")
+    private static boolean getHashKeyIsTrue(@NotNull HashMap<String, Boolean> hash, String key) {
+        return hash.containsKey(key) && hash.get(key);
+    }
+    private static void setHashKeyValue(@NotNull HashMap<String, Boolean> hash, String key, boolean value) {
+        if (hash.containsKey(key)) hash.put(key, value);
+    }
+    private static @NotNull HashMap<String, Boolean> initializeTessLanguageFlags(boolean defaultValue) {
+        HashMap<String, Boolean> map = new HashMap<>();
+        map.put(OCR_LANG_ENG, defaultValue);
+        map.put(OCR_LANG_JPN, defaultValue);
+        map.put(OCR_LANG_FRA, defaultValue);
+        map.put(OCR_LANG_SPA, defaultValue);
+        return map;
+    }
     private void getExtras() {
         if (getArguments()!=null) {
             mChosenSpeechToTextLanguage = getArguments().getString(getString(R.string.pref_preferred_STT_language));
@@ -289,23 +288,12 @@ public class InputQueryFragment extends Fragment implements
 
         mInputQuery = "";
         mOcrResultString = "";
-        firstTimeInitializedJpn = true;
-        firstTimeInitializedEng = true;
-        firstTimeInitializedFra = true;
-        firstTimeInitializedSpa = true;
-        mInitializedOcrApiJpn = false;
-        mInitializedOcrApiEng = false;
-        mInitializedOcrApiFra = false;
-        mInitializedOcrApiSpa = false;
         timesPressed = 0;
-        jpnOcrDataIsAvailable = false;
-        engOcrDataIsAvailable = false;
-        fraOcrDataIsAvailable = false;
-        spaOcrDataIsAvailable = false;
         mCropImageResult = null;
         mAlreadyGotOcrResult = false;
         mAlreadyGotRomajiFromKanji = false;
 
+        tts = new TextToSpeech(getContext(), this);
         if (getContext() == null) return;
         Runnable instantiateRunnable = () -> {
             //Setting the Typeface
@@ -316,39 +304,48 @@ public class InputQueryFragment extends Fragment implements
         Thread instantiateThread = new Thread(instantiateRunnable);
         instantiateThread.start();
     }
-    @SuppressLint("ClickableViewAccessibility") private void initializeViews(View rootView) {
+    private void initializeViews() {
 
         if (getContext()==null || getActivity() == null) return;
 
-        mBinding = ButterKnife.bind(this, rootView);
+        binding.buttonDict.setOnClickListener(view1 -> onDictButtonClick());
+        binding.buttonConj.setOnClickListener(view1 -> onSearchVerbButtonClick());
+        binding.buttonConvert.setOnClickListener(view1 -> onConvertButtonClick());
+        binding.buttonSearchByRadical.setOnClickListener(view1 -> onSearchByRadicalButtonClick());
+        binding.buttonDecompose.setOnClickListener(view1 -> onDecomposeButtonClick());
+        binding.buttonClearQuery.setOnClickListener(view1 -> onClearQueryButtonClick());
+        binding.buttonShowHistory.setOnClickListener(view1 -> onShowHistoryButtonClick());
+        binding.buttonSpeechToText.setOnClickListener(view1 -> onSpeechToTextButtonClick());
+        binding.buttonOcr.setOnClickListener(view1 -> onOcrButtonClick());
+        binding.buttonTextToSpeech.setOnClickListener(view1 -> onTextToSpeechButtonClick());
 
-        mInputQueryAutoCompleteTextView.setText(mInputQuery);
-        mInputQueryAutoCompleteTextView.setTypeface(mDroidSansJapaneseTypeface);
-        mInputQueryAutoCompleteTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
+        binding.query.setText(mInputQuery);
+        binding.query.setTypeface(mDroidSansJapaneseTypeface);
+        binding.query.setTextColor(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorPrimaryNormal));
 
-        mInputQueryAutoCompleteTextView.setOnEditorActionListener((exampleView, actionId, event) -> {
+        binding.query.setOnEditorActionListener((exampleView, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+                mInputQuery = binding.query.getText().toString();
 
-                mInputQueryAutoCompleteTextView.dismissDropDown();
+                binding.query.dismissDropDown();
 
                 registerThatUserIsRequestingDictSearch(true);
 
-                drawBorderAroundThisButton(mDictButton);
+                drawBorderAroundThisButton(binding.buttonDict);
                 mInputQueryOperationsHandler.onDictRequested(mInputQuery);
             }
             return true;
         });
 
-        mSearchByRadicalButton.setEnabled(true);
-        mDecomposeButton.setEnabled(true);
+        binding.buttonSearchByRadical.setEnabled(true);
+        binding.buttonDecompose.setEnabled(true);
 
         //https://stackoverflow.com/questions/36661068/edittext-drwableleft-dont-work-with-vectors
-        mClearQueryButton.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_clear_black_24dp, mClearQueryButton.getContext().getTheme()),
+        binding.buttonClearQuery.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_clear_black_24dp, binding.buttonClearQuery.getContext().getTheme()),
                 null, null, null);
-        mShowHistoryButton.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_history_black_24dp, mClearQueryButton.getContext().getTheme()),
+        binding.buttonShowHistory.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_history_black_24dp, binding.buttonShowHistory.getContext().getTheme()),
                 null, null, null);
 
     }
@@ -376,21 +373,22 @@ public class InputQueryFragment extends Fragment implements
     }
     private void drawBorderAroundThisButton(Button button) {
 
-        if (mDictButton==null || getActivity() == null) return;
+        if (getActivity() == null) return;
 
-        mDictButton.setBackgroundResource(0);
-        mConjButton.setBackgroundResource(0);
-        mConvertButton.setBackgroundResource(0);
-        mSearchByRadicalButton.setBackgroundResource(0);
-        mDecomposeButton.setBackgroundResource(0);
+        binding.buttonDict.setBackgroundResource(0);
+        binding.buttonConj.setBackgroundResource(0);
+        binding.buttonConvert.setBackgroundResource(0);
+        binding.buttonSearchByRadical.setBackgroundResource(0);
+        binding.buttonSearchByRadical.setBackgroundResource(0);
+        binding.buttonDecompose.setBackgroundResource(0);
 
         TypedValue typedValue = new TypedValue();
         getActivity().getTheme().resolveAttribute(R.attr.inputQuery_buttonBackground, typedValue, true);
-        if (button.getId() == mDictButton.getId()) mDictButton.setBackgroundResource(typedValue.resourceId);
-        else if (button.getId() == mConjButton.getId()) mConjButton.setBackgroundResource(typedValue.resourceId);
-        else if (button.getId() == mConvertButton.getId()) mConvertButton.setBackgroundResource(typedValue.resourceId);
-        else if (button.getId() == mSearchByRadicalButton.getId()) mSearchByRadicalButton.setBackgroundResource(typedValue.resourceId);
-        else if (button.getId() == mDecomposeButton.getId()) mDecomposeButton.setBackgroundResource(typedValue.resourceId);
+        if (button.getId() == binding.buttonDict.getId()) binding.buttonDict.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == binding.buttonConj.getId()) binding.buttonConj.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == binding.buttonConvert.getId()) binding.buttonConvert.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == binding.buttonSearchByRadical.getId()) binding.buttonSearchByRadical.setBackgroundResource(typedValue.resourceId);
+        else if (button.getId() == binding.buttonDecompose.getId()) binding.buttonDecompose.setBackgroundResource(typedValue.resourceId);
     }
     @NotNull private List<String> getQueryHistoryWordsOnly(@NotNull List<String> queryHistory) {
         List<String> result = new ArrayList<>();
@@ -402,71 +400,71 @@ public class InputQueryFragment extends Fragment implements
 
 
     //View click listeners
-    @OnClick(R.id.button_dict) public void onDictButtonClick() {
+    public void onDictButtonClick() {
         if (getActivity()==null || getContext()==null) return;
 
-        String inputWordString = mInputQueryAutoCompleteTextView.getText().toString();
+        String inputWordString = binding.query.getText().toString();
         mInputQuery = inputWordString;
 
         List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+        binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
         registerThatUserIsRequestingDictSearch(true); //TODO: remove this?
-        drawBorderAroundThisButton(mDictButton);
+        drawBorderAroundThisButton(binding.buttonDict);
 
         mInputQueryOperationsHandler.onDictRequested(inputWordString);
     }
-    @OnClick(R.id.button_conj) public void onSearchVerbButtonClick() {
+    public void onSearchVerbButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        String inputVerbString = mInputQueryAutoCompleteTextView.getText().toString();
+        String inputVerbString = binding.query.getText().toString();
         mInputQuery = inputVerbString;
 
         List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+        binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
         registerThatUserIsRequestingDictSearch(false); //TODO: remove this?
 
-        drawBorderAroundThisButton(mConjButton);
+        drawBorderAroundThisButton(binding.buttonConj);
         mInputQueryOperationsHandler.onConjRequested(inputVerbString);
 
     }
-    @OnClick(R.id.button_convert) public void onConvertButtonClick() {
+    public void onConvertButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQuery = binding.query.getText().toString();
 
         List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+        binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
-        drawBorderAroundThisButton(mConvertButton);
+        drawBorderAroundThisButton(binding.buttonConvert);
         mInputQueryOperationsHandler.onConvertRequested(mInputQuery);
     }
-    @OnClick(R.id.button_search_by_radical) public void onSearchByRadicalButtonClick() {
+    public void onSearchByRadicalButtonClick() {
         if (getActivity()==null || getContext()==null) return;
         // Break up a Kanji to Radicals
 
-        mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQuery = binding.query.getText().toString();
 
         List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+        binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
-        drawBorderAroundThisButton(mSearchByRadicalButton);
+        drawBorderAroundThisButton(binding.buttonSearchByRadical);
         mInputQueryOperationsHandler.onSearchByRadicalRequested(UtilitiesGeneral.removeSpecialCharacters(mInputQuery));
     }
-    @OnClick(R.id.button_decompose) public void onDecomposeButtonClick() {
+    public void onDecomposeButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQuery = binding.query.getText().toString();
 
         List<String> queryHistory = MainActivity.updateQueryHistoryWithQueryRomajiMeaning(getContext(), mInputQuery, "", "");
-        mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+        binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
 
-        drawBorderAroundThisButton(mDecomposeButton);
+        drawBorderAroundThisButton(binding.buttonDecompose);
         mInputQueryOperationsHandler.onDecomposeRequested(UtilitiesGeneral.removeSpecialCharacters(mInputQuery));
     }
-    @OnClick(R.id.button_clear_query) public void onClearQueryButtonClick() {
+    public void onClearQueryButtonClick() {
         if (getActivity()==null || getContext()==null) return;
-        mInputQueryAutoCompleteTextView.setText("");
+        binding.query.setText("");
         mInputQuery = "";
     }
-    @OnClick(R.id.button_show_history) public void onShowHistoryButtonClick() {
+    public void onShowHistoryButtonClick() {
         if (getActivity()==null || getContext()==null) return;
         AndroidUtilitiesIO.hideSoftKeyboard(getActivity());
 
@@ -476,12 +474,12 @@ public class InputQueryFragment extends Fragment implements
             if (!element.equals("")) { queryHistoryIsEmpty = false; break; }
         }
         if (!queryHistoryIsEmpty) {
-            mInputQueryAutoCompleteTextView.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
-            mInputQueryAutoCompleteTextView.showDropDown();
+            binding.query.setAdapter(new QueryInputSpinnerAdapter(getContext(), R.layout.spinner_item_queryhistory, getQueryHistoryWordsOnly(queryHistory), queryHistory));
+            binding.query.showDropDown();
         }
 
     }
-    @OnClick(R.id.button_speech_to_text) public void onSpeechToTextButtonClick() {
+    public void onSpeechToTextButtonClick() {
 
         if (getActivity()==null || getContext()==null) {
             return;
@@ -518,70 +516,69 @@ public class InputQueryFragment extends Fragment implements
         }
 
     }
-    @OnClick(R.id.button_ocr) public void onOcrButtonClick() {
+    public void onOcrButtonClick() {
         if (getActivity()==null || getContext()==null) return;
 
         getOcrDataDownloadingStatus();
-        if ((mOCRLanguage.equals("eng") && mEngOcrFileIsDownloading)
-                || (mOCRLanguage.equals("jpn") && mJpnOcrFileIsDownloading)
-                || (mOCRLanguage.equals("fra") && mFraOcrFileIsDownloading)
-                || (mOCRLanguage.equals("spa") && mSpaOcrFileIsDownloading) ) {
+        if ((mOCRLanguage.equals(OCR_LANG_ENG) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_ENG))
+                || (mOCRLanguage.equals(OCR_LANG_JPN) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_JPN))
+                || (mOCRLanguage.equals(OCR_LANG_FRA) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_FRA))
+                || (mOCRLanguage.equals(OCR_LANG_SPA) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_SPA)) ) {
             Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.OCR_downloading), Toast.LENGTH_SHORT);
             toast.show();
         }
         else {
-            if (mInitializedOcrApiJpn && mOCRLanguage.equals("jpn")) {
-                if (firstTimeInitializedJpn) {
+            if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_JPN) && mOCRLanguage.equals(OCR_LANG_JPN)) {
+                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_JPN)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    firstTimeInitializedJpn = false;
+                    setHashKeyValue(firstTimeInitialized, OCR_LANG_JPN, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
-            } else if (mInitializedOcrApiEng && mOCRLanguage.equals("eng")) {
-                if (firstTimeInitializedEng) {
+            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_ENG) && mOCRLanguage.equals(OCR_LANG_ENG)) {
+                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_ENG)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    firstTimeInitializedEng = false;
+                    setHashKeyValue(firstTimeInitialized, OCR_LANG_ENG, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
-            } else if (mInitializedOcrApiFra && mOCRLanguage.equals("fra")) {
-                if (firstTimeInitializedFra) {
+            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_FRA) && mOCRLanguage.equals(OCR_LANG_FRA)) {
+                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_FRA)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    firstTimeInitializedFra = false;
+                    setHashKeyValue(firstTimeInitialized, OCR_LANG_FRA, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
-            } else if (mInitializedOcrApiSpa && mOCRLanguage.equals("spa")) {
-                if (firstTimeInitializedSpa) {
+            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_SPA) && mOCRLanguage.equals(OCR_LANG_SPA)) {
+                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_SPA)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    firstTimeInitializedSpa = false;
+                    setHashKeyValue(firstTimeInitialized, OCR_LANG_FRA, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
             } else {
                 if (timesPressed <= 3) {
-                    mLanguageBeingDownloaded = "jpn";
+                    mLanguageBeingDownloaded = OCR_LANG_JPN;
                     ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
                     if (ALLOW_OCR_FOR_LATIN_LANGUAGES) {
-                        mLanguageBeingDownloaded = "eng";
+                        mLanguageBeingDownloaded = OCR_LANG_ENG;
                         ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                        mLanguageBeingDownloaded = "fra";
+                        mLanguageBeingDownloaded = OCR_LANG_FRA;
                         ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                        mLanguageBeingDownloaded = "spa";
+                        mLanguageBeingDownloaded = OCR_LANG_SPA;
                         ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
                     }
 
                     initializeOcrEngineForChosenLanguage();
-
-                    mInitializedOcrApiJpn = true;
+                    setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
                     timesPressed++; //Prevents multiple clicks on the button from freezing the app
                 }
                 Toast toast = Toast.makeText(getContext(), getResources().getString(R.string.OCR_reinitializing), Toast.LENGTH_SHORT);
@@ -590,10 +587,10 @@ public class InputQueryFragment extends Fragment implements
         }
 
     }
-    @OnClick(R.id.button_text_to_speech) public void onTextToSpeechButtonClick() {
+    public void onTextToSpeechButtonClick() {
         if (getActivity()==null || getContext()==null) return;
 
-        String queryString = mInputQueryAutoCompleteTextView.getText().toString();
+        String queryString = binding.query.getText().toString();
         mInputQuery = queryString;
         speakOut(queryString);
 
@@ -612,14 +609,13 @@ public class InputQueryFragment extends Fragment implements
             setupPaths();
             setupBroadcastReceiverForDownloadedOCRData();
             registerThatUserIsRequestingDictSearch(false);
-            tts = new TextToSpeech(getContext(), this);
-            mLanguageBeingDownloaded = "jpn";
+            mLanguageBeingDownloaded = OCR_LANG_JPN;
             ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = "eng";
+            mLanguageBeingDownloaded = OCR_LANG_ENG;
             ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = "fra";
+            mLanguageBeingDownloaded = OCR_LANG_FRA;
             ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = "spa";
+            mLanguageBeingDownloaded = OCR_LANG_SPA;
             ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
             initializeOcrEngineForChosenLanguage();
             Log.i(Globals.DEBUG_TAG, "InputQueryFragment - setupOcr - end");
@@ -631,26 +627,13 @@ public class InputQueryFragment extends Fragment implements
     private void initializeTesseractAPI(String language) {
         //mImageToBeDecoded = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
 
-        mInitializedOcrApiJpn = false;
+        setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
         if (getActivity()!=null) {
             //Download language files from https://github.com/tesseract-ocr/tesseract/wiki/Data-Files
             try {
                 mTess = new TessBaseAPI();
                 mTess.init(mInternalStorageTesseractFolderPath, language);
-                switch (language) {
-                    case "jpn":
-                        mInitializedOcrApiJpn = true;
-                        break;
-                    case "eng":
-                        mInitializedOcrApiEng = true;
-                        break;
-                    case "fra":
-                        mInitializedOcrApiFra = true;
-                        break;
-                    case "spa":
-                        mInitializedOcrApiSpa = true;
-                        break;
-                }
+                setHashKeyValue(mInitializedOcrApi,language, true);
                 Log.e(TAG_TESSERACT, "Initialized Tesseract.");
             } catch (Exception e) {
                 Log.e(TAG_TESSERACT, "Failed to initialize Tesseract.");
@@ -662,8 +645,10 @@ public class InputQueryFragment extends Fragment implements
     private void getOcrTextWithTesseractAndDisplayDialog(Bitmap imageToBeDecoded){
         if (getActivity()==null) return;
 
-        mTess.setImage(imageToBeDecoded);
-        startTesseractOCRThread();
+        if (mTess != null) {
+            mTess.setImage(imageToBeDecoded);
+            startTesseractOCRThread();
+        }
     }
     private void downloadTesseractDataFileToDownloadsFolder(String source, String filename) {
 
@@ -702,10 +687,10 @@ public class InputQueryFragment extends Fragment implements
 
         if (getContext() != null) {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences(DOWNLOAD_FILE_PREFS, Context.MODE_PRIVATE);
-            mJpnOcrFileIsDownloading = sharedPreferences.getBoolean(JPN_FILE_DOWNLOADING_FLAG, false);
-            mEngOcrFileIsDownloading = sharedPreferences.getBoolean(ENG_FILE_DOWNLOADING_FLAG, false);
-            mFraOcrFileIsDownloading = sharedPreferences.getBoolean(FRA_FILE_DOWNLOADING_FLAG, false);
-            mSpaOcrFileIsDownloading = sharedPreferences.getBoolean(SPA_FILE_DOWNLOADING_FLAG, false);
+            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_JPN,  sharedPreferences.getBoolean(JPN_FILE_DOWNLOADING_FLAG, false));
+            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_ENG,  sharedPreferences.getBoolean(ENG_FILE_DOWNLOADING_FLAG, false));
+            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_FRA,  sharedPreferences.getBoolean(FRA_FILE_DOWNLOADING_FLAG, false));
+            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_SPA,  sharedPreferences.getBoolean(SPA_FILE_DOWNLOADING_FLAG, false));
         }
     }
     @NotNull private String getOCRLanguageFromSettings() {
@@ -714,16 +699,16 @@ public class InputQueryFragment extends Fragment implements
             String language = sharedPreferences.getString(getString(R.string.pref_preferred_OCR_language_key), getString(R.string.pref_language_value_japanese));
 
             if (language.equals(getResources().getString(R.string.pref_language_value_japanese))) {
-                return "jpn";
+                return OCR_LANG_JPN;
             } else if (language.equals(getResources().getString(R.string.pref_language_value_english))) {
-                return "eng";
+                return OCR_LANG_ENG;
             } else if (language.equals(getResources().getString(R.string.pref_language_value_french))) {
-                return "fra";
+                return OCR_LANG_FRA;
             } else if (language.equals(getResources().getString(R.string.pref_language_value_spanish))) {
-                return "spa";
-            } else return "jpn";
+                return OCR_LANG_SPA;
+            } else return OCR_LANG_JPN;
         }
-        else return "jpn";
+        else return OCR_LANG_JPN;
     }
     private void setupPaths() {
         if (getActivity() != null) {
@@ -744,13 +729,13 @@ public class InputQueryFragment extends Fragment implements
     }
     @NotNull private String getLanguageLabel(@NotNull String language) {
         switch (language) {
-            case "jpn":
+            case OCR_LANG_JPN:
                 return getResources().getString(R.string.language_label_japanese);
-            case "eng":
+            case OCR_LANG_ENG:
                 return getResources().getString(R.string.language_label_english);
-            case "fra":
+            case OCR_LANG_FRA:
                 return getResources().getString(R.string.language_label_french);
-            case "spa":
+            case OCR_LANG_SPA:
                 return getResources().getString(R.string.language_label_spanish);
             default:
                 return getResources().getString(R.string.language_label_japanese);
@@ -793,42 +778,33 @@ public class InputQueryFragment extends Fragment implements
     }
     private void initializeOcrEngineForChosenLanguage() {
         mOCRLanguage = getOCRLanguageFromSettings();
-        if (mOCRLanguage.equals("jpn") && jpnOcrDataIsAvailable) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals("eng") && engOcrDataIsAvailable) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals("fra") && fraOcrDataIsAvailable) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals("spa") && spaOcrDataIsAvailable) initializeTesseractAPI(mOCRLanguage);
+        if (mOCRLanguage.equals(OCR_LANG_JPN) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_JPN)) initializeTesseractAPI(mOCRLanguage);
+        else if (mOCRLanguage.equals(OCR_LANG_ENG) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_ENG)) initializeTesseractAPI(mOCRLanguage);
+        else if (mOCRLanguage.equals(OCR_LANG_FRA) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_FRA)) initializeTesseractAPI(mOCRLanguage);
+        else if (mOCRLanguage.equals(OCR_LANG_SPA) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_SPA)) initializeTesseractAPI(mOCRLanguage);
     }
     private void ifOcrDataIsNotAvailableThenMakeItAvailable(String language) {
 
-        if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals("jpn")) return;
+        if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals(OCR_LANG_JPN)) return;
 
         String filename = language + ".traineddata";
-        Boolean fileExistsInAppFolder = AndroidUtilitiesIO.checkIfFileExistsInSpecificFolder(new File(mPhoneAppFolderTesseractDataFilepath), filename);
-        mInitializedOcrApiJpn = false;
-        if (!fileExistsInAppFolder) {
-            hasStoragePermissions = AndroidUtilitiesIO.checkStoragePermission(getActivity());
-            makeOcrDataAvailableInAppFolder(language);
-        }
-        else {
-            switch (language) {
-                case "jpn":
-                    jpnOcrDataIsAvailable = true;
-                    break;
-                case "eng":
-                    engOcrDataIsAvailable = true;
-                    break;
-                case "fra":
-                    fraOcrDataIsAvailable = true;
-                    break;
-                case "spa":
-                    spaOcrDataIsAvailable = true;
-                    break;
+        try {
+            File file = new File(mPhoneAppFolderTesseractDataFilepath);
+            boolean fileExistsInAppFolder = AndroidUtilitiesIO.checkIfFileExistsInSpecificFolder(file, filename);
+            setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
+            if (!fileExistsInAppFolder) {
+                hasStoragePermissions = AndroidUtilitiesIO.checkStoragePermission(getActivity());
+                makeOcrDataAvailableInAppFolder(language);
+            } else {
+                setHashKeyValue(mOcrDataIsAvailable, language, true);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     private void makeOcrDataAvailableInAppFolder(String language) {
 
-        if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals("jpn")) return;
+        if (!ALLOW_OCR_FOR_LATIN_LANGUAGES && !language.equals(OCR_LANG_JPN)) return;
 
         mLanguageBeingDownloadedLabel = getLanguageLabel(language);
         String filename = language + ".traineddata";
@@ -840,7 +816,7 @@ public class InputQueryFragment extends Fragment implements
                 File targetLocation = new File(mPhoneAppFolderTesseractDataFilepath);
                 moveTesseractDataFile(sourceLocation, targetLocation);
             } else {
-                jpnOcrDataIsAvailable = false;
+                setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, false);
                 if (!jpnOcrFileISDownloading) askForPreferredDownloadTimeAndDownload(language, filename);
             }
         }
@@ -883,12 +859,12 @@ public class InputQueryFragment extends Fragment implements
             inputChannel = new FileInputStream(file).getChannel();
             inputChannel.transferTo(0, inputChannel.size(), outputChannel);
             inputChannel.close();
-            jpnOcrDataIsAvailable = true;
+            setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, true);
             Toast.makeText(getContext(),getResources().getString(R.string.OCR_copy_data), Toast.LENGTH_SHORT).show();
             Log.v(TAG_TESSERACT, "Successfully moved data file to app folder.");
             //file.delete();
         } catch (IOException e) {
-            jpnOcrDataIsAvailable = false;
+            setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, false);
             Log.v(TAG_TESSERACT, "Copy file failed.");
             e.printStackTrace();
         } catch (Exception e) {
@@ -906,44 +882,36 @@ public class InputQueryFragment extends Fragment implements
     private void askForPreferredDownloadTimeAndDownload(String language, final String filename) {
         if (getContext() == null) return;
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
         //builder.setTitle(R.string.OCRDialogTitle);
-        builder.setPositiveButton(R.string.DownloadDialogWifiOnly, (dialog, id) -> {
-            mDownloadType = "WifiOnly";
-
-            Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-            Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-            //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-            if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-            dialog.dismiss();
-        });
-        builder.setNegativeButton(R.string.DownloadDialogWifiAndMobile, (dialog, id) -> {
-            mDownloadType = "WifiAndMobile";
-
-            Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-            Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-            //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-            if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-            dialog.dismiss();
-        });
         switch (language) {
-            case "jpn":
-                builder.setMessage(R.string.DownloadDialogMessageJPN);
-                break;
-            case "eng":
-                builder.setMessage(R.string.DownloadDialogMessageENG);
-                break;
-            case "fra":
-                builder.setMessage(R.string.DownloadDialogMessageFRA);
-                break;
-            case "spa":
-                builder.setMessage(R.string.DownloadDialogMessageSPA);
-                break;
+            case OCR_LANG_JPN: alertDialog.setMessage(getString(R.string.DownloadDialogMessageJPN)); break;
+            case OCR_LANG_ENG: alertDialog.setMessage(getString(R.string.DownloadDialogMessageENG)); break;
+            case OCR_LANG_FRA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageFRA)); break;
+            case OCR_LANG_SPA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageSPA)); break;
         }
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        if (dialog.getWindow() == null) return;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.DownloadDialogWifiOnly),
+                (dialog, which) -> {
+                    mDownloadType = "WifiOnly";
+                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+                    dialog.dismiss();
+                });
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.DownloadDialogWifiAndMobile),
+                (dialog, which) -> {
+                    mDownloadType = "WifiAndMobile";
+                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+                    dialog.dismiss();
+                });
+        alertDialog.show();
+
+//        if (alertDialog.getWindow() == null) return;
+//        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
     }
     @NotNull private Boolean checkIfStorageSpaceEnoughForTesseractDataOrShowApology() {
         //https://inducesmile.com/android/how-to-get-android-ram-internal-and-external-memory-information/
@@ -966,18 +934,10 @@ public class InputQueryFragment extends Fragment implements
             SharedPreferences sharedPref = getContext().getSharedPreferences(DOWNLOAD_FILE_PREFS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             switch (filename.substring(0,3)) {
-                case "jpn":
-                    editor.putBoolean(JPN_FILE_DOWNLOADING_FLAG, status);
-                    break;
-                case "eng":
-                    editor.putBoolean(ENG_FILE_DOWNLOADING_FLAG, status);
-                    break;
-                case "fra":
-                    editor.putBoolean(FRA_FILE_DOWNLOADING_FLAG, status);
-                    break;
-                case "spa":
-                    editor.putBoolean(SPA_FILE_DOWNLOADING_FLAG, status);
-                    break;
+                case OCR_LANG_JPN: editor.putBoolean(JPN_FILE_DOWNLOADING_FLAG, status); break;
+                case OCR_LANG_ENG: editor.putBoolean(ENG_FILE_DOWNLOADING_FLAG, status); break;
+                case OCR_LANG_FRA: editor.putBoolean(FRA_FILE_DOWNLOADING_FLAG, status); break;
+                case OCR_LANG_SPA: editor.putBoolean(SPA_FILE_DOWNLOADING_FLAG, status); break;
             }
             editor.apply();
         }
@@ -1008,7 +968,7 @@ public class InputQueryFragment extends Fragment implements
             mProgressDialog.show();
             if (mProgressDialog.getWindow() != null) mProgressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
 
-
+            if (mTess == null) return;
             Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting Terresact OCR");
             mTesseractOCRAsyncTask = new TesseractOCRAsyncTask(getContext(), mTess, this);
             mTesseractOCRAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1057,29 +1017,27 @@ public class InputQueryFragment extends Fragment implements
         });
 
         //Building the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.OCRDialogTitle);
-        builder.setPositiveButton(R.string.copy_to_input, (dialog, id) -> {
-            //Overridden later on
-        });
-        builder.setNegativeButton(getString(R.string.close), (dialog, id) -> {
-
-        });
-        builder.setNeutralButton(R.string.readjust, (dialog, id) -> {
-            if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
-        });
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setView(dialogView);
-        }
-        else { builder.setMessage(R.string.LowVersionDialogMessage); }
-        AlertDialog dialog = builder.create();
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
+        alertDialog.setTitle(R.string.OCRDialogTitle);
+        alertDialog.setView(dialogView);
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.copy_to_input),
+                (dialog, which) -> {
+                    //Overridden later on
+                });
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.close),
+                (dialog, which) -> dialog.dismiss()
+        );
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.readjust),
+                (dialog, which) -> {
+                    if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
+                });
+        alertDialog.show();
         //scaleImage(ocrPictureHolder, 1);
-        dialog.show();
 
-        if (dialog.getWindow() == null) return;
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
+//        if (dialog.getWindow() == null) return;
+//        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
             if (getContext()!=null) {
                 String text = ocrResultsTextView.getText().toString();
                 int startIndex = ocrResultsTextView.getSelectionStart();
@@ -1092,11 +1050,11 @@ public class InputQueryFragment extends Fragment implements
                     text = text.split("\n")[0];
                 }
 
-                if (text.length()>2 && text.substring(0,2).equals("~ ")) text = text.substring(2);
-                if (text.length()>2 && text.substring(text.length()-2).equals(" ~")) text = text.substring(0,text.length()-2);
+                if (text.length()>2 && text.startsWith("~ ")) text = text.substring(2);
+                if (text.length()>2 && text.endsWith(" ~")) text = text.substring(0,text.length()-2);
 
                 mInputQuery = text;
-                mInputQueryAutoCompleteTextView.setText(text);
+                binding.query.setText(text);
             }
             //dialog.dismiss();
         });
@@ -1221,7 +1179,7 @@ public class InputQueryFragment extends Fragment implements
     }
     @Override public void onLocalDictSearchAsyncTaskResultFound(@NotNull List<Word> words) {
         mInputQuery = words.get(0).getRomaji();
-        mInputQueryAutoCompleteTextView.setText(mInputQuery);
+        binding.query.setText(mInputQuery);
     }
 
     //Communication with parent activity:
@@ -1234,15 +1192,15 @@ public class InputQueryFragment extends Fragment implements
         void onDecomposeRequested(String query);
     }
     public void setQuery(String query) {
-        mInputQueryAutoCompleteTextView.setText(query);
+        binding.query.setText(query);
     }
     public void setAppendedQuery(String addedText) {
-        mInputQuery = mInputQueryAutoCompleteTextView.getText().toString();
+        mInputQuery = binding.query.getText().toString();
         String newQuery = mInputQuery + addedText;
-        mInputQueryAutoCompleteTextView.setText(newQuery);
+        binding.query.setText(newQuery);
     }
     public void setConjButtonSelected() {
-        drawBorderAroundThisButton(mConjButton);
+        drawBorderAroundThisButton(binding.buttonConj);
     }
     public void setSTTLanguage(String chosenSpeechToTextLanguage) {
         mChosenSpeechToTextLanguage = chosenSpeechToTextLanguage;

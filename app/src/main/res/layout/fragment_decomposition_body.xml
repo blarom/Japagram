@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/decompositionsHint"
+        android:id="@+id/decomposition_hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -19,7 +19,7 @@
         android:layout_alignParentEnd="true"/>
 
     <ProgressBar
-        android:id="@+id/decompositions_loading_indicator"
+        android:id="@+id/decomposition_loading_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -27,7 +27,7 @@
         android:visibility="invisible"/>
 
     <ScrollView
-        android:id="@+id/decompositionScrollView"
+        android:id="@+id/decomposition_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:focusable="false"
@@ -37,7 +37,7 @@
         android:layout_alignParentEnd="true">
 
         <LinearLayout
-            android:id="@+id/overall_block_container"
+            android:id="@+id/decomposition_overall_block_container"
             android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +50,7 @@
     </ScrollView>
 
     <ImageView
-        android:id="@+id/down_arrow_imageview"
+        android:id="@+id/decomposition_down_arrow"
         android:layout_width="match_parent"
         android:layout_height="78dp"
         android:layout_alignParentBottom="true"

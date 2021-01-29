@@ -18,16 +18,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.japagram.R;
 import com.japagram.asynctasks.KanjiCharacterDecompositionAsyncTask;
-import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.databinding.FragmentDecompositionBodyBinding;
+import com.japagram.databinding.FragmentDictionaryBodyBinding;
 import com.japagram.resources.LocaleHelper;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
@@ -41,23 +41,13 @@ import java.util.Locale;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class DecomposeKanjiFragment extends Fragment implements
         KanjiCharacterDecompositionAsyncTask.KanjiCharacterDecompositionAsyncResponseHandler {
 
 
     //region Parameters
-    @BindView(R.id.decompositionsHint) TextView mDecompositionsHint;
-    @BindView(R.id.decompositionScrollView) ScrollView mDecompositionScrollView;
-    @BindView(R.id.overall_block_container) LinearLayout mOverallBlockContainer;
-    @BindView(R.id.decompositions_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
-    @BindView(R.id.down_arrow_imageview) ImageView mDownArrowImageView;
-    private Unbinder mBinding;
-    private static final int ROOM_DB_KANJI_DECOMPOSITION_LOADER = 7524;
-    private static final int ROOM_DB_KANJI_CHARACTER_LOADER = 4732;
+    private FragmentDecompositionBodyBinding binding;
     private List<Object> mInputQueryKanjis;
     private List<String[]> mRadicalsOnlyDatabase;
     private boolean mAlreadyGotFirstQuery;
@@ -81,21 +71,23 @@ public class DecomposeKanjiFragment extends Fragment implements
         //setRetainInstance(true);
         if (getContext()==null) return rootView;
 
-        mBinding = ButterKnife.bind(this, rootView);
-
         //Setting the Typeface
         AssetManager am = getContext().getApplicationContext().getAssets();
         mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
                 Typeface.createFromAsset(am, String.format(Locale.JAPAN, "fonts/%s", "DroidSansJapanese.ttf")) : Typeface.DEFAULT;
 
-        getDecomposition();
         mLocalizedResources = AndroidUtilitiesIO.getLocalizedResources(getContext(), Locale.getDefault());
 
         return rootView;
     }
+    @Override public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentDecompositionBodyBinding.bind(view);
+        getDecomposition();
+    }
     @Override public void onDestroyView() {
         super.onDestroyView();
-        mBinding.unbind();
+        binding = null;
         //if (getActivity()!=null && MainApplication.getRefWatcher(getActivity())!=null) MainApplication.getRefWatcher(getActivity()).watch(this);
     }
     @Override public void onDetach() {
@@ -133,12 +125,12 @@ public class DecomposeKanjiFragment extends Fragment implements
         if (mInputQueryKanjis.size() > 0) {
             Object[] elements = (Object[]) mInputQueryKanjis.get(0);
             if (!TextUtils.isEmpty((String) elements[Globals.DECOMP_KANJI_LIST_INDEX])) {
-                mDecompositionsHint.setVisibility(View.GONE);
+                binding.decompositionHint.setVisibility(View.GONE);
                 startGettingDecompositionAsynchronously((String) elements[Globals.DECOMP_KANJI_LIST_INDEX], (int) elements[1], 0);
             }
         }
         else {
-            mDecompositionsHint.setVisibility(View.VISIBLE);
+            binding.decompositionHint.setVisibility(View.VISIBLE);
         }
 
     }
@@ -264,25 +256,25 @@ public class DecomposeKanjiFragment extends Fragment implements
             tv.setOnFocusChangeListener((view, b) -> {
 
                 //Scrolling down (performed twice so that the "post" method operates after fullScroll, thereby forcing a fullScroll
-                if (mDecompositionScrollView != null) {
-                    //mScrollY = mDecompositionScrollView.getScrollY();
+                if (binding.decompositionScrollview != null) {
+                    //mScrollY = binding.decompositionScrollView.getScrollY();
                     //if (kanjiListIndex < mInputQueryKanjis.size() - 1)
-                    //    mDecompositionScrollView.smoothScrollTo(0, mScrollY + 100);
-                    //else mDecompositionScrollView.fullScroll(View.FOCUS_DOWN);
+                    //    binding.decompositionScrollView.smoothScrollTo(0, mScrollY + 100);
+                    //else binding.decompositionScrollView.fullScroll(View.FOCUS_DOWN);
 
-//                        mDecompositionScrollView.post(new Runnable() {
+//                        binding.decompositionScrollView.post(new Runnable() {
 //                            @Override
 //                            public void run() {
 //                                if (kanjiListIndex < mInputQueryKanjis.size() - 1)
-//                                    mDecompositionScrollView.smoothScrollTo(0, mScrollY + 100);
-//                                else mDecompositionScrollView.fullScroll(View.FOCUS_DOWN);
+//                                    binding.decompositionScrollView.smoothScrollTo(0, mScrollY + 100);
+//                                else binding.decompositionScrollView.fullScroll(View.FOCUS_DOWN);
 //                            }
 //                        });
 
                     //int heightPx = decompositionContainer.getHeight();
                     //int heightDpi =  Utilities.convertPxToDpi(heightPx, getContext());
-                    //mDecompositionScrollView.fullScroll(View.FOCUS_DOWN);
-                    //mDecompositionScrollView.smoothScrollTo(0, mScrollY + heightPx/2 - 50); //height divided by 2 because of double-touch caused by touch roomInstancesAsyncResponseHandler
+                    //binding.decompositionScrollView.fullScroll(View.FOCUS_DOWN);
+                    //binding.decompositionScrollView.smoothScrollTo(0, mScrollY + heightPx/2 - 50); //height divided by 2 because of double-touch caused by touch roomInstancesAsyncResponseHandler
                 }
                 view.performClick();
             });
@@ -295,7 +287,7 @@ public class DecomposeKanjiFragment extends Fragment implements
                 //Getting the decomposition
                 startGettingDecompositionAsynchronously(tv.getHint().toString(), radicalIteration1 + 1, kanjiListIndex1);
 
-                AndroidUtilitiesIO.showAndFadeOutAndHideImage(mDownArrowImageView, 1000);
+                AndroidUtilitiesIO.showAndFadeOutAndHideImage(binding.decompositionDownArrow, 1000);
 
             });
             tv.setTag(kanjiListIndex +";"+ radicalIteration +";"+mainKanji);
@@ -451,7 +443,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             elements1[Globals.DECOMP_RADICAL_ITERATION] = currentRadicalIteration - 1;
             mInputQueryKanjis.set(currentKanjiListIndex, elements1);
 
-            View child = mOverallBlockContainer.findViewById(decompositionContainer.getId());
+            View child = binding.decompositionOverallBlockContainer.findViewById(decompositionContainer.getId());
             if (child != null) {
                 modifyViewsAtRadicalIteration(currentKanjiListIndex, currentRadicalIteration, false, null);
             }
@@ -472,15 +464,15 @@ public class DecomposeKanjiFragment extends Fragment implements
         //endregion
     }
     private void modifyViewsAtRadicalIteration(int kanjiListIndex, int radicalIteration, boolean addView, View decompositionContainer) {
-        int childIndex = mOverallBlockContainer.getChildCount()-1;
+        int childIndex = binding.decompositionOverallBlockContainer.getChildCount()-1;
 
         if (radicalIteration == 0 && addView) {
-            mOverallBlockContainer.addView(decompositionContainer);
+            binding.decompositionOverallBlockContainer.addView(decompositionContainer);
             return;
         }
 
         while (childIndex >= 0) {
-            View currentCard = mOverallBlockContainer.getChildAt(childIndex);
+            View currentCard = binding.decompositionOverallBlockContainer.getChildAt(childIndex);
 
             if (currentCard.getTag() == null) {
                 childIndex--;
@@ -496,16 +488,16 @@ public class DecomposeKanjiFragment extends Fragment implements
             int currentRadicalIteration = Integer.parseInt(currentCardTags[1]);
 
             if (currentKanjiListIndex == kanjiListIndex) {
-                if (currentRadicalIteration >= radicalIteration) mOverallBlockContainer.removeViewAt(childIndex);
+                if (currentRadicalIteration >= radicalIteration) binding.decompositionOverallBlockContainer.removeViewAt(childIndex);
             }
             childIndex--;
         }
 
         if (!addView) return;
 
-        for (int i=0; i<mOverallBlockContainer.getChildCount(); i++) {
+        for (int i=0; i<binding.decompositionOverallBlockContainer.getChildCount(); i++) {
 
-            View currentCard = mOverallBlockContainer.getChildAt(i);
+            View currentCard = binding.decompositionOverallBlockContainer.getChildAt(i);
             if (currentCard.getTag() == null) continue;
 
             String tagString = ((String) currentCard.getTag());
@@ -516,7 +508,7 @@ public class DecomposeKanjiFragment extends Fragment implements
             int currentRadicalIteration = Integer.parseInt(currentCardTags[1]);
 
             if (currentKanjiListIndex == kanjiListIndex && currentRadicalIteration + 1 >= radicalIteration) {
-                mOverallBlockContainer.addView(decompositionContainer, i+1);
+                binding.decompositionOverallBlockContainer.addView(decompositionContainer, i+1);
                 break;
             }
         }
@@ -670,10 +662,10 @@ public class DecomposeKanjiFragment extends Fragment implements
         }
     }
     private void showLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
+        binding.decompositionLoadingIndicator.setVisibility(View.VISIBLE);
     }
     private void hideLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+        binding.decompositionLoadingIndicator.setVisibility(View.INVISIBLE);
     }
 
     //Communication with AsyncTasks

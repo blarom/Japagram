@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/background"
+            android:id="@+id/splashscreen_background"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="-24dp"
@@ -55,12 +55,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?attr/colorMonochromeContrast"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/splashscreen_loading_database_textview"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_loading_database"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/splashscreen_loading_database_textview"
+            android:id="@+id/splashscreen_loading_database"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/splashscreen_intro_sentence_textview"
@@ -70,14 +70,14 @@
             android:textColor="?attr/colorPrimaryNormal"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/splashscreen_loading_indicator"
-            app:layout_constraintEnd_toEndOf="@+id/background"
+            app:layout_constraintEnd_toEndOf="@+id/splashscreen_background"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/splashscreen_time_to_load_textview"
+            android:id="@+id/splashscreen_time_to_load"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/splashscreen_loading_database_textview"
+            android:layout_below="@+id/splashscreen_loading_database"
             android:gravity="center"
             android:text="@string/splashscreen_should_take_only_a_few_seconds"
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -92,10 +92,10 @@
             android:id="@+id/splashscreen_loading_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/splashscreen_time_to_load_textview"
+            android:layout_below="@+id/splashscreen_time_to_load"
             android:layout_gravity="center"
             android:visibility="invisible"
-            app:layout_constraintBottom_toTopOf="@+id/splashscreen_time_to_load_textview"
+            app:layout_constraintBottom_toTopOf="@+id/splashscreen_time_to_load"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

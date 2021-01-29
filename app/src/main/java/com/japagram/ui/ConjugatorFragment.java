@@ -12,11 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.japagram.R;
@@ -25,10 +21,13 @@ import com.japagram.data.ConjugationTitle;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.databinding.FragmentConjugatorBodyBinding;
 import com.japagram.resources.LocaleHelper;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +37,6 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.japagram.utilitiesCrossPlatform.Globals.TEXT_TYPE_KANJI;
 
@@ -51,61 +47,7 @@ public class ConjugatorFragment extends Fragment implements
     //region Parameters
     private static final int MAX_NUM_RESULTS_FOR_SURU_CONJ_SEARCH = 100;
 
-    @BindView(R.id.verb_chooser_spinner) Spinner mVerbChooserSpinner;
-    @BindView(R.id.conjugations_chooser_spinner) Spinner mConjugationChooserSpinner;
-    @BindView(R.id.verb_hint) TextView mVerbHintTextView;
-    @BindView(R.id.verb_results_loading_indicator) ProgressBar mProgressBarLoadingIndicator;
-    @BindView(R.id.conjugations_container) ScrollView mConjugationsContainerScrollView;
-    @BindView(R.id.radio_romaji_or_kanji) RadioGroup mRomajiOrKanjiRadioButton;
-    @BindView(R.id.radio_Romaji) RadioButton mRomajiRadioButton;
-    @BindView(R.id.radio_Kanji) RadioButton mKanjiRadioButton;
-
-    @BindView(R.id.Tense0) TextView mConjugationDisplayTense0;
-    @BindView(R.id.Tense1) TextView mConjugationDisplayTense1;
-    @BindView(R.id.Tense2) TextView mConjugationDisplayTense2;
-    @BindView(R.id.Tense3) TextView mConjugationDisplayTense3;
-    @BindView(R.id.Tense4) TextView mConjugationDisplayTense4;
-    @BindView(R.id.Tense5) TextView mConjugationDisplayTense5;
-    @BindView(R.id.Tense6) TextView mConjugationDisplayTense6;
-    @BindView(R.id.Tense7) TextView mConjugationDisplayTense7;
-    @BindView(R.id.Tense8) TextView mConjugationDisplayTense8;
-    @BindView(R.id.Tense9) TextView mConjugationDisplayTense9;
-    @BindView(R.id.Tense10) TextView mConjugationDisplayTense10;
-    @BindView(R.id.Tense11) TextView mConjugationDisplayTense11;
-    @BindView(R.id.Tense12) TextView mConjugationDisplayTense12;
-    @BindView(R.id.Tense13) TextView mConjugationDisplayTense13;
-
-    @BindView(R.id.TenseLayout0) LinearLayout mConjugationDisplayTenseLayout0;
-    @BindView(R.id.TenseLayout1) LinearLayout mConjugationDisplayTenseLayout1;
-    @BindView(R.id.TenseLayout2) LinearLayout mConjugationDisplayTenseLayout2;
-    @BindView(R.id.TenseLayout3) LinearLayout mConjugationDisplayTenseLayout3;
-    @BindView(R.id.TenseLayout4) LinearLayout mConjugationDisplayTenseLayout4;
-    @BindView(R.id.TenseLayout5) LinearLayout mConjugationDisplayTenseLayout5;
-    @BindView(R.id.TenseLayout6) LinearLayout mConjugationDisplayTenseLayout6;
-    @BindView(R.id.TenseLayout7) LinearLayout mConjugationDisplayTenseLayout7;
-    @BindView(R.id.TenseLayout8) LinearLayout mConjugationDisplayTenseLayout8;
-    @BindView(R.id.TenseLayout9) LinearLayout mConjugationDisplayTenseLayout9;
-    @BindView(R.id.TenseLayout10) LinearLayout mConjugationDisplayTenseLayout10;
-    @BindView(R.id.TenseLayout11) LinearLayout mConjugationDisplayTenseLayout11;
-    @BindView(R.id.TenseLayout12) LinearLayout mConjugationDisplayTenseLayout12;
-    @BindView(R.id.TenseLayout13) LinearLayout mConjugationDisplayTenseLayout13;
-
-    @BindView(R.id.Tense0_Result) TextView mConjugationDisplayTenseResult0;
-    @BindView(R.id.Tense1_Result) TextView mConjugationDisplayTenseResult1;
-    @BindView(R.id.Tense2_Result) TextView mConjugationDisplayTenseResult2;
-    @BindView(R.id.Tense3_Result) TextView mConjugationDisplayTenseResult3;
-    @BindView(R.id.Tense4_Result) TextView mConjugationDisplayTenseResult4;
-    @BindView(R.id.Tense5_Result) TextView mConjugationDisplayTenseResult5;
-    @BindView(R.id.Tense6_Result) TextView mConjugationDisplayTenseResult6;
-    @BindView(R.id.Tense7_Result) TextView mConjugationDisplayTenseResult7;
-    @BindView(R.id.Tense8_Result) TextView mConjugationDisplayTenseResult8;
-    @BindView(R.id.Tense9_Result) TextView mConjugationDisplayTenseResult9;
-    @BindView(R.id.Tense10_Result) TextView mConjugationDisplayTenseResult10;
-    @BindView(R.id.Tense11_Result) TextView mConjugationDisplayTenseResult11;
-    @BindView(R.id.Tense12_Result) TextView mConjugationDisplayTenseResult12;
-    @BindView(R.id.Tense13_Result) TextView mConjugationDisplayTenseResult13;
-
-    private Unbinder mBinding;
+    private FragmentConjugatorBodyBinding binding;
     private InputQuery mInputQuery;
     private String mChosenRomajiOrKanji;
     private List<Verb> mMatchingVerbs;
@@ -127,11 +69,6 @@ public class ConjugatorFragment extends Fragment implements
         //setRetainInstance(true); //causes memory leaks
         View rootView = inflater.inflate(R.layout.fragment_conjugator, container, false);
 
-        mBinding = ButterKnife.bind(this, rootView);
-
-        if (mInputQuery != null && !mInputQuery.isEmpty()) SearchForConjugations();
-        else showHint();
-
         if (getContext()!=null) {
             AssetManager am = getContext().getApplicationContext().getAssets();
             mDroidSansJapaneseTypeface = AndroidUtilitiesPrefs.getPreferenceUseJapaneseFont(getActivity()) ?
@@ -140,7 +77,13 @@ public class ConjugatorFragment extends Fragment implements
 
         return rootView;
     }
-    @Override public void onAttach(Context context) {
+    @Override public void onViewCreated(@NotNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding = FragmentConjugatorBodyBinding.bind(view);
+        if (mInputQuery != null && !mInputQuery.isEmpty()) SearchForConjugations();
+        else showHint();
+    }
+    @Override public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         conjugatorFragmentOperationsHandler = (ConjugatorFragmentOperationsHandler) context;
     }
@@ -150,7 +93,7 @@ public class ConjugatorFragment extends Fragment implements
     }
     @Override public void onDestroyView() {
         super.onDestroyView();
-        mBinding.unbind();
+        binding = null;
         //if (getActivity()!=null && MainApplication.getRefWatcher(getActivity())!=null) MainApplication.getRefWatcher(getActivity()).watch(this);
     }
 
@@ -186,8 +129,8 @@ public class ConjugatorFragment extends Fragment implements
 
         if (mMatchingVerbs.size() != 0) {
             showResults();
-            mVerbChooserSpinner.setAdapter(new VerbSpinnerAdapter(getContext(), R.layout.spinner_item_verb, mMatchingVerbs));
-            mVerbChooserSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            binding.conjugatorVerbChooser.setAdapter(new VerbSpinnerAdapter(getContext(), R.layout.spinner_item_verb, mMatchingVerbs));
+            binding.conjugatorVerbChooser.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> arg0, View arg1, int verbIndex, long id) {
                     showSelectedVerbConjugations(verbIndex);
@@ -210,12 +153,12 @@ public class ConjugatorFragment extends Fragment implements
         List<Verb.ConjugationCategory> conjugationCategories = verb.getConjugationCategories();
         List<ConjugationTitle> conjugationTitles = new ArrayList<>(Globals.GLOBAL_CONJUGATION_TITLES);
         conjugationTitles.remove(0);
-        mConjugationChooserSpinner.setAdapter(new ConjugationsSpinnerAdapter(
+        binding.conjugatorConjugationsChooser.setAdapter(new ConjugationsSpinnerAdapter(
                 getContext(),
                 R.layout.spinner_item_verb_conjugation_category,
                 conjugationCategories,
                 conjugationTitles));
-        mConjugationChooserSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        binding.conjugatorConjugationsChooser.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, final int conjugationIndex, long id) {
                 showSelectedConjugationsInCategory(verbIndex, conjugationIndex);
@@ -227,38 +170,36 @@ public class ConjugatorFragment extends Fragment implements
         });
 
         //Hiding the subsequent fields of there is nothing to show
-        mConjugationsContainerScrollView.setVisibility(View.VISIBLE);
+        binding.conjugatorConjugationsContainer.setVisibility(View.VISIBLE);
         if (verb.getConjugationCategories().size() == 0) {
-            mConjugationsContainerScrollView.setVisibility(View.GONE);
+            binding.conjugatorConjugationsContainer.setVisibility(View.GONE);
         }
 
         //Setting the conjugation spinner to the position of the first item matching the user query
         int index = (int) mMatchingConjugationParameters.get(verbIndex)[Globals.MATCHING_CATEGORY_INDEX];
-        mConjugationChooserSpinner.setSelection(index, false);
+        binding.conjugatorConjugationsChooser.setSelection(index, false);
 
     }
     private void showSelectedConjugationsInCategory(final int verbIndex, final int conjugationIndex) {
 
         // Getting the user choice for displaying the conjugations in Romaji or Kanji
 
-        mRomajiOrKanjiRadioButton.setOnCheckedChangeListener((group, checkedId) -> {
+        binding.conjugatorRomajiOrKanji.setOnCheckedChangeListener((group, checkedId) -> {
             if (getActivity()==null) return;
 
             RadioButton checkedRadioButton = getActivity().findViewById(checkedId);
 
             // Define an action depending on the given boolean, ie. depending on the checked RadioButton ID
             mChosenRomajiOrKanji = "";
-            switch (checkedRadioButton.getId()) {
-                case R.id.radio_Romaji:
-                    if (checkedRadioButton.isChecked()) {
-                        mChosenRomajiOrKanji = "Romaji";
-                    }
-                    break;
-                case R.id.radio_Kanji:
-                    if (checkedRadioButton.isChecked()) {
-                        mChosenRomajiOrKanji = "Kanji";
-                    }
-                    break;
+            int id = checkedRadioButton.getId();
+            if (id == R.id.conjugator_radio_romaji) {
+                if (checkedRadioButton.isChecked()) {
+                    mChosenRomajiOrKanji = "Romaji";
+                }
+            } else if (id == R.id.conjugator_radio_kanji) {
+                if (checkedRadioButton.isChecked()) {
+                    mChosenRomajiOrKanji = "Kanji";
+                }
             }
 
             displayConjugationsOfSelectedCategory(verbIndex, conjugationIndex);
@@ -267,11 +208,11 @@ public class ConjugatorFragment extends Fragment implements
         mChosenRomajiOrKanji = "Romaji";
         if (mInputQuery.getOriginalType() == TEXT_TYPE_KANJI) {
             mChosenRomajiOrKanji = "Kanji";
-            mRomajiRadioButton.setChecked(false);
-            mKanjiRadioButton.setChecked(true);
+            binding.conjugatorRadioRomaji.setChecked(false);
+            binding.conjugatorRadioKanji.setChecked(true);
         } else {
-            mRomajiRadioButton.setChecked(true);
-            mKanjiRadioButton.setChecked(false);
+            binding.conjugatorRadioRomaji.setChecked(true);
+            binding.conjugatorRadioKanji.setChecked(false);
         }
 
         displayConjugationsOfSelectedCategory(verbIndex, conjugationIndex);
@@ -283,50 +224,50 @@ public class ConjugatorFragment extends Fragment implements
         List<LinearLayout> TenseLayout = new ArrayList<>();
         List<TextView> Tense_Result = new ArrayList<>();
 
-        Tense.add(mConjugationDisplayTense0);
-        Tense.add(mConjugationDisplayTense1);
-        Tense.add(mConjugationDisplayTense2);
-        Tense.add(mConjugationDisplayTense3);
-        Tense.add(mConjugationDisplayTense4);
-        Tense.add(mConjugationDisplayTense5);
-        Tense.add(mConjugationDisplayTense6);
-        Tense.add(mConjugationDisplayTense7);
-        Tense.add(mConjugationDisplayTense8);
-        Tense.add(mConjugationDisplayTense9);
-        Tense.add(mConjugationDisplayTense10);
-        Tense.add(mConjugationDisplayTense11);
-        Tense.add(mConjugationDisplayTense12);
-        Tense.add(mConjugationDisplayTense13);
+        Tense.add(binding.conjugatorTense0);
+        Tense.add(binding.conjugatorTense1);
+        Tense.add(binding.conjugatorTense2);
+        Tense.add(binding.conjugatorTense3);
+        Tense.add(binding.conjugatorTense4);
+        Tense.add(binding.conjugatorTense5);
+        Tense.add(binding.conjugatorTense6);
+        Tense.add(binding.conjugatorTense7);
+        Tense.add(binding.conjugatorTense8);
+        Tense.add(binding.conjugatorTense9);
+        Tense.add(binding.conjugatorTense10);
+        Tense.add(binding.conjugatorTense11);
+        Tense.add(binding.conjugatorTense12);
+        Tense.add(binding.conjugatorTense13);
 
-        TenseLayout.add(mConjugationDisplayTenseLayout0);
-        TenseLayout.add(mConjugationDisplayTenseLayout1);
-        TenseLayout.add(mConjugationDisplayTenseLayout2);
-        TenseLayout.add(mConjugationDisplayTenseLayout3);
-        TenseLayout.add(mConjugationDisplayTenseLayout4);
-        TenseLayout.add(mConjugationDisplayTenseLayout5);
-        TenseLayout.add(mConjugationDisplayTenseLayout6);
-        TenseLayout.add(mConjugationDisplayTenseLayout7);
-        TenseLayout.add(mConjugationDisplayTenseLayout8);
-        TenseLayout.add(mConjugationDisplayTenseLayout9);
-        TenseLayout.add(mConjugationDisplayTenseLayout10);
-        TenseLayout.add(mConjugationDisplayTenseLayout11);
-        TenseLayout.add(mConjugationDisplayTenseLayout12);
-        TenseLayout.add(mConjugationDisplayTenseLayout13);
+        TenseLayout.add(binding.conjugatorTense0Layout);
+        TenseLayout.add(binding.conjugatorTense1Layout);
+        TenseLayout.add(binding.conjugatorTense2Layout);
+        TenseLayout.add(binding.conjugatorTense3Layout);
+        TenseLayout.add(binding.conjugatorTense4Layout);
+        TenseLayout.add(binding.conjugatorTense5Layout);
+        TenseLayout.add(binding.conjugatorTense6Layout);
+        TenseLayout.add(binding.conjugatorTense7Layout);
+        TenseLayout.add(binding.conjugatorTense8Layout);
+        TenseLayout.add(binding.conjugatorTense9Layout);
+        TenseLayout.add(binding.conjugatorTense10Layout);
+        TenseLayout.add(binding.conjugatorTense11Layout);
+        TenseLayout.add(binding.conjugatorTense12Layout);
+        TenseLayout.add(binding.conjugatorTense13Layout);
 
-        Tense_Result.add(mConjugationDisplayTenseResult0);
-        Tense_Result.add(mConjugationDisplayTenseResult1);
-        Tense_Result.add(mConjugationDisplayTenseResult2);
-        Tense_Result.add(mConjugationDisplayTenseResult3);
-        Tense_Result.add(mConjugationDisplayTenseResult4);
-        Tense_Result.add(mConjugationDisplayTenseResult5);
-        Tense_Result.add(mConjugationDisplayTenseResult6);
-        Tense_Result.add(mConjugationDisplayTenseResult7);
-        Tense_Result.add(mConjugationDisplayTenseResult8);
-        Tense_Result.add(mConjugationDisplayTenseResult9);
-        Tense_Result.add(mConjugationDisplayTenseResult10);
-        Tense_Result.add(mConjugationDisplayTenseResult11);
-        Tense_Result.add(mConjugationDisplayTenseResult12);
-        Tense_Result.add(mConjugationDisplayTenseResult13);
+        Tense_Result.add(binding.conjugatorTense0Result);
+        Tense_Result.add(binding.conjugatorTense1Result);
+        Tense_Result.add(binding.conjugatorTense2Result);
+        Tense_Result.add(binding.conjugatorTense3Result);
+        Tense_Result.add(binding.conjugatorTense4Result);
+        Tense_Result.add(binding.conjugatorTense5Result);
+        Tense_Result.add(binding.conjugatorTense6Result);
+        Tense_Result.add(binding.conjugatorTense7Result);
+        Tense_Result.add(binding.conjugatorTense8Result);
+        Tense_Result.add(binding.conjugatorTense9Result);
+        Tense_Result.add(binding.conjugatorTense10Result);
+        Tense_Result.add(binding.conjugatorTense11Result);
+        Tense_Result.add(binding.conjugatorTense12Result);
+        Tense_Result.add(binding.conjugatorTense13Result);
 
         for (int i=0;i<Tense.size();i++) {
             Tense.get(i).setText("");
@@ -354,25 +295,25 @@ public class ConjugatorFragment extends Fragment implements
         }
     }
     private void showLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.VISIBLE);
+        binding.conjugatorResultsLoadingIndicator.setVisibility(View.VISIBLE);
     }
     private void hideLoadingIndicator() {
-        if (mProgressBarLoadingIndicator!=null) mProgressBarLoadingIndicator.setVisibility(View.INVISIBLE);
+        binding.conjugatorResultsLoadingIndicator.setVisibility(View.INVISIBLE);
     }
     private void hideAll() {
-        mVerbHintTextView.setVisibility(View.GONE);
-        mVerbChooserSpinner.setVisibility(View.GONE);
-        mConjugationsContainerScrollView.setVisibility(View.GONE);
+        binding.conjugatorHint.setVisibility(View.GONE);
+        binding.conjugatorVerbChooser.setVisibility(View.GONE);
+        binding.conjugatorConjugationsContainer.setVisibility(View.GONE);
     }
     private void showHint() {
-        mVerbHintTextView.setVisibility(View.VISIBLE);
-        mVerbChooserSpinner.setVisibility(View.GONE);
-        mConjugationsContainerScrollView.setVisibility(View.GONE);
+        binding.conjugatorHint.setVisibility(View.VISIBLE);
+        binding.conjugatorVerbChooser.setVisibility(View.GONE);
+        binding.conjugatorConjugationsContainer.setVisibility(View.GONE);
     }
     private void showResults() {
-        mVerbHintTextView.setVisibility(View.GONE);
-        mVerbChooserSpinner.setVisibility(View.VISIBLE);
-        mConjugationsContainerScrollView.setVisibility(View.VISIBLE);
+        binding.conjugatorHint.setVisibility(View.GONE);
+        binding.conjugatorVerbChooser.setVisibility(View.VISIBLE);
+        binding.conjugatorConjugationsContainer.setVisibility(View.VISIBLE);
     }
 
     private class VerbSpinnerAdapter extends ArrayAdapter<Verb> {

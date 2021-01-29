@@ -6,32 +6,25 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.japagram.R;
-import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
-import com.japagram.data.RoomCentralDatabase;
 import com.japagram.data.RoomExtendedDatabase;
-import com.japagram.data.RoomKanjiDatabase;
 import com.japagram.data.RoomNamesDatabase;
 import com.japagram.data.Word;
-import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
-import com.japagram.utilitiesCrossPlatform.Globals;
+import com.japagram.databinding.ActivityMainBinding;
 import com.japagram.resources.LocaleHelper;
-import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
+import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDb;
-import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
+import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,9 +37,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 //// Test app ranking algorithm using the following words: eat, car, rat, reef
 
@@ -68,8 +58,7 @@ public class MainActivity extends BaseActivity implements
 
 
     //region Parameters
-    @BindView(R.id.second_fragment_placeholder) FrameLayout mSecondFragmentPlaceholder;
-    @BindView(R.id.background) LinearLayout mBackground;
+    private ActivityMainBinding binding;
     private String mSecondFragmentFlag;
     private InputQueryFragment mInputQueryFragment;
     private Typeface CJK_typeface;
@@ -91,7 +80,6 @@ public class MainActivity extends BaseActivity implements
     private int mQueryHistorySize;
     private FragmentManager mFragmentManager;
     private Bundle mSavedInstanceState;
-    private Unbinder mBinding;
     private DictionaryFragment mDictionaryFragment;
     private ConjugatorFragment mConjugatorFragment;
     private ConvertFragment mConvertFragment;
@@ -112,7 +100,10 @@ public class MainActivity extends BaseActivity implements
         AndroidUtilitiesPrefs.changeThemeColor(this);
         //super.onCreate(null);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        //setContentView(R.layout.activity_main);
 
         mSavedInstanceState = savedInstanceState;
         Log.i(Globals.DEBUG_TAG, "MainActivity - onCreate - start");
@@ -139,8 +130,8 @@ public class MainActivity extends BaseActivity implements
     }
     @Override protected void onStart() {
         super.onStart();
-        Intent restartIntent = this.getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage(this.getBaseContext().getPackageName());
+        //Intent restartIntent = this.getBaseContext().getPackageManager()
+        //        .getLaunchIntentForPackage(this.getBaseContext().getPackageName());
     }
     @Override protected void onResume() {
         super.onResume();
@@ -173,7 +164,7 @@ public class MainActivity extends BaseActivity implements
         mDecomposeKanjiFragment = null;
         mSearchByRadicalFragment = null;
         mConvertFragment = null;
-        mBinding.unbind();
+        binding = null;
     }
     @Override public void onBackPressed() {
 
@@ -351,8 +342,8 @@ public class MainActivity extends BaseActivity implements
 
     //Functionality methods
     private void initializeParameters() {
-        mBinding =  ButterKnife.bind(this);
-        mBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
+
+        binding.mainActivityBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
 
         mSecondFragmentFlag = "start";
         mAllowButtonOperations = true;
@@ -623,8 +614,8 @@ public class MainActivity extends BaseActivity implements
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.dcmp_fragment);
 
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
+        binding.secondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        binding.secondFragmentPlaceholder.bringToFront();
 
         mDecomposeKanjiFragment = new DecomposeKanjiFragment();
         Bundle bundle = new Bundle();
@@ -658,8 +649,8 @@ public class MainActivity extends BaseActivity implements
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.dict_fragment);
 
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
+        binding.secondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        binding.secondFragmentPlaceholder.bringToFront();
 
         mShowNames = AndroidUtilitiesPrefs.getPreferenceShowNames(this);
 
@@ -691,8 +682,8 @@ public class MainActivity extends BaseActivity implements
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.conj_fragment);
 
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
+        binding.secondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        binding.secondFragmentPlaceholder.bringToFront();
 
         mConjugatorFragment = new ConjugatorFragment();
         Bundle bundle = new Bundle();
@@ -715,8 +706,8 @@ public class MainActivity extends BaseActivity implements
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.conv_fragment);
 
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
+        binding.secondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        binding.secondFragmentPlaceholder.bringToFront();
 
         mConvertFragment = new ConvertFragment();
         Bundle bundle = new Bundle();
@@ -743,8 +734,8 @@ public class MainActivity extends BaseActivity implements
 
         mSecondFragmentCurrentlyDisplayed = getString(R.string.srad_fragment);
 
-        mSecondFragmentPlaceholder.setVisibility(View.VISIBLE);
-        mSecondFragmentPlaceholder.bringToFront();
+        binding.secondFragmentPlaceholder.setVisibility(View.VISIBLE);
+        binding.secondFragmentPlaceholder.bringToFront();
 
         mSearchByRadicalFragment = new SearchByRadicalFragment();
         Bundle bundle = new Bundle();

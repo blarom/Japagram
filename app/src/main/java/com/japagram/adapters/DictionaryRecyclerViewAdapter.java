@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.japagram.R;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Word;
+import com.japagram.databinding.ListItemDictonaryBinding;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesDictSearch;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
@@ -35,8 +36,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<DictionaryRecyclerViewAdapter.DictItemViewHolder> {
 
@@ -118,42 +117,42 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         //region Setting behavior when element is clicked
         if ((boolean) mVisibilitiesRegister[position][PARENT_VISIBILITY]) {
-            holder.childLinearLayout.setVisibility(View.VISIBLE);
-            holder.meaningsTextView.setVisibility(View.GONE);
-            holder.sourceInfoTextView.setVisibility(View.GONE);
-            holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+            holder.binding.listItemChildLinearlayout.setVisibility(View.VISIBLE);
+            holder.binding.listItemMeanings.setVisibility(View.GONE);
+            holder.binding.listItemSourceInfo.setVisibility(View.GONE);
+            holder.binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
         }
         else {
-            holder.childLinearLayout.setVisibility(View.GONE);
-            holder.meaningsTextView.setVisibility(View.VISIBLE);
-            if (!TextUtils.isEmpty(mWordsSourceInfo.get(position))) holder.sourceInfoTextView.setVisibility(View.VISIBLE);
-            holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+            holder.binding.listItemChildLinearlayout.setVisibility(View.GONE);
+            holder.binding.listItemMeanings.setVisibility(View.VISIBLE);
+            if (!TextUtils.isEmpty(mWordsSourceInfo.get(position))) holder.binding.listItemSourceInfo.setVisibility(View.VISIBLE);
+            holder.binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
         }
 
-        holder.romajiAndKanjiTextView.setOnClickListener(view -> {
+        holder.binding.listItemRomajiAndKanji.setOnClickListener(view -> {
             TypedValue typedValue = new TypedValue();
-            if (holder.childLinearLayout.getVisibility() == View.VISIBLE) {
-                holder.childLinearLayout.setVisibility(View.GONE);
-                holder.meaningsTextView.setVisibility(View.VISIBLE);
-                holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+            if (holder.binding.listItemChildLinearlayout.getVisibility() == View.VISIBLE) {
+                holder.binding.listItemChildLinearlayout.setVisibility(View.GONE);
+                holder.binding.listItemMeanings.setVisibility(View.VISIBLE);
+                holder.binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
+                holder.binding.dropdownArrow.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = false;
             }
             else {
-                holder.childLinearLayout.setVisibility(View.VISIBLE);
-                holder.meaningsTextView.setVisibility(View.GONE);
-                holder.dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+                holder.binding.listItemChildLinearlayout.setVisibility(View.VISIBLE);
+                holder.binding.listItemMeanings.setVisibility(View.GONE);
+                holder.binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
-                holder.dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
+                holder.binding.dropdownArrow.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
                 mVisibilitiesRegister[holder.getAdapterPosition()][PARENT_VISIBILITY] = true;
             }
         });
 
-        if (TextUtils.isEmpty(mWordsSourceInfo.get(position))) holder.sourceInfoTextView.setVisibility(View.GONE);
+        if (TextUtils.isEmpty(mWordsSourceInfo.get(position))) holder.binding.listItemSourceInfo.setVisibility(View.GONE);
         else {
-            holder.sourceInfoTextView.setVisibility(View.VISIBLE);
-            holder.sourceInfoTextView.setText(mWordsSourceInfo.get(position));
+            holder.binding.listItemSourceInfo.setVisibility(View.VISIBLE);
+            holder.binding.listItemSourceInfo.setText(mWordsSourceInfo.get(position));
         }
         //endregion
 
@@ -163,48 +162,48 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String altSpellings = TextUtils.join(", ", mWordsList.get(position).getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
         int frequency = mWordsList.get(position).getFrequency();
 
-        holder.romajiAndKanjiTextView.setText(mWordsRomajiAndKanji.get(position));
-        holder.romajiAndKanjiTextView.setTypeface(mDroidSansJapaneseTypeface, Typeface.BOLD);
-        holder.romajiAndKanjiTextView.setPadding(0,16,0,4);
+        holder.binding.listItemRomajiAndKanji.setText(mWordsRomajiAndKanji.get(position));
+        holder.binding.listItemRomajiAndKanji.setTypeface(mDroidSansJapaneseTypeface, Typeface.BOLD);
+        holder.binding.listItemRomajiAndKanji.setPadding(0,16,0,4);
 
-        if (romaji.equals("") && kanji.equals("")) { holder.romajiAndKanjiTextView.setVisibility(View.GONE); }
-        else { holder.romajiAndKanjiTextView.setVisibility(View.VISIBLE); }
+        if (romaji.equals("") && kanji.equals("")) { holder.binding.listItemRomajiAndKanji.setVisibility(View.GONE); }
+        else { holder.binding.listItemRomajiAndKanji.setVisibility(View.VISIBLE); }
 
-        setMeaningsTvProperties(holder.meaningsTextView, mWordsMeaningExtract.get(position));
+        setMeaningsTvProperties(holder.binding.listItemMeanings, mWordsMeaningExtract.get(position));
         //endregion
 
         //region Updating the child values
 
         //region Initialization
-        holder.childElementsLinearLayout.removeAllViews();
-        holder.childElementsLinearLayout.setFocusable(false);
-        holder.conjugateHyperlinkKanjiChildTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.romajiAndKanjiTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccentDark));
-        holder.sourceInfoTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
-        holder.meaningsTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.meaningsTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
-        holder.childLinearLayout.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
-        holder.conjugateHyperlinkRomajiChildTextView.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
+        holder.binding.listItemChildElementsContainer.removeAllViews();
+        holder.binding.listItemChildElementsContainer.setFocusable(false);
+        holder.binding.listItemConjugateHyperlinkKanji.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.binding.listItemRomajiAndKanji.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorAccentDark));
+        holder.binding.listItemSourceInfo.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemKanjiColor));
+        holder.binding.listItemMeanings.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.binding.listItemMeanings.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.colorPrimary));
+        holder.binding.listItemChildLinearlayout.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+        holder.binding.listItemConjugateHyperlinkRomaji.setTextColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.textDictionaryChildItemRomajiColor));
         //endregion
 
         //region Handling the hyperlink values for user click
         if (mWordsTypeIsVerb.get(position) && mWordsList.get(position).getIsLocal()) {
-            holder.conjugateHyperlinkRomajiChildTextView.setVisibility(View.VISIBLE);
-            holder.conjugateHyperlinkKanjiChildTextView.setVisibility(View.VISIBLE);
+            holder.binding.listItemConjugateHyperlinkRomaji.setVisibility(View.VISIBLE);
+            holder.binding.listItemConjugateHyperlinkKanji.setVisibility(View.VISIBLE);
         }
         else {
-            holder.conjugateHyperlinkRomajiChildTextView.setVisibility(View.GONE);
-            holder.conjugateHyperlinkKanjiChildTextView.setVisibility(View.GONE);
+            holder.binding.listItemConjugateHyperlinkRomaji.setVisibility(View.GONE);
+            holder.binding.listItemConjugateHyperlinkKanji.setVisibility(View.GONE);
         }
 
         if (mWordsTypeIsVerb.get(position) && romaji.length() > 0 && kanji.length() > 0) {
-            setHyperlinksInConjugateLine(holder.conjugateHyperlinkRomajiChildTextView, mContext.getString(R.string.conjugate)+" ", romaji, " ");
-            setHyperlinksInConjugateLine(holder.conjugateHyperlinkKanjiChildTextView, "(", kanji, ").");
+            setHyperlinksInConjugateLine(holder.binding.listItemConjugateHyperlinkRomaji, mContext.getString(R.string.conjugate)+" ", romaji, " ");
+            setHyperlinksInConjugateLine(holder.binding.listItemConjugateHyperlinkKanji, "(", kanji, ").");
         }
 
-        holder.decomposeHyperlinkChildTextView.setVisibility(View.VISIBLE);
+        holder.binding.listItemDecomposeHyperlink.setVisibility(View.VISIBLE);
         if (kanji.length() > 0) {
-            setHyperlinkInDecomposeLine(holder.decomposeHyperlinkChildTextView, mContext.getString(R.string.decompose)+" ", kanji, ".");
+            setHyperlinkInDecomposeLine(holder.binding.listItemDecomposeHyperlink, mContext.getString(R.string.decompose)+" ", kanji, ".");
         }
         //endregion
 
@@ -212,7 +211,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         String type = mWordsList.get(position).getMeaningsEN().get(0).getType();
         if (!type.equals("CE")) {
             String freqHtmlText = mContext.getString(R.string.frequency) + ": " + ((frequency == 0) ? "20001+ (uncommon)" : frequency);
-            TextView freqTtv = addHeaderField(holder.childElementsLinearLayout, OvUtilsGeneral.fromHtml(freqHtmlText));
+            TextView freqTtv = addHeaderField(holder.binding.listItemChildElementsContainer, OvUtilsGeneral.fromHtml(freqHtmlText));
             freqTtv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -221,7 +220,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
         if (!TextUtils.isEmpty(altSpellings)) {
             //String htmlText = "<b>" + mContext.getString(R.string.alternate_forms_) + "</b> " + alternatespellings;
             String altSHtmlText = mContext.getString(R.string.alternate_forms) + ": " + altSpellings;
-            TextView altSTv = addHeaderField(holder.childElementsLinearLayout, OvUtilsGeneral.fromHtml(altSHtmlText));
+            TextView altSTv = addHeaderField(holder.binding.listItemChildElementsContainer, OvUtilsGeneral.fromHtml(altSHtmlText));
             altSTv.setPadding(0, 16, 0, 16);
         }
         //endregion
@@ -331,7 +330,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             antonym = wordMeaning.getAntonym();
             synonym = wordMeaning.getSynonym();
 
-            addMeaningsSeparator(holder.childElementsLinearLayout);
+            addMeaningsSeparator(holder.binding.listItemChildElementsContainer);
 
             //region Setting the type and meaning
             List<String> types = new ArrayList<>();
@@ -375,7 +374,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
             Spanned type_and_meaning = OvUtilsGeneral.fromHtml(typeAndMeaningHtml);
             TextView typeAndMeaningTv = new TextView(mContext);
             setMeaningsTvProperties(typeAndMeaningTv, type_and_meaning);
-            holder.childElementsLinearLayout.addView(typeAndMeaningTv);
+            holder.binding.listItemChildElementsContainer.addView(typeAndMeaningTv);
             //endregion
 
             //region Setting the antonym
@@ -395,7 +394,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     fullAntonymSpannable.setSpan(new KanjiClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
-                addSubHeaderField(holder.childElementsLinearLayout, fullAntonymSpannable);
+                addSubHeaderField(holder.binding.listItemChildElementsContainer, fullAntonymSpannable);
             }
             //endregion
 
@@ -416,7 +415,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     fullSynonymSpannable.setSpan(new KanjiClickableSpan(), startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                 }
 
-                addSubHeaderField(holder.childElementsLinearLayout, fullSynonymSpannable);
+                addSubHeaderField(holder.binding.listItemChildElementsContainer, fullSynonymSpannable);
             }
             //endregion
 
@@ -472,7 +471,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
                     }
                     mVisibilitiesRegister[position][EXPLANATION_VISIBILITIES] = explanationsVisible;
                 });
-                holder.childElementsLinearLayout.addView(iv);
+                holder.binding.listItemChildElementsContainer.addView(iv);
                 //iv.requestLayout();
             }
             //endregion
@@ -587,7 +586,7 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
             }
 
-            if (currentExplanations.size()>0) holder.childElementsLinearLayout.addView(meaningExplanationsLL);
+            if (currentExplanations.size()>0) holder.binding.listItemChildElementsContainer.addView(meaningExplanationsLL);
             //endregion
 
         }
@@ -762,21 +761,12 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
     public class DictItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.list_item_dictionary) ConstraintLayout dictItemContainer;
-        @BindView(R.id.list_item_romaji_and_kanji) TextView romajiAndKanjiTextView;
-        @BindView(R.id.list_item_source_info) TextView sourceInfoTextView;
-        @BindView(R.id.dropdown_arrow) ImageView dropdownArrowImageView;
-        @BindView(R.id.list_item_meanings) TextView meaningsTextView;
-        @BindView(R.id.list_item_child_linearlayout) LinearLayout childLinearLayout;
-        @BindView(R.id.list_item_conjugate_hyperlink_romaji) TextView conjugateHyperlinkRomajiChildTextView;
-        @BindView(R.id.list_item_conjugate_hyperlink_kanji) TextView conjugateHyperlinkKanjiChildTextView;
-        @BindView(R.id.list_item_decompose_hyperlink) TextView decomposeHyperlinkChildTextView;
-        @BindView(R.id.list_item_child_elements_container) LinearLayout childElementsLinearLayout;
+        private final ListItemDictonaryBinding binding;
 
         DictItemViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this, itemView);
+            binding = ListItemDictonaryBinding.bind(itemView);
             itemView.setOnClickListener(this);
         }
 
@@ -788,24 +778,24 @@ public class DictionaryRecyclerViewAdapter extends RecyclerView.Adapter<Dictiona
 
         private void switchVisibilityOfChildLayout(int clickedPosition) {
             TypedValue typedValue = new TypedValue();
-            if (childLinearLayout.getVisibility() == View.VISIBLE) {
-                childLinearLayout.setVisibility(View.GONE);
-                meaningsTextView.setVisibility(View.VISIBLE);
-                if (!TextUtils.isEmpty(mWordsSourceInfo.get(getAdapterPosition()))) sourceInfoTextView.setVisibility(View.VISIBLE);
-                dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
+            if (binding.listItemChildLinearlayout.getVisibility() == View.VISIBLE) {
+                binding.listItemChildLinearlayout.setVisibility(View.GONE);
+                binding.listItemMeanings.setVisibility(View.VISIBLE);
+                if (!TextUtils.isEmpty(mWordsSourceInfo.get(getAdapterPosition()))) binding.listItemSourceInfo.setVisibility(View.VISIBLE);
+                binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictParentBackgroundColor));
 
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropDownArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = false;
             }
             else {
-                childLinearLayout.setVisibility(View.VISIBLE);
-                meaningsTextView.setVisibility(View.GONE);
-                sourceInfoTextView.setVisibility(View.GONE);
-                dictItemContainer.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
+                binding.listItemChildLinearlayout.setVisibility(View.VISIBLE);
+                binding.listItemMeanings.setVisibility(View.GONE);
+                binding.listItemSourceInfo.setVisibility(View.GONE);
+                binding.listItemDictionary.setBackgroundColor(AndroidUtilitiesPrefs.getResColorValue(mContext, R.attr.selectedDictChildBackgroundColor));
                 mContext.getTheme().resolveAttribute(R.attr.dictionaryDropUpArrow, typedValue, true);
                 mVisibilitiesRegister[clickedPosition][PARENT_VISIBILITY] = true;
             }
-            dropdownArrowImageView.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
+            binding.dropdownArrow.setImageDrawable(mContext.getResources().getDrawable(typedValue.resourceId));
         }
     }
 
