@@ -123,7 +123,7 @@
         <item name="colorSecondaryMorePronounced">@color/appThemeBlueGreen_colorSecondaryMorePronounced</item>
         <item name="inputQueryTextColor">@color/appThemeBlueGreen_textSearch</item>
         <item name="buttonBackgroundColor">@color/appThemeBlueGreen_buttonBackground</item>
-        <item name="android:navigationBarColor">@color/White</item>
+        <item name="android:navigationBarColor">@color/appThemeBlueGreen_colorPrimary</item>
         <item name="textDictionaryGroupItemRomajiAndKanjiColor">@color/appThemeBlueGreen_textDictionaryGroupItemRomajiAndKanji</item>
         <item name="textDictionaryGroupItemMeaningsColor">@color/appThemeBlueGreen_textDictionaryGroupItemMeanings</item>
         <item name="textDictionaryChildItemRomajiColor">@color/appThemeBlueGreen_textDictionaryChildItemRomaji</item>
@@ -185,7 +185,7 @@
         <item name="android:statusBarColor">@color/appThemeRedBlack_colorPrimaryDark</item>
 
         <item name="widgetColor">@color/appThemeRedBlack_widget</item>
-        <item name="android:navigationBarColor">@color/White</item>
+        <item name="android:navigationBarColor">@color/appThemeRedBlack_colorPrimary</item>
 
         <item name="colorPrimaryLessPronounced">@color/appThemeRedBlack_colorPrimaryLessPronounced</item>
         <item name="colorPrimaryNormal">@color/appThemeRedBlack_colorPrimaryNormal</item>
