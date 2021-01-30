@@ -48,5 +48,8 @@ public interface KanjiComponentDao {
     @Update
     int update(KanjiComponent KanjiComponent);
 
+    //Delete all KanjiComponents
+    @Query("DELETE FROM " + KanjiComponent.TABLE_NAME)
+    public void nukeTable();
 
 }

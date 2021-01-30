@@ -360,6 +360,29 @@ public final class Globals {
     }
     public final static HashMap<String, String> VERB_FAMILIES_FULL_NAME_MAP = createVerbFamiliesMap();
 
+    static @NotNull HashMap<String, String> createVerbFamiliesEngMap() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put("su godan", "verb_family_su");
+        map.put("ku godan", "verb_family_ku");
+        map.put("iku special class", "verb_family_iku");
+        map.put("yuku special class", "verb_family_yuku");
+        map.put("gu godan", "verb_family_gu");
+        map.put("bu godan", "verb_family_bu");
+        map.put("mu godan", "verb_family_mu");
+        map.put("nu godan", "verb_family_nu");
+        map.put("ru godan", "verb_family_rug");
+        map.put("aru special class", "verb_family_aru");
+        map.put("tsu godan", "verb_family_tsu");
+        map.put("u godan", "verb_family_u");
+        map.put("u special class", "verb_family_us");
+        map.put("ru ichidan", "verb_family_rui");
+        map.put("desu copula", "verb_family_da");
+        map.put("kuru verb", "verb_family_kuru");
+        map.put("suru verb", "verb_family_suru");
+        return map;
+    }
+    public final static HashMap<String, String> VERB_FAMILIES_FULL_NAME_ENG_MAP = createVerbFamiliesEngMap();
+
     public static final int MAX_SQL_VARIABLES_FOR_QUERY = 500;
     public static final int BALANCE_POINT_REGULAR_DISPLAY = 4;
     public static final int BALANCE_POINT_HISTORY_DISPLAY = 2;

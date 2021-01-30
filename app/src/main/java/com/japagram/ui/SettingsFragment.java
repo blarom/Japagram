@@ -12,6 +12,8 @@ import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
@@ -108,7 +110,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         if (getActivity() == null || getContext() == null) return;
         AndroidUtilitiesPrefs.setAppPreferenceColorTheme(getContext(), themeColor);
     }
-    private void checkIfValueIsInRangeOrWarnUser(Preference preference, SharedPreferences sharedPreferences) {
+    private void checkIfValueIsInRangeOrWarnUser(@NotNull Preference preference, @NotNull SharedPreferences sharedPreferences) {
         String newValue = sharedPreferences.getString(preference.getKey(), "");
         Toast error;
         if (preference.getKey().equals(getString(R.string.pref_OCR_image_contrast_key))) {
@@ -194,7 +196,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
             }
         }
     }
-    private void setSummaryForPreference(Preference currentPreference, SharedPreferences sharedPreferences) {
+    private void setSummaryForPreference(@NotNull Preference currentPreference, @NotNull SharedPreferences sharedPreferences) {
 
         String currentPreferenceValue = sharedPreferences.getString(currentPreference.getKey(), "");
         if (currentPreference instanceof ListPreference) {

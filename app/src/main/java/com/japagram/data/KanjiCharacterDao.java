@@ -92,5 +92,8 @@ public interface KanjiCharacterDao {
     @Update
     int update(KanjiCharacter KanjiCharacter);
 
+    //Delete all KanjiCharacters
+    @Query("DELETE FROM " + KanjiCharacter.TABLE_NAME)
+    public void nukeTable();
 
 }

@@ -164,6 +164,7 @@ public final class UtilitiesVerbSearch {
                                                          HashMap<String, Integer> mFamilyConjugationIndexes,
                                                          Context context) {
 
+        if (preparedQuery.isEmpty()) return new ArrayList<>();
         String mPreparedQuery = preparedQuery.getOriginal();
         int mPreparedQueryLength = preparedQuery.getOriginal().length();
         int mPreparedQueryTextType = preparedQuery.getOriginalType();
@@ -332,8 +333,9 @@ public final class UtilitiesVerbSearch {
 
         HashMap<String, List<Integer>> dilutedConjugationColIndexesByFamily = new HashMap<>();
         for (int row=1; row<verbConjugationMaxLengths.size(); row++) {
-            String family_name = verbConjugationMaxLengths.get(row)[0];
-            if (family_name.equals("")) continue;
+            String key = verbConjugationMaxLengths.get(row)[0];
+            if (key.equals("")) continue;
+            String family_name = Globals.VERB_FAMILIES_FULL_NAME_ENG_MAP.get(key);
             List<Integer> dilutedConjugationColIndexesTemp = new ArrayList<>();
             for (int col = Globals.COLUMN_VERB_ISTEM; col < numberOfSheetCols; col++) {
                 if (!verbConjugationMaxLengths.get(row)[col].equals(""))
@@ -520,7 +522,8 @@ public final class UtilitiesVerbSearch {
             for (String[] verbSearchCandidate : verbSearchCandidates) {
 
                 //region Getting the verb characteristics
-                familyForDilution = OvUtilsResources.getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[Globals.INDEX_FAMILY]), context, Globals.RESOURCE_MAP_VERB_FAMILIES, language);
+                //familyForDilution = OvUtilsResources.getString(Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[Globals.INDEX_FAMILY]), context, Globals.RESOURCE_MAP_VERB_FAMILIES, null);
+                familyForDilution = Globals.VERB_FAMILIES_FULL_NAME_MAP.get(verbSearchCandidate[Globals.INDEX_FAMILY]);
                 romaji = verbSearchCandidate[Globals.INDEX_ROMAJI];
                 hiraganaFirstChar = verbSearchCandidate[Globals.INDEX_HIRAGANA_FIRST_CHAR].charAt(0);
                 latinRoot = verbSearchCandidate[Globals.INDEX_LATIN_ROOT].replace(" ","");

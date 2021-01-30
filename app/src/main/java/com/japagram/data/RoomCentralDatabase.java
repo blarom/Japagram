@@ -86,19 +86,23 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         return sInstance;
     }
 
+    boolean mFinishedLoadingCentralDb = false;
+    boolean mFinishedLoadingIndexes = false;
     private void populateDatabases(Context context) {
 
+        AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
         if (word().count() == 0) {
             word().nukeTable();
-            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadCentralDatabaseIntoRoomDb(context);
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
+                mFinishedLoadingCentralDb = true;
+                registerDbWasLoaded(context);
             });
-        }
+        } else mFinishedLoadingCentralDb = true;
+
         if (this.indexEnglish().count() == 0) {
-            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
@@ -107,12 +111,19 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                 AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
                 AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Indexes Database.");
-                AndroidUtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
+                mFinishedLoadingIndexes = true;
+                registerDbWasLoaded(context);
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Words & Verbs Database.");
             });
+        } else mFinishedLoadingIndexes = true;
+        registerDbWasLoaded(context);
+
+    }
+    private void registerDbWasLoaded(Context context) {
+        if (mFinishedLoadingCentralDb && mFinishedLoadingIndexes) {
+            AndroidUtilitiesPrefs.setAppPreferenceDbVersionCentral(context, Globals.CENTRAL_DB_VERSION);
             AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(context, true);
         }
-
     }
     private void loadCentralDatabaseIntoRoomDb(Context context) {
 

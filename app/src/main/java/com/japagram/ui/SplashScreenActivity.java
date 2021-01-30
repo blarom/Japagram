@@ -1,5 +1,6 @@
 package com.japagram.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -23,8 +24,6 @@ import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 public class SplashScreenActivity extends BaseActivity {
 
     private ActivitySplashscreenBinding binding;
-    private boolean mCentralDbBeingLoaded;
-    private boolean mKanjiDbBeingLoaded;
     private CountDownTimer countDownTimer;
     private Runnable dbLoadRunnableCentral;
     private Runnable dbLoadRunnableKanji;
@@ -50,39 +49,27 @@ public class SplashScreenActivity extends BaseActivity {
         binding.splashscreenBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
         binding.splashscreenLoadingDatabase.setTextColor(AndroidUtilitiesPrefs.getResColorValue(this, R.attr.colorPrimaryLight));
 
-        mCentralDbBeingLoaded = true;
-        mKanjiDbBeingLoaded = true;
         mLanguage = LocaleHelper.getLanguage(getBaseContext());
 
         startDbInstallationForegroundService();
 
         //Loading databases in parallel or series depending on available heap memory (more or less than 1000MB respectively)
         dbLoadRunnableCentral = () -> {
-            mCentralDbBeingLoaded = true;
-            Globals.GLOBAL_SIMILARS_DATABASE = AndroidUtilitiesIO.readCSVFile("LineSimilars - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineLatinConj - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, this, mLanguage);
-            Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
-            Globals.GLOBAL_RADICALS_ONLY_DATABASE = AndroidUtilitiesIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", getBaseContext());
-            Globals.GLOBAL_ROMANIZATIONS = OvUtilsGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", getBaseContext()));
+            loadSmallDatabases(getBaseContext(), mLanguage);
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Loaded Small databases");
-            RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
-            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");
-            mCentralDbBeingLoaded = false;
-        };
-        dbLoadRunnableKanji = () -> {
-            mKanjiDbBeingLoaded = true;
             RoomKanjiDatabase.getInstance(SplashScreenActivity.this); //Required for Room
             Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomKanjiDatabase");
-            mKanjiDbBeingLoaded = false;
+            RoomCentralDatabase.getInstance(SplashScreenActivity.this); //Required for Room
+            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomCentralDatabase");
+        };
+        dbLoadRunnableKanji = () -> {
+            RoomKanjiDatabase.getInstance(SplashScreenActivity.this); //Required for Room
+            Log.i(Globals.DEBUG_TAG, "Splashscreen - Instantiated RoomKanjiDatabase");
         };
         dbLoadThreadCentral = new Thread(dbLoadRunnableCentral);
         dbLoadThreadCentral.start();
-        dbLoadThreadKanji = new Thread(dbLoadRunnableKanji);
-        dbLoadThreadKanji.start();
+        //dbLoadThreadKanji = new Thread(dbLoadRunnableKanji);
+        //dbLoadThreadKanji.start();
 
         //showLoadingIndicator();
         if (AndroidUtilitiesPrefs.getAppPreferenceFirstTimeRunningApp(SplashScreenActivity.this)) {
@@ -104,7 +91,6 @@ public class SplashScreenActivity extends BaseActivity {
                     //mTicks == -1 is used to add a small delay after dbs updated, to prevent db update vs. counter end race
                     hideLoadingIndicator();
                     countDownTimer.onFinish();
-                    countDownTimer.cancel();
                 }
                 if (mTicks == 0 || (mTicks > 3 && mTicks % 3 == 0)) { //Reducing the amount of computations
                     mTicks++;
@@ -116,28 +102,26 @@ public class SplashScreenActivity extends BaseActivity {
                 boolean finishedLoadingKanjiDatabase = AndroidUtilitiesPrefs.getAppPreferenceKanjiDatabaseFinishedLoadingFlag(SplashScreenActivity.this);
 
                 Log.i(Globals.DEBUG_TAG, "Splashscreen - Counter Tick - tick=" + mTicks +
-                        " mCentralDbBeingLoaded=" + mCentralDbBeingLoaded + " finishedLoadingCentralDatabase=" + finishedLoadingCentralDatabase +
-                        " mKanjiDbBeingLoaded=" + mKanjiDbBeingLoaded + " finishedLoadingKanjiDatabase=" + finishedLoadingKanjiDatabase);
+                        " finishedLoadingCentralDatabase=" + finishedLoadingCentralDatabase +
+                        " finishedLoadingKanjiDatabase=" + finishedLoadingKanjiDatabase);
 
                 if (mTicks == 3) {
                     showLoadingIndicator();
                 }
-                if (mCentralDbBeingLoaded) {
-                    if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
-                        binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_central_database));
-                        mLastUIUpdateWasCentral = true;
-                        mLastUIUpdateWasKanji = false;
-                    }
-                }
-                else if (mKanjiDbBeingLoaded) {
-                    if (!mLastUIUpdateWasKanji && !finishedLoadingKanjiDatabase) {
+                if (!finishedLoadingKanjiDatabase) {
+                    if (!mLastUIUpdateWasKanji) {
                         binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_kanji_database));
                         mLastUIUpdateWasCentral = false;
                         mLastUIUpdateWasKanji = true;
                     }
                 }
-                if (finishedLoadingCentralDatabase && dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
-                if (finishedLoadingKanjiDatabase && dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
+                else if (!finishedLoadingCentralDatabase) {
+                    if (!mLastUIUpdateWasCentral){
+                        binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_central_database));
+                        mLastUIUpdateWasCentral = true;
+                        mLastUIUpdateWasKanji = false;
+                    }
+                }
 
                 mTicks++;
                 if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
@@ -151,7 +135,10 @@ public class SplashScreenActivity extends BaseActivity {
                 hideLoadingIndicator();
                 if (Looper.myLooper()==null) Looper.prepare();
                 //Toast.makeText(SplashScreenActivity.this, R.string.finished_loading_databases, Toast.LENGTH_SHORT).show();
+                if (dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
+                if (dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
                 startMainActivity();
+                countDownTimer.cancel();
             }
         };
         Log.i(Globals.DEBUG_TAG, "SplashScreen - onCreate - starting counter");
@@ -163,6 +150,17 @@ public class SplashScreenActivity extends BaseActivity {
         countDownTimer.cancel();
     }
 
+    public static void loadSmallDatabases(Context context, String language) {
+        Globals.GLOBAL_SIMILARS_DATABASE = AndroidUtilitiesIO.readCSVFile("LineSimilars - 3000 kanji.csv", context);
+        Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineLatinConj - 3000 kanji.csv", context);
+        Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE = AndroidUtilitiesIO.readCSVFile("LineKanjiConj - 3000 kanji.csv", context);
+        Globals.GLOBAL_VERB_LATIN_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsLengths - 3000 kanji.csv", context);
+        Globals.GLOBAL_VERB_KANJI_CONJ_LENGTHS = AndroidUtilitiesIO.readCSVFile("LineVerbsKanjiLengths - 3000 kanji.csv", context);
+        Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES = UtilitiesDb.removeSpacesFromConjDb(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE);
+        Globals.GLOBAL_RADICALS_ONLY_DATABASE = AndroidUtilitiesIO.readCSVFile("LineRadicalsOnly - 3000 kanji.csv", context);
+        Globals.GLOBAL_ROMANIZATIONS = OvUtilsGeneral.getTranspose(AndroidUtilitiesIO.readCSVFile("LineRomanizations.csv", context));
+        Globals.GLOBAL_CONJUGATION_TITLES = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getConjugationTitles(Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE, context, language);
+    }
     private void startMainActivity() {
         Intent mainIntent = new Intent(SplashScreenActivity.this, MainActivity.class);
         SplashScreenActivity.this.startActivity(mainIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION));

@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.os.StatFs;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -33,6 +34,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -68,7 +71,6 @@ import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -99,17 +101,14 @@ public class InputQueryFragment extends Fragment implements
     private static final String TAG_PERMISSIONS = "Permission error";
     private static final String DOWNLOAD_FILE_PREFS = "download_file_prefs";
     private static final String JPN_FILE_DOWNLOADING_FLAG = "jpn_file_downloading";
-    private static final String ENG_FILE_DOWNLOADING_FLAG = "eng_file_downloading";
-    private static final String FRA_FILE_DOWNLOADING_FLAG = "fra_file_downloading";
-    private static final String SPA_FILE_DOWNLOADING_FLAG = "spa_file_downloading";
     private String mInputQuery;
     private Bitmap mImageToBeDecoded;
     private TessBaseAPI mTess;
     private String mInternalStorageTesseractFolderPath = "";
-    private final HashMap<String, Boolean> mInitializedOcrApi = initializeTessLanguageFlags(false);
-    private final HashMap<String, Boolean> mFirstTimeInitialized = initializeTessLanguageFlags(true);
-    private final HashMap<String, Boolean> mOcrDataIsAvailable = initializeTessLanguageFlags(false);
-    private final HashMap<String, Boolean> mOcrFileIsDownloading = initializeTessLanguageFlags(false);
+    boolean mInitializedOcrApi = false;
+    boolean mFirstTimeInitialized = true;
+    boolean mOcrDataIsAvailable = false;
+    boolean mOcrFileIsDownloading = false;
     private String mOCRLanguage;
     private String mOcrResultString;
     private TextToSpeech tts;
@@ -259,27 +258,12 @@ public class InputQueryFragment extends Fragment implements
 
             Log.e(TAG_PERMISSIONS,"Returned from permission request.");
             makeOcrDataAvailableInAppFolder(mLanguageBeingDownloaded);
-            if (!getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_JPN)) initializeOcrEngineForChosenLanguage();
+            if (!mInitializedOcrApi) initializeOcrEngineForChosenLanguage();
         }
     }
 
 
     //Functionality methods
-    @SuppressWarnings("ConstantConditions")
-    private static boolean getHashKeyIsTrue(@NotNull HashMap<String, Boolean> hash, String key) {
-        return hash.containsKey(key) && hash.get(key);
-    }
-    private static void setHashKeyValue(@NotNull HashMap<String, Boolean> hash, String key, boolean value) {
-        if (hash.containsKey(key)) hash.put(key, value);
-    }
-    private static @NotNull HashMap<String, Boolean> initializeTessLanguageFlags(boolean defaultValue) {
-        HashMap<String, Boolean> map = new HashMap<>();
-        map.put(OCR_LANG_ENG, defaultValue);
-        map.put(OCR_LANG_JPN, defaultValue);
-        map.put(OCR_LANG_FRA, defaultValue);
-        map.put(OCR_LANG_SPA, defaultValue);
-        return map;
-    }
     private void getExtras() {
         if (getArguments()!=null) {
             mChosenSpeechToTextLanguage = getArguments().getString(getString(R.string.pref_preferred_STT_language));
@@ -522,47 +506,17 @@ public class InputQueryFragment extends Fragment implements
         if (getActivity()==null || getContext()==null) return;
 
         getOcrDataDownloadingStatus();
-        if ((mOCRLanguage.equals(OCR_LANG_ENG) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_ENG))
-                || (mOCRLanguage.equals(OCR_LANG_JPN) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_JPN))
-                || (mOCRLanguage.equals(OCR_LANG_FRA) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_FRA))
-                || (mOCRLanguage.equals(OCR_LANG_SPA) && getHashKeyIsTrue(mOcrFileIsDownloading, OCR_LANG_SPA)) ) {
+        if (mOCRLanguage.equals(OCR_LANG_JPN) && mOcrFileIsDownloading) {
             Toast toast = Toast.makeText(getContext(),getResources().getString(R.string.OCR_downloading), Toast.LENGTH_SHORT);
             toast.show();
         }
         else {
-            if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_JPN) && mOCRLanguage.equals(OCR_LANG_JPN)) {
-                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_JPN)) {
+            if (mInitializedOcrApi && mOCRLanguage.equals(OCR_LANG_JPN)) {
+                if (mFirstTimeInitialized) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_JPN, false);
-                }
-                timesPressed = 0;
-                performImageCaptureAndCrop();
-            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_ENG) && mOCRLanguage.equals(OCR_LANG_ENG)) {
-                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_ENG)) {
-                    Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_ENG, false);
-                }
-                timesPressed = 0;
-                performImageCaptureAndCrop();
-            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_FRA) && mOCRLanguage.equals(OCR_LANG_FRA)) {
-                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_FRA)) {
-                    Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_FRA, false);
-                }
-                timesPressed = 0;
-                performImageCaptureAndCrop();
-            } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_SPA) && mOCRLanguage.equals(OCR_LANG_SPA)) {
-                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_SPA)) {
-                    Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_FRA, false);
+                    mFirstTimeInitialized = false;
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
@@ -570,17 +524,9 @@ public class InputQueryFragment extends Fragment implements
                 if (timesPressed <= 3) {
                     mLanguageBeingDownloaded = OCR_LANG_JPN;
                     ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                    if (ALLOW_OCR_FOR_LATIN_LANGUAGES) {
-                        mLanguageBeingDownloaded = OCR_LANG_ENG;
-                        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                        mLanguageBeingDownloaded = OCR_LANG_FRA;
-                        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                        mLanguageBeingDownloaded = OCR_LANG_SPA;
-                        ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-                    }
 
                     initializeOcrEngineForChosenLanguage();
-                    setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
+                    mInitializedOcrApi = false;
                     timesPressed++; //Prevents multiple clicks on the button from freezing the app
                 }
                 Toast toast = Toast.makeText(getContext(), getResources().getString(R.string.OCR_reinitializing), Toast.LENGTH_SHORT);
@@ -612,12 +558,12 @@ public class InputQueryFragment extends Fragment implements
             setupBroadcastReceiverForDownloadedOCRData();
             registerThatUserIsRequestingDictSearch(false);
             mLanguageBeingDownloaded = OCR_LANG_JPN;
-            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = OCR_LANG_ENG;
-            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = OCR_LANG_FRA;
-            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
-            mLanguageBeingDownloaded = OCR_LANG_SPA;
+//            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+//            mLanguageBeingDownloaded = OCR_LANG_ENG;
+//            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+//            mLanguageBeingDownloaded = OCR_LANG_FRA;
+//            ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
+//            mLanguageBeingDownloaded = OCR_LANG_SPA;
             ifOcrDataIsNotAvailableThenMakeItAvailable(mLanguageBeingDownloaded);
             initializeOcrEngineForChosenLanguage();
             Log.i(Globals.DEBUG_TAG, "InputQueryFragment - setupOcr - end");
@@ -629,13 +575,13 @@ public class InputQueryFragment extends Fragment implements
     private void initializeTesseractAPI(String language) {
         //mImageToBeDecoded = BitmapFactory.decodeResource(getResources(), R.drawable.test_image);
 
-        setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
+        mInitializedOcrApi = false;
         if (getActivity()!=null) {
             //Download language files from https://github.com/tesseract-ocr/tesseract/wiki/Data-Files
             try {
                 mTess = new TessBaseAPI();
                 mTess.init(mInternalStorageTesseractFolderPath, language);
-                setHashKeyValue(mInitializedOcrApi,language, true);
+                mInitializedOcrApi = true;
                 Log.e(TAG_TESSERACT, "Initialized Tesseract.");
             } catch (Exception e) {
                 Log.e(TAG_TESSERACT, "Failed to initialize Tesseract.");
@@ -666,6 +612,7 @@ public class InputQueryFragment extends Fragment implements
         Uri downloadUri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
         request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, filename);
+        if (Looper.myLooper() == null) Looper.prepare();
         if (mDownloadType.equals("WifiOnly")) {
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
             Toast.makeText(getActivity(), getString(R.string.downloading_ocr_data_first_part) + mLanguageBeingDownloadedLabel
@@ -689,10 +636,7 @@ public class InputQueryFragment extends Fragment implements
 
         if (getContext() != null) {
             SharedPreferences sharedPreferences = getContext().getSharedPreferences(DOWNLOAD_FILE_PREFS, Context.MODE_PRIVATE);
-            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_JPN,  sharedPreferences.getBoolean(JPN_FILE_DOWNLOADING_FLAG, false));
-            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_ENG,  sharedPreferences.getBoolean(ENG_FILE_DOWNLOADING_FLAG, false));
-            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_FRA,  sharedPreferences.getBoolean(FRA_FILE_DOWNLOADING_FLAG, false));
-            setHashKeyValue(mOcrFileIsDownloading, OCR_LANG_SPA,  sharedPreferences.getBoolean(SPA_FILE_DOWNLOADING_FLAG, false));
+            mOcrFileIsDownloading = sharedPreferences.getBoolean(JPN_FILE_DOWNLOADING_FLAG, false);
         }
     }
     @NotNull private String getOCRLanguageFromSettings() {
@@ -780,10 +724,7 @@ public class InputQueryFragment extends Fragment implements
     }
     private void initializeOcrEngineForChosenLanguage() {
         mOCRLanguage = getOCRLanguageFromSettings();
-        if (mOCRLanguage.equals(OCR_LANG_JPN) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_JPN)) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals(OCR_LANG_ENG) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_ENG)) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals(OCR_LANG_FRA) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_FRA)) initializeTesseractAPI(mOCRLanguage);
-        else if (mOCRLanguage.equals(OCR_LANG_SPA) && getHashKeyIsTrue(mOcrDataIsAvailable, OCR_LANG_SPA)) initializeTesseractAPI(mOCRLanguage);
+        if (mOCRLanguage.equals(OCR_LANG_JPN) && mOcrDataIsAvailable) initializeTesseractAPI(mOCRLanguage);
     }
     private void ifOcrDataIsNotAvailableThenMakeItAvailable(String language) {
 
@@ -793,12 +734,13 @@ public class InputQueryFragment extends Fragment implements
         try {
             File file = new File(mPhoneAppFolderTesseractDataFilepath);
             boolean fileExistsInAppFolder = AndroidUtilitiesIO.checkIfFileExistsInSpecificFolder(file, filename);
-            setHashKeyValue(mInitializedOcrApi, OCR_LANG_JPN, false);
+            mInitializedOcrApi = false;
             if (!fileExistsInAppFolder) {
                 hasStoragePermissions = AndroidUtilitiesIO.checkStoragePermission(getActivity());
                 makeOcrDataAvailableInAppFolder(language);
             } else {
-                setHashKeyValue(mOcrDataIsAvailable, language, true);
+                setOcrDataIsDownloadingStatus(filename, false);
+                mOcrDataIsAvailable = true;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -818,7 +760,7 @@ public class InputQueryFragment extends Fragment implements
                 File targetLocation = new File(mPhoneAppFolderTesseractDataFilepath);
                 moveTesseractDataFile(sourceLocation, targetLocation);
             } else {
-                setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, false);
+                mOcrDataIsAvailable = false;
                 if (!jpnOcrFileISDownloading) askForPreferredDownloadTimeAndDownload(language, filename);
             }
         }
@@ -861,12 +803,13 @@ public class InputQueryFragment extends Fragment implements
             inputChannel = new FileInputStream(file).getChannel();
             inputChannel.transferTo(0, inputChannel.size(), outputChannel);
             inputChannel.close();
-            setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, true);
+            mOcrDataIsAvailable = true;
+            if (Looper.myLooper() == null) Looper.prepare();
             Toast.makeText(getContext(),getResources().getString(R.string.OCR_copy_data), Toast.LENGTH_SHORT).show();
             Log.v(TAG_TESSERACT, "Successfully moved data file to app folder.");
             //file.delete();
         } catch (IOException e) {
-            setHashKeyValue(mOcrDataIsAvailable, OCR_LANG_JPN, false);
+            mOcrDataIsAvailable = false;
             Log.v(TAG_TESSERACT, "Copy file failed.");
             e.printStackTrace();
         } catch (Exception e) {
@@ -882,35 +825,43 @@ public class InputQueryFragment extends Fragment implements
 
     }
     private void askForPreferredDownloadTimeAndDownload(String language, final String filename) {
-        if (getContext() == null) return;
 
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
-        //builder.setTitle(R.string.OCRDialogTitle);
-        switch (language) {
-            case OCR_LANG_JPN: alertDialog.setMessage(getString(R.string.DownloadDialogMessageJPN)); break;
-            case OCR_LANG_ENG: alertDialog.setMessage(getString(R.string.DownloadDialogMessageENG)); break;
-            case OCR_LANG_FRA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageFRA)); break;
-            case OCR_LANG_SPA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageSPA)); break;
-        }
-        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.DownloadDialogWifiOnly),
-                (dialog, which) -> {
-                    mDownloadType = "WifiOnly";
-                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-                    dialog.dismiss();
-                });
-        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.DownloadDialogWifiAndMobile),
-                (dialog, which) -> {
-                    mDownloadType = "WifiAndMobile";
-                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
-                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
-                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
-                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
-                    dialog.dismiss();
-                });
-        alertDialog.show();
+        if (getContext() == null) return;
+        mDownloadType = "WifiOnly";
+        Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+        Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+        //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+        if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+
+
+//        if (Looper.myLooper() == null) Looper.prepare();
+//        AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
+//        //builder.setTitle(R.string.OCRDialogTitle);
+//        switch (language) {
+//            case OCR_LANG_JPN: alertDialog.setMessage(getString(R.string.DownloadDialogMessageJPN)); break;
+//            case OCR_LANG_ENG: alertDialog.setMessage(getString(R.string.DownloadDialogMessageENG)); break;
+//            case OCR_LANG_FRA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageFRA)); break;
+//            case OCR_LANG_SPA: alertDialog.setMessage(getString(R.string.DownloadDialogMessageSPA)); break;
+//        }
+//        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.DownloadDialogWifiOnly),
+//                (dialog, which) -> {
+//                    mDownloadType = "WifiOnly";
+//                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+//                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+//                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+//                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+//                    dialog.dismiss();
+//                });
+//        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.DownloadDialogWifiAndMobile),
+//                (dialog, which) -> {
+//                    mDownloadType = "WifiAndMobile";
+//                    Boolean hasMemory = checkIfStorageSpaceEnoughForTesseractDataOrShowApology();
+//                    Log.e(TAG_TESSERACT, "File not found in Downloads folder.");
+//                    //if (!fileExistsInInternalStorage) copyFileFromAssets(mOCRLanguage);
+//                    if (hasMemory) downloadTesseractDataFileToDownloadsFolder("https://github.com/tesseract-ocr/tessdata/raw/master/", filename);
+//                    dialog.dismiss();
+//                });
+//        alertDialog.show();
 
 //        if (alertDialog.getWindow() == null) return;
 //        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(AndroidUtilitiesPrefs.getResColorValue(getContext(), R.attr.colorMonochromeBlend)));
@@ -935,12 +886,7 @@ public class InputQueryFragment extends Fragment implements
         if (getContext() != null) {
             SharedPreferences sharedPref = getContext().getSharedPreferences(DOWNLOAD_FILE_PREFS, Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            switch (filename.substring(0,3)) {
-                case OCR_LANG_JPN: editor.putBoolean(JPN_FILE_DOWNLOADING_FLAG, status); break;
-                case OCR_LANG_ENG: editor.putBoolean(ENG_FILE_DOWNLOADING_FLAG, status); break;
-                case OCR_LANG_FRA: editor.putBoolean(FRA_FILE_DOWNLOADING_FLAG, status); break;
-                case OCR_LANG_SPA: editor.putBoolean(SPA_FILE_DOWNLOADING_FLAG, status); break;
-            }
+            editor.putBoolean(JPN_FILE_DOWNLOADING_FLAG, status);
             editor.apply();
         }
     }
@@ -1020,6 +966,9 @@ public class InputQueryFragment extends Fragment implements
 
         //Building the dialog
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
+        Window window = alertDialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
         alertDialog.setTitle(R.string.OCRDialogTitle);
         alertDialog.setView(dialogView);
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.copy_to_input),

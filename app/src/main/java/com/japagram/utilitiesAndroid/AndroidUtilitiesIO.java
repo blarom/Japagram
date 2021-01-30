@@ -18,6 +18,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -368,7 +369,6 @@ public class AndroidUtilitiesIO {
             fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
             List<Word> wordList = new ArrayList<>();
             List<KanjiCharacter> kanjiCharacterList = new ArrayList<>();
-            List<KanjiComponent> kanjiComponentList = new ArrayList<>();
             List<IndexRomaji> indexRomajiList = new ArrayList<>();
             List<IndexEnglish> indexEnglishList = new ArrayList<>();
             List<IndexFrench> indexFrenchList = new ArrayList<>();
@@ -639,6 +639,7 @@ public class AndroidUtilitiesIO {
                         lineNum++;
                         if (lineNum % MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK == 0) {
                             kanjiCharacterDao.insertAll(kanjiCharacterList);
+                            SystemClock.sleep(30);
                             kanjiCharacterList = new ArrayList<>();
                         }
                     }

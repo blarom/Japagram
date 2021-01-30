@@ -291,11 +291,9 @@
     <string name="loading_central_database">Instalando el diccionario central.</string>
     <string name="loading_extended_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos extendita.
          ~ Puede tardar 5 minutos ~</string>
-    <string name="loading_names_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos de nombres.
-         ~ Puede tardar 20 minutos ~</string>
-    <string name="loading_kanji_database">Ha finalizado la instalación de la base de datos central.\nActualmente se está instalando la base de datos de kanji.
-         ~ Puede tardar un minuto ~</string>
-    <string name="first_time_installing">NOTA: Puede llevar hasta 5-10min para instalar el diccionario completo y obtener resultados de búsqueda completos.</string>
+    <string name="loading_names_database">Instalando la base de datos de nombres.\n~ Puede tardar 20 minutos ~</string>
+    <string name="loading_kanji_database">Instalando la base de datos de kanji.</string>
+    <string name="first_time_installing">NOTA: Puede llevar hasta 5\-10min para instalar el diccionario completo y obtener resultados de búsqueda completos.</string>
     <string name="finished_loading_databases">Terminé de cargar las bases de datos.</string>
     <string name="database_being_installed">La base de datos se está instalando actualmente.\nEsto puede tardar unos minutos.\nEste retraso solo se produce al instalar o actualizar la aplicación.</string>
     <string name="sure_you_want_to_exit">¿Estás seguro de que quieres salir de la aplicación?</string>

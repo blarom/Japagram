@@ -1,82 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.japagram.ui.AdjustImageActivity"
-    android:orientation="vertical">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.japagram.ui.AdjustImageActivity">
 
     <LinearLayout
+        android:id="@+id/adjust_image_background"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:layout_marginBottom="15dp"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/OCRimage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:background="@android:color/background_dark"
-            android:scaleType="centerInside"
-            android:contentDescription="@string/ocr"/>
-
-        <TextView
-            android:id="@+id/saturationDescription"
-            android:layout_marginStart="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/saturation" />
-
-        <SeekBar
-            android:id="@+id/saturationBar"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="@string/pref_OCR_image_saturation_range"
-            android:progress="@string/pref_OCR_image_saturation_default_value"/>
-
-        <TextView
-            android:id="@+id/contrastDescription"
-            android:layout_marginStart="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/contrast" />
-
-        <SeekBar
-            android:id="@+id/contrastBar"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="@string/pref_OCR_image_contrast_range"
-            android:progress="@string/pref_OCR_image_contrast_default_value"/>
-
-        <TextView
-            android:id="@+id/brightnessDescription"
-            android:layout_marginStart="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/brightness" />
-
-        <SeekBar
-            android:id="@+id/brightnessBar"
-            android:layout_marginBottom="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="@string/pref_OCR_image_brightness_range"
-            android:progress="@string/pref_OCR_image_brightness_default_value"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/image_adjustment_hint"/>
-
+        android:layout_height="match_parent"
+        android:layout_marginTop="-24dp"
+        android:background="@drawable/background1_day"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
     </LinearLayout>
 
-</ScrollView>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/adjust_image_container"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/OCRimage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:background="@android:color/background_dark"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/ocr"/>
+
+            <TextView
+                android:id="@+id/saturationDescription"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/saturation" />
+
+            <SeekBar
+                android:id="@+id/saturationBar"
+                android:layout_marginBottom="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="@string/pref_OCR_image_saturation_range"
+                android:progress="@string/pref_OCR_image_saturation_default_value"/>
+
+            <TextView
+                android:id="@+id/contrastDescription"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/contrast" />
+
+            <SeekBar
+                android:id="@+id/contrastBar"
+                android:layout_marginBottom="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="@string/pref_OCR_image_contrast_range"
+                android:progress="@string/pref_OCR_image_contrast_default_value"/>
+
+            <TextView
+                android:id="@+id/brightnessDescription"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/brightness" />
+
+            <SeekBar
+                android:id="@+id/brightnessBar"
+                android:layout_marginBottom="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="@string/pref_OCR_image_brightness_range"
+                android:progress="@string/pref_OCR_image_brightness_default_value"/>
+
+            <TextView
+                android:id="@+id/explanation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/image_adjustment_hint"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

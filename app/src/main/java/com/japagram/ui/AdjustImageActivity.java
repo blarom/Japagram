@@ -15,15 +15,20 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 import com.japagram.R;
+import com.japagram.databinding.ActivityAdjustImageBinding;
+import com.japagram.databinding.ActivitySplashscreenBinding;
 import com.japagram.resources.ConvolutionMatrix;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +39,7 @@ import androidx.preference.PreferenceManager;
 public class AdjustImageActivity extends BaseActivity {
     //http://android-er.blogspot.co.il/2013/09/adjust-saturation-of-bitmap-with.html
 
+    private ActivityAdjustImageBinding binding;
     private ImageView imageResult;
     private SeekBar contrastBar;
     private TextView contrastText;
@@ -48,7 +54,12 @@ public class AdjustImageActivity extends BaseActivity {
 
         AndroidUtilitiesPrefs.changeThemeColor(this);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adjust_image);
+        binding = ActivityAdjustImageBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+        //setContentView(R.layout.activity_adjust_image);
+
+        binding.adjustImageBackground.setBackgroundResource(AndroidUtilitiesPrefs.getAppPreferenceColorTheme(this).contains("day")? R.drawable.background1_day : R.drawable.background1_night);
 
         imageResult = findViewById(R.id.OCRimage);
 
@@ -107,7 +118,7 @@ public class AdjustImageActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_adjust_image, menu);
         return true;
     }
-    @Override public boolean onOptionsItemSelected(MenuItem item) {
+    @Override public boolean onOptionsItemSelected(@NotNull MenuItem item) {
         int itemThatWasClickedId = item.getItemId();
 
         switch (itemThatWasClickedId) {
@@ -131,9 +142,13 @@ public class AdjustImageActivity extends BaseActivity {
         setResult(Activity.RESULT_OK,returnIntent);
         finish();
     }
+    @Override protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
 
     //Image modification methods
-    private Bitmap getBitmapFromImageView(ImageView imageView) {
+    private Bitmap getBitmapFromImageView(@NotNull ImageView imageView) {
         BitmapDrawable drawable = (BitmapDrawable) imageView.getDrawable();
         return drawable.getBitmap();
     }
@@ -204,7 +219,7 @@ public class AdjustImageActivity extends BaseActivity {
 
         }
     }
-    private Bitmap adjustBitmapSaturation(Bitmap src, float settingSat) {
+    private Bitmap adjustBitmapSaturation(@NotNull Bitmap src, float settingSat) {
 
         int w = src.getWidth();
         int h = src.getHeight();
@@ -220,7 +235,7 @@ public class AdjustImageActivity extends BaseActivity {
 
         return bitmapResult;
     }
-    private Bitmap adjustImageContrastAndBrightness(Bitmap bmp, float contrast, float brightness) {
+    private Bitmap adjustImageContrastAndBrightness(@NotNull Bitmap bmp, float contrast, float brightness) {
         //https://stackoverflow.com/questions/12891520/how-to-programmatically-change-contrast-of-a-bitmap-in-android
         /*
          * @param bmp input bitmap
@@ -246,7 +261,7 @@ public class AdjustImageActivity extends BaseActivity {
 
         return ret;
     }
-    private Bitmap adjustImageAngleAndScale(Bitmap source, float angle, double scaleFactor) {
+    private Bitmap adjustImageAngleAndScale(@NotNull Bitmap source, float angle, double scaleFactor) {
 
         int newWidth = (int) Math.floor(source.getWidth()*scaleFactor);
         int newHeight = (int) Math.floor(source.getHeight()*scaleFactor);

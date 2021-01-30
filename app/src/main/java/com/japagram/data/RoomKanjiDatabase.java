@@ -72,26 +72,39 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
         return sInstance;
     }
 
+    boolean mFinishedLoadingKanjiCharacterDb = false;
+    boolean mFinishedLoadingKanjiComponentDb = false;
     private void populateDatabases(Context context) {
 
-
+        AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
         if (kanjiCharacter().count() == 0) {
-            AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
+            kanjiCharacter().nukeTable();
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadKanjiCharactersIntoRoomDb(context);
                 Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Characters Database.");
+                mFinishedLoadingKanjiCharacterDb = true;
+                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
+                mFinishedLoadingKanjiComponentDb = true;
+                registerDbWasLoaded(context);
             });
-        }
+        } else mFinishedLoadingKanjiCharacterDb = true;
+
         if (kanjiComponent().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
-                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
+                registerDbWasLoaded(context);
             });
+        } else mFinishedLoadingKanjiComponentDb = true;
+        registerDbWasLoaded(context);
+    }
+    private void registerDbWasLoaded(Context context) {
+        if (mFinishedLoadingKanjiCharacterDb && mFinishedLoadingKanjiComponentDb) {
             AndroidUtilitiesPrefs.setAppPreferenceDbVersionKanji(context, Globals.KANJI_DB_VERSION);
+            AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
         }
-        AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
+
     }
     private void loadKanjiCharactersIntoRoomDb(Context context) {
 

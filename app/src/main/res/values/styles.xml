@@ -446,6 +446,7 @@
         <item name="android:textColorPrimary">?attr/colorPrimaryNormal</item>
         <item name="android:background">?attr/colorMonochromeBlend</item>
         <item name="background">?attr/colorMonochromeBlend</item>
+        <item name="android:windowElevation">4dp</item>
         <item name="android:windowBackground">?attr/colorMonochromeBlend</item>
         <item name="android:popupBackground">?attr/colorMonochromeBlend</item>
         <item name="textColorAlertDialogListItem">?attr/colorMonochromeContrast</item>
