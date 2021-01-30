@@ -12,10 +12,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -452,7 +454,7 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     private void showStructuresDialog(final String type) {
 
-        if (getContext()==null) return;
+        if (getContext()==null || getContext().getResources() == null) return;
 
         //region Get the dialog view
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -495,41 +497,37 @@ public class SearchByRadicalFragment extends Fragment implements
         //endregion
 
         //region Building the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        if (type.equals("overall")) builder.setTitle("Choose the overall structure");
-        else builder.setTitle("Choose the component's structure");
+        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
+        Window window = alertDialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
+        alertDialog.setTitle(R.string.OCRDialogTitle);
+        alertDialog.setTitle(type.equals("overall")? "Choose the overall structure" : "Choose the component's structure");
+        alertDialog.setView(dialogView);
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
+                (dialog, which) -> {
+                    if (getContext()==null || mTempSelectedStructureId==0) return;
 
-        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
+                    Drawable imageLocal = getContext().getResources().getDrawable(mTempSelectedStructureId);
 
-                if (getContext()==null || mTempSelectedStructureId==0) return;
-
-                Drawable image = getContext().getResources().getDrawable(mTempSelectedStructureId);
-
-                if (type.equals("overall")) {
-                    mSelectedOverallStructureId = mTempSelectedStructureId;
-                    mSelectedOverallStructure = setCategoryBasedOnSelectedStructureId(mSelectedOverallStructureId);
-                    binding.searchByRadicalOverallStructureButton.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
-                }
-                else {
-                    mSelectedComponentStructure = setCategoryBasedOnSelectedStructureId(mTempSelectedStructureId);
-                    binding.searchByRadicalRequestedComponentStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
-                    startCreatingComponentKanjiGridElementsAsynchronously();
-                }
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+                    if (type.equals("overall")) {
+                        mSelectedOverallStructureId = mTempSelectedStructureId;
+                        mSelectedOverallStructure = setCategoryBasedOnSelectedStructureId(mSelectedOverallStructureId);
+                        binding.searchByRadicalOverallStructureButton.setCompoundDrawablesWithIntrinsicBounds(null, null, imageLocal, null);
+                    }
+                    else {
+                        mSelectedComponentStructure = setCategoryBasedOnSelectedStructureId(mTempSelectedStructureId);
+                        binding.searchByRadicalRequestedComponentStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, imageLocal, null);
+                        startCreatingComponentKanjiGridElementsAsynchronously();
+                    }
+                    dialog.dismiss();
+                });
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
+                (dialog, which) -> dialog.dismiss()
+        );
+        alertDialog.show();
         //endregion
 
-        builder.setView(dialogView);
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
     private void drawBorderAroundThisEditText(EditText editText) {
 
