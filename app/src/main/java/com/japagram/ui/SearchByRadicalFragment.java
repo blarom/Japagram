@@ -44,6 +44,7 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -85,7 +86,7 @@ public class SearchByRadicalFragment extends Fragment implements
 
 
     //Lifecycle methods
-    @Override public void onAttach(Context context) {
+    @Override public void onAttach(@NotNull Context context) {
         super.onAttach(context);
 
         searchByRadicalFragmentOperationsHandler = (SearchByRadicalFragmentOperationsHandler) context;
@@ -143,27 +144,44 @@ public class SearchByRadicalFragment extends Fragment implements
     }
     private int setCategoryBasedOnSelectedStructureId(int selectedStructureId) {
 
-        switch (selectedStructureId) {
-            case R.drawable.colored_structure_2_overlapping: return Globals.INDEX_FULL;
-            case R.drawable.colored_structure_2_left_right: return Globals.INDEX_ACROSS_2;
-            case R.drawable.colored_structure_3_left_center_right: return Globals.INDEX_ACROSS_3;
-            case R.drawable.colored_structure_4_left_right: return Globals.INDEX_ACROSS_4;
-            case R.drawable.colored_structure_2_up_down: return Globals.INDEX_DOWN_2;
-            case R.drawable.colored_structure_3_up_center_down: return Globals.INDEX_DOWN_3;
-            case R.drawable.colored_structure_4_up_down: return Globals.INDEX_DOWN_4;
-            case R.drawable.colored_structure_2_enclosing_topleft_to_bottomright: return Globals.INDEX_TOPLEFTOUT;
-            case R.drawable.colored_structure_2_enclosing_top_to_bottom: return Globals.INDEX_TOPOUT;
-            case R.drawable.colored_structure_2_enclosing_topright_to_bottomleft: return Globals.INDEX_TOPRIGHTOUT;
-            case R.drawable.colored_structure_2_enclosing_left_to_right: return Globals.INDEX_LEFTOUT;
-            case R.drawable.colored_structure_2_outlining: return Globals.INDEX_FULLOUT;
-            case R.drawable.colored_structure_2_enclosing_bottomleft_to_topright: return Globals.INDEX_BOTTOMLEFTOUT;
-            case R.drawable.colored_structure_2_enclosing_bottom_to_top: return Globals.INDEX_BOTTOMOUT;
-            case R.drawable.colored_structure_3_upwards_triangle: return Globals.INDEX_THREE_REPEAT;
-            case R.drawable.colored_structure_4_square_repeat: return Globals.INDEX_FOUR_REPEAT;
-            case R.drawable.colored_structure_4_square: return Globals.INDEX_FOURSQUARE;
-            case R.drawable.colored_structure_5_hourglass: return Globals.INDEX_FIVE_REPEAT;
-            default: return 0;
+        if (selectedStructureId == R.drawable.colored_structure_2_overlapping) {
+            return Globals.INDEX_FULL;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_left_right) {
+            return Globals.INDEX_ACROSS_2;
+        } else if (selectedStructureId == R.drawable.colored_structure_3_left_center_right) {
+            return Globals.INDEX_ACROSS_3;
+        } else if (selectedStructureId == R.drawable.colored_structure_4_left_right) {
+            return Globals.INDEX_ACROSS_4;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_up_down) {
+            return Globals.INDEX_DOWN_2;
+        } else if (selectedStructureId == R.drawable.colored_structure_3_up_center_down) {
+            return Globals.INDEX_DOWN_3;
+        } else if (selectedStructureId == R.drawable.colored_structure_4_up_down) {
+            return Globals.INDEX_DOWN_4;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_topleft_to_bottomright) {
+            return Globals.INDEX_TOPLEFTOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_top_to_bottom) {
+            return Globals.INDEX_TOPOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_topright_to_bottomleft) {
+            return Globals.INDEX_TOPRIGHTOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_left_to_right) {
+            return Globals.INDEX_LEFTOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_outlining) {
+            return Globals.INDEX_FULLOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_bottomleft_to_topright) {
+            return Globals.INDEX_BOTTOMLEFTOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_2_enclosing_bottom_to_top) {
+            return Globals.INDEX_BOTTOMOUT;
+        } else if (selectedStructureId == R.drawable.colored_structure_3_upwards_triangle) {
+            return Globals.INDEX_THREE_REPEAT;
+        } else if (selectedStructureId == R.drawable.colored_structure_4_square_repeat) {
+            return Globals.INDEX_FOUR_REPEAT;
+        } else if (selectedStructureId == R.drawable.colored_structure_4_square) {
+            return Globals.INDEX_FOURSQUARE;
+        } else if (selectedStructureId == R.drawable.colored_structure_5_hourglass) {
+            return Globals.INDEX_FIVE_REPEAT;
         }
+        return 0;
     }
     private void startCreatingComponentKanjiGridElementsAsynchronously() {
         if (getActivity()!=null) {
@@ -481,7 +499,7 @@ public class SearchByRadicalFragment extends Fragment implements
         structureIds.add(R.drawable.colored_structure_4_square_repeat);
         structureIds.add(R.drawable.colored_structure_4_square);
 
-        Drawable image = getContext().getResources().getDrawable(structureIds.get(0));
+        Drawable image = ResourcesCompat.getDrawable(getContext().getResources(), structureIds.get(0), null);
         requestedStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image, null);
 
         StructuresGridViewAdapter gridAdapter = new StructuresGridViewAdapter(getContext(), R.layout.list_item_structures_grid, structureIds);
@@ -489,7 +507,7 @@ public class SearchByRadicalFragment extends Fragment implements
         structuresGrid.setOnItemClickListener((adapterView, view, pos, id) -> {
             if (getContext()==null) return;
             mTempSelectedStructureId = structureIds.get(pos);
-            Drawable image1 = getContext().getResources().getDrawable(mTempSelectedStructureId);
+            Drawable image1 = ResourcesCompat.getDrawable(getContext().getResources(), mTempSelectedStructureId, null);
             requestedStructure.setCompoundDrawablesWithIntrinsicBounds(null, null, image1, null);
         });
         //endregion
@@ -505,7 +523,7 @@ public class SearchByRadicalFragment extends Fragment implements
                 (dialog, which) -> {
                     if (getContext()==null || mTempSelectedStructureId==0) return;
 
-                    Drawable imageLocal = getContext().getResources().getDrawable(mTempSelectedStructureId);
+                    Drawable imageLocal = ResourcesCompat.getDrawable(getContext().getResources(), mTempSelectedStructureId, null);
 
                     if (type.equals("overall")) {
                         mSelectedOverallStructureId = mTempSelectedStructureId;
