@@ -1,8 +1,14 @@
 package com.japagram.ui;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.japagram.R;
@@ -243,14 +249,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     }
     private void showNamesDbDownloadDialog(final CheckBoxPreference currentPreference, final SharedPreferences sharedPreferences) {
         if (getActivity() == null) return;
-        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
+        Window window = alertDialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        window.setGravity(Gravity.CENTER);
         alertDialog.setMessage(getString(R.string.confirm_download_names_db));
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
                 (dialog, which) -> {
                     startDbInstallationForegroundService();
                     dialog.dismiss();
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
+        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
                 (dialog, which) -> {
                     if (getContext()!=null) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -259,8 +268,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                         currentPreference.setChecked(false);
                     }
                     dialog.dismiss();
-                });
+                }
+        );
         alertDialog.show();
+        alertDialog.setOnKeyListener((arg0, keyCode, event) -> {
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                if (getContext()!=null) {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(getContext().getString(R.string.pref_complete_local_with_names_search_key), false);
+                    editor.apply();
+                    currentPreference.setChecked(false);
+                }
+                alertDialog.dismiss();
+            }
+            return true;
+        });
     }
 
 }
