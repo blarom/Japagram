@@ -22,7 +22,6 @@ import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 public class SplashScreenActivity extends BaseActivity {
 
-    private final int SPLASH_DISPLAY_LENGTH = 1000; //Miliseconds
     private ActivitySplashscreenBinding binding;
     private boolean mCentralDbBeingLoaded;
     private boolean mKanjiDbBeingLoaded;
@@ -90,12 +89,10 @@ public class SplashScreenActivity extends BaseActivity {
             Toast.makeText(SplashScreenActivity.this, R.string.first_time_installing, Toast.LENGTH_LONG).show();
         }
 
-        if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionCentral(this) != Globals.CENTRAL_DB_VERSION) {
-            AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(this, false);
-        }
-        if (AndroidUtilitiesPrefs.getAppPreferenceDbVersionKanji(this) != Globals.KANJI_DB_VERSION) {
-            AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(this, false);
-        }
+        int centralDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionCentral(this);
+        AndroidUtilitiesPrefs.setAppPreferenceCentralDatabasesFinishedLoadingFlag(this, centralDbVersion == Globals.CENTRAL_DB_VERSION);
+        int kanjiDbVersion = AndroidUtilitiesPrefs.getAppPreferenceDbVersionKanji(this);
+        AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(this, kanjiDbVersion == Globals.KANJI_DB_VERSION);
 
         mTicks = 0;
         countDownTimer = new CountDownTimer(3600000, 200) {
@@ -103,6 +100,12 @@ public class SplashScreenActivity extends BaseActivity {
             @Override
             public void onTick(long l) {
 
+                if (mTicks == -1) {
+                    //mTicks == -1 is used to add a small delay after dbs updated, to prevent db update vs. counter end race
+                    hideLoadingIndicator();
+                    countDownTimer.onFinish();
+                    countDownTimer.cancel();
+                }
                 if (mTicks == 0 || (mTicks > 3 && mTicks % 3 == 0)) { //Reducing the amount of computations
                     mTicks++;
                     return;
@@ -116,7 +119,9 @@ public class SplashScreenActivity extends BaseActivity {
                         " mCentralDbBeingLoaded=" + mCentralDbBeingLoaded + " finishedLoadingCentralDatabase=" + finishedLoadingCentralDatabase +
                         " mKanjiDbBeingLoaded=" + mKanjiDbBeingLoaded + " finishedLoadingKanjiDatabase=" + finishedLoadingKanjiDatabase);
 
-                if (mTicks == 3) showLoadingIndicator();
+                if (mTicks == 3) {
+                    showLoadingIndicator();
+                }
                 if (mCentralDbBeingLoaded) {
                     if (!mLastUIUpdateWasCentral && !finishedLoadingCentralDatabase){
                         binding.splashscreenCurrentLoadingDatabase.setText(getString(R.string.loading_central_database));
@@ -133,13 +138,11 @@ public class SplashScreenActivity extends BaseActivity {
                 }
                 if (finishedLoadingCentralDatabase && dbLoadThreadCentral != null) dbLoadThreadCentral.interrupt();
                 if (finishedLoadingKanjiDatabase && dbLoadThreadKanji != null) dbLoadThreadKanji.interrupt();
-                if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
-                    hideLoadingIndicator();
-                    countDownTimer.onFinish();
-                    countDownTimer.cancel();
-                }
 
                 mTicks++;
+                if (finishedLoadingCentralDatabase && finishedLoadingKanjiDatabase) {
+                    mTicks = -1;
+                }
             }
 
             @Override

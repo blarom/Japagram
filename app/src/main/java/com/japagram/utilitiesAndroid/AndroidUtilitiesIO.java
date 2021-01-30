@@ -59,6 +59,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -373,6 +374,7 @@ public class AndroidUtilitiesIO {
             List<IndexFrench> indexFrenchList = new ArrayList<>();
             List<IndexSpanish> indexSpanishList = new ArrayList<>();
             List<IndexKanji> indexKanjiList = new ArrayList<>();
+            String[] tokens;
             fileReader.readLine(); //Discarding the first line of the file (titles)
             int lineNum = 0;
             int MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK = 3;
@@ -393,7 +395,7 @@ public class AndroidUtilitiesIO {
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
                     increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_WORDS) * Globals.EXTENDED_DB_SIZE_WORDS * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             Word word = AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens);
@@ -417,7 +419,7 @@ public class AndroidUtilitiesIO {
                     blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK * 2;
                     increment = ((float) blocksize / Globals.NAMES_DB_LINES_WORDS * (Globals.NAMES_DB_SIZE_WORDS * 100.f / Globals.NAMES_DB_SIZE_TOTAL));
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             Word word = AndroidUtilitiesDb.createWordFromNamesDatabase(tokens);
@@ -446,7 +448,7 @@ public class AndroidUtilitiesIO {
                     }
                     IndexRomajiDao indexRomajiDao = (IndexRomajiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             IndexRomaji index = new IndexRomaji(tokens[0], tokens[1]);
@@ -477,7 +479,7 @@ public class AndroidUtilitiesIO {
                     }
                     IndexEnglishDao indexEnglishDao = (IndexEnglishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             IndexEnglish index = new IndexEnglish(tokens[0], tokens[1]);
@@ -504,7 +506,7 @@ public class AndroidUtilitiesIO {
                     }
                     IndexFrenchDao indexFrenchDao = (IndexFrenchDao) dao;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             IndexFrench index = new IndexFrench(tokens[0], tokens[1]);
@@ -529,7 +531,7 @@ public class AndroidUtilitiesIO {
                     }
                     IndexSpanishDao indexSpanishDao = (IndexSpanishDao) dao;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             IndexSpanish index = new IndexSpanish(tokens[0], tokens[1]);
@@ -558,7 +560,7 @@ public class AndroidUtilitiesIO {
                     }
                     IndexKanjiDao indexKanjiDao = (IndexKanjiDao) dao;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
                             if (tokens[0].equals("")) break;
                             IndexKanji indexKanji = new IndexKanji(tokens[0], tokens[1], tokens[2]);
@@ -582,22 +584,65 @@ public class AndroidUtilitiesIO {
                     indexKanjiDao.insertAll(indexKanjiList);
                     break;
                 case "kanjiCharactersDb":
-                    KanjiCharacterDao kanjiCharacterDaoDao = (KanjiCharacterDao) dao;
+                    List<String[]> KanjiDict_Database = AndroidUtilitiesIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
+
+                    HashMap<String, String[]> kanjiProperties = new HashMap<>();
+                    String key;
+                    for (int i=0; i<KanjiDict_Database.size(); i++) {
+                        key = KanjiDict_Database.get(i)[0];
+                        if (TextUtils.isEmpty(key)) break;
+                        String[] readings = KanjiDict_Database.get(i)[1].split("#",-1); //-1 to prevent discarding last empty string
+                        kanjiProperties.put(key, new String[]{
+                                readings.length > 2? readings[0].trim() : "",
+                                readings.length > 2? readings[1].trim() : "",
+                                readings.length > 2? readings[2].trim() : "",
+                                KanjiDict_Database.get(i)[2],
+                                KanjiDict_Database.get(i)[3],
+                                KanjiDict_Database.get(i)[4]
+                        });
+                    }
+
+                    List<String[]> RadicalsDatabase = AndroidUtilitiesIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
+                    HashMap<String, String> radicalProperties = new HashMap<>();
+                    for (int i=0; i<RadicalsDatabase.size(); i++) {
+                        key = RadicalsDatabase.get(i)[0];
+                        if (TextUtils.isEmpty(key)) break;
+                        radicalProperties.put(key, RadicalsDatabase.get(i)[1]);
+                    }
+
+                    KanjiCharacterDao kanjiCharacterDao = (KanjiCharacterDao) dao;
+                    String[] properties;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 0) {
-                            if (TextUtils.isEmpty(tokens[0])) break;
-                            KanjiCharacter kanjiCharacter = new KanjiCharacter(tokens[0], tokens[1], tokens[2]);
-                            kanjiCharacter.setKanji(OvUtilsGeneral.convertFromUTF8Index(kanjiCharacter.getHexIdentifier()));
+                            key = tokens[0];
+                            if (TextUtils.isEmpty(key)) break;
+                            KanjiCharacter kanjiCharacter = new KanjiCharacter(key, tokens[1], tokens[2]);
+                            kanjiCharacter.setKanji(OvUtilsGeneral.convertFromUTF8Index(key));
+                            if (kanjiProperties.containsKey(key)) {
+                                properties = kanjiProperties.get(key);
+                                if (properties != null && properties.length == 6) {
+                                    kanjiCharacter.setOnReadings(properties[0]);
+                                    kanjiCharacter.setKunReadings(properties[1]);
+                                    kanjiCharacter.setNameReadings(properties[2]);
+                                    kanjiCharacter.setMeaningsEN(properties[3]);
+                                    kanjiCharacter.setMeaningsFR(properties[4]);
+                                    kanjiCharacter.setMeaningsES(properties[5]);
+                                    kanjiCharacter.setUsedInJapanese(1);
+                                }
+                            }
+                            if (radicalProperties.containsKey(key)) {
+                                kanjiCharacter.setRadPlusStrokes(radicalProperties.get(key));
+                            }
                             kanjiCharacterList.add(kanjiCharacter);
                         }
                         lineNum++;
                         if (lineNum % MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK == 0) {
-                            kanjiCharacterDaoDao.insertAll(kanjiCharacterList);
+                            kanjiCharacterDao.insertAll(kanjiCharacterList);
                             kanjiCharacterList = new ArrayList<>();
                         }
                     }
-                    kanjiCharacterDaoDao.insertAll(kanjiCharacterList);
+                    kanjiCharacterDao.insertAll(kanjiCharacterList);
                     break;
                 case "kanjiComponentsDb":
                     KanjiComponentDao kanjiComponentDao = (KanjiComponentDao) dao;
@@ -611,7 +656,7 @@ public class AndroidUtilitiesIO {
                     String secondElement;
                     boolean isBlockTitle;
                     while ((line = fileReader.readLine()) != null) {
-                        String[] tokens = line.split("\\|", -1);
+                        tokens = line.split("\\|", -1);
                         if (tokens.length > 1) {
                             if (TextUtils.isEmpty(tokens[0])) break;
                             firstElement = tokens[0];

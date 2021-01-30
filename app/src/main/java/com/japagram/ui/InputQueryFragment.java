@@ -13,6 +13,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -106,7 +107,7 @@ public class InputQueryFragment extends Fragment implements
     private TessBaseAPI mTess;
     private String mInternalStorageTesseractFolderPath = "";
     private final HashMap<String, Boolean> mInitializedOcrApi = initializeTessLanguageFlags(false);
-    private final HashMap<String, Boolean> firstTimeInitialized = initializeTessLanguageFlags(true);
+    private final HashMap<String, Boolean> mFirstTimeInitialized = initializeTessLanguageFlags(true);
     private final HashMap<String, Boolean> mOcrDataIsAvailable = initializeTessLanguageFlags(false);
     private final HashMap<String, Boolean> mOcrFileIsDownloading = initializeTessLanguageFlags(false);
     private String mOCRLanguage;
@@ -341,11 +342,12 @@ public class InputQueryFragment extends Fragment implements
         binding.buttonDecompose.setEnabled(true);
 
         //https://stackoverflow.com/questions/36661068/edittext-drwableleft-dont-work-with-vectors
+        Resources resources = getActivity().getResources();
         binding.buttonClearQuery.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_clear_black_24dp, binding.buttonClearQuery.getContext().getTheme()),
+                VectorDrawableCompat.create(resources, R.drawable.ic_clear_black_24dp, binding.buttonClearQuery.getContext().getTheme()),
                 null, null, null);
         binding.buttonShowHistory.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                VectorDrawableCompat.create(getActivity().getResources(), R.drawable.ic_history_black_24dp, binding.buttonShowHistory.getContext().getTheme()),
+                VectorDrawableCompat.create(resources, R.drawable.ic_history_black_24dp, binding.buttonShowHistory.getContext().getTheme()),
                 null, null, null);
 
     }
@@ -529,38 +531,38 @@ public class InputQueryFragment extends Fragment implements
         }
         else {
             if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_JPN) && mOCRLanguage.equals(OCR_LANG_JPN)) {
-                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_JPN)) {
+                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_JPN)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    setHashKeyValue(firstTimeInitialized, OCR_LANG_JPN, false);
+                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_JPN, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
             } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_ENG) && mOCRLanguage.equals(OCR_LANG_ENG)) {
-                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_ENG)) {
+                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_ENG)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    setHashKeyValue(firstTimeInitialized, OCR_LANG_ENG, false);
+                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_ENG, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
             } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_FRA) && mOCRLanguage.equals(OCR_LANG_FRA)) {
-                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_FRA)) {
+                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_FRA)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    setHashKeyValue(firstTimeInitialized, OCR_LANG_FRA, false);
+                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_FRA, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();
             } else if (getHashKeyIsTrue(mInitializedOcrApi, OCR_LANG_SPA) && mOCRLanguage.equals(OCR_LANG_SPA)) {
-                if (getHashKeyIsTrue(firstTimeInitialized, OCR_LANG_SPA)) {
+                if (getHashKeyIsTrue(mFirstTimeInitialized, OCR_LANG_SPA)) {
                     Toast toast = Toast.makeText(getActivity(), getResources().getString(R.string.OCRinstructions), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
-                    setHashKeyValue(firstTimeInitialized, OCR_LANG_FRA, false);
+                    setHashKeyValue(mFirstTimeInitialized, OCR_LANG_FRA, false);
                 }
                 timesPressed = 0;
                 performImageCaptureAndCrop();

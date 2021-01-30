@@ -9,6 +9,9 @@ import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -94,41 +97,12 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
         AndroidUtilitiesIO.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
 
-        List<String[]> KanjiDict_Database = AndroidUtilitiesIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
-        List<String[]> RadicalsDatabase = AndroidUtilitiesIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
-
-        for (int i=0; i<KanjiDict_Database.size(); i++) {
-            if (TextUtils.isEmpty(KanjiDict_Database.get(i)[0])) break;
-            KanjiCharacter kanjiCharacter = kanjiCharacter().getKanjiCharacterByHexId(KanjiDict_Database.get(i)[0]);
-            if (kanjiCharacter!=null) {
-                String[] readings = KanjiDict_Database.get(i)[1].split("#",-1); //-1 to prevent discarding last empty string
-
-                kanjiCharacter.setOnReadings(readings.length > 2? readings[0].trim() : "");
-                kanjiCharacter.setKunReadings(readings.length > 2? readings[1].trim() : "");
-                kanjiCharacter.setNameReadings(readings.length > 2? readings[2].trim() : "");
-                kanjiCharacter.setMeaningsEN(KanjiDict_Database.get(i)[2]);
-                kanjiCharacter.setMeaningsFR(KanjiDict_Database.get(i)[3]);
-                kanjiCharacter.setMeaningsES(KanjiDict_Database.get(i)[4]);
-                kanjiCharacter.setUsedInJapanese(1);
-                kanjiCharacter().update(kanjiCharacter);
-            }
-        }
-
-        for (int i=0; i<RadicalsDatabase.size(); i++) {
-            if (TextUtils.isEmpty(RadicalsDatabase.get(i)[0])) break;
-            KanjiCharacter kanjiCharacter = kanjiCharacter().getKanjiCharacterByHexId(RadicalsDatabase.get(i)[0]);
-            if (kanjiCharacter!=null) {
-                kanjiCharacter.setRadPlusStrokes(RadicalsDatabase.get(i)[1]);
-                kanjiCharacter().update(kanjiCharacter);
-            }
-        }
-
         Log.i("Diagnosis Time","Loaded Kanji Characters Database.");
     }
 
     //Switches the internal implementation with an empty in-memory database
     @VisibleForTesting
-    public static void switchToInMemory(Context context) {
+    public static void switchToInMemory(@NotNull Context context) {
         sInstance = Room
                 .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class)
                 .build();
@@ -136,7 +110,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
     private static final Migration FROM_1_TO_2 = new Migration(1, 2) {
         @Override
-        public void migrate(final SupportSQLiteDatabase database) {
+        public void migrate(final @NotNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE Repo ADD COLUMN createdAt TEXT");
         }
     };

@@ -104,13 +104,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/splashscreen_loading_indicator"
-            android:layout_marginBottom="96dp"
             android:gravity="center"
             android:text="@string/loading_central_database"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="?attr/colorPrimaryNormal"
             android:textSize="16sp"
-            android:visibility="gone" />
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/splashscreen_time_to_load" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
