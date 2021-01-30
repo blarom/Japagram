@@ -1,7 +1,6 @@
 package com.japagram.ui;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -45,7 +44,6 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -501,8 +499,7 @@ public class SearchByRadicalFragment extends Fragment implements
         Window window = alertDialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setGravity(Gravity.CENTER);
-        alertDialog.setTitle(R.string.OCRDialogTitle);
-        alertDialog.setTitle(type.equals("overall")? "Choose the overall structure" : "Choose the component's structure");
+        alertDialog.setTitle(type.equals("overall")? R.string.choose_overall_structure : R.string.choose_component_structure);
         alertDialog.setView(dialogView);
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.ok),
                 (dialog, which) -> {

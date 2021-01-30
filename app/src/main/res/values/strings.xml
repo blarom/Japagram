@@ -153,6 +153,8 @@
     <string name="TextToSpeechLanguageJapanese" translatable="false">jpn</string>
     <string name="TextToSpeechLanguageEnglish" translatable="false">eng</string>
     <string name="OCRDialogTitle">Select text to copy to input</string>
+    <string name="choose_overall_structure">Choose the overall structure</string>
+    <string name="choose_component_structure">Choose the component\'s structure</string>
     <string name="LowVersionDialogMessage">Your Android version is too low</string>
     <string name="cancel">Cancel</string>
     <string name="readjust">Retouch</string>

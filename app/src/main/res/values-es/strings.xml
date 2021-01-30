@@ -293,6 +293,8 @@
          ~ Puede tardar 5 minutos ~</string>
     <string name="loading_names_database">Instalando la base de datos de nombres.\n~ Puede tardar 20 minutos ~</string>
     <string name="loading_kanji_database">Instalando la base de datos de kanji.</string>
+    <string name="choose_overall_structure">Elija la estructura general</string>
+    <string name="choose_component_structure">Elija la estructura del componente</string>
     <string name="first_time_installing">NOTA: Puede llevar hasta 5\-10min para instalar el diccionario completo y obtener resultados de búsqueda completos.</string>
     <string name="finished_loading_databases">Terminé de cargar las bases de datos.</string>
     <string name="database_being_installed">La base de datos se está instalando actualmente.\nEsto puede tardar unos minutos.\nEste retraso solo se produce al instalar o actualizar la aplicación.</string>
