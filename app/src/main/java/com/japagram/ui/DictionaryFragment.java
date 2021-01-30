@@ -267,15 +267,19 @@ public class DictionaryFragment extends Fragment implements
         } else if (mWaitingForConjResults && showConjResults) {
             if (waitForAllResults) {
                 binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
+                binding.dictionaryHint.setVisibility(View.VISIBLE);
+                binding.dictionaryResults.setVisibility(View.GONE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Waiting for Local results");
             } else {
                 updateDisplayedList();
             }
         } else if (!mWaitingForConjResults) {
-            if (waitForAllResults || haveMoreWordsForDisplayedList) {
+            if (haveMoreWordsForDisplayedList) {
                 updateDisplayedList();
             } else {
                 binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
+                binding.dictionaryHint.setVisibility(View.VISIBLE);
+                binding.dictionaryResults.setVisibility(View.GONE);
                 Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
                 hideLoadingIndicator();
