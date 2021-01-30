@@ -1049,7 +1049,7 @@ public class InputQueryFragment extends Fragment implements
     }
     private void speakOut(String text) {
         setTTSLanguage();
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
     }
 
 
