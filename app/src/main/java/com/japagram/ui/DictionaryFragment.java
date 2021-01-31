@@ -73,8 +73,8 @@ public class DictionaryFragment extends Fragment implements
     private VerbSearchAsyncTask mVerbSearchAsyncTask;
     private boolean mShowNames;
     private String mLanguage;
-    private boolean mWaitingForLocalResults = true;
-    private boolean mWaitingForConjResults = true;
+    private boolean mReceivedLocalResults = false;
+    private boolean mReceivedConjResults = false;
     //endregion
 
 
@@ -247,40 +247,26 @@ public class DictionaryFragment extends Fragment implements
             if (mLocalMatchingWordsList.size() > 0) {
                 mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mLocalMatchingWordsList);
             }
-            mWaitingForLocalResults = false;
+            mReceivedLocalResults = true;
         } else if (sourceType == CONJ) {
             if (mMatchingWordsFromVerbs.size() > 0) {
                 mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs);
             }
-            mWaitingForConjResults = false;
+            mReceivedConjResults = true;
         }
         haveMoreWordsForDisplayedList = mMergedMatchingWordsList.size() > oldSize;
 
-        if (mWaitingForLocalResults && mWaitingForConjResults) {
-            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Still waiting for all sources - this line should not be printed!");
-        } else if (mWaitingForLocalResults) {
-            if (!waitForAllResults){
-                if (haveMoreWordsForDisplayedList) {
-                    updateDisplayedList();
-                }
-            }
-        } else if (mWaitingForConjResults && showConjResults) {
-            if (waitForAllResults) {
-                binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_match_found_for_now)));
-                binding.dictionaryHint.setVisibility(View.VISIBLE);
-                binding.dictionaryResults.setVisibility(View.GONE);
-                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Waiting for Local results");
-            } else {
+        if ( mMergedMatchingWordsList.size() > 0 ) {
+            if (!waitForAllResults && haveMoreWordsForDisplayedList || waitForAllResults && mReceivedLocalResults && mReceivedConjResults) {
                 updateDisplayedList();
+                mSuccessfullyDisplayedResultsBeforeTimeout = true;
+                hideLoadingIndicator();
             }
-        } else if (!mWaitingForConjResults) {
-            if (haveMoreWordsForDisplayedList) {
-                updateDisplayedList();
-            } else {
+        } else {
+            if (mReceivedLocalResults && mReceivedConjResults) {
                 binding.dictionaryHint.setText(OvUtilsGeneral.fromHtml(getResources().getString(R.string.no_results_found)));
                 binding.dictionaryHint.setVisibility(View.VISIBLE);
                 binding.dictionaryResults.setVisibility(View.GONE);
-                Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Display successful for Local + Conj Search");
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
                 hideLoadingIndicator();
             }
