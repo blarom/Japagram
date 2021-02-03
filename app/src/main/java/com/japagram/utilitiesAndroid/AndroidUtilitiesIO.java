@@ -573,22 +573,23 @@ public class AndroidUtilitiesIO {
         }
     }
 
-    public static void insertWordBlock(@NotNull List<String> lineBlock, Context context, Object dao, float increment, int blockSizeForDisplay) {
+    public static void insertWordBlock(@NotNull List<String> lineBlock, Context context, Object dao, float increment, int blockSizeForDisplay, String database) {
         String[] tokens;
-        float currentProgress = AndroidUtilitiesPrefs.getProgressValueForDbInstallation(context, Globals.EXTENDED_DB);
+        float currentProgress = AndroidUtilitiesPrefs.getProgressValueForDbInstallation(context, database);
         List<Word> elements = new ArrayList<>();
+        boolean extendedDb = database.equals(Globals.EXTENDED_DB);
         int lineNum = 0;
         for (String line : lineBlock) {
             tokens = line.split("\\|", -1);
             if (tokens.length > 0) {
                 if (tokens[0].equals("")) break;
-                Word element = AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens);
+                Word element = extendedDb? AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens) : AndroidUtilitiesDb.createWordFromNamesDatabase(tokens);
                 elements.add(element);
             }
             lineNum++;
             if (lineNum % blockSizeForDisplay == 0) {
                 currentProgress += increment;
-                AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, currentProgress, Globals.EXTENDED_DB);
+                AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, currentProgress, database);
             }
         }
         ((WordDao) dao).insertAll(elements);

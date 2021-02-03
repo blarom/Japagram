@@ -75,8 +75,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
             AndroidUtilitiesPrefs.setAppPreferenceNamesDatabasesFinishedLoadingFlag(context, false);
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - Words.csv", context, "namesDbWords", word());
-                loadIntoDatabase("LineNamesDb - Words.csv", "namesDbWords", 2000, context, word());
+                loadIntoDatabase("LineNamesDb - Words.csv", "namesDbWords", 40000, context, word());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Words Database.");
             });
         }
@@ -85,8 +84,6 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
                 if (Looper.myLooper() == null) Looper.prepare();
                 loadIntoDatabase("LineNamesDb - RomajiIndex.csv", "indexRomaji", 50000, context, indexRomaji());
                 loadIntoDatabase("LineNamesDb - KanjiIndex.csv", "indexKanji", 50000, context, indexKanji());
-//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji());
-//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineNamesDb - KanjiIndex.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG,"Loaded Names Indexes Database.");
                 AndroidUtilitiesPrefs.setAppPreferenceDbVersionNames(context, Globals.NAMES_DB_VERSION);
             });
@@ -99,7 +96,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
         List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context);
         HashMap<String, float[]> parameters = new HashMap<>();
-        parameters.put("namesDbWords", new float[]{(float) blockSize / 4,    Globals.NAMES_DB_LINES_WORDS,         Globals.NAMES_DB_SIZE_WORDS});
+        parameters.put("namesDbWords", new float[]{(float) blockSize / 2,    Globals.NAMES_DB_LINES_WORDS,         Globals.NAMES_DB_SIZE_WORDS});
         parameters.put("indexRomaji",     new float[]{(float) blockSize / 4, Globals.NAMES_DB_LINES_ROMAJI_INDEX,  Globals.NAMES_DB_SIZE_ROMAJI_INDEX});
         parameters.put("indexKanji",      new float[]{(float) blockSize,     Globals.NAMES_DB_LINES_KANJI_INDEX,   Globals.NAMES_DB_SIZE_KANJI_INDEX});
 
@@ -107,7 +104,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
         if (database.equals("namesDbWords")) {
             for (List<String> lineBlock : lineBlocks) {
-                runInTransaction(() -> AndroidUtilitiesIO.insertWordBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0]));
+                runInTransaction(() -> AndroidUtilitiesIO.insertWordBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0], Globals.NAMES_DB));
             }
         } else {
             for (List<String> lineBlock : lineBlocks) {

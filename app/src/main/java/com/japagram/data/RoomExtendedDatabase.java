@@ -124,7 +124,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
         if (database.equals("extendedDbWords")) {
             for (List<String> lineBlock : lineBlocks) {
-                runInTransaction(() -> AndroidUtilitiesIO.insertWordBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0]));
+                runInTransaction(() -> AndroidUtilitiesIO.insertWordBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0], Globals.EXTENDED_DB));
             }
         } else {
             for (List<String> lineBlock : lineBlocks) {
