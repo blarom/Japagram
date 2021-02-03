@@ -22,6 +22,8 @@ public final class Globals {
     public static final int SMALL_WORD_LENGTH = 3;
     public static final String FIREBASE_EMAIL = BuildConfig.firebaseEmail;
     public static final String FIREBASE_PASS = BuildConfig.firebasePass;
+    public static final String NAMES_DB = "namesDb";
+    public static final String EXTENDED_DB = "extendedDb";
     public static List<String[]> GLOBAL_SIMILARS_DATABASE;
     public static List<String[]> GLOBAL_VERB_LATIN_CONJ_DATABASE;
     public static List<String[]> GLOBAL_VERB_KANJI_CONJ_DATABASE;
@@ -77,22 +79,26 @@ public final class Globals {
     public static final int KANJI_SEARCH_RESULT_NO_JAP_NO_PRINTABLE_RESULTS = 4;
 
     public static final float EXTENDED_DB_LINES_WORDS = 186965.f;
-    public static final float EXTENDED_DB_SIZE_WORDS = 16627.f;
     public static final float EXTENDED_DB_LINES_KANJI_INDEX = 220968.f;
-    public static final float EXTENDED_DB_SIZE_KANJI_INDEX = 4767.f;
     public static final float EXTENDED_DB_LINES_ENGLISH_INDEX = 68127.f;
-    public static final float EXTENDED_DB_SIZE_ENGLISH_INDEX = 5457.f;
     public static final float EXTENDED_DB_LINES_ROMAJI_INDEX = 177165.f;
+    public static final float EXTENDED_DB_LINES_FRENCH_INDEX = 12820.f;
+    public static final float EXTENDED_DB_LINES_SPANISH_INDEX = 24972.f;
+
+    public static final float EXTENDED_DB_SIZE_WORDS = 16627.f;
+    public static final float EXTENDED_DB_SIZE_KANJI_INDEX = 4767.f;
+    public static final float EXTENDED_DB_SIZE_ENGLISH_INDEX = 5457.f;
     public static final float EXTENDED_DB_SIZE_ROMAJI_INDEX = 3681.f;
     public static final float EXTENDED_DB_SIZE_FRENCH_INDEX = 474.f;
     public static final float EXTENDED_DB_SIZE_SPANISH_INDEX = 924.f;
     public static final float EXTENDED_DB_SIZE_TOTAL = EXTENDED_DB_SIZE_WORDS + EXTENDED_DB_SIZE_KANJI_INDEX + EXTENDED_DB_SIZE_ENGLISH_INDEX + EXTENDED_DB_SIZE_ROMAJI_INDEX + EXTENDED_DB_SIZE_FRENCH_INDEX + EXTENDED_DB_SIZE_SPANISH_INDEX;
 
     public static final float NAMES_DB_LINES_WORDS = 737309.f;
-    public static final float NAMES_DB_SIZE_WORDS = 22597.f;
     public static final float NAMES_DB_LINES_KANJI_INDEX = 607507.f;
-    public static final float NAMES_DB_SIZE_KANJI_INDEX = 12761.f;
     public static final float NAMES_DB_LINES_ROMAJI_INDEX = 413295.f;
+
+    public static final float NAMES_DB_SIZE_WORDS = 22597.f;
+    public static final float NAMES_DB_SIZE_KANJI_INDEX = 12761.f;
     public static final float NAMES_DB_SIZE_ROMAJI_INDEX = 10545.f;
     public static final float NAMES_DB_SIZE_TOTAL = NAMES_DB_SIZE_WORDS + NAMES_DB_SIZE_WORDS + NAMES_DB_SIZE_KANJI_INDEX + NAMES_DB_SIZE_ROMAJI_INDEX;
 

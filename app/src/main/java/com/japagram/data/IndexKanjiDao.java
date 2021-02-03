@@ -5,6 +5,7 @@ import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,11 +18,11 @@ public interface IndexKanjiDao {
     int count();
 
     //Insert IndexKanji into table
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(IndexKanji IndexKanji);
 
     //Insert multiple KanjiIndexes into table
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertAll(List<IndexKanji> indexKanjis);
 
     //Get all KanjiIndexes in the table

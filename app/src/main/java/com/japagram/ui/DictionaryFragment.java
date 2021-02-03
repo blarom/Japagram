@@ -59,9 +59,6 @@ public class DictionaryFragment extends Fragment implements
     private List<Word> mLocalMatchingWordsList;
     private List<Word> mMergedMatchingWordsList;
     private FirebaseDao mFirebaseDao;
-    private boolean mAlreadyLoadedRoomResults;
-    private boolean mAlreadyLoadedJishoResults;
-    private boolean mAlreadyLoadedConjResults;
     private DictionaryRecyclerViewAdapter mDictionaryRecyclerViewAdapter;
     private List<Word> mJishoMatchingWordsList;
     private List<Word> mDifferentJishoWords;
@@ -142,8 +139,6 @@ public class DictionaryFragment extends Fragment implements
         mLocalMatchingWordsList = new ArrayList<>();
         mMergedMatchingWordsList = new ArrayList<>();
 
-        mAlreadyLoadedRoomResults = false;
-        mAlreadyLoadedJishoResults = false;
         mLanguage = LocaleHelper.getLanguage(getContext());
     }
     private void initializeViews() {
@@ -314,9 +309,6 @@ public class DictionaryFragment extends Fragment implements
     }
     public void setQuery(String query) {
         mInputQuery = new InputQuery(query);
-        mAlreadyLoadedRoomResults = false;
-        mAlreadyLoadedJishoResults = false;
-        mAlreadyLoadedConjResults = false;
         getQuerySearchResults();
     }
     void setShowNames(boolean status) {
@@ -334,8 +326,6 @@ public class DictionaryFragment extends Fragment implements
         if (getContext()==null) return;
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Finished Words Search AsyncTask");
 
-        mAlreadyLoadedRoomResults = true;
-
         mLocalMatchingWordsList = words;
         mLocalMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mLocalMatchingWordsList, mInputQuery, mLanguage);
 
@@ -348,8 +338,6 @@ public class DictionaryFragment extends Fragment implements
     @Override public void onJishoSearchAsyncTaskResultFound(List<Word> loaderResultWordsList) {
 
         if (getContext()==null) return;
-
-        mAlreadyLoadedJishoResults = true;
         mJishoMatchingWordsList = AndroidUtilitiesWeb.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
         mJishoMatchingWordsList = AndroidUtilitiesWeb.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
         for (Word word : mJishoMatchingWordsList) word.setIsLocal(false);
@@ -374,7 +362,6 @@ public class DictionaryFragment extends Fragment implements
         if (getContext()==null) return;
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Finished Verbs Search AsyncTask");
 
-        mAlreadyLoadedConjResults = true;
         List<Verb> mMatchingVerbs = (List<Verb>) dataElements[0];
         mMatchingWordsFromVerbs = (List<Word>) dataElements[1];
         List<Object[]> mMatchingConjugationParametersList = (List<Object[]>) dataElements[2];

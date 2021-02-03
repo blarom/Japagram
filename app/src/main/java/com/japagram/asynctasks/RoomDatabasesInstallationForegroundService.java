@@ -19,6 +19,7 @@ import com.japagram.data.RoomNamesDatabase;
 import com.japagram.resources.LocaleHelper;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.ui.MainActivity;
+import com.japagram.utilitiesCrossPlatform.Globals;
 
 import java.util.Locale;
 
@@ -165,10 +166,10 @@ public class RoomDatabasesInstallationForegroundService extends Service {
                 String content;
                 int currentProgress = 100;
                 if (mExtendedDbBeingLoaded) {
-                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueExtendedDb(getBaseContext());
+                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueForDbInstallation(getBaseContext(), Globals.EXTENDED_DB);
                     content = getBaseContext().getString(R.string.installing_EDICT) + " (" + currentProgress + "%)";
                 } else if (mNamesDbBeingLoaded) {
-                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueNamesDb(getBaseContext());
+                    currentProgress = (int) AndroidUtilitiesPrefs.getProgressValueForDbInstallation(getBaseContext(), Globals.NAMES_DB);
                     content = getBaseContext().getString(R.string.installing_names) + " (" + currentProgress + "%)";
                 } else {
                     content = getBaseContext().getString(R.string.finished);

@@ -69,7 +69,6 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                         .build();
 
                 sInstance.populateDatabases(context);
-                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             } catch (Exception e) {
                 //If migrations weren't set up from version X to verion X+1, do a destructive migration (rebuilds the db from sratch using the assets)
                 e.printStackTrace();
@@ -80,7 +79,6 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
                         .build();
 
                 sInstance.populateDatabases(context);
-                //sInstance.runInTransaction(() -> sInstance.populateDatabases(context));
             }
         }
         return sInstance;
@@ -105,11 +103,16 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         if (this.indexEnglish().count() == 0) {
             runInTransaction(() -> {
                 if (Looper.myLooper() == null) Looper.prepare();
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
+                loadIntoDatabase("LineGrammarSortedIndexRomaji - 3000 kanji.csv", "indexRomaji", 50000, context, indexRomaji());
+                loadIntoDatabase("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", "indexEnglish", 50000, context, indexEnglish());
+                loadIntoDatabase("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", "indexFrench", 50000, context, indexFrench());
+                loadIntoDatabase("LineGrammarSortedIndexLatinES - 3000 kanji.csv", "indexSpanish", 50000, context, indexSpanish());
+                loadIntoDatabase("LineGrammarSortedIndexKanji - 3000 kanji.csv", "indexKanji", 50000, context, indexKanji());
+//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexRomaji - 3000 kanji.csv", context, "indexRomaji", indexRomaji());
+//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinEN - 3000 kanji.csv", context, "indexEnglish", indexEnglish());
+//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinFR - 3000 kanji.csv", context, "indexFrench", indexFrench());
+//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexLatinES - 3000 kanji.csv", context, "indexSpanish", indexSpanish());
+//                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineGrammarSortedIndexKanji - 3000 kanji.csv", context, "indexKanji", indexKanji());
                 Log.i(Globals.DEBUG_TAG, "Loaded Central Indexes Database.");
                 mFinishedLoadingIndexes = true;
                 registerDbWasLoaded(context);
@@ -118,6 +121,22 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
         } else mFinishedLoadingIndexes = true;
         registerDbWasLoaded(context);
 
+    }
+    public void loadIntoDatabase(String filename, @NotNull String database, int blockSize, Context context, Object dao) {
+
+        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context);
+        HashMap<String, float[]> parameters = new HashMap<>();
+        parameters.put("indexRomaji",     new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ROMAJI_INDEX,  Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX});
+        parameters.put("indexEnglish",    new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ENGLISH_INDEX, Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX});
+        parameters.put("indexFrench",     new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_FRENCH_INDEX,  Globals.EXTENDED_DB_SIZE_FRENCH_INDEX});
+        parameters.put("indexSpanish",    new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_SPANISH_INDEX, Globals.EXTENDED_DB_SIZE_SPANISH_INDEX});
+        parameters.put("indexKanji",      new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_KANJI_INDEX,   Globals.EXTENDED_DB_SIZE_KANJI_INDEX});
+
+        float increment = ((parameters.get(database)[0] / parameters.get(database)[1]) * parameters.get(database)[2] * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
+
+        for (List<String> lineBlock : lineBlocks) {
+            runInTransaction(() -> AndroidUtilitiesIO.insertIndexBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0], database));
+        }
     }
     private void registerDbWasLoaded(Context context) {
         if (mFinishedLoadingCentralDb && mFinishedLoadingIndexes) {

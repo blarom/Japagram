@@ -5,6 +5,7 @@ import java.util.List;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -17,11 +18,11 @@ public interface KanjiComponentDao {
     int count();
 
     //Insert KanjiComponent into table
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(KanjiComponent KanjiComponent);
 
     //Insert multiple KanjiComponents into table
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long[] insertAll(List<KanjiComponent> KanjiComponents);
 
     //Get all KanjiComponents in the table

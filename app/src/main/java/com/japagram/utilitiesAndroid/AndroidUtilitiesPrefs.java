@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 
 import com.japagram.R;
+import com.japagram.utilitiesCrossPlatform.Globals;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ import androidx.annotation.ColorInt;
 import androidx.preference.PreferenceManager;
 
 public final class AndroidUtilitiesPrefs {
+
     private AndroidUtilitiesPrefs() {
     }
 
@@ -277,32 +279,28 @@ public final class AndroidUtilitiesPrefs {
         return sharedPref.getInt(context.getString(R.string.pref_db_version_names), 1);
     }
 
-    public static void setProgressValueExtendedDb(Context context, float value) {
+    public static void setProgressValueForDbInstallation(Context context, float value, String db) {
         if (context != null) {
             SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putFloat(context.getString(R.string.progress_value_extended_db), value);
+            if (db.equals(Globals.EXTENDED_DB)) {
+                editor.putFloat(context.getString(R.string.progress_value_extended_db), value);
+            } else if (db.equals(Globals.NAMES_DB)) {
+                editor.putFloat(context.getString(R.string.progress_value_names_db), value);
+            }
             editor.apply();
         }
     }
 
-    public static float getProgressValueExtendedDb(@NotNull Context context) {
+    public static float getProgressValueForDbInstallation(@NotNull Context context, @NotNull String db) {
         SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getFloat(context.getString(R.string.progress_value_extended_db), 0.f);
-    }
 
-    public static void setProgressValueNamesDb(Context context, float value) {
-        if (context != null) {
-            SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putFloat(context.getString(R.string.progress_value_names_db), value);
-            editor.apply();
+        if (db.equals(Globals.EXTENDED_DB)) {
+            return sharedPref.getFloat(context.getString(R.string.progress_value_extended_db), 0.f);
+        } else if (db.equals(Globals.NAMES_DB)) {
+            return sharedPref.getFloat(context.getString(R.string.progress_value_names_db), 0.f);
         }
-    }
-
-    public static float getProgressValueNamesDb(@NotNull Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(context.getString(R.string.app_preferences), Context.MODE_PRIVATE);
-        return sharedPref.getFloat(context.getString(R.string.progress_value_names_db), 0.f);
+        return 0.f;
     }
 
     public static void setAppPreferenceColorTheme(Context context, String theme) {

@@ -8,10 +8,14 @@ import android.util.Log;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
+import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -44,8 +48,15 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
                 }
                 //Use this clause if you want to upgrade the database without destroying the previous database. Here, FROM_1_TO_2 is never satisfied since database version > 2.
                 sInstance = Room
-                        .databaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class, "japanese_toolbox_kanji_room_database")
+                        .databaseBuilder(context.getApplicationContext(), RoomKanjiDatabase.class, "japagram_kanji_room_database")
                         .addMigrations(FROM_1_TO_2)
+                        .addCallback(new Callback() {
+                            @Override
+                            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                super.onCreate(db);
+                                //getInstance(context).populateDatabases(context);
+                            }
+                        })
                         .enableMultiInstanceInvalidation()
                         .build();
 
@@ -74,29 +85,151 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
     boolean mFinishedLoadingKanjiCharacterDb = false;
     boolean mFinishedLoadingKanjiComponentDb = false;
+
     private void populateDatabases(Context context) {
 
         AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, false);
         if (kanjiCharacter().count() == 0) {
             kanjiCharacter().nukeTable();
-            runInTransaction(() -> {
-                if (Looper.myLooper() == null) Looper.prepare();
-                loadKanjiCharactersIntoRoomDb(context);
-                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Characters Database.");
-                mFinishedLoadingKanjiCharacterDb = true;
-                AndroidUtilitiesIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
-                Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
-                mFinishedLoadingKanjiComponentDb = true;
-                registerDbWasLoaded(context);
-            });
-        } else mFinishedLoadingKanjiCharacterDb = true;
+
+            List<String[]> KanjiDict_Database = AndroidUtilitiesIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
+
+            HashMap<String, String[]> kanjiProperties = new HashMap<>();
+            for (int i = 0; i < KanjiDict_Database.size(); i++) {
+                String key = KanjiDict_Database.get(i)[0];
+                if (TextUtils.isEmpty(key)) break;
+                String[] readings = KanjiDict_Database.get(i)[1].split("#", -1); //-1 to prevent discarding last empty string
+                kanjiProperties.put(key, new String[]{
+                        readings.length > 2 ? readings[0].trim() : "",
+                        readings.length > 2 ? readings[1].trim() : "",
+                        readings.length > 2 ? readings[2].trim() : "",
+                        KanjiDict_Database.get(i)[2],
+                        KanjiDict_Database.get(i)[3],
+                        KanjiDict_Database.get(i)[4]
+                });
+            }
+
+            List<String[]> RadicalsDatabase = AndroidUtilitiesIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
+            HashMap<String, String> radicalProperties = new HashMap<>();
+            for (int i = 0; i < RadicalsDatabase.size(); i++) {
+                String key = RadicalsDatabase.get(i)[0];
+                if (TextUtils.isEmpty(key)) break;
+                radicalProperties.put(key, RadicalsDatabase.get(i)[1]);
+            }
+
+            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineCJK_Decomposition - 3000 kanji.csv", 5000, context);
+
+            for (List<String> lineBlock : lineBlocks) {
+                runInTransaction(() -> {
+                    String[] tokens;
+                    String[] properties;
+                    String key;
+                    List<KanjiCharacter> kanjiCharacterList = new ArrayList<>();
+                    for (String line : lineBlock) {
+                        tokens = line.split("\\|", -1);
+                        if (tokens.length > 0) {
+                            key = tokens[0];
+                            if (TextUtils.isEmpty(key)) break;
+                            KanjiCharacter kanjiCharacter = new KanjiCharacter(key, tokens[1], tokens[2]);
+                            kanjiCharacter.setKanji(OvUtilsGeneral.convertFromUTF8Index(key));
+                            if (kanjiProperties.containsKey(key)) {
+                                properties = kanjiProperties.get(key);
+                                if (properties != null && properties.length == 6) {
+                                    kanjiCharacter.setOnReadings(properties[0]);
+                                    kanjiCharacter.setKunReadings(properties[1]);
+                                    kanjiCharacter.setNameReadings(properties[2]);
+                                    kanjiCharacter.setMeaningsEN(properties[3]);
+                                    kanjiCharacter.setMeaningsFR(properties[4]);
+                                    kanjiCharacter.setMeaningsES(properties[5]);
+                                    kanjiCharacter.setUsedInJapanese(1);
+                                }
+                            }
+                            if (radicalProperties.containsKey(key)) {
+                                kanjiCharacter.setRadPlusStrokes(radicalProperties.get(key));
+                            }
+                            kanjiCharacterList.add(kanjiCharacter);
+                        }
+                    }
+                    if (Looper.myLooper() == null) Looper.prepare();
+                    kanjiCharacter().insertAll(kanjiCharacterList);
+                });
+            }
+            String key = "";
+            if (kanjiCharacter().count() == 0) {
+                key = key.replace(" ", "");
+            }
+            mFinishedLoadingKanjiCharacterDb = true;
+            registerDbWasLoaded(context);
+        } else {
+            mFinishedLoadingKanjiCharacterDb = true;
+        }
 
         if (kanjiComponent().count() == 0) {
-            runInTransaction(() -> {
-                if (Looper.myLooper() == null) Looper.prepare();
-                registerDbWasLoaded(context);
-            });
-        } else mFinishedLoadingKanjiComponentDb = true;
+
+            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineComponents - 3000 kanji.csv", 5000, context);
+
+            for (List<String> lineBlock : lineBlocks) {
+                runInTransaction(() -> {
+                    if (Looper.myLooper() == null) Looper.prepare();
+                    //AndroidUtilitiesIO.readCSVFileAndAddToDb("LineComponents - 3000 kanji.csv", context, "kanjiComponentsDb", kanjiComponent());
+
+                    //KanjiComponents are defined as structure -> component -> associatedComponents
+                    //NOTE: "full" block split into "full1" and "full2" to prevent memory crashes when requesting all kanji components with structure "full"
+                    //The CSV file starts with the "full" block, so "full1" is defined first
+                    List<KanjiComponent> kanjiComponents = new ArrayList<>();
+                    List<KanjiComponent.AssociatedComponent> associatedComponents = new ArrayList<>();
+                    KanjiComponent kanjiComponent = new KanjiComponent("full1");
+                    String firstElement;
+                    String secondElement;
+                    int lineNum = 0;
+                    boolean isBlockTitle;
+                    String[] tokens;
+                    int KANJI_COMPONENTS_FULL1_BLOCK_SIZE = 3000;
+                    int MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK = 3;
+                    for (String line : lineBlock) {
+                        tokens = line.split("\\|", -1);
+                        if (tokens.length > 1) {
+                            if (TextUtils.isEmpty(tokens[0])) break;
+                            firstElement = tokens[0];
+                            secondElement = tokens[1];
+                            isBlockTitle = secondElement.equals("");
+                            if (isBlockTitle || lineNum == KANJI_COMPONENTS_FULL1_BLOCK_SIZE) {
+                                kanjiComponent.setAssociatedComponents(associatedComponents);
+                                associatedComponents = new ArrayList<>();
+                                if (lineNum != 0) {
+                                    kanjiComponents.add(kanjiComponent);
+                                    if (kanjiComponents.size() % MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK == 0) {
+                                        kanjiComponent().insertAll(kanjiComponents);
+                                        kanjiComponents = new ArrayList<>();
+                                    }
+                                }
+
+                                //We define the kanjiComponent's structure here
+                                //Since the "full" block has no bockTitle line, it is defined before the loop starts and again when we switch to full2
+                                //Thereafter, the structure is defined by firstElement when isBlockTitle==true
+                                kanjiComponent = lineNum == KANJI_COMPONENTS_FULL1_BLOCK_SIZE ?
+                                        new KanjiComponent("full2") : new KanjiComponent(firstElement);
+                            }
+                            if (!isBlockTitle) {
+                                KanjiComponent.AssociatedComponent associatedComponent = new KanjiComponent.AssociatedComponent();
+                                associatedComponent.setComponent(firstElement);
+                                associatedComponent.setAssociatedComponents(secondElement);
+                                associatedComponents.add(associatedComponent);
+                            }
+                        }
+                        lineNum++;
+                    }
+                    kanjiComponent.setAssociatedComponents(associatedComponents);
+                    kanjiComponents.add(kanjiComponent);
+                    kanjiComponent().insertAll(kanjiComponents);
+                    Log.i(Globals.DEBUG_TAG, "Loaded Room Kanji Components Database.");
+                });
+            }
+            mFinishedLoadingKanjiComponentDb = true;
+            registerDbWasLoaded(context);
+        } else {
+            mFinishedLoadingKanjiComponentDb = true;
+        }
         registerDbWasLoaded(context);
     }
     private void registerDbWasLoaded(Context context) {
@@ -105,12 +238,6 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
             AndroidUtilitiesPrefs.setAppPreferenceKanjiDatabaseFinishedLoadingFlag(context, true);
         }
 
-    }
-    private void loadKanjiCharactersIntoRoomDb(Context context) {
-
-        AndroidUtilitiesIO.readCSVFileAndAddToDb("LineCJK_Decomposition - 3000 kanji.csv", context, "kanjiCharactersDb", kanjiCharacter());
-
-        Log.i("Diagnosis Time","Loaded Kanji Characters Database.");
     }
 
     //Switches the internal implementation with an empty in-memory database

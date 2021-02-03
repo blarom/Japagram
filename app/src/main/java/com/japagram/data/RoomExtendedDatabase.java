@@ -11,6 +11,7 @@ import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -84,29 +85,53 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
 
     private void populateDatabases(Context context) {
 
-        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, 0);
+        AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, 0, Globals.EXTENDED_DB);
+        if (Looper.myLooper() == null) Looper.prepare();
+
         if (word().count() == 0 || indexEnglish().count() == 0) {
             word().nukeTable();
             AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, false);
 
-            if (Looper.myLooper() == null) Looper.prepare();
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - Words.csv", context, "extendedDbWords", word()));
+            loadIntoDatabase("LineExtendedDb - Words.csv", "extendedDbWords", 2000, context, word());
             Log.i(Globals.DEBUG_TAG,"Loaded Extended Words Database.");
         }
         if (indexEnglish().count() == 0) {
 
-            if (Looper.myLooper() == null) Looper.prepare();
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - RomajiIndex.csv", context, "indexRomaji", indexRomaji()));
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - EnglishIndex.csv", context, "indexEnglish", indexEnglish()));
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - FrenchIndex.csv", context, "indexFrench", indexFrench()));
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - SpanishIndex.csv", context, "indexSpanish", indexSpanish()));
-            runInTransaction(() -> AndroidUtilitiesIO.readCSVFileAndAddToDb("LineExtendedDb - KanjiIndex.csv", context, "indexKanji", indexKanji()));
+            loadIntoDatabase("LineExtendedDb - RomajiIndex.csv", "indexRomaji", 50000, context, indexRomaji());
+            loadIntoDatabase("LineExtendedDb - EnglishIndex.csv", "indexEnglish", 50000, context, indexEnglish());
+            loadIntoDatabase("LineExtendedDb - FrenchIndex.csv", "indexFrench", 50000, context, indexFrench());
+            loadIntoDatabase("LineExtendedDb - SpanishIndex.csv", "indexSpanish", 50000, context, indexSpanish());
+            loadIntoDatabase("LineExtendedDb - KanjiIndex.csv", "indexKanji", 50000, context, indexKanji());
             Log.i(Globals.DEBUG_TAG,"Loaded Extended Indexes Database.");
             AndroidUtilitiesPrefs.setAppPreferenceDbVersionExtended(context, Globals.EXTENDED_DB_VERSION);
         }
         AndroidUtilitiesPrefs.setAppPreferenceExtendedDatabaseFinishedLoadingFlag(context, true);
-        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, 100);
+        AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, 100, Globals.EXTENDED_DB);
 
+    }
+    public void loadIntoDatabase(String filename, @NotNull String database, int blockSize, Context context, Object dao) {
+
+        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context);
+        HashMap<String, float[]> parameters = new HashMap<>();
+        parameters.put("extendedDbWords", new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_WORDS,         Globals.EXTENDED_DB_SIZE_WORDS});
+        parameters.put("indexRomaji",     new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ROMAJI_INDEX,  Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX});
+        parameters.put("indexEnglish",    new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ENGLISH_INDEX, Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX});
+        parameters.put("indexFrench",     new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_FRENCH_INDEX,  Globals.EXTENDED_DB_SIZE_FRENCH_INDEX});
+        parameters.put("indexSpanish",    new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_SPANISH_INDEX, Globals.EXTENDED_DB_SIZE_SPANISH_INDEX});
+        parameters.put("indexKanji",      new float[]{(float) blockSize,     Globals.EXTENDED_DB_LINES_KANJI_INDEX,   Globals.EXTENDED_DB_SIZE_KANJI_INDEX});
+
+        float increment = ((parameters.get(database)[0] / parameters.get(database)[1]) * parameters.get(database)[2] * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
+
+        if (database.equals("extendedDbWords")) {
+            for (List<String> lineBlock : lineBlocks) {
+                runInTransaction(() -> AndroidUtilitiesIO.insertWordBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0]));
+            }
+        } else {
+            for (List<String> lineBlock : lineBlocks) {
+                runInTransaction(() -> AndroidUtilitiesIO.insertIndexBlock(lineBlock, context, dao, increment, (int) parameters.get(database)[0], database));
+            }
+
+        }
     }
 
     //Switches the internal implementation with an empty in-memory database

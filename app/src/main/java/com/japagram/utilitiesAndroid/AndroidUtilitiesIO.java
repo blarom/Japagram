@@ -18,7 +18,6 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -42,8 +41,6 @@ import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexRomajiDao;
 import com.japagram.data.IndexSpanish;
 import com.japagram.data.IndexSpanishDao;
-import com.japagram.data.KanjiCharacter;
-import com.japagram.data.KanjiCharacterDao;
 import com.japagram.data.KanjiComponent;
 import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
@@ -60,7 +57,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -361,356 +357,6 @@ public class AndroidUtilitiesIO {
     }
 
     //IO utilities
-    public static void readCSVFileAndAddToDb(String filename, Context context, String dBType, Object dao) {
-
-        BufferedReader fileReader = null;
-        try {
-            String line;
-            fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
-            List<Word> wordList = new ArrayList<>();
-            List<KanjiCharacter> kanjiCharacterList = new ArrayList<>();
-            List<IndexRomaji> indexRomajiList = new ArrayList<>();
-            List<IndexEnglish> indexEnglishList = new ArrayList<>();
-            List<IndexFrench> indexFrenchList = new ArrayList<>();
-            List<IndexSpanish> indexSpanishList = new ArrayList<>();
-            List<IndexKanji> indexKanjiList = new ArrayList<>();
-            String[] tokens;
-            fileReader.readLine(); //Discarding the first line of the file (titles)
-            int lineNum = 0;
-            int MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK = 3;
-            int KANJI_COMPONENTS_FULL1_BLOCK_SIZE = 3000;
-            int MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK = 5000;
-            int MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK = 20000;
-            int MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK = 50000;
-
-            float currentProgress = 0;
-            float increment = 0;
-            int blocksize;
-            boolean isExtendedDb = filename.contains("Extended");
-            boolean isNamesDb = filename.contains("Names");
-            switch (dBType) {
-                case "extendedDbWords":
-                    WordDao extendedDbWordDao = (WordDao) dao;
-                    currentProgress = 0;
-                    blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
-                    increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_WORDS) * Globals.EXTENDED_DB_SIZE_WORDS * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            Word word = AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens);
-                            wordList.add(word);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK == 0) {
-                            extendedDbWordDao.insertAll(wordList);
-                            wordList = new ArrayList<>();
-                        }
-                        if (lineNum % blocksize == 0) {
-                            currentProgress += increment;
-                            AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                        }
-                    }
-                    extendedDbWordDao.insertAll(wordList);
-                    break;
-                case "namesDbWords":
-                    WordDao namesDbWordDao = (WordDao) dao;
-                    currentProgress = 0;
-                    blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK * 2;
-                    increment = ((float) blocksize / Globals.NAMES_DB_LINES_WORDS * (Globals.NAMES_DB_SIZE_WORDS * 100.f / Globals.NAMES_DB_SIZE_TOTAL));
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            Word word = AndroidUtilitiesDb.createWordFromNamesDatabase(tokens);
-                            wordList.add(word);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK == 0) {
-                            namesDbWordDao.insertAll(wordList);
-                            wordList = new ArrayList<>();
-                        }
-                        if (lineNum % blocksize == 0) {
-                            currentProgress += increment;
-                            AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
-                        }
-                    }
-                    namesDbWordDao.insertAll(wordList);
-                    break;
-                case "indexRomaji":
-                    blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 4;
-                    if (isExtendedDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ROMAJI_INDEX) * Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
-                    } else if (isNamesDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueNamesDb(context);
-                        increment = (((float) blocksize / Globals.NAMES_DB_LINES_ROMAJI_INDEX) * Globals.NAMES_DB_SIZE_ROMAJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
-                    }
-                    IndexRomajiDao indexRomajiDao = (IndexRomajiDao) dao;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            IndexRomaji index = new IndexRomaji(tokens[0], tokens[1]);
-                            indexRomajiList.add(index);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
-                            indexRomajiDao.insertAll(indexRomajiList);
-                            indexRomajiList = new ArrayList<>();
-                        }
-                        if (lineNum % blocksize == 0) {
-                            if (isExtendedDb) {
-                                currentProgress += increment;
-                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                            } else if (isNamesDb) {
-                                currentProgress += increment;
-                                AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
-                            }
-                        }
-                    }
-                    indexRomajiDao.insertAll(indexRomajiList);
-                    break;
-                case "indexEnglish":
-                    blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK / 10;
-                    if (isExtendedDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_ENGLISH_INDEX) * Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
-                    }
-                    IndexEnglishDao indexEnglishDao = (IndexEnglishDao) dao;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            IndexEnglish index = new IndexEnglish(tokens[0], tokens[1]);
-                            indexEnglishList.add(index);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
-                            indexEnglishDao.insertAll(indexEnglishList);
-                            indexEnglishList = new ArrayList<>();
-                        }
-                        if (lineNum % blocksize == 0) {
-                            if (isExtendedDb) {
-                                currentProgress += increment;
-                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                            }
-                        }
-                    }
-                    indexEnglishDao.insertAll(indexEnglishList);
-                    break;
-                case "indexFrench":
-                    if (isExtendedDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = Globals.EXTENDED_DB_SIZE_FRENCH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
-                    }
-                    IndexFrenchDao indexFrenchDao = (IndexFrenchDao) dao;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            IndexFrench index = new IndexFrench(tokens[0], tokens[1]);
-                            indexFrenchList.add(index);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
-                            indexFrenchDao.insertAll(indexFrenchList);
-                            indexFrenchList = new ArrayList<>();
-                        }
-                    }
-                    indexFrenchDao.insertAll(indexFrenchList);
-                    if (isExtendedDb) {
-                        currentProgress += increment;
-                        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                    }
-                    break;
-                case "indexSpanish":
-                    if (isExtendedDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = Globals.EXTENDED_DB_SIZE_SPANISH_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL;
-                    }
-                    IndexSpanishDao indexSpanishDao = (IndexSpanishDao) dao;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            IndexSpanish index = new IndexSpanish(tokens[0], tokens[1]);
-                            indexSpanishList.add(index);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
-                            indexSpanishDao.insertAll(indexSpanishList);
-                            indexSpanishList = new ArrayList<>();
-                        }
-                    }
-                    indexSpanishDao.insertAll(indexSpanishList);
-                    if (isExtendedDb) {
-                        currentProgress += increment;
-                        AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                    }
-                    break;
-                case "indexKanji":
-                    blocksize = MAX_NUM_ELEMENTS_IN_WORD_INSERT_BLOCK;
-                    if (isExtendedDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueExtendedDb(context);
-                        increment = (((float) blocksize / Globals.EXTENDED_DB_LINES_KANJI_INDEX) * Globals.EXTENDED_DB_SIZE_KANJI_INDEX * 100.f / Globals.EXTENDED_DB_SIZE_TOTAL);
-                    } else if (isNamesDb) {
-                        currentProgress = AndroidUtilitiesPrefs.getProgressValueNamesDb(context);
-                        increment = (((float) blocksize / Globals.NAMES_DB_LINES_KANJI_INDEX) * Globals.NAMES_DB_SIZE_KANJI_INDEX * 100.f / Globals.NAMES_DB_SIZE_TOTAL);
-                    }
-                    IndexKanjiDao indexKanjiDao = (IndexKanjiDao) dao;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            if (tokens[0].equals("")) break;
-                            IndexKanji indexKanji = new IndexKanji(tokens[0], tokens[1], tokens[2]);
-                            indexKanjiList.add(indexKanji);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_INDEX_INSERT_BLOCK == 0) {
-                            indexKanjiDao.insertAll(indexKanjiList);
-                            indexKanjiList = new ArrayList<>();
-                        }
-                        if (lineNum % blocksize == 0) {
-                            if (isExtendedDb) {
-                                currentProgress += increment;
-                                AndroidUtilitiesPrefs.setProgressValueExtendedDb(context, currentProgress);
-                            } else if (isNamesDb) {
-                                currentProgress += increment;
-                                AndroidUtilitiesPrefs.setProgressValueNamesDb(context, currentProgress);
-                            }
-                        }
-                    }
-                    indexKanjiDao.insertAll(indexKanjiList);
-                    break;
-                case "kanjiCharactersDb":
-                    List<String[]> KanjiDict_Database = AndroidUtilitiesIO.readCSVFile("LineKanjiDictionary - 3000 kanji.csv", context);
-
-                    HashMap<String, String[]> kanjiProperties = new HashMap<>();
-                    String key;
-                    for (int i=0; i<KanjiDict_Database.size(); i++) {
-                        key = KanjiDict_Database.get(i)[0];
-                        if (TextUtils.isEmpty(key)) break;
-                        String[] readings = KanjiDict_Database.get(i)[1].split("#",-1); //-1 to prevent discarding last empty string
-                        kanjiProperties.put(key, new String[]{
-                                readings.length > 2? readings[0].trim() : "",
-                                readings.length > 2? readings[1].trim() : "",
-                                readings.length > 2? readings[2].trim() : "",
-                                KanjiDict_Database.get(i)[2],
-                                KanjiDict_Database.get(i)[3],
-                                KanjiDict_Database.get(i)[4]
-                        });
-                    }
-
-                    List<String[]> RadicalsDatabase = AndroidUtilitiesIO.readCSVFile("LineRadicals - 3000 kanji.csv", context);
-                    HashMap<String, String> radicalProperties = new HashMap<>();
-                    for (int i=0; i<RadicalsDatabase.size(); i++) {
-                        key = RadicalsDatabase.get(i)[0];
-                        if (TextUtils.isEmpty(key)) break;
-                        radicalProperties.put(key, RadicalsDatabase.get(i)[1]);
-                    }
-
-                    KanjiCharacterDao kanjiCharacterDao = (KanjiCharacterDao) dao;
-                    String[] properties;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 0) {
-                            key = tokens[0];
-                            if (TextUtils.isEmpty(key)) break;
-                            KanjiCharacter kanjiCharacter = new KanjiCharacter(key, tokens[1], tokens[2]);
-                            kanjiCharacter.setKanji(OvUtilsGeneral.convertFromUTF8Index(key));
-                            if (kanjiProperties.containsKey(key)) {
-                                properties = kanjiProperties.get(key);
-                                if (properties != null && properties.length == 6) {
-                                    kanjiCharacter.setOnReadings(properties[0]);
-                                    kanjiCharacter.setKunReadings(properties[1]);
-                                    kanjiCharacter.setNameReadings(properties[2]);
-                                    kanjiCharacter.setMeaningsEN(properties[3]);
-                                    kanjiCharacter.setMeaningsFR(properties[4]);
-                                    kanjiCharacter.setMeaningsES(properties[5]);
-                                    kanjiCharacter.setUsedInJapanese(1);
-                                }
-                            }
-                            if (radicalProperties.containsKey(key)) {
-                                kanjiCharacter.setRadPlusStrokes(radicalProperties.get(key));
-                            }
-                            kanjiCharacterList.add(kanjiCharacter);
-                        }
-                        lineNum++;
-                        if (lineNum % MAX_NUM_ELEMENTS_IN_KANJI_CHARS_INSERT_BLOCK == 0) {
-                            kanjiCharacterDao.insertAll(kanjiCharacterList);
-                            SystemClock.sleep(30);
-                            kanjiCharacterList = new ArrayList<>();
-                        }
-                    }
-                    kanjiCharacterDao.insertAll(kanjiCharacterList);
-                    break;
-                case "kanjiComponentsDb":
-                    KanjiComponentDao kanjiComponentDao = (KanjiComponentDao) dao;
-                    //KanjiComponents are defined as structure -> component -> associatedComponents
-                    //NOTE: "full" block split into "full1" and "full2" to prevent memory crashes when requesting all kanji components with structure "full"
-                    //The CSV file starts with the "full" block, so "full1" is defined first
-                    List<KanjiComponent> kanjiComponents = new ArrayList<>();
-                    List<KanjiComponent.AssociatedComponent> associatedComponents = new ArrayList<>();
-                    KanjiComponent kanjiComponent = new KanjiComponent("full1");
-                    String firstElement;
-                    String secondElement;
-                    boolean isBlockTitle;
-                    while ((line = fileReader.readLine()) != null) {
-                        tokens = line.split("\\|", -1);
-                        if (tokens.length > 1) {
-                            if (TextUtils.isEmpty(tokens[0])) break;
-                            firstElement = tokens[0];
-                            secondElement = tokens[1];
-                            isBlockTitle = secondElement.equals("");
-                            if (isBlockTitle || lineNum == KANJI_COMPONENTS_FULL1_BLOCK_SIZE) {
-                                kanjiComponent.setAssociatedComponents(associatedComponents);
-                                associatedComponents = new ArrayList<>();
-                                if (lineNum != 0) {
-                                    kanjiComponents.add(kanjiComponent);
-                                    if (kanjiComponents.size() % MAX_NUM_ELEMENTS_IN_KANJI_COMPONENTS_INSERT_BLOCK == 0) {
-                                        kanjiComponentDao.insertAll(kanjiComponents);
-                                        kanjiComponents = new ArrayList<>();
-                                    }
-                                }
-
-                                //We define the kanjiComponent's structure here
-                                //Since the "full" block has no bockTitle line, it is defined before the loop starts and again when we switch to full2
-                                //Thereafter, the structure is defined by firstElement when isBlockTitle==true
-                                kanjiComponent = lineNum == KANJI_COMPONENTS_FULL1_BLOCK_SIZE ?
-                                        new KanjiComponent("full2") : new KanjiComponent(firstElement);
-                            }
-                            if (!isBlockTitle) {
-                                KanjiComponent.AssociatedComponent associatedComponent = new KanjiComponent.AssociatedComponent();
-                                associatedComponent.setComponent(firstElement);
-                                associatedComponent.setAssociatedComponents(secondElement);
-                                associatedComponents.add(associatedComponent);
-                            }
-
-                        }
-                        lineNum++;
-                    }
-                    kanjiComponent.setAssociatedComponents(associatedComponents);
-                    kanjiComponents.add(kanjiComponent);
-                    kanjiComponentDao.insertAll(kanjiComponents);
-                    break;
-            }
-        } catch (Exception e) {
-            System.out.println("Error in CsvFileReader !!!");
-            e.printStackTrace();
-        } finally {
-            try {
-                if (fileReader != null) {
-                    fileReader.close();
-                }
-            } catch (IOException e) {
-                System.out.println("Error while closing fileReader !!!");
-                e.printStackTrace();
-            }
-        }
-
-    }
-
     @NotNull
     public static List<String> readSingleColumnFile(String filename, Context context) {
 
@@ -900,5 +546,109 @@ public class AndroidUtilitiesIO {
             public void run() {
             }
         }, milliseconds);
+    }
+
+    public static @NotNull List<List<String>> readCSVFileAsLineBlocks(String filename, int blockSize, @NotNull Context context) {
+
+        List<List<String>> lineBlocks = new ArrayList<>();
+        List<String> linesTemp = new ArrayList<>();
+        try {
+            String lineTemp;
+            BufferedReader fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
+            fileReader.readLine(); //Discarding the first line of the file (titles)
+            int lineNum = 0;
+            while ((lineTemp = fileReader.readLine()) != null) {
+                linesTemp.add(lineTemp);
+                if (lineNum % blockSize == 0) {
+                    lineBlocks.add(linesTemp);
+                    linesTemp = new ArrayList<>();
+                }
+                lineNum++;
+            }
+            lineBlocks.add(linesTemp);
+            return lineBlocks;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public static void insertWordBlock(@NotNull List<String> lineBlock, Context context, Object dao, float increment, int blockSizeForDisplay) {
+        String[] tokens;
+        float currentProgress = AndroidUtilitiesPrefs.getProgressValueForDbInstallation(context, Globals.EXTENDED_DB);
+        List<Word> elements = new ArrayList<>();
+        int lineNum = 0;
+        for (String line : lineBlock) {
+            tokens = line.split("\\|", -1);
+            if (tokens.length > 0) {
+                if (tokens[0].equals("")) break;
+                Word element = AndroidUtilitiesDb.createWordFromExtendedDatabase(tokens);
+                elements.add(element);
+            }
+            lineNum++;
+            if (lineNum % blockSizeForDisplay == 0) {
+                currentProgress += increment;
+                AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, currentProgress, Globals.EXTENDED_DB);
+            }
+        }
+        ((WordDao) dao).insertAll(elements);
+
+    }
+
+    public static void insertIndexBlock(@NotNull List<String> lineBlock, Context context, Object dao, float increment, int blockSizeForDisplay, @NotNull String indexType) {
+        String[] tokens;
+        float currentProgress = AndroidUtilitiesPrefs.getProgressValueForDbInstallation(context, Globals.EXTENDED_DB);
+        List<String[]> elementsBlock = new ArrayList<>();
+        int lineNum = 0;
+        boolean hasToken2 = indexType.equals("indexKanji");
+        for (String line : lineBlock) {
+            tokens = line.split("\\|", -1);
+            if (tokens.length > 0) {
+                if (tokens[0].equals("")) break;
+                elementsBlock.add(new String[]{tokens[0], tokens[1], hasToken2? tokens[2] : ""});
+            }
+            lineNum++;
+            if (lineNum % blockSizeForDisplay == 0) {
+                currentProgress += increment;
+                AndroidUtilitiesPrefs.setProgressValueForDbInstallation(context, currentProgress, Globals.EXTENDED_DB);
+            }
+        }
+        switch (indexType) {
+            case "indexRomaji":
+                List<IndexRomaji> elementsRomaji = new ArrayList<>();
+                for (String[] item : elementsBlock) {
+                    elementsRomaji.add(new IndexRomaji(item[0], item[1]));
+                }
+                ((IndexRomajiDao) dao).insertAll(elementsRomaji);
+                break;
+            case "indexEnglish":
+                List<IndexEnglish> elementsEnglish = new ArrayList<>();
+                for (String[] item : elementsBlock) {
+                    elementsEnglish.add(new IndexEnglish(item[0], item[1]));
+                }
+                ((IndexEnglishDao) dao).insertAll(elementsEnglish);
+                break;
+            case "indexFrench":
+                List<IndexFrench> elementsFrench = new ArrayList<>();
+                for (String[] item : elementsBlock) {
+                    elementsFrench.add(new IndexFrench(item[0], item[1]));
+                }
+                ((IndexFrenchDao) dao).insertAll(elementsFrench);
+                break;
+            case "indexSpanish":
+                List<IndexSpanish> elementsSpanish = new ArrayList<>();
+                for (String[] item : elementsBlock) {
+                    elementsSpanish.add(new IndexSpanish(item[0], item[1]));
+                }
+                ((IndexSpanishDao) dao).insertAll(elementsSpanish);
+                break;
+            case "indexKanji":
+                List<IndexKanji> elementsKanji = new ArrayList<>();
+                for (String[] item : elementsBlock) {
+                    elementsKanji.add(new IndexKanji(item[0], item[1], item[2]));
+                }
+                ((IndexKanjiDao) dao).insertAll(elementsKanji);
+                break;
+        }
     }
 }
