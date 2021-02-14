@@ -20,6 +20,7 @@ public class Verb implements Parcelable {
     public static final String COLUMN_VERB_TRANSITIVE = "transitive";
     public static final String COLUMN_VERB_PREPOSITION = "preposition";
     public static final String COLUMN_VERB_HIRAGANA_FIRST_CHAR = "hiraganafirstchar";
+    public static final String COLUMN_VERB_KANJI_FIRST_CHARS = "kanjifirstchars";
     public static final String COLUMN_VERB_KANJI = "kanji";
     public static final String COLUMN_VERB_ROMAJI = "romaji";
     public static final String COLUMN_VERB_KANJIROOT = "kanjiroot";
@@ -134,6 +135,15 @@ public class Verb implements Parcelable {
     }
     public void setHiraganaFirstChar(String hiraganaFirstChar) {
         this.hiraganaFirstChar = hiraganaFirstChar;
+    }
+
+    @ColumnInfo(name = COLUMN_VERB_KANJI_FIRST_CHARS)
+    private String kanjiFirstChars = "";
+    public String getKanjiFirstChars() {
+        return kanjiFirstChars;
+    }
+    public void setKanjiFirstChars(String kanjiFirstChars) {
+        this.kanjiFirstChars = kanjiFirstChars;
     }
 
     @ColumnInfo(name = COLUMN_VERB_KANJI)

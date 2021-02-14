@@ -15,8 +15,8 @@ android {
         applicationId "com.japagram"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 13
-        versionName "4.00"
+        versionCode 14
+        versionName "4.01"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'

@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 152;
-    public static final int KANJI_DB_VERSION = 28;
-    public static final int EXTENDED_DB_VERSION = 48;
+    public static final int CENTRAL_DB_VERSION = 155;
+    public static final int KANJI_DB_VERSION = 29;
+    public static final int EXTENDED_DB_VERSION = 49;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -233,6 +233,7 @@ public final class Globals {
     public static final int COLUMN_EXTRA_KEYWORDS_ES            = ColIndexConverter("p");
     public static final int COLUMN_HIRAGANA_FIRST_CHAR          = ColIndexConverter("q");
     public static final int COLUMN_FREQUENCY                    = ColIndexConverter("r");
+    public static final int COLUMN_KANJI_FIRST_CHARS            = ColIndexConverter("s");
 
     public static final int COLUMN_MEANINGS_MEANING             = ColIndexConverter("b");
     public static final int COLUMN_MEANINGS_TYPE                = ColIndexConverter("c");

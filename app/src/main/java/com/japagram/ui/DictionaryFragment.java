@@ -43,8 +43,8 @@ import androidx.recyclerview.widget.RecyclerView;
 public class DictionaryFragment extends Fragment implements
         FirebaseDao.FirebaseOperationsHandler,
         DictionaryRecyclerViewAdapter.DictionaryItemClickHandler,
-        JishoOnlineSearchAsyncTask.JishoSearchAsyncResponseHandler,
-        DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler, VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
+        DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler,
+        VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
 
 
     public static final int LOCAL = 0;
@@ -175,9 +175,6 @@ public class DictionaryFragment extends Fragment implements
             if (AndroidUtilitiesPrefs.getPreferenceShowConjResults(getActivity())) {
                 startReverseConjSearchForMatchingVerbs();
             }
-            if (AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) {
-                startSearchingForWordsInJisho();
-            }
 
             //Preventing computation/connectivity delays from freezing the UI thread
             mOverrideDisplayConditions = false;
@@ -195,15 +192,6 @@ public class DictionaryFragment extends Fragment implements
             mLocalDictSearchAsyncTask = new DictSearchAsyncTask(getContext(), mInputQuery, this, mShowNames);
             mLocalDictSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
-    }
-    private void startSearchingForWordsInJisho() {
-
-        if (mInputQuery != null && !mInputQuery.isEmpty() && getActivity() != null && getContext() != null) {
-            Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Starting search for Jisho words");
-            mJishoOnlineSearchAsyncTask = new JishoOnlineSearchAsyncTask(getContext(), mInputQuery.getOriginal(), this);
-            mJishoOnlineSearchAsyncTask.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
-
     }
     private void startReverseConjSearchForMatchingVerbs() {
         if (getActivity()!=null) {
@@ -244,7 +232,7 @@ public class DictionaryFragment extends Fragment implements
             }
             mReceivedLocalResults = true;
         } else if (sourceType == CONJ) {
-            if (mMatchingWordsFromVerbs.size() > 0) {
+            if (mMatchingWordsFromVerbs.size() > 0 && showConjResults) {
                 mMergedMatchingWordsList = UtilitiesDb.getMergedWordsList(mMergedMatchingWordsList, mMatchingWordsFromVerbs);
             }
             mReceivedConjResults = true;
@@ -254,6 +242,8 @@ public class DictionaryFragment extends Fragment implements
         if ( mMergedMatchingWordsList.size() > 0 ) {
             if (!waitForAllResults && haveMoreWordsForDisplayedList || waitForAllResults && mReceivedLocalResults && mReceivedConjResults) {
                 updateDisplayedList();
+                int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
+                dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
                 hideLoadingIndicator();
             }
@@ -282,7 +272,7 @@ public class DictionaryFragment extends Fragment implements
         binding.dictionaryHint.setVisibility(View.GONE);
     }
     private void hideLoadingIndicator() {
-        if (binding.dictionaryResultsLoadingIndicator!=null) binding.dictionaryResultsLoadingIndicator.setVisibility(View.INVISIBLE);
+        binding.dictionaryResultsLoadingIndicator.setVisibility(View.INVISIBLE);
     }
 
 
@@ -334,28 +324,6 @@ public class DictionaryFragment extends Fragment implements
 
         Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Room words");
         displayMergedWordsToUser(LOCAL);
-    }
-    @Override public void onJishoSearchAsyncTaskResultFound(List<Word> loaderResultWordsList) {
-
-        if (getContext()==null) return;
-        mJishoMatchingWordsList = AndroidUtilitiesWeb.removeEdictExceptionsFromJisho(mJishoMatchingWordsList);
-        mJishoMatchingWordsList = AndroidUtilitiesWeb.cleanUpProblematicWordsFromJisho(loaderResultWordsList);
-        for (Word word : mJishoMatchingWordsList) word.setIsLocal(false);
-
-        if (!AndroidUtilitiesPrefs.getPreferenceShowOnlineResults(getActivity())) mJishoMatchingWordsList = new ArrayList<>();
-
-        if (mJishoMatchingWordsList.size() != 0) {
-            mDifferentJishoWords = com.japagram.utilitiesCrossPlatform.UtilitiesDb.getDifferentAsyncWords(mLocalMatchingWordsList, mJishoMatchingWordsList);
-            if (mDifferentJishoWords.size()>0) {
-                updateFirebaseDbWithJishoWords(com.japagram.utilitiesCrossPlatform.UtilitiesDb.getCommonWords(mDifferentJishoWords));
-                if (UtilitiesDb.wordsAreSimilar(mDifferentJishoWords.get(0), mInputQuery.getOriginal())) {
-                    updateFirebaseDbWithJishoWords(mDifferentJishoWords.subList(0, 1)); //If the word was searched for then it is useful even if it's not defined as common
-                }
-            }
-        }
-
-        Log.i(Globals.DEBUG_TAG, "DictionaryFragment - Displaying Jisho merged words");
-        //displayMergedWordsToUser(ONLINE);
     }
     @Override @SuppressWarnings("unchecked") public void onVerbSearchAsyncTaskResultFound(Object[] dataElements) {
 

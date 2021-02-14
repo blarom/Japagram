@@ -80,6 +80,10 @@ public final class UtilitiesVerbSearch {
         preparedInputQueryString = preparedInputQueryString.replaceAll(OvUtilsGeneral.concat(new String[]{"([てで])すぎ" , terminations_ichidan_kana, "(|か)$"}), "$1すぎる");
         preparedInputQueryString = preparedInputQueryString.replaceAll(OvUtilsGeneral.concat(new String[]{"(あれ)", terminations_ichidan_kana_subset}), "$1ます");
 
+        int textType = UtilitiesQuery.getTextType(preparedInputQueryString);
+        if (textType == Globals.TEXT_TYPE_HIRAGANA || textType == Globals.TEXT_TYPE_KATAKANA) {
+            preparedInputQueryString = UtilitiesQuery.getWaapuroHiraganaKatakana(preparedInputQueryString).get(0);
+        }
         InputQuery preparedInputQuery = new InputQuery(preparedInputQueryString);
 
         return preparedInputQuery;
@@ -165,16 +169,26 @@ public final class UtilitiesVerbSearch {
                                                          Context context) {
 
         if (preparedQuery.isEmpty()) return new ArrayList<>();
-        String mPreparedQuery = preparedQuery.getOriginal();
-        int mPreparedQueryLength = preparedQuery.getOriginal().length();
+
+        String mPreparedQuery;
+        int mPreparedQueryLength;
+        String mPreparedCleaned;
+        int mPreparedCleanedLength;
+        String mPreparedTranslRomaji;
+        int mPreparedTranslRomajiLength;
+        String mPreparedTranslHiragana;
+        mPreparedQuery = preparedQuery.getOriginal();
+        mPreparedQueryLength = preparedQuery.getOriginal().length();
+        mPreparedCleaned = preparedQuery.getOriginalCleaned().replaceAll("\\s", "");
+        mPreparedCleanedLength = mPreparedCleaned.length();
+        mPreparedTranslRomaji = preparedQuery.getRomajiSingleElement();
+        mPreparedTranslRomajiLength = mPreparedTranslRomaji.length();
+        mPreparedTranslHiragana = preparedQuery.getHiraganaSingleElement();
+
         int mPreparedQueryTextType = preparedQuery.getOriginalType();
-        String mPreparedCleaned = preparedQuery.getOriginalCleaned().replaceAll("\\s", "");
-        int mPreparedCleanedLength = mPreparedCleaned.length();
-        String mPreparedTranslRomaji = preparedQuery.getRomajiSingleElement();
-        int mPreparedTranslRomajiLength = mPreparedTranslRomaji.length();
-        String mPreparedTranslHiragana = preparedQuery.getHiraganaSingleElement();
 
         if (mPreparedQueryTextType == Globals.TEXT_TYPE_INVALID || mCompleteVerbsList==null) return new ArrayList<>();
+
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - getMatchingVerbIdsAndCols - Starting");
 
         //region Initializations
@@ -425,7 +439,6 @@ public final class UtilitiesVerbSearch {
         String preparedCleanedChar0String = mPreparedCleaned.substring(0,1);
         char preparedCleanedChar0 = preparedCleanedChar0String.charAt(0);
         boolean preparedIsLatin = mPreparedQueryTextType == Globals.TEXT_TYPE_LATIN;
-        boolean preparedIsKana = mPreparedQueryTextType == Globals.TEXT_TYPE_HIRAGANA || mPreparedQueryTextType == Globals.TEXT_TYPE_KATAKANA;
         boolean preparedIsKanji = mPreparedQueryTextType == Globals.TEXT_TYPE_KANJI;
         boolean inputQueryFirstKanaIsVowel = preparedTranslHiraganaChar0 == 'あ'
                 || preparedTranslHiraganaChar0 == 'え'
@@ -495,7 +508,8 @@ public final class UtilitiesVerbSearch {
             if (!family.equals(lastFamily)) {
                 //Updating the family conjugations only when a new family is seen
                 currentFamilyConjugations = preparedIsKanji?
-                        Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE.get(mFamilyConjugationIndexes.get(family)) : Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(mFamilyConjugationIndexes.get(family));
+                        Globals.GLOBAL_VERB_KANJI_CONJ_DATABASE.get(mFamilyConjugationIndexes.get(family)) :
+                        Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(mFamilyConjugationIndexes.get(family));
                 lastFamily = family;
             }
             exceptionIndex = (verb.getExceptionIndex().equals(""))? 0 : Integer.parseInt(verb.getExceptionIndex());
@@ -531,16 +545,20 @@ public final class UtilitiesVerbSearch {
                 //endregion
 
                 //region Only allowing searches on verbs that satisfy the following conditions (including identical 1st char, kuru/suru/da, query length)
-                if (    !(     ( preparedIsLatin && romaji.charAt(0) == preparedCleanedChar0 )
-                            || ( preparedIsKana && (hiraganaFirstChar == preparedTranslHiraganaChar0) )
-                            || ( preparedIsKanji && kanjiRoot.contains(preparedCleanedChar0String))
-                            || romaji.contains("kuru")
-                            || romaji.equals("suru")
-                            || romaji.equals("da") )
-                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedCleaned))
-                        || ( preparedIsKana && mPreparedCleanedLength < 3 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedTranslRomaji))
-                        || ( preparedIsKanji && mPreparedCleanedLength < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
-                        || (onlyRetrieveShortRomajiVerbs && romaji.length() > 4)     ) {
+//                if (    !(     ( preparedIsLatin && romaji.charAt(0) == preparedCleanedChar0 )
+//                            || ( preparedIsKana && (hiraganaFirstChar == preparedTranslHiraganaChar0) )
+//                            || ( preparedIsKanji && kanjiRoot.contains(preparedCleanedChar0String))
+//                            || romaji.contains("kuru")
+//                            || romaji.equals("suru")
+//                            || romaji.equals("da") )
+//                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedCleaned))
+//                        || ( preparedIsKana && mPreparedCleanedLength < 3 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedTranslRomaji))
+//                        || ( preparedIsKanji && mPreparedCleanedLength < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
+//                        ||      ) {
+//                    continue;
+//                }
+                if ((onlyRetrieveShortRomajiVerbs && romaji.length() > 4)
+                ) {
                     continue;
                 }
                 //endregion
@@ -598,49 +616,6 @@ public final class UtilitiesVerbSearch {
                                         (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
                                 });
                                 if (conjugationValue.contains(mPreparedCleaned)) {
-                                    foundMatch = true;
-                                    matchColumn = col;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    //endregion
-
-                    //region Kana conjugations comparison
-                    else if (preparedIsKana) {
-
-                        //There's no point in checking again if the input query is part of the family conjugation,
-                        // so we only check up to the substring that could contain all but the first char of the input query
-                        // No check is needed for len(conjugation) < maxCharIndexWhereMatchIsExpected, since we're using only columns diluted by total verb length > mInputQueryContatenatedLength
-                        if (hasConjExceptions) {
-                            currentConjugations = Globals.GLOBAL_VERB_LATIN_CONJ_DATABASE_NO_SPACES.get(exceptionIndex);
-                            for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
-                                currentFamilyConj = currentFamilyConjugations[col];
-                                currentConj = currentConjugations[col];
-                                if (currentConj.equals("")) {
-                                    conjugationValue = OvUtilsGeneral.concat(new String[]{
-                                            latinRoot,
-                                            (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
-                                    });
-                                } else conjugationValue = currentConj;
-
-                                if (conjugationValue.contains(mPreparedTranslRomaji)) {
-                                    foundMatch = true;
-                                    matchColumn = col;
-                                    break;
-                                }
-                            }
-                        }
-                        else {
-                            for (int col : dilutedConjugationColIndexesByFamily.get(familyForDilution)) {
-                                currentFamilyConj = currentFamilyConjugations[col];
-                                conjugationValue = OvUtilsGeneral.concat(new String[]{
-                                        latinRoot,
-                                        (currentFamilyConj.length() > maxCharIndexWhereMatchIsExpected)? currentFamilyConj.substring(0, maxCharIndexWhereMatchIsExpected) : currentFamilyConj
-                                });
-
-                                if (conjugationValue.contains(mPreparedTranslRomaji)) {
                                     foundMatch = true;
                                     matchColumn = col;
                                     break;

@@ -116,7 +116,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
     //Switches the internal implementation with an empty in-memory database
     @VisibleForTesting
-    public static void switchToInMemory(Context context) {
+    public static void switchToInMemory(@NotNull Context context) {
         sInstance = Room
                 .inMemoryDatabaseBuilder(context.getApplicationContext(), RoomNamesDatabase.class)
                 .build();
@@ -124,7 +124,7 @@ public abstract class RoomNamesDatabase extends RoomDatabase {
 
     private static final Migration FROM_1_TO_2 = new Migration(1, 2) {
         @Override
-        public void migrate(final SupportSQLiteDatabase database) {
+        public void migrate(final @NotNull SupportSQLiteDatabase database) {
             database.execSQL("ALTER TABLE Repo ADD COLUMN createdAt TEXT");
         }
     };

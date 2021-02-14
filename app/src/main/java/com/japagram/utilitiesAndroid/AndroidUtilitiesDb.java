@@ -385,6 +385,7 @@ public class AndroidUtilitiesDb {
         verb.setKanji(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI]);
         verb.setAltSpellings(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_ALT_SPELLINGS]);
         verb.setHiraganaFirstChar(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_HIRAGANA_FIRST_CHAR]);
+        verb.setKanjiFirstChars(verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_KANJI_FIRST_CHARS]);
 
         //Setting the family
         String MM_index = verbDatabase.get(verbDbRowIndex)[Globals.COLUMN_MEANING_EN_INDEXES];

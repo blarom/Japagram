@@ -764,11 +764,12 @@ public class UtilitiesDb {
 
             //Adjusting and copying alt spellings
             List<String> finalAltSpellings;
-            if (OvUtilsGeneral.isEmptyString(currentLocalWord.getAltSpellings())) finalAltSpellings = new ArrayList<>();
+            String currentLocalWordAltSpellings = currentLocalWord.getAltSpellings();
+            finalWord.setAltSpellings(currentLocalWordAltSpellings);
+            if (currentLocalWordAltSpellings.equals("")) finalAltSpellings = new ArrayList<>();
             else {
-                finalAltSpellings = Arrays.asList(currentLocalWord.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
+                finalAltSpellings = new ArrayList<>(Arrays.asList(currentLocalWordAltSpellings.split(Globals.DB_ELEMENTS_DELIMITER)));
             }
-            finalWord.setAltSpellings(currentLocalWord.getAltSpellings());
 
             //Updating and copying meanings/alt spellings from the async word
             List<Word.Meaning> currentLocalMeanings = currentLocalWord.getMeaningsEN();
@@ -788,15 +789,17 @@ public class UtilitiesDb {
                         && currentAsyncWord.getKanji().equals(currentLocalWord.getKanji())) {
 
                     //Setting the altSpellings
-                    List<String> finalAsyncWordAltSpellings = Arrays.asList(currentAsyncWord.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER));
-                    if (finalAsyncWordAltSpellings.size() != 0) {
+                    String currentAsyncWordAltSpellings = currentAsyncWord.getAltSpellings();
+                    if (!currentAsyncWordAltSpellings.equals("")) {
+                        String[] finalAsyncWordAltSpellings = currentAsyncWordAltSpellings.split(Globals.DB_ELEMENTS_DELIMITER);
                         for (String altSpelling : finalAsyncWordAltSpellings) {
-                            if (!OvUtilsGeneral.listContains(finalAltSpellings,altSpelling.trim())) {
-                                finalAltSpellings.add(altSpelling.trim());
+                            String trimmed = altSpelling.trim();
+                            if (!OvUtilsGeneral.listContains(finalAltSpellings, trimmed)) {
+                                finalAltSpellings.add(trimmed);
                             }
                         }
+                        finalWord.setAltSpellings(OvUtilsGeneral.joinList(", ", finalAltSpellings));
                     }
-                    finalWord.setAltSpellings(OvUtilsGeneral.joinList(", ", finalAltSpellings));
 
                     //Setting the meanings
                     List<Word.Meaning> currentAsyncMeanings = currentAsyncWord.getMeaningsEN();
