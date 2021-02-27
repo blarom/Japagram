@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.TypedValue;
+import android.util.Xml;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -520,8 +521,9 @@ public class MainActivity extends BaseActivity implements
         if (TextUtils.isEmpty(inputQuery) || context==null) return new ArrayList<>();
         List<String> queryHistory_QueryRomajiMeaning = getQueryHistoryFromPreferences(context);
 
+        inputQuery = inputQuery.trim().toLowerCase();
         //Preparing the displayed query history value
-        String queryRomajiMeaning = inputQuery.trim()
+        String queryRomajiMeaning = inputQuery
                 + (meaning.equals("") ? "" :
                 (" " + Globals.QUERY_HISTORY_MEANINGS_DELIMITER + " " + ( (romaji.equals("") || romaji.equals(inputQuery)) ? "" : "[" + romaji + "] ") + meaning)
         );
@@ -535,7 +537,7 @@ public class MainActivity extends BaseActivity implements
             if (elements.length > 1 && meaning.equals("")) {
                 queryRomajiMeaningNew += " @ " + elements[1].trim();
             }
-            if (inputQuery.trim().equalsIgnoreCase(queryHistoryWord)) {
+            if (inputQuery.equalsIgnoreCase(queryHistoryWord)) {
                 queryHistory_QueryRomajiMeaning.remove(i);
                 if (queryHistory_QueryRomajiMeaning.size()==0) queryHistory_QueryRomajiMeaning.add(queryRomajiMeaningNew);
                 else queryHistory_QueryRomajiMeaning.add(0, queryRomajiMeaningNew);

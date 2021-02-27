@@ -151,7 +151,7 @@ public class UtilitiesDb {
         for (Word word : matchingWordList) {
             foundMatch = stringContainsItemFromList(word.getRomaji(), romajiQueries, true) ||
                     stringContainsItemFromList(word.getKanji(), kanjiQueries, false) ||
-                    meaningsContainExactQueryMatch(nonJapQueries, word, language) ||
+                    ( meaningsContainExactQueryMatch(nonJapQueries, word, language)) ||
                     listContainsItemFromList(Arrays.asList(word.getAltSpellings().split(Globals.DB_ELEMENTS_DELIMITER)), combinedQueries);
 
             if (!foundMatch && !queryIsTooShort) {

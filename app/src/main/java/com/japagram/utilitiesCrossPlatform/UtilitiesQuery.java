@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -375,7 +376,8 @@ public final class UtilitiesQuery {
         return answer;
     }
 
-    public static Object[] getInglessVerb(@NotNull String input, int originalType) {
+    @Contract("_, _ -> new")
+    public static Object @NotNull [] getInglessVerb(@NotNull String input, int originalType) {
 
         String returnVerb = input;
         boolean hasIngEndingLocal = false;
@@ -484,7 +486,14 @@ public final class UtilitiesQuery {
 
         if (originalType == Globals.TEXT_TYPE_LATIN) {
             boolean isEnglishWord = false;
-            searchQueriesNonJapanese.add(originalCleaned);
+
+            if (originalCleaned.contains(" ")) {
+                String[] individualWords = originalCleaned.split(" ");
+                for (String word : individualWords) {
+                    if (!word.equals("") && word.length() > 2) searchQueriesNonJapanese.add(word);
+                }
+            } else searchQueriesNonJapanese.add(originalCleaned);
+
             if (originalCleaned.length() > 3 && originalCleaned.endsWith("ing")) {
                 //this.searchQueriesNonJapanese.add(ingless);
                 isEnglishWord = true;
@@ -506,7 +515,13 @@ public final class UtilitiesQuery {
             isTooShort = searchQueriesRomaji.get(0).length() < Globals.SMALL_WORD_LENGTH;
         }
         else if (originalType == Globals.TEXT_TYPE_NUMBER) {
-            searchQueriesNonJapanese.add(originalCleaned);
+            if (originalCleaned.contains(" ")) {
+                String[] individualWords = originalCleaned.split(" ");
+                for (String word : individualWords) {
+                    if (!word.equals("") && word.length() > 2) searchQueriesNonJapanese.add(word);
+                }
+            } else searchQueriesNonJapanese.add(originalCleaned);
+            
             isTooShort = originalCleanedNoSpaces.length() < Globals.SMALL_WORD_LENGTH - 1;
         }
         else if (originalType == Globals.TEXT_TYPE_KANJI) {
