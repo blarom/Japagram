@@ -7835,1638 +7835,1640 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 7835|oponerse, contrariar, rebelarse, traicionar, dar la espalda, desobedecer, ir en contra de, oponerse, traicionar|VkuI|||||
 7836|quemar, prender fuego|VkuT|||||
 7837|ser enigmático, estar rodeado de misterio|VkuI|||||
-7838|morir, fallecer, ir|VikuI|||||
-7839|continuar|VikuI|||||
-7840|llevarse a alguien (de inferior estatus), traer (persona de bajo status)|VikuT|||||
-7841|llevar (algo)|VikuT|||||
-7842|cambiar, moverse, ida y vuelta|VyukuI|||||
-7843|crecer|VyukuI|||||
-7844|nadar|VguI|||||
-7845|apresurar, apurar|VguI|||||
-7846|buscar, pedir (consejo)|VguT|||||
-7847|ganar dinero, trabajar|VguI|||||
-7848|llevar a cuestas, cargar, adular, engañar|VguT|||||
-7849|desvestir, quitar (ropa)|VguT|||||
-7850|hacer escándalo, hacer bulla|VguI|||||
-7851|verter, irrigar, servir|VguT|||||
-7852|amarrar, sujetar, conectar, transferir (llamada telefónica)|VguT|||||
-7853|venir detrás de, clasificar después de|VguI|||||
-7854|suceder (a alguien en un negocio o herencia)|VguT|||||
-7855|contribuir, tributar, sustentar, mantener económicamente, sostener económicamente|VguT|||||
-7856|olfatear, oler|VguT|||||
-7857|temblar, sacudirse, mecerse, agitarse|VguI|||||
-7858|remar, pedalear|VguT|||||
-7859|cerrar, ocupar, tapar, llenar, bloquear|VguT|||||
-7860|verter, servir, echar, vaciar|VguT|||||
-7861|protegerse, defenderse, impedir, prevenir, repeler, rechazar, alejar|VguT|||||
-7862|concatenarse, sucederse, sobrevenir, advenir|VguI|||||
-7863|casarse|VguI|||||
-7864|absorber, adquirir, entregar, absorber, adquirir, ceder|VguT|||||
-7865|ablandarse, calmarse, apaciguarse|VguI|||||
-7866|relajarse, ponerse cómodo|VguI|||||
-7867|heredar, suceder|VguT|||||
-7868|abanicar, airear, ventilar|VguT|||||
-7869|pelar|VguT|||||
-7870|juguetear, bromear, divertirse|VguI|||||
-7871|sentirse comodo|VguI|||||
-7872|atender, manejar (un producto, un asunto, etc.)|VguT|||||
-7873|afilar, pulir, lijar, lavar(arroz)|VguT|||||
-7874|soportar, tolerar, sobrellevar|VguT|||||
-7875|enjuagar, aclarar, enjuagar, enjuagarse|VguT|||||
-7876|enjuagarse la boca, hacer gárgaras|VguT|||||
-7877|cruzar de un salto|VguT|||||
-7878|llamar, llamársele, vocear, llamar a gritos, vociferar|VbuT|||||
-7879|volar, saltar, rebotar, volar, saltar|VbuI|||||
-7880|jugar, hacer una visita (esp. por placer)|VbuI|||||
-7881|estar ocioso, hacer nada|VbuI|||||
-7882|flotar, flotar, aparecer en la superficie|VbuI|||||
-7883|aprender, estudiar, tomar lecciones en|VbuT|||||
-7884|caerse|VbuI|||||
-7885|poner en fila|VbuI|||||
-7886|rivalizar, estar a la altura, igualar|VbuI|||||
-7887|escoger, seleccionar|VbuT|||||
-7888|transportar|VbuT|||||
-7889|atar, liar, unir, ereje van/megkeményedik/megköt/összeköt/begombol/csukódik/korlátoz/leköt/összekötöz/|VbuT|||||
-7890|alcanzar, llegar, conseguir|VbuI|||||
-7891|deleitarse, alegrarse|VbuI|||||
-7892|recostarse, tenderse, tumbarse|VbuI|||||
-7893|gritar, chillar|VbuI|||||
-7894|respetar, admirar, adorar, respetar, mostrar respeto, mostrar estima|VbuT|||||
-7895|ocultarse, esconder|VbuT|||||
-7896|resistir, aguantar|VbuT|||||
-7897|tragar, ingerir, tragar entero, ingerir sin masticar, beber, tragar|VmuT|||||
-7898|fumar (tabaco)|VmuT|||||
-7899|devorar|VmuT|||||
-7900|oprimir, sofocar|VmuT|||||
-7901|aceptar (ej. Demanda, condición)|VmuT|||||
-7902|no tomar en serio, ocultar|VmuT|||||
-7903|cesar, amainar, parar, estar terminado|VmuI|||||
-7904|terminar de hacer (acabar)|VmuI|||||
-7905|residir, vivir en, morar|VmuI|||||
-7906|descansar, tener un respiro, tomarse un día, ausentarse, retirarse, dormir|VmuT|||||
-7907|tejer, trenzar, editar, planear|VmuT|||||
-7908|leer|VmuT|||||
-7909|pizcar, coger con la punta de los dedos, pinchar, picar|VmuT|||||
-7910|intensificar, apilar|VmuT|||||
-7911|solicitar, pedir, rogar, suplicar|VmuT|||||
-7912|llamar, ordenar, reservar|VmuT|||||
-7913|confiar algo|VmuT|||||
-7914|confiar en alguien|VmuT|||||
-7915|rodear|VmuT|||||
-7916|pisar|VmuT|||||
-7917|aplicarse, esmerarse|VmuI|||||
-7918|insertar, entrometerse, albergar, pinzar, prensar|VmuT|||||
-7919|estar de luto, lamentar|VmuT|||||
-7920|herir, doler|VmuI|||||
-7921|entristecerse, acongojarse, arrepentirse, estar triste, lamentarse (muerte), arrepentirse|VmuT|||||
-7922|desvanecerse, borrarse, haber neblina|VmuI|||||
-7923|gustar|VmuT|||||
-7924|cucharear, succionar, sacar|VmuT|||||
-7925|deslumbrase por, marearse por, desorientarse por|VmuI|||||
-7926|perderse en (codicia, lujuria, etc.)|VmuI|||||
-7927|ponerse oscuro (obscuro), oscurecerse, cegarse, deslumbrarse, ofuscarse|VmuI|||||
-7928|sufrir, gemir, preocuparse|VmuI|||||
-7929|mirar fijamente|VmuT|||||
-7930|robar, hurtar, pillar|VmuT|||||
-7931|valorar, escatimar|VmuT|||||
-7932|hundirse, sumergirse, deprimirse|VmuI|||||
-7933|progresar, avanzar, mejorar|VmuI|||||
-7934|tramar, maquinar, conspirar|VmuT|||||
-7935|divertirse|VmuI|||||
-7936|doblar, cerrar, dar fin|VmuT|||||
-7937|coger, agarrar, empuñar, asir, captar, comprender, entender, enganchar al vuelo, lograr, conseguir, no dejar escapar, coger, agarrar, asir, sostener, agarrarse de, ponerse la mano encima|VmuT|||||
-7938|estar sumergido en, estar envuelto por, envolver, apretujar en, empacar, empaquetar, cubrir con, ocultar|VmuT|||||
-7939|maquinar, tramar, urdir, pergeñar|VmuT|||||
-7940|mascar, morder, roer|VmuT|||||
-7941|titubearse con las propias palabras, morder, masticar|VmuT|||||
-7942|reunir|VmuT|||||
-7943|encornarse, formar pus|VmuI|||||
-7944|madurar, ponerse en sazón|VmuI|||||
-7945|trenzar cuerda|VmuT|||||
-7946|resentir, odiar, detestar|VmuT|||||
-7947|refugiarse de un escape en|VmuI|||||
-7948|introducir, meter, implementar, adoptar|VmuT|||||
-7949|contener, tener dentro|VmuT|||||
-7950|pedir, proponer, suscribir|VmuT|||||
-7951|incrustarse, entrometerse, meter, interrumpir|VmuI|||||
-7952|clavarse, lanzarse, aventarse, introducirse|VmuI|||||
-7953|sentir, lamentar|VmuT|||||
-7954|sonreír|VmuI|||||
-7955|decidir, conjeturar, asumir|VmuI|||||
-7956|disolverse, fusionarse, mezclarse|VmuI|||||
-7957|hundirse, deprimirse|VmuI|||||
-7958|aclarar (clima), hacerse transparente|VmuI|||||
-7959|hincharse, inflarse, dilatarse, abultarse, hincharse, inflarse, abultarse, ensancharse|VmuI|||||
-7960|familiarizarse, crear intimidad|VmuI|||||
-7961|incluir, insertar, incorporar|VmuT|||||
-7962|estorbar, impedir, minar|VmuT|||||
-7963|acorralar, esquinar|VmuT|||||
-7964|incrustar|VmuT|||||
-7965|caerse, desplomarse, hundirse, deprimirse|VmuI|||||
-7966|sospechar|VmuT|||||
-7967|anticipar, estimar|VmuT|||||
-7968|clavar, incrustar|VmuI|||||
-7969|tragar, deglutir|VmuT|||||
-7970|entender, meter, darse cuenta, aprender, digerir|VmuT|||||
-7971|enredar, envolver, involucrar|VmuT|||||
-7972|quedarse parado|VmuI|||||
-7973|desear|VmuT|||||
-7974|rajar, picar, cincelar, tallar|VmuT|||||
-7975|odiar, detestar|VmuT|||||
-7976|estar preocupado|VmuI|||||
-7977|encogerse, reducirse, contraerse|VmuI|||||
-7978|corroer, carcomer, minar|VmuI|||||
-7979|insertar, empujar, meter|VmuI|||||
-7980|sonrojarse|VmuI|||||
-7981|enviar, mandar|VmuT|||||
-7982|dialogar por largo tiempo|VmuT|||||
-7983|meterse, interrumpir, atravesarse|VmuT|||||
-7984|ser entusiástico sobre|VmuI|||||
-7985|sentarse en cuclillas, acuclillarse, agacharse|VmuI|||||
-7986|abordar|VmuI|||||
-7987|desparramarse, deslavarse, esparcirse|VmuI|||||
-7988|temer, inquietarse, recelar, preocuparse, dudar, sospechar, desconfiar|VmuI|||||
-7989|tener a la vista, mirar, afrontar|VmuI|||||
-7990|adorar, rogar, implorar|VmuT|||||
-7991|luchar, derribar, acometer, combatir, contender, afrontar, atacar, agarrar|VmuI|||||
-7992|incorporar, incluir|VmuT|||||
-7993|rechazar, rehusar, declinar|VmuT|||||
-7994|rebotar, ser estimulado, estar animado, derrochar|VmuI|||||
-7995|refrescarse, tomar el fresco|VmuI|||||
-7996|compadecer, sentir lástima, tener piedad, compadecerse, tener piedad de, simpatizar con|VmuT|||||
-7997|enredarse, implicarse, meterse con|VmuI|||||
-7998|envolver, enrollar, hacer la pelota, adular|VmuT|||||
-7999|hervir a fuego lento|VmuI|||||
-8000|ablandarse, calmarse|VmuI|||||
-8001|caer enfermo, estar enfermo|VmuI|||||
-8002|parir, entregar, producir|VmuT|||||
-8003|ser discreto, cuidar, medir acciones y palabras, ser prudente|VmuT|||||
-8004|compadecerse, tener piedad, ser caritativo, dar limosna, bendecir, donar, dar|VmuT|||||
-8005|aprovechar, explotar, aprovecharse de|VmuI|||||
-8006|caminar, ir a pié|VmuI|||||
-8007|soplar hacia adentro, infundir, inspirar|VmuT|||||
-8008|meterse, entrar, ingresar|VmuI|||||
-8009|criar, educar|VmuT|||||
-8010|tener una visión distorsionada y prejuiciosa|VmuI|||||
-8011|enfriar, helar|VmuI|||||
-8012|concebir, quedar embarazada, llenarse con|VmuI|||||
-8013|echarse para atrás, sumir, derrumbarse|VmuI|||||
-8014|pagar, depositar|VmuT|||||
-8015|esconderse, ocultarse, desaparecer|VmuI|||||
-8016|estar celoso, tener envidia|VmuT|||||
-8017|traer al interior|VmuT|||||
-8018|frotar, sobar, masajear|VmuT|||||
-8019|colmarse, llenarse, llenarse|VmuI|||||
-8020|anhelar|VmuT|||||
-8021|estar sumergido en, estar envuelto por, envolver, apretujar en, empacar, empaquetar, cubrir con, ocultar|VmuT|||||
-8022|invadir, penetrar, introducirse|VmuI|||||
-8023|despreciar, menospreciar, desdeñar|VmuT|||||
-8024|esforzarse, ponerse tenso|VmuT|||||
-8025|marchitarse, decaer, desinflarse, desvanecerse, secarse, consumirse, encogerse, marchitarse|VmuI|||||
-8026|inhalar, inspirar, aspirar, beber|VmuT|||||
-8027|absorber|VmuT|||||
-8028|recitar, escribir (poesía)|VmuT|||||
-8029|aflojarse, relajarse, soltarse|VmuI|||||
-8030|distorsionarse, estar distorsionado|VmuI|||||
-8031|estancarse, remansarse, enturbiarse, estancarse|VmuI|||||
-8032|promover, vender|VmuT|||||
-8033|pizcar, coger con la punta de los dedos, picar algo de comer, picar, pellizcar, pinchar, pizcar, coger con la punta de los dedos, picar algo de comer|VmuT|||||
-8034|rodear, cercar|VmuT|||||
-8035|abundar, afluir|VmuI|||||
-8036|aflojarse|VmuI|||||
-8037|abarrotarse, atiborrarse|VmuI|||||
-8038|dirigir, ejercer, practicar, llevar|VmuT|||||
-8039|reto, desafío|VmuT|||||
-8040|morir|VnuI|||||
-8041|estar (objetos inanimados y plantas), vivir, existir, tener|VrugI|||||
-8042|estar equipado con|VrugI|||||
-8043|suceder|VrugI|||||
-8044|estar (objetos inanimados), existir, haber, vivir|VrugI|||||
-8045|tener, poseer|VrugI|||||
-8046|ser, estar localizado|VrugI|||||
-8047|ocurrir, pasar, producirse|VrugI|||||
-8048|tener lugar, suceder en|VrugI|||||
-8049|estar equipado con|VrugI|||||
-8050|estar (objetos animados), existir|VrugI|||||
-8051|(después de la forma -masu del verbo) indica desprecio o desdén por las actividades de otros|VrugI|||||
-8052|saber, entender, estar al corriente de, sentir|VrugT|||||
-8053|comenzar|VrugI|||||
-8054|comer|VrugT|||||
-8055|obedecer respetuosamente, humillarse, sentarse derecho (recto, respetuosamente, atentamente)|VrugI|||||
-8056|entender|VrugI|||||
-8057|saber, realizar, entenderse|VrugI|||||
-8058|entender|VrugI|||||
-8059|saber, realizar, entender, comprender, darse cuenta, captar, esclarecerse, saber, enterarse|VrugI|||||
-8060|regresar, enviar de regreso, irse a casa|VrugI|||||
-8061|(de un cliente) dejar|VrugI|||||
-8062|(de un jugador de béisbol cuando recorre todas las bases) hacer home, regresar, volver, irse a casa|VrugI|||||
-8063|tomar, coger, cosechar, ganar|VrugT|||||
-8064|precipitar, caer (e.g. lluvia)|VrugI|||||
-8065|hacer, tener relaciones sexuales, matar, dar (inferiores, animales), despachar (carta), enviar, estudiar, desempeñar, jugar, haber (comida, bebida, fumar), operar (restaurante)|VrugT|||||
-8066|hacer algo en, chocar contra alguien|VrugT|||||
-8067|convertirse en, llegar a ser, ponerse, hacerse, volverse, obtener, crecer, alcanzar a, lograr, realizar|VrugI|||||
-8068|resultar en, probar ser|VrugI|||||
-8069|consistir de, estar integrado por|VrugI|||||
-8070|tener éxito, completarse|VrugI|||||
-8071|cambiar en, intercambiarse por|VrugI|||||
-8072|jugar un rol|VrugI|||||
-8073|promoverse (shogi)|VrugI|||||
-8074|hacer, crear, fabricar, manufacturar, redactar, escribir, componer, construir, acuñar, cultivar, organizar, establecer (lugar), maquillar, cortar (árbol), preparar (comida), cometer (pecado), crear (cosas nuevas o que se hacen por primera vez), originar, inventar, engendrar, concebir, hacer, crear, fabricar, manufacturar, redactar, escribir, componer, construir, acuñar, cultivar, organizar, establecer (lugar), maquillar, cortar (árbol), preparar (comida), cometer (pecado)|VrugT|||||
-8075|enviar (cosas), despachar, escoltar, acompañar, despedirse, pasar un periodo de tiempo, vivir una vida|VrugT|||||
-8076|subirse, entrar (en vehículos), abordar|VrugI|||||
-8077|extender (pantalones), llevarse a|VrugI|||||
-8078|compartir, unir, sentir como haciendo, mencionarse en, estar en armonía con|VrugI|||||
-8079|dar la vuelta, regresar, volver atrás|VrugI|||||
-8080|equivocarse, equivocarse|VrugI|||||
-8081|disculparse|VrugI|||||
-8082|sentarse, ponerse en cuclillas|VrugI|||||
-8083|asumir (una posición)|VrugI|||||
-8084|enfurecerse, preocuparse|VrugI|||||
-8085|bailar, danzar|VrugI|||||
-8086|saltar|VrugI|||||
-8087|vender|VrugT|||||
-8088|proteger, defender|VrugT|||||
-8089|obedecer, guardar, cumplir (reglas)|VrugT|||||
-8090|proteger, guardar|VrugT|||||
-8091|cumplir (reglas), obedecer|VrugT|||||
-8092|necesitar|VrugI|||||
-8093|entrar|VrugI|||||
-8094|cortar, caer, desconectar, cruzar (calle), descontar, completar|VrugT|||||
-8095|hablar, charlar|VrugI|||||
-8096|calentarse, calentarse (clima, ambiente), caldearse, calentarse, asolearse|VrugT|||||
-8097|detenerse, permanecer, quedarse|VrugI|||||
-8098|detenerse|VrugI|||||
-8099|limitarse|VrugI|||||
-8100|detener, parar, detener(se)|VrugI|||||
-8101|permanecer, quedarse|VrugI|||||
-8102|ser capturado|VrugI|||||
-8103|citarse, mencionarse|VrugI|||||
-8104|volverse próspero|VrugI|||||
-8105|entrar, subir, elevarse, escalar, avanzar, apreciar, ser promovido, mejorar, visitar, ofrecerse, acumular|VrugI|||||
-8106|estar acabado, irse a la bancarrota, atraparse, amainar (lluvia)|VrugI|||||
-8107|debilitarse (ej. una batería)|VrugI|||||
-8108|fastidiarse|VrugI|||||
-8109|voltear, girar, doblar|VrugI|||||
-8110|marcharse, partir, irse|VrugI|||||
-8111|ser encontrado, ser visto|VrugI|||||
-8112|ser premiado|VrugI|||||
-8113|terminar, acabar, concluir|VrugI|||||
-8114|ocurrir, acaecer, suceder|VrugI|||||
-8115|tomarse (tiempo, dinero)|VrugT|||||
-8116|colgar|VrugT|||||
-8117|aparecer, llegar|VrugT|||||
-8118|venir bajo un (contrato, impuesto)|VrugT|||||
-8119|arrancar (motor, máquinas)|VrugT|||||
-8120|tratar con|VrugT|||||
-8121|hacer comenzado a, estar al límite de|VrugT|||||
-8122|(venir a) atacar|VrugT|||||
-8123|coincidir en parte (un manual), cubrir|VrugT|||||
-8124|atacar|VrugT|||||
-8125|estar sujeto|VrugT|||||
-8126|cubrirse (con polvo, mesa con ropa, etc)|VrugT|||||
-8127|estar atrapado|VrugT|||||
-8128|tener una llamada|VrugT|||||
-8129|depender (de), estar colgado de, estar atrapado|VrugT|||||
-8130|acopiar, recolectar, ensamblar|VrugI|||||
-8131|guardar silencio|VrugI|||||
-8132|trizar, despedazar|VrugT|||||
-8133|hacer el amor, tener relaciones sexuales, practicar sexo, comprometerse|VrugT|||||
-8134|burlarse, mofarse|VrugI|||||
-8135|abstraerse, enajenarse, extasiarse|VrugI|||||
-8136|engordar, hacerse gordo, ganar peso|VrugI|||||
-8137|tramar, intentar, planear, diseñar, tramar, maquinar, conspirar|VrugT|||||
-8138|consultar, someter a deliberación, someter a consulta|VrugT|||||
-8139|pegarse, ponerse, pegar (estampas, afiches...)|VrugI|||||
-8140|correr|VrugI|||||
-8141|viajar (movimiento de vehículos)|VrugI|||||
-8142|apurarse a|VrugI|||||
-8143|retirarse (de batalla), alzar el vuelo|VrugI|||||
-8144|abandonar el hogar|VrugI|||||
-8145|fugarse (con un amante), dirigirse duramente hacia adelante|VrugI|||||
-8146|estar de moda, venderse bien, propagarse|VrugI|||||
-8147|estar de buen humor, ser impaciente, estar fogoso|VrugI|||||
-8148|rebajarse, mostrarse humilde, tener una actitud modesta, comportarse con humildad|VrugI|||||
-8149|disminuir (en tamaño o número), menguar, amainar|VrugI|||||
-8150|brillar|VrugI|||||
-8151|retorcer, torcer, doblar, dar vueltas, dar vueltas a la cabeza, cavilar, apagar o prender (interruptor), torcer, retorcer, romperse, retorcer, torcer, doblar, dar vueltas, dar vueltas a la cabeza, cavilar|VrugT|||||
-8152|retorcer, torcer, torcer, atornillar, retorcer, enroscar, apagar o prender (interruptor), torcer, retorcer, romperse|VrugT|||||
-8153|esparcirse, ser propagado|VrugI|||||
-8154|ondear, flotar en el aire, flamear, mirar algo desde el ángulo opuesto, considerar algo desde el punto de vista contrario, dar la vuelta a una opinión o teoría|VrugI|||||
-8155|escarbar, hurgar, rebuscar|VrugT|||||
-8156|excavar|VrugT|||||
-8157|esculpir, tallar, cincelar, modelar|VrugT|||||
-8158|dejar ir|VrugT|||||
-8159|querer, desear|VrugT|||||
-8160|manar, brotar, chorrear|VrugI|||||
-8161|enorgullecerse, pavonearse, vanagloriarse|VrugI|||||
-8162|tocar, toquetear, manipular|VrugT|||||
-8163|rezar|VrugT|||||
-8164|llegar, entrar, entrar en, desaguar, cerrar|VrugI|||||
-8165|mentir, engañar, falsear, faltar a la verdad|VrugI|||||
-8166|odiar, no gustar|VrugT|||||
-8167|ponerse (en la cabeza), llevar puesto, cubrir|VrugT|||||
-8168|echarse agua|VrugT|||||
-8169|soportar (deudas, faltas)|VrugT|||||
-8170|cambiarse, invertirse, volcarse, regresar, volver|VrugI|||||
-8171|empollar|VrugI|||||
-8172|oscurecerse, nublarse, anublarse, oscurecerse, ensombrecerse, nublarse, atardecer, ocultarse el sol o la luna|VrugI|||||
-8173|restringir, limitar, confinar|VrugI|||||
-8174|roer, mordisquear, morder, roer, mordisquear|VrugT|||||
-8175|sufrir de|VrugI|||||
-8176|colocarse en un caballete, colgarse|VrugI|||||
-8177|ser el trabajo de, ser el resultado de|VrugI|||||
-8178|concernir, afectar, involucrar|VrugI|||||
-8179|elevar, volar|VrugI|||||
-8180|amontonarse, apilarse, superponerse|VrugI|||||
-8181|endurecerse, solidificarse, volverse firme, volverse cierto|VrugI|||||
-8182|amar, querer, ser cariñoso|VrugT|||||
-8183|cambiar, transformarse, variar, ser revisado, ser diferente, cambiar de lugar|VrugI|||||
-8184|decorar, ornamentar, adornar|VrugT|||||
-8185|patear|VrugT|||||
-8186|decidirse, arreglarse|VrugI|||||
-8187|verse bien (ropa), decidirse, establecerse, verse bien con(ropa)|VrugI|||||
-8188|diferir, variar, estar en desacuerdo|VrugI|||||
-8189|temer, tener miedo a, ser nervioso, ser tímido (de)|VrugI|||||
-8190|nublarse|VrugI|||||
-8191|zigzaguear , serpentear|VrugI|||||
-8192|corromperse, podrirse, deprimirse|VrugI|||||
-8193|darse la vuelta, dar un giro radical, ser derribado|VrugI|||||
-8194|mezclarse, combinarse con, mezclar, revolver, combinar|VrugI|||||
-8195|deificar, venerar|VrugT|||||
-8196|custodiar, vigilar, guardar|VrugT|||||
-8197|dar fruto, madurar|VrugI|||||
-8198|ser beneficioso, producir una ganancia|VrugI|||||
-8199|arrancar, pelar|VrugT|||||
-8200|golpear, pegar|VrugT|||||
-8201|culpar, reprochar, criticar, recriminar|VrugT|||||
-8202|morir|VrugI|||||
-8203|curarse, sanar, arreglarse, mejorar, repararse, curarse, sanar, mejorar, restablecerse, repararse, arreglarse|VrugI|||||
-8204|dormir (no necesariamente estando tumbado)|VrugI|||||
-8205|morir|VrugI|||||
-8206|cerrar los ojos|VrugI|||||
-8207|agarrar, moldear sushi|VrugT|||||
-8208|quedar, dejar atrás, quedar, quedarse|VrugI|||||
-8209|hablar mal de, abusar|VrugI|||||
-8210|pintar, barnizar|VrugT|||||
-8211|enfadarse, enojarse, enojarse, enfadarse|VrugI|||||
-8212|desistir, renunciar a|VrugT|||||
-8213|adularse, halagarse|VrugI|||||
-8214|ser inferior|VrugI|||||
-8215|colgarse, disminuir, retirarse, caerse, volverse atrás, bajar, menguar, amainar, retirar, caer, retroceder|VrugI|||||
-8216|tocar|VrugI|||||
-8217|manosear|VrugI|||||
-8218|competir, rematar, subastar|VrugT|||||
-8219|atar|VrugT|||||
-8220|crecer densamente, ser frondoso, ser tupido, ser densa o espesa la vegetación, abundar, proliferar|VrugI|||||
-8221|regañar, echar la bronca, reñir, reprender, regañar, reñir|VrugT|||||
-8222|cerrarse, estar cerrado|VrugI|||||
-8223|estar con llave|VrugI|||||
-8224|cerrar, estar cerrado|VrugI|||||
-8225|cerrar con llave|VrugI|||||
-8226|apretar, estar apretado|VrugI|||||
-8227|volverse sobrio, ponerse tenso, tensarse, ponerse tenso, restringirse los gastos, ahorrar, economizar|VrugI|||||
-8228|aquietarse, calmarse, hundirse, extinguirse, debilitarse, suprimirse|VrugI|||||
-8229|denostar, criticar, hablar mal de, denigrar, difamar, injuriar, menospreciar, calumniar, vilipendiar|VrugT|||||
-8230|deslizarse, resbalar|VrugI|||||
-8231|estancarse, acumularse|VrugI|||||
-8232|depender de, tener que recurrir a|VrugI|||||
-8233|brillar|VrugI|||||
-8234|volverse fuerte, adquirir fuerzas|VrugI|||||
-8235|recibir, obtener, aceptar|VrugT|||||
-8236|tomar, coger, interpretar, entender, recibir, obtener, aceptar, tomar, coger, interpretar, entender|VrugT|||||
-8237|exceder, sobrepasar|VrugT|||||
-8238|romper, partir, quebrar, fracturar, rajar, dividir|VrugT|||||
-8239|durar, abarcar, extenderse, comprender, ocupar, englobar, vadear, cruzar, ir a través de|VrugI|||||
-8240|extenderse, cubrir, recorrer, atravesar|VrugI|||||
-8241|desgarrar, violar, vencer, aplastar, destruir, romper (e.g. contraseña)|VrugT|||||
-8242|cruzar, atravesar|VrugT|||||
-8243|depender, deberse a, causarse por|VrugI|||||
-8244|depender, encender, prender|VrugI|||||
-8245|basarse en, venir de, ser de|VrugI|||||
-8246|deberse a, causarse por|VrugI|||||
-8247|depender de, prender|VrugI|||||
-8248|basarse en, venir de|VrugI|||||
-8249|frotar, fregar|VrugT|||||
-8250|dar palmadas o golpecitos|VrugT|||||
-8251|quitar frotando, pulir, triturar, pulverizar, raspar|VrugT|||||
-8252|ser igual a|VrugT|||||
-8253|estar a punto de alcanzar|VrugT|||||
-8254|salvarse, rescatarse, sobrevivir, ser útil|VrugI|||||
-8255|fracasar, ser despedido|VrugI|||||
-8256|sustituir, reemplazar, intercambiar, cambiar, reemplazar, sustituir, relevar, tomar el lugar de, sustituirse por, cambiar lugares, tomar turnos, reemplazarse|VrugI|||||
-8257|desaparecer, perderse|VrugI|||||
-8258|tomar auge, prosperar, progresar, aparecer, surgir con ímpetu, sobrevenir impetuosa y repentinamente|VrugI|||||
-8259|impedir, obstaculizar, interferir con, afectar, hacerse daño, estar dañando a|VrugT|||||
-8260|estrangularse, estrecharse, comprimirse|VrugI|||||
-8261|berrear, rugir, bramar|VrugI|||||
-8262|aguantar (a menudo añade énfasis), soportar, resistir|VrugI|||||
-8263|intensificar|VrugI|||||
-8264|escoger, seleccionar, elegir, apartar, escoger, seleccionar|VrugT|||||
-8265|visitar|VrugI|||||
-8266|torcer, retorcer, curvar, doblar|VrugI|||||
-8267|descuidar, desatender, olvidar|VrugI|||||
-8268|grabar (vídeo, audio, etc.), tomar (foto), hacer (película)|VrugT|||||
-8269|tomar, atrapar (pescado), capturar, capturar, atrapar, aprehender, apresar, pescar, cazar|VrugT|||||
-8270|adoptar (medida, propuesta), recoger (fruta), asumir (actitud)|VrugT|||||
-8271|tomar (un problema), atender (negocio), dirigir (ejercito)|VrugT|||||
-8272|tomar (matiz de robo)|VrugT|||||
-8273|hacer suyo, tomar como propio, asimilar, incorporar, asumir, acoger, adoptar, aceptar, conciliar el sueño|VrugT|||||
-8274|cosechar, recolectar, recoger los frutos|VrugT|||||
-8275|rodar, caerse|VrugI|||||
-8276|recostarse, postrarse, tenderse|VrugI|||||
-8277|anotar, tomar dictado, tomar notas|VrugT|||||
-8278|oler bien, ser fragante|VrugI|||||
-8279|tirar, sacar, estirar, arrastrar|VrugT|||||
-8280|tirar la bola (béisbol)|VrugT|||||
-8281|agruparse, juntarse en manada|VrugI|||||
-8282|ser|VrugI|||||
-8283|estirar la pata, caer muerto|VrugI|||||
-8284|verbo auxiliar que indica desprecio|VrugI|||||
-8285|ondear|VrugT|||||
-8286|romper, doblar, plegar, tomar una flor|VrugT|||||
-8287|manipular, manejar, mover los hilos|VrugT|||||
-8288|colgarse, suspenderse|VrugI|||||
-8289|embotarse, achatarse, debilitarse, entorpecerse|VrugI|||||
-8290|dar en el blanco, acertar, atinar, dar en el clavo, acertar, ser exitoso, encarar, emprender, tratar, ser equivalente a, aplicarse a, ser aplicable, asignarse|VrugI|||||
-8291|pescar a, buscar a|VrugI|||||
-8292|sonar, repicar, resonar, producir eco, rugir, retumbar|VrugI|||||
-8293|mudarse, transferir (departamento)|VrugI|||||
-8294|cambiar el objetivo del interés o asunto|VrugI|||||
-8295|pasar (tiempo)|VrugI|||||
-8296|permearse por un color o esencia|VrugI|||||
-8297|infectarse, contagiarse, propagarse (como el fuego)|VrugI|||||
-8298|quedarse en|VrugI|||||
-8299|pescar|VrugT|||||
-8300|bajar, descender|VrugI|||||
-8301|acompañar y despedir a alguien|VrugT|||||
-8302|medir, pesar, calcular|VrugT|||||
-8303|conjeturar, inferir, suponer|VrugT|||||
-8304|extenderse, propagarse|VrugI|||||
-8305|participar, acceder a, crecer, ganar en influencia|VrugI|||||
-8306|negarse, informar, pedir dejar, declinar, destituir|VrugT|||||
-8307|informar, dar nota|VrugT|||||
-8308|pedir permiso, disculparse (de)|VrugT|||||
-8309|transmitirse, introducirse, ser circulado, continuar|VrugI|||||
-8310|aplicar|VrugT|||||
-8311|distribuir, entregar|VrugT|||||
-8312|gritar|VrugI|||||
-8313|ser atrapado, ser arrestado, caer en las manos de, agarrase, asirse|VrugI|||||
-8314|mantener en custodia, recibir en depósito, hacerse cargo de|VrugT|||||
-8315|traicionar, decepcionar, defraudar|VrugT|||||
-8316|llegar, alcanzar|VrugI|||||
-8317|ceder, conceder, traspasar|VrugT|||||
-8318|prensar, estrujar, ordeñar, esquilmar, exprimir, reducir, condensar|VrugT|||||
-8319|enlazarse, conectarse, relacionarse, canalizar|VrugI|||||
-8320|afeitar, rasurar|VrugT|||||
-8321|completarse, terminarse|VrugI|||||
-8322|ser instruido|VrugT|||||
-8323|profundizarse, elevarse, intensificarse|VrugI|||||
-8324|contar, hablar de, relatar, narrar|VrugT|||||
-8325|dividir en párrafos, dividir, separar|VrugT|||||
-8326|retacarse, atascarse, taparse|VrugI|||||
-8327|aproximarse, acercarse|VrugI|||||
-8328|estar mojado, mojarse|VrugI|||||
-8329|recibir, aceptar, oír, entender|VrugT|||||
-8330|buscar, examinar, explorar, investigar, palpar|VrugT|||||
-8331|limar, desgastar, cepillar, raspar|VrugT|||||
-8332|girar, hacer girar|VrugI|||||
-8333|visitar muchos lugares, ir por ahí|VrugI|||||
-8334|girar, hacer girar|VrugI|||||
-8335|visitar muchos lugares|VrugI|||||
-8336|extender (pantalones), tomar parte en|VrugI|||||
-8337|compartir, unir, ser mencionado, estar en armonía|VrugI|||||
-8338|aparecer (impreso), ser registrado, ser encontrado (en diccionario)|VrugI|||||
-8339|tensar, estirar|VrugI|||||
-8340|atravesar, pasar por debajo, pasar a través|VrugI|||||
-8341|bucear (en el agua), zambullirse, ir (por debajo tierra)|VrugI|||||
-8342|remontar, navegar contra la corriente, remontar, retrotraerse, ir contra corriente|VrugI|||||
-8343|colgar, suspender|VrugT|||||
-8344|rugir, bramar, aullar, retumbar|VrugI|||||
-8345|revivir, resucitar|VrugI|||||
-8346|dar fruto|VrugI|||||
-8347|hacerse cargo, retirarse a un lugar privado, hacerse cargo de, retirarse a un lugar privado|VrugT|||||
-8348|ascender, hincharse, ser promovido|VrugI|||||
-8349|ser concedido, ser otorgado|VrugT|||||
-8350|mirar hacia atrás|VrugI|||||
-8351|recaudar, reclutar, aumentar|VrugI|||||
-8352|decapitar, matar (con una espada)|VrugT|||||
-8353|bastar, ser suficiente|VrugI|||||
-8354|detenerse, hacer alto, parar|VrugI|||||
-8355|ponerse de pie, levantarse|VrugI|||||
-8356|pasar por, aprobarse, caminar junto a, pasar examenes, asistir (ej. escuela)|VrugI|||||
-8357|girar, hacer girar|VrugI|||||
-8358|visitar muchos lugares|VrugI|||||
-8359|pasar(prueba), aprobar (examen)|VrugI|||||
-8360|ondear, sacudir, temblar|VrugT|||||
-8361|rociar|VrugT|||||
-8362|repartir (actor), destinar, asignar (trabajo)|VrugT|||||
-8363|rechazar (alguien), dejar plantado|VrugT|||||
-8364|abandonar, rendirse, arruinar|VrugT|||||
-8365|bloquearse, taparse, llenarse, estar en uso|VrugI|||||
-8366|despojar, arrebatar, desposeer|VrugT|||||
-8367|suspender, cesar, poner fin, cancelar|VrugI|||||
-8368|arrancar a golpes, despojar de un golpe|VrugI|||||
-8369|vencer, ganar, derrotar|VrugI|||||
-8370|aporrear, apalear, golpear violentamente, acribillar, tirotear, ametrallar, acribillar, tirotear, ametrallar|VrugT|||||
-8371|enviar, dar, recompensar, conferir|VrugT|||||
-8372|sobrar, tener de más|VrugI|||||
-8373|helarse, congelarse|VrugI|||||
-8374|acercarse, presionar (a alguien)|VrugI|||||
-8375|reflejarse|VrugI|||||
-8376|fotografiarse, proyectarse|VrugI|||||
-8377|mezclarse, combinarse con, mezclarse, revolverse, combinarse|VrugI|||||
-8378|amontonar, apilar|VrugI|||||
-8379|sobresalir, sobrepasar, aventajar|VrugI|||||
-8380|hacer un símil, poner un ejemplo, comparar, comparar, hablar en sentido figurativo, ilustrar, usar un simíl|VrugI|||||
-8381|formar, moldear, constituir|VrugT|||||
-8382|ir de aquí para allá, ir y venir|VrugI|||||
-8383|resonar|VrugI|||||
-8384|invitar, obsequiar con algo especial|VrugT|||||
-8385|ser extravagante, vivir lujosamente|VrugT|||||
-8386|ser orgulloso, ser altivo|VrugT|||||
-8387|elevarse, exaltarse, avivarse, alegrarse|VrugI|||||
-8388|ser picado, ser mordido|VrugI|||||
-8389|capear, sortear, sobreponerse, superar|VrugT|||||
-8390|agacharse, ponerse en cuclillas, acurrucarse, acuclillarse|VrugI|||||
-8391|pasar, atravesar|VrugI|||||
-8392|imprimir, frotar, doblar, imprimir (en ropa)|VrugT|||||
-8393|dar palmadas o golpecitos|VrugT|||||
-8394|quitar frotando, pulir, triturar, pulverizar, raspar|VrugT|||||
-8395|ser igual a|VrugT|||||
-8396|estar a punto de alcanzar, moler, pulverizar, machacar, majar con el mortero, limar, pulir, dilapidar, derrochar, pulirse (gastar), fundir (gastar)|VrugT|||||
-8397|tomar el bolso de alguien|VrugT|||||
-8398|cortar, recortar, rasurar, segar, guadañar|VrugT|||||
-8399|salir, irse|VrugI|||||
-8400|pasar, transcurrir|VrugI|||||
-8401|ser distante, echar, alejar, apartar, divorciar|VrugI|||||
-8402|(después de la raíz -masu, esp. de un verbo suru) completamente|VrugI|||||
-8403|pasado (ej. abril pasado)|VrugI|||||
-8404|sobrevivir|VrugI|||||
-8405|chocar, topar con pared|VrugI|||||
-8406|ponerse de punta|VrugI|||||
-8407|meter llave, atrancar, cerrar|VrugT|||||
-8408|engalanarse, arreglarse, vestir, lucir|VrugT|||||
-8409|terminar, alcanzar un extremo, estar en un dilema, estar al final de|VrugI|||||
-8410|atar|VrugT|||||
-8411|montar, extenderse|VrugI|||||
-8412|transparentar|VrugI|||||
-8413|holgazanear, perder el tiempo, fumarse|VrugI|||||
-8414|aproximarse, acercarse|VrugI|||||
-8415|al parecer|VrugI|||||
-8416|debilitar, preocuparse, quedar abatido, quedar extenuado, quedar perplejo, deteriorar|VrugI|||||
-8417|menguar, debilitarse, demacrarse, desmoralizarse, quedar perplejo|VrugI|||||
-8418|platicar, conversar, decir, recitar|VrugT|||||
-8419|recargarse, depender|VrugI|||||
-8420|reunirse, agruparse|VrugI|||||
-8421|elevar, ascender, subir, escalar, trepar, ir arriba|VrugI|||||
-8422|ir (a la capital)|VrugI|||||
-8423|ser promovido|VrugI|||||
-8424|sumar a|VrugI|||||
-8425|avanzar (en precios)|VrugI|||||
-8426|zarpar|VrugI|||||
-8427|ser mencionado (en la agenda)|VrugI|||||
-8428|crecer, subir, escalar, trepar, ir arriba|VrugI|||||
-8429|ir (a la capital)|VrugI|||||
-8430|ser promovido|VrugI|||||
-8431|sumar a|VrugI|||||
-8432|avanzar (en precios)|VrugI|||||
-8433|zarpar|VrugI|||||
-8434|ser mencionado (en la agenda)|VrugI|||||
-8435|detenerse, permanecer, quedarse|VrugI|||||
-8436|detenerse|VrugI|||||
-8437|limitarse|VrugI|||||
-8438|detener, parar|VrugI|||||
-8439|detener(se)|VrugI|||||
-8440|permanecer, quedarse|VrugI|||||
-8441|chupar, gorronear, sablear|VrugI|||||
-8442|regatear, negociar el precio|VrugT|||||
-8443|tener que ver, incumbir, afectar, atañer, guardar relación, tener relación, concernir, ocuparse de, interesarse en (algo), afectar, influenciar, tener que ver con, afectarse, influenciarse, concernir, afectar, involucrar|VrugI|||||
-8444|arrastrar, tirar de|VrugT|||||
-8445|forzar a alguien|VrugT|||||
-8446|prolongar, alargar|VrugT|||||
-8447|influenciar fuertemente, seducir|VrugT|||||
-8448|arrastrar, halar|VrugT|||||
-8449|forzar a alguien|VrugT|||||
-8450|prolongar|VrugT|||||
-8451|influenciar fuertemente, seducir|VrugT|||||
-8452|arrastrar, halar|VrugT|||||
-8453|forzar a alguien|VrugT|||||
-8454|prolongar, soportar|VrugT|||||
-8455|influenciar fuertemente, seducir|VrugT|||||
-8456|arrastrar, empujar|VrugT|||||
-8457|forzar a alguien|VrugT|||||
-8458|prolongar, soportar|VrugT|||||
-8459|influenciar fuertemente, seducir|VrugT|||||
-8460|enterrarse, sepultarse, estar enterrado en, estar cubierto en|VrugI|||||
-8461|sacudir, dar una sacudida, zarandear|VrugT|||||
-8462|sentir|VrugT|||||
-8463|venir, llegar, ser el próximo, ser debido a|VrugI|||||
-8464|visitar, pasar, entrar|VrugI|||||
-8465|sanarse|VrugI|||||
-8466|caer|VrugI|||||
-8467|extender, alargarse, estar en una fila|VrugI|||||
-8468|resucitar|VrugI|||||
-8469|chupar|VrugT|||||
-8470|aparecer, enrollar|VrugT|||||
-8471|sufijo de verbo que indica precipitadamente abandono de una actividad|VrugT|||||
-8472|crecer fuera de control|VrugI|||||
-8473|acercarse a pie, hacer concesiones mutuas|VrugI|||||
-8474|robarle la pareja a otra persona|VrugT|||||
-8475|renovarse|VrugI|||||
-8476|quedarse en una ceremonia|VrugI|||||
-8477|empeorarse, empeorar de repente, agravarse de pronto una enfermedad|VrugI|||||
-8478|instigar, agitar, excitar|VrugT|||||
-8479|subestimar, subvalorar, menospreciar, minimizar|VrugT|||||
-8480|encogerse, reducirse, contraerse|VrugI|||||
-8481|estar desordenado, estar desparramado|VrugI|||||
-8482|desparramarse, esparcirse|VrugI|||||
-8483|tartamudear|VrugI|||||
-8484|persistir, insistir, mantenerse firme, dar lo mejor de uno mismo|VrugI|||||
-8485|afanarse, aferrarse, empeñarse|VrugI|||||
-8486|pisar afuera del límite, emprender, arrancar|VrugT|||||
-8487|avanzar, progresar|VrugI|||||
-8488|estar atrapado en, estar pegado en, ser estafado|VrugI|||||
-8489|tener un calambre (espasmo, convulsión, tirón), ponerse tieso|VrugI|||||
-8490|ponerse tenso o duro, ponerse tenso, estar borracho|VrugI|||||
-8491|apresurarse, apurarse|VrugI|||||
-8492|enterrar, tapar, relegar al olvido|VrugT|||||
-8493|enorgullecerse|VrugI|||||
-8494|bañarse, sumergirse, zambullirse|VrugI|||||
-8495|sentir lástima, simpatizar con, consolar, cuidar de, ser bueno (para) con|VrugT|||||
-8496|colorear, decorar, adornar|VrugT|||||
-8497|propagarse, difundirse|VrugI|||||
-8498|fumar|VrugI|||||
-8499|vanagloriarse, jactarse, creerse|VrugT|||||
-8500|arrinconarse, inclinarse, ser parcial|VrugI|||||
-8501|romper, oponerse|VrugT|||||
-8502|capturar, usurpar|VrugT|||||
-8503|estar en paz, ponerse severo, disminuir (tormenta, terror, furia)|VrugI|||||
-8504|caber en, alojarse, finalizarse|VrugI|||||
-8505|disuadir, desalentar, desengañar|VrugT|||||
-8506|cambiar de posición al dormir, traicionar|VrugI|||||
-8507|enturbiarse, ensuciarse, contaminarse, emborrascarse|VrugI|||||
-8508|terminar por convencerse, persuadirse|VrugI|||||
-8509|pegar, adherir, adherirse, aferrarse|VrugI|||||
-8510|ensimismarse, vanagloriarse|VrugI|||||
-8511|vigilar, atender, guardar|VrugT|||||
-8512|gotear, escaparse, salirse, haber una fuga, haber un escape, perder líquido, filtrarse, regarse, infiltrarse|VrugI|||||
-8513|aparecer (algo perdido), ser encontrado|VrugI|||||
-8514|volcarse, voltear páginas de un libro, arrancar, desnudarse|VrugT|||||
-8515|agruparse, ordenarse, consolidarse|VrugI|||||
-8516|hacerse redondo, apelotonar|VrugI|||||
-8517|cruzar, asociarse con, mezclar con, interesar, unir|VrugI|||||
-8518|cosquillear, excitar, estimular, halagar|VrugT|||||
-8519|cucharear, captar, succionar, sacar|VrugT|||||
-8520|ser tenaz, perseguir, aferrarse|VrugI|||||
-8521|entumecerse, coagularse, endurecerse, ser exigente|VrugI|||||
-8522|balbucear, tartamudear|VrugI|||||
-8523|codiciar, permitirse, desear profundamente, lujuria insaciable por, devorar con avidez|VrugT|||||
-8524|piar, trinar|VrugI|||||
-8525|rastrear, perseguir, lograr|VrugT|||||
-8526|descansar, aliviarse, sentirse cómodo|VrugI|||||
-8527|diluirse, desvanecerse, rebajarse|VrugI|||||
-8528|salir a la superficie|VrugI|||||
-8529|jalarse, estirarse, tensarse, aferrarse|VrugI|||||
-8530|cerrar los ojos|VrugT|||||
-8531|comenzar, empezar|VrugI|||||
-8532|alejarse, distanciarse, apartarse|VrugI|||||
-8533|encerrarse, recluirse|VrugI|||||
-8534|alzarse en vuelo, despegar, brincar|VrugI|||||
-8535|meterse en, participar, tomar parte en|VrugI|||||
-8536|estar dotado de, estar equipado, estar equipado con, estar dotado de|VrugI|||||
-8537|pintarse, teñirse, mancharse|VrugI|||||
-8538|estrecharse|VrugI|||||
-8539|iluminarse espiritualmente|VrugT|||||
-8540|rehusarse, oponerse|VrugI|||||
-8541|agarrarse, depender de, estar a merced de|VrugI|||||
-8542|alojarse, morar, estar embarazada o encinta|VrugI|||||
-8543|dirigir, controlar, verificar|VrugT|||||
-8544|gobernar, mandar, administrar|VrugT|||||
-8545|establecerse, fijarse|VrugI|||||
-8546|interrumpir, cortar, bloquear|VrugT|||||
-8547|dar, conferir, hacer el favor, tener la amabilidad de|VaruT|||||
-8548|ser, estar, ir, venir|VaruI|||||
-8549|decir, hablar, platicar, decir, hablar, decir, hablar, platicar|VaruT|||||
-8550|ser, estar, existir, haber, ser, estar, existir, tener, haber|VaruI|||||
-8551|hacer|VaruT|||||
-8552|partir (en tren, avión, etc), estar de pie, ponerse de pie|VtsuI|||||
-8553|encontrarse uno mismo (en dificultades), partir (tren, avión, etc)|VtsuI|||||
-8554|esperar de, tener la esperanza puesta en, tener expectativas de, contar con, esperar|VtsuT|||||
-8555|ganar, ganar, vencer|VtsuI|||||
-8556|llevar, cargar, sostener|VtsuT|||||
-8557|poseer|VtsuT|||||
-8558|pasar, transcurrir|VtsuI|||||
-8559|golpear, pegar|VtsuT|||||
-8560|escribir a máquina, teclear|VtsuT|||||
-8561|inyectar|VtsuT|||||
-8562|satisfacer en el juego|VtsuT|||||
-8563|visitar (en peregrinaje)|VtsuT|||||
-8564|destacar, sobresalir|VtsuI|||||
-8565|crecer(se) (ej. niño), educarse|VtsuI|||||
-8566|cortar telas para hacer vestidos, cortar (ropa)|VtsuT|||||
-8567|cortar, limitar, suprimir, abstenerse|VtsuT|||||
-8568|eregirse, construirse|VtsuI|||||
-8569|levantar, iniciar acción (política)|VtsuI|||||
-8570|tener una erección|VtsuI|||||
-8571|atacar, derrotar, destruir, disparar|VtsuT|||||
-8572|atacar, derrotar, destruir, vengar|VtsuT|||||
-8573|consistir, concretarse, consolidarse|VtsuI|||||
-8574|vencer, derrotar, superar, sobreponerse|VtsuT|||||
-8575|mantener (guardar, preservar)|VtsuT|||||
-8576|ser útil, servir|VtsuI|||||
-8577|empezar un viaje|VtsuI|||||
-8578|destacar, predominar|VtsuI|||||
-8579|golpear|VtsuT|||||
-8580|encargarse, estar a cargo de|VtsuT|||||
-8581|liberar, soltar, pegar fuego a|VtsuT|||||
-8582|dividir, separar, distinguir|VtsuT|||||
-8583|recibir, aceptar|VuT|||||
-8584|lograr que alguien haga algo (seguido de un verbo con forma "te")|VuT|||||
-8585|decir, contar, decir|VuT|||||
-8586|se refiere a .., se llama ..|VuT|||||
-8587|decir|VuT|||||
-8588|se refiera a .., se llama ..|VuT|||||
-8589|visitar, pedir, oír, escuchar, preguntar, ser contado|VuT|||||
-8590|implorar (a un dios en el oráculo), buscar la dirección (de tu superior)|VuT|||||
-8591|hablar a (un público en el teatro, etc)|VuT|||||
-8592|comprar|VuT|||||
-8593|pensar, sentir, creer, pensar, sentir|VuT|||||
-8594|pagar|VuI|||||
-8595|cepillar, limpiar|VuI|||||
-8596|conocerse, encontrarse con|VuI|||||
-8597|tener un accidente, tener una mala experiencia, encontrar, enfrentar, afrontar, encontrarse, conocerse|VuI|||||
-8598|colocar, satisfacer, quedar bien, corresponder, tener razón, ser beneficioso|VuT|||||
-8599|discrepar, diferir, disentir (con), ser diferente de, estar equivocado|VuI|||||
-8600|despachar, enviar, donar, usar, manipular, emplear, necesitar, querer, gastar, consumir, hablar (inglés), practicar (esgrima), tomar (almuerzo propio), circular (dinero sucio)|VuT|||||
-8601|fumar, aspirar, inhalar|VuT|||||
-8602|chupar, sorber|VuT|||||
-8603|absorber, embeber|VuT|||||
-8604|besar|VuT|||||
-8605|aprender|VuT|||||
-8606|invitar|VuT|||||
-8607|tentar, atraer, inducir|VuT|||||
-8608|finalizar, terminar, hacer algo completamente, ponerle fin a, cerrar, acabar, guardar|VuT|||||
-8609|visitar a un enfermo, caer encima|VuT|||||
-8610|extraviarse, perderse, dudar, vacilar|VuI|||||
-8611|reunir, juntar, encontrar, coger, recoger|VuI|||||
-8612|trenzar, peinarse|VuT|||||
-8613|felicitar, congratular, celebrar|VuT|||||
-8614|proteger, encubrir, defender, solapar|VuT|||||
-8615|importar, tener interés|VuT|||||
-8616|cumplirse, realizarse|VuI|||||
-8617|discrepar, estar en desacuerdo|VuI|||||
-8618|cometer un error, ser incorrecto, estar equivocado|VuI|||||
-8619|encarar, ir hacia|VuI|||||
-8620|pelear, batallar, combatir, luchar, trabar en combate|VuI|||||
-8621|ayudar, asistir, tomar parte en|VuT|||||
-8622|cantar|VuT|||||
-8623|perder (cosa), deshacerse de|VuT|||||
-8624|dudar, desconfiar, sospechar de|VuT|||||
-8625|exaltar, aclamar, reconocer|VuI|||||
-8626|reír, sonreír, flojear, debilitarse, quedarse sin fuerzas en, fallar las fuerzas en, burlarse de, mofarse de, reírse malintencionadamente de, reír, sonreír|VuI|||||
-8627|transportar, conmutar, ir diariamente al lugar donde uno trabaja, asistir (escuela, iglesia, etc)|VuI|||||
-8628|atacar, acometer, ir tras|VuT|||||
-8629|perseguir, ir detrás de|VuT|||||
-8630|apuntar a|VuT|||||
-8631|emplear, contratar|VuT|||||
-8632|emborracharse|VuI|||||
-8633|enloquecer|VuI|||||
-8634|perder el control|VuI|||||
-8635|coger, recoger, aparar, sacar agua, entorpecer, sabotear|VuT|||||
-8636|limpiar con un trapo|VuT|||||
-8637|compensar, reparar, indemnizar|VuT|||||
-8638|desaprobar, calumniar, difamar|VuI|||||
-8639|sostener, deber|VuT|||||
-8640|crecer, levantarse|VuT|||||
-8641|cortar (diente)|VuT|||||
-8642|rescatar de, prestar ayuda|VuT|||||
-8643|construir (un nido), colgar fuera|VuI|||||
-8644|lavar|VuT|||||
-8645|oler, apestar, oler, apestar, parecer sospechoso|VuI|||||
-8646|ver la situación|VuT|||||
-8647|ejecutar, hacer, llevar a cabo|VuT|||||
-8648|gustar, saborear, paladear, degustar|VuT|||||
-8649|ir en contra, oponerse, desobedecer, desafiar|VuI|||||
-8650|dialogar, discutir, conversar|VuT|||||
-8651|desear, querer, pedir|VuT|||||
-8652|rogar, esperar, implorar|VuT|||||
-8653|tener algo bueno por uno mismo|VuT|||||
-8654|pagar|VuT|||||
-8655|sentar bien, ir bien, compatibilizar|VuI|||||
-8656|disgustar|VuT|||||
-8657|cubrir, esconder, ocultar, envolver, disimular|VuI|||||
-8658|titubear, vacilar, dudar|VuI|||||
-8659|pronosticar, predecir|VuT|||||
-8660|reñirse, disputarse, estar en desacuerdo, competir|VuI|||||
-8661|cargar, llevar en la espalda u hombro|VuT|||||
-8662|compensar, cubrir, complementar|VuT|||||
-8663|ir en direcciones encontradas y pasarse de largo, estar en conflicto|VuI|||||
-8664|estar preparado, estar en orden, puesto en orden, estar listo|VuI|||||
-8665|unirse, reunirse, completarse|VuI|||||
-8666|gatear, arratrarse, reptar|VuI|||||
-8667|conocer por casualidad, encontrarse con, encontrar por casualidad, tener una cita|VuI|||||
-8668|mantener, levantar, alimentar, poseer (animales)|VuT|||||
-8669|comer|VuT|||||
-8670|vivir, ganarse la vida, sobrevivir|VuT|||||
-8671|morder, picar (insectos)|VuT|||||
-8672|fastidiar, atormentar, reírse o hacer burla de, no tomar en serio, mofarse de|VuT|||||
-8673|meterse en, desgastar, consumir|VuT|||||
-8674|derrotar a un superior, amenazar una posición|VuT|||||
-8675|consumir tiempo o recursos|VuT|||||
-8676|recibir algo (de un evento desfavorable), comer|VuT|||||
-8677|callejear, errar, vagar, deambular, vagabundear, merodear, vagar, errar|VuI|||||
-8678|arrebatar, desposeer|VuT|||||
-8679|pelear, intercambiar puñetazos, reunir|VuT|||||
-8680|arreglar una reunión|VuT|||||
-8681|tratar, manejar|VuT|||||
-8682|hacer lo mismo que, seguir el ejemplo de, seguir, cumplir, respetar, cumplir con las reglas, obedecer las reglas, seguir las reglas|VuI|||||
-8683|jurar, prometer|VuT|||||
-8684|coser|VuT|||||
-8685|abrirse paso (e.g. a través de una multitud)|VuT|||||
-8686|estropear, echar a perder, dañar, perder|VuT|||||
-8687|estar proporcionado, encajar bien|VuI|||||
-8688|levantar, mantener, cultivar|VuT|||||
-8689|ir a lo largo de, ir a la par con|VuI|||||
-8690|acoplarse, ajustarse, satisfacer|VuI|||||
-8691|añorar, echar de menos, adorar, amar de verdad|VuT|||||
-8692|andar con alguien (como novios)|VuI|||||
-8693|reparar, remendar, parchar|VuT|||||
-8694|tratar, manejar|VuT|||||
-8695|recompensa, reembolsar|VuI|||||
-8696|tener aspectos en común, asemejarse|VuI|||||
-8697|reunirse, encontrarse|VuI|||||
-8698|acompañar, acarrear, traer consigo|VuI|||||
-8699|conocerse|VuI|||||
-8700|pelar los dientes, gruñir, resistirse|VuI|||||
-8701|estar desconcertado, estar perplejo|VuI|||||
-8702|colindar, lindar|VuI|||||
-8703|flotar, andar en el aire|VuI|||||
-8704|reunirse, encontrarse|VuI|||||
-8705|imitar, seguir, emular|VuI|||||
-8706|vestirse, servir, fingir, presumir, pretender|VuT|||||
-8707|emular, competir con|VuI|||||
-8708|exaltar, exaltarse, emocionarse|VuT|||||
-8709|postrarse, comportarse, deleitar|VuT|||||
-8710|tocarse, rozarse, conectarse, compartir|VuI|||||
-8711|encerrar|VuT|||||
-8712|hablar, decir, recitar, prometer, conspirar con|VuT|||||
-8713|encargarse, hacerse cargo, asumir la responsabilidad|VuT|||||
-8714|maldecir|VuT|||||
-8715|llevar a cuestas, cargar, portar, llevar a hombros, llevar a cuestas, acarrear, cargar con, portear|VuT|||||
-8716|prosperar, florecer, animarse|VuI|||||
-8717|perder de vista|VuT|||||
-8718|pasar por alto|VuT|||||
-8719|preparar, arreglar, cubrir, manejar|VuT|||||
-8720|seguir el ejemplo de alguien, imitar, aprender de alguien|VuT|||||
-8721|bailar, danzar, volar|VuI|||||
-8722|lavar, dragar, dragar|VuT|||||
-8723|emborracharse|VuI|||||
-8724|caer enfermo, preocupar, angustiar, agobiar|VuI|||||
-8725|respetar, admirar, adorar|VuT|||||
-8726|humedecerse, lubricarse, refrescar, dar prosperidad|VuI|||||
-8727|continuar, seguir|VuI|||||
-8728|desmayarse, desvanecerse, desfallecer, perder el sentido, perder el conocimiento, desanimarse|VuI|||||
-8729|pelear contra, oponerse, enfrentarse|VuI|||||
-8730|preguntar, cuestionar|VusT|||||
-8731|acusar(de un crimen), culpar|VusT|||||
-8732|rogar, suplicar, implorar|VusT|||||
-8733|estar (objetos animados), existir|VruiI|||||
-8734|(después de la forma -te del verbo) indica la continuación de una acción o estado (estar -iendo, haber estado -ando, etc)|VruiI|||||
-8735|ver, mirar, observar|VruiT|||||
-8736|examinar|VruiT|||||
-8737|(como verbo auxiliar) intentar, observar atentamente, vigilar, mirar con interés, mirar con atención, ver (películas, flores, etc)|VruiT|||||
-8738|ir, venir, visitar|VruiI|||||
-8739|ser derrotado, colapsar, morir|VruiI|||||
-8740|ser anunciado, estar desconcertado|VruiI|||||
-8741|estar locamente enamorado|VruiI|||||
-8742|visitar (recinto, tumba)|VruiI|||||
-8743|comer|VruiT|||||
-8744|parar, detener, parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
-8745|dar, dar al hablante|VruiT|||||
-8746|elevar, levantar|VruiT|||||
-8747|atarse (cabello)|VruiT|||||
-8748|volar (cometas), lanzar (fuegos artificiales), subir a la superficie (ej. submarino)|VruiT|||||
-8749|botar (un barco)|VruiT|||||
-8750|mostrar a alguien (en una habitación)|VruiT|||||
-8751|enviar a alguien|VruiT|||||
-8752|matricularse|VruiT|||||
-8753|subir (precio, calidad, estatus, voz)|VruiT|||||
-8754|hacer (un sonido agudo)|VruiT|||||
-8755|ganar (algo desagradable)|VruiT|||||
-8756|alabar|VruiT|||||
-8757|dar (ejemplo), citar|VruiT|||||
-8758|convocar (toda la energía de uno)|VruiT|||||
-8759|elevar, levantar|VruiT|||||
-8760|atarse (cabello)|VruiT|||||
-8761|volar (cometas), lanzar (fuegos artificales), subir a la superficie (ej. submarino)|VruiT|||||
-8762|desembarcar|VruiT|||||
-8763|mostrar a alguien (en una habitación)|VruiT|||||
-8764|enviar a alguien|VruiT|||||
-8765|matricular|VruiT|||||
-8766|subir (precio, calidad, estatus, voz)|VruiT|||||
-8767|hacer (un sonido agudo)|VruiT|||||
-8768|ganar (algo desagradable)|VruiT|||||
-8769|alabar|VruiT|||||
-8770|dar (ejemplo, citar|VruiT|||||
-8771|convocar (toda la energía de uno)|VruiT|||||
-8772|levantarse|VruiI|||||
-8773|despertar|VruiI|||||
-8774|suceder, tener lugar|VruiI|||||
-8775|inflarse, hincharse, abotargarse, hincharse|VruiI|||||
-8776|saber, pensar, conocer|VruiT|||||
-8777|buscar, pedir, demandar, querer, desear, desear (intransitivo), ir en busca de, buscar (placer, trabajo)|VruiT|||||
-8778|vestir, ponerse, llevar puesto (ropa en el torso)|VruiT|||||
-8779|cargar (con la culpa,etc.)|VruiT|||||
-8780|caerse, esparcirse|VruiI|||||
-8781|aparecer|VruiI|||||
-8782|dejar, salir|VruiI|||||
-8783|(teléfono o puerta)/, contestar (teléfono o puerta)|VruiI|||||
-8784|acostarse, dormir|VruiI|||||
-8785|hacer flotar, poner a flotar, poner a flote, manejar (un bote)|VruiI|||||
-8786|cerrar|VruiT|||||
-8787|calentar, caldear|VruiT|||||
-8788|botar, tirar, descartar, abandonar, resignar, romper (con alguien)|VruiT|||||
-8789|nacer|VruiI|||||
-8790|olvidar|VruiT|||||
-8791|cansar, cansarse de|VruiI|||||
-8792|meter, dejar entrar, admitir, introducir, encarcelar, acomodar, emplear, escuchar a, tolerar, comprender, poner (joyas), emplear, pagar (interés), depositar (votos), meter|VruiT|||||
-8793|dejar a alguien en (cuarto etc)|VruiT|||||
-8794|partir, salir (e.g. afuera, de excursión), ponerse en marcha|VruiI|||||
-8795|abrir, amanecer, hacerse de día, abrir espacio para, vaciar|VruiT|||||
-8796|adherir, pegar, añadir, aplicar, untar, poner, fijar, ponerse, llevar puesto, encender, activar, poner en marcha, llegar, vestir, ponerse, ligar, sujetar, unir, agregar, pegar, coser, adherir|VruiT|||||
-8797|amueblar|VruiT|||||
-8798|llevar puesto, poner|VruiT|||||
-8799|mantener un diario, hacer una entrada|VruiT|||||
-8800|ajustar (precio)|VruiT|||||
-8801|traer a lo largo|VruiT|||||
-8802|colocar (bajo guardia o un doctor)|VruiT|||||
-8803|seguir|VruiT|||||
-8804|cargar, dar (coraje a)|VruiT|||||
-8805|mantenerse alerta|VruiT|||||
-8806|establecer|VruiT|||||
-8807|encender, iluminar, prender|VruiT|||||
-8808|verse, estar a la vista|VruiI|||||
-8809|aparecer|VruiI|||||
-8810|venir|VruiI|||||
-8811|recordar, recolectar, memorizar|VruiT|||||
-8812|sentir|VruiT|||||
-8813|apagarse, desvanecer, desaparecer|VruiI|||||
-8814|plantar, cultivar|VruiT|||||
-8815|transportar, reportar, transmitir, comunicar, decir, impartir, propagar, enseñar, legar|VruiT|||||
-8816|equivocar, errar, cometer un error|VruiI|||||
-8817|confundir|VruiI|||||
-8818|caer, derrumbar|VruiI|||||
-8819|reprobar (examen)|VruiI|||||
-8820|chocar, estrellar, degenerar, degradar|VruiI|||||
-8821|desvanecer (una mancha)|VruiI|||||
-8822|caer, derrumbar|VruiI|||||
-8823|reprobar (examen)|VruiI|||||
-8824|estrellar, degenerar, degradar|VruiI|||||
-8825|palidecer, desvanecer, quitar (una mancha)|VruiI|||||
-8826|caer, derrumbar|VruiI|||||
-8827|reprobar (examen)|VruiI|||||
-8828|chocar, estrellar, degenerar, degradar|VruiI|||||
-8829|tomar prestado, rentar, alquilar, comprar a crédito|VruiT|||||
-8830|colgar, elevar, izar|VruiT|||||
-8831|sentarse|VruiT|||||
-8832|empezar a (pero no completamente)|VruiT|||||
-8833|tomar o gastar (tiempo, dinero)|VruiT|||||
-8834|telefonear|VruiT|||||
-8835|multiplicar|VruiT|||||
-8836|asegurar (ej. con llave)|VruiT|||||
-8837|ponerse, llevar puesto (ej. lentes etc)|VruiT|||||
-8838|cubrir|VruiT|||||
-8839|cargar con alguien|VruiT|||||
-8840|aplicar (seguro)|VruiT|||||
-8841|prender (una máquina, etc), ajustar (botón, despertador, etc)|VruiT|||||
-8842|poner un efecto (hechizo, anestesia, etc), colgar, construir, sentar, ofrecer (premio), poner (la vida de uno en peligro)|VruiT|||||
-8843|preguntar, averiguar|VruiT|||||
-8844|mostrar|VruiT|||||
-8845|escapar, huir|VruiI|||||
-8846|depositar, entregar|VruiT|||||
-8847|romperse, romper|VruiI|||||
-8848|empezar, comenzar|VruiT|||||
-8849|investigar, averiguar|VruiT|||||
-8850|bañarse, gozar en el sol, ducharse|VruiT|||||
-8851|responder, contestar|VruiT|||||
-8852|creer, confiar, tener fe|VruiT|||||
-8853|pensar, considerar|VruiT|||||
-8854|apresurarse, angustiarse, impacientarse|VruiI|||||
-8855|recolectar, ensamblar|VruiT|||||
-8856|ajetrearse, trajinar, ponerse nervioso, alterarse, perder la calma, perder la serenidad, azorarse, turbarse, perder los papeles, dejarse llevar por la precipitación, actuar rápida e irreflexivamente, actuar de modo atolondrado|VruiI|||||
-8857|estar libre (en posición) para hacer algo, estar al corriente de la tarea|VruiI|||||
-8858|estar listo, completado|VruiI|||||
-8859|estar hecho, estar construído|VruiI|||||
-8860|ser bueno en algo, tener permiso (de hacer)|VruiI|||||
-8861|volverse íntimo, asociarse (con alguien)|VruiI|||||
-8862|crecer, ser criado|VruiI|||||
-8863|poder, ser capaz|VruiI|||||
-8864|estar listo, completarse|VruiI|||||
-8865|hacerse, construirse|VruiI|||||
-8866|ser bueno en, permitirse (hacer)|VruiI|||||
-8867|intimar, empezar (con alguien)|VruiI|||||
-8868|crecer|VruiI|||||
-8869|estar afuera de, no tener mas en mano|VruiI|||||
-8870|coger, obtener, ganar, hacerse con, tomar|VruiT|||||
-8871|ser posible|VruiT|||||
-8872|aumentar, multiplicar|VruiI|||||
-8873|envejecer|VruiI|||||
-8874|hacerse tarde, avanzar (tiempo), pasar (tiempo)|VruiI|||||
-8875|llegarle a uno, tocarle a uno|VruiT|||||
-8876|temblar, vibrar, fluctuar, oscilar|VruiI|||||
-8877|voltear, poner bocabajo, bajar, tirarse|VruiI|||||
-8878|estar soleado, despejarse, parar de llover|VruiI|||||
-8879|desconectarse, apagarse|VruiI|||||
-8880|pasar, transcurrir|VruiI|||||
-8881|emprender, empezar a hacer, hacerse cargo, ser responsable por, garantizar, contraer (deceso), emprender, empezar a hacer, hacerse cargo de, ser responsable por, garantizar, contraer (deceso)|VruiT|||||
-8882|bajar|VruiT|||||
-8883|ensanchar, propagar|VruiT|||||
-8884|estornudar|VruiI|||||
-8885|desenredar, desatar|VruiI|||||
-8886|enamorarse, estar enamorado, estar encantado con|VruiT|||||
-8887|fenecer, morir, acabarse, extinguirse, caer, desplomarse, desmoronarse, extinguirse|VruiI|||||
-8888|ordenar, divulgar, soplar, delatar|VruiT|||||
-8889|burlarse, atormentar, perseguir, castigar|VruiT|||||
-8890|vivir, existir|VruiI|||||
-8891|amonestar, advertir, regañar, reprobar, reprobar, reprender, amonestar, leer la cartilla, sermonear, echar la bronca, echar la cantada, afear la conducta de alguien|VruiT|||||
-8892|hacer (té, café, etc.), preparar (té, café, etc.)|VruiT|||||
-8893|disparar|VruiT|||||
-8894|tirar, arrojar, echar, acuñar, idear|VruiT|||||
-8895|cambiar, variar, alterar, convertir, revisar, enmendar|VruiT|||||
-8896|intercambiar, sustituir, reemplazar|VruiT|||||
-8897|cargar, arrastrar, llevar a cuestas|VruiT|||||
-8898|alzar, elevar, montar, anunciar|VruiT|||||
-8899|ser deficiente|VruiI|||||
-8900|correr (carreras de caballos), galopar, ir a medio galope, correr, galopar, avanzar|VruiI|||||
-8901|apostar, arriesgar, jugar (juegos de azar)|VruiT|||||
-8902|suspender algo entre dos puntos (ej. un puente), poner algo sobre (las patas sobre la mesa)|VruiT|||||
-8903|ocultarse, esconderse, desaparecer|VruiI|||||
-8904|establecer, posar, ponerse en guardia, darle bola a|VruiT|||||
-8905|sentir, experimentar, darse cuenta|VruiT|||||
-8906|marchitarse, envejecer|VruiI|||||
-8907|apilar, amontonar, adicionar, repetir|VruiT|||||
-8908|endurecer, congelar, fortificar|VruiT|||||
-8909|ordenar, poner en orden, guardar|VruiT|||||
-8910|arreglar (problema), aclarar (disputa)|VruiT|||||
-8911|terminar, llevar algo hasta el fin|VruiT|||||
-8912|casar (ej. una hija)|VruiT|||||
-8913|matar a alguien|VruiT|||||
-8914|contar, enumerar|VruiT|||||
-8915|cambiarse la ropa|VruiT|||||
-8916|escucharse, oírse|VruiI|||||
-8917|decirse para ser, tener reputación de|VruiI|||||
-8918|decidir|VruiT|||||
-8919|prohibir|VruiT|||||
-8920|estar afilado|VruiI|||||
-8921|romperse, gastarse|VruiI|||||
-8922|dañarse|VruiI|||||
-8923|estallar, colapsarse|VruiI|||||
-8924|desconectarse, estar fuera de, expirar|VruiI|||||
-8925|ser astuto, tener una mente aguda|VruiI|||||
-8926|derramarse, regarse, infiltrarse|VruiI|||||
-8927|cruzar, pasar por alto|VruiI|||||
-8928|exceder, sobrepasar|VruiI|||||
-8929|quemarse, chamuscarse|VruiI|||||
-8930|sentarse|VruiI|||||
-8931|comparar, calibrar, competir, rivalizar, desafiarse, comparar|VruiT|||||
-8932|calibrar|VruiT|||||
-8933|atormentar, acosar, infligir dolor|VruiT|||||
-8934|tramar, planear, atentar|VruiT|||||
-8935|añadir, sumar, incluir, aumentar, incrementar, infligir|VruiT|||||
-8936|colapsar|VruiI|||||
-8937|doblar, torcer, ladear|VruiT|||||
-8938|mezclarse, combinarse con, mezclar|VruiT|||||
-8939|mezclar, revolver, remover, batir|VruiT|||||
-8940|reconocer, apreciar|VruiT|||||
-8941|observar, darse cuenta|VruiT|||||
-8942|admitir, aprobar, autorizar|VruiT|||||
-8943|ganar, producir|VruiT|||||
-8944|gotear, escaparse, salirse, haber una fuga, haber un escape, perder líquido, filtrarse, regarse, infiltrarse, fugarse|VruiI|||||
-8945|ser querido, ser popular|VruiI|||||
-8946|recoger (personas)|VruiT|||||
-8947|ver, mirar fijamente en, contemplar|VruiT|||||
-8948|fluir, afluir, correr(tinta), quitar (grasa, manchas)|VruiI|||||
-8949|tirar, arrojar|VruiT|||||
-8950|enfrentar la derrota, rendirse|VruiT|||||
-8951|confortar, consolar, entretener, divertir|VruiT|||||
-8952|lamer, lengüetear, subestimar, probar|VruiT|||||
-8953|alinear|VruiT|||||
-8954|acostumbrarse|VruiI|||||
-8955|refinar, forjar, fraguar, moldear, amasar, hernir, alterar, encerar|VruiT|||||
-8956|hervir, cocer|VruiT|||||
-8957|subir a bordo(algo), dejar participar, imponer, registrar, mencionar, cargar(equipaje), publicar, poner encima|VruiT|||||
-8958|mojarse|VruiI|||||
-8959|llegar tarde, llegar tarde, retrasarse|VruiI|||||
-8960|romper, doblarse, entregar, doblar (una esquina)|VruiI|||||
-8961|bajarse de un vehículo, salir, apearse, descender (ej. montaña)|VruiI|||||
-8962|enseñar, informar, instruir|VruiT|||||
-8963|temer, tener miedo, haber riesgo de, existir peligro de, temer, tener miedo de, temer, tener miedo, haber riesgo de, existir peligro de, temer, tener miedo (de o a)|VruiT|||||
-8964|decidir, establecer, determinar|VruiT|||||
-8965|colgar(algo), bajar(algo), calzar, descartar, conceder|VruiT|||||
-8966|rajarse, partirse, reventarse, romperse|VruiI|||||
-8967|estorbar, impedir, obstruir|VruiT|||||
-8968|sostener, apoyar, sujetar, contener|VruiT|||||
-8969|criar, educar|VruiT|||||
-8970|pasar, ir más allá, transcurrir, rebasar|VruiI|||||
-8971|sobresalir, ser superior, superar, prevalecer, predominar, aventajar|VruiI|||||
-8972|almacenar, disponer en stock|VruiT|||||
-8973|amontonar, acumular|VruiT|||||
-8974|colapsar, averiarse, descomponerse, declararse en quiebra, caer, dejar caer, morir, sucumbir a, caer sin sentido, arruinarse, tener una mala deuda|VruiI|||||
-8975|bastar, ser suficiente|VruiI|||||
-8976|salvar, socorrer, auxiliar, prestar auxilio, asistir, apoyar, ayudar, atender, ayudar, auxiliar, salvar, rescatar, promover, salvar, socorrer, auxiliar, prestar auxilio, asistir, apoyar, ayudar, atender|VruiT|||||
-8977|construir, edificar|VruiT|||||
-8978|derretirse, disolverse, solucionarse, desatarse|VruiI|||||
-8979|sacarse de, extraerse (fotos también), obtenerse, trasladarse, mudarse, interpretarse|VruiI|||||
-8980|intercambiar, reemplazar|VruiT|||||
-8981|embutir, retacar, atascar|VruiT|||||
-8982|servir, estar empleado, esforzarse por, tratar de, procurar, intentar denodadamente que|VruiT|||||
-8983|fortalecer, enfatizar|VruiT|||||
-8984|continuar, proseguir, conservar, mantener (algo)|VruiI|||||
-8985|divergir de, escupir, levantar con la horca, dispensar, dispersar, dividir en|VruiI|||||
-8986|dividir, separar|VruiT|||||
-8987|rasgarse, desgarrarse, romperse, perder|VruiI|||||
-8988|estar celoso, tener envidia, quemar, estar celoso, tener envidia|VruiI|||||
-8989|parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
-8990|ser tímido|VruiI|||||
-8991|responder, contestar|VruiI|||||
-8992|secarse, desecarse, resecarse, ajarse, perder vigor y energías, hacerse viejo, debilitarse, decaer|VruiI|||||
-8993|fertilizar, engordar, refinarse|VruiI|||||
-8994|comparar con la vista|VruiT|||||
-8995|mantener en la boca|VruiT|||||
-8996|perder, ser derrotado|VruiT|||||
-8997|crear, establecer, fundar|VruiT|||||
-8998|descuidar, holgazanear, haraganear, desatender, descuidar, escaquearse|VruiI|||||
-8999|parecerse, ser semejante, ser similar|VruiI|||||
-9000|llevar algo colgado|VruiT|||||
-9001|evadir, evitar, rehuir, esquivar, evadir, quitar, remover, retirar|VruiT|||||
-9002|humedecerse|VruiI|||||
-9003|hacer recto, corregir, curar, falsificar|VruiT|||||
-9004|guardar (ej. en el banco)|VruiT|||||
-9005|parar(algo), erigir (algo)|VruiT|||||
-9006|hacer (ruido, sonido)|VruiT|||||
-9007|poner (diente, garra, objeto puntiagudo)|VruiT|||||
-9008|preparar (un plan), decidir (objetivo, calendario)|VruiT|||||
-9009|derretirse, fundirse, disolverse|VruiI|||||
-9010|desempeñar, ejercer, hacerse cargo de, trabajar, servir, estar empleado|VruiT|||||
-9011|dividirse, separar, despedirse|VruiI|||||
-9012|ser derrotado, ser un fracasado|VruiI|||||
-9013|dejar de, renunciar a, dimitir, cesar en un puesto o actividad, abandonar, retirar|VruiT|||||
-9014|doler, sentir dolor, sufrir, padecer|VruiI|||||
-9015|examinar (medicina)|VruiT|||||
-9016|cuidar, tener cuidado|VruiT|||||
-9017|depositar, encargar, encomendar|VruiT|||||
-9018|tornarse oscuro, finalizar, venir al final, cerrar, abandonar, oscurecerse, terminarse, llegar al final , cerrar , acabarse, agotarse|VruiI|||||
-9019|aparecer disfrazado, tomar la forma de|VruiI|||||
-9020|cambiar a peor, empeorar, corromper|VruiI|||||
-9021|despertar|VruiI|||||
-9022|desprenderse, escabullirse, escaparse|VruiI|||||
-9023|estar medio dormido, desvariar|VruiI|||||
-9024|levantar, alzar, impulsar|VruiT|||||
-9025|hundir, sumergir, zozobrar|VruiT|||||
-9026|demacrarse|VruiI|||||
-9027|actuar violentamente, rabiar, forcejear, estar descontrolado|VruiI|||||
-9028|dar alojamiento|VruiT|||||
-9029|pasar, atravesar, seguirse de largo|VruiI|||||
-9030|escapar, librarse de, escaparse de, conseguir escapar de, eludir, salvarse, escabullirse|VruiI|||||
-9031|colgar, suspender|VruiT|||||
-9032|ladrar, gruñir, aullar|VruiI|||||
-9033|atar, sujetar|VruiT|||||
-9034|notificar, aconsejar|VruiT|||||
-9035|decir a alguien (lenguaje humilde)|VruiT|||||
-9036|averiguar, comprobar, asegurarse|VruiT|||||
-9037|ensuciar|VruiI|||||
-9038|romperse, fracturarse, rajarse, partirse, quebrarse, romperse|VruiI|||||
-9039|dar, ofrecer|VruiT|||||
-9040|enviar, llevar y entregar, notificar|VruiT|||||
-9041|visitar|VruiT|||||
-9042|enfriarse, congelarse|VruiI|||||
-9043|guiar, acompañar|VruiT|||||
-9044|capturar, arrestar, detener|VruiT|||||
-9045|hacer transferencia (de trenes), transbordar (autobús, tren)|VruiT|||||
-9046|sacudir|VruiI|||||
-9047|admirar, mirar hacia arriba|VruiI|||||
-9048|crecer, levantarse, cortar (diente)|VruiI|||||
-9049|producirse, ocasionarse, presentarse, brotar|VruiT|||||
-9050|quedarse viendo, mirar fijamente en|VruiT|||||
-9051|levantar, alzar, elevar|VruiT|||||
-9052|venderse|VruiI|||||
-9053|ser bien conocido, ser popular, ser famoso|VruiI|||||
-9054|usar, hacer uso de|VruiT|||||
-9055|extenderse, propagarse, desdoblarse, abrirse, desenrollarse|VruiT|||||
-9056|girar hacia, dirigirse|VruiT|||||
-9057|recoger, descalificar, confiscar, privar, aceptar, adoptar, escuchar a|VruiT|||||
-9058|finalizar|VruiT|||||
-9059|adelantar(algo), promover, acelerar|VruiT|||||
-9060|armar, construir, ensamblar|VruiT|||||
-9061|guiar|VruiI|||||
-9062|asignar|VruiT|||||
-9063|nombrar, mandar, ordenar|VruiT|||||
-9064|preparar, tener listo, proveer, equipar, proveerse|VruiT|||||
-9065|aparecer, surgir, volverse visible, salir, encarnar, asomar, materializar|VruiI|||||
-9066|expresarse, aparecer, hacerse visible, quedar al descubierto, encarnar, materializarse, expresarse|VruiI|||||
+7838|brillar, destellar, relucir, resplandecer, refulgir|VkuI|||||
+7839|morir, fallecer, ir|VikuI|||||
+7840|continuar|VikuI|||||
+7841|llevarse a alguien (de inferior estatus), traer (persona de bajo status)|VikuT|||||
+7842|llevar (algo)|VikuT|||||
+7843|cambiar, moverse, ida y vuelta|VyukuI|||||
+7844|crecer|VyukuI|||||
+7845|nadar|VguI|||||
+7846|apresurar, apurar|VguI|||||
+7847|buscar, pedir (consejo)|VguT|||||
+7848|ganar dinero, trabajar|VguI|||||
+7849|llevar a cuestas, cargar, adular, engañar|VguT|||||
+7850|desvestir, quitar (ropa)|VguT|||||
+7851|hacer escándalo, hacer bulla|VguI|||||
+7852|verter, irrigar, servir|VguT|||||
+7853|amarrar, sujetar, conectar, transferir (llamada telefónica)|VguT|||||
+7854|venir detrás de, clasificar después de|VguI|||||
+7855|suceder (a alguien en un negocio o herencia)|VguT|||||
+7856|contribuir, tributar, sustentar, mantener económicamente, sostener económicamente|VguT|||||
+7857|olfatear, oler|VguT|||||
+7858|temblar, sacudirse, mecerse, agitarse|VguI|||||
+7859|remar, pedalear|VguT|||||
+7860|cerrar, ocupar, tapar, llenar, bloquear|VguT|||||
+7861|verter, servir, echar, vaciar|VguT|||||
+7862|protegerse, defenderse, impedir, prevenir, repeler, rechazar, alejar|VguT|||||
+7863|concatenarse, sucederse, sobrevenir, advenir|VguI|||||
+7864|casarse|VguI|||||
+7865|absorber, adquirir, entregar, absorber, adquirir, ceder|VguT|||||
+7866|ablandarse, calmarse, apaciguarse|VguI|||||
+7867|relajarse, ponerse cómodo|VguI|||||
+7868|heredar, suceder|VguT|||||
+7869|abanicar, airear, ventilar|VguT|||||
+7870|pelar|VguT|||||
+7871|juguetear, bromear, divertirse|VguI|||||
+7872|sentirse comodo|VguI|||||
+7873|atender, manejar (un producto, un asunto, etc.)|VguT|||||
+7874|afilar, pulir, lijar, lavar(arroz)|VguT|||||
+7875|soportar, tolerar, sobrellevar|VguT|||||
+7876|enjuagar, aclarar, enjuagar, enjuagarse|VguT|||||
+7877|enjuagarse la boca, hacer gárgaras|VguT|||||
+7878|cruzar de un salto|VguT|||||
+7879|llamar, llamársele, vocear, llamar a gritos, vociferar|VbuT|||||
+7880|volar, saltar, rebotar, volar, saltar|VbuI|||||
+7881|jugar, hacer una visita (esp. por placer)|VbuI|||||
+7882|estar ocioso, hacer nada|VbuI|||||
+7883|flotar, flotar, aparecer en la superficie|VbuI|||||
+7884|aprender, estudiar, tomar lecciones en|VbuT|||||
+7885|caerse|VbuI|||||
+7886|poner en fila|VbuI|||||
+7887|rivalizar, estar a la altura, igualar|VbuI|||||
+7888|escoger, seleccionar|VbuT|||||
+7889|transportar|VbuT|||||
+7890|atar, liar, unir, ereje van/megkeményedik/megköt/összeköt/begombol/csukódik/korlátoz/leköt/összekötöz/|VbuT|||||
+7891|alcanzar, llegar, conseguir|VbuI|||||
+7892|deleitarse, alegrarse|VbuI|||||
+7893|recostarse, tenderse, tumbarse|VbuI|||||
+7894|gritar, chillar|VbuI|||||
+7895|respetar, admirar, adorar, respetar, mostrar respeto, mostrar estima|VbuT|||||
+7896|ocultarse, esconder|VbuT|||||
+7897|resistir, aguantar|VbuT|||||
+7898|tragar, ingerir, tragar entero, ingerir sin masticar, beber, tragar|VmuT|||||
+7899|fumar (tabaco)|VmuT|||||
+7900|devorar|VmuT|||||
+7901|oprimir, sofocar|VmuT|||||
+7902|aceptar (ej. Demanda, condición)|VmuT|||||
+7903|no tomar en serio, ocultar|VmuT|||||
+7904|cesar, amainar, parar, estar terminado|VmuI|||||
+7905|terminar de hacer (acabar)|VmuI|||||
+7906|residir, vivir en, morar|VmuI|||||
+7907|descansar, tener un respiro, tomarse un día, ausentarse, retirarse, dormir|VmuT|||||
+7908|tejer, trenzar, editar, planear|VmuT|||||
+7909|leer|VmuT|||||
+7910|pizcar, coger con la punta de los dedos, pinchar, picar|VmuT|||||
+7911|intensificar, apilar|VmuT|||||
+7912|solicitar, pedir, rogar, suplicar|VmuT|||||
+7913|llamar, ordenar, reservar|VmuT|||||
+7914|confiar algo|VmuT|||||
+7915|confiar en alguien|VmuT|||||
+7916|rodear|VmuT|||||
+7917|pisar|VmuT|||||
+7918|aplicarse, esmerarse|VmuI|||||
+7919|insertar, entrometerse, albergar, pinzar, prensar|VmuT|||||
+7920|estar de luto, lamentar|VmuT|||||
+7921|herir, doler|VmuI|||||
+7922|entristecerse, acongojarse, arrepentirse, estar triste, lamentarse (muerte), arrepentirse|VmuT|||||
+7923|desvanecerse, borrarse, haber neblina|VmuI|||||
+7924|gustar|VmuT|||||
+7925|cucharear, succionar, sacar|VmuT|||||
+7926|deslumbrase por, marearse por, desorientarse por|VmuI|||||
+7927|perderse en (codicia, lujuria, etc.)|VmuI|||||
+7928|ponerse oscuro (obscuro), oscurecerse, cegarse, deslumbrarse, ofuscarse|VmuI|||||
+7929|sufrir, gemir, preocuparse|VmuI|||||
+7930|mirar fijamente|VmuT|||||
+7931|robar, hurtar, pillar|VmuT|||||
+7932|valorar, escatimar|VmuT|||||
+7933|hundirse, sumergirse, deprimirse|VmuI|||||
+7934|progresar, avanzar, mejorar|VmuI|||||
+7935|tramar, maquinar, conspirar|VmuT|||||
+7936|divertirse|VmuI|||||
+7937|doblar, cerrar, dar fin|VmuT|||||
+7938|coger, agarrar, empuñar, asir, captar, comprender, entender, enganchar al vuelo, lograr, conseguir, no dejar escapar, coger, agarrar, asir, sostener, agarrarse de, ponerse la mano encima|VmuT|||||
+7939|estar sumergido en, estar envuelto por, envolver, apretujar en, empacar, empaquetar, cubrir con, ocultar|VmuT|||||
+7940|maquinar, tramar, urdir, pergeñar|VmuT|||||
+7941|mascar, morder, roer|VmuT|||||
+7942|titubearse con las propias palabras, morder, masticar|VmuT|||||
+7943|reunir|VmuT|||||
+7944|encornarse, formar pus|VmuI|||||
+7945|madurar, ponerse en sazón|VmuI|||||
+7946|trenzar cuerda|VmuT|||||
+7947|resentir, odiar, detestar|VmuT|||||
+7948|refugiarse de un escape en|VmuI|||||
+7949|introducir, meter, implementar, adoptar|VmuT|||||
+7950|contener, tener dentro|VmuT|||||
+7951|pedir, proponer, suscribir|VmuT|||||
+7952|incrustarse, entrometerse, meter, interrumpir|VmuI|||||
+7953|clavarse, lanzarse, aventarse, introducirse|VmuI|||||
+7954|sentir, lamentar|VmuT|||||
+7955|sonreír|VmuI|||||
+7956|decidir, conjeturar, asumir|VmuI|||||
+7957|disolverse, fusionarse, mezclarse|VmuI|||||
+7958|hundirse, deprimirse|VmuI|||||
+7959|aclarar (clima), hacerse transparente|VmuI|||||
+7960|hincharse, inflarse, dilatarse, abultarse, hincharse, inflarse, abultarse, ensancharse|VmuI|||||
+7961|familiarizarse, crear intimidad|VmuI|||||
+7962|incluir, insertar, incorporar|VmuT|||||
+7963|estorbar, impedir, minar|VmuT|||||
+7964|acorralar, esquinar|VmuT|||||
+7965|incrustar|VmuT|||||
+7966|caerse, desplomarse, hundirse, deprimirse|VmuI|||||
+7967|sospechar|VmuT|||||
+7968|anticipar, estimar|VmuT|||||
+7969|clavar, incrustar|VmuI|||||
+7970|tragar, deglutir|VmuT|||||
+7971|entender, meter, darse cuenta, aprender, digerir|VmuT|||||
+7972|enredar, envolver, involucrar|VmuT|||||
+7973|quedarse parado|VmuI|||||
+7974|desear|VmuT|||||
+7975|rajar, picar, cincelar, tallar|VmuT|||||
+7976|odiar, detestar|VmuT|||||
+7977|estar preocupado|VmuI|||||
+7978|encogerse, reducirse, contraerse|VmuI|||||
+7979|corroer, carcomer, minar|VmuI|||||
+7980|insertar, empujar, meter|VmuI|||||
+7981|sonrojarse|VmuI|||||
+7982|enviar, mandar|VmuT|||||
+7983|dialogar por largo tiempo|VmuT|||||
+7984|meterse, interrumpir, atravesarse|VmuT|||||
+7985|ser entusiástico sobre|VmuI|||||
+7986|sentarse en cuclillas, acuclillarse, agacharse|VmuI|||||
+7987|abordar|VmuI|||||
+7988|desparramarse, deslavarse, esparcirse|VmuI|||||
+7989|temer, inquietarse, recelar, preocuparse, dudar, sospechar, desconfiar|VmuI|||||
+7990|tener a la vista, mirar, afrontar|VmuI|||||
+7991|adorar, rogar, implorar|VmuT|||||
+7992|luchar, derribar, acometer, combatir, contender, afrontar, atacar, agarrar|VmuI|||||
+7993|incorporar, incluir|VmuT|||||
+7994|rechazar, rehusar, declinar|VmuT|||||
+7995|rebotar, ser estimulado, estar animado, derrochar|VmuI|||||
+7996|refrescarse, tomar el fresco|VmuI|||||
+7997|compadecer, sentir lástima, tener piedad, compadecerse, tener piedad de, simpatizar con|VmuT|||||
+7998|enredarse, implicarse, meterse con|VmuI|||||
+7999|envolver, enrollar, hacer la pelota, adular|VmuT|||||
+8000|hervir a fuego lento|VmuI|||||
+8001|ablandarse, calmarse|VmuI|||||
+8002|caer enfermo, estar enfermo|VmuI|||||
+8003|parir, entregar, producir|VmuT|||||
+8004|ser discreto, cuidar, medir acciones y palabras, ser prudente|VmuT|||||
+8005|compadecerse, tener piedad, ser caritativo, dar limosna, bendecir, donar, dar|VmuT|||||
+8006|aprovechar, explotar, aprovecharse de|VmuI|||||
+8007|caminar, ir a pié|VmuI|||||
+8008|soplar hacia adentro, infundir, inspirar|VmuT|||||
+8009|meterse, entrar, ingresar|VmuI|||||
+8010|criar, educar|VmuT|||||
+8011|tener una visión distorsionada y prejuiciosa|VmuI|||||
+8012|enfriar, helar|VmuI|||||
+8013|concebir, quedar embarazada, llenarse con|VmuI|||||
+8014|echarse para atrás, sumir, derrumbarse|VmuI|||||
+8015|pagar, depositar|VmuT|||||
+8016|esconderse, ocultarse, desaparecer|VmuI|||||
+8017|estar celoso, tener envidia|VmuT|||||
+8018|traer al interior|VmuT|||||
+8019|frotar, sobar, masajear|VmuT|||||
+8020|colmarse, llenarse, llenarse|VmuI|||||
+8021|anhelar|VmuT|||||
+8022|estar sumergido en, estar envuelto por, envolver, apretujar en, empacar, empaquetar, cubrir con, ocultar|VmuT|||||
+8023|invadir, penetrar, introducirse|VmuI|||||
+8024|despreciar, menospreciar, desdeñar|VmuT|||||
+8025|esforzarse, ponerse tenso|VmuT|||||
+8026|marchitarse, decaer, desinflarse, desvanecerse, secarse, consumirse, encogerse, marchitarse|VmuI|||||
+8027|inhalar, inspirar, aspirar, beber|VmuT|||||
+8028|absorber|VmuT|||||
+8029|recitar, escribir (poesía)|VmuT|||||
+8030|aflojarse, relajarse, soltarse|VmuI|||||
+8031|distorsionarse, estar distorsionado|VmuI|||||
+8032|estancarse, remansarse, enturbiarse, estancarse|VmuI|||||
+8033|promover, vender|VmuT|||||
+8034|pizcar, coger con la punta de los dedos, picar algo de comer, picar, pellizcar, pinchar, pizcar, coger con la punta de los dedos, picar algo de comer|VmuT|||||
+8035|rodear, cercar|VmuT|||||
+8036|abundar, afluir|VmuI|||||
+8037|aflojarse|VmuI|||||
+8038|abarrotarse, atiborrarse|VmuI|||||
+8039|dirigir, ejercer, practicar, llevar|VmuT|||||
+8040|reto, desafío|VmuT|||||
+8041|morir|VnuI|||||
+8042|estar (objetos inanimados y plantas), vivir, existir, tener|VrugI|||||
+8043|estar equipado con|VrugI|||||
+8044|suceder|VrugI|||||
+8045|estar (objetos inanimados), existir, haber, vivir|VrugI|||||
+8046|tener, poseer|VrugI|||||
+8047|ser, estar localizado|VrugI|||||
+8048|ocurrir, pasar, producirse|VrugI|||||
+8049|tener lugar, suceder en|VrugI|||||
+8050|estar equipado con|VrugI|||||
+8051|estar (objetos animados), existir|VrugI|||||
+8052|(después de la forma -masu del verbo) indica desprecio o desdén por las actividades de otros|VrugI|||||
+8053|saber, entender, estar al corriente de, sentir|VrugT|||||
+8054|comenzar|VrugI|||||
+8055|comer|VrugT|||||
+8056|obedecer respetuosamente, humillarse, sentarse derecho (recto, respetuosamente, atentamente)|VrugI|||||
+8057|entender|VrugI|||||
+8058|saber, realizar, entenderse|VrugI|||||
+8059|entender|VrugI|||||
+8060|saber, realizar, entender, comprender, darse cuenta, captar, esclarecerse, saber, enterarse|VrugI|||||
+8061|regresar, enviar de regreso, irse a casa|VrugI|||||
+8062|(de un cliente) dejar|VrugI|||||
+8063|(de un jugador de béisbol cuando recorre todas las bases) hacer home, regresar, volver, irse a casa|VrugI|||||
+8064|tomar, coger, cosechar, ganar|VrugT|||||
+8065|precipitar, caer (e.g. lluvia)|VrugI|||||
+8066|hacer, tener relaciones sexuales, matar, dar (inferiores, animales), despachar (carta), enviar, estudiar, desempeñar, jugar, haber (comida, bebida, fumar), operar (restaurante)|VrugT|||||
+8067|hacer algo en, chocar contra alguien|VrugT|||||
+8068|convertirse en, llegar a ser, ponerse, hacerse, volverse, obtener, crecer, alcanzar a, lograr, realizar|VrugI|||||
+8069|resultar en, probar ser|VrugI|||||
+8070|consistir de, estar integrado por|VrugI|||||
+8071|tener éxito, completarse|VrugI|||||
+8072|cambiar en, intercambiarse por|VrugI|||||
+8073|jugar un rol|VrugI|||||
+8074|promoverse (shogi)|VrugI|||||
+8075|hacer, crear, fabricar, manufacturar, redactar, escribir, componer, construir, acuñar, cultivar, organizar, establecer (lugar), maquillar, cortar (árbol), preparar (comida), cometer (pecado), crear (cosas nuevas o que se hacen por primera vez), originar, inventar, engendrar, concebir, hacer, crear, fabricar, manufacturar, redactar, escribir, componer, construir, acuñar, cultivar, organizar, establecer (lugar), maquillar, cortar (árbol), preparar (comida), cometer (pecado)|VrugT|||||
+8076|enviar (cosas), despachar, escoltar, acompañar, despedirse, pasar un periodo de tiempo, vivir una vida|VrugT|||||
+8077|subirse, entrar (en vehículos), abordar|VrugI|||||
+8078|extender (pantalones), llevarse a|VrugI|||||
+8079|compartir, unir, sentir como haciendo, mencionarse en, estar en armonía con|VrugI|||||
+8080|dar la vuelta, regresar, volver atrás|VrugI|||||
+8081|equivocarse, equivocarse|VrugI|||||
+8082|disculparse|VrugI|||||
+8083|sentarse, ponerse en cuclillas|VrugI|||||
+8084|asumir (una posición)|VrugI|||||
+8085|enfurecerse, preocuparse|VrugI|||||
+8086|bailar, danzar|VrugI|||||
+8087|saltar|VrugI|||||
+8088|vender|VrugT|||||
+8089|proteger, defender|VrugT|||||
+8090|obedecer, guardar, cumplir (reglas)|VrugT|||||
+8091|proteger, guardar|VrugT|||||
+8092|cumplir (reglas), obedecer|VrugT|||||
+8093|necesitar|VrugI|||||
+8094|entrar|VrugI|||||
+8095|cortar, caer, desconectar, cruzar (calle), descontar, completar|VrugT|||||
+8096|hablar, charlar|VrugI|||||
+8097|calentarse, calentarse (clima, ambiente), caldearse, calentarse, asolearse|VrugT|||||
+8098|detenerse, permanecer, quedarse|VrugI|||||
+8099|detenerse|VrugI|||||
+8100|limitarse|VrugI|||||
+8101|detener, parar, detener(se)|VrugI|||||
+8102|permanecer, quedarse|VrugI|||||
+8103|ser capturado|VrugI|||||
+8104|citarse, mencionarse|VrugI|||||
+8105|volverse próspero|VrugI|||||
+8106|entrar, subir, elevarse, escalar, avanzar, apreciar, ser promovido, mejorar, visitar, ofrecerse, acumular|VrugI|||||
+8107|estar acabado, irse a la bancarrota, atraparse, amainar (lluvia)|VrugI|||||
+8108|debilitarse (ej. una batería)|VrugI|||||
+8109|fastidiarse|VrugI|||||
+8110|voltear, girar, doblar|VrugI|||||
+8111|marcharse, partir, irse|VrugI|||||
+8112|ser encontrado, ser visto|VrugI|||||
+8113|ser premiado|VrugI|||||
+8114|terminar, acabar, concluir|VrugI|||||
+8115|ocurrir, acaecer, suceder|VrugI|||||
+8116|tomarse (tiempo, dinero)|VrugT|||||
+8117|colgar|VrugT|||||
+8118|aparecer, llegar|VrugT|||||
+8119|venir bajo un (contrato, impuesto)|VrugT|||||
+8120|arrancar (motor, máquinas)|VrugT|||||
+8121|tratar con|VrugT|||||
+8122|hacer comenzado a, estar al límite de|VrugT|||||
+8123|(venir a) atacar|VrugT|||||
+8124|coincidir en parte (un manual), cubrir|VrugT|||||
+8125|atacar|VrugT|||||
+8126|estar sujeto|VrugT|||||
+8127|cubrirse (con polvo, mesa con ropa, etc)|VrugT|||||
+8128|estar atrapado|VrugT|||||
+8129|tener una llamada|VrugT|||||
+8130|depender (de), estar colgado de, estar atrapado|VrugT|||||
+8131|acopiar, recolectar, ensamblar|VrugI|||||
+8132|guardar silencio|VrugI|||||
+8133|trizar, despedazar|VrugT|||||
+8134|hacer el amor, tener relaciones sexuales, practicar sexo, comprometerse|VrugT|||||
+8135|burlarse, mofarse|VrugI|||||
+8136|abstraerse, enajenarse, extasiarse|VrugI|||||
+8137|engordar, hacerse gordo, ganar peso|VrugI|||||
+8138|tramar, intentar, planear, diseñar, tramar, maquinar, conspirar|VrugT|||||
+8139|consultar, someter a deliberación, someter a consulta|VrugT|||||
+8140|pegarse, ponerse, pegar (estampas, afiches...)|VrugI|||||
+8141|correr|VrugI|||||
+8142|viajar (movimiento de vehículos)|VrugI|||||
+8143|apurarse a|VrugI|||||
+8144|retirarse (de batalla), alzar el vuelo|VrugI|||||
+8145|abandonar el hogar|VrugI|||||
+8146|fugarse (con un amante), dirigirse duramente hacia adelante|VrugI|||||
+8147|estar de moda, venderse bien, propagarse|VrugI|||||
+8148|estar de buen humor, ser impaciente, estar fogoso|VrugI|||||
+8149|rebajarse, mostrarse humilde, tener una actitud modesta, comportarse con humildad|VrugI|||||
+8150|disminuir (en tamaño o número), menguar, amainar|VrugI|||||
+8151|brillar|VrugI|||||
+8152|retorcer, torcer, doblar, dar vueltas, dar vueltas a la cabeza, cavilar, apagar o prender (interruptor), torcer, retorcer, romperse, retorcer, torcer, doblar, dar vueltas, dar vueltas a la cabeza, cavilar|VrugT|||||
+8153|retorcer, torcer, torcer, atornillar, retorcer, enroscar, apagar o prender (interruptor), torcer, retorcer, romperse|VrugT|||||
+8154|esparcirse, ser propagado|VrugI|||||
+8155|ondear, flotar en el aire, flamear, mirar algo desde el ángulo opuesto, considerar algo desde el punto de vista contrario, dar la vuelta a una opinión o teoría|VrugI|||||
+8156|escarbar, hurgar, rebuscar|VrugT|||||
+8157|excavar|VrugT|||||
+8158|esculpir, tallar, cincelar, modelar|VrugT|||||
+8159|dejar ir|VrugT|||||
+8160|querer, desear|VrugT|||||
+8161|manar, brotar, chorrear|VrugI|||||
+8162|enorgullecerse, pavonearse, vanagloriarse|VrugI|||||
+8163|tocar, toquetear, manipular|VrugT|||||
+8164|rezar|VrugT|||||
+8165|llegar, entrar, entrar en, desaguar, cerrar|VrugI|||||
+8166|mentir, engañar, falsear, faltar a la verdad|VrugI|||||
+8167|odiar, no gustar|VrugT|||||
+8168|ponerse (en la cabeza), llevar puesto, cubrir|VrugT|||||
+8169|echarse agua|VrugT|||||
+8170|soportar (deudas, faltas)|VrugT|||||
+8171|cambiarse, invertirse, volcarse, regresar, volver|VrugI|||||
+8172|empollar|VrugI|||||
+8173|oscurecerse, nublarse, anublarse, oscurecerse, ensombrecerse, nublarse, atardecer, ocultarse el sol o la luna|VrugI|||||
+8174|restringir, limitar, confinar|VrugI|||||
+8175|roer, mordisquear, morder, roer, mordisquear|VrugT|||||
+8176|sufrir de|VrugI|||||
+8177|colocarse en un caballete, colgarse|VrugI|||||
+8178|ser el trabajo de, ser el resultado de|VrugI|||||
+8179|concernir, afectar, involucrar|VrugI|||||
+8180|elevar, volar|VrugI|||||
+8181|amontonarse, apilarse, superponerse|VrugI|||||
+8182|endurecerse, solidificarse, volverse firme, volverse cierto|VrugI|||||
+8183|amar, querer, ser cariñoso|VrugT|||||
+8184|cambiar, transformarse, variar, ser revisado, ser diferente, cambiar de lugar|VrugI|||||
+8185|decorar, ornamentar, adornar|VrugT|||||
+8186|patear|VrugT|||||
+8187|decidirse, arreglarse|VrugI|||||
+8188|verse bien (ropa), decidirse, establecerse, verse bien con(ropa)|VrugI|||||
+8189|diferir, variar, estar en desacuerdo|VrugI|||||
+8190|temer, tener miedo a, ser nervioso, ser tímido (de)|VrugI|||||
+8191|nublarse|VrugI|||||
+8192|zigzaguear , serpentear|VrugI|||||
+8193|corromperse, podrirse, deprimirse|VrugI|||||
+8194|darse la vuelta, dar un giro radical, ser derribado|VrugI|||||
+8195|mezclarse, combinarse con, mezclar, revolver, combinar|VrugI|||||
+8196|deificar, venerar|VrugT|||||
+8197|custodiar, vigilar, guardar|VrugT|||||
+8198|dar fruto, madurar|VrugI|||||
+8199|ser beneficioso, producir una ganancia|VrugI|||||
+8200|arrancar, pelar|VrugT|||||
+8201|golpear, pegar|VrugT|||||
+8202|culpar, reprochar, criticar, recriminar|VrugT|||||
+8203|morir|VrugI|||||
+8204|curarse, sanar, arreglarse, mejorar, repararse, curarse, sanar, mejorar, restablecerse, repararse, arreglarse|VrugI|||||
+8205|dormir (no necesariamente estando tumbado)|VrugI|||||
+8206|morir|VrugI|||||
+8207|cerrar los ojos|VrugI|||||
+8208|agarrar, moldear sushi|VrugT|||||
+8209|quedar, dejar atrás, quedar, quedarse|VrugI|||||
+8210|hablar mal de, abusar|VrugI|||||
+8211|pintar, barnizar|VrugT|||||
+8212|enfadarse, enojarse, enojarse, enfadarse|VrugI|||||
+8213|desistir, renunciar a|VrugT|||||
+8214|adularse, halagarse|VrugI|||||
+8215|ser inferior|VrugI|||||
+8216|colgarse, disminuir, retirarse, caerse, volverse atrás, bajar, menguar, amainar, retirar, caer, retroceder|VrugI|||||
+8217|tocar|VrugI|||||
+8218|manosear|VrugI|||||
+8219|competir, rematar, subastar|VrugT|||||
+8220|atar|VrugT|||||
+8221|crecer densamente, ser frondoso, ser tupido, ser densa o espesa la vegetación, abundar, proliferar|VrugI|||||
+8222|regañar, echar la bronca, reñir, reprender, regañar, reñir|VrugT|||||
+8223|cerrarse, estar cerrado|VrugI|||||
+8224|estar con llave|VrugI|||||
+8225|cerrar, estar cerrado|VrugI|||||
+8226|cerrar con llave|VrugI|||||
+8227|apretar, estar apretado|VrugI|||||
+8228|volverse sobrio, ponerse tenso, tensarse, ponerse tenso, restringirse los gastos, ahorrar, economizar|VrugI|||||
+8229|aquietarse, calmarse, hundirse, extinguirse, debilitarse, suprimirse|VrugI|||||
+8230|denostar, criticar, hablar mal de, denigrar, difamar, injuriar, menospreciar, calumniar, vilipendiar|VrugT|||||
+8231|deslizarse, resbalar|VrugI|||||
+8232|estancarse, acumularse|VrugI|||||
+8233|depender de, tener que recurrir a|VrugI|||||
+8234|brillar|VrugI|||||
+8235|volverse fuerte, adquirir fuerzas|VrugI|||||
+8236|recibir, obtener, aceptar|VrugT|||||
+8237|tomar, coger, interpretar, entender, recibir, obtener, aceptar, tomar, coger, interpretar, entender|VrugT|||||
+8238|exceder, sobrepasar|VrugT|||||
+8239|romper, partir, quebrar, fracturar, rajar, dividir|VrugT|||||
+8240|durar, abarcar, extenderse, comprender, ocupar, englobar, vadear, cruzar, ir a través de|VrugI|||||
+8241|extenderse, cubrir, recorrer, atravesar|VrugI|||||
+8242|desgarrar, violar, vencer, aplastar, destruir, romper (e.g. contraseña)|VrugT|||||
+8243|cruzar, atravesar|VrugT|||||
+8244|depender, deberse a, causarse por|VrugI|||||
+8245|depender, encender, prender|VrugI|||||
+8246|basarse en, venir de, ser de|VrugI|||||
+8247|deberse a, causarse por|VrugI|||||
+8248|depender de, prender|VrugI|||||
+8249|basarse en, venir de|VrugI|||||
+8250|frotar, fregar|VrugT|||||
+8251|dar palmadas o golpecitos|VrugT|||||
+8252|quitar frotando, pulir, triturar, pulverizar, raspar|VrugT|||||
+8253|ser igual a|VrugT|||||
+8254|estar a punto de alcanzar|VrugT|||||
+8255|salvarse, rescatarse, sobrevivir, ser útil|VrugI|||||
+8256|fracasar, ser despedido|VrugI|||||
+8257|sustituir, reemplazar, intercambiar, cambiar, reemplazar, sustituir, relevar, tomar el lugar de, sustituirse por, cambiar lugares, tomar turnos, reemplazarse|VrugI|||||
+8258|desaparecer, perderse|VrugI|||||
+8259|tomar auge, prosperar, progresar, aparecer, surgir con ímpetu, sobrevenir impetuosa y repentinamente|VrugI|||||
+8260|impedir, obstaculizar, interferir con, afectar, hacerse daño, estar dañando a|VrugT|||||
+8261|estrangularse, estrecharse, comprimirse|VrugI|||||
+8262|berrear, rugir, bramar|VrugI|||||
+8263|aguantar (a menudo añade énfasis), soportar, resistir|VrugI|||||
+8264|intensificar|VrugI|||||
+8265|escoger, seleccionar, elegir, apartar, escoger, seleccionar|VrugT|||||
+8266|visitar|VrugI|||||
+8267|torcer, retorcer, curvar, doblar|VrugI|||||
+8268|descuidar, desatender, olvidar|VrugI|||||
+8269|grabar (vídeo, audio, etc.), tomar (foto), hacer (película)|VrugT|||||
+8270|tomar, atrapar (pescado), capturar, capturar, atrapar, aprehender, apresar, pescar, cazar|VrugT|||||
+8271|adoptar (medida, propuesta), recoger (fruta), asumir (actitud)|VrugT|||||
+8272|tomar (un problema), atender (negocio), dirigir (ejercito)|VrugT|||||
+8273|tomar (matiz de robo)|VrugT|||||
+8274|hacer suyo, tomar como propio, asimilar, incorporar, asumir, acoger, adoptar, aceptar, conciliar el sueño|VrugT|||||
+8275|cosechar, recolectar, recoger los frutos|VrugT|||||
+8276|rodar, caerse|VrugI|||||
+8277|recostarse, postrarse, tenderse|VrugI|||||
+8278|anotar, tomar dictado, tomar notas|VrugT|||||
+8279|oler bien, ser fragante|VrugI|||||
+8280|tirar, sacar, estirar, arrastrar|VrugT|||||
+8281|tirar la bola (béisbol)|VrugT|||||
+8282|agruparse, juntarse en manada|VrugI|||||
+8283|ser|VrugI|||||
+8284|estirar la pata, caer muerto|VrugI|||||
+8285|verbo auxiliar que indica desprecio|VrugI|||||
+8286|ondear|VrugT|||||
+8287|romper, doblar, plegar, tomar una flor|VrugT|||||
+8288|manipular, manejar, mover los hilos|VrugT|||||
+8289|colgarse, suspenderse|VrugI|||||
+8290|embotarse, achatarse, debilitarse, entorpecerse|VrugI|||||
+8291|dar en el blanco, acertar, atinar, dar en el clavo, acertar, ser exitoso, encarar, emprender, tratar, ser equivalente a, aplicarse a, ser aplicable, asignarse|VrugI|||||
+8292|pescar a, buscar a|VrugI|||||
+8293|sonar, repicar, resonar, producir eco, rugir, retumbar|VrugI|||||
+8294|mudarse, transferir (departamento)|VrugI|||||
+8295|cambiar el objetivo del interés o asunto|VrugI|||||
+8296|pasar (tiempo)|VrugI|||||
+8297|permearse por un color o esencia|VrugI|||||
+8298|infectarse, contagiarse, propagarse (como el fuego)|VrugI|||||
+8299|quedarse en|VrugI|||||
+8300|pescar|VrugT|||||
+8301|bajar, descender|VrugI|||||
+8302|acompañar y despedir a alguien|VrugT|||||
+8303|medir, pesar, calcular|VrugT|||||
+8304|conjeturar, inferir, suponer|VrugT|||||
+8305|extenderse, propagarse|VrugI|||||
+8306|participar, acceder a, crecer, ganar en influencia|VrugI|||||
+8307|negarse, informar, pedir dejar, declinar, destituir|VrugT|||||
+8308|informar, dar nota|VrugT|||||
+8309|pedir permiso, disculparse (de)|VrugT|||||
+8310|transmitirse, introducirse, ser circulado, continuar|VrugI|||||
+8311|aplicar|VrugT|||||
+8312|distribuir, entregar|VrugT|||||
+8313|gritar|VrugI|||||
+8314|ser atrapado, ser arrestado, caer en las manos de, agarrase, asirse|VrugI|||||
+8315|mantener en custodia, recibir en depósito, hacerse cargo de|VrugT|||||
+8316|traicionar, decepcionar, defraudar|VrugT|||||
+8317|llegar, alcanzar|VrugI|||||
+8318|ceder, conceder, traspasar|VrugT|||||
+8319|prensar, estrujar, ordeñar, esquilmar, exprimir, reducir, condensar|VrugT|||||
+8320|enlazarse, conectarse, relacionarse, canalizar|VrugI|||||
+8321|afeitar, rasurar|VrugT|||||
+8322|completarse, terminarse|VrugI|||||
+8323|ser instruido|VrugT|||||
+8324|profundizarse, elevarse, intensificarse|VrugI|||||
+8325|contar, hablar de, relatar, narrar|VrugT|||||
+8326|dividir en párrafos, dividir, separar|VrugT|||||
+8327|retacarse, atascarse, taparse|VrugI|||||
+8328|aproximarse, acercarse|VrugI|||||
+8329|estar mojado, mojarse|VrugI|||||
+8330|recibir, aceptar, oír, entender|VrugT|||||
+8331|buscar, examinar, explorar, investigar, palpar|VrugT|||||
+8332|limar, desgastar, cepillar, raspar|VrugT|||||
+8333|girar, hacer girar|VrugI|||||
+8334|visitar muchos lugares, ir por ahí|VrugI|||||
+8335|girar, hacer girar|VrugI|||||
+8336|visitar muchos lugares|VrugI|||||
+8337|extender (pantalones), tomar parte en|VrugI|||||
+8338|compartir, unir, ser mencionado, estar en armonía|VrugI|||||
+8339|aparecer (impreso), ser registrado, ser encontrado (en diccionario)|VrugI|||||
+8340|tensar, estirar|VrugI|||||
+8341|atravesar, pasar por debajo, pasar a través|VrugI|||||
+8342|bucear (en el agua), zambullirse, ir (por debajo tierra)|VrugI|||||
+8343|remontar, navegar contra la corriente, remontar, retrotraerse, ir contra corriente|VrugI|||||
+8344|colgar, suspender|VrugT|||||
+8345|rugir, bramar, aullar, retumbar|VrugI|||||
+8346|revivir, resucitar|VrugI|||||
+8347|dar fruto|VrugI|||||
+8348|hacerse cargo, retirarse a un lugar privado, hacerse cargo de, retirarse a un lugar privado|VrugT|||||
+8349|ascender, hincharse, ser promovido|VrugI|||||
+8350|ser concedido, ser otorgado|VrugT|||||
+8351|mirar hacia atrás|VrugI|||||
+8352|recaudar, reclutar, aumentar|VrugI|||||
+8353|decapitar, matar (con una espada)|VrugT|||||
+8354|bastar, ser suficiente|VrugI|||||
+8355|detenerse, hacer alto, parar|VrugI|||||
+8356|ponerse de pie, levantarse|VrugI|||||
+8357|pasar por, aprobarse, caminar junto a, pasar examenes, asistir (ej. escuela)|VrugI|||||
+8358|girar, hacer girar|VrugI|||||
+8359|visitar muchos lugares|VrugI|||||
+8360|pasar(prueba), aprobar (examen)|VrugI|||||
+8361|ondear, sacudir, temblar|VrugT|||||
+8362|rociar|VrugT|||||
+8363|repartir (actor), destinar, asignar (trabajo)|VrugT|||||
+8364|rechazar (alguien), dejar plantado|VrugT|||||
+8365|abandonar, rendirse, arruinar|VrugT|||||
+8366|bloquearse, taparse, llenarse, estar en uso|VrugI|||||
+8367|despojar, arrebatar, desposeer|VrugT|||||
+8368|suspender, cesar, poner fin, cancelar|VrugI|||||
+8369|arrancar a golpes, despojar de un golpe|VrugI|||||
+8370|vencer, ganar, derrotar|VrugI|||||
+8371|aporrear, apalear, golpear violentamente, acribillar, tirotear, ametrallar, acribillar, tirotear, ametrallar|VrugT|||||
+8372|enviar, dar, recompensar, conferir|VrugT|||||
+8373|sobrar, tener de más|VrugI|||||
+8374|helarse, congelarse|VrugI|||||
+8375|acercarse, presionar (a alguien)|VrugI|||||
+8376|reflejarse|VrugI|||||
+8377|fotografiarse, proyectarse|VrugI|||||
+8378|mezclarse, combinarse con, mezclarse, revolverse, combinarse|VrugI|||||
+8379|amontonar, apilar|VrugI|||||
+8380|sobresalir, sobrepasar, aventajar|VrugI|||||
+8381|hacer un símil, poner un ejemplo, comparar, comparar, hablar en sentido figurativo, ilustrar, usar un simíl|VrugI|||||
+8382|formar, moldear, constituir|VrugT|||||
+8383|ir de aquí para allá, ir y venir|VrugI|||||
+8384|resonar|VrugI|||||
+8385|invitar, obsequiar con algo especial|VrugT|||||
+8386|ser extravagante, vivir lujosamente|VrugT|||||
+8387|ser orgulloso, ser altivo|VrugT|||||
+8388|elevarse, exaltarse, avivarse, alegrarse|VrugI|||||
+8389|ser picado, ser mordido|VrugI|||||
+8390|capear, sortear, sobreponerse, superar|VrugT|||||
+8391|agacharse, ponerse en cuclillas, acurrucarse, acuclillarse|VrugI|||||
+8392|pasar, atravesar|VrugI|||||
+8393|imprimir, frotar, doblar, imprimir (en ropa)|VrugT|||||
+8394|dar palmadas o golpecitos|VrugT|||||
+8395|quitar frotando, pulir, triturar, pulverizar, raspar|VrugT|||||
+8396|ser igual a|VrugT|||||
+8397|estar a punto de alcanzar, moler, pulverizar, machacar, majar con el mortero, limar, pulir, dilapidar, derrochar, pulirse (gastar), fundir (gastar)|VrugT|||||
+8398|tomar el bolso de alguien|VrugT|||||
+8399|cortar, recortar, rasurar, segar, guadañar|VrugT|||||
+8400|salir, irse|VrugI|||||
+8401|pasar, transcurrir|VrugI|||||
+8402|ser distante, echar, alejar, apartar, divorciar|VrugI|||||
+8403|(después de la raíz -masu, esp. de un verbo suru) completamente|VrugI|||||
+8404|pasado (ej. abril pasado)|VrugI|||||
+8405|sobrevivir|VrugI|||||
+8406|chocar, topar con pared|VrugI|||||
+8407|ponerse de punta|VrugI|||||
+8408|meter llave, atrancar, cerrar|VrugT|||||
+8409|engalanarse, arreglarse, vestir, lucir|VrugT|||||
+8410|terminar, alcanzar un extremo, estar en un dilema, estar al final de|VrugI|||||
+8411|atar|VrugT|||||
+8412|montar, extenderse|VrugI|||||
+8413|transparentar|VrugI|||||
+8414|holgazanear, perder el tiempo, fumarse|VrugI|||||
+8415|aproximarse, acercarse|VrugI|||||
+8416|al parecer|VrugI|||||
+8417|debilitar, preocuparse, quedar abatido, quedar extenuado, quedar perplejo, deteriorar|VrugI|||||
+8418|menguar, debilitarse, demacrarse, desmoralizarse, quedar perplejo|VrugI|||||
+8419|platicar, conversar, decir, recitar|VrugT|||||
+8420|recargarse, depender|VrugI|||||
+8421|reunirse, agruparse|VrugI|||||
+8422|elevar, ascender, subir, escalar, trepar, ir arriba|VrugI|||||
+8423|ir (a la capital)|VrugI|||||
+8424|ser promovido|VrugI|||||
+8425|sumar a|VrugI|||||
+8426|avanzar (en precios)|VrugI|||||
+8427|zarpar|VrugI|||||
+8428|ser mencionado (en la agenda)|VrugI|||||
+8429|crecer, subir, escalar, trepar, ir arriba|VrugI|||||
+8430|ir (a la capital)|VrugI|||||
+8431|ser promovido|VrugI|||||
+8432|sumar a|VrugI|||||
+8433|avanzar (en precios)|VrugI|||||
+8434|zarpar|VrugI|||||
+8435|ser mencionado (en la agenda)|VrugI|||||
+8436|detenerse, permanecer, quedarse|VrugI|||||
+8437|detenerse|VrugI|||||
+8438|limitarse|VrugI|||||
+8439|detener, parar|VrugI|||||
+8440|detener(se)|VrugI|||||
+8441|permanecer, quedarse|VrugI|||||
+8442|chupar, gorronear, sablear|VrugI|||||
+8443|regatear, negociar el precio|VrugT|||||
+8444|tener que ver, incumbir, afectar, atañer, guardar relación, tener relación, concernir, ocuparse de, interesarse en (algo), afectar, influenciar, tener que ver con, afectarse, influenciarse, concernir, afectar, involucrar|VrugI|||||
+8445|arrastrar, tirar de|VrugT|||||
+8446|forzar a alguien|VrugT|||||
+8447|prolongar, alargar|VrugT|||||
+8448|influenciar fuertemente, seducir|VrugT|||||
+8449|arrastrar, halar|VrugT|||||
+8450|forzar a alguien|VrugT|||||
+8451|prolongar|VrugT|||||
+8452|influenciar fuertemente, seducir|VrugT|||||
+8453|arrastrar, halar|VrugT|||||
+8454|forzar a alguien|VrugT|||||
+8455|prolongar, soportar|VrugT|||||
+8456|influenciar fuertemente, seducir|VrugT|||||
+8457|arrastrar, empujar|VrugT|||||
+8458|forzar a alguien|VrugT|||||
+8459|prolongar, soportar|VrugT|||||
+8460|influenciar fuertemente, seducir|VrugT|||||
+8461|enterrarse, sepultarse, estar enterrado en, estar cubierto en|VrugI|||||
+8462|sacudir, dar una sacudida, zarandear|VrugT|||||
+8463|sentir|VrugT|||||
+8464|venir, llegar, ser el próximo, ser debido a|VrugI|||||
+8465|visitar, pasar, entrar|VrugI|||||
+8466|sanarse|VrugI|||||
+8467|caer|VrugI|||||
+8468|extender, alargarse, estar en una fila|VrugI|||||
+8469|resucitar|VrugI|||||
+8470|chupar|VrugT|||||
+8471|aparecer, enrollar|VrugT|||||
+8472|sufijo de verbo que indica precipitadamente abandono de una actividad|VrugT|||||
+8473|crecer fuera de control|VrugI|||||
+8474|acercarse a pie, hacer concesiones mutuas|VrugI|||||
+8475|robarle la pareja a otra persona|VrugT|||||
+8476|renovarse|VrugI|||||
+8477|quedarse en una ceremonia|VrugI|||||
+8478|empeorarse, empeorar de repente, agravarse de pronto una enfermedad|VrugI|||||
+8479|instigar, agitar, excitar|VrugT|||||
+8480|subestimar, subvalorar, menospreciar, minimizar|VrugT|||||
+8481|encogerse, reducirse, contraerse|VrugI|||||
+8482|estar desordenado, estar desparramado|VrugI|||||
+8483|desparramarse, esparcirse|VrugI|||||
+8484|tartamudear|VrugI|||||
+8485|persistir, insistir, mantenerse firme, dar lo mejor de uno mismo|VrugI|||||
+8486|afanarse, aferrarse, empeñarse|VrugI|||||
+8487|pisar afuera del límite, emprender, arrancar|VrugT|||||
+8488|avanzar, progresar|VrugI|||||
+8489|estar atrapado en, estar pegado en, ser estafado|VrugI|||||
+8490|tener un calambre (espasmo, convulsión, tirón), ponerse tieso|VrugI|||||
+8491|ponerse tenso o duro, ponerse tenso, estar borracho|VrugI|||||
+8492|apresurarse, apurarse|VrugI|||||
+8493|enterrar, tapar, relegar al olvido|VrugT|||||
+8494|enorgullecerse|VrugI|||||
+8495|bañarse, sumergirse, zambullirse|VrugI|||||
+8496|sentir lástima, simpatizar con, consolar, cuidar de, ser bueno (para) con|VrugT|||||
+8497|colorear, decorar, adornar|VrugT|||||
+8498|propagarse, difundirse|VrugI|||||
+8499|fumar|VrugI|||||
+8500|vanagloriarse, jactarse, creerse|VrugT|||||
+8501|arrinconarse, inclinarse, ser parcial|VrugI|||||
+8502|romper, oponerse|VrugT|||||
+8503|capturar, usurpar|VrugT|||||
+8504|estar en paz, ponerse severo, disminuir (tormenta, terror, furia)|VrugI|||||
+8505|caber en, alojarse, finalizarse|VrugI|||||
+8506|disuadir, desalentar, desengañar|VrugT|||||
+8507|cambiar de posición al dormir, traicionar|VrugI|||||
+8508|enturbiarse, ensuciarse, contaminarse, emborrascarse|VrugI|||||
+8509|terminar por convencerse, persuadirse|VrugI|||||
+8510|pegar, adherir, adherirse, aferrarse|VrugI|||||
+8511|ensimismarse, vanagloriarse|VrugI|||||
+8512|vigilar, atender, guardar|VrugT|||||
+8513|gotear, escaparse, salirse, haber una fuga, haber un escape, perder líquido, filtrarse, regarse, infiltrarse|VrugI|||||
+8514|aparecer (algo perdido), ser encontrado|VrugI|||||
+8515|volcarse, voltear páginas de un libro, arrancar, desnudarse|VrugT|||||
+8516|agruparse, ordenarse, consolidarse|VrugI|||||
+8517|hacerse redondo, apelotonar|VrugI|||||
+8518|cruzar, asociarse con, mezclar con, interesar, unir|VrugI|||||
+8519|cosquillear, excitar, estimular, halagar|VrugT|||||
+8520|cucharear, captar, succionar, sacar|VrugT|||||
+8521|ser tenaz, perseguir, aferrarse|VrugI|||||
+8522|entumecerse, coagularse, endurecerse, ser exigente|VrugI|||||
+8523|balbucear, tartamudear|VrugI|||||
+8524|codiciar, permitirse, desear profundamente, lujuria insaciable por, devorar con avidez|VrugT|||||
+8525|piar, trinar|VrugI|||||
+8526|rastrear, perseguir, lograr|VrugT|||||
+8527|descansar, aliviarse, sentirse cómodo|VrugI|||||
+8528|diluirse, desvanecerse, rebajarse|VrugI|||||
+8529|salir a la superficie|VrugI|||||
+8530|jalarse, estirarse, tensarse, aferrarse|VrugI|||||
+8531|cerrar los ojos|VrugT|||||
+8532|comenzar, empezar|VrugI|||||
+8533|alejarse, distanciarse, apartarse|VrugI|||||
+8534|encerrarse, recluirse|VrugI|||||
+8535|alzarse en vuelo, despegar, brincar|VrugI|||||
+8536|meterse en, participar, tomar parte en|VrugI|||||
+8537|estar dotado de, estar equipado, estar equipado con, estar dotado de|VrugI|||||
+8538|pintarse, teñirse, mancharse|VrugI|||||
+8539|estrecharse|VrugI|||||
+8540|iluminarse espiritualmente|VrugT|||||
+8541|rehusarse, oponerse|VrugI|||||
+8542|agarrarse, depender de, estar a merced de|VrugI|||||
+8543|alojarse, morar, estar embarazada o encinta|VrugI|||||
+8544|dirigir, controlar, verificar|VrugT|||||
+8545|gobernar, mandar, administrar|VrugT|||||
+8546|establecerse, fijarse|VrugI|||||
+8547|interrumpir, cortar, bloquear|VrugT|||||
+8548|gatear, arratrarse, reptar|VrugI|||||
+8549|dar, conferir, hacer el favor, tener la amabilidad de|VaruT|||||
+8550|ser, estar, ir, venir|VaruI|||||
+8551|decir, hablar, platicar, decir, hablar, decir, hablar, platicar|VaruT|||||
+8552|ser, estar, existir, haber, ser, estar, existir, tener, haber|VaruI|||||
+8553|hacer|VaruT|||||
+8554|partir (en tren, avión, etc), estar de pie, ponerse de pie|VtsuI|||||
+8555|encontrarse uno mismo (en dificultades), partir (tren, avión, etc)|VtsuI|||||
+8556|esperar de, tener la esperanza puesta en, tener expectativas de, contar con, esperar|VtsuT|||||
+8557|ganar, ganar, vencer|VtsuI|||||
+8558|llevar, cargar, sostener|VtsuT|||||
+8559|poseer|VtsuT|||||
+8560|pasar, transcurrir|VtsuI|||||
+8561|golpear, pegar|VtsuT|||||
+8562|escribir a máquina, teclear|VtsuT|||||
+8563|inyectar|VtsuT|||||
+8564|satisfacer en el juego|VtsuT|||||
+8565|visitar (en peregrinaje)|VtsuT|||||
+8566|destacar, sobresalir|VtsuI|||||
+8567|crecer(se) (ej. niño), educarse|VtsuI|||||
+8568|cortar telas para hacer vestidos, cortar (ropa)|VtsuT|||||
+8569|cortar, limitar, suprimir, abstenerse|VtsuT|||||
+8570|eregirse, construirse|VtsuI|||||
+8571|levantar, iniciar acción (política)|VtsuI|||||
+8572|tener una erección|VtsuI|||||
+8573|atacar, derrotar, destruir, disparar|VtsuT|||||
+8574|atacar, derrotar, destruir, vengar|VtsuT|||||
+8575|consistir, concretarse, consolidarse|VtsuI|||||
+8576|vencer, derrotar, superar, sobreponerse|VtsuT|||||
+8577|mantener (guardar, preservar)|VtsuT|||||
+8578|ser útil, servir|VtsuI|||||
+8579|empezar un viaje|VtsuI|||||
+8580|destacar, predominar|VtsuI|||||
+8581|golpear|VtsuT|||||
+8582|encargarse, estar a cargo de|VtsuT|||||
+8583|liberar, soltar, pegar fuego a|VtsuT|||||
+8584|dividir, separar, distinguir|VtsuT|||||
+8585|recibir, aceptar|VuT|||||
+8586|lograr que alguien haga algo (seguido de un verbo con forma "te")|VuT|||||
+8587|decir, contar, decir|VuT|||||
+8588|se refiere a .., se llama ..|VuT|||||
+8589|decir|VuT|||||
+8590|se refiera a .., se llama ..|VuT|||||
+8591|visitar, pedir, oír, escuchar, preguntar, ser contado|VuT|||||
+8592|implorar (a un dios en el oráculo), buscar la dirección (de tu superior)|VuT|||||
+8593|hablar a (un público en el teatro, etc)|VuT|||||
+8594|comprar|VuT|||||
+8595|pensar, sentir, creer, pensar, sentir|VuT|||||
+8596|pagar|VuI|||||
+8597|cepillar, limpiar|VuI|||||
+8598|conocerse, encontrarse con|VuI|||||
+8599|tener un accidente, tener una mala experiencia, encontrar, enfrentar, afrontar, encontrarse, conocerse|VuI|||||
+8600|colocar, satisfacer, quedar bien, corresponder, tener razón, ser beneficioso|VuT|||||
+8601|discrepar, diferir, disentir (con), ser diferente de, estar equivocado|VuI|||||
+8602|despachar, enviar, donar, usar, manipular, emplear, necesitar, querer, gastar, consumir, hablar (inglés), practicar (esgrima), tomar (almuerzo propio), circular (dinero sucio)|VuT|||||
+8603|fumar, aspirar, inhalar|VuT|||||
+8604|chupar, sorber|VuT|||||
+8605|absorber, embeber|VuT|||||
+8606|besar|VuT|||||
+8607|aprender|VuT|||||
+8608|invitar|VuT|||||
+8609|tentar, atraer, inducir|VuT|||||
+8610|finalizar, terminar, hacer algo completamente, ponerle fin a, cerrar, acabar, guardar|VuT|||||
+8611|visitar a un enfermo, caer encima|VuT|||||
+8612|extraviarse, perderse, dudar, vacilar|VuI|||||
+8613|reunir, juntar, encontrar, coger, recoger|VuI|||||
+8614|trenzar, peinarse|VuT|||||
+8615|felicitar, congratular, celebrar|VuT|||||
+8616|proteger, encubrir, defender, solapar|VuT|||||
+8617|importar, tener interés|VuT|||||
+8618|cumplirse, realizarse|VuI|||||
+8619|discrepar, estar en desacuerdo|VuI|||||
+8620|cometer un error, ser incorrecto, estar equivocado|VuI|||||
+8621|encarar, ir hacia|VuI|||||
+8622|pelear, batallar, combatir, luchar, trabar en combate|VuI|||||
+8623|ayudar, asistir, tomar parte en|VuT|||||
+8624|cantar|VuT|||||
+8625|perder (cosa), deshacerse de|VuT|||||
+8626|dudar, desconfiar, sospechar de|VuT|||||
+8627|exaltar, aclamar, reconocer|VuI|||||
+8628|reír, sonreír, flojear, debilitarse, quedarse sin fuerzas en, fallar las fuerzas en, burlarse de, mofarse de, reírse malintencionadamente de, reír, sonreír|VuI|||||
+8629|transportar, conmutar, ir diariamente al lugar donde uno trabaja, asistir (escuela, iglesia, etc)|VuI|||||
+8630|atacar, acometer, ir tras|VuT|||||
+8631|perseguir, ir detrás de|VuT|||||
+8632|apuntar a|VuT|||||
+8633|emplear, contratar|VuT|||||
+8634|emborracharse|VuI|||||
+8635|enloquecer|VuI|||||
+8636|perder el control|VuI|||||
+8637|coger, recoger, aparar, sacar agua, entorpecer, sabotear|VuT|||||
+8638|limpiar con un trapo|VuT|||||
+8639|compensar, reparar, indemnizar|VuT|||||
+8640|desaprobar, calumniar, difamar|VuI|||||
+8641|sostener, deber|VuT|||||
+8642|crecer, levantarse|VuT|||||
+8643|cortar (diente)|VuT|||||
+8644|rescatar de, prestar ayuda|VuT|||||
+8645|construir (un nido), colgar fuera|VuI|||||
+8646|lavar|VuT|||||
+8647|oler, apestar, oler, apestar, parecer sospechoso|VuI|||||
+8648|ver la situación|VuT|||||
+8649|ejecutar, hacer, llevar a cabo|VuT|||||
+8650|gustar, saborear, paladear, degustar|VuT|||||
+8651|ir en contra, oponerse, desobedecer, desafiar|VuI|||||
+8652|dialogar, discutir, conversar|VuT|||||
+8653|desear, querer, pedir|VuT|||||
+8654|rogar, esperar, implorar|VuT|||||
+8655|tener algo bueno por uno mismo|VuT|||||
+8656|pagar|VuT|||||
+8657|sentar bien, ir bien, compatibilizar|VuI|||||
+8658|disgustar|VuT|||||
+8659|cubrir, esconder, ocultar, envolver, disimular|VuI|||||
+8660|titubear, vacilar, dudar|VuI|||||
+8661|pronosticar, predecir|VuT|||||
+8662|reñirse, disputarse, estar en desacuerdo, competir|VuI|||||
+8663|cargar, llevar en la espalda u hombro|VuT|||||
+8664|compensar, cubrir, complementar|VuT|||||
+8665|ir en direcciones encontradas y pasarse de largo, estar en conflicto|VuI|||||
+8666|estar preparado, estar en orden, puesto en orden, estar listo|VuI|||||
+8667|unirse, reunirse, completarse|VuI|||||
+8668|gatear, arratrarse, reptar|VuI|||||
+8669|conocer por casualidad, encontrarse con, encontrar por casualidad, tener una cita|VuI|||||
+8670|mantener, levantar, alimentar, poseer (animales)|VuT|||||
+8671|comer|VuT|||||
+8672|vivir, ganarse la vida, sobrevivir|VuT|||||
+8673|morder, picar (insectos)|VuT|||||
+8674|fastidiar, atormentar, reírse o hacer burla de, no tomar en serio, mofarse de|VuT|||||
+8675|meterse en, desgastar, consumir|VuT|||||
+8676|derrotar a un superior, amenazar una posición|VuT|||||
+8677|consumir tiempo o recursos|VuT|||||
+8678|recibir algo (de un evento desfavorable), comer|VuT|||||
+8679|callejear, errar, vagar, deambular, vagabundear, merodear, vagar, errar|VuI|||||
+8680|arrebatar, desposeer|VuT|||||
+8681|pelear, intercambiar puñetazos, reunir|VuT|||||
+8682|arreglar una reunión|VuT|||||
+8683|tratar, manejar|VuT|||||
+8684|hacer lo mismo que, seguir el ejemplo de, seguir, cumplir, respetar, cumplir con las reglas, obedecer las reglas, seguir las reglas|VuI|||||
+8685|jurar, prometer|VuT|||||
+8686|coser|VuT|||||
+8687|abrirse paso (e.g. a través de una multitud)|VuT|||||
+8688|estropear, echar a perder, dañar, perder|VuT|||||
+8689|estar proporcionado, encajar bien|VuI|||||
+8690|levantar, mantener, cultivar|VuT|||||
+8691|ir a lo largo de, ir a la par con|VuI|||||
+8692|acoplarse, ajustarse, satisfacer|VuI|||||
+8693|añorar, echar de menos, adorar, amar de verdad|VuT|||||
+8694|andar con alguien (como novios)|VuI|||||
+8695|reparar, remendar, parchar|VuT|||||
+8696|tratar, manejar|VuT|||||
+8697|recompensa, reembolsar|VuI|||||
+8698|tener aspectos en común, asemejarse|VuI|||||
+8699|reunirse, encontrarse|VuI|||||
+8700|acompañar, acarrear, traer consigo|VuI|||||
+8701|conocerse|VuI|||||
+8702|pelar los dientes, gruñir, resistirse|VuI|||||
+8703|estar desconcertado, estar perplejo|VuI|||||
+8704|colindar, lindar|VuI|||||
+8705|flotar, andar en el aire|VuI|||||
+8706|reunirse, encontrarse|VuI|||||
+8707|imitar, seguir, emular|VuI|||||
+8708|vestirse, servir, fingir, presumir, pretender|VuT|||||
+8709|emular, competir con|VuI|||||
+8710|exaltar, exaltarse, emocionarse|VuT|||||
+8711|postrarse, comportarse, deleitar|VuT|||||
+8712|tocarse, rozarse, conectarse, compartir|VuI|||||
+8713|encerrar|VuT|||||
+8714|hablar, decir, recitar, prometer, conspirar con|VuT|||||
+8715|encargarse, hacerse cargo, asumir la responsabilidad|VuT|||||
+8716|maldecir|VuT|||||
+8717|llevar a cuestas, cargar, portar, llevar a hombros, llevar a cuestas, acarrear, cargar con, portear|VuT|||||
+8718|prosperar, florecer, animarse|VuI|||||
+8719|perder de vista|VuT|||||
+8720|pasar por alto|VuT|||||
+8721|preparar, arreglar, cubrir, manejar|VuT|||||
+8722|seguir el ejemplo de alguien, imitar, aprender de alguien|VuT|||||
+8723|bailar, danzar, volar|VuI|||||
+8724|lavar, dragar, dragar|VuT|||||
+8725|emborracharse|VuI|||||
+8726|caer enfermo, preocupar, angustiar, agobiar|VuI|||||
+8727|respetar, admirar, adorar|VuT|||||
+8728|humedecerse, lubricarse, refrescar, dar prosperidad|VuI|||||
+8729|continuar, seguir|VuI|||||
+8730|desmayarse, desvanecerse, desfallecer, perder el sentido, perder el conocimiento, desanimarse|VuI|||||
+8731|pelear contra, oponerse, enfrentarse|VuI|||||
+8732|preguntar, cuestionar|VusT|||||
+8733|acusar(de un crimen), culpar|VusT|||||
+8734|rogar, suplicar, implorar|VusT|||||
+8735|estar (objetos animados), existir|VruiI|||||
+8736|(después de la forma -te del verbo) indica la continuación de una acción o estado (estar -iendo, haber estado -ando, etc)|VruiI|||||
+8737|ver, mirar, observar|VruiT|||||
+8738|examinar|VruiT|||||
+8739|(como verbo auxiliar) intentar, observar atentamente, vigilar, mirar con interés, mirar con atención, ver (películas, flores, etc)|VruiT|||||
+8740|ir, venir, visitar|VruiI|||||
+8741|ser derrotado, colapsar, morir|VruiI|||||
+8742|ser anunciado, estar desconcertado|VruiI|||||
+8743|estar locamente enamorado|VruiI|||||
+8744|visitar (recinto, tumba)|VruiI|||||
+8745|comer|VruiT|||||
+8746|parar, detener, parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
+8747|dar, dar al hablante|VruiT|||||
+8748|elevar, levantar|VruiT|||||
+8749|atarse (cabello)|VruiT|||||
+8750|volar (cometas), lanzar (fuegos artificiales), subir a la superficie (ej. submarino)|VruiT|||||
+8751|botar (un barco)|VruiT|||||
+8752|mostrar a alguien (en una habitación)|VruiT|||||
+8753|enviar a alguien|VruiT|||||
+8754|matricularse|VruiT|||||
+8755|subir (precio, calidad, estatus, voz)|VruiT|||||
+8756|hacer (un sonido agudo)|VruiT|||||
+8757|ganar (algo desagradable)|VruiT|||||
+8758|alabar|VruiT|||||
+8759|dar (ejemplo), citar|VruiT|||||
+8760|convocar (toda la energía de uno)|VruiT|||||
+8761|elevar, levantar|VruiT|||||
+8762|atarse (cabello)|VruiT|||||
+8763|volar (cometas), lanzar (fuegos artificales), subir a la superficie (ej. submarino)|VruiT|||||
+8764|desembarcar|VruiT|||||
+8765|mostrar a alguien (en una habitación)|VruiT|||||
+8766|enviar a alguien|VruiT|||||
+8767|matricular|VruiT|||||
+8768|subir (precio, calidad, estatus, voz)|VruiT|||||
+8769|hacer (un sonido agudo)|VruiT|||||
+8770|ganar (algo desagradable)|VruiT|||||
+8771|alabar|VruiT|||||
+8772|dar (ejemplo, citar|VruiT|||||
+8773|convocar (toda la energía de uno)|VruiT|||||
+8774|levantarse|VruiI|||||
+8775|despertar|VruiI|||||
+8776|suceder, tener lugar|VruiI|||||
+8777|inflarse, hincharse, abotargarse, hincharse|VruiI|||||
+8778|saber, pensar, conocer|VruiT|||||
+8779|buscar, pedir, demandar, querer, desear, desear (intransitivo), ir en busca de, buscar (placer, trabajo)|VruiT|||||
+8780|vestir, ponerse, llevar puesto (ropa en el torso)|VruiT|||||
+8781|cargar (con la culpa,etc.)|VruiT|||||
+8782|caerse, esparcirse|VruiI|||||
+8783|aparecer|VruiI|||||
+8784|dejar, salir|VruiI|||||
+8785|(teléfono o puerta)/, contestar (teléfono o puerta)|VruiI|||||
+8786|acostarse, dormir|VruiI|||||
+8787|hacer flotar, poner a flotar, poner a flote, manejar (un bote)|VruiI|||||
+8788|cerrar|VruiT|||||
+8789|calentar, caldear|VruiT|||||
+8790|botar, tirar, descartar, abandonar, resignar, romper (con alguien)|VruiT|||||
+8791|nacer|VruiI|||||
+8792|olvidar|VruiT|||||
+8793|cansar, cansarse de|VruiI|||||
+8794|meter, dejar entrar, admitir, introducir, encarcelar, acomodar, emplear, escuchar a, tolerar, comprender, poner (joyas), emplear, pagar (interés), depositar (votos), meter|VruiT|||||
+8795|dejar a alguien en (cuarto etc)|VruiT|||||
+8796|partir, salir (e.g. afuera, de excursión), ponerse en marcha|VruiI|||||
+8797|abrir, amanecer, hacerse de día, abrir espacio para, vaciar|VruiT|||||
+8798|adherir, pegar, añadir, aplicar, untar, poner, fijar, ponerse, llevar puesto, encender, activar, poner en marcha, llegar, vestir, ponerse, ligar, sujetar, unir, agregar, pegar, coser, adherir|VruiT|||||
+8799|amueblar|VruiT|||||
+8800|llevar puesto, poner|VruiT|||||
+8801|mantener un diario, hacer una entrada|VruiT|||||
+8802|ajustar (precio)|VruiT|||||
+8803|traer a lo largo|VruiT|||||
+8804|colocar (bajo guardia o un doctor)|VruiT|||||
+8805|seguir|VruiT|||||
+8806|cargar, dar (coraje a)|VruiT|||||
+8807|mantenerse alerta|VruiT|||||
+8808|establecer|VruiT|||||
+8809|encender, iluminar, prender|VruiT|||||
+8810|verse, estar a la vista|VruiI|||||
+8811|aparecer|VruiI|||||
+8812|venir|VruiI|||||
+8813|recordar, recolectar, memorizar|VruiT|||||
+8814|sentir|VruiT|||||
+8815|apagarse, desvanecer, desaparecer|VruiI|||||
+8816|plantar, cultivar|VruiT|||||
+8817|transportar, reportar, transmitir, comunicar, decir, impartir, propagar, enseñar, legar|VruiT|||||
+8818|equivocar, errar, cometer un error|VruiI|||||
+8819|confundir|VruiI|||||
+8820|caer, derrumbar|VruiI|||||
+8821|reprobar (examen)|VruiI|||||
+8822|chocar, estrellar, degenerar, degradar|VruiI|||||
+8823|desvanecer (una mancha)|VruiI|||||
+8824|caer, derrumbar|VruiI|||||
+8825|reprobar (examen)|VruiI|||||
+8826|estrellar, degenerar, degradar|VruiI|||||
+8827|palidecer, desvanecer, quitar (una mancha)|VruiI|||||
+8828|caer, derrumbar|VruiI|||||
+8829|reprobar (examen)|VruiI|||||
+8830|chocar, estrellar, degenerar, degradar|VruiI|||||
+8831|tomar prestado, rentar, alquilar, comprar a crédito|VruiT|||||
+8832|colgar, elevar, izar|VruiT|||||
+8833|sentarse|VruiT|||||
+8834|empezar a (pero no completamente)|VruiT|||||
+8835|tomar o gastar (tiempo, dinero)|VruiT|||||
+8836|telefonear|VruiT|||||
+8837|multiplicar|VruiT|||||
+8838|asegurar (ej. con llave)|VruiT|||||
+8839|ponerse, llevar puesto (ej. lentes etc)|VruiT|||||
+8840|cubrir|VruiT|||||
+8841|cargar con alguien|VruiT|||||
+8842|aplicar (seguro)|VruiT|||||
+8843|prender (una máquina, etc), ajustar (botón, despertador, etc)|VruiT|||||
+8844|poner un efecto (hechizo, anestesia, etc), colgar, construir, sentar, ofrecer (premio), poner (la vida de uno en peligro)|VruiT|||||
+8845|preguntar, averiguar|VruiT|||||
+8846|mostrar|VruiT|||||
+8847|escapar, huir|VruiI|||||
+8848|depositar, entregar|VruiT|||||
+8849|romperse, romper|VruiI|||||
+8850|empezar, comenzar|VruiT|||||
+8851|investigar, averiguar|VruiT|||||
+8852|bañarse, gozar en el sol, ducharse|VruiT|||||
+8853|responder, contestar|VruiT|||||
+8854|creer, confiar, tener fe|VruiT|||||
+8855|pensar, considerar|VruiT|||||
+8856|apresurarse, angustiarse, impacientarse|VruiI|||||
+8857|recolectar, ensamblar|VruiT|||||
+8858|ajetrearse, trajinar, ponerse nervioso, alterarse, perder la calma, perder la serenidad, azorarse, turbarse, perder los papeles, dejarse llevar por la precipitación, actuar rápida e irreflexivamente, actuar de modo atolondrado|VruiI|||||
+8859|estar libre (en posición) para hacer algo, estar al corriente de la tarea|VruiI|||||
+8860|estar listo, completado|VruiI|||||
+8861|estar hecho, estar construído|VruiI|||||
+8862|ser bueno en algo, tener permiso (de hacer)|VruiI|||||
+8863|volverse íntimo, asociarse (con alguien)|VruiI|||||
+8864|crecer, ser criado|VruiI|||||
+8865|poder, ser capaz|VruiI|||||
+8866|estar listo, completarse|VruiI|||||
+8867|hacerse, construirse|VruiI|||||
+8868|ser bueno en, permitirse (hacer)|VruiI|||||
+8869|intimar, empezar (con alguien)|VruiI|||||
+8870|crecer|VruiI|||||
+8871|estar afuera de, no tener mas en mano|VruiI|||||
+8872|coger, obtener, ganar, hacerse con, tomar|VruiT|||||
+8873|ser posible|VruiT|||||
+8874|aumentar, multiplicar|VruiI|||||
+8875|envejecer|VruiI|||||
+8876|hacerse tarde, avanzar (tiempo), pasar (tiempo)|VruiI|||||
+8877|llegarle a uno, tocarle a uno|VruiT|||||
+8878|temblar, vibrar, fluctuar, oscilar|VruiI|||||
+8879|voltear, poner bocabajo, bajar, tirarse|VruiI|||||
+8880|estar soleado, despejarse, parar de llover|VruiI|||||
+8881|desconectarse, apagarse|VruiI|||||
+8882|pasar, transcurrir|VruiI|||||
+8883|emprender, empezar a hacer, hacerse cargo, ser responsable por, garantizar, contraer (deceso), emprender, empezar a hacer, hacerse cargo de, ser responsable por, garantizar, contraer (deceso)|VruiT|||||
+8884|bajar|VruiT|||||
+8885|ensanchar, propagar|VruiT|||||
+8886|estornudar|VruiI|||||
+8887|desenredar, desatar|VruiI|||||
+8888|enamorarse, estar enamorado, estar encantado con|VruiT|||||
+8889|fenecer, morir, acabarse, extinguirse, caer, desplomarse, desmoronarse, extinguirse|VruiI|||||
+8890|ordenar, divulgar, soplar, delatar|VruiT|||||
+8891|burlarse, atormentar, perseguir, castigar|VruiT|||||
+8892|vivir, existir|VruiI|||||
+8893|amonestar, advertir, regañar, reprobar, reprobar, reprender, amonestar, leer la cartilla, sermonear, echar la bronca, echar la cantada, afear la conducta de alguien|VruiT|||||
+8894|hacer (té, café, etc.), preparar (té, café, etc.)|VruiT|||||
+8895|disparar|VruiT|||||
+8896|tirar, arrojar, echar, acuñar, idear|VruiT|||||
+8897|cambiar, variar, alterar, convertir, revisar, enmendar|VruiT|||||
+8898|intercambiar, sustituir, reemplazar|VruiT|||||
+8899|cargar, arrastrar, llevar a cuestas|VruiT|||||
+8900|alzar, elevar, montar, anunciar|VruiT|||||
+8901|ser deficiente|VruiI|||||
+8902|correr (carreras de caballos), galopar, ir a medio galope, correr, galopar, avanzar|VruiI|||||
+8903|apostar, arriesgar, jugar (juegos de azar)|VruiT|||||
+8904|suspender algo entre dos puntos (ej. un puente), poner algo sobre (las patas sobre la mesa)|VruiT|||||
+8905|ocultarse, esconderse, desaparecer|VruiI|||||
+8906|establecer, posar, ponerse en guardia, darle bola a|VruiT|||||
+8907|sentir, experimentar, darse cuenta|VruiT|||||
+8908|marchitarse, envejecer|VruiI|||||
+8909|apilar, amontonar, adicionar, repetir|VruiT|||||
+8910|endurecer, congelar, fortificar|VruiT|||||
+8911|ordenar, poner en orden, guardar|VruiT|||||
+8912|arreglar (problema), aclarar (disputa)|VruiT|||||
+8913|terminar, llevar algo hasta el fin|VruiT|||||
+8914|casar (ej. una hija)|VruiT|||||
+8915|matar a alguien|VruiT|||||
+8916|contar, enumerar|VruiT|||||
+8917|cambiarse la ropa|VruiT|||||
+8918|escucharse, oírse|VruiI|||||
+8919|decirse para ser, tener reputación de|VruiI|||||
+8920|decidir|VruiT|||||
+8921|prohibir|VruiT|||||
+8922|estar afilado|VruiI|||||
+8923|romperse, gastarse|VruiI|||||
+8924|dañarse|VruiI|||||
+8925|estallar, colapsarse|VruiI|||||
+8926|desconectarse, estar fuera de, expirar|VruiI|||||
+8927|ser astuto, tener una mente aguda|VruiI|||||
+8928|derramarse, regarse, infiltrarse|VruiI|||||
+8929|cruzar, pasar por alto|VruiI|||||
+8930|exceder, sobrepasar|VruiI|||||
+8931|quemarse, chamuscarse|VruiI|||||
+8932|sentarse|VruiI|||||
+8933|comparar, calibrar, competir, rivalizar, desafiarse, comparar|VruiT|||||
+8934|calibrar|VruiT|||||
+8935|atormentar, acosar, infligir dolor|VruiT|||||
+8936|tramar, planear, atentar|VruiT|||||
+8937|añadir, sumar, incluir, aumentar, incrementar, infligir|VruiT|||||
+8938|colapsar|VruiI|||||
+8939|doblar, torcer, ladear|VruiT|||||
+8940|mezclarse, combinarse con, mezclar|VruiT|||||
+8941|mezclar, revolver, remover, batir|VruiT|||||
+8942|reconocer, apreciar|VruiT|||||
+8943|observar, darse cuenta|VruiT|||||
+8944|admitir, aprobar, autorizar|VruiT|||||
+8945|ganar, producir|VruiT|||||
+8946|gotear, escaparse, salirse, haber una fuga, haber un escape, perder líquido, filtrarse, regarse, infiltrarse, fugarse|VruiI|||||
+8947|ser querido, ser popular|VruiI|||||
+8948|recoger (personas)|VruiT|||||
+8949|ver, mirar fijamente en, contemplar|VruiT|||||
+8950|fluir, afluir, correr(tinta), quitar (grasa, manchas)|VruiI|||||
+8951|tirar, arrojar|VruiT|||||
+8952|enfrentar la derrota, rendirse|VruiT|||||
+8953|confortar, consolar, entretener, divertir|VruiT|||||
+8954|lamer, lengüetear, subestimar, probar|VruiT|||||
+8955|alinear|VruiT|||||
+8956|acostumbrarse|VruiI|||||
+8957|refinar, forjar, fraguar, moldear, amasar, hernir, alterar, encerar|VruiT|||||
+8958|hervir, cocer|VruiT|||||
+8959|subir a bordo(algo), dejar participar, imponer, registrar, mencionar, cargar(equipaje), publicar, poner encima|VruiT|||||
+8960|mojarse|VruiI|||||
+8961|llegar tarde, llegar tarde, retrasarse|VruiI|||||
+8962|romper, doblarse, entregar, doblar (una esquina)|VruiI|||||
+8963|bajarse de un vehículo, salir, apearse, descender (ej. montaña)|VruiI|||||
+8964|enseñar, informar, instruir|VruiT|||||
+8965|temer, tener miedo, haber riesgo de, existir peligro de, temer, tener miedo de, temer, tener miedo, haber riesgo de, existir peligro de, temer, tener miedo (de o a)|VruiT|||||
+8966|decidir, establecer, determinar|VruiT|||||
+8967|colgar(algo), bajar(algo), calzar, descartar, conceder|VruiT|||||
+8968|rajarse, partirse, reventarse, romperse|VruiI|||||
+8969|estorbar, impedir, obstruir|VruiT|||||
+8970|sostener, apoyar, sujetar, contener|VruiT|||||
+8971|criar, educar|VruiT|||||
+8972|pasar, ir más allá, transcurrir, rebasar|VruiI|||||
+8973|sobresalir, ser superior, superar, prevalecer, predominar, aventajar|VruiI|||||
+8974|almacenar, disponer en stock|VruiT|||||
+8975|amontonar, acumular|VruiT|||||
+8976|colapsar, averiarse, descomponerse, declararse en quiebra, caer, dejar caer, morir, sucumbir a, caer sin sentido, arruinarse, tener una mala deuda|VruiI|||||
+8977|bastar, ser suficiente|VruiI|||||
+8978|salvar, socorrer, auxiliar, prestar auxilio, asistir, apoyar, ayudar, atender, ayudar, auxiliar, salvar, rescatar, promover, salvar, socorrer, auxiliar, prestar auxilio, asistir, apoyar, ayudar, atender|VruiT|||||
+8979|construir, edificar|VruiT|||||
+8980|derretirse, disolverse, solucionarse, desatarse|VruiI|||||
+8981|sacarse de, extraerse (fotos también), obtenerse, trasladarse, mudarse, interpretarse|VruiI|||||
+8982|intercambiar, reemplazar|VruiT|||||
+8983|embutir, retacar, atascar|VruiT|||||
+8984|servir, estar empleado, esforzarse por, tratar de, procurar, intentar denodadamente que|VruiT|||||
+8985|fortalecer, enfatizar|VruiT|||||
+8986|continuar, proseguir, conservar, mantener (algo)|VruiI|||||
+8987|divergir de, escupir, levantar con la horca, dispensar, dispersar, dividir en|VruiI|||||
+8988|dividir, separar|VruiT|||||
+8989|rasgarse, desgarrarse, romperse, perder|VruiI|||||
+8990|estar celoso, tener envidia, quemar, estar celoso, tener envidia|VruiI|||||
+8991|parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
+8992|ser tímido|VruiI|||||
+8993|responder, contestar|VruiI|||||
+8994|secarse, desecarse, resecarse, ajarse, perder vigor y energías, hacerse viejo, debilitarse, decaer|VruiI|||||
+8995|fertilizar, engordar, refinarse|VruiI|||||
+8996|comparar con la vista|VruiT|||||
+8997|mantener en la boca|VruiT|||||
+8998|perder, ser derrotado|VruiT|||||
+8999|crear, establecer, fundar|VruiT|||||
+9000|descuidar, holgazanear, haraganear, desatender, descuidar, escaquearse|VruiI|||||
+9001|parecerse, ser semejante, ser similar|VruiI|||||
+9002|llevar algo colgado|VruiT|||||
+9003|evadir, evitar, rehuir, esquivar, evadir, quitar, remover, retirar|VruiT|||||
+9004|humedecerse|VruiI|||||
+9005|hacer recto, corregir, curar, falsificar|VruiT|||||
+9006|guardar (ej. en el banco)|VruiT|||||
+9007|parar(algo), erigir (algo)|VruiT|||||
+9008|hacer (ruido, sonido)|VruiT|||||
+9009|poner (diente, garra, objeto puntiagudo)|VruiT|||||
+9010|preparar (un plan), decidir (objetivo, calendario)|VruiT|||||
+9011|derretirse, fundirse, disolverse|VruiI|||||
+9012|desempeñar, ejercer, hacerse cargo de, trabajar, servir, estar empleado|VruiT|||||
+9013|dividirse, separar, despedirse|VruiI|||||
+9014|ser derrotado, ser un fracasado|VruiI|||||
+9015|dejar de, renunciar a, dimitir, cesar en un puesto o actividad, abandonar, retirar|VruiT|||||
+9016|doler, sentir dolor, sufrir, padecer|VruiI|||||
+9017|examinar (medicina)|VruiT|||||
+9018|cuidar, tener cuidado|VruiT|||||
+9019|depositar, encargar, encomendar|VruiT|||||
+9020|tornarse oscuro, finalizar, venir al final, cerrar, abandonar, oscurecerse, terminarse, llegar al final , cerrar , acabarse, agotarse|VruiI|||||
+9021|aparecer disfrazado, tomar la forma de|VruiI|||||
+9022|cambiar a peor, empeorar, corromper|VruiI|||||
+9023|despertar|VruiI|||||
+9024|desprenderse, escabullirse, escaparse|VruiI|||||
+9025|estar medio dormido, desvariar|VruiI|||||
+9026|levantar, alzar, impulsar|VruiT|||||
+9027|hundir, sumergir, zozobrar|VruiT|||||
+9028|demacrarse|VruiI|||||
+9029|actuar violentamente, rabiar, forcejear, estar descontrolado|VruiI|||||
+9030|dar alojamiento|VruiT|||||
+9031|pasar, atravesar, seguirse de largo|VruiI|||||
+9032|escapar, librarse de, escaparse de, conseguir escapar de, eludir, salvarse, escabullirse|VruiI|||||
+9033|colgar, suspender|VruiT|||||
+9034|ladrar, gruñir, aullar|VruiI|||||
+9035|atar, sujetar|VruiT|||||
+9036|notificar, aconsejar|VruiT|||||
+9037|decir a alguien (lenguaje humilde)|VruiT|||||
+9038|averiguar, comprobar, asegurarse|VruiT|||||
+9039|ensuciar|VruiI|||||
+9040|romperse, fracturarse, rajarse, partirse, quebrarse, romperse|VruiI|||||
+9041|dar, ofrecer|VruiT|||||
+9042|enviar, llevar y entregar, notificar|VruiT|||||
+9043|visitar|VruiT|||||
+9044|enfriarse, congelarse|VruiI|||||
+9045|guiar, acompañar|VruiT|||||
+9046|capturar, arrestar, detener|VruiT|||||
+9047|hacer transferencia (de trenes), transbordar (autobús, tren)|VruiT|||||
+9048|sacudir|VruiI|||||
+9049|admirar, mirar hacia arriba|VruiI|||||
+9050|crecer, levantarse, cortar (diente)|VruiI|||||
+9051|producirse, ocasionarse, presentarse, brotar|VruiT|||||
+9052|quedarse viendo, mirar fijamente en|VruiT|||||
+9053|levantar, alzar, elevar|VruiT|||||
+9054|venderse|VruiI|||||
+9055|ser bien conocido, ser popular, ser famoso|VruiI|||||
+9056|usar, hacer uso de|VruiT|||||
+9057|extenderse, propagarse, desdoblarse, abrirse, desenrollarse|VruiT|||||
+9058|girar hacia, dirigirse|VruiT|||||
+9059|recoger, descalificar, confiscar, privar, aceptar, adoptar, escuchar a|VruiT|||||
+9060|finalizar|VruiT|||||
+9061|adelantar(algo), promover, acelerar|VruiT|||||
+9062|armar, construir, ensamblar|VruiT|||||
+9063|guiar|VruiI|||||
+9064|asignar|VruiT|||||
+9065|nombrar, mandar, ordenar|VruiT|||||
+9066|preparar, tener listo, proveer, equipar, proveerse|VruiT|||||
 9067|aparecer, surgir, volverse visible, salir, encarnar, asomar, materializar|VruiI|||||
-9068|expresarse, ser sabido, ser conocido, ser público o notorio|VruiI|||||
-9069|alocarse, descontrolarse, devastarse, agitarse|VruiI|||||
-9070|acabar, terminar, completar, bastar|VruiT|||||
-9071|expresar, mencionar, decir|VruiT|||||
-9072|desarrollarse, progresar, extenderse, crecer, alargarse|VruiI|||||
-9073|temblar, estremecerse, agitar, sacudir|VruiI|||||
-9074|condenar, culpar, criticar|VruiT|||||
-9075|comprender, componer (de), estimar, mantener, ocupar|VruiT|||||
-9076|confiar a otro, confiar a otro, dejar a|VruiT|||||
-9077|hacer algo cuando uno tenga tiempo|VruiT|||||
-9078|quemar, prender fuego|VruiI|||||
-9079|cerrar (libros, ojos, reunión, etc)|VruiT|||||
-9080|enterrar, soterrar, rellenar, cubrir, paliar|VruiT|||||
-9081|dar, regalar, recompensar|VruiT|||||
-9082|pasar (una varible de una función)|VruiT|||||
-9083|discutir, debatir|VruiT|||||
-9084|tomar, apoderarse de, lograr, guardar, suprimir, guardar, finalizar, concluir|VruiT|||||
-9085|combinar dos roles, estar imposibilitado, descartar|VruiT|||||
-9086|demandar, acusar|VruiT|||||
-9087|echar de menos, añorar, extrañar, anhelar, ansiar, admirar, suspirar por, sertirse atraído por|VruiI|||||
-9088|aburrirse, hartarse, tener suficiente|VruiI|||||
-9089|sugerir, recomendar, ofrecer, recomendar, aconsejar, recomendar, incitar, estimular, instigar|VruiT|||||
-9090|estar bendecido con, estar dotado de|VruiI|||||
-9091|inundar, rebosar, desbordar|VruiI|||||
-9092|unir, reunir, completar|VruiT|||||
-9093|resignarse, desistir, rendirse, abandonar|VruiT|||||
-9094|ahogarse, zozobrar, abandonarse|VruiI|||||
-9095|hervir|VruiT|||||
-9096|estar terminado, estar listo, completarse, quedar listo, lograrse|VruiI|||||
-9097|producirse, ocasionarse, presentarse, brotar|VruiI|||||
-9098|ponerse ropa|VruiT|||||
-9099|chapar, dorar, enchapar|VruiT|||||
-9100|acusar (de un crimen), dar (un mal nombre)|VruiT|||||
-9101|introducir, meter, implementar, adoptar|VruiT|||||
-9102|adaptar, ajustar, aplicar, ajustar, encajar, subsumir|VruiT|||||
-9103|incluir|VruiT|||||
-9104|acercar, arrimar, dedicar, enviar|VruiT|||||
-9105|entender, reconocer|VruiT|||||
-9106|imitar, copiar, emular|VruiT|||||
-9107|enfriarse, desgastarse, disminuir, hundirse, humedecerse, desinteresarse, bajar la fiebre|VruiI|||||
-9108|acostumbrarse a ver|VruiI|||||
-9109|transcurrir, separarse, estar separado por|VruiT|||||
-9110|pasar hambre, estar hambriento|VruiI|||||
-9111|atacar|VruiT|||||
-9112|aceptar (decír que sí)|VruiT|||||
-9113|acortar, recortar, reducir|VruiT|||||
-9114|soportar, permanecer, aguantar|VruiT|||||
-9115|soportar, permanecer, aguantar, resistir, aguantar, soportar|VruiI|||||
-9116|amarrar, sujetar, conectar, transferir (llamada telefónica)|VruiT|||||
-9117|quedarse en quiebra, bancarrota|VruiI|||||
-9118|cubrir, forrar, enfundar, echar|VruiT|||||
-9119|acariciar|VruiT|||||
-9120|asombrarse, pasmarse|VruiI|||||
-9121|entrar, insertar, ponerse (ropa)|VruiT|||||
-9122|hacer el amor, empotrar, encajar, entrampar, embaucar|VruiT|||||
-9123|echar abajo, derribar, bajar, reducir, retirar|VruiT|||||
-9124|prosperar, florecer|VruiI|||||
-9125|conceder (petición, deseo)|VruiT|||||
-9126|aflojar, relajar, distender, suavizar, aflojar|VruiT|||||
-9127|suspender, dar alivio|VruiT|||||
-9128|inclinar, ladear|VruiT|||||
-9129|aguardar, abstenerse, contenerse|VruiI|||||
-9130|meter, insertar, incluir, retacar|VruiT|||||
-9131|instalar, obtener, pedir, ordenar|VruiT|||||
-9132|atrapar, tomar, detener|VruiT|||||
-9133|profundizar, elevar, intensificar|VruiT|||||
-9134|ordenar|VruiT|||||
-9135|preparar, disponer, ajustar, preparar, arreglar, juntar(fondos)|VruiT|||||
-9136|combinar, mezclar, asociar, unir|VruiT|||||
-9137|cambiar, girar, pasar|VruiI|||||
-9138|afianzarse, basarse|VruiT|||||
-9139|llenar (un hueco, etc.), taparse, enterrar, ocupar|VruiT|||||
-9140|averiguar (indagar, interrogar)|VruiI|||||
-9141|adjuntar, adherir, acompañar, unir|VruiT|||||
-9142|incrementar, elevar|VruiT|||||
-9143|retirar, dejar, sacar|VruiT|||||
-9144|retirarse, regresar a casa|VruiT|||||
-9145|incrementar, elevar, subir|VruiT|||||
-9146|sacar, dejar, retirar|VruiT|||||
-9147|regresar a casa|VruiT|||||
-9148|incrementar, elevar|VruiT|||||
-9149|dejar, sacar, retirar|VruiT|||||
-9150|regresar a casa|VruiT|||||
-9151|aplacar, controlar, restringir, aplastar|VruiT|||||
-9152|perseguir, correr detrás de, seguir|VruiT|||||
-9153|creer|VruiT|||||
-9154|responder, contestar|VruiI|||||
-9155|ser llamado, ser convocado|VruiI|||||
-9156|ser juguetón, humorístico, jugar, divertise, bromear, juguetear, retozar|VruiI|||||
-9157|flirtear, coquetear, juguetear, enredar, tontear, retozar, travesear, triscar, flirtear, bromear|VruiI|||||
-9158|desconcertarse, atolondrarse, turbarse, perder los papeles, azorarse|VruiI|||||
-9159|llenarse|VruiI|||||
-9160|subir (la marea)|VruiI|||||
-9161|madurar, expirar|VruiI|||||
-9162|portarse como un niño mimado, hacer arrumacos, adular, lisonjear, depender y abusar de la generosidad de alguien|VruiI|||||
-9163|emprender, aceptar, tomar(lección, examen), experimentar, agarrar(ej. una pelota), hacerse popular|VruiT|||||
-9164|unir con clavos, clavar, remachar, finalizar un espectáculo, matar con la espada, matar con la lanza|VruiT|||||
-9165|golpear, chocar, aventar en la cara|VruiT|||||
-9166|acordar, concertar, apalabrar, concertar de antemano, ponerse de acuerdo con antelación, disponer, arreglar, planear, planificar, golpear una cosa contra otra, discutir planes|VruiT|||||
-9167|lanzar, culminar, poner en órbita|VruiT|||||
-9168|confesar, abrirse, divulgar, confiar secretos|VruiT|||||
-9169|curvear la punta hacia arriba, botar, sablear, atropellar|VruiT|||||
-9170|saltar, brincar, rebotar, salpicar, terminar|VruiI|||||
-9171|ser tímido, sentirse torpe|VruiI|||||
-9172|separarse de, dejar, irse, marcharse|VruiI|||||
-9173|marcharse, liberarse|VruiI|||||
-9174|continuar a hacer, persistir en hacer|VruiT|||||
-9175|estar ansioso, sopesar|VruiT|||||
-9176|agrupar, ordenar, consolidar|VruiT|||||
-9177|teñir, colorear|VruiT|||||
-9178|perder cabello|VruiI|||||
-9179|venir fuera, ser gastado, palidecer, apagarse, descolorear, desteñir|VruiI|||||
-9180|hacer frente, estar opuesto, combinar, conectar, sumar, mezclar, hacer juego con, superponer, comparar, comprobar con|VruiT|||||
-9181|poner especial atención en, tener en mente, tener presente, tener en cuenta, tener en mente, procurar, intentar|VruiT|||||
-9182|cambiar (ropa)|VruiT|||||
-9183|perder (tren, autobús)|VruiT|||||
-9184|freír, sofreír, dorar, saltear|VruiT|||||
-9185|estropear, herir, dañar, dañar, lesionar, lastimar, causar dolor, hacer sufrir, atormentar, mortificar, afligir|VruiT|||||
-9186|forjar, fraguar, entrenar, fortalecer|VruiT|||||
-9187|interpretar, ejecutar, representar|VruiT|||||
-9188|interpretar, ejecutar, representar|VruiT|||||
-9189|dirigir la palabra a, empezar a hablar, dirigirse a una persona, hablar (para alguien)|VruiT|||||
-9190|empezar, colocar (una trampa)|VruiT|||||
-9191|reprobar, censurar, regañar, reprender|VruiT|||||
-9192|atrapar, capturar, arrestar|VruiT|||||
-9193|darse cuenta, comprender|VruiT|||||
-9194|empapar, humedecer, encurtir|VruiT|||||
-9195|asignar, repartir|VruiT|||||
-9196|razonar, dividir, separar|VrugT|||||
-9197|enganchar, golpearse, aventarse|VruiT|||||
-9198|olvidar, abandonar|VruiT|||||
-9199|herir, daño, estropear, lastimar, desgraciar, herir, lastimar, dañar, ofender|VruiT|||||
-9200|preparar, confeccionar|VruiT|||||
-9201|parar, detener, frenar, moderar, aplacar, mitigar, parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
-9202|responder, contestar, dar en el blanco, tomar su peaje, recompensar|VruiI|||||
-9203|fijar, posar, poner|VruiT|||||
-9204|alzar, ofrecer, dedicar|VruiT|||||
-9205|apretar, empujar, forzar, obligar|VruiT|||||
-9206|intercambiar miradas, mirarse unos a otros|VruiT|||||
-9207|posponer, suspender operaciones, abstenerse (de realizar una acción)|VruiT|||||
-9208|verificar, evidenciar|VruiT|||||
-9209|despedazarse, pulverizarse, triturarse, molerse, desmenuzarse, desintegrarse, romperse en pedazos|VruiI|||||
-9210|reflexionar|VruiT|||||
-9211|completar, formar, fabricar|VruiT|||||
-9212|levantarse, ponerse en pie, alzarse|VrugI|||||
-9213|desistir, desahuciar|VrugT|||||
-9214|agotarse, consumirse|VruiI|||||
-9215|cambiar, renovar|VruiT|||||
-9216|mutilar, lisiar, cercenar, cortar|VruiT|||||
-9217|forma pasiva u honorífica del verbo "suru"|VruiI|||||
-9218|agruparse, juntarse en manada|VruiI|||||
-9219|perjudicar, afectar|VruiI|||||
-9220|extender, presentar, ofrecer|VruiT|||||
-9221|confundirse, estar desordenado, estar inquieto|VruiI|||||
-9222|saludar|VruiT|||||
-9223|debilitar|VruiT|||||
-9224|imitar, copiar, falsificar|VruiT|||||
-9225|informar, reportar|VruiT|||||
-9226|seleccionar, clasificar, ordenar|VruiT|||||
-9227|perderse, extraviase|VruiI|||||
-9228|reescribir, sobreescribir, renovar, transferir|VruiT|||||
-9229|colocar (en relación al todo), alinear, posicionar, localizar|VruiT|||||
-9230|hacer demasiado|VruiI|||||
-9231|lograr, realizar, acabar, terminar, cumplir, lograr, conseguir, alcanzar|VruiT|||||
-9232|nombrar, dar un nombre|VruiT|||||
-9233|dañar, mermar, fallar|VruiT|||||
-9234|forzar, compeler|VruiT|||||
-9235|respetar, honrar, estimar, apreciar|VruiT|||||
-9236|ser conocido, salir a la luz, ser descubierto|VruiI|||||
-9237|discutir, debatir|VruiT|||||
-9238|llevar o traer puesto, llevar, encargarse, tener, cargar con, estar teñido con, tener una traza de|VruiT|||||
-9239|hacer redondo, redondear, envolver, arrollar, seducir, adular, justificar|VruiT|||||
-9240|suavizar, atemperar, mitigar|VruiT|||||
-9241|detener, comprobar, contener, detener, comprobar, contenerse, detener, comprobar, reprimir|VruiT|||||
-9242|suprimir, detener, atrapar, asegurar|VruiT|||||
-9243|sentir|VruiI|||||
-9244|vincular, juntar, asociar|VruiT|||||
-9245|atravesar, cruzar|VruiI|||||
-9246|ser interrumpido|VruiI|||||
-9247|interrumpirse, terminarse|VruiI|||||
-9248|manipular, manejar, poner manos a la obra|VruiT|||||
-9249|visitar|VruiT|||||
-9250|cambiar, alterar, reformar, revisar, renovar, reformar, examinar, investigar, cambiar, alterar, reformar, revisar|VruiT|||||
-9251|palidecer, ponerse pálido|VruiI|||||
-9252|nombrar, mandar, ordenar|VruiT|||||
-9253|arreglar (flores), viviente, vivo, arreglar(flores)|VruiT|||||
-9254|hacer (a alguien) encontrarse|VruiT|||||
-9255|exponer a, someter a, hacer que alguien se reúna, exponer a, someter a|VruiT|||||
-9256|fatigarse, fastidiarse|VruiI|||||
-9257|añadir, sumar, agregar|VruiT|||||
-9258|investigar completamente, dominar, extremar, dominar, llevar al límite, llevar al máximo, extremar, llevar a término, concluir, terminar, decidir, establecer, fijar|VruiT|||||
-9259|curarse, recuperarse, restablecerse|VruiI|||||
-9260|encargar, encomendar|VruiT|||||
-9261|ser aceptado, recibir (una aplicación)|VruiT|||||
-9262|terminar, acabar, completar|VruiT|||||
-9263|repartir, distribuir|VruiT|||||
-9264|descolorarse|VruiI|||||
-9265|enrudecer, endurecer, poner agresivo|VruiT|||||
-9266|verter|VruiT|||||
-9267|acercar, arrimar|VruiT|||||
-9268|acercar, aproximar|VruiT|||||
-9269|despedazarse, trizarse|VruiI|||||
-9270|rizarse, arrugarse|VruiI|||||
-9271|palidecer, descolorarse, achocharse|VruiI|||||
-9272|achocharse, perder la lucidez|VruiI|||||
-9273|guiar, conducir, dirigir, encabezar|VruiT|||||
-9274|recompensa, reembolsar|VruiI|||||
-9275|hincharse, inflarse, abultarse, ensancharse|VruiI|||||
-9276|servir, trabajar para|VruiI|||||
-9277|avergonzarse (tener o sentir vergüenza o pena), avergonzarse, sentir vergüenza, tener vergüenza, ruborizarse, abochornarse|VruiI|||||
-9278|brillar, verse atractivo, verse bien, brillar, verse bonito|VruiI|||||
-9279|perderse, extraviarse|VruiI|||||
-9280|colgar (algo) en (algo), ponerse ropa|VruiT|||||
-9281|enganchar, atrapar, entrampar|VruiT|||||
-9282|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
-9283|beber (alcohol)|VruiT|||||
-9284|escupir en (una persona)|VruiT|||||
-9285|golpear la bola al final del bate (béisbol)|VruiT|||||
-9286|colgar (algo) en (algo), ponerse ropa|VruiT|||||
-9287|enganchar, atrapar, entrampar|VruiT|||||
-9288|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
-9289|beber (alcohol)|VruiT|||||
-9290|escupir en (una persona)|VruiT|||||
-9291|golpear la bola al final del bate (béisbol)|VruiT|||||
-9292|colgar (algo) en (algo), ponerse ropa|VruiT|||||
-9293|enganchar, atrapar, entrampar|VruiT|||||
-9294|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
-9295|beber (alcohol)|VruiT|||||
-9296|escupir en (una persona)|VruiT|||||
-9297|golpear la bola al final del bate (béisbol)|VruiT|||||
-9298|ocultar, esconder, guardárselo para uno mismo|VruiT|||||
-9299|fascinar, atraer, halar (en una puerta)|VruiT|||||
-9300|tener una convulsión|VruiT|||||
-9301|fascinar, atraer, detenerse (en una puerta)|VruiT|||||
+9068|expresarse, aparecer, hacerse visible, quedar al descubierto, encarnar, materializarse, expresarse|VruiI|||||
+9069|aparecer, surgir, volverse visible, salir, encarnar, asomar, materializar|VruiI|||||
+9070|expresarse, ser sabido, ser conocido, ser público o notorio|VruiI|||||
+9071|alocarse, descontrolarse, devastarse, agitarse|VruiI|||||
+9072|acabar, terminar, completar, bastar|VruiT|||||
+9073|expresar, mencionar, decir|VruiT|||||
+9074|desarrollarse, progresar, extenderse, crecer, alargarse|VruiI|||||
+9075|temblar, estremecerse, agitar, sacudir|VruiI|||||
+9076|condenar, culpar, criticar|VruiT|||||
+9077|comprender, componer (de), estimar, mantener, ocupar|VruiT|||||
+9078|confiar a otro, confiar a otro, dejar a|VruiT|||||
+9079|hacer algo cuando uno tenga tiempo|VruiT|||||
+9080|quemar, prender fuego|VruiI|||||
+9081|cerrar (libros, ojos, reunión, etc)|VruiT|||||
+9082|enterrar, soterrar, rellenar, cubrir, paliar|VruiT|||||
+9083|dar, regalar, recompensar|VruiT|||||
+9084|pasar (una varible de una función)|VruiT|||||
+9085|discutir, debatir|VruiT|||||
+9086|tomar, apoderarse de, lograr, guardar, suprimir, guardar, finalizar, concluir|VruiT|||||
+9087|combinar dos roles, estar imposibilitado, descartar|VruiT|||||
+9088|demandar, acusar|VruiT|||||
+9089|echar de menos, añorar, extrañar, anhelar, ansiar, admirar, suspirar por, sertirse atraído por|VruiI|||||
+9090|aburrirse, hartarse, tener suficiente|VruiI|||||
+9091|sugerir, recomendar, ofrecer, recomendar, aconsejar, recomendar, incitar, estimular, instigar|VruiT|||||
+9092|estar bendecido con, estar dotado de|VruiI|||||
+9093|inundar, rebosar, desbordar|VruiI|||||
+9094|unir, reunir, completar|VruiT|||||
+9095|resignarse, desistir, rendirse, abandonar|VruiT|||||
+9096|ahogarse, zozobrar, abandonarse|VruiI|||||
+9097|hervir|VruiT|||||
+9098|estar terminado, estar listo, completarse, quedar listo, lograrse|VruiI|||||
+9099|producirse, ocasionarse, presentarse, brotar|VruiI|||||
+9100|ponerse ropa|VruiT|||||
+9101|chapar, dorar, enchapar|VruiT|||||
+9102|acusar (de un crimen), dar (un mal nombre)|VruiT|||||
+9103|introducir, meter, implementar, adoptar|VruiT|||||
+9104|adaptar, ajustar, aplicar, ajustar, encajar, subsumir|VruiT|||||
+9105|incluir|VruiT|||||
+9106|acercar, arrimar, dedicar, enviar|VruiT|||||
+9107|entender, reconocer|VruiT|||||
+9108|imitar, copiar, emular|VruiT|||||
+9109|enfriarse, desgastarse, disminuir, hundirse, humedecerse, desinteresarse, bajar la fiebre|VruiI|||||
+9110|acostumbrarse a ver|VruiI|||||
+9111|transcurrir, separarse, estar separado por|VruiT|||||
+9112|pasar hambre, estar hambriento|VruiI|||||
+9113|atacar|VruiT|||||
+9114|aceptar (decír que sí)|VruiT|||||
+9115|acortar, recortar, reducir|VruiT|||||
+9116|soportar, permanecer, aguantar|VruiT|||||
+9117|soportar, permanecer, aguantar, resistir, aguantar, soportar|VruiI|||||
+9118|amarrar, sujetar, conectar, transferir (llamada telefónica)|VruiT|||||
+9119|quedarse en quiebra, bancarrota|VruiI|||||
+9120|cubrir, forrar, enfundar, echar|VruiT|||||
+9121|acariciar|VruiT|||||
+9122|asombrarse, pasmarse|VruiI|||||
+9123|entrar, insertar, ponerse (ropa)|VruiT|||||
+9124|hacer el amor, empotrar, encajar, entrampar, embaucar|VruiT|||||
+9125|echar abajo, derribar, bajar, reducir, retirar|VruiT|||||
+9126|prosperar, florecer|VruiI|||||
+9127|conceder (petición, deseo)|VruiT|||||
+9128|aflojar, relajar, distender, suavizar, aflojar|VruiT|||||
+9129|suspender, dar alivio|VruiT|||||
+9130|inclinar, ladear|VruiT|||||
+9131|aguardar, abstenerse, contenerse|VruiI|||||
+9132|meter, insertar, incluir, retacar|VruiT|||||
+9133|instalar, obtener, pedir, ordenar|VruiT|||||
+9134|atrapar, tomar, detener|VruiT|||||
+9135|profundizar, elevar, intensificar|VruiT|||||
+9136|ordenar|VruiT|||||
+9137|preparar, disponer, ajustar, preparar, arreglar, juntar(fondos)|VruiT|||||
+9138|combinar, mezclar, asociar, unir|VruiT|||||
+9139|cambiar, girar, pasar|VruiI|||||
+9140|afianzarse, basarse|VruiT|||||
+9141|llenar (un hueco, etc.), taparse, enterrar, ocupar|VruiT|||||
+9142|averiguar (indagar, interrogar)|VruiI|||||
+9143|adjuntar, adherir, acompañar, unir|VruiT|||||
+9144|incrementar, elevar|VruiT|||||
+9145|retirar, dejar, sacar|VruiT|||||
+9146|retirarse, regresar a casa|VruiT|||||
+9147|incrementar, elevar, subir|VruiT|||||
+9148|sacar, dejar, retirar|VruiT|||||
+9149|regresar a casa|VruiT|||||
+9150|incrementar, elevar|VruiT|||||
+9151|dejar, sacar, retirar|VruiT|||||
+9152|regresar a casa|VruiT|||||
+9153|aplacar, controlar, restringir, aplastar|VruiT|||||
+9154|perseguir, correr detrás de, seguir|VruiT|||||
+9155|creer|VruiT|||||
+9156|responder, contestar|VruiI|||||
+9157|ser llamado, ser convocado|VruiI|||||
+9158|ser juguetón, humorístico, jugar, divertise, bromear, juguetear, retozar|VruiI|||||
+9159|flirtear, coquetear, juguetear, enredar, tontear, retozar, travesear, triscar, flirtear, bromear|VruiI|||||
+9160|desconcertarse, atolondrarse, turbarse, perder los papeles, azorarse|VruiI|||||
+9161|llenarse|VruiI|||||
+9162|subir (la marea)|VruiI|||||
+9163|madurar, expirar|VruiI|||||
+9164|portarse como un niño mimado, hacer arrumacos, adular, lisonjear, depender y abusar de la generosidad de alguien|VruiI|||||
+9165|emprender, aceptar, tomar(lección, examen), experimentar, agarrar(ej. una pelota), hacerse popular|VruiT|||||
+9166|unir con clavos, clavar, remachar, finalizar un espectáculo, matar con la espada, matar con la lanza|VruiT|||||
+9167|golpear, chocar, aventar en la cara|VruiT|||||
+9168|acordar, concertar, apalabrar, concertar de antemano, ponerse de acuerdo con antelación, disponer, arreglar, planear, planificar, golpear una cosa contra otra, discutir planes|VruiT|||||
+9169|lanzar, culminar, poner en órbita|VruiT|||||
+9170|confesar, abrirse, divulgar, confiar secretos|VruiT|||||
+9171|curvear la punta hacia arriba, botar, sablear, atropellar|VruiT|||||
+9172|saltar, brincar, rebotar, salpicar, terminar|VruiI|||||
+9173|ser tímido, sentirse torpe|VruiI|||||
+9174|separarse de, dejar, irse, marcharse|VruiI|||||
+9175|marcharse, liberarse|VruiI|||||
+9176|continuar a hacer, persistir en hacer|VruiT|||||
+9177|estar ansioso, sopesar|VruiT|||||
+9178|agrupar, ordenar, consolidar|VruiT|||||
+9179|teñir, colorear|VruiT|||||
+9180|perder cabello|VruiI|||||
+9181|venir fuera, ser gastado, palidecer, apagarse, descolorear, desteñir|VruiI|||||
+9182|hacer frente, estar opuesto, combinar, conectar, sumar, mezclar, hacer juego con, superponer, comparar, comprobar con|VruiT|||||
+9183|poner especial atención en, tener en mente, tener presente, tener en cuenta, tener en mente, procurar, intentar|VruiT|||||
+9184|cambiar (ropa)|VruiT|||||
+9185|perder (tren, autobús)|VruiT|||||
+9186|freír, sofreír, dorar, saltear|VruiT|||||
+9187|estropear, herir, dañar, dañar, lesionar, lastimar, causar dolor, hacer sufrir, atormentar, mortificar, afligir|VruiT|||||
+9188|forjar, fraguar, entrenar, fortalecer|VruiT|||||
+9189|interpretar, ejecutar, representar|VruiT|||||
+9190|interpretar, ejecutar, representar|VruiT|||||
+9191|dirigir la palabra a, empezar a hablar, dirigirse a una persona, hablar (para alguien)|VruiT|||||
+9192|empezar, colocar (una trampa)|VruiT|||||
+9193|reprobar, censurar, regañar, reprender|VruiT|||||
+9194|atrapar, capturar, arrestar|VruiT|||||
+9195|darse cuenta, comprender|VruiT|||||
+9196|empapar, humedecer, encurtir|VruiT|||||
+9197|asignar, repartir|VruiT|||||
+9198|razonar, dividir, separar|VrugT|||||
+9199|enganchar, golpearse, aventarse|VruiT|||||
+9200|olvidar, abandonar|VruiT|||||
+9201|herir, daño, estropear, lastimar, desgraciar, herir, lastimar, dañar, ofender|VruiT|||||
+9202|preparar, confeccionar|VruiT|||||
+9203|parar, detener, frenar, moderar, aplacar, mitigar, parar, detener (algo), cesar, renunciar, ponerle fin a|VruiT|||||
+9204|responder, contestar, dar en el blanco, tomar su peaje, recompensar|VruiI|||||
+9205|fijar, posar, poner|VruiT|||||
+9206|alzar, ofrecer, dedicar|VruiT|||||
+9207|apretar, empujar, forzar, obligar|VruiT|||||
+9208|intercambiar miradas, mirarse unos a otros|VruiT|||||
+9209|posponer, suspender operaciones, abstenerse (de realizar una acción)|VruiT|||||
+9210|verificar, evidenciar|VruiT|||||
+9211|despedazarse, pulverizarse, triturarse, molerse, desmenuzarse, desintegrarse, romperse en pedazos|VruiI|||||
+9212|reflexionar|VruiT|||||
+9213|completar, formar, fabricar|VruiT|||||
+9214|levantarse, ponerse en pie, alzarse|VrugI|||||
+9215|desistir, desahuciar|VrugT|||||
+9216|agotarse, consumirse|VruiI|||||
+9217|cambiar, renovar|VruiT|||||
+9218|mutilar, lisiar, cercenar, cortar|VruiT|||||
+9219|forma pasiva u honorífica del verbo "suru"|VruiI|||||
+9220|agruparse, juntarse en manada|VruiI|||||
+9221|perjudicar, afectar|VruiI|||||
+9222|extender, presentar, ofrecer|VruiT|||||
+9223|confundirse, estar desordenado, estar inquieto|VruiI|||||
+9224|saludar|VruiT|||||
+9225|debilitar|VruiT|||||
+9226|imitar, copiar, falsificar|VruiT|||||
+9227|informar, reportar|VruiT|||||
+9228|seleccionar, clasificar, ordenar|VruiT|||||
+9229|perderse, extraviase|VruiI|||||
+9230|reescribir, sobreescribir, renovar, transferir|VruiT|||||
+9231|colocar (en relación al todo), alinear, posicionar, localizar|VruiT|||||
+9232|hacer demasiado|VruiI|||||
+9233|lograr, realizar, acabar, terminar, cumplir, lograr, conseguir, alcanzar|VruiT|||||
+9234|nombrar, dar un nombre|VruiT|||||
+9235|dañar, mermar, fallar|VruiT|||||
+9236|forzar, compeler|VruiT|||||
+9237|respetar, honrar, estimar, apreciar|VruiT|||||
+9238|ser conocido, salir a la luz, ser descubierto|VruiI|||||
+9239|discutir, debatir|VruiT|||||
+9240|llevar o traer puesto, llevar, encargarse, tener, cargar con, estar teñido con, tener una traza de|VruiT|||||
+9241|hacer redondo, redondear, envolver, arrollar, seducir, adular, justificar|VruiT|||||
+9242|suavizar, atemperar, mitigar|VruiT|||||
+9243|detener, comprobar, contener, detener, comprobar, contenerse, detener, comprobar, reprimir|VruiT|||||
+9244|suprimir, detener, atrapar, asegurar|VruiT|||||
+9245|sentir|VruiI|||||
+9246|vincular, juntar, asociar|VruiT|||||
+9247|atravesar, cruzar|VruiI|||||
+9248|ser interrumpido|VruiI|||||
+9249|interrumpirse, terminarse|VruiI|||||
+9250|manipular, manejar, poner manos a la obra|VruiT|||||
+9251|visitar|VruiT|||||
+9252|cambiar, alterar, reformar, revisar, renovar, reformar, examinar, investigar, cambiar, alterar, reformar, revisar|VruiT|||||
+9253|palidecer, ponerse pálido|VruiI|||||
+9254|nombrar, mandar, ordenar|VruiT|||||
+9255|arreglar (flores), viviente, vivo, arreglar(flores)|VruiT|||||
+9256|hacer (a alguien) encontrarse|VruiT|||||
+9257|exponer a, someter a, hacer que alguien se reúna, exponer a, someter a|VruiT|||||
+9258|fatigarse, fastidiarse|VruiI|||||
+9259|añadir, sumar, agregar|VruiT|||||
+9260|investigar completamente, dominar, extremar, dominar, llevar al límite, llevar al máximo, extremar, llevar a término, concluir, terminar, decidir, establecer, fijar|VruiT|||||
+9261|curarse, recuperarse, restablecerse|VruiI|||||
+9262|encargar, encomendar|VruiT|||||
+9263|ser aceptado, recibir (una aplicación)|VruiT|||||
+9264|terminar, acabar, completar|VruiT|||||
+9265|repartir, distribuir|VruiT|||||
+9266|descolorarse|VruiI|||||
+9267|enrudecer, endurecer, poner agresivo|VruiT|||||
+9268|verter|VruiT|||||
+9269|acercar, arrimar|VruiT|||||
+9270|acercar, aproximar|VruiT|||||
+9271|despedazarse, trizarse|VruiI|||||
+9272|rizarse, arrugarse|VruiI|||||
+9273|palidecer, descolorarse, achocharse|VruiI|||||
+9274|achocharse, perder la lucidez|VruiI|||||
+9275|guiar, conducir, dirigir, encabezar|VruiT|||||
+9276|recompensa, reembolsar|VruiI|||||
+9277|hincharse, inflarse, abultarse, ensancharse|VruiI|||||
+9278|servir, trabajar para|VruiI|||||
+9279|avergonzarse (tener o sentir vergüenza o pena), avergonzarse, sentir vergüenza, tener vergüenza, ruborizarse, abochornarse|VruiI|||||
+9280|brillar, verse atractivo, verse bien, brillar, verse bonito|VruiI|||||
+9281|perderse, extraviarse|VruiI|||||
+9282|colgar (algo) en (algo), ponerse ropa|VruiT|||||
+9283|enganchar, atrapar, entrampar|VruiT|||||
+9284|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
+9285|beber (alcohol)|VruiT|||||
+9286|escupir en (una persona)|VruiT|||||
+9287|golpear la bola al final del bate (béisbol)|VruiT|||||
+9288|colgar (algo) en (algo), ponerse ropa|VruiT|||||
+9289|enganchar, atrapar, entrampar|VruiT|||||
+9290|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
+9291|beber (alcohol)|VruiT|||||
+9292|escupir en (una persona)|VruiT|||||
+9293|golpear la bola al final del bate (béisbol)|VruiT|||||
+9294|colgar (algo) en (algo), ponerse ropa|VruiT|||||
+9295|enganchar, atrapar, entrampar|VruiT|||||
+9296|defraudar, evadir pago, saltar un requisito (traducción dudosa)|VruiT|||||
+9297|beber (alcohol)|VruiT|||||
+9298|escupir en (una persona)|VruiT|||||
+9299|golpear la bola al final del bate (béisbol)|VruiT|||||
+9300|ocultar, esconder, guardárselo para uno mismo|VruiT|||||
+9301|fascinar, atraer, halar (en una puerta)|VruiT|||||
 9302|tener una convulsión|VruiT|||||
-9303|fascinar, atraer, detenerse (en una puerta|VruiT|||||
+9303|fascinar, atraer, detenerse (en una puerta)|VruiT|||||
 9304|tener una convulsión|VruiT|||||
-9305|apretar, agarrotarse, reforzar, esforzar, apretar, ponerse rígido, reforzar, presionar|VruiT|||||
-9306|apremiar, acelerar, apresurar, precipitar, apresurar, acelerar, apurar, precipitar|VruiT|||||
-9307|reventar, desharcerse, deshilvanarse|VruiI|||||
-9308|llegar a ser civilizado, llegar a extenderse, estar al día|VruiI|||||
-9309|aprovechar, beneficiarse de|VruiI|||||
-9310|aprovechar, beneficiarse de|VruiI|||||
-9311|impresionar (a alguien)|VruiT|||||
-9312|sobrepasarse, irse de largo|VruiI|||||
-9313|parafrasear, cambiar las palabras|VruiT|||||
-9314|monopolizar, acaparar|VruiT|||||
-9315|reflejar|VruiT|||||
-9316|conformar|VruiI|||||
-9317|inclinar|VruiT|||||
-9318|concluir, conjeturar, presumir, regañar|VruiT|||||
-9319|matar|VruiT|||||
-9320|agarrar duramente|VruiT|||||
-9321|valorar, respetar|VruiT|||||
-9322|hablar en sentido figurado, hacer alegoría a|VruiT|||||
-9323|calmar, apaciguar, seguirle la corriente a alguien|VruiT|||||
-9324|cocerse|VruiI|||||
-9325|perseguir, correr detrás de, seguir|VruiT|||||
-9326|adular, hacer la barba, halagar|VruiT|||||
-9327|sobrepasar, superar, vencer|VruiI|||||
-9328|alejar, repeler, rechazar, remover, hacer a un lado, quitar del paso|VruiT|||||
-9329|envejecerse, madurar|VruiI|||||
-9330|levantar, registrar, servir(comida)|VruiT|||||
-9331|condensar, pensar a fondo, definir|VruiT|||||
-9332|decaer, menguar, debilitarse|VruiI|||||
-9333|gobernar, manejar|VruiT|||||
-9334|someter|VruiT|||||
-9335|conquistar, dominar, abarcar|VruiT|||||
-9336|pelar, salir afuera, estar despegando|VruiI|||||
-9337|enredarse, trabarse, complicarse|VruiI|||||
-9338|apoyarse, reclinarse, caer pesado (comida)|VruiI|||||
-9339|pelearse, reñir, enemistarse|VruiI|||||
-9340|estar fascinado (por), ver algo con fascinación, estar encantado|VruiI|||||
-9341|no quitar la vista, seguir con la vista|VruiT|||||
-9342|aguantar, durar, resistir|VruiT|||||
-9343|detener, frenar|VruiT|||||
-9344|fallar la vista, estar irreconocible|VruiT|||||
-9345|escarmentar, aprender del pasado, curtirse|VruiI|||||
-9346|aguardar, esperar|VruiT|||||
-9347|estar lleno de ilusión, estar impaciente|VruiT|||||
-9348|acechar, aguardar, estar a la expectativa|VruiT|||||
-9349|quedar con alguien, reunirse, encontrarse|VruiI|||||
-9350|mezclar, combinar|VruiT|||||
-9351|intercambiar (palabras, fuego, etc)|VruiT|||||
-9352|cruzar (espadas)|VruiT|||||
-9353|confundirse, camuflarse, distraerse|VruiI|||||
-9354|pegarse, adjuntarse, anexarse|VruiI|||||
-9355|congelarse|VruiI|||||
-9356|ser cauteloso, prestar atención, tener cuidado|VruiI;CE|||||
-9357|prohibir|VruiT|||||
-9358|brillar, estar claro, asombrar|VruiI|||||
-9359|despertar, despertarse, levantarse|VruiI|||||
-9360|volver a estar sobrio, despejarse, recuperar la conciencia (ej. después de la anestesia)|VruiI|||||
-9361|estar desilusionado|VruiI|||||
-9362|ser el primero|VruiI|||||
-9363|oxidarse|VruiI|||||
-9364|abastecer, adquirir, acumular|VruiT|||||
-9365|entumirse|VruiI|||||
-9366|vestirse, lucirse, engalanarse|VruiI|||||
-9367|estrechar, reducir|VruiT|||||
-9368|confiar a, dedicarse a, abandonarse uno mismo a|VruiT|||||
-9369|leer en voz alta|VruiT|||||
-9370|llamar, hacer un llamado|VruiT|||||
-9371|adelgazar, perder peso|VruiI|||||
-9372|ser estéril|VruiI|||||
-9373|distinguir, discernir|VruiT|||||
-9374|disculparse|VruiI|||||
-9375|diluir, desvanecer, rebajar|VruiT|||||
-9376|estar agotado (e.g. un producto)|VruiI|||||
-9377|preocuparse, inquietarse, sufrir, padecer|VruiT|||||
-9378|envanecerse, ensimismarse, ensoberbecerse|VruiI|||||
-9379|animarse, enfiestarse|VruiI|||||
-9380|estar bloqueado, estar atascado, estar obstruido, sentir una presión en el pecho|VruiI|||||
-9381|informar|VruiT|||||
-9382|lanzar, tirar, aventar, abandonar|VruiT|||||
-9383|ser hipnotizado, ser influenciado|VruiI|||||
-9384|recitar, cantar, dirigir una llamada a|VruiT|||||
-9385|amarrar, atar, archivar|VruiT|||||
-9386|lograr, alcanzar, conseguir|VruiT|||||
-9387|chochear, atolondrarse, hacerse el sueco, hacerse el tonto, hacerse el despistado, tontear, hacer el tonto, fingir inocencia|VruiI|||||
-9388|descender volando o de un brinco, arrojarse a, saltar a|VruiI|||||
-9389|llevar, portar|VruiT|||||
-9390|suplir, reemplazar, relevar|VruiT|||||
-9391|colgarse, suspenderse, combarse|VruiI|||||
-9392|impregnarse, absorberse|VruiI|||||
-9393|preparar, tener listo, proveer, equipar|VruiT|||||
-9394|ofrendar, tributar|VruiT|||||
-9395|elevarse|VruiI|||||
-9396|apaciguar, suprimir, calmar, contener, reprimir, sujetar, calmar|VruiT|||||
-9397|subyugar, someter, hacerse seguir o acompañar|VruiT|||||
-9398|secarse, marchitarse|VruiI|||||
-9399|extinguirse, terminarse, cortarse|VruiI|||||
-9400|hacer de cualquier manera, llevar a cabo de malas maneras, sacudir, zumbar, zurrar, derrotar, dar de leches, batir, atacar, acabar|VruiT|||||
-9401|poner a reposar, madurar (ideas), dejar dormir|VruiT|||||
-9402|descubrir, encontrar (e.g. un error en un libro), dar con, detectar|VruiT|||||
-9403|localizar, encontrar (e.g. algo perdido)|VruiT|||||
-9404|estar acostumbrado a ver, estar familiarizado con, encontrar, hallar, descubrir|VruiT|||||
-9405|abatir de un disparo, matar a tiros, capturar, apresar, conseguir|VruiT|||||
-9406|ordenar un envío, despachar|VruiT|||||
-9407|hacer un atado, gobernar, manejar, controlar, administrar|VruiT|||||
-9408|ser recompensado, ser gratificado|VruiI|||||
-9409|pedir, solicitar, protestar, quejarse|VruiT|||||
-9410|ofrecer, solicitar|VruiT|||||
-9411|elevar, exaltar, avivar, alegrar|VruiT|||||
-9412|estallar en brotes, brotar|VruiI|||||
-9413|alabar, admirar, elogiar|VruiT|||||
-9414|probar, examinar|VruiT|||||
-9415|desmayarse, perder la cabeza por algo o alguien|VruiI|||||
-9416|perturbarse, agitarse, alterarse|VruiI|||||
-9417|hacer (por alguien) |VruiT|||||
-9418|permitir (por alguien) a|VruiT|||||
-9419|temblar de miedo|VruiI|||||
-9420|espolear, aguijonear, avivar, atizar|VruiT|||||
-9421|escribir de modo sensacionalista|VruiT|||||
-9422|romper la palabra de uno|VruiT|||||
-9423|ser impuntual|VruiT|||||
-9424|copula humilde en japonés|VdaI|||||
-9425|ser, estar|VdaI|||||
-9426|llegar, venir|VkuruI|||||
-9427|traer (algo)|VkuruT|||||
-9428|llevarse a alguien|VkuruT;CE|||||
-9429|seguir, venir con alguien, acompañar|VkuruI|||||
-9430|venir, acudir, llegar a venir|VkuruI;CE|||||
-9431|escapar, librar, zafarse|VsuruI|||||
-9432|entrar en contacto, tocar, conectar (con)|VsuruI|||||
-9433|acudir a, asistir a|VsuruI|||||
-9434|recibir (visitas)|VsuruI|||||
-9435|alcanzar, llegar a|VsuruI|||||
-9436|castigar, penalizar|VsuruT|||||
-9437|tomar, ingerir, probar el amargo sabor de|VsuruT|||||
-9438|querer, desear|VsuruT|||||
-9439|contradecir|VsuruT|||||
-9440|ocurrir, tener lugar, pasar, emitir|VsuruT|||||
-9441|dañar, lastimar|VsuruT|||||
-9442|hacer, intentar, ejecutar, jugar, practicar, costar|VsuruT|||||
-9443|servir como, transcurrir|VsuruT|||||
-9444|servir, actuar como, trabajar como|VsuruT|||||
-9445|ponerse (ropa, una expresión facial, etc.)|VsuruT|||||
-9446|sentirse (una aroma, ruido, etc.)|VsuruT|||||
-9447|estar|VsuruT|||||
-9448|valer, costar|VsuruT|||||
-9449|pasar (tiempo), sufijo verbalizador (aplica a los sustantivos anotados en este diccionario con la parte del habla "vs")|VsuruT|||||
-9450|crea un verbo humilde (después de un sustantivo con prefijo "o" o "go")|VsuruT|||||
-9451|estar a punto de, tratat de, intentar|VsuruT|||||
-9452|amar|VsuruT|||||
-9453|viajar|VsuruI|||||
-9454|garantizar|VsuruT|||||
-9455|precisar, necesitar, requerir, demandar|VsuruT|||||
-9456|tener, poseer|VsuruT|||||
-9457|pertenecer|VsuruI|||||
-9458|acobardarse, arredrarse, temer|VsuruI|||||
-9459|transformarse, convertirse, variar, cambiar|VsuruI|||||
-9460|enamorarse, amar|VsuruT|||||
-9461|enfrentar, encarar, afrontar|VsuruT|||||
-9462|imponer|VsuruT|||||
-9463|infligir, causar, imponer (multa, etc.)|VsuruT|||||
-9464|titularse (ej. un libro), nombrarse|VsuruI|||||
-9465|poseer|VsuruT|||||
-9466|reprimir, sofocar, controlar, dominar|VsuruT|||||
-9467|concernir, afectar, estar relacionado|VsuruT|||||
-9468|llamarse, hacerse nombrar|VsuruT|||||
-9469|dibujar|VsuruT|||||
-9470|demarcar, marcar, dividir|VsuruT|||||
-9471|planear|VsuruT|||||
-9472|valer, merecer|VsuruI|||||
+9305|fascinar, atraer, detenerse (en una puerta|VruiT|||||
+9306|tener una convulsión|VruiT|||||
+9307|apretar, agarrotarse, reforzar, esforzar, apretar, ponerse rígido, reforzar, presionar|VruiT|||||
+9308|apremiar, acelerar, apresurar, precipitar, apresurar, acelerar, apurar, precipitar|VruiT|||||
+9309|reventar, desharcerse, deshilvanarse|VruiI|||||
+9310|llegar a ser civilizado, llegar a extenderse, estar al día|VruiI|||||
+9311|aprovechar, beneficiarse de|VruiI|||||
+9312|aprovechar, beneficiarse de|VruiI|||||
+9313|impresionar (a alguien)|VruiT|||||
+9314|sobrepasarse, irse de largo|VruiI|||||
+9315|parafrasear, cambiar las palabras|VruiT|||||
+9316|monopolizar, acaparar|VruiT|||||
+9317|reflejar|VruiT|||||
+9318|conformar|VruiI|||||
+9319|inclinar|VruiT|||||
+9320|concluir, conjeturar, presumir, regañar|VruiT|||||
+9321|matar|VruiT|||||
+9322|agarrar duramente|VruiT|||||
+9323|valorar, respetar|VruiT|||||
+9324|hablar en sentido figurado, hacer alegoría a|VruiT|||||
+9325|calmar, apaciguar, seguirle la corriente a alguien|VruiT|||||
+9326|cocerse|VruiI|||||
+9327|perseguir, correr detrás de, seguir|VruiT|||||
+9328|adular, hacer la barba, halagar|VruiT|||||
+9329|sobrepasar, superar, vencer|VruiI|||||
+9330|alejar, repeler, rechazar, remover, hacer a un lado, quitar del paso|VruiT|||||
+9331|envejecerse, madurar|VruiI|||||
+9332|levantar, registrar, servir(comida)|VruiT|||||
+9333|condensar, pensar a fondo, definir|VruiT|||||
+9334|decaer, menguar, debilitarse|VruiI|||||
+9335|gobernar, manejar|VruiT|||||
+9336|someter|VruiT|||||
+9337|conquistar, dominar, abarcar|VruiT|||||
+9338|pelar, salir afuera, estar despegando|VruiI|||||
+9339|enredarse, trabarse, complicarse|VruiI|||||
+9340|apoyarse, reclinarse, caer pesado (comida)|VruiI|||||
+9341|pelearse, reñir, enemistarse|VruiI|||||
+9342|estar fascinado (por), ver algo con fascinación, estar encantado|VruiI|||||
+9343|no quitar la vista, seguir con la vista|VruiT|||||
+9344|aguantar, durar, resistir|VruiT|||||
+9345|detener, frenar|VruiT|||||
+9346|fallar la vista, estar irreconocible|VruiT|||||
+9347|escarmentar, aprender del pasado, curtirse|VruiI|||||
+9348|aguardar, esperar|VruiT|||||
+9349|estar lleno de ilusión, estar impaciente|VruiT|||||
+9350|acechar, aguardar, estar a la expectativa|VruiT|||||
+9351|quedar con alguien, reunirse, encontrarse|VruiI|||||
+9352|mezclar, combinar|VruiT|||||
+9353|intercambiar (palabras, fuego, etc)|VruiT|||||
+9354|cruzar (espadas)|VruiT|||||
+9355|confundirse, camuflarse, distraerse|VruiI|||||
+9356|pegarse, adjuntarse, anexarse|VruiI|||||
+9357|congelarse|VruiI|||||
+9358|ser cauteloso, prestar atención, tener cuidado|VruiI;CE|||||
+9359|prohibir|VruiT|||||
+9360|brillar, estar claro, asombrar|VruiI|||||
+9361|despertar, despertarse, levantarse|VruiI|||||
+9362|volver a estar sobrio, despejarse, recuperar la conciencia (ej. después de la anestesia)|VruiI|||||
+9363|estar desilusionado|VruiI|||||
+9364|ser el primero|VruiI|||||
+9365|oxidarse|VruiI|||||
+9366|abastecer, adquirir, acumular|VruiT|||||
+9367|entumirse|VruiI|||||
+9368|vestirse, lucirse, engalanarse|VruiI|||||
+9369|estrechar, reducir|VruiT|||||
+9370|confiar a, dedicarse a, abandonarse uno mismo a|VruiT|||||
+9371|leer en voz alta|VruiT|||||
+9372|llamar, hacer un llamado|VruiT|||||
+9373|adelgazar, perder peso|VruiI|||||
+9374|ser estéril|VruiI|||||
+9375|distinguir, discernir|VruiT|||||
+9376|disculparse|VruiI|||||
+9377|diluir, desvanecer, rebajar|VruiT|||||
+9378|estar agotado (e.g. un producto)|VruiI|||||
+9379|preocuparse, inquietarse, sufrir, padecer|VruiT|||||
+9380|envanecerse, ensimismarse, ensoberbecerse|VruiI|||||
+9381|animarse, enfiestarse|VruiI|||||
+9382|estar bloqueado, estar atascado, estar obstruido, sentir una presión en el pecho|VruiI|||||
+9383|informar|VruiT|||||
+9384|lanzar, tirar, aventar, abandonar|VruiT|||||
+9385|ser hipnotizado, ser influenciado|VruiI|||||
+9386|recitar, cantar, dirigir una llamada a|VruiT|||||
+9387|amarrar, atar, archivar|VruiT|||||
+9388|lograr, alcanzar, conseguir|VruiT|||||
+9389|chochear, atolondrarse, hacerse el sueco, hacerse el tonto, hacerse el despistado, tontear, hacer el tonto, fingir inocencia|VruiI|||||
+9390|descender volando o de un brinco, arrojarse a, saltar a|VruiI|||||
+9391|llevar, portar|VruiT|||||
+9392|suplir, reemplazar, relevar|VruiT|||||
+9393|colgarse, suspenderse, combarse|VruiI|||||
+9394|impregnarse, absorberse|VruiI|||||
+9395|preparar, tener listo, proveer, equipar|VruiT|||||
+9396|ofrendar, tributar|VruiT|||||
+9397|elevarse|VruiI|||||
+9398|apaciguar, suprimir, calmar, contener, reprimir, sujetar, calmar|VruiT|||||
+9399|subyugar, someter, hacerse seguir o acompañar|VruiT|||||
+9400|secarse, marchitarse|VruiI|||||
+9401|extinguirse, terminarse, cortarse|VruiI|||||
+9402|hacer de cualquier manera, llevar a cabo de malas maneras, sacudir, zumbar, zurrar, derrotar, dar de leches, batir, atacar, acabar|VruiT|||||
+9403|poner a reposar, madurar (ideas), dejar dormir|VruiT|||||
+9404|descubrir, encontrar (e.g. un error en un libro), dar con, detectar|VruiT|||||
+9405|localizar, encontrar (e.g. algo perdido)|VruiT|||||
+9406|estar acostumbrado a ver, estar familiarizado con, encontrar, hallar, descubrir|VruiT|||||
+9407|abatir de un disparo, matar a tiros, capturar, apresar, conseguir|VruiT|||||
+9408|ordenar un envío, despachar|VruiT|||||
+9409|hacer un atado, gobernar, manejar, controlar, administrar|VruiT|||||
+9410|ser recompensado, ser gratificado|VruiI|||||
+9411|pedir, solicitar, protestar, quejarse|VruiT|||||
+9412|ofrecer, solicitar|VruiT|||||
+9413|elevar, exaltar, avivar, alegrar|VruiT|||||
+9414|estallar en brotes, brotar|VruiI|||||
+9415|alabar, admirar, elogiar|VruiT|||||
+9416|probar, examinar|VruiT|||||
+9417|desmayarse, perder la cabeza por algo o alguien|VruiI|||||
+9418|perturbarse, agitarse, alterarse|VruiI|||||
+9419|hacer (por alguien) |VruiT|||||
+9420|permitir (por alguien) a|VruiT|||||
+9421|temblar de miedo|VruiI|||||
+9422|espolear, aguijonear, avivar, atizar|VruiT|||||
+9423|escribir de modo sensacionalista|VruiT|||||
+9424|romper la palabra de uno|VruiT|||||
+9425|ser impuntual|VruiT|||||
+9426|copula humilde en japonés|VdaI|||||
+9427|ser, estar|VdaI|||||
+9428|llegar, venir|VkuruI|||||
+9429|traer (algo)|VkuruT|||||
+9430|llevarse a alguien|VkuruT;CE|||||
+9431|seguir, venir con alguien, acompañar|VkuruI|||||
+9432|venir, acudir, llegar a venir|VkuruI;CE|||||
+9433|escapar, librar, zafarse|VsuruI|||||
+9434|entrar en contacto, tocar, conectar (con)|VsuruI|||||
+9435|acudir a, asistir a|VsuruI|||||
+9436|recibir (visitas)|VsuruI|||||
+9437|alcanzar, llegar a|VsuruI|||||
+9438|castigar, penalizar|VsuruT|||||
+9439|tomar, ingerir, probar el amargo sabor de|VsuruT|||||
+9440|querer, desear|VsuruT|||||
+9441|contradecir|VsuruT|||||
+9442|ocurrir, tener lugar, pasar, emitir|VsuruT|||||
+9443|dañar, lastimar|VsuruT|||||
+9444|hacer, intentar, ejecutar, jugar, practicar, costar|VsuruT|||||
+9445|servir como, transcurrir|VsuruT|||||
+9446|servir, actuar como, trabajar como|VsuruT|||||
+9447|ponerse (ropa, una expresión facial, etc.)|VsuruT|||||
+9448|sentirse (una aroma, ruido, etc.)|VsuruT|||||
+9449|estar|VsuruT|||||
+9450|valer, costar|VsuruT|||||
+9451|pasar (tiempo), sufijo verbalizador (aplica a los sustantivos anotados en este diccionario con la parte del habla "vs")|VsuruT|||||
+9452|crea un verbo humilde (después de un sustantivo con prefijo "o" o "go")|VsuruT|||||
+9453|estar a punto de, tratat de, intentar|VsuruT|||||
+9454|amar|VsuruT|||||
+9455|viajar|VsuruI|||||
+9456|garantizar|VsuruT|||||
+9457|precisar, necesitar, requerir, demandar|VsuruT|||||
+9458|tener, poseer|VsuruT|||||
+9459|pertenecer|VsuruI|||||
+9460|acobardarse, arredrarse, temer|VsuruI|||||
+9461|transformarse, convertirse, variar, cambiar|VsuruI|||||
+9462|enamorarse, amar|VsuruT|||||
+9463|enfrentar, encarar, afrontar|VsuruT|||||
+9464|imponer|VsuruT|||||
+9465|infligir, causar, imponer (multa, etc.)|VsuruT|||||
+9466|titularse (ej. un libro), nombrarse|VsuruI|||||
+9467|poseer|VsuruT|||||
+9468|reprimir, sofocar, controlar, dominar|VsuruT|||||
+9469|concernir, afectar, estar relacionado|VsuruT|||||
+9470|llamarse, hacerse nombrar|VsuruT|||||
+9471|dibujar|VsuruT|||||
+9472|demarcar, marcar, dividir|VsuruT|||||
+9473|planear|VsuruT|||||
+9474|valer, merecer|VsuruI|||||
