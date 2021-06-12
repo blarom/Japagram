@@ -731,6 +731,9 @@ public final class UtilitiesVerbSearch {
         List<Long> ids = new ArrayList<>();
         for (long[] idsAndCols : matchingVerbIdAndColList) { ids.add(idsAndCols[0]); }
         List<Verb> matchingVerbsBeforeOrderingByWordId = OvUtilsDb.getVerbListByVerbIds(ids, context);
+        for (Verb verb : matchingVerbsBeforeOrderingByWordId) {
+            if (verb.getActiveLatinRoot().equals("0")) verb.setActiveLatinRoot("");
+        }
         List<Verb> matchingVerbs = new ArrayList<>();
         boolean found;
         for (Word word : matchingWords) {

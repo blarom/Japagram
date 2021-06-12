@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 157;
+    public static final int CENTRAL_DB_VERSION = 158;
     public static final int KANJI_DB_VERSION = 29;
-    public static final int EXTENDED_DB_VERSION = 51;
+    public static final int EXTENDED_DB_VERSION = 52;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
@@ -673,6 +673,7 @@ public final class Globals {
         map.put("TitleArch", "verb_TitleArch");
         map.put("Arch1", "verb_Arch1");
         map.put("Arch2", "verb_Arch2");
+        map.put("Arch2a", "verb_Arch2a");
         map.put("Arch3", "verb_Arch3");
         map.put("Arch4", "verb_Arch4");
 

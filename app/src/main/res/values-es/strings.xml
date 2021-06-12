@@ -536,6 +536,7 @@
     <string name="verb_TitleArch">Arcaico</string>
     <string name="verb_Arch1">Pres. Simple Neg. (equiv. a \"nai\")</string>
     <string name="verb_Arch2">[verbo] sin hacer/ser X</string>
+    <string name="verb_Arch2a">[verbo] sin ser capaz de hacer/ser X</string>
     <string name="verb_Arch3">Pres. Simple Neg. (equiv. a \"nai\")</string>
     <string name="verb_Arch4">Obligado a hacer/ser X</string>
 

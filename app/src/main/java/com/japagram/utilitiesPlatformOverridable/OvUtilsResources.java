@@ -240,6 +240,7 @@ public final class OvUtilsResources {
                 map.put("verb_TitleArch", R.string.verb_TitleArch);
                 map.put("verb_Arch1", R.string.verb_Arch1);
                 map.put("verb_Arch2", R.string.verb_Arch2);
+                map.put("verb_Arch2a", R.string.verb_Arch2a);
                 map.put("verb_Arch3", R.string.verb_Arch3);
                 map.put("verb_Arch4", R.string.verb_Arch4);
                 break;

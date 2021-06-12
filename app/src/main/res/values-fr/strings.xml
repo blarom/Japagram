@@ -528,6 +528,7 @@
     <string name="verb_TitleArch">Archaïc</string>
     <string name="verb_Arch1">Prés. Simple Nég. (équiv. à \"nai\")</string>
     <string name="verb_Arch2">[verbe] sans faire/être X</string>
+    <string name="verb_Arch2a">[verbe] sans être capable de faire/être X</string>
     <string name="verb_Arch3">Prés. Simple Nég. (équiv. à \"nai\")</string>
     <string name="verb_Arch4">Obligé a faire/être X</string>
 

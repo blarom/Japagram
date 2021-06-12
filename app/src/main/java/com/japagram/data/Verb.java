@@ -3,6 +3,9 @@ package com.japagram.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 import androidx.room.ColumnInfo;
@@ -52,7 +55,7 @@ public class Verb implements Parcelable {
     }
 
 
-    Verb(Parcel in) {
+    Verb(@NotNull Parcel in) {
         id = in.readLong();
         family = in.readString();
         meaning = in.readString();
@@ -71,13 +74,15 @@ public class Verb implements Parcelable {
     }
 
     public static final Creator<Verb> CREATOR = new Creator<Verb>() {
+        @Contract("_ -> new")
         @Override
-        public Verb createFromParcel(Parcel in) {
+        public @NotNull Verb createFromParcel(Parcel in) {
             return new Verb(in);
         }
 
+        @Contract(value = "_ -> new", pure = true)
         @Override
-        public Verb[] newArray(int size) {
+        public Verb @NotNull [] newArray(int size) {
             return new Verb[size];
         }
     };
@@ -243,7 +248,7 @@ public class Verb implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel parcel, int i) {
+    public void writeToParcel(@NotNull Parcel parcel, int i) {
         parcel.writeLong(id);
         parcel.writeString(family);
         parcel.writeString(meaning);

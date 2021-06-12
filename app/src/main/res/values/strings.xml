@@ -667,6 +667,7 @@
     <string name="verb_TitleArch">Archaic</string>
     <string name="verb_Arch1">Plain Pres. Neg. (equiv. to \"nai\")</string>
     <string name="verb_Arch2">To [verb] without doing/being X</string>
+    <string name="verb_Arch2a">To [verb] without being able to do/be X</string>
     <string name="verb_Arch3">Plain Pres. Neg. (equiv. to \"nai\")</string>
     <string name="verb_Arch4">Compelled to do/be X</string>
 
