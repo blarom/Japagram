@@ -57,7 +57,7 @@ import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.utilitiesCrossPlatform.UtilitiesGeneral;
-import com.theartofdev.edmodo.cropper.CropImage;
+//FIXME import com.theartofdev.edmodo.cropper.CropImage;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -124,7 +124,7 @@ public class InputQueryFragment extends Fragment implements
     private String mChosenSpeechToTextLanguage;
     private String mDownloadType;
     private boolean jpnOcrFileISDownloading;
-    private CropImage.ActivityResult mCropImageResult;
+    //FIXME private CropImage.ActivityResult mCropImageResult;
     private BroadcastReceiver mBroadcastReceiver;
     private ProgressDialog mProgressDialog;
     private boolean mAlreadyGotOcrResult;
@@ -225,21 +225,22 @@ public class InputQueryFragment extends Fragment implements
 
             startRomajiFromKanjiThread();
         }
-        else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            AndroidUtilitiesIO.unmuteSpeaker(getActivity());
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            if (resultCode == RESULT_OK) {
-                mCropImageResult = result;
-                sendImageToImageAdjuster(mCropImageResult);
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-                try {
-                    throw error;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        //FIXME
+//        else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+//            AndroidUtilitiesIO.unmuteSpeaker(getActivity());
+//            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+//            if (resultCode == RESULT_OK) {
+//                mCropImageResult = result;
+//                sendImageToImageAdjuster(mCropImageResult);
+//            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+//                Exception error = result.getError();
+//                try {
+//                    throw error;
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
         else if (requestCode == ADJUST_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Bundle extras = data.getExtras();
@@ -274,7 +275,7 @@ public class InputQueryFragment extends Fragment implements
         mInputQuery = "";
         mOcrResultString = "";
         timesPressed = 0;
-        mCropImageResult = null;
+        //FIXME mCropImageResult = null;
         mAlreadyGotOcrResult = false;
         mAlreadyGotRomajiFromKanji = false;
 
@@ -335,22 +336,23 @@ public class InputQueryFragment extends Fragment implements
                 null, null, null);
 
     }
-    private void sendImageToImageAdjuster(@NotNull CropImage.ActivityResult result) {
-        Uri mPhotoURI = result.getUri();
-        mImageToBeDecoded = AndroidUtilitiesIO.getBitmapFromUri(getActivity(), mPhotoURI);
-
-        //Send the image Uri to the AdjustImageActivity
-        Intent intent = new Intent(getActivity(), AdjustImageActivity.class);
-        intent.putExtra("imageUri", mPhotoURI.toString());
-        startActivityForResult(intent, ADJUST_IMAGE_ACTIVITY_REQUEST_CODE);
-    }
+    //FIXME
+//    private void sendImageToImageAdjuster(@NotNull CropImage.ActivityResult result) {
+//        Uri mPhotoURI = result.getUri();
+//        mImageToBeDecoded = AndroidUtilitiesIO.getBitmapFromUri(getActivity(), mPhotoURI);
+//
+//        //Send the image Uri to the AdjustImageActivity
+//        Intent intent = new Intent(getActivity(), AdjustImageActivity.class);
+//        intent.putExtra("imageUri", mPhotoURI.toString());
+//        startActivityForResult(intent, ADJUST_IMAGE_ACTIVITY_REQUEST_CODE);
+//    }
     private void performImageCaptureAndCrop() {
 
         // start source picker (camera, gallery, etc..) to get image for cropping and then use the image in cropping activity
         //CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).start(getActivity());
 
         AndroidUtilitiesIO.muteSpeaker(getActivity());
-        if (getContext() != null) CropImage.activity().start(getContext(), this); //For FragmentActivity use
+        //FIXME if (getContext() != null) CropImage.activity().start(getContext(), this); //For FragmentActivity use
 
     }
     private Bitmap adjustImageAfterOCR(Bitmap imageToBeDecoded) {
@@ -980,7 +982,7 @@ public class InputQueryFragment extends Fragment implements
         );
         alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEUTRAL, getString(R.string.readjust),
                 (dialog, which) -> {
-                    if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
+                    //FIXME if (mCropImageResult != null) sendImageToImageAdjuster(mCropImageResult);
                 });
         alertDialog.show();
         //scaleImage(ocrPictureHolder, 1);

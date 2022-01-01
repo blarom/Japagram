@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 158;
+    public static final int CENTRAL_DB_VERSION = 159;
+    public static final int EXTENDED_DB_VERSION = 53;
     public static final int KANJI_DB_VERSION = 29;
-    public static final int EXTENDED_DB_VERSION = 52;
     public static final int NAMES_DB_VERSION = 13;
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";

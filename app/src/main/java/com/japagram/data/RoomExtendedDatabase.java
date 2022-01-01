@@ -111,7 +111,7 @@ public abstract class RoomExtendedDatabase extends RoomDatabase {
     }
     public void loadIntoDatabase(String filename, @NotNull String database, int blockSize, Context context, Object dao) {
 
-        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context);
+        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context, true);
         HashMap<String, float[]> parameters = new HashMap<>();
         parameters.put("extendedDbWords", new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_WORDS,         Globals.EXTENDED_DB_SIZE_WORDS});
         parameters.put("indexRomaji",     new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ROMAJI_INDEX,  Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX});

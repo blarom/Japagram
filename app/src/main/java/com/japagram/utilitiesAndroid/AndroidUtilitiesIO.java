@@ -19,7 +19,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -41,8 +40,6 @@ import com.japagram.data.IndexRomaji;
 import com.japagram.data.IndexRomajiDao;
 import com.japagram.data.IndexSpanish;
 import com.japagram.data.IndexSpanishDao;
-import com.japagram.data.KanjiComponent;
-import com.japagram.data.KanjiComponentDao;
 import com.japagram.data.Word;
 import com.japagram.data.WordDao;
 import com.japagram.utilitiesCrossPlatform.Globals;
@@ -548,18 +545,18 @@ public class AndroidUtilitiesIO {
         }, milliseconds);
     }
 
-    public static @NotNull List<List<String>> readCSVFileAsLineBlocks(String filename, int blockSize, @NotNull Context context) {
+    public static @NotNull List<List<String>> readCSVFileAsLineBlocks(String filename, int blockSize, @NotNull Context context, boolean ignoreFirstLine) {
 
         List<List<String>> lineBlocks = new ArrayList<>();
         List<String> linesTemp = new ArrayList<>();
         try {
             String lineTemp;
             BufferedReader fileReader = new BufferedReader(new InputStreamReader(context.getAssets().open(filename)));
-            fileReader.readLine(); //Discarding the first line of the file (titles)
+            if (ignoreFirstLine) fileReader.readLine(); //Discarding the first line of the file (titles)
             int lineNum = 0;
             while ((lineTemp = fileReader.readLine()) != null) {
                 linesTemp.add(lineTemp);
-                if (lineNum % blockSize == 0) {
+                if (lineNum % blockSize == 0 && lineNum != 0) {
                     lineBlocks.add(linesTemp);
                     linesTemp = new ArrayList<>();
                 }

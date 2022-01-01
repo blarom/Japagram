@@ -124,7 +124,7 @@ public abstract class RoomCentralDatabase extends RoomDatabase {
     }
     public void loadIntoDatabase(String filename, @NotNull String database, int blockSize, Context context, Object dao) {
 
-        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context);
+        List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks(filename, blockSize, context, true);
         HashMap<String, float[]> parameters = new HashMap<>();
         parameters.put("indexRomaji",     new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ROMAJI_INDEX,  Globals.EXTENDED_DB_SIZE_ROMAJI_INDEX});
         parameters.put("indexEnglish",    new float[]{(float) blockSize / 4, Globals.EXTENDED_DB_LINES_ENGLISH_INDEX, Globals.EXTENDED_DB_SIZE_ENGLISH_INDEX});

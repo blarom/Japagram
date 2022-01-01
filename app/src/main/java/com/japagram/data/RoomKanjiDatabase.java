@@ -12,8 +12,6 @@ import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +115,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
                 radicalProperties.put(key, RadicalsDatabase.get(i)[1]);
             }
 
-            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineCJK_Decomposition - 3000 kanji.csv", 5000, context);
+            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineCJK_Decomposition - 3000 kanji.csv", 5000, context, true);
 
             for (List<String> lineBlock : lineBlocks) {
                 runInTransaction(() -> {
@@ -166,7 +164,7 @@ public abstract class RoomKanjiDatabase extends RoomDatabase {
 
         if (kanjiComponent().count() == 0) {
 
-            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineComponents - 3000 kanji.csv", 5000, context);
+            List<List<String>> lineBlocks = AndroidUtilitiesIO.readCSVFileAsLineBlocks("LineComponents - 3000 kanji.csv", 5000, context, false);
 
             for (List<String> lineBlock : lineBlocks) {
                 runInTransaction(() -> {
