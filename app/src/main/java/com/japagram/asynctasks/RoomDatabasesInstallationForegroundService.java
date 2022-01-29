@@ -74,7 +74,7 @@ public class RoomDatabasesInstallationForegroundService extends Service {
 
         Intent appIntent = new Intent(this, MainActivity.class);
         appIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String channelName = "ExtendedDbForegroundServiceChannel";
