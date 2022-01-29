@@ -1,15 +1,23 @@
 package com.japagram.utilitiesCrossPlatform;
 
 
+import androidx.annotation.IntegerRes;
+
 import com.japagram.BuildConfig;
 import com.japagram.data.ConjugationTitle;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public final class Globals {
 
@@ -43,7 +51,7 @@ public final class Globals {
     public static final int DB_EXTENDED = 1;
     public static final int DB_NAMES = 2;
 
-    public static final int RANKING_EXACT_MEANING_MATCH_BONUS = 1000;
+    public static final int RANKING_EXACT_MEANING_MATCH_BONUS = 2000;
     public static final int RANKING_EXACT_WORD_MATCH_BONUS = 500;
     public static final int RANKING_WORD_MATCH_IN_SENTENCE_BONUS = 300;
     public static final int RANKING_WORD_MATCH_IN_PARENTHESES_BONUS = 50;
@@ -843,4 +851,114 @@ public final class Globals {
     }
     public final static HashMap<String, String> PARTS_OF_SPEECH = createPartsOfSpeechMap();
 
+    public static final String KJ_EX_MATCH                         = "kanji exact match";
+    public static final String KJ_ALTS_EX_MATCH                    = "kanji alt spelling exact match";
+    public static final String R_EX_MATCH                          = "romaji exact match";
+    public static final String R_ALTS_EX_MATCH                     = "romaji alt spelling exact match";
+    public static final String FIRST_MEANING_EX_PHRASE_MATCH       = "first meaning exact phrase match";
+    public static final String FIRST_MEANING_TO_EX_PHRASE_MATCH    = "first meaning with -to- exact 2-word phrase match";
+    public static final String SECOND_MEANING_EX_PHRASE_MATCH      = "second+ meaning exact phrase match";
+    public static final String SECOND_MEANING_TO_EX_PHRASE_MATCH   = "second+ meaning with -to- exact 2-word phrase match";
+    public static final String KW_EX_MATCH                         = "keyword exact match";
+    public static final String KJ_PART_START_MATCH                 = "kanji partial match starts with word";
+    public static final String KJ_ALTS_PART_START_MATCH            = "kanji alt spelling partial match starts with word";
+    public static final String R_PART_START_MATCH                  = "romaji partial match starts with word";
+    public static final String R_ALTS_PART_START_MATCH             = "romaji alt spelling partial match starts with word";
+    public static final String FIRST_MEANING_EX_WORD_MATCH         = "first meaning exact word match in multi-word sentence";
+    public static final String FIRST_MEANING_TO_EX_WORD_MATCH      = "first meaning with -to- exact word match in 3+ word sentence";
+    public static final String SECOND_MEANING_EX_WORD_MATCH        = "second+ meaning exact word match in multi-word sentence";
+    public static final String SECOND_MEANING_TO_EX_WORD_MATCH     = "second+ meaning with -to- exact word match in 3+ word sentence";
+    public static final String KJ_PART_MATCH                       = "kanji partial match";
+    public static final String KANJI_ALTS_PART_MATCH               = "kanji alt spelling partial match";
+    public static final String R_PART_MATCH                        = "romaji partial match";
+    public static final String R_ALTS_PART_MATCH                   = "romaji alt spelling partial match";
+    public static final String KW_PART_MATCH                       = "keyword partial match";
+    public static final String FIRST_MEANING_PART_PHRASE_MATCH     = "first meaning partial phrase match in single-word sentence";
+    public static final String FIRST_MEANING_TO_PART_PHRASE_MATCH  = "first meaning with -to- partial phrase match in 2-word sentence";
+    public static final String SECOND_MEANING_PART_PHRASE_MATCH    = "second+ meaning partial phrase match in single-word sentence";
+    public static final String SECOND_MEANING_TO_PART_PHRASE_MATCH = "second+ meaning with -to- partial phrase match in 2-word sentence";
+    public static final String FIRST_MEANING_PART_WORD_MATCH       = "first meaning partial word match in multi-word sentence";
+    public static final String FIRST_MEANING_TO_PART_WORD_MATCH    = "first meaning with -to- partial word match in 3+ word sentence";
+    public static final String SECOND_MEANING_PART_WORD_MATCH      = "second+ meaning partial word match in multi-word sentence";
+    public static final String SECOND_MEANING_TO_PART_WORD_MATCH   = "second+ meaning with -to- partial word match in 3+ word sentence";
+
+    public static final int STARTING_RANK_VALUE                    = 10000;
+    public static final int LONGER_WORD_PENALTY                    = 1;
+    public static final int WORD_IN_PARENTHESIS_PENALTY            = 5;
+    public static final int NAME_PENALTY                           = 10;
+    public static final int MISSING_LANG_PENALTY                   = 10;
+    public static final int COMMON_WORD_BONUS                      = 2;
+    public static final int EXACT_CONJ_MATCH_BONUS                 = 2;
+    public static final int PART_CONJ_MATCH_BONUS                  = 1;
+    public static final int DICT_FREQ_BONUS                        = 2;
+
+    private static @NotNull HashMap<String, Integer> createRankingsMap() {
+        HashMap<String, Integer> map = new HashMap<>();
+        int current_value = STARTING_RANK_VALUE;
+        current_value -= 100 ; map.put(KJ_EX_MATCH                        , current_value);
+        current_value -= 100 ; map.put(KJ_ALTS_EX_MATCH                   , current_value);
+        current_value -= 100 ; map.put(R_EX_MATCH                         , current_value);
+        current_value -= 100 ; map.put(R_ALTS_EX_MATCH                    , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_EX_PHRASE_MATCH      , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_PHRASE_MATCH   , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_EX_PHRASE_MATCH     , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_PHRASE_MATCH  , current_value);
+        current_value -= 100 ; map.put(KW_EX_MATCH                        , current_value);
+        current_value -= 100 ; map.put(KJ_PART_START_MATCH                , current_value);
+        current_value -= 100 ; map.put(KJ_ALTS_PART_START_MATCH           , current_value);
+        current_value -= 100 ; map.put(R_PART_START_MATCH                 , current_value);
+        current_value -= 100 ; map.put(R_ALTS_PART_START_MATCH            , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_EX_WORD_MATCH        , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_WORD_MATCH     , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_EX_WORD_MATCH       , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_WORD_MATCH    , current_value);
+        current_value -= 100 ; map.put(KJ_PART_MATCH                      , current_value);
+        current_value -= 100 ; map.put(KANJI_ALTS_PART_MATCH              , current_value);
+        current_value -= 100 ; map.put(R_PART_MATCH                       , current_value);
+        current_value -= 100 ; map.put(R_ALTS_PART_MATCH                  , current_value);
+        current_value -= 100 ; map.put(KW_PART_MATCH                      , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_PART_PHRASE_MATCH    , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_PHRASE_MATCH , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_PART_PHRASE_MATCH   , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_PART_PHRASE_MATCH, current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_PART_WORD_MATCH      , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_WORD_MATCH   , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_PART_WORD_MATCH     , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_PART_WORD_MATCH  , current_value);
+
+        return map;
+    }
+    public static final HashMap<String, Integer> RANKINGS = createRankingsMap();
+    private static @NotNull List<String> getSortedRankConditions() {
+        Set<Map.Entry<String, Integer>> entries = RANKINGS.entrySet();
+
+        Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> {
+            int e1Value = e1.getValue();
+            int e2Value = e2.getValue();
+            if (e1Value == e2Value) return 0;
+            else if (e1Value > e2Value) return 1;
+            else return 0;
+        };
+
+        List<Map.Entry<String, Integer>> listOfEntries = new ArrayList<>(entries);
+        Collections.sort(listOfEntries, valueComparator);
+        LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
+        for(Map.Entry<String, Integer> entry : listOfEntries) { sortedByValue.put(entry.getKey(), entry.getValue()); }
+        Set<Map.Entry<String, Integer>> entrySetSortedByValue = sortedByValue.entrySet();
+        List<String> sortedKeys = new ArrayList<>();
+        for(Map.Entry<String, Integer> mapping : entrySetSortedByValue){
+            sortedKeys.add(mapping.getKey());
+        }
+        return sortedKeys;
+    }
+    public static final int LATIN_WORDS = 0;
+    public static final int KANJI_WORDS = 1;
+    public static final List<String> SORTED_RANK_CONDITIONS = getSortedRankConditions();
+    public static final String LATIN_CHAR_ALPHABET = "etaoinsrhdlcumwfgpybvkjxqzéóàüíáäêèãúôçâöñßùûîõìœëïòðåæþýøžš'";
+    public static final String LATIN_CHAR_ALPHABET_CAP = "ETAOINSRHDLCUMWFGPYBVKJXQZÉÓÀÜÍÁÄÊÈÃÚÔÇÂÖÑSSÙÛÎÕÌŒËÏÒÐÅÆÞÝØŽŠ";
+    public static final String HIRAGANA_CHAR_ALPHABET = "あいうえおかきくけこがぎぐげごさしすせそざじずぜぞたてとだでどちつづなぬねのんにはひふへほばびぶべぼぱぴぷぺぽまみむめもやゆよらりるれろわをゔっゐゑぢぁゃゅぅょぉぇぃ";
+    public static final String KATAKANA_CHAR_ALPHABET = "アイウエオカキクケコガギグゲゴサシスセソザジズゼゾタテトダデドチツヅナニヌネノンハヒフヘホバビブベボパピプポペマミムメモヤユヨラリルレロワヲヴーッヰヱァャュゥォョェィ";
+    public static final String KANA_CHAR_ALPHABET = HIRAGANA_CHAR_ALPHABET + KATAKANA_CHAR_ALPHABET;
+    public static final String NUMBER_ALPHABET = "1234567890'^";
+    public static final String SYMBOLS_ALPHABET = ". ,()/1234567890'^[];…!?-+*&:%$«»¿\"？";
 }

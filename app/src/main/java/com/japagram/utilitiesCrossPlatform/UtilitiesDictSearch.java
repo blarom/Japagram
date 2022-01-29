@@ -51,7 +51,7 @@ public class UtilitiesDictSearch {
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching extended words");
 
         if (roomNamesDatabaseIsAvailable) {
-        List<Word> originalNames = OvUtilsDb.getWordListByWordIds(matchingWordIdsNames, context, Globals.DB_NAMES, language);
+            List<Word> originalNames = OvUtilsDb.getWordListByWordIds(matchingWordIdsNames, context, Globals.DB_NAMES, language);
             OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "LocalSearchAsyncTask - Added matching names");
             List<Word> condensedNames = new ArrayList<>();
             boolean foundName;
@@ -67,6 +67,13 @@ public class UtilitiesDictSearch {
                 }
                 if (!foundName) {
                     condensedNames.add(name);
+                }
+            }
+            for (Word name : condensedNames) {
+                List<Word.Meaning> meanings = name.getMeaningsEN();
+                for (Word.Meaning meaning : meanings) {
+                    if (meaning.getMeaning().equals("*")) meaning.setMeaning("(name)");
+                    else meaning.setMeaning(OvUtilsGeneral.concat(new String[]{"(",meaning.getMeaning(),")"}));
                 }
             }
             localMatchingWordsList.addAll(condensedNames);

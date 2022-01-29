@@ -2,6 +2,8 @@ package com.japagram.utilitiesCrossPlatform;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
 import com.japagram.data.ConjugationTitle;
 import com.japagram.data.GenericIndex;
 import com.japagram.data.IndexEnglish;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 
 public class UtilitiesDb {
     @Contract("null, _ -> !null")
@@ -965,39 +968,351 @@ public class UtilitiesDb {
 
     public static int getRankingFromWordAttributes(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
+        //FIXME: build table of cases so that ranking can be decided more easily
+        int ranking = Globals.STARTING_RANK_VALUE;
+        String romajiValue = currentWord.getRomaji();
+        String kanjiValue = currentWord.getKanji();
+        String altSValue = currentWord.getAltSpellings();
+        String kwJapValue = currentWord.getExtraKeywordsJAP() == null ? "" : currentWord.getExtraKeywordsJAP();
+        String kwLatin = "";
+        List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
+        if (currentMeanings == null) return 0;
+        switch (language) {
+            case Globals.LANG_STR_EN:
+                currentMeanings = currentWord.getMeaningsEN();
+                kwLatin = currentWord.getExtraKeywordsEN() == null ? "" : currentWord.getExtraKeywordsEN();
+                break;
+            case Globals.LANG_STR_FR:
+                currentMeanings = currentWord.getMeaningsFR();
+                kwLatin = currentWord.getExtraKeywordsFR() == null ? "" : currentWord.getExtraKeywordsFR();
+                break;
+            case Globals.LANG_STR_ES:
+                currentMeanings = currentWord.getMeaningsES();
+                kwLatin = currentWord.getExtraKeywordsES() == null ? "" : currentWord.getExtraKeywordsES();
+                break;
+        }
+        if (currentMeanings == null || currentMeanings.size() == 0) {
+            currentMeanings = currentWord.getMeaningsEN();
+        }
+        List<List<String>> altSpellingsLatinKanji = getLatinKanjiWords(altSValue.split(Globals.DB_ELEMENTS_DELIMITER));
+        List<String> keywords = new ArrayList<>(Arrays.asList(kwJapValue.split(Globals.DB_ELEMENTS_DELIMITER)));
+        if (!kwLatin.equals("")) keywords.addAll(Arrays.asList(kwLatin.split(Globals.DB_ELEMENTS_DELIMITER)));
+        String type = currentWord.getMeaningsEN().get(0).getType();
+
+        List<String> effectiveMeanings = new ArrayList<>();
+        int openParenthesisCounter = 0;
+        for (Word.Meaning meaning : currentMeanings) {
+            String meaningStr = meaning.getMeaning();
+            List<String> chars = new ArrayList<>();
+            for (int i = 0;i < meaningStr.length(); i++) {
+                String meaningChar = meaningStr.substring(i, i+1);
+                if (".;,!?".contains(meaningChar) && openParenthesisCounter == 0) {
+                    effectiveMeanings.add(OvUtilsGeneral.joinList("", chars));
+                    chars = new ArrayList<>();
+                } else {
+                    if ("([{".contains(meaningChar)) openParenthesisCounter++;
+                    else if (")]}".contains(meaningChar)) openParenthesisCounter--;
+                    chars.add(meaningChar);
+                }
+            }
+            if (chars.size()>0) effectiveMeanings.add(OvUtilsGeneral.joinList("", chars));
+        }
+        List<List<String>> meaningsAsWords = new ArrayList<>();
+        for (String effectiveMeaning : effectiveMeanings) {
+            String[] splitBySpace = effectiveMeaning.split(" ");
+            List<String> parsedWords = new ArrayList<>();
+            for (String item : splitBySpace) {
+                List<String> chars = new ArrayList<>();
+                for (int i = 0;i < item.length(); i++) {
+                    String meaningChar = item.substring(i, i+1);
+                    if ("([{)]}".contains(meaningChar)) {
+                        parsedWords.add(OvUtilsGeneral.joinList("", chars));
+                        chars = new ArrayList<>();
+                        parsedWords.add(meaningChar);
+                    } else {
+                        chars.add(meaningChar);
+                    }
+                }
+                if (chars.size()>0) parsedWords.add(OvUtilsGeneral.joinList("", chars));
+            }
+            meaningsAsWords.add(parsedWords);
+        }
+
+        boolean currentWordIsAVerb = type.length() > 0 && type.startsWith("V") && !type.equals("VC") && !type.equals("NV");
+
+
+        boolean foundCondition = false;
+        for (String key : Globals.SORTED_RANK_CONDITIONS) {
+            switch (key) {
+                case Globals.KJ_EX_MATCH:
+                    if (kanjiValue.equals(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.KJ_ALTS_EX_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.KANJI_WORDS)) {
+                        if (word.equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.R_EX_MATCH:
+                    if (romajiValue.equals(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.R_ALTS_EX_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.LATIN_WORDS)) {
+                        if (word.equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_EX_PHRASE_MATCH:
+                    if (currentMeanings.get(0).getMeaning().equals(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.FIRST_MEANING_TO_EX_PHRASE_MATCH:
+                    if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(0).getMeaning()}).equals(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.SECOND_MEANING_EX_PHRASE_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        if (currentMeanings.get(i).getMeaning().equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.SECOND_MEANING_TO_EX_PHRASE_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(i).getMeaning()}).equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.KW_EX_MATCH:
+                    for (String keyword : keywords) {
+                        if (keyword.equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.KJ_PART_START_MATCH:
+                    if (kanjiValue.startsWith(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.KJ_ALTS_PART_START_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.KANJI_WORDS)) {
+                        if (word.startsWith(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.R_PART_START_MATCH:
+                    if (romajiValue.startsWith(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.R_ALTS_PART_START_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.LATIN_WORDS)) {
+                        if (word.startsWith(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_EX_WORD_MATCH:
+                    for (String word : meaningsAsWords.get(0)) {
+                        if (word.equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_TO_EX_WORD_MATCH:
+                    for (String word : meaningsAsWords.get(0)) {
+                        if (OvUtilsGeneral.concat(new String[]{"to ", word}).equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        }
+                        break;
+                    }
+                case Globals.SECOND_MEANING_EX_WORD_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        for (String word : meaningsAsWords.get(i)) {
+                            if (word.equals(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                break;
+                            }
+                        }
+                        if (foundCondition) break;
+                    }
+                    break;
+                case Globals.SECOND_MEANING_TO_EX_WORD_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        for (String word : meaningsAsWords.get(i)) {
+                            if (OvUtilsGeneral.concat(new String[]{"to ", word}).equals(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                break;
+                            }
+                        }
+                        if (foundCondition) break;
+                    }
+                    break;
+                case Globals.KJ_PART_MATCH:
+                    if (kanjiValue.contains(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.KANJI_ALTS_PART_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.KANJI_WORDS)) {
+                        if (word.contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.R_PART_MATCH:
+                    if (romajiValue.contains(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.R_ALTS_PART_MATCH:
+                    for (String word : altSpellingsLatinKanji.get(Globals.LATIN_WORDS)) {
+                        if (word.contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.KW_PART_MATCH:
+                    for (String keyword : keywords) {
+                        if (keyword.contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_PART_PHRASE_MATCH:
+                    if (currentMeanings.get(0).getMeaning().contains(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.FIRST_MEANING_TO_PART_PHRASE_MATCH:
+                    if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(0).getMeaning()}).contains(mInputQuery)) {
+                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    }
+                    break;
+                case Globals.SECOND_MEANING_PART_PHRASE_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        if (currentMeanings.get(i).getMeaning().contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.SECOND_MEANING_TO_PART_PHRASE_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(i).getMeaning()}).contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_PART_WORD_MATCH:
+                    for (String word : meaningsAsWords.get(0)) {
+                        if (word.contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            break;
+                        }
+                    }
+                    break;
+                case Globals.FIRST_MEANING_TO_PART_WORD_MATCH:
+                    for (String word : meaningsAsWords.get(0)) {
+                        if (OvUtilsGeneral.concat(new String[]{"to ", word}).contains(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        }
+                        break;
+                    }
+                case Globals.SECOND_MEANING_PART_WORD_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        for (String word : meaningsAsWords.get(i)) {
+                            if (word.contains(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                break;
+                            }
+                        }
+                        if (foundCondition) break;
+                    }
+                    break;
+                case Globals.SECOND_MEANING_TO_PART_WORD_MATCH:
+                    for (int i=1; i<currentMeanings.size(); i++) {
+                        for (String word : meaningsAsWords.get(i)) {
+                            if (OvUtilsGeneral.concat(new String[]{"to ", word}).contains(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                break;
+                            }
+                        }
+                        if (foundCondition) break;
+                    }
+                    break;
+                default: break;
+            }
+            if (foundCondition) break;
+        }
+
+
+        return ranking;
+    }
+
+    public static int getRankingFromWordAttributesOLD(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
+
+        //FIXME: build table of cases so that ranking can be decided more easily
         int ranking;
-        String romaji_value = currentWord.getRomaji();
-        String kanji_value = currentWord.getKanji();
-        String altSpellings_value = currentWord.getAltSpellings();
-        String kwJap_value = currentWord.getExtraKeywordsJAP() == null ? "" : currentWord.getExtraKeywordsJAP();
-        String kwLat_value = "";
-        String trimmedValue;
+        String romajiValue = currentWord.getRomaji();
+        String kanjiValue = currentWord.getKanji();
+        String altSValue = currentWord.getAltSpellings();
+        String kwJapValue = currentWord.getExtraKeywordsJAP() == null ? "" : currentWord.getExtraKeywordsJAP();
+        String kwLatin = "";
+        List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
+        if (currentMeanings == null) return 0;
+        switch (language) {
+            case Globals.LANG_STR_EN:
+                currentMeanings = currentWord.getMeaningsEN();
+                kwLatin = currentWord.getExtraKeywordsEN() == null ? "" : currentWord.getExtraKeywordsEN();
+                break;
+            case Globals.LANG_STR_FR:
+                currentMeanings = currentWord.getMeaningsFR();
+                kwLatin = currentWord.getExtraKeywordsFR() == null ? "" : currentWord.getExtraKeywordsFR();
+                break;
+            case Globals.LANG_STR_ES:
+                currentMeanings = currentWord.getMeaningsES();
+                kwLatin = currentWord.getExtraKeywordsES() == null ? "" : currentWord.getExtraKeywordsES();
+                break;
+        }
+        if (currentMeanings == null || currentMeanings.size() == 0) {
+            currentMeanings = currentWord.getMeaningsEN();
+        }
+        List<String> keywords = Arrays.asList(kwJapValue.split(Globals.DB_ELEMENTS_DELIMITER));
+        keywords.addAll(Arrays.asList(kwLatin.split(Globals.DB_ELEMENTS_DELIMITER)));
         String type = currentWord.getMeaningsEN().get(0).getType();
         boolean currentWordIsAVerb = type.length() > 0 && type.startsWith("V") && !type.equals("VC") && !type.equals("NV");
 
         // Getting ranking according to meaning string length
         // with penalties depending on the lateness of the word in the meanings
         // and the exactness of the match
-        List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
-        if (currentMeanings == null) return 0;
-        switch (language) {
-            case Globals.LANG_STR_EN:
-                currentMeanings = currentWord.getMeaningsEN();
-                kwLat_value = currentWord.getExtraKeywordsEN() == null ? "" : currentWord.getExtraKeywordsEN();
-                break;
-            case Globals.LANG_STR_FR:
-                currentMeanings = currentWord.getMeaningsFR();
-                kwLat_value = currentWord.getExtraKeywordsFR() == null ? "" : currentWord.getExtraKeywordsFR();
-                break;
-            case Globals.LANG_STR_ES:
-                currentMeanings = currentWord.getMeaningsES();
-                kwLat_value = currentWord.getExtraKeywordsES() == null ? "" : currentWord.getExtraKeywordsES();
-                break;
-        }
+        String trimmedValue;
         int missingLanguagePenalty = 0;
         if (currentMeanings == null || currentMeanings.size() == 0) {
             missingLanguagePenalty = 10000;
-            currentMeanings = currentWord.getMeaningsEN();
         }
 
         String currentMeaning;
@@ -1191,19 +1506,19 @@ public class UtilitiesDb {
         }
 
         //Adding the romaji and kanji lengths to the ranking (ie. shorter is better)
-        ranking += 2 * (romaji_value.length() + kanji_value.length());
+        ranking += 2 * (romajiValue.length() + kanjiValue.length());
 
         //If the word starts with the inputQuery, its ranking improves
-        String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romaji_value);
-        if (       (romaji_value.length() >= mInputQuery.length()     && romaji_value.startsWith(mInputQuery))
-                || (kanji_value.length() >= mInputQuery.length()      && kanji_value.startsWith(mInputQuery))
+        String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romajiValue);
+        if (       (romajiValue.length() >= mInputQuery.length()     && romajiValue.startsWith(mInputQuery))
+                || (kanjiValue.length() >= mInputQuery.length()      && kanjiValue.startsWith(mInputQuery))
                 || romajiNoSpaces.equals(mInputQuery)
         ) {
             ranking -= 1000;
         }
 
         //Otherwise, if the romaji or Kanji value contains the search word, then it must appear near the start of the list
-        else if (romaji_value.contains(mInputQuery) || kanji_value.contains(mInputQuery)) ranking -= 300;
+        else if (romajiValue.contains(mInputQuery) || kanjiValue.contains(mInputQuery)) ranking -= 300;
 
         //If the word is a name, the ranking worsens
         Word.Meaning wordFirstMeaning = currentWord.getMeaningsEN().get(0);
@@ -1219,7 +1534,7 @@ public class UtilitiesDb {
         if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 1000;
 
         //If one of the elements in altSpellings is a perfect match, the ranking improves
-        for (String element : altSpellings_value.split(Globals.DB_ELEMENTS_DELIMITER)) {
+        for (String element : altSValue.split(Globals.DB_ELEMENTS_DELIMITER)) {
             trimmedValue = element.trim();
             if (mInputQuery.equals(trimmedValue)) {
                 ranking -= 70;
@@ -1228,7 +1543,7 @@ public class UtilitiesDb {
         }
 
         //If one of the elements in the Japanese Keywords is a perfect match, the ranking improves
-        for (String element : kwJap_value.split(",")) {
+        for (String element : kwJapValue.split(",")) {
             trimmedValue = element.trim();
             if (mInputQuery.equals(trimmedValue)) {
                 ranking -= 70;
@@ -1237,7 +1552,7 @@ public class UtilitiesDb {
         }
 
         //If one of the elements in the Latin Keywords is a perfect match, the ranking improves
-        for (String element : kwLat_value.split(",")) {
+        for (String element : kwLatin.split(",")) {
             trimmedValue = element.trim();
             if (mInputQuery.equals(trimmedValue)) {
                 ranking -= 40;
@@ -1252,9 +1567,9 @@ public class UtilitiesDb {
         }
 
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
-        if (romaji_value.equals(mInputQuery) || kanji_value.equals(mInputQuery)) ranking = 0;
+        if (romajiValue.equals(mInputQuery) || kanjiValue.equals(mInputQuery)) ranking = 0;
         else {
-            String cleanValue = romaji_value.replace(" ", "");
+            String cleanValue = romajiValue.replace(" ", "");
             if (cleanValue.equals(mInputQuery)) {
                 ranking -= 2000;
             }
@@ -1442,5 +1757,22 @@ public class UtilitiesDb {
             newDb.add(currentItems);
         }
         return newDb;
+    }
+
+    @NotNull public static List<List<String>> getLatinKanjiWords(@NonNull @NotNull String[] words) {
+        List<String> latinWords = new ArrayList<>();
+        //List<String> kanaWords = new ArrayList<>();
+        List<String> kanjiWords = new ArrayList<>();
+        for (String word : words) {
+            if (word.equals("")) continue;
+            if (Globals.LATIN_CHAR_ALPHABET.contains(word.substring(0,1))) latinWords.add(word);
+            //else if (Globals.KANA_CHAR_ALPHABET.contains(word.substring(0,1))) kanaWords.add(word);
+            else kanjiWords.add(word);
+        }
+        List<List<String>> allWords = new ArrayList<>();
+        allWords.add(latinWords);
+        //allWords.add(kanaWords);
+        allWords.add(kanjiWords);
+        return allWords;
     }
 }

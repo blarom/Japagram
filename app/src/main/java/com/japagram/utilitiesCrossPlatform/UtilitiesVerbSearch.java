@@ -545,27 +545,13 @@ public final class UtilitiesVerbSearch {
                 kanjiRoot = verbSearchCandidate[Globals.INDEX_KANJI_ROOT];
                 //endregion
 
-                //region Only allowing searches on verbs that satisfy the following conditions (including identical 1st char, kuru/suru/da, query length)
-//                if (    !(     ( preparedIsLatin && romaji.charAt(0) == preparedCleanedChar0 )
-//                            || ( preparedIsKana && (hiraganaFirstChar == preparedTranslHiraganaChar0) )
-//                            || ( preparedIsKanji && kanjiRoot.contains(preparedCleanedChar0String))
-//                            || romaji.contains("kuru")
-//                            || romaji.equals("suru")
-//                            || romaji.equals("da") )
-//                        || ( preparedIsLatin && mPreparedCleanedLength < 4 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedCleaned))
-//                        || ( preparedIsKana && mPreparedCleanedLength < 3 && inputQueryFirstKanaIsVowel && !romaji.contains(mPreparedTranslRomaji))
-//                        || ( preparedIsKanji && mPreparedCleanedLength < 3 && kanjiRoot.length()>0 && !mPreparedCleaned.contains(kanjiRoot))
-//                        ||      ) {
-//                    continue;
-//                }
-                if ((onlyRetrieveShortRomajiVerbs && romaji.length() > 4)
-                ) {
+                if ((onlyRetrieveShortRomajiVerbs && romaji.length() > 4)) {
                     continue;
                 }
                 //endregion
 
                 //region If the verb is equal to a family conjugation, only roots with length 1 (ie. iru/aru/eru/oru/uru verbs only) or a verb with the exact romaji value are considered. This prevents too many results. This does not conflict with da or kuru.
-                if (        queryIsContainedInNormalFamilyConjugation && latinRoot.length() > 1
+                if (        queryIsContainedInNormalFamilyConjugation && latinRoot.length() > 1 && !romaji.equals("naru") && !romaji.equals("iku")
                         ||  queryIsContainedInASuruConjugation && !(kanjiRoot.equals("為"))
                         ||  queryIsContainedInAKuruConjugation && !romaji.contains("kuru")
                         ||  queryIsContainedInADesuConjugation && !romaji.equals("da")
