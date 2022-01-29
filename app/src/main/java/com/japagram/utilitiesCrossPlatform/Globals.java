@@ -895,60 +895,93 @@ public final class Globals {
     private static @NotNull HashMap<String, Integer> createRankingsMap() {
         HashMap<String, Integer> map = new HashMap<>();
         int current_value = STARTING_RANK_VALUE;
-        current_value -= 100 ; map.put(KJ_EX_MATCH                        , current_value);
-        current_value -= 100 ; map.put(KJ_ALTS_EX_MATCH                   , current_value);
-        current_value -= 100 ; map.put(R_EX_MATCH                         , current_value);
-        current_value -= 100 ; map.put(R_ALTS_EX_MATCH                    , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_EX_PHRASE_MATCH      , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_PHRASE_MATCH   , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_EX_PHRASE_MATCH     , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_PHRASE_MATCH  , current_value);
-        current_value -= 100 ; map.put(KW_EX_MATCH                        , current_value);
-        current_value -= 100 ; map.put(KJ_PART_START_MATCH                , current_value);
-        current_value -= 100 ; map.put(KJ_ALTS_PART_START_MATCH           , current_value);
-        current_value -= 100 ; map.put(R_PART_START_MATCH                 , current_value);
-        current_value -= 100 ; map.put(R_ALTS_PART_START_MATCH            , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_EX_WORD_MATCH        , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_WORD_MATCH     , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_EX_WORD_MATCH       , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_WORD_MATCH    , current_value);
-        current_value -= 100 ; map.put(KJ_PART_MATCH                      , current_value);
-        current_value -= 100 ; map.put(KANJI_ALTS_PART_MATCH              , current_value);
-        current_value -= 100 ; map.put(R_PART_MATCH                       , current_value);
-        current_value -= 100 ; map.put(R_ALTS_PART_MATCH                  , current_value);
-        current_value -= 100 ; map.put(KW_PART_MATCH                      , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_PART_PHRASE_MATCH    , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_PHRASE_MATCH , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_PART_PHRASE_MATCH   , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_TO_PART_PHRASE_MATCH, current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_PART_WORD_MATCH      , current_value);
-        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_WORD_MATCH   , current_value);
-        current_value -= 100 ; map.put(SECOND_MEANING_PART_WORD_MATCH     , current_value);
         current_value -= 100 ; map.put(SECOND_MEANING_TO_PART_WORD_MATCH  , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_PART_WORD_MATCH     , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_WORD_MATCH   , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_PART_WORD_MATCH      , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_PART_PHRASE_MATCH, current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_PART_PHRASE_MATCH   , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_PART_PHRASE_MATCH , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_PART_PHRASE_MATCH    , current_value);
+        current_value -= 100 ; map.put(KW_PART_MATCH                      , current_value);
+        current_value -= 100 ; map.put(R_ALTS_PART_MATCH                  , current_value);
+        current_value -= 100 ; map.put(R_PART_MATCH                       , current_value);
+        current_value -= 100 ; map.put(KANJI_ALTS_PART_MATCH              , current_value);
+        current_value -= 100 ; map.put(KJ_PART_MATCH                      , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_WORD_MATCH    , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_EX_WORD_MATCH       , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_WORD_MATCH     , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_EX_WORD_MATCH        , current_value);
+        current_value -= 100 ; map.put(R_ALTS_PART_START_MATCH            , current_value);
+        current_value -= 100 ; map.put(R_PART_START_MATCH                 , current_value);
+        current_value -= 100 ; map.put(KJ_ALTS_PART_START_MATCH           , current_value);
+        current_value -= 100 ; map.put(KJ_PART_START_MATCH                , current_value);
+        current_value -= 100 ; map.put(KW_EX_MATCH                        , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_TO_EX_PHRASE_MATCH  , current_value);
+        current_value -= 100 ; map.put(SECOND_MEANING_EX_PHRASE_MATCH     , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_TO_EX_PHRASE_MATCH   , current_value);
+        current_value -= 100 ; map.put(FIRST_MEANING_EX_PHRASE_MATCH      , current_value);
+        current_value -= 100 ; map.put(R_ALTS_EX_MATCH                    , current_value);
+        current_value -= 100 ; map.put(R_EX_MATCH                         , current_value);
+        current_value -= 100 ; map.put(KJ_ALTS_EX_MATCH                   , current_value);
+        current_value -= 100 ; map.put(KJ_EX_MATCH                        , current_value);
+
 
         return map;
     }
     public static final HashMap<String, Integer> RANKINGS = createRankingsMap();
     private static @NotNull List<String> getSortedRankConditions() {
-        Set<Map.Entry<String, Integer>> entries = RANKINGS.entrySet();
-
-        Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> {
-            int e1Value = e1.getValue();
-            int e2Value = e2.getValue();
-            if (e1Value == e2Value) return 0;
-            else if (e1Value > e2Value) return 1;
-            else return 0;
-        };
-
-        List<Map.Entry<String, Integer>> listOfEntries = new ArrayList<>(entries);
-        Collections.sort(listOfEntries, valueComparator);
-        LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
-        for(Map.Entry<String, Integer> entry : listOfEntries) { sortedByValue.put(entry.getKey(), entry.getValue()); }
-        Set<Map.Entry<String, Integer>> entrySetSortedByValue = sortedByValue.entrySet();
         List<String> sortedKeys = new ArrayList<>();
-        for(Map.Entry<String, Integer> mapping : entrySetSortedByValue){
-            sortedKeys.add(mapping.getKey());
-        }
+        sortedKeys.add(KJ_EX_MATCH                        );
+        sortedKeys.add(KJ_ALTS_EX_MATCH                   );
+        sortedKeys.add(R_EX_MATCH                         );
+        sortedKeys.add(R_ALTS_EX_MATCH                    );
+        sortedKeys.add(FIRST_MEANING_EX_PHRASE_MATCH      );
+        sortedKeys.add(FIRST_MEANING_TO_EX_PHRASE_MATCH   );
+        sortedKeys.add(SECOND_MEANING_EX_PHRASE_MATCH     );
+        sortedKeys.add(SECOND_MEANING_TO_EX_PHRASE_MATCH  );
+        sortedKeys.add(KW_EX_MATCH                        );
+        sortedKeys.add(KJ_PART_START_MATCH                );
+        sortedKeys.add(KJ_ALTS_PART_START_MATCH           );
+        sortedKeys.add(R_PART_START_MATCH                 );
+        sortedKeys.add(R_ALTS_PART_START_MATCH            );
+        sortedKeys.add(FIRST_MEANING_EX_WORD_MATCH        );
+        sortedKeys.add(FIRST_MEANING_TO_EX_WORD_MATCH     );
+        sortedKeys.add(SECOND_MEANING_EX_WORD_MATCH       );
+        sortedKeys.add(SECOND_MEANING_TO_EX_WORD_MATCH    );
+        sortedKeys.add(KJ_PART_MATCH                      );
+        sortedKeys.add(KANJI_ALTS_PART_MATCH              );
+        sortedKeys.add(R_PART_MATCH                       );
+        sortedKeys.add(R_ALTS_PART_MATCH                  );
+        sortedKeys.add(KW_PART_MATCH                      );
+        sortedKeys.add(FIRST_MEANING_PART_PHRASE_MATCH    );
+        sortedKeys.add(FIRST_MEANING_TO_PART_PHRASE_MATCH );
+        sortedKeys.add(SECOND_MEANING_PART_PHRASE_MATCH   );
+        sortedKeys.add(SECOND_MEANING_TO_PART_PHRASE_MATCH);
+        sortedKeys.add(FIRST_MEANING_PART_WORD_MATCH      );
+        sortedKeys.add(FIRST_MEANING_TO_PART_WORD_MATCH   );
+        sortedKeys.add(SECOND_MEANING_PART_WORD_MATCH     );
+        sortedKeys.add(SECOND_MEANING_TO_PART_WORD_MATCH  );
+
+//        Set<Map.Entry<String, Integer>> entries = RANKINGS.entrySet();
+//
+//        Comparator<Map.Entry<String, Integer>> valueComparator = (e1, e2) -> {
+//            int e1Value = e1.getValue();
+//            int e2Value = e2.getValue();
+//            if (e1Value == e2Value) return 0;
+//            else if (e1Value > e2Value) return 1;
+//            else return 0;
+//        };
+//
+//        List<Map.Entry<String, Integer>> listOfEntries = new ArrayList<>(entries);
+//        Collections.sort(listOfEntries, valueComparator);
+//        LinkedHashMap<String, Integer> sortedByValue = new LinkedHashMap<>(listOfEntries.size());
+//        for(Map.Entry<String, Integer> entry : listOfEntries) { sortedByValue.put(entry.getKey(), entry.getValue()); }
+//        Set<Map.Entry<String, Integer>> entrySetSortedByValue = sortedByValue.entrySet();
+//        List<String> sortedKeys = new ArrayList<>();
+//        for(Map.Entry<String, Integer> mapping : entrySetSortedByValue){
+//            sortedKeys.add(mapping.getKey());
+//        }
         return sortedKeys;
     }
     public static final int LATIN_WORDS = 0;

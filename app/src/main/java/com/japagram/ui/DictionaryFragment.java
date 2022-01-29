@@ -243,6 +243,7 @@ public class DictionaryFragment extends Fragment implements
             if (!waitForAllResults && haveMoreWordsForDisplayedList || waitForAllResults && mReceivedLocalResults && mReceivedConjResults) {
                 updateDisplayedList();
                 int maxIndex = Math.min(mMergedMatchingWordsList.size(), MAX_NUM_WORDS_TO_SHARE);
+                mMergedMatchingWordsList = UtilitiesDb.sortWordsAccordingToRanking(mMergedMatchingWordsList, mInputQuery, mLanguage);
                 dictionaryFragmentOperationsHandler.onFinalMatchingWordsFound(mMergedMatchingWordsList.subList(0,maxIndex));
                 mSuccessfullyDisplayedResultsBeforeTimeout = true;
                 hideLoadingIndicator();

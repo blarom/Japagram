@@ -80,6 +80,7 @@
 
         <ImageView
             android:id="@+id/button_ocr"
+            android:visibility="gone"
             android:layout_width="@dimen/cameraButtonSize"
             android:layout_height="@dimen/cameraButtonSize"
             android:layout_gravity="center_vertical|end"

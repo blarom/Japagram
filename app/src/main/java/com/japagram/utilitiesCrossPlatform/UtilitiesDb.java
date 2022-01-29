@@ -968,7 +968,6 @@ public class UtilitiesDb {
 
     public static int getRankingFromWordAttributes(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
-        //FIXME: build table of cases so that ranking can be decided more easily
         int ranking = Globals.STARTING_RANK_VALUE;
         String romajiValue = currentWord.getRomaji();
         String kanjiValue = currentWord.getKanji();
@@ -1042,6 +1041,9 @@ public class UtilitiesDb {
 
 
         boolean foundCondition = false;
+        String[] phrases;
+        int penalty;
+        String trimmed;
         for (String key : Globals.SORTED_RANK_CONDITIONS) {
             switch (key) {
                 case Globals.KJ_EX_MATCH:
@@ -1071,28 +1073,58 @@ public class UtilitiesDb {
                     }
                     break;
                 case Globals.FIRST_MEANING_EX_PHRASE_MATCH:
-                    if (currentMeanings.get(0).getMeaning().equals(mInputQuery)) {
-                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    phrases = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeanings.get(0).getMeaning());
+                    penalty = 0;
+                    for (String phrase : phrases) {
+                        trimmed = phrase.trim();
+                        if (trimmed.equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += penalty;
+                            break;
+                        }
+                        penalty += 1;
                     }
                     break;
                 case Globals.FIRST_MEANING_TO_EX_PHRASE_MATCH:
-                    if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(0).getMeaning()}).equals(mInputQuery)) {
-                        ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                    phrases = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeanings.get(0).getMeaning());
+                    penalty = 0;
+                    for (String phrase : phrases) {
+                        trimmed = phrase.trim();
+                        if (OvUtilsGeneral.concat(new String[]{"to ", trimmed}).equals(mInputQuery)) {
+                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += penalty;
+                            break;
+                        }
+                        penalty += 1;
                     }
                     break;
                 case Globals.SECOND_MEANING_EX_PHRASE_MATCH:
                     for (int i=1; i<currentMeanings.size(); i++) {
-                        if (currentMeanings.get(i).getMeaning().equals(mInputQuery)) {
-                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
-                            break;
+                        phrases = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeanings.get(i).getMeaning());
+                        penalty = 0;
+                        for (String phrase : phrases) {
+                            trimmed = phrase.trim();
+                            if (trimmed.equals(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                ranking += penalty;
+                                break;
+                            }
+                            penalty += 1;
                         }
                     }
                     break;
                 case Globals.SECOND_MEANING_TO_EX_PHRASE_MATCH:
                     for (int i=1; i<currentMeanings.size(); i++) {
-                        if (OvUtilsGeneral.concat(new String[]{"to ", currentMeanings.get(i).getMeaning()}).equals(mInputQuery)) {
-                            ranking = Globals.RANKINGS.get(key); foundCondition = true;
-                            break;
+                        phrases = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeanings.get(i).getMeaning());
+                        penalty = 0;
+                        for (String phrase : phrases) {
+                            trimmed = phrase.trim();
+                            if (OvUtilsGeneral.concat(new String[]{"to ", trimmed}).equals(mInputQuery)) {
+                                ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                ranking += penalty;
+                                break;
+                            }
+                            penalty += 1;
                         }
                     }
                     break;
@@ -1107,12 +1139,14 @@ public class UtilitiesDb {
                 case Globals.KJ_PART_START_MATCH:
                     if (kanjiValue.startsWith(mInputQuery)) {
                         ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        ranking += kanjiValue.length();
                     }
                     break;
                 case Globals.KJ_ALTS_PART_START_MATCH:
                     for (String word : altSpellingsLatinKanji.get(Globals.KANJI_WORDS)) {
                         if (word.startsWith(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += word.length();
                             break;
                         }
                     }
@@ -1120,49 +1154,64 @@ public class UtilitiesDb {
                 case Globals.R_PART_START_MATCH:
                     if (romajiValue.startsWith(mInputQuery)) {
                         ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        ranking += romajiValue.length();
                     }
                     break;
                 case Globals.R_ALTS_PART_START_MATCH:
                     for (String word : altSpellingsLatinKanji.get(Globals.LATIN_WORDS)) {
                         if (word.startsWith(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += word.length();
                             break;
                         }
                     }
                     break;
                 case Globals.FIRST_MEANING_EX_WORD_MATCH:
+                    penalty = 0;
                     for (String word : meaningsAsWords.get(0)) {
                         if (word.equals(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += penalty;
                             break;
                         }
+                        penalty += 1;
                     }
                     break;
                 case Globals.FIRST_MEANING_TO_EX_WORD_MATCH:
+                    penalty = 0;
                     for (String word : meaningsAsWords.get(0)) {
                         if (OvUtilsGeneral.concat(new String[]{"to ", word}).equals(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += penalty;
+                            break;
                         }
-                        break;
+                        penalty += 1;
                     }
+                    break;
                 case Globals.SECOND_MEANING_EX_WORD_MATCH:
+                    penalty = 0;
                     for (int i=1; i<currentMeanings.size(); i++) {
                         for (String word : meaningsAsWords.get(i)) {
                             if (word.equals(mInputQuery)) {
                                 ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                ranking += penalty;
                                 break;
                             }
+                            penalty += 1;
                         }
                         if (foundCondition) break;
                     }
                     break;
                 case Globals.SECOND_MEANING_TO_EX_WORD_MATCH:
+                    penalty = 0;
                     for (int i=1; i<currentMeanings.size(); i++) {
                         for (String word : meaningsAsWords.get(i)) {
                             if (OvUtilsGeneral.concat(new String[]{"to ", word}).equals(mInputQuery)) {
                                 ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                                ranking += penalty;
                                 break;
                             }
+                            penalty += 1;
                         }
                         if (foundCondition) break;
                     }
@@ -1170,12 +1219,14 @@ public class UtilitiesDb {
                 case Globals.KJ_PART_MATCH:
                     if (kanjiValue.contains(mInputQuery)) {
                         ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        ranking += kanjiValue.length();
                     }
                     break;
                 case Globals.KANJI_ALTS_PART_MATCH:
                     for (String word : altSpellingsLatinKanji.get(Globals.KANJI_WORDS)) {
                         if (word.contains(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += word.length();
                             break;
                         }
                     }
@@ -1183,12 +1234,14 @@ public class UtilitiesDb {
                 case Globals.R_PART_MATCH:
                     if (romajiValue.contains(mInputQuery)) {
                         ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                        ranking += romajiValue.length();
                     }
                     break;
                 case Globals.R_ALTS_PART_MATCH:
                     for (String word : altSpellingsLatinKanji.get(Globals.LATIN_WORDS)) {
                         if (word.contains(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += word.length();
                             break;
                         }
                     }
@@ -1197,6 +1250,7 @@ public class UtilitiesDb {
                     for (String keyword : keywords) {
                         if (keyword.contains(mInputQuery)) {
                             ranking = Globals.RANKINGS.get(key); foundCondition = true;
+                            ranking += keyword.length();
                             break;
                         }
                     }
@@ -1242,6 +1296,7 @@ public class UtilitiesDb {
                         }
                         break;
                     }
+                    break;
                 case Globals.SECOND_MEANING_PART_WORD_MATCH:
                     for (int i=1; i<currentMeanings.size(); i++) {
                         for (String word : meaningsAsWords.get(i)) {
@@ -1266,16 +1321,16 @@ public class UtilitiesDb {
                     break;
                 default: break;
             }
-            if (foundCondition) break;
+            if (foundCondition) {
+                break;
+            }
         }
-
 
         return ranking;
     }
 
     public static int getRankingFromWordAttributesOLD(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
 
-        //FIXME: build table of cases so that ranking can be decided more easily
         int ranking;
         String romajiValue = currentWord.getRomaji();
         String kanjiValue = currentWord.getKanji();
