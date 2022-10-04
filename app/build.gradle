@@ -67,14 +67,13 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'com.japagram'
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //Android
-    def room_version = '2.2.5'
-
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
     //implementation "com.google.android.material:material:1.1.0"
