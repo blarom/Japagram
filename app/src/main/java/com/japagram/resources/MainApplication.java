@@ -3,8 +3,6 @@ package com.japagram.resources;
 import android.app.Application;
 import android.content.Context;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesDb;
 import com.japagram.utilitiesCrossPlatform.Globals;
 
@@ -17,7 +15,6 @@ public class MainApplication extends Application {
 
         //activateLeakCanary();
         //activateBridgeAndIcePick();
-        activateFirebase();
 
     }
     @Override protected void attachBaseContext(Context base) {
@@ -61,15 +58,4 @@ public class MainApplication extends Application {
         });
     }
     */
-    private void activateFirebase() {
-
-        /* Enable disk persistence  */
-        FirebaseDatabase database = AndroidUtilitiesDb.getDatabase();
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-
-        FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-        mFirebaseAuth.signInWithEmailAndPassword(Globals.FIREBASE_EMAIL, Globals.FIREBASE_PASS);
-
-        /*Note: two ways are demonstrated here to set the persistence of Firebase without problems: as a singleton (Utilities) or using an activity that loads before all others*/
-    }
 }

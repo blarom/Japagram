@@ -28,8 +28,6 @@ public final class Globals {
 
     public static final String DEBUG_TAG = "JAPAGRAM_DEBUG";
     public static final int SMALL_WORD_LENGTH = 3;
-    public static final String FIREBASE_EMAIL = BuildConfig.firebaseEmail;
-    public static final String FIREBASE_PASS = BuildConfig.firebasePass;
     public static final String NAMES_DB = "namesDb";
     public static final String EXTENDED_DB = "extendedDb";
     public static List<String[]> GLOBAL_SIMILARS_DATABASE;

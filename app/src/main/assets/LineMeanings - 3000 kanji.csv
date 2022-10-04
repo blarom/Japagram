@@ -637,7 +637,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 637|fine, sufficient, tolerable, well enough, OK, reasonable, fair, splendid, nice, wonderful, delicious, sweet, pretty (quantitative)|Ana|Polite form of ii.||||ii, yoi
 638|reasonably, fairly well|A;Dg|||||
 639|or so, about|Sx|||||
-640||-|||||
+640|relatively|A;Dg|||||
 641|roughly, in round numbers|A;Dg|||||
 642|somehow or other, for some reason or another|A;Dg|||||
 643|to that degree, to that extent|A;Dg|||||
@@ -1606,8 +1606,8 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1606|probably not so|CE|||||
 1607|really!, unbelievable!, no way!, you must be kidding|CE|Literally means "it's a lie".||||
 1608|lie, falsehood, incorrect fact|N;Abs|||||
-1609||-|||||
-1610||-|||1170||
+1609|sorry|CE|||||
+1610|sorry to have kept you waiting|CE|||1170||
 1611|stop bullshitting me, you're kidding me, you're full of shit|CE|||||
 1612|take care (of yourself)|CE|||1190||
 1613|take care of yourself|CE|||||
@@ -1657,31 +1657,31 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1657|twice a day|CE|||1428||
 1658|under construction|CE|||1203||
 1659|unlike always|CE|Used in a colloquial manner.||||
-1660||-|||||
-1661||-|||||
+1660|until next time, see you again next time|CE|||||
+1661|until next time, see you again next time|CE|||1166||
 1662|very likely, very probable|CE|||||
-1663||-|||||
-1664||-|||||
-1665||-|||||
-1666||-|||||
-1667||-|||1153||
+1663|very soon|CE|||||
+1664|welcome back/home|CE|||1167||
+1665|welcome back/home|CE|||||
+1666|welcome, can I help you, may I help you|CE|||||
+1667|welcome, can I help you, may I help you|CE|||1153||
 1668|welcome, can I help you, may I help you|CE|Tokyo dialect for "irasshaimase".||||
-1669|that, it|CE|||||
+1669|what (he) said|CE|||||
 1670|what food will you order|CE|||||
-1671||-|||||
+1671|what will you do?|CE|||||
 1672|what's wrong?|CE|||1424||
 1673|when I was a child|CE|||||
 1674|because ..., for ..., the reason being ...|CE|||||
 1675|as for ..., when it comes to ..., regarding ..., how about ..., when you say …, meaning ..., that is to say ...|CE|Use "toha"or "tte" instead of "toiu no wa" in colloquial speech.||152||toha
 1676|with pleasure|CE|||1210||
-1677||-|||||
+1677|with regards to, regarding, concerning|CE|||||
 1678|would you like to see it? (polite)|CE|||1154||
 1679|yours sincerely, respectfully yours|CE|||||
 1680|an disliked person|IES|||||
 1681|ass|IES|||||
 1682|bad human|IES|||||
 1683|cheap|IES|||||
-1684||-|||||
+1684|direct insult and dismissal|IES|||||
 1685|don't fuck with me|IES|||||
 1686|fuck off, disappear|IES|||||
 1687|female genetalia, pussy|IES|Very vulgar, usually censored.||||
@@ -1701,7 +1701,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1701|old hag|IES|||||
 1702|player|IES|||||
 1703|poo|IES|||||
-1704||-|||||
+1704|really suck at something|IES|Literally "bad as shit".||||
 1705|shit|IES|||||
 1706|loud, noisy, annoying, troublesome|Ai||||shizuka|
 1707|shut up|IES|Literally means "you're noisy".||||
@@ -1864,38 +1864,38 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1864|overseas business trip|N;Ac|||||
 1865|declination|N;Ac|||||
 1866|Gomen|Pl|||||
-1867||-|||||
-1868||-|||||
-1869||-|||||
-1870||-|||||
-1871||-|||||
-1872||-|||||
-1873||-|||||
-1874||-|||||
-1875||-|||||
-1876||-|||||
-1877||-|||||
-1878||-|||||
-1879||-|||||
-1880||-|||||
-1881||-|||||
-1882||-|||||
-1883||-|||||
-1884||-|||||
-1885||-|||||
-1886||-|||||
-1887||-|||||
-1888||-|||||
-1889||-|||||
-1890||-|||||
-1891||-|||||
-1892||-|||||
-1893||-|||||
-1894||-|||||
-1895||-|||||
-1896||-|||||
-1897||-|||||
-1898||-|||||
+1867|pardon, forgiveness, forbearance|N;Ac|||||
+1868|going easy on someone|N;Ac|||||
+1869|participation, involvement|N;Ac|||||
+1870|parting, separation, farewell, (lateral) branch, fork, offshoot, division, section|N;Ac|||||
+1871|patience, endurance|N;Ac|||||
+1872|penetration (as of light)|N;Ac|||||
+1873|pitching a game, taking a plate|N;Ac|||||
+1874|planning, project, plan, design|N;Ac|||||
+1875|playing|N;Ac|||||
+1876|pleasure, delight, enjoyment|N;Ac|||||
+1877|plot, conspiracy, conference|N;Ac|||||
+1878|pollution, contamination|N;Ac|||||
+1879|practice|N;Ac|||||
+1880|performance, execution (e.g. program)|N;Ac|||||
+1881|prayer, supplication|N;Ac|||||
+1882|preparation for a lesson|N;Ac|||||
+1883|preparation, arrangements|N;Ac|||||
+1884|provisions, reserve|N;Ac|||||
+1885|prevention, check|N;Ac|||||
+1886|hat|N;GO|||||
+1887|preview, private showing|N;Ac|||||
+1888|procession to the capital (Tokyo)|N;Ac|||||
+1889|production, manufacture|N;Ac|||||
+1890|progress, advancement, improvement, development|N;Ac|||||
+1891|proposal, motion|N;Ac|||||
+1892|public name, announcing publicly|N;Ac|||||
+1893|publication, issue|N;Ac|||||
+1894|question, query|N;Ac|||||
+1895|quotation, citation, reference|N;Ac|||||
+1896|reach|N;Ac|||||
+1897|leech|N;Fa|||||
+1898|rebirth, reincarnation|N;Ac|||||
 1899|reconsideration|N;Ac|||||
 1900|recovery (from an illness), recuperation, convalescence|N;Ac|||||
 1901|remittance, sending money, money transfer|N;Ac|||||
@@ -1970,7 +1970,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 1970|absence, being away from home|N;Abs|||||
 1971|accent, dialect|N;Abs|||||
 1972|account (e.g. bank)|N;Abs|e.g. bank account||||
-1973||-|||||
+1973|account number|N;Abs|||||
 1974|bill (e.g. restaurant), tab, account, finance, accountant, treasurer, paymaster, reckoning|N;Abs|||||
 1975|achievement, attainment, accomplishment, realization|N;Abs|||||
 1976|acquaintance|N;Abs|||||
@@ -2065,7 +2065,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2065|clue, key, trail, scent, track, contact, handhold, on hand|N;Abs|||||
 2066|code, cipher, password|N;Abs|||||
 2067|common cold, cold, influenza, flu, ague|N;Abs|As of an illness||||
-2068||-|||||
+2068|coming of age, passing into adulthood|N;Abs|||||
 2069|commercial rights|N;Abs|||||
 2070|committee, commission, board, panel, committee meeting|N;Abs|||||
 2071|commodity, article of commerce, goods, stock, merchandise|N;Abs|||||
@@ -2219,7 +2219,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2219|huge profit|N;Abs|||||
 2220|human life|N;Abs|||||
 2221|humble position, inferiority|N;Abs|||||
-2222||-|||||
+2222|i-adjective|N;Abs|||||
 2223|identity|N;Abs|||||
 2224|identical, equal to, same (kind), like, similarity|Ana|||||
 2225|illness, disease, sickness|N;Abs|||||
@@ -2276,39 +2276,39 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2276|beam|N;Abs|||||
 2277|like, as if, the same as|N;Abs|||||
 2278|likes and dislikes, pickiness (about food), choosiness, fussiness, tastes, preferences|N;Abs|||||
-2279||-|||||
-2280||-|||||
-2281||-|||||
-2282||-|||||
-2283||-|||||
-2284||-|||||
-2285||-|||||
-2286||-|||||
-2287||-|||||
-2288||-|||||
-2289||-|||||
-2290||-|||||
-2291||-|||||
-2292||-|||||
-2293||-|||||
-2294||-|||||
-2295||-|||||
-2296||-|||||
-2297||-|||||
-2298||-|||||
-2299||-|||||
-2300||-|||||
-2301||-|||||
-2302||-|||||
-2303||-|||||
-2304||-|||||
-2305||-|||||
-2306||-|||||
-2307||-|||||
-2308||-|||||
-2309||-|||||
-2310||-|||||
-2311||-|||||
+2279|special express, great hurry|N;Abs|Mainly reserved for trains in Japan.||||
+2280|limited express (train, faster than an express)|N;Abs|||||
+2281|lingering affection, attachment, regrets, reluctance, ruefulness|N;Abs|||||
+2282|liquor smell, tipsiness|N;Abs|||||
+2283|living expenses, cost of living|N;Abs|||||
+2284|load, freight, cargo|N;Abs|||||
+2285|long trip, travels|N;Abs|||||
+2286|longevity, long life|N;Abs|||||
+2287|long-lasting, long-wearing|N;Abs|||||
+2288|lower rank, low-end|N;Abs|||||
+2289|lullaby|N;Abs|||||
+2290|lunch break, noon recess, noon rest period|N;Abs|||||
+2291|lunch, noon|N;Abs|||||
+2292|magic, sorcery, incantation|N;Abs|||||
+2293|main line|N;Abs|||||
+2294|major cleanup, spring cleaning|N;Abs|||||
+2295|major subject, specialty, special study|N;Abs|||||
+2296|generality|N;Abs|||||
+2297|malnutrition|N;Abs|||||
+2298|appearance, air|N;Abs|||||
+2299|marriage ceremony, wedding, nuptials|N;Abs|||||
+2300|masses, great number, the people|N;Abs|||||
+2301|matter and mind|N;Abs|||||
+2302|means, way, measure|N;Abs|||||
+2303|medical care, treatment, advance preparation|N;Abs|||||
+2304|medical science, medicine|N;Abs|||||
+2305|medicine plants|N;Abs|||||
+2306|meeting, assembly, party, association, club|N;Abs|||||
+2307|membership fee|N;Abs|||||
+2308|memo, memorandum|N;Abs|||||
+2309|memories, recollections, reminiscence|N;Abs|||||
+2310|message|N;Abs|||||
+2311|method, process, manner, way, means, technique|N;Abs|||||
 2312|middle, centre, center, mid-way|N;Abs|||||
 2313|core|N;Abs|conceptual, not physical heart||||
 2314|miracle, wonder, marvel|N;Abs|||||
@@ -2323,7 +2323,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2323|morning sun|N;Abs|||||
 2324|motion, movement|N;Abs||||静止|
 2325|mutual, reciprocal|N;Abs|||||
-2326||-|||||
+2326|na-adjective|N;Abs|||||
 2327|nationality|N;Abs|||||
 2328|natural shape, one's true colors, true character, true identity, consciousness, one's senses|N;Abs|||||
 2329|nature, disposition|N;Abs|||||
@@ -2344,7 +2344,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2344|odour, odor, scent, smell, stench|N;Abs|臭い usually has a negative connotation||||
 2345|one advantage, merit|N;Abs|||||
 2346|one shot, one round, one charge|N;Abs|||||
-2347||-|||||
+2347|one's house, one's home, one's family|N;Abs|||||
 2348|one's own future (usually near future), prospects|N;Abs|||||mirai
 2349|oneself, itself, one's own body|N;Abs|||||
 2350|one-way (trip)|N;Abs|||||
@@ -2450,7 +2450,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2450|discount, freebie, free gift|N;Abs|||||
 2451|appearance, manner, suitability, moderateness (in price)|N;Abs|||||
 2452|shipped mail|N;Abs|||||
-2453||-|||||
+2453|shopping, purchased goods|N;Abs|||||
 2454|short term|N;Abs|||||
 2455|short trip|N;Abs|||||
 2456|sight, attraction|N;Abs|||||
@@ -2555,26 +2555,26 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2555|a cry|N;Abs|||||
 2556|volitional ("should do")|N;Abs|||||
 2557|label, ticket, tag, stub|Sx|||||
-2558||-|||||
-2559||-|||||
-2560||-|||||
-2561||-|||||
-2562||-|||||
-2563||-|||||
-2564||-|||||
-2565||-|||||
-2566||-|||||
-2567||-|||||
-2568||-|||||
-2569||-|||||
-2570||-|||||
-2571||-|||||
-2572||-|||||
-2573||-|||||
-2574||-|||||
-2575||-|||||
-2576||-|||||
-2577||-|||||
+2558|wars, disturbances|N;Abs|||||
+2559|waste, scrap, garbage|N;Abs|||||
+2560|way of using, method of using|N;Abs|||||
+2561|way, method|N;Abs|||||
+2562|way, method, means|N;Abs|||||
+2563|way, method, means, resource, remedy, technical specifications|N;Abs|||||
+2564|week-long holiday|N;Abs|||||
+2565|weeping, lamenting|N;Abs|||||
+2566|Western years|N;Abs|||||
+2567|full-length (portrait), head to toes|N;Abs|||||
+2568|whole, entirety, whatever (is the matter)|N;Abs|||||
+2569|wholesale|N;Abs|||||
+2570|will, volition, intention, intent, determination|N;Abs|||||
+2571|within the city|N;Abs|||||
+2572|word, vocabulary|N;Abs|||||
+2573|word, remark, statement|N;Abs|||||
+2574|work break|N;Abs|||||
+2575|work, operation, manufacturing, fatigue duty|N;Abs|||||
+2576|written invitation|N;Abs|||||
+2577|written report|N;Abs|||||
 2578|written translation|N;Abs|||||tsuuyaku
 2579|de-encryption, deciphering|N;Abs|||||
 2580|rendering|N;Abs|||||
@@ -2582,231 +2582,231 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2582|yaksha|N;Abs|From Buddhism, guardian deity or demonic warrior, depending on circumstances.||||
 2583|age, years|N|||||
 2584|youth, young man|N;Abs|||||
-2585||-|||||
-2586||-|||||
-2587||-|||||
-2588||-|||||
-2589||-|||||
-2590||-|||||
-2591||-|||||
-2592||-|||||
-2593||-|||||
+2585|abdomen, belly, stomach, intentions, motive|N;An|||||
+2586|ball sack, scrotum, testicle sack|N;An|||||
+2587|biceps|N;An|||||
+2588|birthmark, nevus, bruise, tache de vin, envie|N;An|||||
+2589|blood, consanguinity|N;An|||||
+2590|health|N;An|||||
+2591|bones, marrow, essentials|N;An|||||
+2592|breasts, milk|N;An|||||
+2593|elbow|N;An|||||
 2594|1st, 2nd, 3rd, 4th…|Sx|Used as a suffix to a number to show rank, e.g. futatsume = second object, ikkaime = first time, ichibanme = first in line/turn, ichijikanme = first hour-long period||1105;1388;1389||
 2595|look, stare, glance|N;Abs|||||
-2596||-|||||
-2597||-|||||
-2598||-|||||
-2599||-|||||
-2600||-|||||
-2601||-|||||
-2602||-|||||
-2603||-|||||
-2604||-|||||
-2605||-|||||
-2606||-|||||
-2607||-|||||
-2608||-|||||
-2609||-|||||
-2610||-|||||
-2611||-|||||
-2612||-|||||
-2613||-|||||
-2614||-|||||
-2615||-|||||
-2616||-|||||
-2617||-|||||
-2618||-|||||
-2619||-|||||
-2620||-|||||
-2621||-|||||
-2622||-|||||
-2623||-|||||
-2624||-|||||
+2596|eye pupil, eye|N;An|||||
+2597|eyebrows|N;An|||||
+2598|eyelashes|N;An|||||
+2599|fist|N;An|||||
+2600|flesh and bones|N;An|||||
+2601|feet|N;An|||||
+2602|guts, bowels, intestines|N;An|||||
+2603|hair|N;An|||||
+2604|head of a sleeping person|N;An|||||
+2605|human bones|N;An|||||
+2606|insect wing|N;An|||||
+2607|internal organs, viscera, intestines|N;An|||||
+2608|knee|N;An|||||
+2609|leg|N;An|||||
+2610|limbs, members, body|N;An|||||
+2611|lips|N;An|||||
+2612|lung|N;An|||||
+2613|mouth (of a bottle), spout, nozzle, mouthpiece|N;Abs|||||
+2614|muscle, sinew|N;An|||||
+2615|nail, claw, talon, hoof, pick, hook, clasp, fingernails|N;An|||||
+2616|neck, unemployed person|N;An|||||
+2617|nipple, teat|N;An|||||
+2618|ovary|N;An|||||
+2619|scale (of fish)|N;An|||||
+2620|shoulder|N;An|||||
+2621|sole of foot|N;An|||||
+2622|stomach|N;An|||||
+2623|stomach|N;An|Scientific term.||||
+2624|Chinese "stomach" constellation (one of the 28 mansions)|N;Abs|||||
 2625|testicles, testes|N;An|colloquialism, lit. "golden balls"||||
-2626||-|||||
-2627||-|||||
-2628||-|||||
-2629||-|||||
+2626|the body, the flesh|N;An|||||
+2627|toes|N;An|||||
+2628|tongue|N;An|||||
+2629|urine|N;An|||||
 2630|whole body|N;An|The four parts of the body - head, trunk, arms and legs||||
-2631||-|||||
-2632||-|||||
+2631|womb, uterus|N;An|||||
+2632|belt|N;Ati|||||
 2633|black tie|N;Ati|As of the event||||
-2634||-|||||
-2635||-|||||
-2636||-|||||
-2637||-|||||
-2638||-|||||
-2639||-|||||
-2640||-|||||
-2641||-|||||
-2642||-|||||
-2643||-|||||
-2644||-|||||
-2645||-|||||
-2646||-|||||
-2647||-|||||
-2648||-|||||
-2649||-|||||
-2650||-|||||
-2651||-|||||
-2652||-|||||
-2653||-|||||
-2654||-|||||
-2655||-|||||
-2656||-|||||
-2657||-|||||
-2658||-|||||
-2659||-|||||
-2660||-|||||
-2661||-|||||
-2662||-|||||
-2663||-|||||
-2664||-|||||
-2665||-|||||
-2666||-|||||
-2667||-|||||
-2668||-|||||
-2669||-|||||
-2670||-|||||
-2671||-|||||
-2672||-|||||
-2673||-|||||
-2674||-|||||
-2675||-|||||
-2676||-|||||
-2677||-|||||
-2678||-|||||
-2679||-|||||
-2680||-|||||
-2681||-|||||
-2682||-|||||
-2683||-|||||
-2684||-|||||
-2685||-|||||
-2686||-|||||
-2687||-|||||
-2688||-|||||
-2689||-|||||
-2690||-|||||
-2691||-|||||
-2692||-|||||
-2693||-|||||
-2694||-|||||
-2695||-|||||
-2696||-|||||
-2697||-|||||
-2698||-|||||
-2699||-|||||
-2700||-|||||
-2701||-|||||
-2702||-|||||
-2703||-|||||
-2704||-|||||
-2705||-|||||
-2706||-|||||
-2707||-|||||
-2708||-|||||
-2709||-|||||
-2710||-|||||
-2711||-|||||
-2712||-|||||
-2713||-|||||
-2714||-|||||
-2715||-|||||
-2716||-|||||
-2717||-|||||
-2718||-|||||
-2719||-|||||
-2720||-|||||
-2721||-|||||
-2722||-|||||
-2723||-|||||
-2724||-|||||
-2725||-|||||
-2726||-|||||
-2727||-|||||
-2728||-|||||
-2729||-|||||
-2730||-|||||
-2731||-|||||
-2732||-|||||
-2733||-|||||
-2734||-|||||
-2735||-|||||
-2736||-|||||
-2737||-|||||
-2738||-|||||
-2739||-|||||
-2740||-|||||
-2741||-|||||
-2742||-|||||
-2743||-|||||
-2744||-|||||
-2745||-|||||
-2746||-|||||
-2747||-|||||
-2748||-|||||
-2749||-|||||
-2750||-|||||
-2751||-|||||
-2752||-|||||
-2753||-|||||
-2754||-|||||
-2755||-|||||
-2756||-|||||
-2757||-|||||
-2758||-|||||
-2759||-|||||
-2760||-|||||
-2761||-|||||
-2762||-|||||
-2763||-|||||
-2764||-|||||
-2765||-|||||
-2766||-|||||
-2767||-|||||
-2768||-|||||
-2769||-|||||
-2770||-|||||
-2771||-|||||
-2772||-|||||
-2773||-|||||
-2774||-|||||
-2775||-|||||
-2776||-|||||
-2777||-|||||
-2778||-|||||
-2779||-|||||
-2780||-|||||
-2781||-|||||
-2782||-|||||
-2783||-|||||
-2784||-|||||
-2785||-|||||
-2786||-|||||
-2787||-|||||
-2788||-|||||
-2789||-|||||
-2790||-|||||
-2791||-|||||
-2792||-|||||
-2793||-|||||
-2794||-|||||
-2795||-|||||
-2796||-|||||
-2797||-|||||
-2798||-|||||
-2799||-|||||
-2800||-|||||
-2801||-|||||
-2802||-|||||
-2803||-|||||
-2804||-|||||
-2805||-|||||
-2806||-|||||
-2807||-|||||
-2808||-|||||
-2809||-|||||
+2634|blouse|N;Ati|||||
+2635|blouse|N;Ati|||||
+2636|button|N;Ati|||||
+2637|outerwear|N;Ati|||||
+2638|contact lens|N;Ati|||||
+2639|disaster hood, protective hood worn during earthquakes and other disasters (e.g. to protect from falling objects)|N;Ati|||||
+2640|hat, cap|N;Ati|||||
+2641|headband|N;Ati|||||
+2642|helmet|N;Ati|||||
+2643|jeans|N;Ati|||||
+2644|laundry, washing|N;Ati|||||
+2645|mask|N;Ati|||||
+2646|muffler, winter scarf|N;Ati|||||
+2647|necktie|N;Ati|||||
+2648|one-piece clothing|N;Ati|||||
+2649|pants|N;Ati|||||
+2650|sandal|N;Ati|||||
+2651|scarf|N;Ati|||||
+2652|skirt|N;Ati|||||
+2653|suit|N;Ati|||||
+2654|sunglasses|N;Ati|||||
+2655|tuxedo|N;Ati|||||
+2656|underwear|N;Ati|||||
+2657|Western clothes|N;Ati|||||
+2658|Y-shirt, business shirt|N;Ati|||||
+2659|zori, Japanese sandals|N;Abs|Reserved for Japanese sandals.||||
+2660|Atheism|N;B|||||
+2661|Buddhism|N;B|||||
+2662|Catholicism|N;B|||||
+2663|Islamism, Islamicism|N;B|||||
+2664|Judaism|N;B|||||
+2665|Nihilism|N;B|||||
+2666|Protestantism|N;B|||||
+2667|blue|N;Col|||||
+2668|brown|N;Col|||||
+2669|chestnut|N;Col|||||
+2670|golden (colour, color)|N;Col|||||
+2671|green|N;Col|||||
+2672|green|N;Col|||||
+2673|grey|N;Col|||||
+2674|grey|N;Col|||||
+2675|pink|N;Col|||||
+2676|agar|N;Cu|||||
+2677|alcoholic drinks, liquor|N;Cu|||||
+2678|baking powder|N;Cu|||||
+2679|banana|N;Cu|||||
+2680|legume (esp. edible legumes or their seeds, such as beans, peas, pulses, etc.), beans, peas, soy bean|N;Fl|||||
+2681|beef, cow meat|N;Cu|||||
+2682|beer|N;Cu|||||
+2683|bonito flakes|N;Cu|||||
+2684|bouillon, broth|N;Cu|||||
+2685|bread crumbs|N;Cu|||||
+2686|bread flour, strong flour, hard flour|N;Cu|||||
+2687|brown rice tea|N;Cu|||||
+2688|butter|N;Cu|||||
+2689|cake, candy, sweets, confectionery, pastry|N;Cu|||||
+2690|carrot|N;Cu|||||
+2691|chicken meat|N;Cu|||||
+2692|Chinese tea, oolong tea|N;Cu|||||
+2693|chocolate|N;Cu|||||
+2694|clam|N;Cu|||||
+2695|coarse tea, low-quality tea, cheap tea|N;Cu|||||
+2696|coffee shop|N;Pl|||||
+2697|combined minced meat (beef and pork)|N;Cu|||||
+2698|condensed milk|N;Cu|||||
+2699|consommé|N;Cu|||||
+2700|cooked rice|N;Cu|||||
+2701|cornstarch|N;Cu|||||
+2702|cotton tofu|N;Cu|||||
+2703|cow milk|N;Cu|||||
+2704|curry|N;Cu|||||
+2705|dinner|N;Cu|||||
+2706|draft beer, unpasteurized beer, draught beer|N;Cu|||||
+2707|dumplings|N;Cu|||||
+2708|dust tea|N;Cu|||||
+2709|egg, eggshell|N;Cu|||||
+2710|fish|N;Cu|||||
+2711|wheat flour|N;Cu|||||
+2712|food|N;Cu|||||
+2713|food|N;Cu|||||
+2714|food, foodstuff|N;Cu|||||
+2715|food, prey, victim|N;Cu|||||
+2716|fresh cream|N;Cu|||||
+2717|gelatin|N;Cu|||||
+2718|goldfish|N;Cu|||||
+2719|grain vinegar|N;Cu|||||
+2720|granulated sugar|N;Cu|||||
+2721|green onion, spring onion, Welsh onion|N;Cu|||||
+2722|green tea|N;Cu|||||
+2723|grilled chicken|N;Cu|||||
+2724|honey|N;Cu|||||
+2725|instant soup, instant bouillon|N;Cu|||||
+2726|jam|N;Cu|||||
+2727|Japanese horseradish|N;Cu|||||
+2728|Japanese mustard|N;Cu|||||
+2729|Japanese tea|N;Cu|||||
+2730|juice|N;Cu|||||
+2731|linoleic oil|N;Cu|||||
+2732|loaf of bread|N;Cu|||||
+2733|local beer, microbrew|N;Cu|||||
+2734|low-fat mayonnaise|N;Cu|||||
+2735|low-fat milk|N;Cu|||||
+2736|low-fat yoghurt|N;Cu|||||
+2737|low-malt beer|N;Cu|||||
+2738|low-salt soy sauce|N;Cu|||||
+2739|lunch|N;Cu|||||
+2740|margarine|N;Cu|||||
+2741|mayonnaise|N;Cu|||||
+2742|minced meat, ground meat|N;Cu|||||
+2743|bean paste|N;Cu|||||
+2744|natto|N;Cu|||||
+2745|noodles|N;Cu|||||
+2746|oden, soy-flavored dashi stew with various ingredients|N;Cu|||||
+2747|oil|N;Cu|||||
+2748|olive oil|N;Cu|||||
+2749|oyster sauce|N;Cu|||||
+2750|peanut butter|N;Cu|||||
+2751|pepper|N;Cu|||||
+2752|pesticide-free, non-chemical, organic|N;Cu|||||
+2753|pickled plum|N;Cu|||||
+2754|piece of (cut) meat|N;Cu|||||
+2755|pork meat|N;Cu|||||
+2756|potato|N;Cu|||||
+2757|potato|N;Cu|||||
+2758|potato starch|N;Cu|||||
+2759|pounded rice cake|N;Cu|||||
+2760|powdered green tea|N;Cu|||||
+2761|powdered sugar|N;Cu|||||
+2762|pre-washed rice|N;Cu|||||
+2763|ramen, noodles|N;Cu|||||
+2764|rapeseed oil|N;Cu|||||
+2765|raw sugar, brown sugar|N;Cu|||||
+2766|rice ball|N;Cu|||||
+2767|rice vinegar|N;Cu|||||
+2768|cooked rice|N;Abs|||||
+2769|meal|N;Abs|||||
+2770|roasted green tea|N;Cu|||||
+2771|salad|N;Cu|||||
+2772|salad oil|N;Cu|||||
+2773|sandwich|N;Cu|||||
+2774|sashimi|N;Cu|||||
+2775|seaweed|N;Cu|||||
+2776|sesame oil|N;Cu|||||
+2777|shortening|N;Cu|||||
+2778|silk tofu|N;Cu|||||
+2779|soba soup|N;Cu|||||
+2780|soba soup|N;Cu|||||
+2781|soft flour, weak flour|N;Cu|||||
+2782|soup|N;Cu|||||
+2783|soup stock|N;Cu|||||
+2784|sour cream|N;Cu|||||
+2785|soy milk|N;Cu|||||
+2786|spaghetti|N;Cu|||||
+2787|special tofu dish|N;Cu|||||
+2788|spicy fish eggs (cod roe)|N;Cu|||||
+2789|strawberry|N;Cu|||||
+2790|sugar pastry|N;Cu|||||
+2791|sugarless|N;Cu|||||
+2792|sushi|N;Cu|||||
+2793|sweet rice|N;Cu|||||
+2794|tea|N;Cu|||||
+2795|tempura oil|N;Cu|||||
+2796|tempura powder|N;Cu|||||
+2797|throat candy|N;Cu|||||
+2798|tsukemono, Japanese pickled vegetables|N;Cu|||||
+2799|tuna|N;Cu|||||
+2800|tuna flakes (lit. sea chicken)|N;Cu|||||
+2801|uncooked rice|N;Cu|||||
+2802|unsalted butter|N;Cu|||||
+2803|vanilla essence|N;Cu|||||
+2804|vanilla oil|N;Cu|||||
+2805|vegetables|N;Cu|||||
+2806|watermelon|N;Cu|||||
+2807|wine|N;Cu|||||
+2808|yeast|N;Cu|||||
+2809|yoghurt|N;Cu|||||
 2810|1, the first day of the month|N;DM|||20||
 2811|one day|N;T|||||
 2812|Tsuitachi|N;Pl|||||
@@ -2850,48 +2850,48 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2850|Thursday|N;DW|||55||
 2851|Tuesday|N;DW|||53||
 2852|Wednesday|N;DW|||54||
-2853||-|||||
-2854||-|||||
-2855||-|||||
-2856||-|||||
-2857||-|||||
-2858||-|||||
-2859||-|||||
-2860||-|||||
-2861||-|||||
-2862||-|||||
-2863||-|||||
-2864||-|||||
-2865||-|||||
-2866||-|||||
-2867||-|||||
-2868||-|||||
-2869||-|||||
-2870||-|||||
-2871||-|||||
-2872||-|||||
-2873||-|||||
-2874||-|||||
-2875||-|||||
-2876||-|||||
-2877||-|||||
-2878||-|||||
-2879||-|||||
-2880||-|||||
-2881||-|||||
-2882||-|||||
-2883||-|||||
-2884||-|||||
-2885||-|||||
-2886||-|||||
-2887||-|||||
-2888||-|||||
-2889||-|||||
-2890||-|||||
-2891||-|||||
-2892||-|||||
-2893||-|||||
-2894||-|||||
+2853|bear|N;Fa|||||
+2854|beast|N;Fa|||||
+2855|beasts, mammals|N;Fa|||||
+2856|cat|N;Fa|||||
+2857|oxen|N;Fa|||||
+2858|Chinese "Ox" constellation (one of the 28 mansions)|N;Abs|||||
+2859|centipede|N;Fa|||||
+2860|cockroach|N;Fa|||||
+2861|crab|N;Fa|||||
+2862|critter, insect, bug, cricket, moth, worm|N;Fa|||||
+2863|elephant|N;Fa|||||
+2864|fox|N;Fa|||||
+2865|giraffe, Japanese mythological chimera|N;Fa|||||
+2866|goat|N;Fa|||||
+2867|goblin, apparition, monster, ghost|N;Fa|||||
+2868|green pheasant, Japanese pheasant|N;Fa|||||
+2869|kitten|N;Fa|||||
+2870|large parrot|N;Fa|||||
+2871|living things|N;Fa|||||
+2872|living thing, creature, life|N;Abs|||||
+2873|mammal|N;Fa|||||
+2874|owl|N;Fa|||||
+2875|sheep|N;Fa|||||
+2876|shellfish|N;Fa|||||
+2877|songbird, birdie, dickeybird, dickybird|N;Fa|||||
+2878|small parrot, parakeet, lorry, conure|N;Fa|||||
+2879|snail|N;Fa|||||
+2880|snake, serpent|N;Fa|||||
+2881|sparrow|N;Fa|||||
+2882|spider|N;Fa|||||
+2883|turtle, tortoise|N;Fa|||||
+2884|wolf|N;Fa|||||
+2885|zebra|N;Fa|||||
+2886|bamboo|N;Fl|||||
+2887|branch, bow, bough, twig, limb|N;Fl|||||
+2888|cherry tree, cherry blossom|N;Fl|As of the tree or blossoms, not the fruit||||
+2889|decoy, fake buyer, shill|N;Abs|||||
+2890|cherry tree|N;Fl|||||
+2891|chestnut|N;Fl|||||
+2892|Chinese bellflower|N;Fl|||||
+2893|cucumber|N;Fl|||||
+2894|cucumber|N;Fl|||||
 2895|forest|N;Fl|As of spead over a wide area and including undergowth||||
 2896|fruit|N;Fl|||||
 2897|grape, grapevine|N;Fl|||||
@@ -2986,23 +2986,23 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2986|bed|N;GO|||||
 2987|bill|N;GO|||||
 2988|bill|N;GO|As of money||||
-2989||-|||||
-2990||-|||||
-2991||-|||||
-2992||-|||||
-2993||-|||||
-2994||-|||||
-2995||-|||||
-2996||-|||||
-2997||-|||||
-2998||-|||||
-2999||-|||||
-3000||-|||||
-3001||-|||||
-3002||-|||||
-3003||-|||||
-3004||-|||||
-3005||N;GO|||||
+2989|blackboard|N;GO|||||
+2990|blade, sword|N;GO|||||
+2991|books|N;GO|||||
+2992|bottle|N;GO|||||
+2993|bouquet, bunch of flowers|N;GO|||||
+2994|bow (weapon, instrument)|N;GO|||||
+2995|bow (and arrow)|N;Abs|||||
+2996|bowl|N;GO|||||
+2997|bowl, pot, basin, flowerpot|N;GO|||||
+2998|box lunch|N;GO|||||
+2999|bulb, light bulb|N;GO|||||
+3000|bullet|N;GO|||||
+3001|buzzer|N;GO|||||
+3002|cable|N;GO|||||
+3003|camcorder|N;GO|||||
+3004|canned goods|N;GO|||||
+3005|credit card|N;GO|||||
 3006|cartoon, comic, comic strip, comic book|N;GO|||||
 3007|cellphone, portable phone, mobile phone|N;GO|||||
 3008|something carried (in the hand), handheld, portable|N;Abs|||||
@@ -3045,7 +3045,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3045|earphones|N;GO|||||
 3046|electric railway|N;GO|||||
 3047|electronic calculator|N;GO|||||
-3048||-|||||
+3048|electronic dictionary|N;GO|||||
 3049|eyepatch|N;GO|||||
 3050|fence, paling, railing|N;GO|||||
 3051|fireworks|N;GO|||||
@@ -3147,22 +3147,22 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3147|visa|N;GO|||||
 3148|washing machine|N;GO|||||
 3149|word processor|N;GO|||||
-3150||-|||||
-3151||-|||||
-3152||-|||||
-3153||-|||||
-3154||-|||||
-3155||-|||||
-3156||-|||||
-3157||-|||||
-3158||-|||||
-3159||-|||||
-3160||-|||||
-3161||-|||||
-3162||-|||||
-3163||-|||||
-3164||-|||||
-3165||-|||||
+3150|Asuka period|N;JEP|538-710AD||||
+3151|Azuchi-Momoyama period|N;JEP|1573-1603AD||||
+3152|Edo period|N;JEP|1603-1867AD||||
+3153|Heian period|N;JEP|794-1192AD||||
+3154|Heisei era (1989.1.8- )|N;JEP|1989AD-present||||
+3155|Heisei (reign of emperor)|N;Pl|||||
+3156|Kamakura period|N;JEP|1192-1333AD||||
+3157|Kofun period|N;JEP|250-538AD||||
+3158|Meiji era (1868.9.8-1912.7.30)|N;JEP|1868-1912AD||||
+3159|Muromachi period|N;JEP|1392-1573AD||||
+3160|Nanboku-cho period|N;JEP|1334-1392AD||||
+3161|Nara period|N;JEP|710-794AD||||
+3162|Showa era|N;JEP|1926-1989AD||||
+3163|Taisho emperor era|N;JEP|1912-1926AD||||
+3164|Taishō era (1912.7.30-1926.12.25), Taisho era|N;Abs|||||
+3165|Yamato period|N;JEP|250-538AD||||
 3166|Haiku|N;MAC|||||
 3167|Jazz|N;MAC|||||
 3168|Rock|N;MAC|||||
@@ -3456,7 +3456,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3456|man, person|N;Abs|||||kata
 3457|pirate, sea robber|N;Pe|||||
 3458|player (sports), athlete, team member, representative|N;Pe|||||
-3459|police officer, policeman|N;Pe|||||
+3459|policeman|N;Pe|||||
 3460|policemen|N;Pe|||||
 3461|prefectural governor|N;Pe|||||
 3462|president|N;Pe|||||
@@ -3512,7 +3512,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3512|airfield, airport|N;Pl|||||
 3513|Hikoujou|N;Pl|||||
 3514|airfield, airport|N;Pl|||||
-3515||-|||||
+3515|alcove where art or flowers are displayed|N;Pl|||||
 3516|another place, somewhere else, strange parts, outside (one's family or group), those people|N;Pl|||||
 3517|area along a train line|N;Pl|||||
 3518|part, place|N;Pl|||||atari
@@ -3661,9 +3661,9 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3661|the Orient|N;Pl|||||
 3662|ticket counter|N;Pl|||||
 3663|ticket window, teller window, counter|N;Abs|||||
-3664||-|||||
-3665||-|||||
-3666||N;Pl|||||
+3664|ticket examination gate, wicket|N;Pl|||||
+3665|ticket office|N;Pl|||||
+3666|toilet paper|N;Pl|||||
 3667|toilet, lavatory|N;Pl|||||toiru
 3668|toilet, lavatory|N;Pl|||||otearai
 3669|Tokyo|N;Pl|lit. "eastern capital"||||
@@ -3677,7 +3677,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3677|around (Sunday, last year, etc...)|Sx|||||
 3678|volcano|N;Pl|||||
 3679|water well|N;Pl|||||
-3680||-|||||
+3680|Western Wall, Wailing Wall|N;Pl|||||
 3681|within, inside of, less than|N;Pl||||uchi|soto
 3682|world, universe|N;Sp|||||
 3683|Yamanotesen line|N;Pl|||||
@@ -3727,7 +3727,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3727|yesterday evening, last night|N;T|||||yuube, kinou
 3728|ambulance|N;V|||||
 3729|boat, watercraft (often hand-propelled)|N;V|||||
-3730||-|||||
+3730|cab|N;V|||||
 3731|elevator|N;V|||||
 3732|escalator|N;V|||||
 3733|motorcycle|N;V|||||
@@ -3750,7 +3750,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3750|cicada sound|OI|||||
 3751|cow moo|OI|||||
 3752|dog bark|OI|||||
-3753||-|||||
+3753|exclamation of relief or disappointment|OI|||||
 3754|flapping sound, pitter-patter (sound of light footsteps), dealing with a situation quickly|OI|||||
 3755|frog sound|OI|||||
 3756|hmm, I see, hrm|OI|||||
@@ -3907,7 +3907,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3907|echo, reverberation|N;Ac|||||
 3908|late riser, sleepy head|Npe|||||
 3909|alarm (clock)|N;GO|||||
-3910||-|||||
+3910|hedgehog|N;Fa|||||
 3911|mouse, rat|N;Fa|||||
 3912|dark gray, dark grey, slate (color, colour)|N;Col|||||
 3913|I have a problem|CE|||||
@@ -3958,7 +3958,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3958|attractive, good-looking, handsome, stylish, cool, smooth, neat, with-it, groovy|Ai|||||
 3959|attractive, good-looking, handsome, stylish, cool, smooth, neat, with-it, groovy|Ai|||||
 3960|one day|N;T|||||
-3961|that's right, that is so, that is right, it looks to me, that’s my impression|CE|||||
+3961|yes, that's right|CE|||||
 3962|date (between persons who are already in a relationship)|N;Abs|Not to be confused with the English usage of "date", also for persons who are not yet in a relationship.||||
 3963|group (of people, animals, etc.)|N;Abs|||||
 3964|gun, firearm|N;GO|||||
@@ -3985,7 +3985,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 3985|most (numerous)|Ana|||||
 3986|traffic accident, traffic collision|N;Abs|koutsujiko||||
 3987|it's impressive, it's it?|CE|||||
-3988|to that point, go that far, to that extent|CE|||||
+3988|to that point|CE|||||
 3989|very very|CE|||||
 3990|high-gear|Ana|||||
 3991|famous Japanese hamster character|N;Pe|||||
@@ -4242,7 +4242,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 4242|except, but, other than|PP|||||
 4243|more|A|||||
 4244|less than|PC|ME#0218;0219||||
-4245|after, afterwards|CO|ME#0228;0229;0230||||
+4245|after|CO|ME#0228;0229;0230||||
 4246|before|CO|ME#0231;0232||||
 4247|and then|CO|X and then Y.|X sorekara Y|1073;1074||
 4248|and, and then, thus, and now, and finally|PP|X and then Y. Used after an adverb, adjective or copula.|X soshite Y|1075||
@@ -13811,4 +13811,16 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 13811|according to|CE|||||ni yoru to
 13812|being frozen in ice|N|||||
 13813|trample, crush underfoot|VsuT|||||
-13814|people say that, it is said that, I hear that|CE|||||
+13814|feel bitter, scowl|VruI|||||
+13815|advance on, close in, march on, descend on (the enemy), move towards, surge forward (crowd, wave of nostalgia, wave, etc.), rush for (the door), inundate, overwhelm, push aside|VruiI|||||
+13816|we’ll see|CE|||||
+13817|wed, be married|VsuruI|||||
+13818|shift blame to someone else|VsuruI|||||
+13819|span (e.g. a stream with a bridge)|VsuruT|||||
+13820|graze (e.g. a bullet), scratch, touch lightly|VrugT|||||
+13821|take a percentage, exploit, squeeze|VrugT|||||
+13822|determine (esp. a culprit or underlying cause), pin down, ascertain, locate, identify|VruiT|||||
+13823|stab to death|VruiT|||||
+13824|shake (from fear, cold, excitement, etc.), shudder, tremble|VkuI|||||
+13825|draw or pull something towards onseself (e.g. chair)|VruiT|||||
+13826|sell over to|VsuT|||||

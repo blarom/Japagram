@@ -16,7 +16,6 @@ import com.japagram.adapters.DictionaryRecyclerViewAdapter;
 import com.japagram.asynctasks.JishoOnlineSearchAsyncTask;
 import com.japagram.asynctasks.DictSearchAsyncTask;
 import com.japagram.asynctasks.VerbSearchAsyncTask;
-import com.japagram.data.FirebaseDao;
 import com.japagram.data.InputQuery;
 import com.japagram.data.Verb;
 import com.japagram.data.Word;
@@ -41,7 +40,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DictionaryFragment extends Fragment implements
-        FirebaseDao.FirebaseOperationsHandler,
         DictionaryRecyclerViewAdapter.DictionaryItemClickHandler,
         DictSearchAsyncTask.LocalDictSearchAsyncResponseHandler,
         VerbSearchAsyncTask.VerbSearchAsyncResponseHandler {
@@ -58,7 +56,6 @@ public class DictionaryFragment extends Fragment implements
     private InputQuery mInputQuery;
     private List<Word> mLocalMatchingWordsList;
     private List<Word> mMergedMatchingWordsList;
-    private FirebaseDao mFirebaseDao;
     private DictionaryRecyclerViewAdapter mDictionaryRecyclerViewAdapter;
     private List<Word> mJishoMatchingWordsList;
     private List<Word> mDifferentJishoWords;
@@ -112,7 +109,6 @@ public class DictionaryFragment extends Fragment implements
     @Override public void onDetach() {
         super.onDetach();
         cancelAsyncOperations();
-        mFirebaseDao.removeListeners();
         cancelAsyncOperations();
     }
     @Override public void onDestroyView() {
@@ -133,8 +129,6 @@ public class DictionaryFragment extends Fragment implements
         }
     }
     private void initializeParameters() {
-
-        mFirebaseDao = new FirebaseDao(this);
 
         mLocalMatchingWordsList = new ArrayList<>();
         mMergedMatchingWordsList = new ArrayList<>();
@@ -260,9 +254,6 @@ public class DictionaryFragment extends Fragment implements
 
     }
 
-    private void updateFirebaseDbWithJishoWords(List<Word> wordsList) {
-        mFirebaseDao.updateObjectsOrCreateThemInFirebaseDb(wordsList);
-    }
     private void cancelAsyncOperations() {
         if (mLocalDictSearchAsyncTask != null) mLocalDictSearchAsyncTask.cancel(true);
         if (mJishoOnlineSearchAsyncTask != null) mJishoOnlineSearchAsyncTask.cancel(true);
@@ -304,11 +295,6 @@ public class DictionaryFragment extends Fragment implements
     }
     void setShowNames(boolean status) {
         mShowNames = status;
-    }
-
-    //Communication with Firebase DAO
-    @Override public void onWordsListFound(List<Word> wordsList) {
-
     }
 
     //Communication with AsyncTasks

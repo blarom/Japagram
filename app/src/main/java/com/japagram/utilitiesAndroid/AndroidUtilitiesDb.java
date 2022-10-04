@@ -2,7 +2,6 @@ package com.japagram.utilitiesAndroid;
 
 import android.util.Log;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.japagram.utilitiesCrossPlatform.UtilitiesQuery;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.data.Verb;
@@ -17,18 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AndroidUtilitiesDb {
-    private static FirebaseDatabase mDatabase;
-
 
     //Database creation utilities
-    public static FirebaseDatabase getDatabase() {
-        //inspired by: https://github.com/firebase/quickstart-android/issues/15
-        if (mDatabase == null) {
-            mDatabase = FirebaseDatabase.getInstance();
-            mDatabase.setPersistenceEnabled(true);
-        }
-        return mDatabase;
-    }
 
     public static void checkDatabaseStructure(@NotNull List<String[]> databaseFromCsv, String databaseName, int numColumns) {
         for (String[] line : databaseFromCsv) {

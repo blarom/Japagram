@@ -1,11 +1,9 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 31
-    buildToolsVersion '30.0.2'
+    compileSdkVersion 33
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -14,15 +12,15 @@ android {
     defaultConfig {
         applicationId "com.japagram"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 16
         versionName "4.04"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
 
-        buildConfigField("String", "firebaseEmail", firebaseEmail)
-        buildConfigField("String", "firebasePass", firebasePass)
+        //buildConfigField("String", "firebaseEmail", firebaseEmail)
+        //buildConfigField("String", "firebasePass", firebasePass)
     }
 
     buildTypes {
@@ -81,25 +79,26 @@ dependencies {
 
     //implementation "com.google.android.material:material:1.1.0"
     implementation "androidx.exifinterface:exifinterface:1.3.3"
-    implementation "androidx.appcompat:appcompat:1.3.1"
-    implementation "androidx.preference:preference:1.1.1"
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-    implementation "androidx.core:core-ktx:1.6.0"
-    implementation "androidx.room:room-runtime:2.3.0"
-    annotationProcessor "androidx.room:room-compiler:2.3.0"
+    implementation "androidx.appcompat:appcompat:1.5.1"
+    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.core:core-ktx:1.9.0"
+    implementation "androidx.room:room-runtime:2.4.3"
+    annotationProcessor "androidx.room:room-compiler:2.4.3"
+
+    def lifecycle_version = "2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
 
     //Android extensions
     //androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test:rules:1.4.0'
-    //implementation 'com.google.firebase:firebase-core:17.3.0'
-    implementation 'com.google.firebase:firebase-database:20.0.2'
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
 
     //3rd-party libraries
     implementation 'com.rmtheis:tess-two:9.1.0'
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.9'
     //api 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
     //api 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
     //implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
@@ -107,11 +106,11 @@ dependencies {
     //noinspection AnnotationProcessorOnCompilePath
 
     implementation 'org.jetbrains:annotations:19.0.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.32"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.10"
 
 }
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/release" }
