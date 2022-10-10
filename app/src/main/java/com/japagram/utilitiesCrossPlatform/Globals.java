@@ -21,8 +21,8 @@ import java.util.Set;
 
 public final class Globals {
 
-    public static final int CENTRAL_DB_VERSION = 159;
-    public static final int EXTENDED_DB_VERSION = 53;
+    public static final int CENTRAL_DB_VERSION = 160;
+    public static final int EXTENDED_DB_VERSION = 54;
     public static final int KANJI_DB_VERSION = 29;
     public static final int NAMES_DB_VERSION = 13;
 
@@ -207,7 +207,7 @@ public final class Globals {
 
     // Defining the column title (and index) of each column in the excel files
     public static int ColIndexConverter(@NotNull String colIndexLetter) {
-        int colIndexNumber = 0;
+        int colIndexNumber;
         int value = 0;
         if (colIndexLetter.length() == 1) {
             value = (int)colIndexLetter.charAt(0) - (int)'a';

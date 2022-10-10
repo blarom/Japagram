@@ -1,2 +1,8 @@
 include ':app'
 rootProject.name='Japagram'
+buildCache {
+    local {
+        // Set local build cache directory.
+        directory = "D:/Projects/Gradle/build-cache"
+    }
+}

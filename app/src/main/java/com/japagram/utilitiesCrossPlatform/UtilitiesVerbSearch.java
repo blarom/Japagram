@@ -747,6 +747,17 @@ public final class UtilitiesVerbSearch {
                 e.printStackTrace();
                 continue;
             }
+
+            //Adding an active root if it was not found before
+            //This happens due to Verb db query optimization searching only for verbs with hiraganaFirstChar to limit the number of verbs returned
+            //If a verb was not found then, then we're missing info on the matching conjugation, but that's ok...
+            if (currentVerb.getActiveKanjiRoot().equals("")) {
+                currentVerb.setActiveKanjiRoot(currentVerb.getKanjiRoot());
+            }
+            if (currentVerb.getActiveLatinRoot().equals("")) {
+                currentVerb.setActiveLatinRoot(currentVerb.getLatinRoot());
+            }
+
             currentWord = matchingWords.get(t);
             if (currentWord == null || currentVerb == null || !mFamilyConjugationIndexes.containsKey(currentVerb.getFamily())) {
                 continue;
