@@ -13,6 +13,7 @@ import com.japagram.utilitiesPlatformOverridable.OvUtilsGeneral;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
@@ -44,11 +45,28 @@ public class VerbSearchAsyncTask extends AsyncTask<Void, Void, Object[]> {
             return new Object[]{matchingVerbsSorted, matchingWordsSorted, matchingConjugationParameters};
         }
 
+        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Starting");
+
         String language = LocaleHelper.getLanguage(contextRef.get());
-        List<Verb> mCompleteVerbsList = UtilitiesVerbSearch.getAllVerbsForInputQuery(contextRef.get(), mInputQuery);
+        InputQuery preparedQuery = UtilitiesVerbSearch.setInputQueryParameters(mInputQuery.getOriginal());
+        HashMap<String, Integer> familyConjugationIndexes = UtilitiesVerbSearch.getFamilyConjugationIndexes();
+        OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Initialized parameters");
+
+        String baseVerbContainingQueryAsConjugation = UtilitiesVerbSearch.getBaseVerbContainingQueryAsConjugation(familyConjugationIndexes, preparedQuery);
+        List<Verb> mCompleteVerbsList = UtilitiesVerbSearch.getAllVerbsForInputQuery(contextRef.get(), mInputQuery, baseVerbContainingQueryAsConjugation);
         OvUtilsGeneral.printLog(Globals.DEBUG_TAG, "VerbsSearchAsyncTask - Loaded Verbs");
 
-        return UtilitiesVerbSearch.getSortedVerbsWordsAndConjParams(contextRef.get(), mInputQuery.getOriginal(),  mWordsFromDictFragment, mCompleteVerbsList, Globals.GLOBAL_CONJUGATION_TITLES, language);
+        Object[] result = UtilitiesVerbSearch.getSortedVerbsWordsAndConjParams(
+                contextRef.get(),
+                preparedQuery,
+                mWordsFromDictFragment,
+                mCompleteVerbsList,
+                Globals.GLOBAL_CONJUGATION_TITLES,
+                familyConjugationIndexes,
+                baseVerbContainingQueryAsConjugation,
+                language);
+
+        return result;
     }
 
     @Override protected void onPostExecute(Object[] objectArray) {
