@@ -710,6 +710,8 @@ public class UtilitiesDb {
         return false;
     }
 
+    @NonNull
+    @Contract("_, _, _, _, _, _, _ -> new")
     @NotNull
     public static Object[] getMatchingWordIdsAndDoBasicFiltering(boolean roomExtendedDbIsAvailable,
                                                                  boolean roomNamesDatabaseIsAvailable,
@@ -974,6 +976,8 @@ public class UtilitiesDb {
         String altSValue = currentWord.getAltSpellings();
         String kwJapValue = currentWord.getExtraKeywordsJAP() == null ? "" : currentWord.getExtraKeywordsJAP();
         String kwLatin = "";
+
+        // region Getting the meanings
         List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
         if (currentMeanings == null) return 0;
         switch (language) {
@@ -1036,10 +1040,9 @@ public class UtilitiesDb {
             }
             meaningsAsWords.add(parsedWords);
         }
+        // endregion
 
-        boolean currentWordIsAVerb = type.length() > 0 && type.startsWith("V") && !type.equals("VC") && !type.equals("NV");
-
-
+        // region Getting the base ranking depending on the Kanji, Romaji, Alt. spellings, keywords and meanings
         boolean foundCondition = false;
         String[] phrases;
         int penalty;
@@ -1325,255 +1328,11 @@ public class UtilitiesDb {
                 break;
             }
         }
+        // endregion
 
-        return ranking;
-    }
-
-    public static int getRankingFromWordAttributesOLD(@NotNull Word currentWord, String mInputQuery, boolean queryIsVerbWithTo, String language) {
-
-        int ranking;
-        String romajiValue = currentWord.getRomaji();
-        String kanjiValue = currentWord.getKanji();
-        String altSValue = currentWord.getAltSpellings();
-        String kwJapValue = currentWord.getExtraKeywordsJAP() == null ? "" : currentWord.getExtraKeywordsJAP();
-        String kwLatin = "";
-        List<Word.Meaning> currentMeanings = currentWord.getMeaningsEN();
-        if (currentMeanings == null) return 0;
-        switch (language) {
-            case Globals.LANG_STR_EN:
-                currentMeanings = currentWord.getMeaningsEN();
-                kwLatin = currentWord.getExtraKeywordsEN() == null ? "" : currentWord.getExtraKeywordsEN();
-                break;
-            case Globals.LANG_STR_FR:
-                currentMeanings = currentWord.getMeaningsFR();
-                kwLatin = currentWord.getExtraKeywordsFR() == null ? "" : currentWord.getExtraKeywordsFR();
-                break;
-            case Globals.LANG_STR_ES:
-                currentMeanings = currentWord.getMeaningsES();
-                kwLatin = currentWord.getExtraKeywordsES() == null ? "" : currentWord.getExtraKeywordsES();
-                break;
-        }
-        if (currentMeanings == null || currentMeanings.size() == 0) {
-            currentMeanings = currentWord.getMeaningsEN();
-        }
-        List<String> keywords = Arrays.asList(kwJapValue.split(Globals.DB_ELEMENTS_DELIMITER));
-        keywords.addAll(Arrays.asList(kwLatin.split(Globals.DB_ELEMENTS_DELIMITER)));
-        String type = currentWord.getMeaningsEN().get(0).getType();
-        boolean currentWordIsAVerb = type.length() > 0 && type.startsWith("V") && !type.equals("VC") && !type.equals("NV");
-
-        // Getting ranking according to meaning string length
-        // with penalties depending on the lateness of the word in the meanings
-        // and the exactness of the match
-        String trimmedValue;
-        int missingLanguagePenalty = 0;
-        if (currentMeanings == null || currentMeanings.size() == 0) {
-            missingLanguagePenalty = 10000;
-        }
-
-        String currentMeaning;
-        String inputQuery;
-        int lateMeaningPenalty = 0;
-        boolean foundMeaningLength;
-        int lateHitInMeaningPenalty; //Adding a penalty for late hits in the meaning
-        int cumulativeMeaningLength; //Using a cumulative meaning length instead of the total length, since if a word is at the start of a meaning it's more important and the hit is more likely to be relevant
-
-        ranking = 10000;
-        if (!currentWordIsAVerb || !queryIsVerbWithTo) ranking += 1000;
-        else ranking += 200;
-
-        for (int j = 0; j < currentMeanings.size(); j++) {
-            currentMeaning = currentMeanings.get(j).getMeaning().toLowerCase();
-            foundMeaningLength = false;
-
-            //region If the current word is not a verb
-            if (!currentWordIsAVerb) {
-                inputQuery = mInputQuery;
-
-                //If meaning has the exact word, get the length as follows
-                String[] currentMeaningIndividualElements = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeaning);
-                lateHitInMeaningPenalty = 0;
-                cumulativeMeaningLength = 0;
-                if (currentMeaning.equals(inputQuery)) {
-                    ranking -= Globals.RANKING_EXACT_MEANING_MATCH_BONUS;
-                    foundMeaningLength = true;
-                } else {
-                    for (String currentMeaningElement : currentMeaningIndividualElements) {
-                        String trimmedElement = currentMeaningElement.trim().toLowerCase();
-
-                        //If there's an exact match, push the word up in ranking
-                        if (trimmedElement.equals(inputQuery)) {
-                            ranking -= Globals.RANKING_EXACT_WORD_MATCH_BONUS;
-                            foundMeaningLength = true;
-                        }
-                        if (foundMeaningLength) break;
-
-                        String[] currentMeaningIndividualWords = trimmedElement.split(" ");
-                        for (String word : currentMeaningIndividualWords) {
-                            cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
-                            if (word.equals(inputQuery)) {
-                                ranking -= Globals.RANKING_WORD_MATCH_IN_SENTENCE_BONUS;
-                                foundMeaningLength = true;
-                                break;
-                            }
-                            lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_SENTENCE_PENALTY;
-                        }
-                        if (foundMeaningLength) break;
-
-                        //If meaning has the exact word but maybe in parentheses, get the length as follows
-                        String preparedTrimmedElement = trimmedElement.replaceAll("([()])", "");
-                        String[] currentMeaningIndividualWordsWithoutParentheses = preparedTrimmedElement.split(" ");
-                        for (String word : currentMeaningIndividualWordsWithoutParentheses) {
-                            cumulativeMeaningLength += word.length() + 2; //Added 2 to account for missing ", " instances in loop
-                            if (word.equals(inputQuery)) {
-                                ranking -= Globals.RANKING_WORD_MATCH_IN_PARENTHESES_BONUS;
-                                foundMeaningLength = true;
-                                break;
-                            }
-                            lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_SENTENCE_PENALTY;
-                        }
-                        if (foundMeaningLength) break;
-
-                        lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_MEANING_ELEMENTS_PENALTY;
-                    }
-                }
-                if (foundMeaningLength) {
-                    ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
-                    break;
-                }
-
-                //If still not found, get the length of the less important results
-                if (currentMeaning.contains(inputQuery) && currentMeaning.length() <= ranking) {
-                    ranking += currentMeaning.length();
-                }
-            }
-            //endregion
-
-            //region If the current word is a verb
-            else {
-
-                String[] currentMeaningIndividualElements = OvUtilsGeneral.splitAtCommasOutsideParentheses(currentMeaning);
-                if (!queryIsVerbWithTo) {
-
-                    //Calculate the length first by adding "to " to the input query. If it leads to a hit, that means that this verb is relevant
-                    inputQuery = OvUtilsGeneral.concat(new String[]{"to ",mInputQuery});
-
-                    lateHitInMeaningPenalty = 0;
-                    cumulativeMeaningLength = 0;
-                    if (currentMeaning.equals(inputQuery)) {
-                        ranking -= Globals.RANKING_EXACT_MEANING_MATCH_BONUS;
-                        foundMeaningLength = true;
-                    } else {
-                        for (String element : currentMeaningIndividualElements) {
-
-                            String trimmedElement = element.trim();
-
-                            //If there's an exact match, push the word up in ranking
-                            if (trimmedElement.equals(inputQuery)) {
-                                ranking -= Globals.RANKING_EXACT_WORD_MATCH_BONUS;
-                                foundMeaningLength = true;
-                            }
-                            if (foundMeaningLength) break;
-
-                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                            if (trimmedElement.contains(inputQuery)) {
-                                ranking -= Globals.RANKING_WORD_MATCH_IN_SENTENCE_BONUS;
-                                foundMeaningLength = true;
-                                break;
-                            }
-                            lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_SENTENCE_PENALTY;
-                        }
-                    }
-                    if (foundMeaningLength) {
-                        ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
-                        break;
-                    }
-
-                    //Otherwise, use the original query to get the length
-                    inputQuery = mInputQuery;
-                    lateHitInMeaningPenalty = 0;
-                    cumulativeMeaningLength = 0;
-                    if (currentMeaning.equals(inputQuery)) {
-                        ranking -= Globals.RANKING_EXACT_MEANING_MATCH_BONUS;
-                        foundMeaningLength = true;
-                    } else {
-                        for (String element : currentMeaningIndividualElements) {
-
-                            String trimmedElement = element.trim();
-
-                            //If there's an exact match, push the word up in ranking
-                            if (trimmedElement.equals(inputQuery)) {
-                                ranking -= Globals.RANKING_EXACT_WORD_MATCH_BONUS;
-                                foundMeaningLength = true;
-                            }
-                            if (foundMeaningLength) break;
-
-                            if (trimmedElement.contains(inputQuery)) {
-                                ranking -= Globals.RANKING_WORD_MATCH_IN_SENTENCE_BONUS;
-                                foundMeaningLength = true;
-                                break;
-                            }
-                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                            lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_SENTENCE_PENALTY;
-                        }
-                    }
-                } else {
-                    inputQuery = mInputQuery;
-
-                    //Get the length according to the position of the verb in the meanings list
-                    lateHitInMeaningPenalty = 0;
-                    cumulativeMeaningLength = 0;
-                    if (currentMeaning.equals(inputQuery)) {
-                        ranking -= Globals.RANKING_EXACT_MEANING_MATCH_BONUS;
-                        foundMeaningLength = true;
-                    } else {
-                        for (String element : currentMeaningIndividualElements) {
-
-                            String trimmedElement = element.trim();
-
-                            //If there's an exact match, push the word up in ranking
-                            if (trimmedElement.equals(inputQuery)) {
-                                ranking -= Globals.RANKING_EXACT_WORD_MATCH_BONUS;
-                                foundMeaningLength = true;
-                            }
-                            if (foundMeaningLength) break;
-
-                            cumulativeMeaningLength += element.length() + 2; //Added 2 to account for missing ", " instances in loop
-                            if (trimmedElement.contains(inputQuery)) {
-                                ranking -= Globals.RANKING_WORD_MATCH_IN_SENTENCE_BONUS;
-                                foundMeaningLength = true;
-                                break;
-                            }
-                            lateHitInMeaningPenalty += Globals.RANKING_LATE_HIT_IN_SENTENCE_PENALTY;
-                        }
-                    }
-                }
-
-                if (foundMeaningLength) {
-                    ranking += lateMeaningPenalty + lateHitInMeaningPenalty + cumulativeMeaningLength;
-                    break;
-                }
-
-            }
-            //endregion
-
-            lateMeaningPenalty += Globals.RANKING_LATE_MEANING_MATCH_PENALTY;
-
-        }
-
+        //region Adjusting the ranking depending on additional word attributes
         //Adding the romaji and kanji lengths to the ranking (ie. shorter is better)
         ranking += 2 * (romajiValue.length() + kanjiValue.length());
-
-        //If the word starts with the inputQuery, its ranking improves
-        String romajiNoSpaces = getRomajiNoSpacesForSpecialPartsOfSpeech(romajiValue);
-        if (       (romajiValue.length() >= mInputQuery.length()     && romajiValue.startsWith(mInputQuery))
-                || (kanjiValue.length() >= mInputQuery.length()      && kanjiValue.startsWith(mInputQuery))
-                || romajiNoSpaces.equals(mInputQuery)
-        ) {
-            ranking -= 1000;
-        }
-
-        //Otherwise, if the romaji or Kanji value contains the search word, then it must appear near the start of the list
-        else if (romajiValue.contains(mInputQuery) || kanjiValue.contains(mInputQuery)) ranking -= 300;
 
         //If the word is a name, the ranking worsens
         Word.Meaning wordFirstMeaning = currentWord.getMeaningsEN().get(0);
@@ -1582,43 +1341,13 @@ public class UtilitiesDb {
         //If the word is common, the ranking improves
         if (currentWord.getIsCommon()) ranking -= 50;
 
-        //If the word is a verb and one of its conjugations is a perfect match, the ranking improves on a level similar to meaning bonuses
-        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT) ranking -= 1400;
+        boolean currentWordIsAVerb = type.length() > 0 && type.startsWith("V") && !type.equals("VC") && !type.equals("NV");
+        if (currentWordIsAVerb) {
+            //If the word is a verb and one of its conjugations is a perfect match, the ranking improves on a level similar to meaning bonuses
+            if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_EXACT) ranking -= 1400;
 
-        //If the word is a verb and one of its conjugations is a partial match, the ranking improves a bit less than for perfect matches
-        if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 1000;
-
-        //If one of the elements in altSpellings is a perfect match, the ranking improves
-        for (String element : altSValue.split(Globals.DB_ELEMENTS_DELIMITER)) {
-            trimmedValue = element.trim();
-            if (mInputQuery.equals(trimmedValue)) {
-                ranking -= 70;
-                break;
-            }
-        }
-
-        //If one of the elements in the Japanese Keywords is a perfect match, the ranking improves
-        for (String element : kwJapValue.split(",")) {
-            trimmedValue = element.trim();
-            if (mInputQuery.equals(trimmedValue)) {
-                ranking -= 70;
-                break;
-            }
-        }
-
-        //If one of the elements in the Latin Keywords is a perfect match, the ranking improves
-        for (String element : kwLatin.split(",")) {
-            trimmedValue = element.trim();
-            if (mInputQuery.equals(trimmedValue)) {
-                ranking -= 40;
-                break;
-            } else {
-                trimmedValue = trimmedValue.replace(" ","");
-                if (mInputQuery.equals(trimmedValue)) {
-                    ranking -= 30;
-                    break;
-                }
-            }
+            //If the word is a verb and one of its conjugations is a partial match, the ranking improves a bit less than for perfect matches
+            if (currentWord.getVerbConjMatchStatus() == Word.CONJ_MATCH_CONTAINED) ranking -= 1000;
         }
 
         //If the romaji or Kanji value is an exact match to the search word, then it must appear at the start of the list
@@ -1631,11 +1360,16 @@ public class UtilitiesDb {
         }
 
         //Penalizing for missing languages
+        int missingLanguagePenalty = 0;
+        if (currentMeanings.size() == 0) {
+            missingLanguagePenalty = 10000;
+        }
         ranking += missingLanguagePenalty;
 
         //Adding a bonus for high literary frequency
         int frequency = currentWord.getFrequency();
         ranking -= (20000 - ((frequency==0)? 20000 : frequency)) / 100;
+        // endregion
 
         return ranking;
     }

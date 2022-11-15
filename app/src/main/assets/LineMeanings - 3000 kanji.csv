@@ -190,7 +190,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 190|that|CO|X that Y. Describes an action Y that the subject X is performing, or a state of being Y of a subject X. If this phrase is used as the subect of a sentence, then any "wa" subject markers are changed to "ga" to prevent confusion on the sentence's main subject.|Y X @ X = phrase, Y = action/state of being describing that phrase|850;851;852;853||
 191|the way it is meant to be, as planned|PC|ME#0074;0075||||
 192|it would be best if|PC|ME#0076;0077||||
-193|no matter how much|PC|No matter how much [I/you/he/she] [does/is] X.|ikura X mo @ X = verb te form|||
+193|no matter how much …, however …, even if …|PC|Even if [I/you/he/she] [does/is] X, …|ikura X mo @ X = verb te form|||
 194|... are different|PC||X to Y wa chigau @ X/Y = phrase|977||
 195|would like?|PC|Would (you) like to [do/be] X?|X ii desu ka @ X = phrase in plain form|||
 196|would like?|PC|Would (you) like to [do/be] X?|X ikaga desu ka @ X = phrase in plain form|||
@@ -2183,7 +2183,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2183|from now on, hereafter|N;Abs|||||
 2184|façade|N;Abs|||||
 2185|function, facility, faculty, feature|N;Abs|||||
-2186|the future (usually distant)|N;Abs|||||shourai
+2186||-|||||
 2187|German language|N;Abs|||||
 2188|ghost, apparition, phantom, specter, demon, monster, goblin|N;Abs|||||
 2189|good and bad, merits and demerits|N;Abs|||||
@@ -2345,7 +2345,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 2345|one advantage, merit|N;Abs|||||
 2346|one shot, one round, one charge|N;Abs|||||
 2347|one's house, one's home, one's family|N;Abs|||||
-2348|one's own future (usually near future), prospects|N;Abs|||||mirai
+2348||-|||||
 2349|oneself, itself, one's own body|N;Abs|||||
 2350|one-way (trip)|N;Abs|||||
 2351|opinion, view, comment|N;Abs|||||
@@ -5880,7 +5880,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 5880|reach, arrive, get through, get at|VkuI|||||
 5881|be attentive, pay attention|VkuI|||||
 5882|be delivered, carry (e.g. sound)|VkuI|||||
-5883|draw (attention, etc.), attract (interest, etc.)|VkuT|||||
+5883||-|||||
 5884|pull, tug, lead (e.g. a horse)|VkuT|||||
 5885|draw (attention, sympathy, etc.), attract (e.g. interest)|VkuT|||||
 5886|draw back (e.g. one's hand), draw in (one's chin, stomach, etc.), pull in|VkuT|||||
@@ -8265,7 +8265,7 @@ MM Index|Meaning|Type|Explanation|Rules|Example|Opposite|Synonym
 8265|view (e.g. flowers, movie)|VruiT|||||
 8266|try, try out, test|VruiI|||||
 8267|see that..., find that...|VruiI|||||
-8268|come (polite, humble)|VruiI|||||
+8268|come (polite, humble)|VrugI|||||
 8269|go, come, call|VrugI|||||
 8270|be defeated, collapse, die|VrugI|||||
 8271|be annoyed, be nonplussed|VrugI|||||
