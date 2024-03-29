@@ -412,10 +412,10 @@
     <string name="kanji_database_finished_loading_flag" translatable="false">kanji_database_finished_loading_flag</string>
     <string name="app_preferences" translatable="false">app_preferences</string>
     <string name="loading_central_database">Installing the core dictionary.</string>
-    <string name="loading_extended_database">Finished installing the Central database.\nCurrently installing the Extended database.\n~ May take up to 5 minutes ~</string>
-    <string name="loading_names_database">Installing the Names database.\n~ May take up to 20 minutes ~</string>
+    <string name="loading_extended_database">Installing the extended dictionary.</string>
+    <string name="loading_names_database">Installing the Names database.</string>
     <string name="loading_kanji_database">Installing the Kanji database</string>
-    <string name="first_time_installing">NOTE: It may take up to 5\-10min to install the complete dictionary and get full search results.</string>
+    <string name="first_time_installing">NOTE: It may take up to 5\-10min to install all the databases.</string>
     <string name="finished_loading_databases">Finished loading the databases.</string>
     <string name="central_database_finished_loading_flag" translatable="false">central_database_finished_loading_flag</string>
     <string name="extended_database_finished_loading_flag" translatable="false">extended_database_finished_loading_flag</string>

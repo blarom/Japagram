@@ -1,18 +1,10 @@
 package com.japagram.ui;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.japagram.R;
-import com.japagram.asynctasks.RoomDatabasesInstallationForegroundService;
 import com.japagram.utilitiesAndroid.AndroidUtilitiesIO;
 import com.japagram.utilitiesCrossPlatform.Globals;
 import com.japagram.resources.LocaleHelper;
@@ -20,8 +12,6 @@ import com.japagram.utilitiesAndroid.AndroidUtilitiesPrefs;
 
 import org.jetbrains.annotations.NotNull;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.preference.CheckBoxPreference;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -50,7 +40,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         PreferenceScreen prefScreen = getPreferenceScreen();
         SharedPreferences sharedPreferences = prefScreen.getSharedPreferences();
 
-        // Setting the roomInstancesAsyncResponseHandler on the Langage Preference
+        // Setting the roomInstancesAsyncResponseHandler on the Language Preference
         for (int i = 0; i < prefScreen.getPreferenceCount(); i++) {
             Preference currentPreference = prefScreen.getPreference(i);
             if (currentPreference instanceof ListPreference) {
@@ -96,11 +86,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                     if (getActivity() != null) AndroidUtilitiesIO.restartApplication(getActivity());
                 }
             }
-            else if (currentPreference.getKey().equals(getString(R.string.pref_complete_local_with_names_search_key))) {
-                boolean finishedLoadingNamesDatabase = AndroidUtilitiesPrefs.getAppPreferenceNamesDatabasesFinishedLoadingFlag(getActivity());
-                boolean showNames = sharedPreferences.getBoolean(getString(R.string.pref_complete_local_with_names_search_key), false);
-                if (!finishedLoadingNamesDatabase && showNames) showNamesDbDownloadDialog((CheckBoxPreference) currentPreference, sharedPreferences);
-            }
         }
     }
     private void setLanguage(Preference currentPreference) {
@@ -125,11 +110,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 error = Toast.makeText(getContext(), getString(R.string.pref_cannot_set_value_outside_range) + " [ "
                         + getString(R.string.pref_OCR_image_contrast_min_display_value) + " : "
                         + getString(R.string.pref_OCR_image_contrast_max_display_value) + " ].", Toast.LENGTH_SHORT);
-                if (contrast > Float.valueOf(getString(R.string.pref_OCR_image_contrast_max_display_value))) {
+                if (contrast > Float.parseFloat(getString(R.string.pref_OCR_image_contrast_max_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_contrast_max_display_value)).apply();
                     error.show();
                 }
-                else if (contrast < Float.valueOf(getString(R.string.pref_OCR_image_contrast_min_display_value))) {
+                else if (contrast < Float.parseFloat(getString(R.string.pref_OCR_image_contrast_min_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_contrast_min_display_value)).apply();
                     error.show();
                 }
@@ -145,11 +130,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 error = Toast.makeText(getContext(), getString(R.string.pref_cannot_set_value_outside_range) + " [ "
                         + getString(R.string.pref_OCR_image_saturation_min_display_value) + " : "
                         + getString(R.string.pref_OCR_image_saturation_max_display_value) + " ].", Toast.LENGTH_SHORT);
-                if (saturation > Float.valueOf(getString(R.string.pref_OCR_image_saturation_max_display_value))) {
+                if (saturation > Float.parseFloat(getString(R.string.pref_OCR_image_saturation_max_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_saturation_max_display_value)).apply();
                     error.show();
                 }
-                else if (saturation < Float.valueOf(getString(R.string.pref_OCR_image_saturation_min_display_value))) {
+                else if (saturation < Float.parseFloat(getString(R.string.pref_OCR_image_saturation_min_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_saturation_min_display_value)).apply();
                     error.show();
                 }
@@ -166,11 +151,11 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                 error = Toast.makeText(getContext(), getString(R.string.pref_cannot_set_value_outside_range) + " [ "
                         + getString(R.string.pref_OCR_image_brightness_min_display_value) + " : "
                         + getString(R.string.pref_OCR_image_brightness_max_display_value) + " ].", Toast.LENGTH_SHORT);
-                if (brightness > Float.valueOf(getString(R.string.pref_OCR_image_brightness_max_display_value))) {
+                if (brightness > Float.parseFloat(getString(R.string.pref_OCR_image_brightness_max_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_brightness_max_display_value)).apply();
                     error.show();
                 }
-                else if (brightness < Float.valueOf(getString(R.string.pref_OCR_image_brightness_min_display_value))) {
+                else if (brightness < Float.parseFloat(getString(R.string.pref_OCR_image_brightness_min_display_value))) {
                     sharedPreferences.edit().putString(preference.getKey(), getString(R.string.pref_OCR_image_brightness_min_display_value)).apply();
                     error.show();
                 }
@@ -205,8 +190,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     private void setSummaryForPreference(@NotNull Preference currentPreference, @NotNull SharedPreferences sharedPreferences) {
 
         String currentPreferenceValue = sharedPreferences.getString(currentPreference.getKey(), "");
-        if (currentPreference instanceof ListPreference) {
-            ListPreference currentListPreference = (ListPreference) currentPreference;
+        if (currentPreference instanceof ListPreference currentListPreference) {
             int prefIndex = currentListPreference.findIndexOfValue(currentPreferenceValue);
             if (prefIndex >= 0)  currentListPreference.setSummary(currentListPreference.getEntries()[prefIndex]);
         }
@@ -236,53 +220,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
             }
         }
-    }
-
-    private void startDbInstallationForegroundService() {
-        if (getActivity() == null) return;
-        Intent serviceIntent = new Intent(getActivity(), RoomDatabasesInstallationForegroundService.class);
-        serviceIntent.putExtra(getString(R.string.show_names), true);
-        serviceIntent.putExtra(getString(R.string.install_extended_db), false);
-        serviceIntent.putExtra(getString(R.string.install_names_db), true);
-        getActivity().startService(serviceIntent);
-
-    }
-    private void showNamesDbDownloadDialog(final CheckBoxPreference currentPreference, final SharedPreferences sharedPreferences) {
-        if (getActivity() == null) return;
-        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getActivity(), R.style.CustomAlertDialogStyle).create();
-        Window window = alertDialog.getWindow();
-        window.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        window.setGravity(Gravity.CENTER);
-        alertDialog.setMessage(getString(R.string.confirm_download_names_db));
-        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_POSITIVE, getString(R.string.yes),
-                (dialog, which) -> {
-                    startDbInstallationForegroundService();
-                    dialog.dismiss();
-                });
-        alertDialog.setButton(androidx.appcompat.app.AlertDialog.BUTTON_NEGATIVE, getString(R.string.cancel),
-                (dialog, which) -> {
-                    if (getContext()!=null) {
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putBoolean(getContext().getString(R.string.pref_complete_local_with_names_search_key), false);
-                        editor.apply();
-                        currentPreference.setChecked(false);
-                    }
-                    dialog.dismiss();
-                }
-        );
-        alertDialog.show();
-        alertDialog.setOnKeyListener((arg0, keyCode, event) -> {
-            if (keyCode == KeyEvent.KEYCODE_BACK) {
-                if (getContext()!=null) {
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean(getContext().getString(R.string.pref_complete_local_with_names_search_key), false);
-                    editor.apply();
-                    currentPreference.setChecked(false);
-                }
-                alertDialog.dismiss();
-            }
-            return true;
-        });
     }
 
 }
